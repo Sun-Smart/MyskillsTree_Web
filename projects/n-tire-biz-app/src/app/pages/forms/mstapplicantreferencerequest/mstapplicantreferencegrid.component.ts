@@ -72,8 +72,7 @@ import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.s
                 <a  [routerLink]='' (click)="mstapplicantreferencerequests_route(null, 'create')">
                 <!-- <button type="button" style="border-color: #fff !important;
                 color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
-                <button type="button" class="btn btn-outline-primary" style="border-color: #000 !important;color: #000;
-    margin-top: -17%;">Add</button>
+                <button type="button" class="btn btn-outline-primary  popup-add-button">Add</button>
                 </a><a  class="" [routerLink]='' (click)="onClose()"><i  style="color:#fff !important;" class="fa fa-times-circle close_common_icon"></i></a>
                 </ul>
                 </h4>

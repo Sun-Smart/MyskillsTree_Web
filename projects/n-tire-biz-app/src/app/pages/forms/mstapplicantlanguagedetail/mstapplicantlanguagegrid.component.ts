@@ -84,9 +84,9 @@ import { mstapplicantlanguagedetailComponent } from './mstapplicantlanguagedetai
                 <!-- <button type="button" style="border-color: #fff !important;
                 color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
 
-                <button type="button" class="btn btn-outline-primary"
+                <button type="button" class="btn btn-outline-primary  popup-add-button"
                 [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
-                style="border-color: #000 !important;    color: #000; margin: auto 20px" title = "Add Details">Add</button>
+                 title = "Add Details">Add</button>
                 <!-- </a> -->
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->

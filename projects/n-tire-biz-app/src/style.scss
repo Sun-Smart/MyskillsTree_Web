@@ -286,10 +286,12 @@ ng2-smart-table table {
 }
 
 .designrow .smart-table-container .sticky1 {
+  background: #f5f3e4 !important;
+  color: #000 !important;
   // background-color: var(--backcolor) !important;
-  background: linear-gradient(to bottom, #004fce 0%, #009c8e 80%) !important;
-  color: var(--frontcolor) !important;
-  border: navy !important;
+  // background: linear-gradient(to bottom, #004fce 0%, #009c8e 80%) !important;
+  // color: var(--frontcolor) !important;
+  // border: navy !important;
 }
 
 .p-submenu-list .p-menuitem-link {
@@ -3521,7 +3523,7 @@ ng2-smart-table table thead {
   display: flex;
   justify-content: center;
   padding: 15px !important;
- 
+
 }
 .field-autocomplete{
   .p-autocomplete{
@@ -3535,36 +3537,42 @@ ng2-smart-table table thead {
 .personal-info-btn-liftRadius{
   background: #a5a5a5 !important;
   color: #000 !important;
-  border-bottom-left-radius: 30px;
-  border-top-left-radius: 30px;
+  text-decoration: none !important;
+  // border-bottom-left-radius: 30px;
+  // border-top-left-radius: 30px;
 
 }
 .personal-info-btn-liftRadius:hover{
   background: #705858 !important;
   color: #fff !important;
-  border-bottom-left-radius: 30px;
-  border-top-left-radius: 30px;
+  text-decoration: none !important;
+  // border-bottom-left-radius: 30px;
+  // border-top-left-radius: 30px;
 
 }
 .personal-info-btn{
   background: #a5a5a5 !important;
   color: #000 !important;
+  text-decoration: none !important;
   margin: 0;
 }
 .personal-info-btn:hover{
   background: #705858 !important;
   color: #fff !important;
+  text-decoration: none !important;
   margin: 0;
 }
 .personal-info-btn-rightRadius{
   background: #a5a5a5 !important;
   color: #000 !important;
-  border-bottom-right-radius: 30px;
-  border-top-right-radius: 30px;
+  text-decoration: none !important;
+  // border-bottom-right-radius: 30px;
+  // border-top-right-radius: 30px;
 }
 .personal-info-btn-rightRadius:hover{
   background: #705858 !important;
   color: #fff !important;
-  border-bottom-right-radius: 30px;
-  border-top-right-radius: 30px;
+  text-decoration: none !important;
+  // border-bottom-right-radius: 30px;
+  // border-top-right-radius: 30px;
 }
