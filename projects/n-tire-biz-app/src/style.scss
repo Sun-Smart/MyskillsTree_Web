@@ -3519,8 +3519,9 @@ ng2-smart-table table thead {
 
 .field-add-close-button{
   display: flex;
-  justify-content: initial;
-  vertical-align: initial !important;
+  justify-content: center;
+  padding: 15px !important;
+ 
 }
 .field-autocomplete{
   .p-autocomplete{
@@ -3532,6 +3533,13 @@ ng2-smart-table table thead {
 }
 
 .personal-info-btn-liftRadius{
+  background: #a5a5a5 !important;
+  color: #000 !important;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+
+}
+.personal-info-btn-liftRadius:hover{
   background: #705858 !important;
   color: #fff !important;
   border-bottom-left-radius: 30px;
@@ -3539,11 +3547,22 @@ ng2-smart-table table thead {
 
 }
 .personal-info-btn{
+  background: #a5a5a5 !important;
+  color: #000 !important;
+  margin: 0;
+}
+.personal-info-btn:hover{
   background: #705858 !important;
   color: #fff !important;
   margin: 0;
 }
 .personal-info-btn-rightRadius{
+  background: #a5a5a5 !important;
+  color: #000 !important;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+}
+.personal-info-btn-rightRadius:hover{
   background: #705858 !important;
   color: #fff !important;
   border-bottom-right-radius: 30px;

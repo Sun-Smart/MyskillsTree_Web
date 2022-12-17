@@ -134,7 +134,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <div class="col-2" style="text-align:right; margin:auto;">
     <!-- <button type="button"  [routerLink]='' (click)="addSkills()"  class="btn btn-outline-primary" style="border-color: #000 !important; color: #000; margin-right:15px;">Add</button> -->
     <button type="button" class="btn btn-outline-primary popup-add-button"
-      style="" (click)="addSkills()"(click)="mstapplicantskilldetails_route(null, 'create')">Add</button>
+      (click)="mstapplicantskilldetails_route(null, 'create')">Add</button>
     <!-- <i  [routerLink]='' (click)="onClose()" class="fa fa-times-circle close_common_icon"></i> -->
     <img (click)="onClose()" src="assets/mainmenuicons/icons_close.png" class="closeButton" />
 
@@ -209,7 +209,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
           <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '20' }"></p-editor> -->
         </td>
 
-        <td class="field-add-close-button" style="vertical-align: initial !important;">
+        <td class="field-add-close-button" style="">
 
         <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantskilldetail_Form)"></i>
           <!-- <button type="button" class="btn btn-outline-primary"  (click)="onSubmitData(mstapplicantskilldetail_Form)"

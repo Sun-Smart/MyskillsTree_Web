@@ -78,11 +78,7 @@ import { mstapplicantgeographypreference } from '../../../model/mstapplicantgeog
     <button type="button" class="btn btn-outline-primary" style="border-color: #fff !important;    color: #fff;
     margin-top: -17%;">Add</button>
     </a> -->
-    <button type="button" [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')" class="btn btn-outline-primary"
-    style="border-color: #000 !important; color: #000 !important;
-        margin-right: 15px;">Add</button>
-
-        <button (click)="addSkills()">Add 1</button>
+    <button type="button" [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')" class="btn btn-outline-primary popup-add-button">Add</button>
 
     <a  class="" [routerLink]='' (click)="onClose()"><img class="closeButton" src="assets/mainmenuicons/icons_close.png"/></a>
 
@@ -137,7 +133,7 @@ import { mstapplicantgeographypreference } from '../../../model/mstapplicantgeog
 
               <!-- Submit & close -->
 
-              <td>
+              <td class="field-add-close-button">
               <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
 
                 <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
