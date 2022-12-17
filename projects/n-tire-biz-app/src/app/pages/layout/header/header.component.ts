@@ -46,6 +46,8 @@ export class HeaderComponent implements OnInit {
   showhideProfile: boolean = false;
   applicantid: any;
   showApplicantmenu: boolean = false;
+  showAdminMenuaccess: boolean = false;
+  showCorporateMenuaccess: boolean = false;
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
@@ -116,14 +118,21 @@ export class HeaderComponent implements OnInit {
 
     this.username = this.sessionService.getItem('username');
     if (this.sessionService.getItem('role') == '1') {
-      this.userrole = 'Admin'
-    } else if (this.sessionService.getItem('role') == '2') {
+      this.userrole = 'Admin';
+      this.showAdminMenuaccess = true;
+      this.showApplicantmenu = false;
+      this.showCorporateMenuaccess = false;
+  } else if (this.sessionService.getItem('role') == '2') {
       this.userrole = 'Applicant';
       this.showApplicantmenu = true;
-    } else if (this.sessionService.getItem('role') == '3') {
+      this.showAdminMenuaccess = false;
+      this.showCorporateMenuaccess = false;
+  } else if (this.sessionService.getItem('role') == '3') {
       this.userrole = 'Corporate';
+      this.showCorporateMenuaccess = true;
       this.showApplicantmenu = false;
-    }
+      this.showAdminMenuaccess = false;
+  }
     if (this.sessionService.getItem('role') == '2') this.menuvisible = false;
     /*
     for (var i = 1; i <= 5; i++) {

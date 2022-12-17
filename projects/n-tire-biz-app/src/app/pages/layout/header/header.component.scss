@@ -221,15 +221,17 @@ a:hover {
   display: grid !important;
   grid-template-columns: 165px 1fr 1fr !important;
   right: 0px !important;
-  height: 270px !important;
+  // height: 270px !important;
 }
 
-
+.col-4.card.abc{
+  height: 100px !important;
+}
 .card {
   // height: 78px !important;
   border-color: #ffffff !important;
   background-color: #f5f3e4 !important;
-  padding: 3px;
+  // padding: 3px;
    //margin: 3px 3px !important;
 }
 
