@@ -282,9 +282,11 @@ export class HeaderComponent implements OnInit {
   }
   showMenus() {
     this.showmenulist = !this.showmenulist;
+    this.showhideProfile = false;
   }
   showProfileDetails() {
     this.showhideProfile = !this.showhideProfile;
+    this.showmenulist = false;
   }
   showProfile() {
     this.dialog.open(mstapplicantmastermainComponent,
