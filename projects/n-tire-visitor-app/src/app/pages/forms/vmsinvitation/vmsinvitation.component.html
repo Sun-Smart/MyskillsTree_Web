@@ -1,0 +1,298 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="vmsinvitationForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Invitations' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editvmsinvitations()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='vmsinvitationtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.vmsinvitationshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.invitationid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.invitationid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('invitereference') == -1"  class="col " >
+<label  for="invitereference" class="control-label">Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.invitereference?.value}}</label>
+      <input   *ngIf="!showview"  id="invitereference"  readonly formControlName="invitereference" class="form-control"
+        >
+<ngx-barcode [bc-value]='f.invitereference.value' [bc-display-value]='true'></ngx-barcode>
+  </div>
+
+
+<!--branchid-->
+
+  <div   *ngIf="hidelist.indexOf('branchid') == -1"  class="col" ><label  for="branchid" class="control-label required" (click)="AddOrEditbranchid(null)">Branch</label>
+<app-popupselect  *ngIf="!showview"  [options]="branchidList"  [optionsEvent]="branchidoptionsEvent" [form]="bobranchmaster" (selectItem)="onSelectedbranchid($event)"  [reportid]= 'bxg94' [menuid]='bxg94' formControlName="branchid" id="branchid" desc="branchname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.branchid?.value}}</label>
+      <app-field-error-display [displayError]="f.branchid.invalid && (f.branchid.touched || isSubmitted)" errorMsg="Enter {{'Branch' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--eventreference-->
+
+  <div   *ngIf="hidelist.indexOf('eventreference') == -1"  class="col" ><label  for="eventreference" class="control-label" (click)="AddOrEditeventreference(null)">Event Reference</label>
+<app-popupselect  *ngIf="!showview"  [options]="eventreferenceList"  [optionsEvent]="eventreferenceoptionsEvent" [form]="vmsevent" (selectItem)="onSelectedeventreference($event)"  [reportid]= 'event' [menuid]='event' formControlName="eventreference" id="eventid" desc="eventreference" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.eventreference?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('company') == -1"  class="col " >
+<label  for="company" class="control-label required">Company</label>
+      <label *ngIf="showview"     class="labelview">{{f.company?.value}}</label>
+      <input   *ngIf="!showview"  id="company"  required formControlName="company" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.company.invalid && (f.company.touched|| isSubmitted)" errorMsg="Enter {{'Company' | translate}}">
+      </app-field-error-display>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('subject') == -1"  class="col " >
+<label  for="subject" class="control-label required">Subject</label>
+      <label *ngIf="showview"     class="labelview">{{f.subject?.value}}</label>
+      <input   *ngIf="!showview"  id="subject"  required formControlName="subject" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.subject.invalid && (f.subject.touched|| isSubmitted)" errorMsg="Enter {{'Subject' | translate}}">
+      </app-field-error-display>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('notes') == -1"  class="col " >
+<label  for="notes" class="control-label">Notes</label>
+      <label *ngIf="showview"     class="labelview">{{f.notes?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="notes"  formControlName="notes" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--visitortype-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('visitortype') == -1"  class="col" ><label  for="visitortype" class="control-label required">Visitor Type</label>
+      <select  *ngIf="!showview"  id="visitortype"  required (change)="visitortypeonChange($event.target)" formControlName="visitortype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of visitortypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.visitortype?.value}}</label>
+      <app-field-error-display [displayError]="f.visitortype.invalid && (f.visitortype.touched || isSubmitted)" errorMsg="Enter {{'Visitor Type' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--host-->
+
+  <div   *ngIf="hidelist.indexOf('host') == -1"  class="col" ><label  for="host" class="control-label required" (click)="AddOrEdithost(null)">Host</label>
+<app-popupselect  *ngIf="!showview"  [options]="hostList"  [optionsEvent]="hostoptionsEvent" [form]="hrmsemployee" (selectItem)="onSelectedhost($event)"  [reportid]= 'zcqka' [menuid]='zcqka' formControlName="host" id="employeeid" desc="employeename" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.host?.value}}</label>
+      <app-field-error-display [displayError]="f.host.invalid && (f.host.touched || isSubmitted)" errorMsg="Enter {{'Host' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('validfromdate') == -1"  class="col " >
+<label  for="validfromdate" class="control-label required">Valid From date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.validfromdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #validfromdateformpicker="ngbDatepicker"      ngbDatepicker name="validfromdateformpicker" id="validfromdate"  required formControlName="validfromdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="validfromdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <app-field-error-display [displayError]="f.validfromdate.invalid && (f.validfromdate.touched|| isSubmitted)" errorMsg="Enter {{'Valid From date' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('validfromtime') == -1"  class="col " >
+<label  for="validfromtime" class="control-label">Valid From Time</label>
+      <label *ngIf="showview"     class="labelview">{{f.validfromtime?.value}}</label>
+<ngb-timepicker  *ngIf="!showview"  class="form-control timepicker" formControlName="validfromtime"  ></ngb-timepicker>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('validtodate') == -1"  class="col " >
+<label  for="validtodate" class="control-label required">Valid To Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.validtodate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #validtodateformpicker="ngbDatepicker"      ngbDatepicker name="validtodateformpicker" id="validtodate"  required formControlName="validtodate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="validtodateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <app-field-error-display [displayError]="f.validtodate.invalid && (f.validtodate.touched|| isSubmitted)" errorMsg="Enter {{'Valid To Date' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('validtotime') == -1"  class="col " >
+<label  for="validtotime" class="control-label">Valid To Time</label>
+      <label *ngIf="showview"     class="labelview">{{f.validtotime?.value}}</label>
+<ngb-timepicker  *ngIf="!showview"  class="form-control timepicker" formControlName="validtotime"  ></ngb-timepicker>
+  </div>
+
+
+<!--repeattype-->
+
+  <div   *ngIf="hidelist.indexOf('repeattype') == -1"  class="col" ><label  for="repeattype" class="control-label required">Repeat Type</label>
+      <select  *ngIf="!showview"  id="repeattype"  required (change)="repeattypeonChange($event.target)" formControlName="repeattype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of repeattypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.repeattype?.value}}</label>
+      <app-field-error-display [displayError]="f.repeattype.invalid && (f.repeattype.touched || isSubmitted)" errorMsg="Enter {{'Repeat Type' | translate}}">
+      </app-field-error-display>
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('messagetoguest') == -1"  class="col " >
+<label  for="messagetoguest" class="control-label">Message To Guest</label>
+      <label *ngIf="showview"     class="labelview">{{f.messagetoguest?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="messagetoguest"  formControlName="messagetoguest" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--invitestatus-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('invitestatus') == -1"  class="col" ><label  for="invitestatus" class="control-label">Invite Status</label>
+      <select  *ngIf="!showview"  id="invitestatus"  (change)="invitestatusonChange($event.target)" formControlName="invitestatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of invitestatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.invitestatus?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('watch') == -1"  class="col " >
+<div class="columnchk">
+<label  for="watch" class="control-label">Watch</label>
+      <label *ngIf="showview"     class="labelview">{{f.watch?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="watch"  formControlName="watch" class="form-control"
+        >
+  </div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('replytoname') == -1"  class="col " >
+<label  for="replytoname" class="control-label">Reply To Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.replytoname?.value}}</label>
+      <input   *ngIf="!showview"  id="replytoname"  formControlName="replytoname" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('replytoemail') == -1"  class="col " >
+<label  for="replytoemail" class="control-label">Reply To Email</label>
+      <label *ngIf="showview"     class="labelview">{{f.replytoemail?.value}}</label>
+      <input   *ngIf="!showview"  id="replytoemail"  formControlName="replytoemail" class="form-control"
+        >
+  </div>
+</div>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Persons</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table vmsinvitepersons-->
+<div [ngClass]="IsvmsinvitepersonsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Persons' | translate}}
+<select class='child'  id="vmsinvitepersonsPagingdropdown" (change)="vmsinvitepersonsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='vmsinvitepersontoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.vmsinvitepersonshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="vmsinvitepersontoggleOption();vmsinvitepersonsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="vmsinvitepersontoggleOption();showvmsinvitepersonsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblvmsinvitepersonssource (userRowSelect)="handlevmsinvitepersonsGridSelected($event)" [settings]="vmsinvitepersonssettings" (custom)="onCustomvmsinvitepersonsAction($event)" [source]="vmsinvitepersonssource"  (delete)="vmsinvitepersonsroute($event,'delete')"  (deleteConfirm)="vmsinvitepersonsroute($event,'delete')" (create)="vmsinvitepersonsroute($event,'create')"   (createConfirm)="vmsinvitepersonsbeforesave($event)"  (edit)="vmsinvitepersonsroute($event,'edit')"  (editConfirm)="vmsinvitepersonsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table vmsinvitepersons-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

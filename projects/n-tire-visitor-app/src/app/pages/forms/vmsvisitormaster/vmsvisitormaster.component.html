@@ -1,0 +1,309 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="vmsvisitormasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Visitor Masters' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editvmsvisitormasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='vmsvisitormastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.vmsvisitormastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.visitormasterid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.visitormasterid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<p-accordion  [multiple]='true'>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Basic'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('reference') == -1"  class="col " >
+<label  for="reference" class="control-label">Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.reference?.value}}</label>
+      <input   *ngIf="!showview"  id="reference"  formControlName="reference" class="form-control"
+        >
+  </div>
+
+
+<!--visitortype-->
+
+  <div   *ngIf="hidelist.indexOf('visitortype') == -1"  class="col" ><label  for="visitortype" class="control-label required">Visitor Type</label>
+      <select  *ngIf="!showview"  id="visitortype"  required (change)="visitortypeonChange($event.target)" formControlName="visitortype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of visitortypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.visitortype?.value}}</label>
+      <app-field-error-display [displayError]="f.visitortype.invalid && (f.visitortype.touched || isSubmitted)" errorMsg="Enter {{'Visitor Type' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('fullname') == -1"  class="col " >
+<label  for="fullname" class="control-label required">Full Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.fullname?.value}}</label>
+      <input   *ngIf="!showview"  id="fullname"  required formControlName="fullname" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.fullname.invalid && (f.fullname.touched|| isSubmitted)" errorMsg="Enter {{'Full Name' | translate}}">
+      </app-field-error-display>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('thumbnail') == -1"  class="col " >
+<label  for="thumbnail" class="control-label">Photo</label>
+      <label *ngIf="showview"     class="labelview">{{f.thumbnail?.value}}</label>
+<app-attachment #thumbnail formControlName="thumbnail" [SessionData]="sessiondata"></app-attachment>
+<button  type="button" class="btn" *ngIf="thumbnail.getattachmentlist().length > 0"    (click) = "getthumbnail()" >Open File</button>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion  [multiple]='true'>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Agenda'  [selected]='true'>
+
+
+<!--purpose-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('purpose') == -1"  class="col" ><label  for="purpose" class="control-label">Purpose</label>
+      <select  *ngIf="!showview"  id="purpose"  (change)="purposeonChange($event.target)" formControlName="purpose"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of purposeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.purpose?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('phone') == -1"  class="col " >
+<label  for="phone" class="control-label">Phone</label>
+      <label *ngIf="showview"     class="labelview">{{f.phone?.value}}</label>
+      <int-phone-prefix   *ngIf="!showview"  id="phone"  formControlName="phone"  [locale]="'en'" [defaultCountry]="'ae'"  class="form-control telephone" 
+        >
+</int-phone-prefix>
+  </div>
+  <div   *ngIf="hidelist.indexOf('company') == -1"  class="col " >
+<label  for="company" class="control-label">Company</label>
+      <label *ngIf="showview"     class="labelview">{{f.company?.value}}</label>
+      <input   *ngIf="!showview"  id="company"  formControlName="company" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('address') == -1"  class="col " >
+<label  for="address" class="control-label">Address</label>
+      <label *ngIf="showview"     class="labelview">{{f.address?.value}}</label>
+      <app-address   *ngIf="!showview"  id="address"  formControlName="address"
+        >
+</app-address>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('emailaddress') == -1"  class="col " >
+<label  for="emailaddress" class="control-label required">Email</label>
+      <label *ngIf="showview"     class="labelview">{{f.emailaddress?.value}}</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview"  id="emailaddress"  required formControlName="emailaddress" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.emailaddress.invalid && (f.emailaddress.touched|| isSubmitted)" errorMsg="Enter {{'Email' | translate}}">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.emailaddress.invalid && (f.emailaddress.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+
+
+<!--host-->
+
+  <div   *ngIf="hidelist.indexOf('host') == -1"  class="col" ><label  for="host" class="control-label required" (click)="AddOrEdithost(null)">Host</label>
+<app-popupselect  *ngIf="!showview"  [options]="hostList"  [optionsEvent]="hostoptionsEvent" [form]="hrmsemployee" (selectItem)="onSelectedhost($event)"  [reportid]= 'zcqka' [menuid]='zcqka' formControlName="host" id="employeeid" desc="employeename" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.host?.value}}</label>
+      <app-field-error-display [displayError]="f.host.invalid && (f.host.touched || isSubmitted)" errorMsg="Enter {{'Host' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--meetingplace-->
+
+  <div   *ngIf="hidelist.indexOf('meetingplace') == -1"  class="col" ><label  for="meetingplace" class="control-label">Meeting Place</label>
+      <select  *ngIf="!showview"  id="meetingplace"  (change)="meetingplaceonChange($event.target)" formControlName="meetingplace"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of meetingplaceList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.meetingplace?.value}}</label>
+  </div>
+</div>
+
+
+<!--designationid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('designationid') == -1"  class="col" ><label  for="designationid" class="control-label">Designation</label>
+      <select  *ngIf="!showview"  id="designationid"  readonly (change)="designationidonChange($event.target)" formControlName="designationid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of designationidList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.designationid?.value}}</label>
+  </div>
+
+
+<!--departmentid-->
+
+  <div   *ngIf="hidelist.indexOf('departmentid') == -1"  class="col" ><label  for="departmentid" class="control-label" (click)="AddOrEditdepartmentid(null)" (click)="AddOrEditdepartmentid(null)">Department</label>
+      <select  *ngIf="!showview"  id="departmentid"  (change)="departmentidonChange($event.target)" formControlName="departmentid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of departmentidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.departmentid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('mobile') == -1"  class="col " >
+<label  for="mobile" class="control-label">Mobile</label>
+      <label *ngIf="showview"     class="labelview">{{f.mobile?.value}}</label>
+      <input   *ngIf="!showview"  id="mobile"  formControlName="mobile" class="form-control"
+        >
+  </div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion  [multiple]='true'>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Proof'  [selected]='true'>
+
+
+<!--idprooftype-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('idprooftype') == -1"  class="col" ><label  for="idprooftype" class="control-label">I D Proof Type</label>
+      <select  *ngIf="!showview"  id="idprooftype"  (change)="idprooftypeonChange($event.target)" formControlName="idprooftype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of idprooftypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.idprooftype?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('idproof') == -1"  class="col " >
+<label  for="idproof" class="control-label">I D Proof</label>
+      <label *ngIf="showview"     class="labelview">{{f.idproof?.value}}</label>
+<app-attachment #idproof formControlName="idproof" [SessionData]="sessiondata"></app-attachment>
+<button  type="button" class="btn" *ngIf="idproof.getattachmentlist().length > 0"    (click) = "getidproof()" >Open File</button>
+  </div>
+  <div   *ngIf="hidelist.indexOf('carregistrationno') == -1"  class="col " >
+<label  for="carregistrationno" class="control-label">Car Registration No</label>
+      <label *ngIf="showview"     class="labelview">{{f.carregistrationno?.value}}</label>
+      <input   *ngIf="!showview"  id="carregistrationno"  formControlName="carregistrationno" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('approvalremarks') == -1"  class="col " >
+<label  for="approvalremarks" class="control-label">Approval Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.approvalremarks?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="approvalremarks"  formControlName="approvalremarks" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('instructions') == -1"  class="col " >
+<label  for="instructions" class="control-label">Instructions</label>
+      <label *ngIf="showview"     class="labelview">{{f.instructions?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="instructions"  formControlName="instructions" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--visitorstatus-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('visitorstatus') == -1"  class="col" ><label  for="visitorstatus" class="control-label">Visitor Status</label>
+      <select  *ngIf="!showview"  id="visitorstatus"  (change)="visitorstatusonChange($event.target)" formControlName="visitorstatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of visitorstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.visitorstatus?.value}}</label>
+  </div>
+<div  class="help-tip">
+<p> {{f.history?.value}}</p>  </div>
+  </div>
+</p-accordionTab></p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+  </div>
+</form>

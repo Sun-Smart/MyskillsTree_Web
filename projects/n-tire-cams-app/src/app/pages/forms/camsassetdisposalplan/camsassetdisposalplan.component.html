@@ -1,0 +1,222 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="camsassetdisposalplanForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Disposal Plans' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editcamsassetdisposalplans()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='camsassetdisposalplantoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camsassetdisposalplanshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.disposalplanid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.disposalplanid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('branchid') == -1"  class="col " >
+<label  for="branchid" class="control-label">Branch</label>
+      <label *ngIf="showview"     class="labelview">{{f.branchid?.value}}</label>
+      <input   *ngIf="!showview"  id="branchid"  formControlName="branchid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('reference') == -1"  class="col " >
+<label  for="reference" class="control-label">Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.reference?.value}}</label>
+      <input   *ngIf="!showview"  id="reference"  formControlName="reference" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('details') == -1"  class="col " >
+<label  for="details" class="control-label">Details</label>
+      <label *ngIf="showview"     class="labelview">{{f.details?.value}}</label>
+      <input   *ngIf="!showview"  id="details"  formControlName="details" class="form-control"
+        >
+  </div>
+
+
+<!--preparedby-->
+
+  <div   *ngIf="hidelist.indexOf('preparedby') == -1"  class="col" ><label  for="preparedby" class="control-label" (click)="AddOrEditpreparedby(null)">Prepared By</label>
+<app-popupselect  *ngIf="!showview"  [options]="preparedbyList"  [optionsEvent]="preparedbyoptionsEvent" [form]="bousermaster" (selectItem)="onSelectedpreparedby($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="preparedby" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.preparedby?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('prepareddate') == -1"  class="col " >
+<label  for="prepareddate" class="control-label">Prepared Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.prepareddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #prepareddateformpicker="ngbDatepicker"      ngbDatepicker name="prepareddateformpicker" id="prepareddate"  formControlName="prepareddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="prepareddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('disposaldate') == -1"  class="col " >
+<label  for="disposaldate" class="control-label">Disposal Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.disposaldate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #disposaldateformpicker="ngbDatepicker"      ngbDatepicker name="disposaldateformpicker" id="disposaldate"  formControlName="disposaldate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="disposaldateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+
+
+<!--disposalmethod-->
+
+  <div   *ngIf="hidelist.indexOf('disposalmethod') == -1"  class="col" ><label  for="disposalmethod" class="control-label">Disposal Method</label>
+      <select  *ngIf="!showview"  id="disposalmethod"  (change)="disposalmethodonChange($event.target)" formControlName="disposalmethod"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of disposalmethodList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.disposalmethod?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('approvedby') == -1"  class="col " >
+<label  for="approvedby" class="control-label">Approved By</label>
+      <label *ngIf="showview"     class="labelview">{{f.approvedby?.value}}</label>
+      <input   *ngIf="!showview"  id="approvedby"  formControlName="approvedby" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('verifiedby') == -1"  class="col " >
+<label  for="verifiedby" class="control-label">Verified By</label>
+      <label *ngIf="showview"     class="labelview">{{f.verifiedby?.value}}</label>
+      <input   *ngIf="!showview"  id="verifiedby"  formControlName="verifiedby" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('remarks') == -1"  class="col " >
+<label  for="remarks" class="control-label">Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.remarks?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="remarks"  formControlName="remarks" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+</p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Asset Disposals</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camsassetdisposals-->
+<div class="row"></div><div [ngClass]="IscamsassetdisposalsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Asset Disposals' | translate}}
+<select class='child'  id="camsassetdisposalsPagingdropdown" (change)="camsassetdisposalsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camsassetdisposaltoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camsassetdisposalshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camsassetdisposaltoggleOption();camsassetdisposalsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camsassetdisposaltoggleOption();showcamsassetdisposalsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamsassetdisposalssource (userRowSelect)="handlecamsassetdisposalsGridSelected($event)" [settings]="camsassetdisposalssettings" (custom)="onCustomcamsassetdisposalsAction($event)" [source]="camsassetdisposalssource"  (delete)="camsassetdisposalsroute($event,'delete')"  (deleteConfirm)="camsassetdisposalsroute($event,'delete')" (create)="camsassetdisposalsroute($event,'create')"   (createConfirm)="camsassetdisposalsbeforesave($event)"  (edit)="camsassetdisposalsroute($event,'edit')"  (editConfirm)="camsassetdisposalsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table camsassetdisposals-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

@@ -1,0 +1,333 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="ltymerchantForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Merchants' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'establishmentname'; "  for="establishmentname" class="control-label">Establishment Name</label>
+      <input   *ngIf="!showview || editfield=='establishmentname'"  id="establishmentname"  formControlName="establishmentname" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<p-accordionTab header='Profile'  [selected]='true'>
+
+
+<!--businesscategory-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'businesscategory'; "  for="businesscategory" class="control-label">Business Category</label>
+      <select  *ngIf="!showview"  id="businesscategory"  (change)="businesscategoryonChange($event.target)" formControlName="businesscategory"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of businesscategoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='businesscategory'"  (click)="editfield = 'businesscategory';"  class="form-control labelview">{{f.businesscategorydesc?.value}}</label>
+  </div>
+
+
+<!--segment-->
+
+  <div   class="col" ><label (click)="editfield = 'segment'; "  for="segment" class="control-label">Segment</label>
+      <select  *ngIf="!showview"  id="segment"  (change)="segmentonChange($event.target)" formControlName="segment"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of segmentList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='segment'"  (click)="editfield = 'segment';"  class="form-control labelview">{{f.segmentdesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'legalname'; "  for="legalname" class="control-label">Legal Name</label>
+      <input   *ngIf="!showview || editfield=='legalname'"  id="legalname"  formControlName="legalname" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'incorporationdate'; "  for="incorporationdate" class="control-label">Incorporation Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='incorporationdate'">
+<input #incorporationdateformpicker="ngbDatepicker"      ngbDatepicker name="incorporationdateformpicker" id="incorporationdate"  formControlName="incorporationdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='incorporationdate'"  (click)="incorporationdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='incorporationdate'"  (click)="editfield = 'incorporationdate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.incorporationdate?.value)}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'pannumber'; "  for="pannumber" class="control-label">Pan Number</label>
+      <input   *ngIf="!showview || editfield=='pannumber'"  id="pannumber"  formControlName="pannumber" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'website'; "  for="website" class="control-label">Website</label>
+      <input   *ngIf="!showview || editfield=='website'"  id="website"  formControlName="website" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+<p-accordionTab header='Establishment Details'  [selected]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'contactperson'; "  for="contactperson" class="control-label">Contact Person</label>
+      <input   *ngIf="!showview || editfield=='contactperson'"  id="contactperson"  formControlName="contactperson" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'businessaddress'; "  for="businessaddress" class="control-label">Business Address</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='businessaddress'"  id="businessaddress"  formControlName="businessaddress" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'registeredaddress'; "  for="registeredaddress" class="control-label">Registered Address</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='registeredaddress'"  id="registeredaddress"  formControlName="registeredaddress" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'phone'; "  for="phone" class="control-label">Phone</label>
+      <int-phone-prefix   *ngIf="!showview || editfield=='phone'"  id="phone"  formControlName="phone"  [locale]="'en'" [defaultCountry]="sessionService.getItem('countrycode')"  class="form-control telephone" 
+        >
+</int-phone-prefix>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'secondaryphone'; "  for="secondaryphone" class="control-label">Secondary Phone</label>
+      <input   *ngIf="!showview || editfield=='secondaryphone'"  id="secondaryphone"  formControlName="secondaryphone" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'email'; "  for="email" class="control-label">Email</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview || editfield=='email'"  id="email"  formControlName="email" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.email.invalid && (f.email.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+
+
+<!--ownershiptype-->
+
+  <div   class="col" ><label (click)="editfield = 'ownershiptype'; "  for="ownershiptype" class="control-label">Ownership Type</label>
+      <select  *ngIf="!showview"  id="ownershiptype"  (change)="ownershiptypeonChange($event.target)" formControlName="ownershiptype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of ownershiptypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='ownershiptype'"  (click)="editfield = 'ownershiptype';"  class="form-control labelview">{{f.ownershiptypedesc?.value}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'directors'; "  for="directors" class="control-label">Directors</label>
+      <input   *ngIf="!showview || editfield=='directors'"  id="directors"  formControlName="directors" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'idproof'; "  for="idproof" class="control-label">I D Proof</label>
+<app-attachment #idproof formControlName="idproof" [SessionData]="sessiondata"></app-attachment>
+<button  type="button" class="btn" *ngIf="idproof.getattachmentlist().length > 0"    (click) = "getidproof()" >Open File</button>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'turnover'; "  for="turnover" class="control-label">Turnover</label>
+      <input   *ngIf="!showview || editfield=='turnover'"  id="turnover"  formControlName="turnover" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+<p-accordionTab header='Banking Details'  [selected]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'bankaccount'; "  for="bankaccount" class="control-label">Bank Account</label>
+      <input   *ngIf="!showview || editfield=='bankaccount'"  id="bankaccount"  formControlName="bankaccount" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'bankname'; "  for="bankname" class="control-label">Bank Name</label>
+      <input   *ngIf="!showview || editfield=='bankname'"  id="bankname"  formControlName="bankname" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'city'; "  for="city" class="control-label">City</label>
+      <input   *ngIf="!showview || editfield=='city'"  id="city"  formControlName="city" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'branch'; "  for="branch" class="control-label">Branch</label>
+      <input   *ngIf="!showview || editfield=='branch'"  id="branch"  formControlName="branch" class="form-control"
+        >
+  </div>
+</div>
+</p-accordionTab>
+<p-accordionTab header='Other Details'  [selected]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'employees'; "  for="employees" class="control-label">Employees</label>
+      <input   *ngIf="!showview || editfield=='employees'"  id="employees"  formControlName="employees" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'vendors'; "  for="vendors" class="control-label">Vendors</label>
+      <input   *ngIf="!showview || editfield=='vendors'"  id="vendors"  formControlName="vendors" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'officespace'; "  for="officespace" class="control-label">Office Space</label>
+      <input   *ngIf="!showview || editfield=='officespace'"  id="officespace"  formControlName="officespace" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+<p-accordionTab header='Funding'  [selected]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'funding'; "  for="funding" class="control-label">Funding</label>
+      <input   *ngIf="!showview || editfield=='funding'"  id="funding"  formControlName="funding" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'futureinvestments'; "  for="futureinvestments" class="control-label">Future Investments</label>
+      <input   *ngIf="!showview || editfield=='futureinvestments'"  id="futureinvestments"  formControlName="futureinvestments" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'venturecapitalistfunding'; "  for="venturecapitalistfunding" class="control-label">Venture Capitalist Funding</label>
+      <input   *ngIf="!showview || editfield=='venturecapitalistfunding'"  id="venturecapitalistfunding"  formControlName="venturecapitalistfunding" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'shareprice'; "  for="shareprice" class="control-label">Share Price</label>
+      <input   *ngIf="!showview || editfield=='shareprice'"  id="shareprice"  formControlName="shareprice" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--userid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'userid'; "  for="userid" class="control-label" (click)="AddOrEdituserid(null)">User</label>
+<app-popupselect  *ngIf="!showview"  [options]="useridList"  [optionsEvent]="useridoptionsEvent" [form]="bousermaster" (selectItem)="onSelecteduserid($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="userid" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='userid'"  (click)="editfield = 'userid';"  class="form-control labelview">{{f.useriddesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordionTab>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">ltymerchantproducts</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table ltymerchantproducts-->
+<div class="row"></div><div [ngClass]="IsltymerchantproductsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'ltymerchantproducts' | translate}}
+<select class='child'  id="ltymerchantproductsPagingdropdown" (change)="ltymerchantproductsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="ltymerchantproductsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showltymerchantproductsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblltymerchantproductssource (userRowSelect)="handleltymerchantproductsGridSelected($event)" [settings]="ltymerchantproductssettings" (custom)="onCustomltymerchantproductsAction($event)" [source]="ltymerchantproductssource"  (delete)="ltymerchantproductsroute($event,'delete')"  (deleteConfirm)="ltymerchantproductsroute($event,'delete')" (create)="ltymerchantproductsroute($event,'create')"   (createConfirm)="ltymerchantproductsbeforesave($event)"  (edit)="ltymerchantproductsroute($event,'edit')"  (editConfirm)="ltymerchantproductsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table ltymerchantproducts-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Stores</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table ltystores-->
+<div class="row"></div><div [ngClass]="IsltystoresVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Stores' | translate}}
+<select class='child'  id="ltystoresPagingdropdown" (change)="ltystoresPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="ltystoresroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showltystoresFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblltystoressource (userRowSelect)="handleltystoresGridSelected($event)" [settings]="ltystoressettings" (custom)="onCustomltystoresAction($event)" [source]="ltystoressource"  (delete)="ltystoresroute($event,'delete')"  (deleteConfirm)="ltystoresroute($event,'delete')" (create)="ltystoresroute($event,'create')"   (createConfirm)="ltystoresbeforesave($event)"  (edit)="ltystoresroute($event,'edit')"  (editConfirm)="ltystoresbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table ltystores-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.merchantid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.merchantid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

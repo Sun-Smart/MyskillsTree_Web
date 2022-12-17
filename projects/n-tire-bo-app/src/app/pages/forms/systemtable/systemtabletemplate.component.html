@@ -1,0 +1,72 @@
+<div class="dialog">
+  <form [formGroup]="systemtabletemplateForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col"><label for="userroleid" class="control-label"
+              (click)="AddOrEdituserroleid(null)">Role</label>
+            <select *ngIf="!showview" id="userroleid" (change)="userroleidonChange($event.target)"
+              formControlName="userroleid" class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of userroleidList" value="{{item.userroleid}}">{{item.userrole}}</option>
+            </select>
+            <label *ngIf="showview" class="form-control labelview">{{f.userroleiddesc?.value}}</label>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="viewhtml" class="control-label">View Html</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="viewhtml"
+              formControlName="viewhtml" class="form-control" placeholder="{{'View Html' | translate}}">
+</textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="templatehtml" class="control-label">Template Html</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="templatehtml"
+              formControlName="templatehtml" class="form-control" placeholder="{{'Template Html' | translate}}">
+</textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="visiblefields" class="control-label">Visible Fields</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="visiblefields"
+              formControlName="visiblefields" class="form-control" placeholder="{{'Visible Fields' | translate}}">
+</textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="hidefields" class="control-label">Hide Fields</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="hidefields"
+              formControlName="hidefields" class="form-control" placeholder="{{'Hide Fields' | translate}}">
+</textarea>
+          </div>
+        </div>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.tabledetailid.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.tabledetailid.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

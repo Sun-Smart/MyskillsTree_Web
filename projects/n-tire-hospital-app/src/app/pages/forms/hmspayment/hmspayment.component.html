@@ -1,0 +1,95 @@
+<form [formGroup]="hmspaymentForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Payments' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col">
+        <label for="paymentreference" class="control-label">{{'PaymentReference' | translate}}</label>
+        <input id="paymentreference" formControlName="paymentreference" class="form-control"
+          placeholder="{{'PaymentReference' | translate}}">
+      </div>
+      <div class="col"><label for="debitaccountid" class="control-label"
+          (click)="AddOrEditdebitaccountid(null)">{{'Debit Account' | translate}}</label>
+        <div class="input-group">
+          <input id="debitaccountid" placeholder="" [ngbTypeahead]="debitaccountid_erpfaaccountmastersoptions"
+            class="form-control autocomplete" (selectItem)="onSelecteddebitaccountid($event)"
+            formControlName='debitaccountid' [resultFormatter]="debitaccountid_erpfaaccountmastersformatter">
+          <input readonly id="debitaccountiddesc" formControlName="debitaccountiddesc"
+            class="form-control autocompletedesc" placeholder="{{'Debit Account' | translate}}">
+        </div>
+      </div>
+      <div class="col"><label for="creditaccountid" class="control-label"
+          (click)="AddOrEditcreditaccountid(null)">{{'Credit Account' | translate}}</label>
+        <div class="input-group">
+          <input id="creditaccountid" placeholder="" [ngbTypeahead]="creditaccountid_erpfaaccountmastersoptions"
+            class="form-control autocomplete" (selectItem)="onSelectedcreditaccountid($event)"
+            formControlName='creditaccountid' [resultFormatter]="creditaccountid_erpfaaccountmastersformatter">
+          <input readonly id="creditaccountiddesc" formControlName="creditaccountiddesc"
+            class="form-control autocompletedesc" placeholder="{{'Credit Account' | translate}}">
+        </div>
+      </div>
+      <div class="col">
+        <label for="transactionamount" class="control-label">{{'TransactionAmount' | translate}}</label>
+        <input id="transactionamount" formControlName="transactionamount" class="form-control"
+          placeholder="{{'TransactionAmount' | translate}}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col"><label for="paymentmode" class="control-label">{{'Type' | translate}}</label>
+        <select id="paymentmode" (change)="paymentmodeonChange($event.target)" formControlName="paymentmode"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of paymentmodeList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="narration" class="control-label">{{'Narration' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="narration" formControlName="narration"
+          class="form-control" placeholder="{{'Narration' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="notes" class="control-label">{{'Notes' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="notes" formControlName="notes"
+          class="form-control" placeholder="{{'Notes' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.paymentid!.value != null" [menuid]="pmenuid" [value]="f.paymentid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

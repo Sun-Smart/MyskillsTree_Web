@@ -1,0 +1,788 @@
+CREATE TABLE LMSProductMasters(
+CompanyID int,
+ProductID int IDENTITY(1,1) NOT NULL,
+ProductCode nvarchar(16),
+ProductName nvarchar(99),
+BundleProduct bit,
+ProductOwner int,
+ValidFrom datetime,
+ValidTo datetime,
+CustomField ntext,
+Attachment ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+--
+
+
+CREATE TABLE LMSBundledProducts(
+CompanyID int,
+ProductID int,
+BundleProductID int IDENTITY(1,1) NOT NULL,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+--
+
+
+CREATE TABLE LMSProductNoAccesses(
+CompanyID int,
+AccessID int IDENTITY(1,1) NOT NULL,
+ProductId int,
+BranchId int,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+--
+
+
+
+
+CREATE TABLE LMSCampaignMasters(
+CompanyID int,
+ProductID int,
+CampaignId int IDENTITY(1,1) NOT NULL,
+CampaignCode nvarchar(16),
+CampaignName nvarchar(99),
+CampaignOwner int,
+ValidFrom datetime,
+ValidTo datetime,
+CampaignScript ntext,
+CustomField ntext,
+Attachment ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+--
+
+
+
+
+CREATE TABLE LMSCampaignTaskResponses(
+CompanyId int,
+ProductId int,
+CampaignId int,
+TaskId int,
+ResponseID int,
+ResponseDetail ntext,
+Attachment ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+---
+
+CREATE TABLE LMSCampaignTasks(
+CompanyId int,
+ProductId int,
+CampaignId int,
+TaskId int IDENTITY(1,1) NOT NULL,
+Subject nvarchar(99),
+Description ntext,
+AssignTo int,
+TargetDate datetime,
+AssignedDate datetime,
+Attachment ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+---
+
+CREATE TABLE LMSCampaignLocations(
+CompanyId int,
+ProductId int,
+CampaignId int,
+LocationID int,
+LocationName nvarchar(50),
+ValidFrom datetime,
+ValidTo datetime,
+CustomField ntext,
+Attachment ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+--
+
+CREATE TABLE LMSCampaignNoAccesses(
+CompanyID int,
+AccessID int IDENTITY(1,1) NOT NULL,
+ProductId int,
+CampaignID int,
+BranchId int,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+--
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE LMSResponses(
+CompanyID int,
+ProductGroupID int,
+BaseResponse nvarchar(5),
+CustomResponse varchar(100),
+Counter int,
+MoveToTrash bit,
+WorkFlowRole int,
+ColorCode nvarchar(50),
+TATHours time,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)ResponseID
+--
+
+
+CREATE TABLE LMSSubResponses(
+CompanyID int,
+ProductGroupID int,
+BaseResponse int,
+CustomResponse int,
+SubResponseID int,
+SubResponse nvarchar(50),
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+--
+
+
+CREATE TABLE LMSAssigns(
+CompanyId int,
+ProductGroupID int,
+ProductId int,
+Source nvarchar(5),
+AssignType nvarchar(2),
+AssignID int,
+SkillRatefrom int,
+SkillRateTo int,
+Certified bit,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+---
+
+
+CREATE TABLE LMSReminders(
+CompanyId int,
+ProductId int,
+LeadId int,
+OpportunityId int,
+ReminderID int,
+ReminderText nvarchar(200),
+ReminderStartDateTime datetime,
+FrequencyHours numeric(9,2),
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+
+
+
+
+CREATE TABLE LMSProducts(
+CompanyID int,
+BranchID int,
+LeadID int,
+OpportunityID int,
+ProductID int,
+CampaignID int,
+Source nvarchar(5),
+LeadBy int,
+LeadByType nvarchar(2),
+LeadByTypeValue int,
+CreationDate datetime,
+GenericCustomField ntext,
+ProductCustomField ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+---
+
+
+CREATE TABLE LMSMasters(
+CompanyID int,
+BranchID int,
+BranchLocationID int,
+LeadID int,
+LeadType nvarchar(1),
+FirstName nvarchar(50),
+LastName nvarchar(50),
+CompanyName nvarchar(50),
+Designation int,
+Mobile nvarchar(50),
+OfficePhone nvarchar(50),
+Extension nvarchar(50),
+ResidencePhone nvarchar(50),
+EmailID nvarchar(50),
+Segment nvarchar(5),
+CustomerTypeCustomField ntext,
+CustomField ntext,
+Attachment ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+--
+
+CREATE TABLE LMSScoringPlannedCloseDates(
+CompanyId int,
+ProductGroupID int,
+LSPCID int,
+Days int,
+Point int,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+---
+
+--
+CREATE TABLE LMSScoringFixedFieldsPositives(
+CompanyId int,
+ProductGroupID int,
+LSFPID int,
+Field nvarchar(50),
+Value nvarchar(50),
+Point int,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+--
+
+
+CREATE TABLE LMSScoringFixedFieldsNegatives(
+CompanyId int,
+ProductGroupID int,
+LSFNID int,
+Field nvarchar(50),
+FromValue nvarchar(50),
+ToValue nvarchar(50),
+negativePoints int,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+---
+
+
+
+
+
+
+
+CREATE TABLE LMSPendings(
+CompanyID int,
+BranchID int,
+BranchLocationId int,
+LeadID int,
+OpportunityID int,
+CallID int,
+ProductID int,
+CampaignID int,
+LeadBy int,
+CurrentOwner int,
+NextCallDate datetime,
+NextAction int,
+ActionDateTime datetime,
+PreviousRemarks ntext,
+LeadScore int,
+Source nvarchar(5),
+Stage nvarchar(5),
+Criticality nvarchar(5),
+ExpectedCloseBy datetime,
+ExpectedValue numeric(9,3),
+Attachment ntext,
+CustomField ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE LMSHistories(
+CompanyID int,
+BranchID int,
+BranchLocationId int,
+LeadID int,
+OpportunityID int,
+CallID int,
+ProductID int,
+CampaignID int,
+LeadBy int,
+CurrentOwner int,
+NextCallDate datetime,
+NextAction int,
+DateTime datetime,
+PreviousRemarks ntext,
+LeadScore int,
+Source nvarchar(5),
+Stage nvarchar(5),
+Criticality nvarchar(5),
+ExpectedValue numeric(9,3),
+Attachment ntext,
+CustomField ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE LMSTasks(
+CompanyId int,
+ProductId int,
+LeadID int,
+OpportunityID int,
+TaskId int,
+Subject nvarchar(99),
+Description ntext,
+AssignTo int,
+TargetDate datetime,
+AssignedDate datetime,
+Attachment ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE LMSTaskResponses(
+CompanyId int,
+ProductId int,
+LeadId int,
+OpportunityId int,
+TaskId int,
+ResponseID int,
+ResponseDetail ntext,
+Attachment ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+---
+
+
+
+
+CREATE TABLE LMSSecondaryContacts(
+CompanyID int,
+BranchID int,
+BranchLocationId int,
+LeadID int,
+OpportunityID int,
+SecondaryContactID int,
+ProductID int,
+CampaignID int,
+SecondaryContact int,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+
+CREATE TABLE LMSCorporateSecondaryContacts(
+CompanyID int,
+BranchID int,
+LeadID int,
+SecondaryContact int,
+FirstName nvarchar(50),
+LastName nvarchar(50),
+CompanyName nvarchar(50),
+Designation int,
+Mobile nvarchar(50),
+OfficePhone nvarchar(50),
+Extension nvarchar(50),
+ResidencePhone nvarchar(50),
+EmailID nvarchar(50),
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+
+
+CREATE TABLE LMSTargetOrgLevels(
+CompanyID int,
+ProductGroupID int,
+TargetMonth nvarchar(5),
+SalesNumbers int,
+SalesValuemillions numeric(9,2),
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE LMSTargetBranchLevels(
+CompanyID int,
+ProductGroup int,
+BranchID int,
+TargetMonth nvarchar(5),
+SalesNumbers int,
+SalesValuemillions numeric(9,2),
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE LMSTargetUserLevels(
+CompanyID int,
+ProductGroup int,
+BranchID int,
+UserID int,
+TargetMonth nvarchar(5),
+SalesNumbers int,
+SalesValuemillions numeric(9,2),
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+
+
+
+
+CREATE TABLE COBAProcessMasters(
+CompanyID int,
+ProductGroupID int,
+ProductID int,
+ProcessID int,
+OrderNumber int,
+ProcessName nvarchar(50),
+Predecessor int,
+TATHours time,
+Applicant bit,
+CoApplicant bit,
+Guarantor bit,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE COBAProcessAssigns(
+CompanyID int,
+ProductGroupID int,
+ProductID int,
+ProcessID int,
+AsignID int,
+OrderNo int,
+AssignType nvarchar(1),
+AssignUserID int,
+AssignRoleID int,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE COBAProcessForms(
+CompanyID int,
+ProductGroup int,
+ProductID int,
+ProcessID int,
+cobaformid int,
+FormId int,
+OrderNo int,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+
+CREATE TABLE COBAProcessDocuments(
+CompanyID int,
+ProductGroup int,
+ProductID int,
+ProcessID int,
+DocumentID int,
+DocumentCategory int,
+Document int,
+VersionNumber int,
+Mandatory bit,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+
+CREATE TABLE COBAProcessTemplates(
+CompanyID int,
+ProductGroup int,
+ProductID int,
+ProcessID int,
+TemplateID int,
+Mode nvarchar(1),
+OrderNo int,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE COBAEscalationMatrices(
+CompanyID int,
+ProductGroup int,
+ProductID int,
+ProcessID int,
+EscalationID int,
+EscalationHours time,
+OrderNo int,
+AssignType nvarchar(1),
+AssignUserID int,
+AssignRoleID int,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+MD,COBAProcessCustomers-COBAProcessCustomer-ProcessCustomerID-ProcessCustomerID
+
+
+
+
+
+
+
+
+CREATE TABLE COBAProcessCustomers(
+CompanyID int,
+ProcessCustomerID int,
+ProductGroup int,
+ProductID int,
+LeadID int,
+OrderNo int,
+ProcessID int,
+VersionNumber int,
+AssignedType nvarchar(1),
+AssignedUserID int,
+AssignedRoleID int,
+AssignedDateTime datetime,
+ClosedDateTime datetime,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE COBADocuments(
+CompanyID int,
+ProcessCustomerID int,
+ProductGroup int,
+ProductID int,
+LeadID int,
+ProcessID int,
+VersionNumber int,
+DocumentCategory nvarchar(5),
+Document int,
+ReajectReason ntext,
+Attachment ntext,
+AssignedTo int,
+AssignedOn datetime,
+CompletedDateTime datetime,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE COBAProcesstasks(
+CompanyId int,
+ProductId int,
+LeadID int,
+ProcessID int,
+TaskId int,
+Subject nvarchar(99),
+Description ntext,
+AssignTo int,
+TargetDate datetime,
+AssignedDate datetime,
+Attachment ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE COBAProcessTaskResponses(
+CompanyId int,
+ProductId int,
+LeadId int,
+ProcessID int,
+TaskId int,
+ResponseID int,
+ResponseDetail ntext,
+Attachment ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE COBAProcessCustomerTemplates(
+CompanyID int,
+ProductGroup int,
+ProductID int,
+ProcessID int,
+LeadID int,
+TemplateID int,
+Mode nvarchar(1),
+GenerationDateTime datetime,
+SentTo nvarchar(100),
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+
+CREATE TABLE COBAProcessLeadForms(
+CompanyID int,
+ProductGroup int,
+ProductID int,
+ProcessID int,
+LeadID int,
+cobaformid int,
+FormId int,
+FormDetails ntext,
+	[Status] [varchar](2) NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedDate] [datetime] NULL
+)
+
+
+

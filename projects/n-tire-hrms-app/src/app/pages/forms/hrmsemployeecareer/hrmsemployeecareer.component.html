@@ -1,0 +1,131 @@
+<form [formGroup]="hrmsemployeecareerForm" class="frm" (ngSubmit)="onSubmit()"
+  [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row">
+    <h1 class="col columns  left"><a class="h1" href='#/home/{{pcurrenturl}}'>H R M S Employee Careers</a></h1>
+    <div class="col  sticky1 right" role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <pre><br/></pre>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col"><label for="employeeid" class="control-label"
+          (click)="AddOrEditemployeeid(null)">Employee</label>
+        <div class="input-group">
+          <input id="employeeid" placeholder="" [ngbTypeahead]="employeeid_hrmsemployeesoptions"
+            class="form-control autocomplete" (selectItem)="onSelectedemployeeid($event)" formControlName='employeeid'
+            [resultFormatter]="employeeid_hrmsemployeesformatter">
+          <input readonly id="employeeiddesc" formControlName="employeeiddesc" class="form-control autocompletedesc"
+            placeholder="employeeid">
+        </div>
+      </div>
+      <div class="col">
+        <label for="employer" class="control-label">Employer</label>
+        <input id="employer" formControlName="employer" class="form-control" placeholder="employer">
+      </div>
+      <div class="col">
+        <label for="fromdate" class="control-label">From Date</label>
+        <div class="input-group">
+          <input #fromdateformpicker="ngbDatepicker" ngbDatepicker name="fromdateformpicker" id="fromdate"
+            formControlName="fromdate" class="form-control" placeholder="Choose fromdate">
+          <button class="input-group-addon" (click)="fromdateformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="col">
+        <label for="todate" class="control-label">To Date</label>
+        <div class="input-group">
+          <input #todateformpicker="ngbDatepicker" ngbDatepicker name="todateformpicker" id="todate"
+            formControlName="todate" class="form-control" placeholder="Choose todate">
+          <button class="input-group-addon" (click)="todateformpicker.toggle()" type="button"><i class="fa fa-calendar"
+              aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="totalmonths" class="control-label">Total Months</label>
+        <input id="totalmonths" formControlName="totalmonths" class="form-control" placeholder="totalmonths">
+      </div>
+      <div class="col">
+        <label for="designation" class="control-label">Designation</label>
+        <input id="designation" formControlName="designation" class="form-control" placeholder="designation">
+      </div>
+      <div class="col"><label for="mappedtoourrole" class="control-label"
+          (click)="AddOrEditmappedtoourrole(null)">Mapped To Our Role</label>
+        <select id="mappedtoourrole" formControlName="mappedtoourrole" class="form-control"
+          placeholder="mappedtoourrole">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of mappedtoourroleList" value="{{item.userroleid}}">{{item.userrole}}</option>
+        </select>
+      </div>
+      <div class="col"><label for="ctccurrency" class="control-label">C T C Currency</label>
+        <select id="ctccurrency" formControlName="ctccurrency" class="form-control" placeholder="ctccurrency">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of currencyToSymbolMap1" value="{{item[0]}}">{{item[0]}} {{item[1]}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="ctcamount" class="control-label">C T C Amount</label>
+        <input id="ctcamount" formControlName="ctcamount" class="form-control" placeholder="ctcamount">
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="remarks" class="control-label">Remarks</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remarks" formControlName="remarks"
+          class="form-control" placeholder="remarks">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="status" class="control-label">Status</label>
+        <input type="hidden" id="status" formControlName="status" class="form-control" placeholder="status">
+        <input readonly id="statusdesc" formControlName="statusdesc" class="form-control" placeholder="status">
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a (click)="sharedService.showAttachment($event,fld!.value!.value)" target="_blank">{{fld!.value!.value}} | </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+          class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

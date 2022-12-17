@@ -1,0 +1,78 @@
+<div class="dialog">
+  <form [formGroup]="hrmskpimasterForm" class="frm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row">
+      <h1 class="sticky1">KPI Masters</h1>
+    </div>
+    <pre><br/></pre>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="kpidescription" class="control-label">KPI Description</label>
+          <input id="kpidescription" formControlName="kpidescription" class="form-control"
+            placeholder="KPI Description">
+        </div>
+        <div class="col">
+          <label for="weightagepercent" class="control-label">Weightage Percent</label>
+          <input id="weightagepercent" formControlName="weightagepercent" class="form-control"
+            placeholder="Weightage Percent">
+          <app-field-error-display
+            [displayError]="f.weightagepercent.errors!=null && f.weightagepercent.errors.pattern!=null && f.weightagepercent.errors!=undefined && f.weightagepercent.errors.pattern!=undefined  && (f.weightagepercent.touched|| isSubmitted)"
+            errorMsg="Not a valid number">
+          </app-field-error-display>
+          <app-field-error-display
+            [displayError]="f.weightagepercent.errors!=null && f.weightagepercent.errors.min!=null && f.weightagepercent.errors!=undefined && f.weightagepercent.errors.min!=undefined  && (f.weightagepercent.touched|| isSubmitted)"
+            errorMsg="Minimum value have to be entered">
+          </app-field-error-display>
+          <app-field-error-display
+            [displayError]="f.weightagepercent.errors!=null && f.weightagepercent.errors.max!=null && f.weightagepercent.errors!=undefined && f.weightagepercent.errors.max!=undefined  && (f.weightagepercent.touched|| isSubmitted)"
+            errorMsg="Maximum value Exceeded">
+          </app-field-error-display>
+        </div>
+        <div class="col">
+          <label for="expectedvalue" class="control-label">Expected Value</label>
+          <input id="expectedvalue" formControlName="expectedvalue" class="form-control" placeholder="Expected Value">
+          <app-field-error-display
+            [displayError]="f.expectedvalue.errors!=null && f.expectedvalue.errors.pattern!=null && f.expectedvalue.errors!=undefined && f.expectedvalue.errors.pattern!=undefined  && (f.expectedvalue.touched|| isSubmitted)"
+            errorMsg="Not a valid number">
+          </app-field-error-display>
+          <app-field-error-display
+            [displayError]="f.expectedvalue.errors!=null && f.expectedvalue.errors.min!=null && f.expectedvalue.errors!=undefined && f.expectedvalue.errors.min!=undefined  && (f.expectedvalue.touched|| isSubmitted)"
+            errorMsg="Minimum value have to be entered">
+          </app-field-error-display>
+          <app-field-error-display
+            [displayError]="f.expectedvalue.errors!=null && f.expectedvalue.errors.max!=null && f.expectedvalue.errors!=undefined && f.expectedvalue.errors.max!=undefined  && (f.expectedvalue.touched|| isSubmitted)"
+            errorMsg="Maximum value Exceeded">
+          </app-field-error-display>
+        </div>
+        <div class="sticky">Attachments</div>
+        <div class="form-group row">
+          <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+            <a (click)="sharedService.showAttachment($event,fld!.value!.value)" target="_blank">{{fld!.value!.value}} | </a>
+          </ng-container>
+          <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+            (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          <ng-container *ngFor="let fld of attachmentlist">
+            <div class="col">
+              <label class="control-label"></label>
+              <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+                mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+            </div>
+          </ng-container>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.kpiid!.value != null" [menuid]="pmenuid" [value]="f.kpiid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

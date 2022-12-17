@@ -1,0 +1,365 @@
+<ng-container *ngIf="loggedIn" [ngClass]="theme">
+        <!-- [ngClass]="{'layout-menu-active': isMenuVisible}"-->
+
+
+
+        <div class="container row full-height">
+                <div class="sidebar" >
+                        <div class="d-flex flex-column h-100" id="navigation">
+                                <!--
+                                <a href="index.html" class="mb-0 brand-icon">
+                                        <span class="logo-icon" style="margin:10px;position: relative;">
+                                                <svg width="35" height="35" fill="currentColor"
+                                                        class="bi bi-clipboard-check" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                                d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z">
+                                                        </path>
+                                                        <path
+                                                                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z">
+                                                        </path>
+                                                        <path
+                                                                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z">
+                                                        </path>
+                                                </svg>
+                                        </span>
+                                        <span class="logo-text">nTireLegal</span>
+                                </a>
+                        -->
+                                <!-- Menu: main ul -->
+                                
+                                <ul class="">
+                                        <li  data-toggle="collapse" data-target="#Master-Components">
+                                                <div class="nav-ul">Master</div>
+                                                <ul id="Master-Components">
+                                                        <li>
+                                                                        
+                                                                        <a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/aunbu','jpcth',506)">
+                                                                        <span>Courts</span></a>
+                                                        </li>
+                                                        <li class='ms-link' ><a [routerLink]="" data-toggle="collapse"
+                                                                        (click)="hide($event);sharedService.OpenURL('home/boreportviewer/q528u','q528u',506)">
+                                                                        <span>Process</span></a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+                                        <li>
+                                                <div class="nav-ul">
+                                                <a class="m-link active collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#Case-Components" aria-expanded="false">
+                                                        <i class="icofont-home fs-5"></i>
+                                                        <span>Case</span> <span
+                                                                class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                                                </div>                
+                                                <!-- Menu: Sub menu ul -->
+                                                <ul id="Case-Components">
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/jpcth','jpcth',506)">
+                                                                        <span>Case</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/b4tm2','b4tm2',506)">
+                                                                        <span>Lawyers</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/cqbkc','cqbkc',506)">
+                                                                        <span>Customers</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/boreportviewer/lglhe','cqbkc',506)">
+                                                                <span>Hearings</span></a>
+                                                </li>
+                                                </ul>
+                                        </li>
+                                        <li>
+                                                <div class="nav-ul">
+                                                <a class="m-link active collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#Task-Components" aria-expanded="false">
+                                                        <i class="icofont-home fs-5"></i>
+                                                        <span>Tasks</span> <span
+                                                                class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                                                <!-- Menu: Sub menu ul -->
+                                        </div>
+                                                <ul id="Task-Components">
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/aaoyt','casst',506)">
+                                                                        <span>Tasks</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/prdl','prdl',506)">
+                                                                        <span>Process Details</span></a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+
+
+
+                                        <li>
+                                                <div class="nav-ul">
+                                                <a class="m-link active collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#Request-Components" aria-expanded="false">
+                                                        <i class="icofont-home fs-5"></i> <span>Matter
+                                                                Management</span> <span
+                                                                class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                                                <!-- Menu: Sub menu ul -->
+                                        </div>
+                                                <ul id="Request-Components">
+                                                        <li><a class="ms-link active"
+                                                                        href="#/home/boreportviewer/ggier">
+                                                                        <span>Master</span></a></li>
+
+
+                                                        <li><a class="ms-link active" href="#/home/boreportviewer/870">
+                                                                        <span>Responses</span></a></li>
+
+                                                </ul>
+                                        </li>
+                                        <li>
+                                                <div class="nav-ul">
+                                                <a class="m-link active collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#InterDepartment-Components"
+                                                        aria-expanded="false">
+                                                        <i class="icofont-home fs-5"></i>
+                                                        <span>InterDepartment</span> <span
+                                                                class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                                                <!-- Menu: Sub menu ul -->
+                                        </div>
+                                                <ul id="InterDepartment-Components">
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/rhgov','rhgov',506)">
+                                                                        <span>Queries</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/868','q528u',506)">
+                                                                        <span>Responses</span></a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+                                        <li>
+                                                <div class="nav-ul">
+                                                <a class="m-link active collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#Invoice-Components" aria-expanded="false">
+                                                        <i class="icofont-home fs-5"></i>
+                                                        <span>Invoices</span> <span
+                                                                class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                                                <!-- Menu: Sub menu ul -->
+                                        </div>
+                                                <ul id="Invoice-Components">
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/rhc36','rhc36',506)">
+                                                                        <span>Masters</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/q528u','q528u',506)">
+                                                                        <span>Process Master</span></a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+                                        <li>
+                                                <div class="nav-ul">
+                                                <a class="m-link active collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#Master-Components" aria-expanded="false">
+                                                        <i class="icofont-home fs-5"></i>
+                                                        <span>Dashboard</span> <span
+                                                                class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                                                <!-- Menu: Sub menu ul -->
+                                        </div>
+                                                <ul id="Master-Components">
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/showdashboard/1','aunbu',506)">
+                                                                        <span>Dashboard 1</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/showdashboard/1','q528u',506)">
+                                                                        <span>Dashboard 2</span></a>
+                                                        </li>
+                                                </ul>
+                                                       
+                                        </li>
+                                        <div style='display:none'>  
+                                        <li>
+                                                <div class="nav-ul">
+                                                <a class="m-link active collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#Screen1-Components" aria-expanded="false">
+                                                        <i class="icofont-home fs-5"></i>
+                                                        <span>Screens - 1</span> <span
+                                                                class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                                                <!-- Menu: Sub menu ul -->
+                                        </div>
+                                                <ul id="Screen1-Components">
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/865','865',506)">
+                                                                        <span>Court Branch Masters</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/869','869',506)">
+                                                                        <span>Lawyer Courts</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/871','871',506)">
+                                                                        <span>Opponent Masters</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/LGTSS','LGTSS',506)">
+                                                                        <span>Recent Closed Tasks</span></a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+                                        <li>
+                                                <a class="m-link active collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#Screen2-Components" aria-expanded="false">
+                                                        <i class="icofont-home fs-5"></i>
+                                                        <span>Screens - 2</span> <span
+                                                                class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                                                <!-- Menu: Sub menu ul -->
+                                                <ul id="Screen2-Components">
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/LTS','LTS',506)">
+                                                                        <span>Legal Task Schedule</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/aaoyt','aaoyt',506)">
+                                                                        <span>Tasks</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/LGTSK','LGTSK',506)">
+                                                                        <span>Pending Tasks</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/872','872',506)">
+                                                                        <span>Task Responses</span></a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+                                        <li>
+                                                <a class="m-link active collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#Screen3-Components" aria-expanded="false">
+                                                        <i class="icofont-home fs-5"></i>
+                                                        <span>Screens - 3</span> <span
+                                                                class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                                                <!-- Menu: Sub menu ul -->
+                                                <ul id="Screen3-Components">
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/857','857',506)">
+                                                                        <span>Interim orders</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/858','858',506)">
+                                                                        <span>Knowledge base</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/859','859',506)">
+                                                                        <span>Lawyers</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/860','860',506)">
+                                                                        <span>Party Details</span></a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+                                        <li>
+                                                <a class="m-link active collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#Screen4-Components" aria-expanded="false">
+                                                        <i class="icofont-home fs-5"></i>
+                                                        <span>Screens - 4</span> <span
+                                                                class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                                                <!-- Menu: Sub menu ul -->
+                                                <ul id="Screen4-Components">
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/864','864',506)">
+                                                                        <span>Communication Details</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/867','867',506)">
+                                                                        <span>Free Notes</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/870','870',506)">
+                                                                        <span>Matter Responses</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/868','868',506)">
+                                                                        <span>Inter Department Query
+                                                                                Responses</span></a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+                                        <li>
+                                                <a class="m-link active collapsed" data-bs-toggle="collapse"
+                                                        data-bs-target="#Screen5-Components" aria-expanded="false">
+                                                        <i class="icofont-home fs-5"></i>
+                                                        <span>Screens - 5</span> <span
+                                                                class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+                                                <!-- Menu: Sub menu ul -->
+                                                <ul id="Screen5-Components">
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/prdl','prdl',506)">
+                                                                        <span>Process Details</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/861','861',506)">
+                                                                        <span>Process Detail Notes</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link active" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/856','856',506)">
+                                                                        <span>Employees Against</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/862','862',506)">
+                                                                        <span>Referred Cases</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/863','863',506)">
+                                                                        <span>Respondent Details</span></a>
+                                                        </li>
+                                                        <li><a class="ms-link" [routerLink]=""
+                                                                        (click)="sharedService.OpenURL('home/boreportviewer/866','866',506)">
+                                                                        <span>Invoice Details</span></a>
+                                                        </li>
+                                                </ul>
+                                        </li>
+                                        </div>
+                                </ul>
+
+
+                                <!-- Menu: menu collepce btn -->
+                                <button type="button" class="btn btn-link sidebar-mini-btn text-light">
+                                        <span class="ms-2"><i class="icofont-bubble-right"></i></span>
+                                </button>
+                        </div>
+                </div>
+                <div class="col">
+                        <app-header class="" (toggleMenubar)="toggleMenu()"></app-header>
+
+
+
+                        <div id="content" class="ng-content" style="margin-top:35px">
+                                <div class="ui-fluid ng-main" [ngClass]="theme">
+                                        <p-toast position="bottom-right"></p-toast>
+                                        <!--<div [class.hidden]="!showLoader" class="np-loader">
+              <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+            </div>-->
+                                        <!--overflow:auto;height:100%;-->
+                                        <!--position:absolute;width:83%;-->
+                                        <!--margin-left:16%;  height:80%;-->
+                                        <!--height:550px;-->
+                                        <div   class="main container full-height"  id="contentAreaLayout" 
+                                                onscroll="scrollFunction1('scrollBtn2','contentArea')">
+                                                <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+                                                <router-outlet (activate)="topFunction1('contentArea')">
+                                                </router-outlet><!-- style="width:100%"-->
+                                                <button onclick="topFunction1('contentArea')" id="scrollBtn1"
+                                                        title="Go to top" style="display:none">Top</button>
+                                        </div>
+                                </div>
+                        </div>
+
+
+
+                </div>
+        </div>
+
+
+        <app-footer></app-footer>
+
+</ng-container>

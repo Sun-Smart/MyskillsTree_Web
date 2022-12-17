@@ -1,0 +1,124 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="erpsupplierfinancialdataForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Financialdata' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editerpsupplierfinancialdatas()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpsupplierfinancialdatatoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpsupplierfinancialdatashowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.findataid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.findataid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+
+
+<!--supplierid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('supplierid') == -1"  class="col" ><label  for="supplierid" class="control-label" (click)="AddOrEditsupplierid(null)">Supplier</label>
+<app-popupselect  *ngIf="!showview"  [options]="supplieridList"  [optionsEvent]="supplieridoptionsEvent" [form]="erpsuppliermaster" (selectItem)="onSelectedsupplierid($event)"  [reportid]= 'qtmcq' [menuid]='qtmcq' formControlName="supplierid" id="supplierid" desc="suppliercode" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.supplierid?.value}}</label>
+  </div>
+
+
+<!--finyear-->
+
+  <div   *ngIf="hidelist.indexOf('finyear') == -1"  class="col" ><label  for="finyear" class="control-label" (click)="AddOrEditfinyear(null)">Fin Year</label>
+      <select  *ngIf="!showview"  id="finyear"  (change)="finyearonChange($event.target)" formControlName="finyear"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of finyearList" value="{{item.finyearid}}">{{item.finyearname}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.finyear?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('turnovermillions') == -1"  class="col " >
+<label  for="turnovermillions" class="control-label">Turn Over Millions</label>
+      <label *ngIf="showview"     class="labelview">{{f.turnovermillions?.value}}</label>
+      <input   *ngIf="!showview"  id="turnovermillions"  formControlName="turnovermillions" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('profitbeforetax') == -1"  class="col " >
+<label  for="profitbeforetax" class="control-label">Profit Before Tax</label>
+      <label *ngIf="showview"     class="labelview">{{f.profitbeforetax?.value}}</label>
+      <input   *ngIf="!showview"  id="profitbeforetax"  formControlName="profitbeforetax" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('growthpercentage') == -1"  class="col " >
+<label  for="growthpercentage" class="control-label">Growth Percentage</label>
+      <label *ngIf="showview"     class="labelview">{{f.growthpercentage?.value}}</label>
+      <input   *ngIf="!showview"  id="growthpercentage"  formControlName="growthpercentage" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div><div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+  </div>
+</form>

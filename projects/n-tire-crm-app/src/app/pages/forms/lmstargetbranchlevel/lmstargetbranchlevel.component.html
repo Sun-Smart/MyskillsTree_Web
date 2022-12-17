@@ -1,0 +1,38 @@
+<form [ngClass]="theme">
+  <div class="form-group row">
+  <div class="col">
+<div class="dialog">
+<p></p>
+<h1  class="form-group sticky1  columns left">{{'Target - Branch Level' | translate}}
+<select class='header'  id="lmstargetbranchlevelsPagingdropdown" (change)="lmstargetbranchlevelsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='lmstargetbranchleveltoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.lmstargetbranchlevelshowOption'>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmstargetbranchleveltoggleOption();showlmstargetbranchlevelsCheckbox()"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Show Checkbox</a>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmstargetbranchleveltoggleOption();deletelmstargetbranchlevelsAll()" ><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Delete All</a>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmstargetbranchleveltoggleOption();showlmstargetbranchlevelsInActive()" ><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Show Inactive</a>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmstargetbranchleveltoggleOption();lmstargetbranchlevelsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmstargetbranchleveltoggleOption();showlmstargetbranchlevelsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h1>
+<ng2-smart-table  #tbllmstargetbranchlevelssource (userRowSelect)="handlelmstargetbranchlevelsGridSelected($event)" [settings]="lmstargetbranchlevelssettings" (custom)="onCustomlmstargetbranchlevelsAction($event)" [source]="lmstargetbranchlevelssource"  (delete)="lmstargetbranchlevelsroute($event,'delete')"  (deleteConfirm)="lmstargetbranchlevelsroute($event,'delete')" (create)="lmstargetbranchlevelsroute($event,'create')"   (createConfirm)="lmstargetbranchlevelsbeforesave($event)"  (edit)="lmstargetbranchlevelsroute($event,'edit')"  (editConfirm)="lmstargetbranchlevelsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  </div>
+  </div>
+  <div class="form-group row">
+  <div class="col">
+    <button class="btn btn-primary" (click)="onSubmit()" ><i class="fa fa-database"></i> Submit</button>
+  </div>
+  </div>
+</form>

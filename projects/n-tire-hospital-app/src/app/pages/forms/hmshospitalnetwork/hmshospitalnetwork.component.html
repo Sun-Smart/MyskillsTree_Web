@@ -1,0 +1,192 @@
+<form [formGroup]="hmshospitalnetworkForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Hospital Networks' | translate}}</a>
+    </h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col">
+              <label for="hospitalname" class="control-label">{{'HospitalName' | translate}}</label>
+              <input id="hospitalname" formControlName="hospitalname" class="form-control"
+                placeholder="{{'HospitalName' | translate}}">
+            </div>
+            <div class="col">
+              <label for="specialization" class="control-label">{{'Specialization' | translate}}</label>
+              <input id="specialization" formControlName="specialization" class="form-control"
+                placeholder="{{'Specialization' | translate}}">
+            </div>
+            <div class="col">
+              <label for="address1" class="control-label">{{'Address1' | translate}}</label>
+              <input id="address1" formControlName="address1" class="form-control"
+                placeholder="{{'Address1' | translate}}">
+            </div>
+            <div class="col">
+              <label for="address2" class="control-label">{{'Address2' | translate}}</label>
+              <input id="address2" formControlName="address2" class="form-control"
+                placeholder="{{'Address2' | translate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="countryid" class="control-label" (click)="AddOrEditcountryid(null)">{{'Country'
+                | translate}}</label>
+              <div class="input-group">
+                <input id="countryid" placeholder="" [ngbTypeahead]="countryid_bocountriesoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedcountryid($event)"
+                  formControlName='countryid' [resultFormatter]="countryid_bocountriesformatter">
+                <input readonly id="countryiddesc" formControlName="countryiddesc" class="form-control autocompletedesc"
+                  placeholder="{{'Country' | translate}}">
+              </div>
+            </div>
+            <div class="col"><label for="stateid" class="control-label" (click)="AddOrEditstateid(null)">{{'State' |
+                translate}}</label>
+              <div class="input-group">
+                <input id="stateid" placeholder="" [ngbTypeahead]="stateid_bostatesoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedstateid($event)" formControlName='stateid'
+                  [resultFormatter]="stateid_bostatesformatter">
+                <input readonly id="stateiddesc" formControlName="stateiddesc" class="form-control autocompletedesc"
+                  placeholder="{{'State' | translate}}">
+              </div>
+            </div>
+            <div class="col"><label for="cityid" class="control-label" (click)="AddOrEditcityid(null)">{{'City' |
+                translate}}</label>
+              <div class="input-group">
+                <input id="cityid" placeholder="" [ngbTypeahead]="cityid_bocitiesoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedcityid($event)" formControlName='cityid'
+                  [resultFormatter]="cityid_bocitiesformatter">
+                <input readonly id="cityiddesc" formControlName="cityiddesc" class="form-control autocompletedesc"
+                  placeholder="{{'City' | translate}}">
+              </div>
+            </div>
+            <div class="col">
+              <label for="location" class="control-label">{{'Location' | translate}}</label>
+              <input id="location" formControlName="location" class="form-control"
+                placeholder="{{'Location' | translate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="pincode" class="control-label">{{'PinCode' | translate}}</label>
+              <input id="pincode" formControlName="pincode" class="form-control"
+                placeholder="{{'PinCode' | translate}}">
+            </div>
+            <div class="col">
+              <label for="contactno1" class="control-label">{{'ContactNo1' | translate}}</label>
+              <input id="contactno1" formControlName="contactno1" class="form-control"
+                placeholder="{{'ContactNo1' | translate}}">
+            </div>
+            <div class="col">
+              <label for="contactno2" class="control-label">{{'ContactNo2' | translate}}</label>
+              <input id="contactno2" formControlName="contactno2" class="form-control"
+                placeholder="{{'ContactNo2' | translate}}">
+            </div>
+            <div class="col">
+              <label for="email" class="control-label">{{'Email' | translate}}</label>
+              <input type="email" [email]="true" id="email" formControlName="email" class="form-control"
+                placeholder="{{'Email' | translate}}">
+              <app-field-error-display [displayError]="f.email.invalid && (f.email.touched|| isSubmitted)"
+                errorMsg="Enter valid email">
+              </app-field-error-display>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="contactperson" class="control-label">{{'ContactPerson' | translate}}</label>
+              <input id="contactperson" formControlName="contactperson" class="form-control"
+                placeholder="{{'ContactPerson' | translate}}">
+            </div>
+            <div class="col">
+              <label for="cpmobile" class="control-label">{{'Mobile' | translate}}</label>
+              <int-phone-prefix id="cpmobile" formControlName="cpmobile" [locale]="'en'" [defaultCountry]="'in'"
+                class="form-control telephone" placeholder="{{'Mobile' | translate}}">
+              </int-phone-prefix>
+            </div>
+            <div class="col">
+              <label for="cpemail" class="control-label">{{'Email' | translate}}</label>
+              <input type="email" [email]="true" id="cpemail" formControlName="cpemail" class="form-control"
+                placeholder="{{'Email' | translate}}">
+              <app-field-error-display [displayError]="f.cpemail.invalid && (f.cpemail.touched|| isSubmitted)"
+                errorMsg="Enter valid email">
+              </app-field-error-display>
+            </div>
+            <div class="col"></div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Doctor Networks</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmsdoctornetworks-->
+          <div class="row"></div>
+          <div [ngClass]="IshmsdoctornetworksVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Doctor Networks' | translate}}
+              <select class='child' id="hmsdoctornetworksPagingdropdown"
+                (change)="hmsdoctornetworksPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="hmsdoctornetworksroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmsdoctornetworksFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmsdoctornetworkssource (userRowSelect)="handlehmsdoctornetworksGridSelected($event)"
+              [settings]="hmsdoctornetworkssettings" [source]="hmsdoctornetworkssource"
+              (delete)="hmsdoctornetworksroute($event,'delete')"
+              (deleteConfirm)="hmsdoctornetworksroute($event,'delete')"
+              (create)="hmsdoctornetworksroute($event,'create')" (createConfirm)="hmsdoctornetworksbeforesave($event)"
+              (edit)="hmsdoctornetworksroute($event,'edit')" (editConfirm)="hmsdoctornetworksbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmsdoctornetworks-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.hospitalid!.value != null" [menuid]="pmenuid" [value]="f.hospitalid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

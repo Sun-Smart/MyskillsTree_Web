@@ -1,0 +1,226 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="erprfqdetailForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Details' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editerprfqdetails()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='erprfqdetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erprfqdetailshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.rfqdetailid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.rfqdetailid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+
+
+<!--rfqid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('rfqid') == -1"  class="col" ><label  for="rfqid" class="control-label" (click)="AddOrEditrfqid(null)">R F Q</label>
+<app-popupselect  *ngIf="!showview"  [options]="rfqidList"  [optionsEvent]="rfqidoptionsEvent" [form]="erprfqmaster" (selectItem)="onSelectedrfqid($event)"  [reportid]= 'i4m7c' [menuid]='i4m7c' formControlName="rfqid" id="rfqid" desc="rfqcode" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.rfqid?.value}}</label>
+  </div>
+
+
+<!--itemid-->
+
+  <div   *ngIf="hidelist.indexOf('itemid') == -1"  class="col" ><label  for="itemid" class="control-label" (click)="AddOrEdititemid(null)">Item</label>
+<app-popupselect  *ngIf="!showview"  [options]="itemidList"  [optionsEvent]="itemidoptionsEvent" [form]="erpitemmaster" (selectItem)="onSelecteditemid($event)"  [reportid]= 'cmpvs' [menuid]='cmpvs' formControlName="itemid" id="itemid" desc="itemcode" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.itemid?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('itemdescription') == -1"  class="col " >
+<label  for="itemdescription" class="control-label">Item Description</label>
+      <label *ngIf="showview"     class="labelview">{{f.itemdescription?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="itemdescription"  formControlName="itemdescription" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--itemtype-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('itemtype') == -1"  class="col" ><label  for="itemtype" class="control-label">Item Type</label>
+      <select  *ngIf="!showview"  id="itemtype"  (change)="itemtypeonChange($event.target)" formControlName="itemtype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of itemtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.itemtype?.value}}</label>
+  </div>
+
+
+<!--itemcategory-->
+
+  <div   *ngIf="hidelist.indexOf('itemcategory') == -1"  class="col" ><label  for="itemcategory" class="control-label" (click)="AddOrEdititemcategory(null)" (click)="AddOrEdititemcategory(null)">Item Category</label>
+      <select  *ngIf="!showview"  id="itemcategory"  (change)="itemcategoryonChange($event.target)" formControlName="itemcategory"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of itemcategoryList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.itemcategory?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('quantity') == -1"  class="col " >
+<label  for="quantity" class="control-label">Quantity</label>
+      <label *ngIf="showview"     class="labelview">{{f.quantity?.value}}</label>
+      <input   *ngIf="!showview"  id="quantity"  formControlName="quantity" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.quantity.errors!=null && f.quantity.errors.pattern!=null && f.quantity.errors!=undefined && f.quantity.errors.pattern!=undefined  && (f.quantity.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.quantity.errors!=null && f.quantity.errors.min!=null && f.quantity.errors!=undefined && f.quantity.errors.min!=undefined  && (f.quantity.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.quantity.errors!=null && f.quantity.errors.max!=null && f.quantity.errors!=undefined && f.quantity.errors.max!=undefined  && (f.quantity.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+
+
+<!--uom-->
+
+  <div   *ngIf="hidelist.indexOf('uom') == -1"  class="col" ><label  for="uom" class="control-label">U O M</label>
+      <select  *ngIf="!showview"  id="uom"  (change)="uomonChange($event.target)" formControlName="uom"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of uomList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.uom?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('requiredbefore') == -1"  class="col " >
+<label  for="requiredbefore" class="control-label">Required Before</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.requiredbefore?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #requiredbeforeformpicker="ngbDatepicker"      ngbDatepicker name="requiredbeforeformpicker" id="requiredbefore"  formControlName="requiredbefore"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="requiredbeforeformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+
+
+<!--supplierid-->
+
+  <div   *ngIf="hidelist.indexOf('supplierid') == -1"  class="col" ><label  for="supplierid" class="control-label" (click)="AddOrEditsupplierid(null)">Supplier</label>
+<app-popupselect  *ngIf="!showview"  [options]="supplieridList"  [optionsEvent]="supplieridoptionsEvent" [form]="erpsuppliermaster" (selectItem)="onSelectedsupplierid($event)"  [reportid]= 'qtmcq' [menuid]='qtmcq' formControlName="supplierid" id="supplierid" desc="suppliercode" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.supplierid?.value}}</label>
+  </div>
+
+
+<!--approvalstatus-->
+
+  <div   *ngIf="hidelist.indexOf('approvalstatus') == -1"  class="col" ><label  for="approvalstatus" class="control-label">Approval Status</label>
+      <select  *ngIf="!showview"  id="approvalstatus"  (change)="approvalstatusonChange($event.target)" formControlName="approvalstatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of approvalstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.approvalstatus?.value}}</label>
+  </div>
+
+
+<!--approvedby-->
+
+  <div   *ngIf="hidelist.indexOf('approvedby') == -1"  class="col" ><label  for="approvedby" class="control-label" (click)="AddOrEditapprovedby(null)">Approved By</label>
+<app-popupselect  *ngIf="!showview"  [options]="approvedbyList"  [optionsEvent]="approvedbyoptionsEvent" [form]="bousermaster" (selectItem)="onSelectedapprovedby($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="approvedby" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.approvedby?.value}}</label>
+  </div>
+</div>
+  <!-- child table erprfqsuppliers-->
+<div [ngClass]="IserprfqsuppliersVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Suppliers' | translate}}
+<select class='child'  id="erprfqsuppliersPagingdropdown" (change)="erprfqsuppliersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='erprfqsuppliertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erprfqsuppliershowOption'>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="erprfqsuppliertoggleOption();showerprfqsuppliersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblerprfqsupplierssource (userRowSelect)="handleerprfqsuppliersGridSelected($event)" [settings]="erprfqsupplierssettings" (custom)="onCustomerprfqsuppliersAction($event)" [source]="erprfqsupplierssource"  >
+</ng2-smart-table>
+</div>
+  <!--End of child table erprfqsuppliers-->
+<div class="form-group row">
+  <div class="col" >
+<app-boreportviewer  formControlName='itemid' [param]="'itemid'"  [customreportid]="'310'" [custommenuid]="'444'" ></app-boreportviewer>
+</div>
+</div>
+  </div>
+</form>

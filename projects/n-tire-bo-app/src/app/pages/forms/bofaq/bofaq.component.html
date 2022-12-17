@@ -1,0 +1,75 @@
+<form  [formGroup]="bofaqForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'FAQ' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+
+
+<!--categoryid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'categoryid'; "  for="categoryid" class="control-label" (click)="AddOrEditcategoryid(null)" (click)="AddOrEditcategoryid(null)">Category</label>
+      <select  *ngIf="!showview"  id="categoryid"  (change)="categoryidonChange($event.target)" formControlName="categoryid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of categoryidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='categoryid'"  (click)="editfield = 'categoryid';"  class="form-control labelview">{{f.categoryiddesc?.value}}</label>
+  </div>
+
+
+<!--subcategoryid-->
+
+  <div   class="col" ><label (click)="editfield = 'subcategoryid'; "  for="subcategoryid" class="control-label" (click)="AddOrEditsubcategoryid(null)">Subcategory</label>
+      <select  *ngIf="!showview"  id="subcategoryid"  (change)="subcategoryidonChange($event.target)" formControlName="subcategoryid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of subcategoryidList" value="{{item.subcategoryid}}">{{item.subcategoryname}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='subcategoryid'"  (click)="editfield = 'subcategoryid';"  class="form-control labelview">{{f.subcategoryiddesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'question'; "  for="question" class="control-label">Question</label>
+<p-editor  *ngIf="!showview || editfield=='question'"  id="question" formControlName="question"    [style]="{  height: '320' }"></p-editor>  </div>
+  </div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'answer'; "  for="answer" class="control-label">Answer</label>
+<p-editor  *ngIf="!showview || editfield=='answer'"  id="answer" formControlName="answer"    [style]="{  height: '320' }"></p-editor>  </div>
+  </div>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.faqid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.faqid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

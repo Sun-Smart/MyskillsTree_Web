@@ -1,0 +1,59 @@
+<div class="dialog">
+  <form [formGroup]="cmspagequestionForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Questions' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="question" class="control-label">{{'Question' | translate}}</label>
+          <input id="question" formControlName="question" class="form-control" placeholder="{{'Question' | translate}}">
+        </div>
+        <div class="col"><label for="answertype" class="control-label">{{'Answer Type' | translate}}</label>
+          <select id="answertype" (change)="answertypeonChange($event.target)" formControlName="answertype"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of answertypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="sticky"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        Custom Fields</div>
+      <div class="form-group row"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld.value.value}}" target="_blank">{{fld.value.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.questionid.value != null" [menuid]="pmenuid" [value]="f.questionid.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

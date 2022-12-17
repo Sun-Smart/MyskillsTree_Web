@@ -1,0 +1,146 @@
+<!--
+<div *ngIf="!loggedIn">
+  <div class="bg-img">
+    <div class="content">
+      <ngx-spinner></ngx-spinner>
+      <form [formGroup]="bologinForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')"
+        target="_top" autocomplete="off" novalidate="novalidate">
+        <div class="row">
+          <div class="col">
+            <h1><a routerlink="/" class="layout-topbar-logo ng-tns-c186-0" href="#/"><img src="assets/logo/myskilltree.png"
+                  style=" width: 300px;" /></a></h1>
+            <h1 class="font-weight-600 mb-4 center" style="color: #007bff !important;padding:10px!important;">Login</h1>
+            <div class="form-group">
+              <label for="email" style="font-weight:600!important;">Email</label>
+              <input class="form-control" [(ngModel)]="email" type="email" [email]="true" required formControlName='email' (click)="test()"
+                style="line-height: 2.5;border-radius: 0!important;" placeholder="Enter Your Email">
+                <span *ngIf="emailvalidation" style="color:rgb(146, 43, 43)">Enter email</span>
+              <app-field-error-display [displayError]="f.email.errors!=null && f.email.errors?.email"
+                errorMsg="Enter valid email"></app-field-error-display>
+            </div>
+            <div class="form-group">
+              <label for="loginPassword" style="font-weight:600!important;">Password</label>
+              <div class="input-group">
+                <input [type]="fieldTextType ? 'text' : 'password'" class="form-control" [(ngModel)]="password" required
+                  formControlName='password' style="line-height: 2.5;border-radius: 0!important" (click)="test1()"
+                  placeholder="Enter Password">
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <i class="fa"  style="font-size: 17px !important;" [ngClass]="{
+                    'fa-eye-slash': !fieldTextType,
+                    'fa-eye': fieldTextType
+                  }" (click)="toggleFieldTextType()"></i>
+                  </span>
+                </div>
+              </div>
+              <span *ngIf="passvalidation" style="color:rgb(146, 43, 43)">Enter Password</span>
+            </div>
+            <div class="row">
+              <div class="col-sm">
+                <div class="form-check custom-control custom-checkbox">
+                  <input id="remember-me" name="remember" formControlName="rememberMe" [(ngModel)]="this.remem" class="custom-control-input" type="checkbox">
+                  <label class="custom-control-label" for="remember-me">Remember Me</label>
+                </div>
+              </div>
+              <div class="col-sm text-right"><a class="btn-link" [routerLink]='' (click)="forgetPassword()">Forgot
+                  Password
+                  ?</a></div>
+            </div>
+            <input class="btn btn-primary btn-block my-4" type="submit" value="Login">
+            <button type="button" class="btn btn-labeled  btn-block my-4" style="background-color: #25A0ED;color:white"
+              (click)="UserSignin()">
+              <span class="btn-label"><i class="fa fa-user"></i></span><b>Personal</b>
+              <p>Personal account to manage your profile & skills</p>
+            </button>
+            <button type="button" class="btn btn-labeled btn-block my-4" style="background-color: #0B5B8C;color:white"
+              (click)="CompanySignin()">
+              <span class="btn-label"><i class="fa fa-building"></i></span><b>Company</b>
+              <p>Own or belong to a company, this is for you</p>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> -->
+
+<nav class="navbar fixed-top navbar-expand-md custom-navbar navbar-dark">
+  <img class="navbar-brand logo" src="assets/companylogo.png" id="logo_custom" width="10%" alt="logo">
+</nav>
+<div *ngIf="!loggedIn" class="container-fluid register">
+  <div class="row">
+    <div class="col-md-6 register-left">
+      <img src="assets/register.png" alt="MySkillTree" />
+    </div>
+    <div class="col-md-6 register-right">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <h3 class="register-heading">Let's Get Started</h3><br /><br />
+          <h4 class="custom_header">Login</h4>
+          <form [formGroup]="bologinForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')"
+            target="_top" autocomplete="off" novalidate="novalidate">
+            <div class="register-form">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <span class="common_register_font">Login with Email</span>
+                    <input type="text" name="email" [(ngModel)]="email" class="form-control input-sm"
+                      placeholder="Email ID/Mobile Number" [email]="true" required formControlName='email'
+                      (click)="test()">
+                    <span *ngIf="emailvalidation" style="color:rgb(146, 43, 43)">Enter email</span>
+                    <app-field-error-display [displayError]="f.email.errors!=null && f.email.errors?.email"
+                      errorMsg="Enter valid email"></app-field-error-display>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <span  class="common_register_font">Login with Password</span>
+                    <div class="input-group">
+                      <input [type]="fieldTextType ? 'text' : 'password'" class="form-control" [(ngModel)]="password"
+                        required formControlName='password' style="line-height: 2.5;border-radius: 0!important"
+                        (click)="test1()" placeholder="Enter Password">
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <i class="fa" style="font-size: 17px !important;" [ngClass]="{
+                                        'fa-eye-slash': !fieldTextType,
+                                        'fa-eye': fieldTextType
+                                      }" (click)="toggleFieldTextType()"></i>
+                        </span>
+                      </div>
+                    </div>
+                    <span *ngIf="passvalidation" style="color:rgb(146, 43, 43)">Enter Password</span>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="form-group forgot_label">
+                    <a href="javascript:void(0);" style="float: right;text-decoration: none;">Forgot Password</a>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <br />
+                  <button class="btn btn-info btn-block register_btn">LOGIN</button>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <br />
+                  <div class="form-group">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      &nbsp;&nbsp;Don't have an account? <a href="javascript:void(0);" class="custom_link" (click)="gotoRegister()">Signup</a>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <h5>OR</h5>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <br />
+                  <button class="btn btn-info btn-block register_btn"  (click)="gotoVerify()">LOGIN WITH
+                    OTP</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

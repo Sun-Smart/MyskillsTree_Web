@@ -1,0 +1,112 @@
+<form  [formGroup]="pmselectkpiForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Select Employees' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+
+
+<!--departmentid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'departmentid'; "  for="departmentid" class="control-label" (click)="AddOrEditdepartmentid(null)" (click)="AddOrEditdepartmentid(null)">Department</label>
+      <select  *ngIf="!showview"  id="departmentid"  (change)="departmentidonChange($event.target)" formControlName="departmentid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of departmentidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='departmentid'"  (click)="editfield = 'departmentid';"  class="form-control labelview">{{f.departmentiddesc?.value}}</label>
+  </div>
+
+
+<!--designationid-->
+
+  <div   class="col" ><label (click)="editfield = 'designationid'; "  for="designationid" class="control-label">Designation</label>
+      <select  *ngIf="!showview"  id="designationid"  (change)="designationidonChange($event.target)" formControlName="designationid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of designationidList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='designationid'"  (click)="editfield = 'designationid';"  class="form-control labelview">{{f.designationiddesc?.value}}</label>
+  </div>
+
+
+<!--employeeid-->
+
+  <div   class="col" ><label (click)="editfield = 'employeeid'; "  for="employeeid" class="control-label" (click)="AddOrEditemployeeid(null)">Employee</label>
+<app-popupselect  *ngIf="!showview"  [options]="employeeidList"  [optionsEvent]="employeeidoptionsEvent" [form]="hrmsemployee" (selectItem)="onSelectedemployeeid($event)"  [reportid]= 'zcqka' [menuid]='zcqka' formControlName="employeeid" id="employeeid" desc="employeename" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='employeeid'"  (click)="editfield = 'employeeid';"  class="form-control labelview">{{f.employeeiddesc?.value}}</label>
+  </div>
+<div class="col"></div>
+</div></p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee KPI</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table pmemployeekpis-->
+<div class="row"></div><div [ngClass]="IspmemployeekpisVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee KPI' | translate}}
+<select class='child'  id="pmemployeekpisPagingdropdown" (change)="pmemployeekpisPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="showpmemployeekpisFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblpmemployeekpissource (userRowSelect)="handlepmemployeekpisGridSelected($event)" [settings]="pmemployeekpissettings" (custom)="onCustompmemployeekpisAction($event)" [source]="pmemployeekpissource"  >
+</ng2-smart-table>
+</div>
+  <!--End of child table pmemployeekpis-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.employeekpiid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.employeekpiid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

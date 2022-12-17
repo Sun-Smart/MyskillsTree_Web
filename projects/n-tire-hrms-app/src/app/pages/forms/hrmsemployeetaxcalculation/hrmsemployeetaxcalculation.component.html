@@ -1,0 +1,144 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="hrmsemployeetaxcalculationForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Employee Tax Calculations' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="edithrmsemployeetaxcalculations()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeetaxcalculationtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeetaxcalculationshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.taxid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.taxid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('employeeid') == -1"  class="col "  >
+<label  for="employeeid" class="control-label">Employee</label>
+      <input   *ngIf="!showview"  id="employeeid"  formControlName="employeeid" class="form-control"
+        >
+  </div>
+
+
+<!--financialyear-->
+
+  <div   *ngIf="hidelist.indexOf('financialyear') == -1"  class="col" ><label  for="financialyear" class="control-label" (click)="AddOrEditfinancialyear(null)">Financial Year</label>
+      <select  *ngIf="!showview"  id="financialyear"  (change)="financialyearonChange($event.target)" formControlName="financialyear"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of financialyearList" value="{{item.finyearid}}">{{item.finyearname}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.financialyeardesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('totalincome') == -1"  class="col "  >
+<label  for="totalincome" class="control-label">Total Income</label>
+      <input   *ngIf="!showview"  id="totalincome"  formControlName="totalincome" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('lessgeneralwaivers') == -1"  class="col "  >
+<label  for="lessgeneralwaivers" class="control-label">Less General Waivers</label>
+      <input   *ngIf="!showview"  id="lessgeneralwaivers"  formControlName="lessgeneralwaivers" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('lesssectionwaivers') == -1"  class="col "  >
+<label  for="lesssectionwaivers" class="control-label">Less Section Waivers</label>
+      <input   *ngIf="!showview"  id="lesssectionwaivers"  formControlName="lesssectionwaivers" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('taxableincome') == -1"  class="col "  >
+<label  for="taxableincome" class="control-label">Taxable Income</label>
+      <input   *ngIf="!showview"  id="taxableincome"  formControlName="taxableincome" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('lesssectionwaiversontaxableincome') == -1"  class="col "  >
+<label  for="lesssectionwaiversontaxableincome" class="control-label">Less Section Waivers on Taxable Income</label>
+      <input   *ngIf="!showview"  id="lesssectionwaiversontaxableincome"  formControlName="lesssectionwaiversontaxableincome" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('nettaxamount') == -1"  class="col "  >
+<label  for="nettaxamount" class="control-label">Net Tax Amount</label>
+      <input   *ngIf="!showview"  id="nettaxamount"  formControlName="nettaxamount" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('addadditionaltaxontaxamount') == -1"  class="col "  >
+<label  for="addadditionaltaxontaxamount" class="control-label">Add Additional Tax on Tax Amount</label>
+      <input   *ngIf="!showview"  id="addadditionaltaxontaxamount"  formControlName="addadditionaltaxontaxamount" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('tax') == -1"  class="col "  >
+<label  for="tax" class="control-label">Tax</label>
+      <input   *ngIf="!showview"  id="tax"  formControlName="tax" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('addadditionaltaxontax') == -1"  class="col "  >
+<label  for="addadditionaltaxontax" class="control-label">Add Additional Tax on Tax</label>
+      <input   *ngIf="!showview"  id="addadditionaltaxontax"  formControlName="addadditionaltaxontax" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('taxpayable') == -1"  class="col "  >
+<label  for="taxpayable" class="control-label">Tax Payable</label>
+      <input   *ngIf="!showview"  id="taxpayable"  formControlName="taxpayable" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+</div>
+  </div>
+</form>

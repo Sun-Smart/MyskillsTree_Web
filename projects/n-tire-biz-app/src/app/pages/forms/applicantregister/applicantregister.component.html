@@ -1,0 +1,121 @@
+<nav class="navbar fixed-top navbar-expand-md custom-navbar navbar-dark">
+    <img class="navbar-brand logo" src="assets/companylogo.png" id="logo_custom" width="10%" alt="logo">
+</nav>
+<div class="container-fluid register">
+    <div class="row">
+        <div class="col-md-6 register-left">
+            <img src="assets/register.png" alt="MySkillTree" />
+        </div>
+        <div class="col-md-6 register-right">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">Let's Get Started</h3><br /><br />
+                    <label class="custom_header">Already have an account? <a href="javascript:void(0);"
+                            (click)="gotoLogin()">Log in</a></label>
+                    <div class="row">
+                        <div class="col-sm reduce_radio">
+                            <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
+                                value="provider"> Skill Provider
+                        </div>
+                        <div class="col-sm reduce_radio">
+                            <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
+                                value="availer" checked> Skill Availer
+                        </div>
+                        <div class="col-sm reduce_radio">
+                            <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
+                                value="enhancer"> Skill Enhancer
+                        </div>
+                    </div>
+                    <form [formGroup]="bocompanyregistration_Form" (ngSubmit)="onSubmit()">
+                        <div class="register-form">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <span for="loginPassword">Company Name</span>
+                                        <input type="text" name="companyname" formControlName="companyname" required
+                                            class="form-control input-sm" placeholder="Company Name">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <span for="loginPassword">Type</span>
+                                        <select id="companytype" (change)="companytype_onChange($event.target)"
+                                            formControlName="companytype" class="form-control">
+                                            <option [ngValue]="null" selected>-Select-</option>
+                                            <option *ngFor="let item of companytype_List" value="{{item.value}}">
+                                                {{item.label}}</option>
+                                        </select>
+                                        <label *ngIf="showview" class="labelview">{{f.companytypedesc?.value}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <span for="loginPassword">First Name</span>
+                                        <input id="firstname" formControlName="firstname"  required class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <span for="loginPassword">Last Name</span>
+                                        <input id="lastname" formControlName="lastname"  required class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <span for="designation" class="control-label">Designation</span>
+                                        <select id="designation" (change)="designation_onChange($event.target)"
+                                            formControlName="designation" class="form-control">
+                                            <option [ngValue]="null" selected>-Select-</option>
+                                            <option *ngFor="let item of designation_List" value="{{item.value}}">
+                                                {{item.label}}</option>
+                                        </select>
+                                        <label *ngIf="showview" class="labelview">{{f.designationdesc?.value}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <span for="emailid" class="control-label">Email</span>
+                                        <input type="email" [email]="true" id="emailid" formControlName="emailid" required
+                                            class="form-control">
+                                        <app-field-error-display
+                                            [displayError]="f.emailid.errors!=null && f.emailid.errors?.email"
+                                            errorMsg="Enter valid email">
+                                        </app-field-error-display>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <span for="loginPassword">Mobile</span>
+                                        <input type="number" name="mobilenumber" formControlName="mobilenumber"  required onKeyPress="if(this.value.length==10) return false;" class="form-control input-sm"
+                                            placeholder="Mobile Number">
+                                    </div>
+                                </div>
+                                <!-- <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group" style="accent-color: #ed4141;margin-bottom: 0px;">
+                                        <input type="checkbox" value="" id="flexCheckDefault" formControlName="agreement">
+                                        <label class="form-check-label" for="flexCheckDefault" style="color: #ed4141;">
+                                            &nbsp;&nbsp;I agree to the given terms & condition
+                                        </label>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm reduce_radio">
+                                <input type="radio" name="gender" value="special"> Special Category
+                            </div>
+                            <div class="col-sm reduce_radio">
+                                <input type="radio" name="gender" value="stanard"> Standard Category
+                            </div>
+                        </div><br />
+                        <div>
+                            <button class="btn btn-info btn-block register_btn"
+                                (click)="onSubmitAndWait()" [disabled]="!bocompanyregistration_Form.valid">REGISTER</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,112 @@
+<div class="dialog">
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="pmspropertyinsuranceForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="container1" >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<p-accordion  [multiple]='true'>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('unitid') == -1"  class="col " >
+<label  for="unitid" class="control-label">Unit</label>
+      <label *ngIf="showview"     class="labelview">{{f.unitid?.value}}</label>
+      <input   *ngIf="!showview"  id="unitid"  formControlName="unitid" class="form-control"
+        >
+  </div>
+
+
+<!--tenantid-->
+
+  <div   *ngIf="hidelist.indexOf('tenantid') == -1"  class="col" ><label  for="tenantid" class="control-label" (click)="AddOrEdittenantid(null)">Tenant</label>
+<app-popupselect  *ngIf="!showview"  [options]="tenantidList"  [optionsEvent]="tenantidoptionsEvent" [form]="pmstenant" (selectItem)="onSelectedtenantid($event)"  [reportid]= 'e5jd2' [menuid]='e5jd2' formControlName="tenantid" id="tenantid" desc="lastname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.tenantid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('insurancecompany') == -1"  class="col " >
+<label  for="insurancecompany" class="control-label">Insurance Company</label>
+      <label *ngIf="showview"     class="labelview">{{f.insurancecompany?.value}}</label>
+      <input   *ngIf="!showview"  id="insurancecompany"  formControlName="insurancecompany" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('policyid') == -1"  class="col " >
+<label  for="policyid" class="control-label">Policy</label>
+      <label *ngIf="showview"     class="labelview">{{f.policyid?.value}}</label>
+      <input   *ngIf="!showview"  id="policyid"  formControlName="policyid" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('referenceno') == -1"  class="col " >
+<label  for="referenceno" class="control-label">Reference No</label>
+      <label *ngIf="showview"     class="labelview">{{f.referenceno?.value}}</label>
+      <input   *ngIf="!showview"  id="referenceno"  formControlName="referenceno" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('startdate') == -1"  class="col " >
+<label  for="startdate" class="control-label">Start Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.startdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #startdateformpicker="ngbDatepicker"      ngbDatepicker name="startdateformpicker" id="startdate"  formControlName="startdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="startdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('expireddate') == -1"  class="col " >
+<label  for="expireddate" class="control-label">Expired Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.expireddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #expireddateformpicker="ngbDatepicker"      ngbDatepicker name="expireddateformpicker" id="expireddate"  formControlName="expireddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="expireddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+<div class="col"></div>
+</div>
+</p-accordion>
+<p-accordion  [multiple]='true'>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Amount Details'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('coverageamount') == -1"  class="col " >
+<label  for="coverageamount" class="control-label">Coverage Amount</label>
+      <label *ngIf="showview"     class="labelview">{{f.coverageamount?.value}}</label>
+      <input   *ngIf="!showview"  id="coverageamount"  formControlName="coverageamount" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('remarks') == -1"  class="col " >
+<label  for="remarks" class="control-label">Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.remarks?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="remarks"  formControlName="remarks" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('paymentreference') == -1"  class="col " >
+<label  for="paymentreference" class="control-label">Payment Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.paymentreference?.value}}</label>
+      <input   *ngIf="!showview"  id="paymentreference"  formControlName="paymentreference" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordionTab></p-accordion>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+  </div>
+</form>
+</div>

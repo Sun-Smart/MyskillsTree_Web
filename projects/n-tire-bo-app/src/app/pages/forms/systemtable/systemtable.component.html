@@ -1,0 +1,316 @@
+<form  [formGroup]="systemtableForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'systemtables' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'tablecode'; "  for="tablecode" class="control-label">Table Code</label>
+      <input   *ngIf="!showview || editfield=='tablecode'"  id="tablecode"  formControlName="tablecode" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'tablename'; "  for="tablename" class="control-label">Table Name</label>
+      <input   *ngIf="!showview || editfield=='tablename'"  id="tablename"  formControlName="tablename" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'insertaction'; "  for="insertaction" class="control-label">Insert Action</label>
+      <input   *ngIf="!showview || editfield=='insertaction'"  id="insertaction"  formControlName="insertaction" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'updateaction'; "  for="updateaction" class="control-label">Update Action</label>
+      <input   *ngIf="!showview || editfield=='updateaction'"  id="updateaction"  formControlName="updateaction" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'deleteaction'; "  for="deleteaction" class="control-label">Delete Action</label>
+      <input   *ngIf="!showview || editfield=='deleteaction'"  id="deleteaction"  formControlName="deleteaction" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'workflow'; "  for="workflow" class="control-label">Work Flow</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='workflow'"  id="workflow"  formControlName="workflow" class="form-control"
+        >
+  </div>
+  </div>
+
+
+<!--remindercolorcode-->
+
+  <div   class="col" ><label (click)="editfield = 'remindercolorcode'; "  for="remindercolorcode" class="control-label">Reminder Color Code</label>
+      <select  *ngIf="!showview"  id="remindercolorcode"  (change)="remindercolorcodeonChange($event.target)" formControlName="remindercolorcode"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of remindercolorcodeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='remindercolorcode'"  (click)="editfield = 'remindercolorcode';"  class="form-control labelview">{{f.remindercolorcodedesc?.value}}</label>
+  </div>
+
+
+<!--reminderpriority-->
+
+  <div   class="col" ><label (click)="editfield = 'reminderpriority'; "  for="reminderpriority" class="control-label">Reminder Priority</label>
+      <select  *ngIf="!showview"  id="reminderpriority"  (change)="reminderpriorityonChange($event.target)" formControlName="reminderpriority"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of reminderpriorityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='reminderpriority'"  (click)="editfield = 'reminderpriority';"  class="form-control labelview">{{f.reminderprioritydesc?.value}}</label>
+  </div>
+</div>
+
+
+<!--remindericon-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'remindericon'; "  for="remindericon" class="control-label">Reminder Icon</label>
+      <select  *ngIf="!showview"  id="remindericon"  (change)="remindericononChange($event.target)" formControlName="remindericon"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of remindericonList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='remindericon'"  (click)="editfield = 'remindericon';"  class="form-control labelview">{{f.remindericondesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'documentadminusers'; "  for="documentadminusers" class="control-label">Document Admin Users</label>
+      <input   *ngIf="!showview || editfield=='documentadminusers'"  id="documentadminusers"  formControlName="documentadminusers" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'documentsecurity'; "  for="documentsecurity" class="control-label">Document Security</label>
+      <input   *ngIf="!showview || editfield=='documentsecurity'"  id="documentsecurity"  formControlName="documentsecurity" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'attachmentcategory'; "  for="attachmentcategory" class="control-label">Attachment Category</label>
+      <input   *ngIf="!showview || editfield=='attachmentcategory'"  id="attachmentcategory"  formControlName="attachmentcategory" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'noattachmentdelete'; "  for="noattachmentdelete" class="control-label">No Attachment Delete</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='noattachmentdelete'"  id="noattachmentdelete"  formControlName="noattachmentdelete" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'audittrailenabled'; "  for="audittrailenabled" class="control-label">Audit Trail Enabled</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='audittrailenabled'"  id="audittrailenabled"  formControlName="audittrailenabled" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'audittrailview'; "  for="audittrailview" class="control-label">Audit Trail View</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='audittrailview'"  id="audittrailview"  formControlName="audittrailview" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'audittrailfields'; "  for="audittrailfields" class="control-label">Audit Trail Fields</label>
+      <input   *ngIf="!showview || editfield=='audittrailfields'"  id="audittrailfields"  formControlName="audittrailfields" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'versionmaintenance'; "  for="versionmaintenance" class="control-label">Version Maintenance</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='versionmaintenance'"  id="versionmaintenance"  formControlName="versionmaintenance" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'documentcontrolenabled'; "  for="documentcontrolenabled" class="control-label">Document Control Enabled</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='documentcontrolenabled'"  id="documentcontrolenabled"  formControlName="documentcontrolenabled" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'documentsharingenabled'; "  for="documentsharingenabled" class="control-label">Document Sharing Enabled</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='documentsharingenabled'"  id="documentsharingenabled"  formControlName="documentsharingenabled" class="form-control"
+        >
+  </div>
+  </div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'fieldstyles'; "  for="fieldstyles" class="control-label">Field Styles</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='fieldstyles'"  id="fieldstyles"  formControlName="fieldstyles" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'notifyusersoncreation'; "  for="notifyusersoncreation" class="control-label">Notify Users On Creation</label>
+      <input   *ngIf="!showview || editfield=='notifyusersoncreation'"  id="notifyusersoncreation"  formControlName="notifyusersoncreation" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'notifyusersonupdation'; "  for="notifyusersonupdation" class="control-label">Notify Users On Updation</label>
+      <input   *ngIf="!showview || editfield=='notifyusersonupdation'"  id="notifyusersonupdation"  formControlName="notifyusersonupdation" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'notifyusersondeletion'; "  for="notifyusersondeletion" class="control-label">Notify Users On Deletion</label>
+      <input   *ngIf="!showview || editfield=='notifyusersondeletion'"  id="notifyusersondeletion"  formControlName="notifyusersondeletion" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'notifyusersonviewing'; "  for="notifyusersonviewing" class="control-label">Notify Users On Viewing</label>
+      <input   *ngIf="!showview || editfield=='notifyusersonviewing'"  id="notifyusersonviewing"  formControlName="notifyusersonviewing" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'recordaccesscondition'; "  for="recordaccesscondition" class="control-label">Record Access Condition</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='recordaccesscondition'"  id="recordaccesscondition"  formControlName="recordaccesscondition" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'recordnoaccesscondition'; "  for="recordnoaccesscondition" class="control-label">Record No Access Condition</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='recordnoaccesscondition'"  id="recordnoaccesscondition"  formControlName="recordnoaccesscondition" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'folderview'; "  for="folderview" class="control-label">Folder View</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='folderview'"  id="folderview"  formControlName="folderview" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'metatagfields'; "  for="metatagfields" class="control-label">Meta Tag Fields</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='metatagfields'"  id="metatagfields"  formControlName="metatagfields" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'digitalsignature'; "  for="digitalsignature" class="control-label">Digital Signature</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='digitalsignature'"  id="digitalsignature"  formControlName="digitalsignature" class="form-control"
+        >
+  </div>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'viewhtml'; "  for="viewhtml" class="control-label">View Html</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='viewhtml'"  id="viewhtml"  formControlName="viewhtml" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'templatehtml'; "  for="templatehtml" class="control-label">Template Html</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='templatehtml'"  id="templatehtml"  formControlName="templatehtml" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'helptext'; "  for="helptext" class="control-label">Help Text</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='helptext'"  id="helptext"  formControlName="helptext" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Templates</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table systemtabletemplates-->
+<div class="row"></div><div [ngClass]="IssystemtabletemplatesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Templates' | translate}}
+<select class='child'  id="systemtabletemplatesPagingdropdown" (change)="systemtabletemplatesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="systemtabletemplatesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showsystemtabletemplatesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblsystemtabletemplatessource (userRowSelect)="handlesystemtabletemplatesGridSelected($event)" [settings]="systemtabletemplatessettings" (custom)="onCustomsystemtabletemplatesAction($event)" [source]="systemtabletemplatessource"  (delete)="systemtabletemplatesroute($event,'delete')"  (deleteConfirm)="systemtabletemplatesroute($event,'delete')" (create)="systemtabletemplatesroute($event,'create')"   (createConfirm)="systemtabletemplatesbeforesave($event)"  (edit)="systemtabletemplatesroute($event,'edit')"  (editConfirm)="systemtabletemplatesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table systemtabletemplates-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.tableid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.tableid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

@@ -1,0 +1,5 @@
+.layout-topbar
+{
+  background-color: var(--backcolor)!important;
+  color: var(--frontcolor)!important;
+}

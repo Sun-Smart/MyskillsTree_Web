@@ -1,0 +1,240 @@
+<div class="dialog">
+  <form [formGroup]="hmspatientvisitForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Patient Visits' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="referredbydoctor" class="control-label">{{'ReferredByDoctor' | translate}}</label>
+          <input id="referredbydoctor" formControlName="referredbydoctor" class="form-control"
+            placeholder="{{'ReferredByDoctor' | translate}}">
+        </div>
+        <div class="col">
+          <label for="lastvisited" class="control-label">{{'LastVisited' | translate}}</label>
+          <div class="input-group">
+            <input #lastvisitedformpicker="ngbDatepicker" ngbDatepicker name="lastvisitedformpicker" id="lastvisited"
+              formControlName="lastvisited" class="form-control" placeholder="Choose {{'LastVisited' | translate}}">
+            <button class="input-group-addon" (click)="lastvisitedformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col"><label for="previousdoctorid" class="control-label"
+            (click)="AddOrEditpreviousdoctorid(null)">{{'Previous Doctor' | translate}}</label>
+          <select id="previousdoctorid" (change)="previousdoctoridonChange($event.target)"
+            formControlName="previousdoctorid" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of previousdoctoridList" value="{{item.doctorid}}">{{item.doctorname}}</option>
+          </select>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="lastvisitcomplaint" class="control-label">{{'LastVisitComplaint' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="lastvisitcomplaint"
+            formControlName="lastvisitcomplaint" class="form-control"
+            placeholder="{{'LastVisitComplaint' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="complaint" class="control-label">{{'Complaint' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="complaint" formControlName="complaint"
+            class="form-control" placeholder="{{'Complaint' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="symptoms" class="control-label">{{'Symptoms' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="symptoms" formControlName="symptoms"
+            class="form-control" placeholder="{{'Symptoms' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="examinationnotes" class="control-label">{{'ExaminationNotes' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="examinationnotes"
+            formControlName="examinationnotes" class="form-control" placeholder="{{'ExaminationNotes' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="medicalhistory" class="control-label">{{'MedicalHistory' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="medicalhistory"
+            formControlName="medicalhistory" class="form-control" placeholder="{{'MedicalHistory' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="treatmentadvised" class="control-label">{{'TreatmentAdvised' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="treatmentadvised"
+            formControlName="treatmentadvised" class="form-control" placeholder="{{'TreatmentAdvised' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="testadvised" class="control-label">{{'TestAdvised' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="testadvised" formControlName="testadvised"
+            class="form-control" placeholder="{{'TestAdvised' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="testresult" class="control-label">{{'TestResult' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="testresult" formControlName="testresult"
+            class="form-control" placeholder="{{'TestResult' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="diagnosis" class="control-label">{{'Diagnosis' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="diagnosis" formControlName="diagnosis"
+            class="form-control" placeholder="{{'Diagnosis' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="pressure" class="control-label">{{'Pressure' | translate}}</label>
+          <input id="pressure" formControlName="pressure" class="form-control" placeholder="{{'Pressure' | translate}}">
+        </div>
+        <div class="col">
+          <label for="pressureremarks" class="control-label">{{'PressureRemarks' | translate}}</label>
+          <input id="pressureremarks" formControlName="pressureremarks" class="form-control"
+            placeholder="{{'PressureRemarks' | translate}}">
+        </div>
+        <div class="col">
+          <label for="pulse" class="control-label">{{'Pulse' | translate}}</label>
+          <input id="pulse" formControlName="pulse" class="form-control" placeholder="{{'Pulse' | translate}}">
+        </div>
+        <div class="col">
+          <label for="pulseremarks" class="control-label">{{'PulseRemarks' | translate}}</label>
+          <input id="pulseremarks" formControlName="pulseremarks" class="form-control"
+            placeholder="{{'PulseRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="temperature" class="control-label">{{'Temperature' | translate}}</label>
+          <input id="temperature" formControlName="temperature" class="form-control"
+            placeholder="{{'Temperature' | translate}}">
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="temperatureremarks" class="control-label">{{'TemperatureRemarks' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="temperatureremarks"
+            formControlName="temperatureremarks" class="form-control"
+            placeholder="{{'TemperatureRemarks' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="weight" class="control-label">{{'Weight' | translate}}</label>
+          <input id="weight" formControlName="weight" class="form-control" placeholder="{{'Weight' | translate}}">
+        </div>
+        <div class="col">
+          <label for="height" class="control-label">{{'Height' | translate}}</label>
+          <input id="height" formControlName="height" class="form-control" placeholder="{{'Height' | translate}}">
+        </div>
+        <div class="col">
+          <label for="doctorid" class="control-label">{{'DoctorId' | translate}}</label>
+          <input id="doctorid" formControlName="doctorid" class="form-control" placeholder="{{'DoctorId' | translate}}">
+        </div>
+        <div class="col">
+          <label for="complaintcause" class="control-label">{{'ComplaintCause' | translate}}</label>
+          <input id="complaintcause" formControlName="complaintcause" class="form-control"
+            placeholder="{{'ComplaintCause' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="treatment" class="control-label">{{'Treatment' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="treatment" formControlName="treatment"
+            class="form-control" placeholder="{{'Treatment' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="instructions" class="control-label">{{'Instructions' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="instructions" formControlName="instructions"
+            class="form-control" placeholder="{{'Instructions' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="followupdays" class="control-label">{{'FollowupDays' | translate}}</label>
+          <input id="followupdays" formControlName="followupdays" class="form-control"
+            placeholder="{{'FollowupDays' | translate}}">
+        </div>
+        <div class="col"><label for="followupunit" class="control-label">{{'Followup Unit' | translate}}</label>
+          <select id="followupunit" (change)="followupunitonChange($event.target)" formControlName="followupunit"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of followupunitList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remarks" formControlName="remarks"
+            class="form-control" placeholder="{{'Remarks' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="sticky"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        Custom Fields</div>
+      <div class="form-group row"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}" target="_blank">{{fld!.value!.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.visitid!.value != null" [menuid]="pmenuid" [value]="f.visitid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

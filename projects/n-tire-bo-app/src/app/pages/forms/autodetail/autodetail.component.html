@@ -1,0 +1,370 @@
+<form  [formGroup]="autodetailForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'autodetails' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'masterid'; "  for="masterid" class="control-label">Master</label>
+      <input   *ngIf="!showview || editfield=='masterid'"  id="masterid"  formControlName="masterid" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'columnname'; "  for="columnname" class="control-label">Column Name</label>
+      <input   *ngIf="!showview || editfield=='columnname'"  id="columnname"  formControlName="columnname" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'title'; "  for="title" class="control-label">Title</label>
+      <input   *ngIf="!showview || editfield=='title'"  id="title"  formControlName="title" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'placeholder'; "  for="placeholder" class="control-label">Place Holder</label>
+      <input   *ngIf="!showview || editfield=='placeholder'"  id="placeholder"  formControlName="placeholder" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'fk_fd'; "  for="fk_fd" class="control-label">F K_ F D</label>
+      <input   *ngIf="!showview || editfield=='fk_fd'"  id="fk_fd"  formControlName="fk_fd" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'list'; "  for="list" class="control-label">List</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='list'"  id="list"  formControlName="list" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'pk'; "  for="pk" class="control-label">P K</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='pk'"  id="pk"  formControlName="pk" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'defaults'; "  for="defaults" class="control-label">D E F A U L T S</label>
+      <input   *ngIf="!showview || editfield=='defaults'"  id="defaults"  formControlName="defaults" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'uniques'; "  for="uniques" class="control-label">U N I Q U E S</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='uniques'"  id="uniques"  formControlName="uniques" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'required'; "  for="required" class="control-label">R E Q U I R E D</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='required'"  id="required"  formControlName="required" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'readmode'; "  for="readmode" class="control-label">Read Mode</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='readmode'"  id="readmode"  formControlName="readmode" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'hide'; "  for="hide" class="control-label">Hide</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='hide'"  id="hide"  formControlName="hide" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+
+
+<!--datatype-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'datatype'; "  for="datatype" class="control-label">Data Type</label>
+      <select  *ngIf="!showview"  id="datatype"  (change)="datatypeonChange($event.target)" formControlName="datatype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of datatypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='datatype'"  (click)="editfield = 'datatype';"  class="form-control labelview">{{f.datatypedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'multilist'; "  for="multilist" class="control-label">Multilist</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='multilist'"  id="multilist"  formControlName="multilist" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'othercolsinfunctions'; "  for="othercolsinfunctions" class="control-label">Other Cols In Functions</label>
+      <input   *ngIf="!showview || editfield=='othercolsinfunctions'"  id="othercolsinfunctions"  formControlName="othercolsinfunctions" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'visible'; "  for="visible" class="control-label">Visible</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='visible'"  id="visible"  formControlName="visible" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'functions'; "  for="functions" class="control-label">F U N C T I O N S</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='functions'"  id="functions"  formControlName="functions" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'copyfrommaster'; "  for="copyfrommaster" class="control-label">Copy From Master</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='copyfrommaster'"  id="copyfrommaster"  formControlName="copyfrommaster" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'negative'; "  for="negative" class="control-label">Negative</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='negative'"  id="negative"  formControlName="negative" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'decimalplaces'; "  for="decimalplaces" class="control-label">Decimal Places</label>
+      <input   *ngIf="!showview || editfield=='decimalplaces'"  id="decimalplaces"  formControlName="decimalplaces" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'hyperlinktable'; "  for="hyperlinktable" class="control-label">Hyperlink Table</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='hyperlinktable'"  id="hyperlinktable"  formControlName="hyperlinktable" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'dateparameter'; "  for="dateparameter" class="control-label">Date Parameter</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='dateparameter'"  id="dateparameter"  formControlName="dateparameter" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'labeldropdown'; "  for="labeldropdown" class="control-label">Label Drop Down</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='labeldropdown'"  id="labeldropdown"  formControlName="labeldropdown" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'duplicatecheck'; "  for="duplicatecheck" class="control-label">Duplicate Check</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='duplicatecheck'"  id="duplicatecheck"  formControlName="duplicatecheck" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'serialkey'; "  for="serialkey" class="control-label">Serial Key</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='serialkey'"  id="serialkey"  formControlName="serialkey" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'customformfield'; "  for="customformfield" class="control-label">Custom Form Field</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='customformfield'"  id="customformfield"  formControlName="customformfield" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'fk_fd_record'; "  for="fk_fd_record" class="control-label">F K_ F D_ Record</label>
+      <input   *ngIf="!showview || editfield=='fk_fd_record'"  id="fk_fd_record"  formControlName="fk_fd_record" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'fk_fd_alias'; "  for="fk_fd_alias" class="control-label">F K_ F D_ Alias</label>
+      <input   *ngIf="!showview || editfield=='fk_fd_alias'"  id="fk_fd_alias"  formControlName="fk_fd_alias" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'fk_fd_key'; "  for="fk_fd_key" class="control-label">F K_ F D_ Key</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='fk_fd_key'"  id="fk_fd_key"  formControlName="fk_fd_key" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'fk_fd_description'; "  for="fk_fd_description" class="control-label">F K_ F D_ Description</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='fk_fd_description'"  id="fk_fd_description"  formControlName="fk_fd_description" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'fk_fd_condition'; "  for="fk_fd_condition" class="control-label">F K_ F D_ Condition</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='fk_fd_condition'"  id="fk_fd_condition"  formControlName="fk_fd_condition" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'fk_fd_option'; "  for="fk_fd_option" class="control-label">F K_ F D_ Option</label>
+      <input   *ngIf="!showview || editfield=='fk_fd_option'"  id="fk_fd_option"  formControlName="fk_fd_option" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'fk_fd_mappings'; "  for="fk_fd_mappings" class="control-label">F K_ F D_ Mappings</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='fk_fd_mappings'"  id="fk_fd_mappings"  formControlName="fk_fd_mappings" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'dependantsourcecolumn'; "  for="dependantsourcecolumn" class="control-label">Dependant Source Column</label>
+      <input   *ngIf="!showview || editfield=='dependantsourcecolumn'"  id="dependantsourcecolumn"  formControlName="dependantsourcecolumn" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'dependantdestinationcolumn'; "  for="dependantdestinationcolumn" class="control-label">Dependant Destination Column</label>
+      <input   *ngIf="!showview || editfield=='dependantdestinationcolumn'"  id="dependantdestinationcolumn"  formControlName="dependantdestinationcolumn" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'fillroute'; "  for="fillroute" class="control-label">Fill Route</label>
+      <input   *ngIf="!showview || editfield=='fillroute'"  id="fillroute"  formControlName="fillroute" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'fillfunction'; "  for="fillfunction" class="control-label">Fill Function</label>
+      <input   *ngIf="!showview || editfield=='fillfunction'"  id="fillfunction"  formControlName="fillfunction" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'afterselectfunction'; "  for="afterselectfunction" class="control-label">After Select Function</label>
+      <input   *ngIf="!showview || editfield=='afterselectfunction'"  id="afterselectfunction"  formControlName="afterselectfunction" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'derived_outputtype'; "  for="derived_outputtype" class="control-label">Derived_ Output Type</label>
+      <input   *ngIf="!showview || editfield=='derived_outputtype'"  id="derived_outputtype"  formControlName="derived_outputtype" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'derived_expression'; "  for="derived_expression" class="control-label">Derived_ Expression</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='derived_expression'"  id="derived_expression"  formControlName="derived_expression" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'derived_dependantcolumns'; "  for="derived_dependantcolumns" class="control-label">Derived_ Dependant Columns</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='derived_dependantcolumns'"  id="derived_dependantcolumns"  formControlName="derived_dependantcolumns" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'derived_columntoexecute'; "  for="derived_columntoexecute" class="control-label">Derived_ Column To Execute</label>
+      <input   *ngIf="!showview || editfield=='derived_columntoexecute'"  id="derived_columntoexecute"  formControlName="derived_columntoexecute" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'derived_expressiontoexecute'; "  for="derived_expressiontoexecute" class="control-label">Derived_ Expression To Execute</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='derived_expressiontoexecute'"  id="derived_expressiontoexecute"  formControlName="derived_expressiontoexecute" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'derived_functiontocall'; "  for="derived_functiontocall" class="control-label">Derived_ Function To Call</label>
+      <input   *ngIf="!showview || editfield=='derived_functiontocall'"  id="derived_functiontocall"  formControlName="derived_functiontocall" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'parameter'; "  for="parameter" class="control-label">Parameter</label>
+      <input   *ngIf="!showview || editfield=='parameter'"  id="parameter"  formControlName="parameter" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'parentchild'; "  for="parentchild" class="control-label">Parent Child</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='parentchild'"  id="parentchild"  formControlName="parentchild" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'reportid'; "  for="reportid" class="control-label">Report</label>
+      <input   *ngIf="!showview || editfield=='reportid'"  id="reportid"  formControlName="reportid" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.detailid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.detailid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

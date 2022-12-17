@@ -1,0 +1,79 @@
+<form [formGroup]="hrmsemployeememoForm" class="frm" (ngSubmit)="onSubmit()"
+  [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row">
+    <h1 class="col columns  left"><a class="h1" href='#/home/{{pcurrenturl}}'>H R M S Employee Memos</a></h1>
+    <div class="col  sticky1 right" role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <pre><br/></pre>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col"><label for="employeeid" class="control-label"
+          (click)="AddOrEditemployeeid(null)">Employee</label>
+        <div class="input-group">
+          <input id="employeeid" placeholder="" [ngbTypeahead]="employeeid_hrmsemployeesoptions"
+            class="form-control autocomplete" (selectItem)="onSelectedemployeeid($event)" formControlName='employeeid'
+            [resultFormatter]="employeeid_hrmsemployeesformatter">
+          <input readonly id="employeeiddesc" formControlName="employeeiddesc" class="form-control autocompletedesc"
+            placeholder="employeeid">
+        </div>
+      </div>
+      <div class="col">
+        <label for="memodate" class="control-label">Memo Date</label>
+        <div class="input-group">
+          <input #memodateformpicker="ngbDatepicker" ngbDatepicker name="memodateformpicker" id="memodate"
+            formControlName="memodate" class="form-control" placeholder="Choose memodate">
+          <button class="input-group-addon" (click)="memodateformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="col"><label for="memocategory" class="control-label">Memo Category</label>
+        <select id="memocategory" formControlName="memocategory" class="form-control" placeholder="memocategory">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of memocategoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="template" class="control-label">Template</label>
+        <input id="template" formControlName="template" class="form-control" placeholder="template">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="memodetails" class="control-label">Memo Details</label>
+        <p-editor id="memodetails" formControlName="memodetails" placeholder="memodetails" [style]="{  height: '320' }">
+        </p-editor>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="status" class="control-label">Status</label>
+        <input type="hidden" id="status" formControlName="status" class="form-control" placeholder="status">
+        <input readonly id="statusdesc" formControlName="statusdesc" class="form-control" placeholder="status">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+          class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

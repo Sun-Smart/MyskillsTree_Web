@@ -1,0 +1,118 @@
+<form [formGroup]="hmsdoctorForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Doctors' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col">
+        <label for="doctorname" class="control-label">{{'DoctorName' | translate}}</label>
+        <input id="doctorname" formControlName="doctorname" class="form-control"
+          placeholder="{{'DoctorName' | translate}}">
+      </div>
+      <div class="col">
+        <label for="imageurl" class="control-label">{{'Image' | translate}}</label>
+        <p-fileUpload #imageurluploader class="form-control" type="file" name="imageurl[]" mode="basic" url="{{URL}}"
+          (onSelect)="imageurlFileSelected($event)"></p-fileUpload>
+        <img src="http://localhost:5001/MyResources/{{ this.hmsdoctorForm.get('imageurl')!.value}}" />
+      </div>
+      <div class="col">
+        <div class="columnchk">
+          <label for="oncall" class="control-label">{{'OnCall' | translate}}</label>
+          <input type="checkbox" id="oncall" formControlName="oncall" class="form-control"
+            placeholder="{{'OnCall' | translate}}">
+        </div>
+      </div>
+      <div class="col"><label for="designation" class="control-label" (click)="AddOrEditdesignation(null)"
+          (click)="AddOrEditdesignation(null)">{{'Designation' | translate}}</label>
+        <select id="designation" (change)="designationonChange($event.target)" formControlName="designation"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of designationList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col"><label for="specialization" class="control-label" (click)="AddOrEditspecialization(null)"
+          (click)="AddOrEditspecialization(null)">{{'Specialization' | translate}}</label>
+        <select id="specialization" (change)="specializationonChange($event.target)" formControlName="specialization"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of specializationList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+          </option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="contactno" class="control-label">{{'Contact No' | translate}}</label>
+        <int-phone-prefix id="contactno" formControlName="contactno" [locale]="'en'" [defaultCountry]="'in'"
+          class="form-control telephone" placeholder="{{'Contact No' | translate}}">
+        </int-phone-prefix>
+      </div>
+      <div class="col">
+        <label for="contactnoh" class="control-label">{{'Contact No(H)' | translate}}</label>
+        <int-phone-prefix id="contactnoh" formControlName="contactnoh" [locale]="'en'" [defaultCountry]="'in'"
+          class="form-control telephone" placeholder="{{'Contact No(H)' | translate}}">
+        </int-phone-prefix>
+      </div>
+      <div class="col">
+        <label for="email" class="control-label">{{'Email' | translate}}</label>
+        <input type="email" [email]="true" id="email" formControlName="email" class="form-control"
+          placeholder="{{'Email' | translate}}">
+        <app-field-error-display [displayError]="f.email.invalid && (f.email.touched|| isSubmitted)"
+          errorMsg="Enter valid email">
+        </app-field-error-display>
+      </div>
+    </div>
+    <div class="sticky"
+      *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+      Custom Fields</div>
+    <div class="form-group row"
+      *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+      <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+    </div>
+    <div class="sticky">Attachments</div>
+    <div class="form-group row">
+      <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+        <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}" target="_blank">{{fld!.value!.value}} |
+        </a>
+      </ng-container>
+      <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+        (onSelect)="attachmentuploader($event)"></p-fileUpload>
+      <ng-container *ngFor="let fld of attachmentlist">
+        <div class="col">
+          <label class="control-label"></label>
+          <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}" mode="basic"
+            (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        </div>
+      </ng-container>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.doctorid!.value != null" [menuid]="pmenuid" [value]="f.doctorid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

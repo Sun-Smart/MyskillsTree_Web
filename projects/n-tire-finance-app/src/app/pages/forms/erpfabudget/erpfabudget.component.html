@@ -1,0 +1,214 @@
+<form  [formGroup]="erpfabudgetForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Account Budgets' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'budgetname'; "  for="budgetname" class="control-label">Budget Name</label>
+      <input   *ngIf="!showview || editfield=='budgetname'"  id="budgetname"  formControlName="budgetname" class="form-control"
+        placeholder="{{'Budget Name' | translate}}">
+  </div>
+
+
+<!--finyearid-->
+
+  <div   class="col" ><label (click)="editfield = 'finyearid'; "  for="finyearid" class="control-label" (click)="AddOrEditfinyearid(null)">Financial Year</label>
+      <select  *ngIf="!showview"  id="finyearid"  (change)="finyearidonChange($event.target)" formControlName="finyearid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of finyearidList" value="{{item.finyearid}}">{{item.finyearname}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='finyearid'"  (click)="editfield = 'finyearid';"  class="form-control labelview">{{f.finyeariddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'currency'; "  for="currency" class="control-label">Currency</label>
+      <input   *ngIf="!showview || editfield=='currency'"  id="currency"  formControlName="currency" class="form-control"
+        placeholder="{{'Currency' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'budgetstartdate'; "  for="budgetstartdate" class="control-label">Budget Start Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='budgetstartdate'">
+<input #budgetstartdateformpicker="ngbDatepicker"      ngbDatepicker name="budgetstartdateformpicker" id="budgetstartdate"  formControlName="budgetstartdate"  class="form-control"   placeholder="Choose Budget Start Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='budgetstartdate'"  (click)="budgetstartdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='budgetstartdate'"  (click)="editfield = 'budgetstartdate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.budgetstartdate?.value)}}</label>
+  </div>
+</div>
+
+
+<!--periodrange-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'periodrange'; "  for="periodrange" class="control-label">Range</label>
+      <select  *ngIf="!showview"  id="periodrange"  (change)="periodrangeonChange($event.target)" formControlName="periodrange"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of periodrangeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='periodrange'"  (click)="editfield = 'periodrange';"  class="form-control labelview">{{f.periodrangedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'accountid'; "  for="accountid" class="control-label">Account</label>
+      <input   *ngIf="!showview || editfield=='accountid'"  id="accountid"  formControlName="accountid" class="form-control"
+        placeholder="{{'Account' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'controltype'; "  for="controltype" class="control-label">Control Type</label>
+      <input   *ngIf="!showview || editfield=='controltype'"  id="controltype"  formControlName="controltype" class="form-control"
+        placeholder="{{'Control Type' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'yearlybudgetamount'; "  for="yearlybudgetamount" class="control-label">Yearly Budget Amount</label>
+      <input   *ngIf="!showview || editfield=='yearlybudgetamount'"  id="yearlybudgetamount"  formControlName="yearlybudgetamount" class="form-control"
+        placeholder="{{'Yearly Budget Amount' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'halfyearlybudgetamount1'; "  for="halfyearlybudgetamount1" class="control-label">Half Yearly Budget Amount1</label>
+      <input   *ngIf="!showview || editfield=='halfyearlybudgetamount1'"  id="halfyearlybudgetamount1"  formControlName="halfyearlybudgetamount1" class="form-control"
+        placeholder="{{'Half Yearly Budget Amount1' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'halfyearlybudgetamount2'; "  for="halfyearlybudgetamount2" class="control-label">Half Yearly Budget Amount2</label>
+      <input   *ngIf="!showview || editfield=='halfyearlybudgetamount2'"  id="halfyearlybudgetamount2"  formControlName="halfyearlybudgetamount2" class="form-control"
+        placeholder="{{'Half Yearly Budget Amount2' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'quaterlyyearlybudgetamount1'; "  for="quaterlyyearlybudgetamount1" class="control-label">Quaterly Yearly Budget Amount1</label>
+      <input   *ngIf="!showview || editfield=='quaterlyyearlybudgetamount1'"  id="quaterlyyearlybudgetamount1"  formControlName="quaterlyyearlybudgetamount1" class="form-control"
+        placeholder="{{'Quaterly Yearly Budget Amount1' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'quaterlyyearlybudgetamount2'; "  for="quaterlyyearlybudgetamount2" class="control-label">Quaterly Yearly Budget Amount2</label>
+      <input   *ngIf="!showview || editfield=='quaterlyyearlybudgetamount2'"  id="quaterlyyearlybudgetamount2"  formControlName="quaterlyyearlybudgetamount2" class="form-control"
+        placeholder="{{'Quaterly Yearly Budget Amount2' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'quaterlyyearlybudgetamount3'; "  for="quaterlyyearlybudgetamount3" class="control-label">Quaterly Yearly Budget Amount3</label>
+      <input   *ngIf="!showview || editfield=='quaterlyyearlybudgetamount3'"  id="quaterlyyearlybudgetamount3"  formControlName="quaterlyyearlybudgetamount3" class="form-control"
+        placeholder="{{'Quaterly Yearly Budget Amount3' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'quaterlyyearlybudgetamount4'; "  for="quaterlyyearlybudgetamount4" class="control-label">Quaterly Yearly Budget Amount4</label>
+      <input   *ngIf="!showview || editfield=='quaterlyyearlybudgetamount4'"  id="quaterlyyearlybudgetamount4"  formControlName="quaterlyyearlybudgetamount4" class="form-control"
+        placeholder="{{'Quaterly Yearly Budget Amount4' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount1'; "  for="monthlyyearlybudgetamount1" class="control-label">Monthly Yearly Budget Amount1</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount1'"  id="monthlyyearlybudgetamount1"  formControlName="monthlyyearlybudgetamount1" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount1' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount2'; "  for="monthlyyearlybudgetamount2" class="control-label">Monthly Yearly Budget Amount2</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount2'"  id="monthlyyearlybudgetamount2"  formControlName="monthlyyearlybudgetamount2" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount2' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount3'; "  for="monthlyyearlybudgetamount3" class="control-label">Monthly Yearly Budget Amount3</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount3'"  id="monthlyyearlybudgetamount3"  formControlName="monthlyyearlybudgetamount3" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount3' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount4'; "  for="monthlyyearlybudgetamount4" class="control-label">Monthly Yearly Budget Amount4</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount4'"  id="monthlyyearlybudgetamount4"  formControlName="monthlyyearlybudgetamount4" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount4' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount5'; "  for="monthlyyearlybudgetamount5" class="control-label">Monthly Yearly Budget Amount5</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount5'"  id="monthlyyearlybudgetamount5"  formControlName="monthlyyearlybudgetamount5" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount5' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount6'; "  for="monthlyyearlybudgetamount6" class="control-label">Monthly Yearly Budget Amount6</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount6'"  id="monthlyyearlybudgetamount6"  formControlName="monthlyyearlybudgetamount6" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount6' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount7'; "  for="monthlyyearlybudgetamount7" class="control-label">Monthly Yearly Budget Amount7</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount7'"  id="monthlyyearlybudgetamount7"  formControlName="monthlyyearlybudgetamount7" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount7' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount8'; "  for="monthlyyearlybudgetamount8" class="control-label">Monthly Yearly Budget Amount8</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount8'"  id="monthlyyearlybudgetamount8"  formControlName="monthlyyearlybudgetamount8" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount8' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount9'; "  for="monthlyyearlybudgetamount9" class="control-label">Monthly Yearly Budget Amount9</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount9'"  id="monthlyyearlybudgetamount9"  formControlName="monthlyyearlybudgetamount9" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount9' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount10'; "  for="monthlyyearlybudgetamount10" class="control-label">Monthly Yearly Budget Amount10</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount10'"  id="monthlyyearlybudgetamount10"  formControlName="monthlyyearlybudgetamount10" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount10' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount11'; "  for="monthlyyearlybudgetamount11" class="control-label">Monthly Yearly Budget Amount11</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount11'"  id="monthlyyearlybudgetamount11"  formControlName="monthlyyearlybudgetamount11" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount11' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'monthlyyearlybudgetamount12'; "  for="monthlyyearlybudgetamount12" class="control-label">Monthly Yearly Budget Amount12</label>
+      <input   *ngIf="!showview || editfield=='monthlyyearlybudgetamount12'"  id="monthlyyearlybudgetamount12"  formControlName="monthlyyearlybudgetamount12" class="form-control"
+        placeholder="{{'Monthly Yearly Budget Amount12' | translate}}">
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div><p-accordion  [multiple]='true'>
+<div *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</div>
+<div *ngIf="attachmentvisible">
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</div>
+</p-accordion>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.budgetid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.budgetid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

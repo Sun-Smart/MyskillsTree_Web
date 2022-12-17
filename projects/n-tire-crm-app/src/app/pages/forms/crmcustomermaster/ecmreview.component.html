@@ -1,0 +1,64 @@
+<div class="dialog">
+<form  [formGroup]="ecmreviewForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="container1"   *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<p-accordion  [multiple]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'productid'; "  for="productid" class="control-label">Product</label>
+      <input   *ngIf="!showview || editfield=='productid'"  id="productid"  formControlName="productid" class="form-control"
+        placeholder="{{'Product' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'reviewdate'; "  for="reviewdate" class="control-label">Review Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='reviewdate'">
+<input #reviewdateformpicker="ngbDatepicker"      ngbDatepicker name="reviewdateformpicker" id="reviewdate"  formControlName="reviewdate"  class="form-control"   placeholder="Choose Review Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='reviewdate'"  (click)="reviewdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='reviewdate'"  (click)="editfield = 'reviewdate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.reviewdate?.value)}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'reviewtext'; "  for="reviewtext" class="control-label">Review Text</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='reviewtext'"  id="reviewtext"  formControlName="reviewtext" class="form-control"
+        placeholder="{{'Review Text' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'rating'; "  for="rating" class="control-label">Rating</label>
+      <input   *ngIf="!showview || editfield=='rating'"  id="rating"  formControlName="rating" class="form-control"
+        placeholder="{{'Rating' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'reviewstatus'; "  for="reviewstatus" class="control-label">Review Status</label>
+      <input   *ngIf="!showview || editfield=='reviewstatus'"  id="reviewstatus"  formControlName="reviewstatus" class="form-control"
+        placeholder="{{'Review Status' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'reads'; "  for="reads" class="control-label">Reads</label>
+      <input   *ngIf="!showview || editfield=='reads'"  id="reads"  formControlName="reads" class="form-control"
+        placeholder="{{'Reads' | translate}}">
+  </div>
+<div class="col"></div>
+</div></p-accordion>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-info" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-info" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.reviewid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.reviewid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>
+</div>

@@ -1,0 +1,322 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="recrecordmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Record Master' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editrecrecordmasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='recrecordmastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.recrecordmastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.recordid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.recordid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link active"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"  ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"    id="contentArea1" >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('recorddate') == -1"  class="col " >
+<label  for="recorddate" class="control-label">Record Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.recorddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #recorddateformpicker="ngbDatepicker"      ngbDatepicker name="recorddateformpicker" id="recorddate"  formControlName="recorddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="recorddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+
+
+<!--type-->
+
+  <div   *ngIf="hidelist.indexOf('type') == -1"  class="col" ><label  for="type" class="control-label">Type</label>
+      <select  *ngIf="!showview"  id="type"  (change)="typeonChange($event.target)" formControlName="type"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of typeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.type?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('referencenumber') == -1"  class="col " >
+<label  for="referencenumber" class="control-label">Reference Number</label>
+      <label *ngIf="showview"     class="labelview">{{f.referencenumber?.value}}</label>
+      <input   *ngIf="!showview"  id="referencenumber"  readonly formControlName="referencenumber" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('description') == -1"  class="col " >
+<label  for="description" class="control-label">Description</label>
+      <label *ngIf="showview"     class="labelview">{{f.description?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="description"  formControlName="description" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--folderid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('folderid') == -1"  class="col" ><label  for="folderid" class="control-label">Folder</label>
+<p-tree *ngIf="!showview"  [value]="folderidList"  formControlName="folderid" ></p-tree>
+      <label *ngIf="showview"     class="labelview">{{f.folderid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('documentreference') == -1"  class="col " >
+<label  for="documentreference" class="control-label">Document Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.documentreference?.value}}</label>
+      <input   *ngIf="!showview"  id="documentreference"  formControlName="documentreference" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('documenttitle') == -1"  class="col " >
+<label  for="documenttitle" class="control-label">Document Title</label>
+      <label *ngIf="showview"     class="labelview">{{f.documenttitle?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="documenttitle"  formControlName="documenttitle" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('documentdate') == -1"  class="col " >
+<label  for="documentdate" class="control-label">Document Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.documentdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #documentdateformpicker="ngbDatepicker"      ngbDatepicker name="documentdateformpicker" id="documentdate"  formControlName="documentdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="documentdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+
+
+<!--language-->
+
+  <div   *ngIf="hidelist.indexOf('language') == -1"  class="col" ><label  for="language" class="control-label">Language</label>
+      <select  *ngIf="!showview"  id="language"  (change)="languageonChange($event.target)" formControlName="language"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of languageList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.language?.value}}</label>
+  </div>
+
+
+<!--documenttype-->
+
+  <div   *ngIf="hidelist.indexOf('documenttype') == -1"  class="col" ><label  for="documenttype" class="control-label">Document Type</label>
+      <select  *ngIf="!showview"  id="documenttype"  (change)="documenttypeonChange($event.target)" formControlName="documenttype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of documenttypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.documenttype?.value}}</label>
+  </div>
+
+
+<!--documentgroup-->
+
+  <div   *ngIf="hidelist.indexOf('documentgroup') == -1"  class="col" ><label  for="documentgroup" class="control-label">Document Group</label>
+      <select  *ngIf="!showview"  id="documentgroup"  (change)="documentgrouponChange($event.target)" formControlName="documentgroup"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of documentgroupList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.documentgroup?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('metadata') == -1"  class="col " >
+<label  for="metadata" class="control-label">Meta Data</label>
+      <label *ngIf="showview"     class="labelview">{{f.metadata?.value}}</label>
+      <tag-input   *ngIf="!showview"  id="metadata"  formControlName="metadata" class="form-control"
+        >
+</tag-input>
+  </div>
+</div>
+
+
+<!--category-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('category') == -1"  class="col" ><label  for="category" class="control-label" (click)="AddOrEditcategory(null)" (click)="AddOrEditcategory(null)">Category</label>
+      <select  *ngIf="!showview"  id="category"  (change)="categoryonChange($event.target)" formControlName="category"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of categoryList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.category?.value}}</label>
+  </div>
+
+
+<!--subcategory-->
+
+  <div   *ngIf="hidelist.indexOf('subcategory') == -1"  class="col" ><label  for="subcategory" class="control-label" (click)="AddOrEditsubcategory(null)">Sub Category</label>
+      <select  *ngIf="!showview"  id="subcategory"  (change)="subcategoryonChange($event.target)" formControlName="subcategory"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of subcategoryList" value="{{item.subcategoryid}}">{{item.subcategoryname}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.subcategory?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('notes') == -1"  class="col " >
+<label  for="notes" class="control-label">Notes</label>
+      <label *ngIf="showview"     class="labelview">{{f.notes?.value}}</label>
+<p-editor  *ngIf="!showview"  id="notes" formControlName="notes"    [style]="{  height: '320' }"></p-editor>  </div>
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('remarks') == -1"  class="col " >
+<label  for="remarks" class="control-label">Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.remarks?.value}}</label>
+<p-editor  *ngIf="!showview"  id="remarks" formControlName="remarks"    [style]="{  height: '320' }"></p-editor>  </div>
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('owner') == -1"  class="col " >
+<label  for="owner" class="control-label">Owner</label>
+      <label *ngIf="showview"     class="labelview">{{f.owner?.value}}</label>
+      <app-useraccess   *ngIf="!showview"  id="owner"  formControlName="owner"  (change)="owneronChange($event.target)" 
+        >
+</app-useraccess>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('allcomments') == -1"  class="col " >
+<label  for="allcomments" class="control-label">All Comments</label>
+      <label *ngIf="showview"     class="labelview">{{f.allcomments?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="allcomments"  formControlName="allcomments" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('comments') == -1"  class="col " >
+<label  for="comments" class="control-label">Comments</label>
+      <label *ngIf="showview"     class="labelview">{{f.comments?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="comments"  formControlName="comments" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+</p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Linked Records</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table reclinkedrecords-->
+<div [ngClass]="IsreclinkedrecordsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Linked Records' | translate}}
+<select class='child'  id="reclinkedrecordsPagingdropdown" (change)="reclinkedrecordsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='reclinkedrecordtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.reclinkedrecordshowOption'>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="reclinkedrecordtoggleOption();showreclinkedrecordsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblreclinkedrecordssource (userRowSelect)="handlereclinkedrecordsGridSelected($event)" [settings]="reclinkedrecordssettings" (custom)="onCustomreclinkedrecordsAction($event)" [source]="reclinkedrecordssource"  >
+</ng2-smart-table>
+</div>
+  <!--End of child table reclinkedrecords-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

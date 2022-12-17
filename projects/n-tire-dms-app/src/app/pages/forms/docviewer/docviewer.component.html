@@ -1,0 +1,87 @@
+<form [formGroup]="dmsviewerForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div>
+    <div class="container"   id="contentArea1"  >
+      <div class="form-group row">
+        <div class="col">
+          <input id="currentfolder" readonly value="{{currentfolder}}" class="form-control" placeholder="">
+        </div>
+        <div class="col">
+          <input id="search" formControlName="search" class="form-control" placeholder="search"><button type="button"
+            class="btn light-blue lighten-2" (click)="onsearch()"><i class="fa fa-search"
+              aria-hidden="true"></i></button><button type="button" class="btn light-blue lighten-2"
+            (click)="showfolder()"><i class="fa fa-folder" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="row" *ngIf="action=='search'">
+        <ng-container *ngFor="let obj of searchresults">
+          {{obj.fileName}} - Score: {{obj.score}} - Line: {{obj.lineNumber}} - {{obj.lineText}}<br>
+        </ng-container>
+      </div>
+      <div class="row" *ngIf="action!='search'">
+        <div class="col" style='vertical-align: top!important;'>
+          <p-panelMenu [model]="items" class="np-menu"></p-panelMenu>
+        </div>
+        <div class="col" style='vertical-align: top!important;'>
+          <ngx-doc-viewer *ngIf="doctype=='doc'" [url]="doc" viewer="mammoth" style="width:100%;height:50vh;">
+          </ngx-doc-viewer>
+          <pdf-viewer *ngIf="doctype=='pdf'" [src]="doc" [original-size]="false" style="width:100%;height:50vh;">
+          </pdf-viewer>
+
+          <ngx-doc-viewer *ngIf="doctype=='ppt'" [url]="doc" viewer="google" style="width:100%;height:50vh;">
+          </ngx-doc-viewer>
+          <!--
+          <app-image-viewer *ngIf="doctype=='image'" [images]="images" [idContainer]="'idOnHTML'" [loadOnInit]="true">
+          </app-image-viewer>
+        -->
+         <img  *ngIf="doctype=='image'"  [src]="cleanURL">
+          <app-sheet *ngIf="doctype=='excel'"  [url]="cleanURL" [src]="blob"></app-sheet>
+
+          <object *ngIf="doctype=='object'" [data]="cleanURL" width="100%" height="100%"></object>
+
+          <vg-player *ngIf="doctype=='video'">
+           
+            <vg-overlay-play></vg-overlay-play>
+            <vg-buffering></vg-buffering>
+
+            <vg-scrub-bar>
+              <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+              <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+            </vg-scrub-bar>
+
+            <vg-controls>
+              <vg-play-pause></vg-play-pause>
+              <vg-playback-button></vg-playback-button>
+
+              <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+              <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+              <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+              <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+              <vg-track-selector></vg-track-selector>
+              <vg-mute></vg-mute>
+              <vg-volume></vg-volume>
+
+              <vg-fullscreen></vg-fullscreen>
+            </vg-controls>
+<!--
+            <video #media [vgMedia]="media" id="singleVideo" preload="auto">
+              <source [src]="cleanURL" [type]="contenttype">
+
+
+              <track kind="subtitles" label="English" src="assets/subs/pale-blue-dot.vtt" srclang="en" default>
+              <track kind="subtitles" label="Español" src="assets/subs/pale-blue-dot-es.vtt" srclang="es">
+
+            </video>
+          -->
+          <video  [src]="cleanURL"  #media [vgMedia]="media" id="singleVideo" preload="auto"></video>
+          </vg-player>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>

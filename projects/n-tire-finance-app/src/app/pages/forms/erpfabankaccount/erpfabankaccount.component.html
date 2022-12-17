@@ -1,0 +1,193 @@
+<form  [formGroup]="erpfabankaccountForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Bank Accounts' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+
+
+<!--accountid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'accountid'; "  for="accountid" class="control-label" (click)="AddOrEditaccountid(null)">Account</label>
+<app-popupselect  *ngIf="!showview"  [options]="accountidList"  [optionsEvent]="accountidoptionsEvent" [form]="erpfaaccountmaster" (selectItem)="onSelectedaccountid($event)"  [reportid]= 'oo2ro' [menuid]='oo2ro' formControlName="accountid" id="accountid" desc="accountname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='accountid'"  (click)="editfield = 'accountid';"  class="form-control labelview">{{f.accountiddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'ifsccode'; "  for="ifsccode" class="control-label">I F S C Code</label>
+      <input   *ngIf="!showview || editfield=='ifsccode'"  id="ifsccode"  formControlName="ifsccode" class="form-control"
+        placeholder="{{'I F S C Code' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'accountnumber'; "  for="accountnumber" class="control-label">Account Number</label>
+      <input   *ngIf="!showview || editfield=='accountnumber'"  id="accountnumber"  formControlName="accountnumber" class="form-control"
+        placeholder="{{'Account Number' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'accountname'; "  for="accountname" class="control-label">Account Name</label>
+      <input   *ngIf="!showview || editfield=='accountname'"  id="accountname"  formControlName="accountname" class="form-control"
+        placeholder="{{'Account Name' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'isdefaultaccount'; "  for="isdefaultaccount" class="control-label">Is Default Account</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='isdefaultaccount'"  id="isdefaultaccount"  formControlName="isdefaultaccount" class="form-control"
+        placeholder="{{'Is Default Account' | translate}}">
+  </div>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'accounttype'; "  for="accounttype" class="control-label">Account Type</label>
+      <input   *ngIf="!showview || editfield=='accounttype'"  id="accounttype"  formControlName="accounttype" class="form-control"
+        placeholder="{{'Account Type' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'accountsubtype'; "  for="accountsubtype" class="control-label">Account Sub Type</label>
+      <input   *ngIf="!showview || editfield=='accountsubtype'"  id="accountsubtype"  formControlName="accountsubtype" class="form-control"
+        placeholder="{{'Account Sub Type' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'accountgroup'; "  for="accountgroup" class="control-label">Account Group</label>
+      <input   *ngIf="!showview || editfield=='accountgroup'"  id="accountgroup"  formControlName="accountgroup" class="form-control"
+        placeholder="{{'Account Group' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'accountnotes'; "  for="accountnotes" class="control-label">Account Notes</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='accountnotes'"  id="accountnotes"  formControlName="accountnotes" class="form-control"
+        placeholder="{{'Account Notes' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'swiftcode'; "  for="swiftcode" class="control-label">Swift Code</label>
+      <input   *ngIf="!showview || editfield=='swiftcode'"  id="swiftcode"  formControlName="swiftcode" class="form-control"
+        placeholder="{{'Swift Code' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'bankaccountno'; "  for="bankaccountno" class="control-label">Bank Account No</label>
+      <input   *ngIf="!showview || editfield=='bankaccountno'"  id="bankaccountno"  formControlName="bankaccountno" class="form-control"
+        placeholder="{{'Bank Account No' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'branchdetails'; "  for="branchdetails" class="control-label">Branch Details</label>
+      <input   *ngIf="!showview || editfield=='branchdetails'"  id="branchdetails"  formControlName="branchdetails" class="form-control"
+        placeholder="{{'Branch Details' | translate}}">
+  </div>
+<div class="col"></div>
+</div>
+<p-accordion  [multiple]='true'>
+<p-accordionTab header='Contact Details'  [selected]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'address1'; "  for="address1" class="control-label">Address1</label>
+      <input   *ngIf="!showview || editfield=='address1'"  id="address1"  readonly formControlName="address1" class="form-control"
+        placeholder="{{'Address1' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'address2'; "  for="address2" class="control-label">Address2</label>
+      <input   *ngIf="!showview || editfield=='address2'"  id="address2"  formControlName="address2" class="form-control"
+        placeholder="{{'Address2' | translate}}">
+  </div>
+
+
+<!--countryid-->
+
+  <div   class="col" ><label (click)="editfield = 'countryid'; "  for="countryid" class="control-label" (click)="AddOrEditcountryid(null)">Country</label>
+<app-popupselect  *ngIf="!showview"  [options]="countryidList"  [optionsEvent]="countryidoptionsEvent" [form]="bocountry" (selectItem)="onSelectedcountryid($event)"  [reportid]= 'wc9rn' [menuid]='wc9rn' formControlName="countryid" id="countryid" desc="name" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='countryid'"  (click)="editfield = 'countryid';"  class="form-control labelview">{{f.countryiddesc?.value}}</label>
+  </div>
+
+
+<!--stateid-->
+
+  <div   class="col" ><label (click)="editfield = 'stateid'; "  for="stateid" class="control-label" (click)="AddOrEditstateid(null)">State</label>
+<app-popupselect  *ngIf="!showview"  [options]="stateidList"  [optionsEvent]="stateidoptionsEvent" [form]="bostate" (selectItem)="onSelectedstateid($event)"  [reportid]= 'tyo5r' [menuid]='tyo5r' formControlName="stateid" id="stateid" desc="name" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='stateid'"  (click)="editfield = 'stateid';"  class="form-control labelview">{{f.stateiddesc?.value}}</label>
+  </div>
+</div>
+
+
+<!--cityid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'cityid'; "  for="cityid" class="control-label" (click)="AddOrEditcityid(null)">City</label>
+<app-popupselect  *ngIf="!showview"  [options]="cityidList"  [optionsEvent]="cityidoptionsEvent" [form]="bocity" (selectItem)="onSelectedcityid($event)"  [reportid]= 'kbg3n' [menuid]='kbg3n' formControlName="cityid" id="cityid" desc="name" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='cityid'"  (click)="editfield = 'cityid';"  class="form-control labelview">{{f.cityiddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'pincode'; "  for="pincode" class="control-label">Pin Code</label>
+      <input   *ngIf="!showview || editfield=='pincode'"  id="pincode"  formControlName="pincode" class="form-control"
+        placeholder="{{'Pin Code' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'contactperson'; "  for="contactperson" class="control-label">Contact Person</label>
+      <input   *ngIf="!showview || editfield=='contactperson'"  id="contactperson"  formControlName="contactperson" class="form-control"
+        placeholder="{{'Contact Person' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'designation'; "  for="designation" class="control-label">Designation</label>
+      <input   *ngIf="!showview || editfield=='designation'"  id="designation"  formControlName="designation" class="form-control"
+        placeholder="{{'Designation' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'mobile'; "  for="mobile" class="control-label">Mobile</label>
+      <int-phone-prefix   *ngIf="!showview || editfield=='mobile'"  id="mobile"  formControlName="mobile"  [locale]="'en'" [defaultCountry]="sessionService.getItem('countrycode')"  class="form-control telephone" 
+        placeholder="{{'Mobile' | translate}}">
+</int-phone-prefix>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'email'; "  for="email" class="control-label">Email</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview || editfield=='email'"  id="email"  formControlName="email" class="form-control"
+        placeholder="{{'Email' | translate}}">
+      <app-field-error-display [displayError]="f.email.invalid && (f.email.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordionTab>
+</p-accordion>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.bankaccountid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.bankaccountid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

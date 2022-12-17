@@ -1,0 +1,92 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="ltycoupontypeForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Coupon Pattern' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'name'; "  for="name" class="control-label">Name</label>
+      <input   *ngIf="!showview || editfield=='name'"  id="name"  formControlName="name" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'allowedonlyonce'; "  for="allowedonlyonce" class="control-label">Allowed Only Once</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='allowedonlyonce'"  id="allowedonlyonce"  formControlName="allowedonlyonce" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'numlength'; "  for="numlength" class="control-label">Num Length</label>
+      <input   *ngIf="!showview || editfield=='numlength'"  id="numlength"  formControlName="numlength" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'pattern'; "  for="pattern" class="control-label">Pattern</label>
+      <input   *ngIf="!showview || editfield=='pattern'"  id="pattern"  formControlName="pattern" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'prefix'; "  for="prefix" class="control-label">Prefix</label>
+      <input   *ngIf="!showview || editfield=='prefix'"  id="prefix"  formControlName="prefix" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'suffix'; "  for="suffix" class="control-label">Suffix</label>
+      <input   *ngIf="!showview || editfield=='suffix'"  id="suffix"  formControlName="suffix" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'limitpercustomer'; "  for="limitpercustomer" class="control-label">Limit Per Customer</label>
+      <input   *ngIf="!showview || editfield=='limitpercustomer'"  id="limitpercustomer"  formControlName="limitpercustomer" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'design'; "  for="design" class="control-label">Design</label>
+<app-attachment #design formControlName="design" [SessionData]="sessiondata"></app-attachment>
+<button  type="button" class="btn" *ngIf="design.getattachmentlist().length > 0"    (click) = "getdesign()" >Open File</button>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'redeeminstructions'; "  for="redeeminstructions" class="control-label">Redeem Instructions</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='redeeminstructions'"  id="redeeminstructions"  formControlName="redeeminstructions" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.coupontypeid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.coupontypeid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

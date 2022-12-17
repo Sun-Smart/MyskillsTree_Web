@@ -1,0 +1,38 @@
+<form [ngClass]="theme">
+  <div class="form-group row">
+  <div class="col">
+<div class="dialog">
+<p></p>
+<h1  class="form-group sticky1  columns left">{{'Scoring Negatives' | translate}}
+<select class='header'  id="lmsscoringfixedfieldsnegativesPagingdropdown" (change)="lmsscoringfixedfieldsnegativesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='lmsscoringfixedfieldsnegativetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.lmsscoringfixedfieldsnegativeshowOption'>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmsscoringfixedfieldsnegativetoggleOption();showlmsscoringfixedfieldsnegativesCheckbox()"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Show Checkbox</a>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmsscoringfixedfieldsnegativetoggleOption();deletelmsscoringfixedfieldsnegativesAll()" ><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Delete All</a>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmsscoringfixedfieldsnegativetoggleOption();showlmsscoringfixedfieldsnegativesInActive()" ><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Show Inactive</a>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmsscoringfixedfieldsnegativetoggleOption();lmsscoringfixedfieldsnegativesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmsscoringfixedfieldsnegativetoggleOption();showlmsscoringfixedfieldsnegativesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h1>
+<ng2-smart-table  #tbllmsscoringfixedfieldsnegativessource (userRowSelect)="handlelmsscoringfixedfieldsnegativesGridSelected($event)" [settings]="lmsscoringfixedfieldsnegativessettings" (custom)="onCustomlmsscoringfixedfieldsnegativesAction($event)" [source]="lmsscoringfixedfieldsnegativessource"  (delete)="lmsscoringfixedfieldsnegativesroute($event,'delete')"  (deleteConfirm)="lmsscoringfixedfieldsnegativesroute($event,'delete')" (create)="lmsscoringfixedfieldsnegativesroute($event,'create')"   (createConfirm)="lmsscoringfixedfieldsnegativesbeforesave($event)"  (edit)="lmsscoringfixedfieldsnegativesroute($event,'edit')"  (editConfirm)="lmsscoringfixedfieldsnegativesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  </div>
+  </div>
+  <div class="form-group row">
+  <div class="col">
+    <button class="btn btn-primary" (click)="onSubmit()" ><i class="fa fa-database"></i> Submit</button>
+  </div>
+  </div>
+</form>

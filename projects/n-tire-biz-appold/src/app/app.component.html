@@ -1,0 +1,13 @@
+<!--
+<div class="ui-fluid ng-main" [ngClass]="theme">
+    
+    <div [class.hidden]="!showLoader" class="np-loader">
+        <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+    </div>
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+</div>
+-->
+<p-toast position="bottom-right"></p-toast>
+<router-outlet (activate)="onActivate($event)"></router-outlet>
+<!--<app-layout  *ngIf="loggedIn">
+</app-layout>-->

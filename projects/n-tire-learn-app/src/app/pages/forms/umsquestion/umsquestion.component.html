@@ -1,0 +1,133 @@
+<form [formGroup]="umsquestionForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Questions' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col">
+              <label for="topicid" class="control-label">{{'TopicID' | translate}}</label>
+              <input id="topicid" formControlName="topicid" class="form-control"
+                placeholder="{{'TopicID' | translate}}">
+            </div>
+            <div class="col"><label for="categoryid" class="control-label"
+                (click)="AddOrEditcategoryid(null)">{{'Category' | translate}}</label>
+              <select id="categoryid" (change)="categoryidonChange($event.target)" formControlName="categoryid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of categoryidList" value="{{item.categoryid}}">{{item.categoryname}}</option>
+              </select>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="question" class="control-label">{{'Question' | translate}}</label>
+              <p-editor id="question" formControlName="question" placeholder="{{'Question' | translate}}"
+                [style]="{  height: '320' }"></p-editor>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="questiontype" class="control-label">{{'Question Type' | translate}}</label>
+              <select id="questiontype" (change)="questiontypeonChange($event.target)" formControlName="questiontype"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of questiontypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="answertype" class="control-label">{{'Answer Type' | translate}}</label>
+              <select id="answertype" (change)="answertypeonChange($event.target)" formControlName="answertype"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of answertypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="correctanswer" class="control-label">{{'Correct Answer' | translate}}</label>
+              <p-editor id="correctanswer" formControlName="correctanswer"
+                placeholder="{{'Correct Answer' | translate}}" [style]="{  height: '320' }"></p-editor>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Answers</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table umsanswers-->
+          <div class="row"></div>
+          <div [ngClass]="IsumsanswersVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Answers' | translate}}
+              <select class='child' id="umsanswersPagingdropdown" (change)="umsanswersPaging($event.target!.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="umsanswersroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showumsanswersFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblumsanswerssource (userRowSelect)="handleumsanswersGridSelected($event)"
+              [settings]="umsanswerssettings" [source]="umsanswerssource" (delete)="umsanswersroute($event,'delete')"
+              (deleteConfirm)="umsanswersroute($event,'delete')" (create)="umsanswersroute($event,'create')"
+              (createConfirm)="umsanswersbeforesave($event)" (edit)="umsanswersroute($event,'edit')"
+              (editConfirm)="umsanswersbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table umsanswers-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.questionid!.value != null" [menuid]="pmenuid" [value]="f.questionid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

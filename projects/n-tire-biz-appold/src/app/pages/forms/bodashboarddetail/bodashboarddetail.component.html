@@ -1,0 +1,352 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="bodashboarddetail_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Dashboard Details' | translate}}</a>
+    </h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bodashboarddetails()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of bodashboarddetail_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.dashboarddetailid.value != null" (afterAction)="afterAction($event)"
+              [menuid]="p_menuid" [value]="f.dashboarddetailid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+
+
+    <!--dashboardid-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('dashboardid') == -1) && (dashboardidvisible==undefined || dashboardidvisible==true))"
+        style='' class="col-3"><label for="dashboardid" class="control-label"
+          (click)="AddOrEdit_dashboardid(null)">Dashboard</label>
+        <app-popupselect *ngIf="!showview" [options]="dashboardid_List" [optionsEvent]="dashboardid_optionsEvent"
+          [form]="bodashboard" (selectItem)="onSelected_dashboardid($event)" [reportid]='ybg3p' [menuid]='ybg3p'
+          formControlName="dashboardid" id="value" desc="label"></app-popupselect>
+        <div class="input-group">
+        </div>
+        <label *ngIf="showview" class="labelview">{{f.dashboardiddesc?.value}}</label>
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('dashboardname') == -1) && (dashboardnamevisible==undefined || dashboardnamevisible==true))"
+        style='' class="col-3 ">
+        <label for="dashboardname" class="control-label">Dashboard Name</label>
+        <label *ngIf="showview" class="labelview">{{f.dashboardname?.value}}</label>
+        <input *ngIf="!showview" id="dashboardname" formControlName="dashboardname" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('title') == -1) && (titlevisible==undefined || titlevisible==true))" style=''
+        class="col-3 ">
+        <label for="title" class="control-label">Title</label>
+        <label *ngIf="showview" class="labelview">{{f.title?.value}}</label>
+        <input *ngIf="!showview" id="title" formControlName="title" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('row') == -1) && (rowvisible==undefined || rowvisible==true))" style=''
+        class="col-3 ">
+        <label for="row" class="control-label">Row</label>
+        <label *ngIf="showview" class="labelview">{{f.row?.value}}</label>
+        <input *ngIf="!showview" id="row" formControlName="row" class="form-control">
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('col') == -1) && (colvisible==undefined || colvisible==true))" style=''
+        class="col-3 ">
+        <label for="col" class="control-label">Col</label>
+        <label *ngIf="showview" class="labelview">{{f.col?.value}}</label>
+        <input *ngIf="!showview" id="col" formControlName="col" class="form-control">
+      </div>
+
+
+      <!--charttype-->
+
+      <div *ngIf="((hidelist.indexOf('charttype') == -1) && (charttypevisible==undefined || charttypevisible==true))"
+        style='' class="col-3"><label for="charttype" class="control-label">Chart Type</label>
+        <select *ngIf="!showview" id="charttype" (change)="charttype_onChange($event.target)"
+          formControlName="charttype" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of charttype_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.charttypedesc?.value}}</label>
+      </div>
+      <div *ngIf="((hidelist.indexOf('tablename') == -1) && (tablenamevisible==undefined || tablenamevisible==true))"
+        style='' class="col-3 ">
+        <label for="tablename" class="control-label">Table Name</label>
+        <label *ngIf="showview" class="labelview">{{f.tablename?.value}}</label>
+        <input *ngIf="!showview" id="tablename" formControlName="tablename" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('recordname') == -1) && (recordnamevisible==undefined || recordnamevisible==true))"
+        style='' class="col-3 ">
+        <label for="recordname" class="control-label">Record Name</label>
+        <label *ngIf="showview" class="labelview">{{f.recordname?.value}}</label>
+        <input *ngIf="!showview" id="recordname" formControlName="recordname" class="form-control">
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('parameter') == -1) && (parametervisible==undefined || parametervisible==true))"
+        style='width:1500px' class="col-12 ">
+        <label for="parameter" class="control-label">Parameter</label>
+        <label *ngIf="showview" class="labelview">{{f.parameter?.value}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="parameter"
+          formControlName="parameter" class="form-control">
+</textarea>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('name') == -1) && (namevisible==undefined || namevisible==true))" style=''
+        class="col-3 ">
+        <label for="name" class="control-label">Name</label>
+        <label *ngIf="showview" class="labelview">{{f.name?.value}}</label>
+        <input *ngIf="!showview" id="name" formControlName="name" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('value') == -1) && (valuevisible==undefined || valuevisible==true))" style=''
+        class="col-3 ">
+        <label for="value" class="control-label">Value</label>
+        <label *ngIf="showview" class="labelview">{{f.value?.value}}</label>
+        <input *ngIf="!showview" id="value" formControlName="value" class="form-control">
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('parameter1variable') == -1) && (parameter1variablevisible==undefined || parameter1variablevisible==true))"
+        style='' class="col-3 ">
+        <label for="parameter1variable" class="control-label">Parameter1 Variable</label>
+        <label *ngIf="showview" class="labelview">{{f.parameter1variable?.value}}</label>
+        <input *ngIf="!showview" id="parameter1variable" formControlName="parameter1variable" class="form-control">
+      </div>
+
+
+      <!--parameter1type-->
+
+      <div
+        *ngIf="((hidelist.indexOf('parameter1type') == -1) && (parameter1typevisible==undefined || parameter1typevisible==true))"
+        style='' class="col-3"><label for="parameter1type" class="control-label"
+          (click)="AddOrEdit_parameter1type(null)">Parameter1 Type</label>
+        <select *ngIf="!showview" id="parameter1type" (change)="parameter1type_onChange($event.target)"
+          formControlName="parameter1type" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of parameter1type_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.parameter1typedesc?.value}}</label>
+      </div>
+    </div>
+
+
+    <!--parameter1datetype-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('parameter1datetype') == -1) && (parameter1datetypevisible==undefined || parameter1datetypevisible==true))"
+        style='' class="col-3"><label for="parameter1datetype" class="control-label">Parameter1 Date Type</label>
+        <select *ngIf="!showview" id="parameter1datetype" (change)="parameter1datetype_onChange($event.target)"
+          formControlName="parameter1datetype" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of parameter1datetype_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.parameter1datetypedesc?.value}}</label>
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('parameter2variable') == -1) && (parameter2variablevisible==undefined || parameter2variablevisible==true))"
+        style='' class="col-3 ">
+        <label for="parameter2variable" class="control-label">Parameter2 Variable</label>
+        <label *ngIf="showview" class="labelview">{{f.parameter2variable?.value}}</label>
+        <input *ngIf="!showview" id="parameter2variable" formControlName="parameter2variable" class="form-control">
+      </div>
+
+
+      <!--parameter2type-->
+
+      <div
+        *ngIf="((hidelist.indexOf('parameter2type') == -1) && (parameter2typevisible==undefined || parameter2typevisible==true))"
+        style='' class="col-3"><label for="parameter2type" class="control-label"
+          (click)="AddOrEdit_parameter2type(null)">Parameter2 Type</label>
+        <select *ngIf="!showview" id="parameter2type" (change)="parameter2type_onChange($event.target)"
+          formControlName="parameter2type" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of parameter2type_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.parameter2typedesc?.value}}</label>
+      </div>
+
+
+      <!--parameter2datetype-->
+
+      <div
+        *ngIf="((hidelist.indexOf('parameter2datetype') == -1) && (parameter2datetypevisible==undefined || parameter2datetypevisible==true))"
+        style='' class="col-3"><label for="parameter2datetype" class="control-label">Parameter2 Date Type</label>
+        <select *ngIf="!showview" id="parameter2datetype" (change)="parameter2datetype_onChange($event.target)"
+          formControlName="parameter2datetype" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of parameter2datetype_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.parameter2datetypedesc?.value}}</label>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('parameter3variable') == -1) && (parameter3variablevisible==undefined || parameter3variablevisible==true))"
+        style='' class="col-3 ">
+        <label for="parameter3variable" class="control-label">Parameter3 Variable</label>
+        <label *ngIf="showview" class="labelview">{{f.parameter3variable?.value}}</label>
+        <input *ngIf="!showview" id="parameter3variable" formControlName="parameter3variable" class="form-control">
+      </div>
+
+
+      <!--parameter3type-->
+
+      <div
+        *ngIf="((hidelist.indexOf('parameter3type') == -1) && (parameter3typevisible==undefined || parameter3typevisible==true))"
+        style='' class="col-3"><label for="parameter3type" class="control-label"
+          (click)="AddOrEdit_parameter3type(null)">Parameter3 Type</label>
+        <select *ngIf="!showview" id="parameter3type" (change)="parameter3type_onChange($event.target)"
+          formControlName="parameter3type" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of parameter3type_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.parameter3typedesc?.value}}</label>
+      </div>
+
+
+      <!--parameter3datetype-->
+
+      <div
+        *ngIf="((hidelist.indexOf('parameter3datetype') == -1) && (parameter3datetypevisible==undefined || parameter3datetypevisible==true))"
+        style='' class="col-3"><label for="parameter3datetype" class="control-label">Parameter3 Date Type</label>
+        <select *ngIf="!showview" id="parameter3datetype" (change)="parameter3datetype_onChange($event.target)"
+          formControlName="parameter3datetype" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of parameter3datetype_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.parameter3datetypedesc?.value}}</label>
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('backgroundcolor') == -1) && (backgroundcolorvisible==undefined || backgroundcolorvisible==true))"
+        style='' class="col-3 ">
+        <label for="backgroundcolor" class="control-label">Background Color</label>
+        <label *ngIf="showview" class="labelview">{{f.backgroundcolor?.value}}</label>
+        <input *ngIf="!showview" id="backgroundcolor" formControlName="backgroundcolor" class="form-control">
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('hoverbackgroundcolor') == -1) && (hoverbackgroundcolorvisible==undefined || hoverbackgroundcolorvisible==true))"
+        style='' class="col-3 ">
+        <label for="hoverbackgroundcolor" class="control-label">Hover Background Color</label>
+        <label *ngIf="showview" class="labelview">{{f.hoverbackgroundcolor?.value}}</label>
+        <input *ngIf="!showview" id="hoverbackgroundcolor" formControlName="hoverbackgroundcolor" class="form-control">
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('bordercolor') == -1) && (bordercolorvisible==undefined || bordercolorvisible==true))"
+        style='' class="col-3 ">
+        <label for="bordercolor" class="control-label">Border Color</label>
+        <label *ngIf="showview" class="labelview">{{f.bordercolor?.value}}</label>
+        <input *ngIf="!showview" id="bordercolor" formControlName="bordercolor" class="form-control">
+      </div>
+
+
+      <!--menuid-->
+
+      <div *ngIf="((hidelist.indexOf('menuid') == -1) && (menuidvisible==undefined || menuidvisible==true))" style=''
+        class="col-3"><label for="menuid" class="control-label" (click)="AddOrEdit_menuid(null)">Menu</label>
+        <app-popupselect *ngIf="!showview" [options]="menuid_List" [optionsEvent]="menuid_optionsEvent"
+          [form]="bomenumaster" (selectItem)="onSelected_menuid($event)" [reportid]='urtra' [menuid]='urtra'
+          formControlName="menuid" id="value" desc="label"></app-popupselect>
+        <div class="input-group">
+        </div>
+        <label *ngIf="showview" class="labelview">{{f.menuiddesc?.value}}</label>
+      </div>
+
+
+      <!--reportid-->
+
+      <div *ngIf="((hidelist.indexOf('reportid') == -1) && (reportidvisible==undefined || reportidvisible==true))"
+        style='' class="col-3"><label for="reportid" class="control-label">Report</label>
+        <select *ngIf="!showview" id="reportid" (change)="reportid_onChange($event.target)" formControlName="reportid"
+          class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of reportid_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.reportiddesc?.value}}</label>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('helptext') == -1) && (helptextvisible==undefined || helptextvisible==true))"
+        style='width:1500px' class="col-12 ">
+        <label for="helptext" class="control-label">Help Text</label>
+        <label *ngIf="showview" class="labelview">{{f.helptext?.value}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="helptext"
+          formControlName="helptext" class="form-control">
+</textarea>
+      </div>
+    </div>
+  </div>
+</form>

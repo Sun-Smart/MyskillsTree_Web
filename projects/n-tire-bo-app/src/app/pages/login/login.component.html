@@ -1,0 +1,98 @@
+<div   *ngIf="!loggedIn">
+<div class="bg-img">
+  <div class="content">
+    <header>SunSmart - nTire Framework</header>
+    <form [formGroup]="bologinForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')"
+      target="_top" autocomplete="off" novalidate="novalidate">
+      <div class="field">
+        <span class="fa fa-user"></span>
+        <input type="text" required formControlName='username' placeholder="User Name">
+      </div>
+      <div class="field space">
+        <span class="fa fa-lock"></span>
+        <input type="password" class="pass-key" required formControlName='password' placeholder="Password">
+        <span class="show">SHOW</span>
+      </div>
+      <div class="pass">
+        <a href="/#/forgotpassword">Forgot Password?</a>
+      </div>
+      <div class="field">
+        <input type="submit" value="LOGIN">
+      </div>
+    </form>
+    <div class="login">Or login with</div>
+    <div class="links">
+      <div class="facebook">
+        <i class="fab fa-facebook-f"><span>Facebook</span></i>
+      </div>
+      <div class="instagram">
+        <i class="fab fa-instagram"><span>Instagram</span></i>
+      </div>
+    </div>
+    <div class="signup">Don't have account?
+      <a href="#">Signup Now</a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!--<app-layout *ngIf="loggedIn"></app-layout>-->
+
+
+<!--
+<div id="left"><img alt="SunSmart Account" style="width:100%;height:100%" src="http://demo.herbieai.com/ntire/SSnTireApp/assets/promotion.PNG"></div>
+
+<div id="right" class="pr">
+    <div id="wrap">
+        <div id="main">
+            <div id="wrapper">
+                <div id="logo_wrapper" class="standard_logo_wrapper mb24">
+                </div>
+                <h2 id="header" class="mb12" style="display: none;"></h2>
+                <div id="content" style="display:table;">
+
+
+                    <div id="theloginform" style="display: block;margin:10px">
+                        <form   [formGroup]="bologinForm" (ngSubmit)="onSubmit()"  [ngClass]="sessionService.getItem('selected-theme')" target="_top" autocomplete="off"
+                            novalidate="novalidate">
+                            <div id="usernamegroup" class="inputgroup"><label for="username"
+                                    class="label usernamelabel">Username</label>
+                                <div id="username_container">
+                                    <div id="idcard-container" class="mt8 mb16" style="display: none">
+                                        <div id="idcard"><img id="idcard-avatar" class="avatar" alt=""><span
+                                                id="idcard-identity"></span></div>
+                                    </div><input class="input r4 wide mb16 mt8 username" formControlName='username' aria-describedby="error" style="display: block;"><div *ngIf='formErrors.username'> {{formErrors.username}} </div>
+                                </div>
+                            </div><label for="password" class="label">Password</label><input
+                                class="input r4 wide mb16 mt8 password" type="password" formControlName='password' 
+                                onkeypress="checkCaps(event)" autocomplete="off"><div *ngIf='formErrors.password'> {{formErrors.password}} </div>
+                            <div id="pwcaps" class="mb16" style="display:none"><img id="pwcapsicon"
+                                    alt="Caps Lock is on." width="12"
+                                    src="./Login _ sunsmart_files/capslock_blue.png"> Caps Lock is on.</div><input
+                                class="button r4 wide primary" type="submit" id="Login" name="Login" value="Log In">
+                            <div class="w0 pr ln3 p16 remember"><input type="checkbox" class="r4 fl mr8" style=""
+                                    id="rememberUn" name="rememberUn"><label for="rememberUn"
+                                    class="fl pr db tn3">Remember me |   </label><a id="forgot_password_link" class="fr small"
+                                    href="/#/forgotpassword">Forgot Your
+                                    Password?</a></div>
+                        </form>
+                        
+                    </div>
+
+                </div>
+                <div id="signup" class="tc mt24" style="display: block;">
+                    <p class="di mr16">Not a customer?</p><a class="button secondary" id="signup_link"
+                        href="https://www.sunsmart.com/form/trial/freetrial.jsp?d=70130000000Enus">Try for
+                        Free</a>
+                </div>
+                <div class="tc" id="use_new_identity_div" style="display:none;"><a id="use_new_identity"
+                        href="javascript:void(0);" onclick="LoginHint.useNewIdentity();">Log In with a Different
+                        Username</a></div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">© 2019 sunsmart.com, inc. All rights reserved. | <a id="privacy-link"
+            href="https://www.sunsmartglobal.com/us/company/privacy" target="_blank">Privacy</a></div>
+</div>
+-->

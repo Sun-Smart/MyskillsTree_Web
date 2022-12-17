@@ -1,0 +1,64 @@
+<div class="dialog">
+  <form [formGroup]="erptenderquotationanswerForm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col">
+            <label for="tenderid" class="control-label">Tender</label>
+            <input *ngIf="!showview" id="tenderid" formControlName="tenderid" class="form-control"
+              placeholder="{{'Tender' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.tenderid?.value}}</label>
+          </div>
+          <div class="col"><label for="questionid" class="control-label"
+              (click)="AddOrEditquestionid(null)">Question</label>
+            <select *ngIf="!showview" id="questionid" (change)="questionidonChange($event.target)"
+              formControlName="questionid" class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of questionidList" value="{{item.questionid}}">{{item.question}}</option>
+            </select>
+            <label *ngIf="showview" class="form-control labelview">{{f.questioniddesc?.value}}</label>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="question" class="control-label">Question</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="question"
+              formControlName="question" class="form-control" placeholder="{{'Question' | translate}}">
+</textarea>
+            <label *ngIf="showview" class="form-control labelview">{{f.question?.value}}</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="answer" class="control-label">Answer</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="answer"
+              formControlName="answer" class="form-control" placeholder="{{'Answer' | translate}}">
+</textarea>
+            <label *ngIf="showview" class="form-control labelview">{{f.answer?.value}}</label>
+          </div>
+        </div>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.answerid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.answerid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

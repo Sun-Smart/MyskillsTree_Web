@@ -1,0 +1,867 @@
+<form [formGroup]="hmspatientForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Patient Master' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col">
+              <label for="patientcode" class="control-label">{{'PatientCode' | translate}}</label>
+              <input id="patientcode" formControlName="patientcode" class="form-control"
+                placeholder="{{'PatientCode' | translate}}">
+            </div>
+            <div class="col">
+              <label for="aadhaarno" class="control-label">{{'AadhaarNo' | translate}}</label>
+              <input id="aadhaarno" formControlName="aadhaarno" class="form-control"
+                placeholder="{{'AadhaarNo' | translate}}">
+            </div>
+            <div class="col">
+              <label for="firstname" class="control-label">{{'FirstName' | translate}}</label>
+              <input id="firstname" formControlName="firstname" class="form-control"
+                placeholder="{{'FirstName' | translate}}">
+            </div>
+            <div class="col">
+              <label for="middlename" class="control-label">{{'MiddleName' | translate}}</label>
+              <input id="middlename" formControlName="middlename" class="form-control"
+                placeholder="{{'MiddleName' | translate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="lastname" class="control-label">{{'LastName' | translate}}</label>
+              <input id="lastname" formControlName="lastname" class="form-control"
+                placeholder="{{'LastName' | translate}}">
+            </div>
+            <div class="col">
+              <label for="imageurl" class="control-label">{{'Image' | translate}}</label>
+              <p-fileUpload #imageurluploader class="form-control" type="file" name="imageurl[]" mode="basic"
+                url="{{URL}}" (onSelect)="imageurlFileSelected($event)"></p-fileUpload>
+              <img src="http://localhost:5001/MyResources/{{ this.hmspatientForm.get('imageurl')!.value}}" />
+            </div>
+            <div class="col"><label for="gender" class="control-label">{{'Gender' | translate}}</label>
+              <select id="gender" (change)="genderonChange($event.target)" formControlName="gender"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of genderList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="dateofbirth" class="control-label">{{'DateofBirth' | translate}}</label>
+              <div class="input-group">
+                <input #dateofbirthformpicker="ngbDatepicker" ngbDatepicker name="dateofbirthformpicker"
+                  id="dateofbirth" formControlName="dateofbirth" class="form-control"
+                  placeholder="Choose {{'DateofBirth' | translate}}">
+                <button class="input-group-addon" (click)="dateofbirthformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="referredby" class="control-label">{{'ReferredBy' | translate}}</label>
+              <input id="referredby" formControlName="referredby" class="form-control"
+                placeholder="{{'ReferredBy' | translate}}">
+            </div>
+            <div class="col">
+              <label for="address1" class="control-label">{{'Address1' | translate}}</label>
+              <input id="address1" formControlName="address1" class="form-control"
+                placeholder="{{'Address1' | translate}}">
+            </div>
+            <div class="col">
+              <label for="address2" class="control-label">{{'Address2' | translate}}</label>
+              <input id="address2" formControlName="address2" class="form-control"
+                placeholder="{{'Address2' | translate}}">
+            </div>
+            <div class="col"><label for="countryid" class="control-label" (click)="AddOrEditcountryid(null)">{{'Country'
+                | translate}}</label>
+              <div class="input-group">
+                <input id="countryid" placeholder="" [ngbTypeahead]="countryid_bocountriesoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedcountryid($event)"
+                  formControlName='countryid' [resultFormatter]="countryid_bocountriesformatter">
+                <input readonly id="countryiddesc" formControlName="countryiddesc" class="form-control autocompletedesc"
+                  placeholder="{{'Country' | translate}}">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="stateid" class="control-label" (click)="AddOrEditstateid(null)">{{'State' |
+                translate}}</label>
+              <div class="input-group">
+                <input id="stateid" placeholder="" [ngbTypeahead]="stateid_bostatesoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedstateid($event)" formControlName='stateid'
+                  [resultFormatter]="stateid_bostatesformatter">
+                <input readonly id="stateiddesc" formControlName="stateiddesc" class="form-control autocompletedesc"
+                  placeholder="{{'State' | translate}}">
+              </div>
+            </div>
+            <div class="col"><label for="cityid" class="control-label" (click)="AddOrEditcityid(null)">{{'City' |
+                translate}}</label>
+              <div class="input-group">
+                <input id="cityid" placeholder="" [ngbTypeahead]="cityid_bocitiesoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedcityid($event)" formControlName='cityid'
+                  [resultFormatter]="cityid_bocitiesformatter">
+                <input readonly id="cityiddesc" formControlName="cityiddesc" class="form-control autocompletedesc"
+                  placeholder="{{'City' | translate}}">
+              </div>
+            </div>
+            <div class="col">
+              <label for="location" class="control-label">{{'Location' | translate}}</label>
+              <input id="location" formControlName="location" class="form-control"
+                placeholder="{{'Location' | translate}}">
+            </div>
+            <div class="col">
+              <label for="pincode" class="control-label">{{'PinCode' | translate}}</label>
+              <input id="pincode" formControlName="pincode" class="form-control"
+                placeholder="{{'PinCode' | translate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="mobile" class="control-label">{{'Mobile' | translate}}</label>
+              <int-phone-prefix id="mobile" formControlName="mobile" [locale]="'en'" [defaultCountry]="'in'"
+                class="form-control telephone" placeholder="{{'Mobile' | translate}}">
+              </int-phone-prefix>
+            </div>
+            <div class="col">
+              <label for="contactnoh" class="control-label">{{'Contact No(H)' | translate}}</label>
+              <int-phone-prefix id="contactnoh" formControlName="contactnoh" [locale]="'en'" [defaultCountry]="'in'"
+                class="form-control telephone" placeholder="{{'Contact No(H)' | translate}}">
+              </int-phone-prefix>
+            </div>
+            <div class="col">
+              <label for="contactnoo" class="control-label">{{'Contact No(O)' | translate}}</label>
+              <int-phone-prefix id="contactnoo" formControlName="contactnoo" [locale]="'en'" [defaultCountry]="'in'"
+                class="form-control telephone" placeholder="{{'Contact No(O)' | translate}}">
+              </int-phone-prefix>
+            </div>
+            <div class="col">
+              <label for="email" class="control-label">{{'Email' | translate}}</label>
+              <input type="email" [email]="true" id="email" formControlName="email" class="form-control"
+                placeholder="{{'Email' | translate}}">
+              <app-field-error-display [displayError]="f.email.invalid && (f.email.touched|| isSubmitted)"
+                errorMsg="Enter valid email">
+              </app-field-error-display>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="height" class="control-label">{{'Height' | translate}}</label>
+              <input id="height" formControlName="height" class="form-control" placeholder="{{'Height' | translate}}">
+            </div>
+            <div class="col">
+              <label for="weight" class="control-label">{{'Weight' | translate}}</label>
+              <input id="weight" formControlName="weight" class="form-control" placeholder="{{'Weight' | translate}}">
+            </div>
+            <div class="col"><label for="bloodgroup" class="control-label">{{'Blood Group' | translate}}</label>
+              <select id="bloodgroup" (change)="bloodgrouponChange($event.target)" formControlName="bloodgroup"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of bloodgroupList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="occupation" class="control-label">{{'Occupation' | translate}}</label>
+              <select id="occupation" (change)="occupationonChange($event.target)" formControlName="occupation"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of occupationList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="maritialstatus" class="control-label">{{'Maritial Status' | translate}}</label>
+              <select id="maritialstatus" (change)="maritialstatusonChange($event.target)"
+                formControlName="maritialstatus" class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of maritialstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="allergydetails" class="control-label">{{'Allergy Details' | translate}}</label>
+              <p-editor id="allergydetails" formControlName="allergydetails"
+                placeholder="{{'Allergy Details' | translate}}" [style]="{  height: '320' }"></p-editor>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="notes" class="control-label">{{'Notes' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="notes" formControlName="notes"
+                class="form-control" placeholder="{{'Notes' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="contactperson" class="control-label">{{'ContactPerson' | translate}}</label>
+              <input id="contactperson" formControlName="contactperson" class="form-control"
+                placeholder="{{'ContactPerson' | translate}}">
+            </div>
+            <div class="col">
+              <label for="cpaddress1" class="control-label">{{'CPAddress1' | translate}}</label>
+              <input id="cpaddress1" formControlName="cpaddress1" class="form-control"
+                placeholder="{{'CPAddress1' | translate}}">
+            </div>
+            <div class="col">
+              <label for="cpaddress2" class="control-label">{{'CPAddress2' | translate}}</label>
+              <input id="cpaddress2" formControlName="cpaddress2" class="form-control"
+                placeholder="{{'CPAddress2' | translate}}">
+            </div>
+            <div class="col"><label for="cpcountryid" class="control-label"
+                (click)="AddOrEditcpcountryid(null)">{{'Country' | translate}}</label>
+              <div class="input-group">
+                <input id="cpcountryid" placeholder="" [ngbTypeahead]="cpcountryid_bocountriesoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedcpcountryid($event)"
+                  formControlName='cpcountryid' [resultFormatter]="cpcountryid_bocountriesformatter">
+                <input readonly id="cpcountryiddesc" formControlName="cpcountryiddesc"
+                  class="form-control autocompletedesc" placeholder="{{'Country' | translate}}">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="cpstateid" class="control-label" (click)="AddOrEditcpstateid(null)">{{'State' |
+                translate}}</label>
+              <div class="input-group">
+                <input id="cpstateid" placeholder="" [ngbTypeahead]="cpstateid_bostatesoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedcpstateid($event)"
+                  formControlName='cpstateid' [resultFormatter]="cpstateid_bostatesformatter">
+                <input readonly id="cpstateiddesc" formControlName="cpstateiddesc" class="form-control autocompletedesc"
+                  placeholder="{{'State' | translate}}">
+              </div>
+            </div>
+            <div class="col"><label for="cpcityid" class="control-label" (click)="AddOrEditcpcityid(null)">{{'City' |
+                translate}}</label>
+              <div class="input-group">
+                <input id="cpcityid" placeholder="" [ngbTypeahead]="cpcityid_bocitiesoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedcpcityid($event)" formControlName='cpcityid'
+                  [resultFormatter]="cpcityid_bocitiesformatter">
+                <input readonly id="cpcityiddesc" formControlName="cpcityiddesc" class="form-control autocompletedesc"
+                  placeholder="{{'City' | translate}}">
+              </div>
+            </div>
+            <div class="col">
+              <label for="cplocation" class="control-label">{{'CPLocation' | translate}}</label>
+              <input id="cplocation" formControlName="cplocation" class="form-control"
+                placeholder="{{'CPLocation' | translate}}">
+            </div>
+            <div class="col">
+              <label for="cppincode" class="control-label">{{'CPPinCode' | translate}}</label>
+              <input id="cppincode" formControlName="cppincode" class="form-control"
+                placeholder="{{'CPPinCode' | translate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="cpmobile" class="control-label">{{'Mobile' | translate}}</label>
+              <int-phone-prefix id="cpmobile" formControlName="cpmobile" [locale]="'en'" [defaultCountry]="'in'"
+                class="form-control telephone" placeholder="{{'Mobile' | translate}}">
+              </int-phone-prefix>
+            </div>
+            <div class="col">
+              <label for="cpcontactnoh" class="control-label">{{'Contact No(H)' | translate}}</label>
+              <int-phone-prefix id="cpcontactnoh" formControlName="cpcontactnoh" [locale]="'en'" [defaultCountry]="'in'"
+                class="form-control telephone" placeholder="{{'Contact No(H)' | translate}}">
+              </int-phone-prefix>
+            </div>
+            <div class="col">
+              <label for="cpcontactnoo" class="control-label">{{'Contact No(O)' | translate}}</label>
+              <int-phone-prefix id="cpcontactnoo" formControlName="cpcontactnoo" [locale]="'en'" [defaultCountry]="'in'"
+                class="form-control telephone" placeholder="{{'Contact No(O)' | translate}}">
+              </int-phone-prefix>
+            </div>
+            <div class="col">
+              <label for="cpemail" class="control-label">{{'Email' | translate}}</label>
+              <input type="email" [email]="true" id="cpemail" formControlName="cpemail" class="form-control"
+                placeholder="{{'Email' | translate}}">
+              <app-field-error-display [displayError]="f.cpemail.invalid && (f.cpemail.touched|| isSubmitted)"
+                errorMsg="Enter valid email">
+              </app-field-error-display>
+            </div>
+          </div>
+          <div class="sticky"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            Custom Fields</div>
+          <div class="form-group row"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+          </div>
+          <div class="sticky">Attachments</div>
+          <div class="form-group row">
+            <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+              <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}"
+                target="_blank">{{fld!.value!.value}} | </a>
+            </ng-container>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic"
+              url="{{URL}}" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+            <ng-container *ngFor="let fld of attachmentlist">
+              <div class="col">
+                <label class="control-label"></label>
+                <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+                  mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+              </div>
+            </ng-container>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Insurances</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmsinsurances-->
+          <div class="row"></div>
+          <div [ngClass]="IshmsinsurancesVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Insurances' | translate}}
+              <select class='child' id="hmsinsurancesPagingdropdown" (change)="hmsinsurancesPaging($event.target!.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="hmsinsurancesroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmsinsurancesFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmsinsurancessource (userRowSelect)="handlehmsinsurancesGridSelected($event)"
+              [settings]="hmsinsurancessettings" [source]="hmsinsurancessource"
+              (delete)="hmsinsurancesroute($event,'delete')" (deleteConfirm)="hmsinsurancesroute($event,'delete')"
+              (create)="hmsinsurancesroute($event,'create')" (createConfirm)="hmsinsurancesbeforesave($event)"
+              (edit)="hmsinsurancesroute($event,'edit')" (editConfirm)="hmsinsurancesbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmsinsurances-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Operations</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmsoperations-->
+          <div class="row"></div>
+          <div [ngClass]="IshmsoperationsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Operations' | translate}}
+              <select class='child' id="hmsoperationsPagingdropdown" (change)="hmsoperationsPaging($event.target!.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="hmsoperationsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmsoperationsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmsoperationssource (userRowSelect)="handlehmsoperationsGridSelected($event)"
+              [settings]="hmsoperationssettings" [source]="hmsoperationssource"
+              (delete)="hmsoperationsroute($event,'delete')" (deleteConfirm)="hmsoperationsroute($event,'delete')"
+              (create)="hmsoperationsroute($event,'create')" (createConfirm)="hmsoperationsbeforesave($event)"
+              (edit)="hmsoperationsroute($event,'edit')" (editConfirm)="hmsoperationsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmsoperations-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Lab Results</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmslabresults-->
+          <div class="row"></div>
+          <div [ngClass]="IshmslabresultsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Lab Results' | translate}}
+              <select class='child' id="hmslabresultsPagingdropdown" (change)="hmslabresultsPaging($event.target!.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="hmslabresultsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmslabresultsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmslabresultssource (userRowSelect)="handlehmslabresultsGridSelected($event)"
+              [settings]="hmslabresultssettings" [source]="hmslabresultssource"
+              (delete)="hmslabresultsroute($event,'delete')" (deleteConfirm)="hmslabresultsroute($event,'delete')"
+              (create)="hmslabresultsroute($event,'create')" (createConfirm)="hmslabresultsbeforesave($event)"
+              (edit)="hmslabresultsroute($event,'edit')" (editConfirm)="hmslabresultsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmslabresults-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Patient Discharges</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmspatientdischarges-->
+          <div class="row"></div>
+          <div [ngClass]="IshmspatientdischargesVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Patient Discharges' | translate}}
+              <select class='child' id="hmspatientdischargesPagingdropdown"
+                (change)="hmspatientdischargesPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn"
+                    (click)="hmspatientdischargesroute(null, 'create')"><i class="fa fa-plus"
+                      aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmspatientdischargesFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmspatientdischargessource
+              (userRowSelect)="handlehmspatientdischargesGridSelected($event)" [settings]="hmspatientdischargessettings"
+              [source]="hmspatientdischargessource" (delete)="hmspatientdischargesroute($event,'delete')"
+              (deleteConfirm)="hmspatientdischargesroute($event,'delete')"
+              (create)="hmspatientdischargesroute($event,'create')"
+              (createConfirm)="hmspatientdischargesbeforesave($event)" (edit)="hmspatientdischargesroute($event,'edit')"
+              (editConfirm)="hmspatientdischargesbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmspatientdischarges-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Follow-ups</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmspatientfollowups-->
+          <div class="row"></div>
+          <div [ngClass]="IshmspatientfollowupsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Follow-ups' | translate}}
+              <select class='child' id="hmspatientfollowupsPagingdropdown"
+                (change)="hmspatientfollowupsPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="hmspatientfollowupsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmspatientfollowupsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmspatientfollowupssource
+              (userRowSelect)="handlehmspatientfollowupsGridSelected($event)" [settings]="hmspatientfollowupssettings"
+              [source]="hmspatientfollowupssource" (delete)="hmspatientfollowupsroute($event,'delete')"
+              (deleteConfirm)="hmspatientfollowupsroute($event,'delete')"
+              (create)="hmspatientfollowupsroute($event,'create')"
+              (createConfirm)="hmspatientfollowupsbeforesave($event)" (edit)="hmspatientfollowupsroute($event,'edit')"
+              (editConfirm)="hmspatientfollowupsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmspatientfollowups-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Payments</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmspatientpaymentmasters-->
+          <div class="row"></div>
+          <div [ngClass]="IshmspatientpaymentmastersVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Payments' | translate}}
+              <select class='child' id="hmspatientpaymentmastersPagingdropdown"
+                (change)="hmspatientpaymentmastersPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn"
+                    (click)="hmspatientpaymentmastersroute(null, 'create')"><i class="fa fa-plus"
+                      aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmspatientpaymentmastersFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmspatientpaymentmasterssource
+              (userRowSelect)="handlehmspatientpaymentmastersGridSelected($event)"
+              [settings]="hmspatientpaymentmasterssettings" [source]="hmspatientpaymentmasterssource"
+              (delete)="hmspatientpaymentmastersroute($event,'delete')"
+              (deleteConfirm)="hmspatientpaymentmastersroute($event,'delete')"
+              (create)="hmspatientpaymentmastersroute($event,'create')"
+              (createConfirm)="hmspatientpaymentmastersbeforesave($event)"
+              (edit)="hmspatientpaymentmastersroute($event,'edit')"
+              (editConfirm)="hmspatientpaymentmastersbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmspatientpaymentmasters-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Receipts</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmsreceipts-->
+          <div class="row"></div>
+          <div [ngClass]="IshmsreceiptsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Receipts' | translate}}
+              <select class='child' id="hmsreceiptsPagingdropdown" (change)="hmsreceiptsPaging($event.target!.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="hmsreceiptsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmsreceiptsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmsreceiptssource (userRowSelect)="handlehmsreceiptsGridSelected($event)"
+              [settings]="hmsreceiptssettings" [source]="hmsreceiptssource" (delete)="hmsreceiptsroute($event,'delete')"
+              (deleteConfirm)="hmsreceiptsroute($event,'delete')" (create)="hmsreceiptsroute($event,'create')"
+              (createConfirm)="hmsreceiptsbeforesave($event)" (edit)="hmsreceiptsroute($event,'edit')"
+              (editConfirm)="hmsreceiptsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmsreceipts-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Treatments</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmstreatments-->
+          <div class="row"></div>
+          <div [ngClass]="IshmstreatmentsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Treatments' | translate}}
+              <select class='child' id="hmstreatmentsPagingdropdown" (change)="hmstreatmentsPaging($event.target!.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="hmstreatmentsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmstreatmentsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmstreatmentssource (userRowSelect)="handlehmstreatmentsGridSelected($event)"
+              [settings]="hmstreatmentssettings" [source]="hmstreatmentssource"
+              (delete)="hmstreatmentsroute($event,'delete')" (deleteConfirm)="hmstreatmentsroute($event,'delete')"
+              (create)="hmstreatmentsroute($event,'create')" (createConfirm)="hmstreatmentsbeforesave($event)"
+              (edit)="hmstreatmentsroute($event,'edit')" (editConfirm)="hmstreatmentsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmstreatments-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Patient Visits</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmspatientvisits-->
+          <div class="row"></div>
+          <div [ngClass]="IshmspatientvisitsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Patient Visits' | translate}}
+              <select class='child' id="hmspatientvisitsPagingdropdown"
+                (change)="hmspatientvisitsPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="hmspatientvisitsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmspatientvisitsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmspatientvisitssource (userRowSelect)="handlehmspatientvisitsGridSelected($event)"
+              [settings]="hmspatientvisitssettings" [source]="hmspatientvisitssource"
+              (delete)="hmspatientvisitsroute($event,'delete')" (deleteConfirm)="hmspatientvisitsroute($event,'delete')"
+              (create)="hmspatientvisitsroute($event,'create')" (createConfirm)="hmspatientvisitsbeforesave($event)"
+              (edit)="hmspatientvisitsroute($event,'edit')" (editConfirm)="hmspatientvisitsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmspatientvisits-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Admissions</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmsadmissions-->
+          <div class="row"></div>
+          <div [ngClass]="IshmsadmissionsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Admissions' | translate}}
+              <select class='child' id="hmsadmissionsPagingdropdown" (change)="hmsadmissionsPaging($event.target!.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="hmsadmissionsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmsadmissionsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmsadmissionssource (userRowSelect)="handlehmsadmissionsGridSelected($event)"
+              [settings]="hmsadmissionssettings" [source]="hmsadmissionssource"
+              (delete)="hmsadmissionsroute($event,'delete')" (deleteConfirm)="hmsadmissionsroute($event,'delete')"
+              (create)="hmsadmissionsroute($event,'create')" (createConfirm)="hmsadmissionsbeforesave($event)"
+              (edit)="hmsadmissionsroute($event,'edit')" (editConfirm)="hmsadmissionsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmsadmissions-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">H M S Patient Vaccinations</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmspatientvaccinations-->
+          <div class="row"></div>
+          <div [ngClass]="IshmspatientvaccinationsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'H M S Patient Vaccinations' | translate}}
+              <select class='child' id="hmspatientvaccinationsPagingdropdown"
+                (change)="hmspatientvaccinationsPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn"
+                    (click)="hmspatientvaccinationsroute(null, 'create')"><i class="fa fa-plus"
+                      aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmspatientvaccinationsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmspatientvaccinationssource
+              (userRowSelect)="handlehmspatientvaccinationsGridSelected($event)"
+              [settings]="hmspatientvaccinationssettings" [source]="hmspatientvaccinationssource"
+              (delete)="hmspatientvaccinationsroute($event,'delete')"
+              (deleteConfirm)="hmspatientvaccinationsroute($event,'delete')"
+              (create)="hmspatientvaccinationsroute($event,'create')"
+              (createConfirm)="hmspatientvaccinationsbeforesave($event)"
+              (edit)="hmspatientvaccinationsroute($event,'edit')"
+              (editConfirm)="hmspatientvaccinationsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmspatientvaccinations-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">H M S Appointments</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmsappointments-->
+          <div class="row"></div>
+          <div [ngClass]="IshmsappointmentsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'H M S Appointments' | translate}}
+              <select class='child' id="hmsappointmentsPagingdropdown"
+                (change)="hmsappointmentsPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="hmsappointmentsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmsappointmentsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmsappointmentssource (userRowSelect)="handlehmsappointmentsGridSelected($event)"
+              [settings]="hmsappointmentssettings" [source]="hmsappointmentssource"
+              (delete)="hmsappointmentsroute($event,'delete')" (deleteConfirm)="hmsappointmentsroute($event,'delete')"
+              (create)="hmsappointmentsroute($event,'create')" (createConfirm)="hmsappointmentsbeforesave($event)"
+              (edit)="hmsappointmentsroute($event,'edit')" (editConfirm)="hmsappointmentsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmsappointments-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Consents</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmsconsents-->
+          <div class="row"></div>
+          <div [ngClass]="IshmsconsentsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Consents' | translate}}
+              <select class='child' id="hmsconsentsPagingdropdown" (change)="hmsconsentsPaging($event.target!.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="hmsconsentsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmsconsentsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmsconsentssource (userRowSelect)="handlehmsconsentsGridSelected($event)"
+              [settings]="hmsconsentssettings" [source]="hmsconsentssource" (delete)="hmsconsentsroute($event,'delete')"
+              (deleteConfirm)="hmsconsentsroute($event,'delete')" (create)="hmsconsentsroute($event,'create')"
+              (createConfirm)="hmsconsentsbeforesave($event)" (edit)="hmsconsentsroute($event,'edit')"
+              (editConfirm)="hmsconsentsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmsconsents-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.patientid!.value != null" [menuid]="pmenuid" [value]="f.patientid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

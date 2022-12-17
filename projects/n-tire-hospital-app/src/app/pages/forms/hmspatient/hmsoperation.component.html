@@ -1,0 +1,241 @@
+<div class="dialog">
+  <form [formGroup]="hmsoperationForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Operations' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="operationdate" class="control-label">{{'OperationDate' | translate}}</label>
+          <div class="input-group">
+            <input #operationdateformpicker="ngbDatepicker" ngbDatepicker name="operationdateformpicker"
+              id="operationdate" formControlName="operationdate" class="form-control"
+              placeholder="Choose {{'OperationDate' | translate}}">
+            <button class="input-group-addon" (click)="operationdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="operationstarttime" class="control-label">{{'OperationStartTime' | translate}}</label>
+          <ngb-timepicker class="form-control timepicker" formControlName="operationstarttime"></ngb-timepicker>
+        </div>
+        <div class="col">
+          <label for="operationenddate" class="control-label">{{'OperationEndDate' | translate}}</label>
+          <div class="input-group">
+            <input #operationenddateformpicker="ngbDatepicker" ngbDatepicker name="operationenddateformpicker"
+              id="operationenddate" formControlName="operationenddate" class="form-control"
+              placeholder="Choose {{'OperationEndDate' | translate}}">
+            <button class="input-group-addon" (click)="operationenddateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="operationendtime" class="control-label">{{'OperationEndTime' | translate}}</label>
+          <ngb-timepicker class="form-control timepicker" formControlName="operationendtime"></ngb-timepicker>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="operatedplace" class="control-label" (click)="AddOrEditoperatedplace(null)"
+            (click)="AddOrEditoperatedplace(null)">{{'Operation Place' | translate}}</label>
+          <select id="operatedplace" (change)="operatedplaceonChange($event.target)" formControlName="operatedplace"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of operatedplaceList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+            </option>
+          </select>
+        </div>
+        <div class="col"><label for="surgeon" class="control-label" (click)="AddOrEditsurgeon(null)">{{'Surgeon' |
+            translate}}</label>
+          <div class="input-group">
+            <input id="surgeon" placeholder="" [ngbTypeahead]="surgeon_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedsurgeon($event)" formControlName='surgeon'
+              [resultFormatter]="surgeon_bousermastersformatter">
+            <input readonly id="surgeondesc" formControlName="surgeondesc" class="form-control autocompletedesc"
+              placeholder="{{'Surgeon' | translate}}">
+          </div>
+        </div>
+        <div class="col"><label for="assistant" class="control-label" (click)="AddOrEditassistant(null)">{{'Assistant' |
+            translate}}</label>
+          <div class="input-group">
+            <input id="assistant" placeholder="" [ngbTypeahead]="assistant_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedassistant($event)" formControlName='assistant'
+              [resultFormatter]="assistant_bousermastersformatter">
+            <input readonly id="assistantdesc" formControlName="assistantdesc" class="form-control autocompletedesc"
+              placeholder="{{'Assistant' | translate}}">
+          </div>
+        </div>
+        <div class="col"><label for="physician" class="control-label" (click)="AddOrEditphysician(null)">{{'Physician' |
+            translate}}</label>
+          <div class="input-group">
+            <input id="physician" placeholder="" [ngbTypeahead]="physician_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedphysician($event)" formControlName='physician'
+              [resultFormatter]="physician_bousermastersformatter">
+            <input readonly id="physiciandesc" formControlName="physiciandesc" class="form-control autocompletedesc"
+              placeholder="{{'Physician' | translate}}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="anesthesian" class="control-label"
+            (click)="AddOrEditanesthesian(null)">{{'Anesthesian' | translate}}</label>
+          <div class="input-group">
+            <input id="anesthesian" placeholder="" [ngbTypeahead]="anesthesian_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedanesthesian($event)"
+              formControlName='anesthesian' [resultFormatter]="anesthesian_bousermastersformatter">
+            <input readonly id="anesthesiandesc" formControlName="anesthesiandesc" class="form-control autocompletedesc"
+              placeholder="{{'Anesthesian' | translate}}">
+          </div>
+        </div>
+        <div class="col"><label for="anesthesiatechnique" class="control-label">{{'Anesthesia Technique' |
+            translate}}</label>
+          <select id="anesthesiatechnique" (change)="anesthesiatechniqueonChange($event.target)"
+            formControlName="anesthesiatechnique" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of anesthesiatechniqueList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="pressure" class="control-label">{{'Pressure' | translate}}</label>
+          <input id="pressure" formControlName="pressure" class="form-control" placeholder="{{'Pressure' | translate}}">
+        </div>
+        <div class="col">
+          <label for="pulse" class="control-label">{{'Pulse' | translate}}</label>
+          <input id="pulse" formControlName="pulse" class="form-control" placeholder="{{'Pulse' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="weight" class="control-label">{{'Weight' | translate}}</label>
+          <input id="weight" formControlName="weight" class="form-control" placeholder="{{'Weight' | translate}}">
+        </div>
+        <div class="col"><label for="operationtype" class="control-label" (click)="AddOrEditoperationtype(null)"
+            (click)="AddOrEditoperationtype(null)">{{'Operation Type' | translate}}</label>
+          <select id="operationtype" (change)="operationtypeonChange($event.target)" formControlName="operationtype"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of operationtypeList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+            </option>
+          </select>
+        </div>
+        <div class="col"><label for="complexity" class="control-label">{{'Complexity' | translate}}</label>
+          <select id="complexity" (change)="complexityonChange($event.target)" formControlName="complexity"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of complexityList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col"><label for="riskfactor" class="control-label">{{'Risk Factor' | translate}}</label>
+          <select id="riskfactor" (change)="riskfactoronChange($event.target)" formControlName="riskfactor"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of riskfactorList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="notes" class="control-label">{{'Notes' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="notes" formControlName="notes"
+            class="form-control" placeholder="{{'Notes' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="operationsteps" class="control-label">{{'OperationSteps' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="operationsteps"
+            formControlName="operationsteps" class="form-control" placeholder="{{'OperationSteps' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="preproceduremedication" class="control-label">{{'PreProcedureMedication' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="preproceduremedication"
+            formControlName="preproceduremedication" class="form-control"
+            placeholder="{{'PreProcedureMedication' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="preoperativediagnosis" class="control-label">{{'PreOperativeDiagnosis' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="preoperativediagnosis"
+            formControlName="preoperativediagnosis" class="form-control"
+            placeholder="{{'PreOperativeDiagnosis' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="preoperativefindings" class="control-label">{{'PreOperativeFindings' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="preoperativefindings"
+            formControlName="preoperativefindings" class="form-control"
+            placeholder="{{'PreOperativeFindings' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="postoperativefindings" class="control-label">{{'PostOperativeFindings' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="postoperativefindings"
+            formControlName="postoperativefindings" class="form-control"
+            placeholder="{{'PostOperativeFindings' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="postoperationcourse" class="control-label">{{'PostOperationCourse' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="postoperationcourse"
+            formControlName="postoperationcourse" class="form-control"
+            placeholder="{{'PostOperationCourse' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remarks" formControlName="remarks"
+            class="form-control" placeholder="{{'Remarks' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="sticky"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        Custom Fields</div>
+      <div class="form-group row"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}" target="_blank">{{fld!.value!.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.operationid!.value != null" [menuid]="pmenuid" [value]="f.operationid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

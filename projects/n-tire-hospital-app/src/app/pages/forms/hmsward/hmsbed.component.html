@@ -1,0 +1,88 @@
+<div class="dialog">
+  <form [formGroup]="hmsbedForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Bed' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="bedname" class="control-label">{{'BedName' | translate}}</label>
+          <input id="bedname" formControlName="bedname" class="form-control" placeholder="{{'BedName' | translate}}">
+        </div>
+        <div class="col"><label for="bedtype" class="control-label">{{'Bed Type' | translate}}</label>
+          <select id="bedtype" (change)="bedtypeonChange($event.target)" formControlName="bedtype" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of bedtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="imageurl" class="control-label">{{'Image' | translate}}</label>
+          <p-fileUpload #imageurluploader class="form-control" type="file" name="imageurl[]" mode="basic" url="{{URL}}"
+            (onSelect)="imageurlFileSelected($event)"></p-fileUpload>
+          <img src="http://localhost:5001/MyResources/{{ this.hmsbedForm.get('imageurl')!.value}}" />
+        </div>
+        <div class="col">
+          <label for="roomlength" class="control-label">{{'RoomLength' | translate}}</label>
+          <input id="roomlength" formControlName="roomlength" class="form-control"
+            placeholder="{{'RoomLength' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="roomwidth" class="control-label">{{'RoomWidth' | translate}}</label>
+          <input id="roomwidth" formControlName="roomwidth" class="form-control"
+            placeholder="{{'RoomWidth' | translate}}">
+        </div>
+        <div class="col">
+          <label for="facilities" class="control-label">{{'Facilities' | translate}}</label>
+          <input id="facilities" formControlName="facilities" class="form-control"
+            placeholder="{{'Facilities' | translate}}">
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+          <p-editor id="remarks" formControlName="remarks" placeholder="{{'Remarks' | translate}}"
+            [style]="{  height: '320' }"></p-editor>
+        </div>
+      </div>
+      <div class="sticky"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        Custom Fields</div>
+      <div class="form-group row"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}" target="_blank">{{fld!.value!.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.bedid!.value != null" [menuid]="pmenuid" [value]="f.bedid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

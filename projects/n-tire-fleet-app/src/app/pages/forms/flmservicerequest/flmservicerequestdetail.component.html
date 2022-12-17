@@ -1,0 +1,67 @@
+<div class="dialog">
+  <form [formGroup]="flmservicerequestdetailForm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Service Request Details' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col"><label for="taskid" class="control-label" (click)="AddOrEdittaskid(null)">{{'Task' |
+            translate}}</label>
+          <select id="taskid" (change)="taskidonChange($event.target)" formControlName="taskid" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of taskidList" value="{{item.taskid}}">{{item.description}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="description" class="control-label">{{'Description' | translate}}</label>
+          <input id="description" formControlName="description" class="form-control"
+            placeholder="{{'Description' | translate}}">
+        </div>
+        <div class="col">
+          <label for="vehicleissueid1" class="control-label">{{'VehicleIssueId1' | translate}}</label>
+          <input id="vehicleissueid1" formControlName="vehicleissueid1" class="form-control"
+            placeholder="{{'VehicleIssueId1' | translate}}">
+        </div>
+        <div class="col">
+          <label for="vehicleissueid2" class="control-label">{{'VehicleIssueId2' | translate}}</label>
+          <input id="vehicleissueid2" formControlName="vehicleissueid2" class="form-control"
+            placeholder="{{'VehicleIssueId2' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="labourcost" class="control-label">{{'LabourCost' | translate}}</label>
+          <input id="labourcost" formControlName="labourcost" class="form-control"
+            placeholder="{{'LabourCost' | translate}}">
+        </div>
+        <div class="col">
+          <label for="itemcost" class="control-label">{{'ItemCost' | translate}}</label>
+          <input id="itemcost" formControlName="itemcost" class="form-control" placeholder="{{'ItemCost' | translate}}">
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remarks" formControlName="remarks"
+            class="form-control" placeholder="{{'Remarks' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.servicetaskid!.value != null" [menuid]="pmenuid" [value]="f.servicetaskid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

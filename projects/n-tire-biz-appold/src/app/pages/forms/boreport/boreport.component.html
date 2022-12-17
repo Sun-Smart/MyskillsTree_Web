@@ -1,0 +1,1243 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="boreport_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'boreports' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_boreports()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pkcurrent' id='pkcurrent' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of boreport_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.reportid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.reportid.value" [status]="f.status.value"></app-action>
+            <a class="alert-danger" [routerLink]='' (click)="MakeAllHide()
+"><i class="fa fa-database"></i>Close</a>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+      </div>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('reportcode') == -1) && (reportcodevisible==undefined || reportcodevisible==true))"
+                style='' class="col-3 ">
+                <label for="reportcode" class="control-label">Report Code</label>
+                <label *ngIf="showview" class="labelview">{{f.reportcode?.value}}</label>
+                <input *ngIf="!showview" id="reportcode" formControlName="reportcode" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('actionkey') == -1) && (actionkeyvisible==undefined || actionkeyvisible==true))"
+                style='' class="col-3 ">
+                <label for="actionkey" class="control-label">Action Key</label>
+                <label *ngIf="showview" class="labelview">{{f.actionkey?.value}}</label>
+                <input *ngIf="!showview" id="actionkey" formControlName="actionkey" class="form-control">
+              </div>
+              <div class="col"></div>
+              <div class="col"></div>
+              <div class="col"></div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('reportname') == -1) && (reportnamevisible==undefined || reportnamevisible==true))"
+                style='width:1500px' class="col-12 ">
+                <label for="reportname" class="control-label">Report Name</label>
+                <label *ngIf="showview" class="labelview">{{f.reportname?.value}}</label>
+                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="reportname"
+                  formControlName="reportname" class="form-control">
+</textarea>
+              </div>
+            </div>
+
+
+            <!--reportmodule-->
+
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('reportmodule') == -1) && (reportmodulevisible==undefined || reportmodulevisible==true))"
+                style='' class="col-3"><label for="reportmodule" class="control-label">Report Module</label>
+                <select *ngIf="!showview" id="reportmodule" (change)="reportmodule_onChange($event.target)"
+                  formControlName="reportmodule" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of reportmodule_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.reportmoduledesc?.value}}</label>
+              </div>
+
+
+              <!--reporttype-->
+
+              <div
+                *ngIf="((hidelist.indexOf('reporttype') == -1) && (reporttypevisible==undefined || reporttypevisible==true))"
+                style='' class="col-3"><label for="reporttype" class="control-label">Report Type</label>
+                <select *ngIf="!showview" id="reporttype" (change)="reporttype_onChange($event.target)"
+                  formControlName="reporttype" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of reporttype_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.reporttypedesc?.value}}</label>
+              </div>
+              <div class="col"></div>
+              <div class="col"></div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div *ngIf="((hidelist.indexOf('columns') == -1) && (columnsvisible==undefined || columnsvisible==true))"
+                style='width:1500px' class="col-12 ">
+                <label for="columns" class="control-label">Columns</label>
+                <label *ngIf="showview" class="labelview">{{f.columns?.value}}</label>
+                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="columns"
+                  formControlName="columns" class="form-control">
+</textarea>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('sidefilter') == -1) && (sidefiltervisible==undefined || sidefiltervisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="sidefilter" class="control-label">Side Filter</label>
+                  <label *ngIf="showview" class="labelview">{{f.sidefilter?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="sidefilter" formControlName="sidefilter"
+                    class="form-control">
+                </div>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('sidefilters') == -1) && (sidefiltersvisible==undefined || sidefiltersvisible==true))"
+                style='' class="col-3 ">
+                <label for="sidefilters" class="control-label">Side Filters</label>
+                <label *ngIf="showview" class="labelview">{{f.sidefilters?.value}}</label>
+                <input *ngIf="!showview" id="sidefilters" formControlName="sidefilters" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('maintablename') == -1) && (maintablenamevisible==undefined || maintablenamevisible==true))"
+                style='' class="col-3 ">
+                <label for="maintablename" class="control-label">Main Table Name</label>
+                <label *ngIf="showview" class="labelview">{{f.maintablename?.value}}</label>
+                <input *ngIf="!showview" id="maintablename" formControlName="maintablename" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('maintablealias') == -1) && (maintablealiasvisible==undefined || maintablealiasvisible==true))"
+                style='' class="col-3 ">
+                <label for="maintablealias" class="control-label">Main Table Alias</label>
+                <label *ngIf="showview" class="labelview">{{f.maintablealias?.value}}</label>
+                <input *ngIf="!showview" id="maintablealias" formControlName="maintablealias" class="form-control">
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('maintableidentityfield') == -1) && (maintableidentityfieldvisible==undefined || maintableidentityfieldvisible==true))"
+                style='' class="col-3 ">
+                <label for="maintableidentityfield" class="control-label">Main Table Identity Field</label>
+                <label *ngIf="showview" class="labelview">{{f.maintableidentityfield?.value}}</label>
+                <input *ngIf="!showview" id="maintableidentityfield" formControlName="maintableidentityfield"
+                  class="form-control">
+              </div>
+              <div *ngIf="((hidelist.indexOf('pk') == -1) && (pkvisible==undefined || pkvisible==true))" style=''
+                class="col-3 ">
+                <label for="pk" class="control-label">P K</label>
+                <label *ngIf="showview" class="labelview">{{f.pk?.value}}</label>
+                <input *ngIf="!showview" id="pk" formControlName="pk" class="form-control">
+              </div>
+              <div class="col"></div>
+              <div class="col"></div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div *ngIf="((hidelist.indexOf('query') == -1) && (queryvisible==undefined || queryvisible==true))"
+                style='width:1500px' class="col-12 ">
+                <label for="query" class="control-label">Query</label>
+                <label *ngIf="showview" class="labelview">{{f.query?.value}}</label>
+                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="query"
+                  formControlName="query" class="form-control">
+</textarea>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('wherecondition') == -1) && (whereconditionvisible==undefined || whereconditionvisible==true))"
+                style='width:1500px' class="col-12 ">
+                <label for="wherecondition" class="control-label">Where Condition</label>
+                <label *ngIf="showview" class="labelview">{{f.wherecondition?.value}}</label>
+                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="wherecondition"
+                  formControlName="wherecondition" class="form-control">
+</textarea>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('cardtype') == -1) && (cardtypevisible==undefined || cardtypevisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="cardtype" class="control-label">Card Type</label>
+                  <label *ngIf="showview" class="labelview">{{f.cardtype?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="cardtype" formControlName="cardtype"
+                    class="form-control">
+                </div>
+              </div>
+              <div class="col"></div>
+              <div class="col"></div>
+              <div class="col"></div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div *ngIf="((hidelist.indexOf('html') == -1) && (htmlvisible==undefined || htmlvisible==true))"
+                style='width:1500px' class="col-12 ">
+                <label for="html" class="control-label">H T M L</label>
+                <label *ngIf="showview" class="labelview">{{f.html?.value}}</label>
+                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="html"
+                  formControlName="html" class="form-control">
+</textarea>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('calendar') == -1) && (calendarvisible==undefined || calendarvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="calendar" class="control-label">Calendar</label>
+                  <label *ngIf="showview" class="labelview">{{f.calendar?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="calendar" formControlName="calendar"
+                    class="form-control">
+                </div>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('kanbanview') == -1) && (kanbanviewvisible==undefined || kanbanviewvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="kanbanview" class="control-label">Kanban View</label>
+                  <label *ngIf="showview" class="labelview">{{f.kanbanview?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="kanbanview" formControlName="kanbanview"
+                    class="form-control">
+                </div>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('kanbankey') == -1) && (kanbankeyvisible==undefined || kanbankeyvisible==true))"
+                style='' class="col-3 ">
+                <label for="kanbankey" class="control-label">Kanban Key</label>
+                <label *ngIf="showview" class="labelview">{{f.kanbankey?.value}}</label>
+                <input *ngIf="!showview" id="kanbankey" formControlName="kanbankey" class="form-control">
+              </div>
+              <div class="col"></div>
+            </div>
+          </p-accordion>
+          <p-accordion [multiple]='true'>
+            <p-accordionTab header='Date' [selected]='false'>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('datefilter') == -1) && (datefiltervisible==undefined || datefiltervisible==true))"
+                  style='' class="col-3 ">
+                  <div class="columnchk">
+                    <label for="datefilter" class="control-label">Date Filter</label>
+                    <label *ngIf="showview" class="labelview">{{f.datefilter?.value}}</label>
+                    <input type="checkbox" *ngIf="!showview" id="datefilter" formControlName="datefilter"
+                      class="form-control">
+                  </div>
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('datefiltercolumnname') == -1) && (datefiltercolumnnamevisible==undefined || datefiltercolumnnamevisible==true))"
+                  style='' class="col-3 ">
+                  <label for="datefiltercolumnname" class="control-label">Date Filter Column Name</label>
+                  <label *ngIf="showview" class="labelview">{{f.datefiltercolumnname?.value}}</label>
+                  <input *ngIf="!showview" id="datefiltercolumnname" formControlName="datefiltercolumnname"
+                    class="form-control">
+                </div>
+
+
+                <!--datefiltertype-->
+
+                <div
+                  *ngIf="((hidelist.indexOf('datefiltertype') == -1) && (datefiltertypevisible==undefined || datefiltertypevisible==true))"
+                  style='' class="col-3"><label for="datefiltertype" class="control-label">Date Filter Type</label>
+                  <select *ngIf="!showview" id="datefiltertype" (change)="datefiltertype_onChange($event.target)"
+                    formControlName="datefiltertype" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of datefiltertype_List" value="{{item.value}}">{{item.label}}</option>
+                  </select>
+                  <label *ngIf="showview" class="labelview">{{f.datefiltertypedesc?.value}}</label>
+                </div>
+                <div class="col"></div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+          <p-accordion [multiple]='true'>
+            <p-accordionTab header='Group' [selected]='false'>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('groupby') == -1) && (groupbyvisible==undefined || groupbyvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="groupby" class="control-label">Group By</label>
+                  <label *ngIf="showview" class="labelview">{{f.groupby?.value}}</label>
+                  <input *ngIf="!showview" id="groupby" formControlName="groupby" class="form-control">
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('groupbytext') == -1) && (groupbytextvisible==undefined || groupbytextvisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="groupbytext" class="control-label">Group By Text</label>
+                  <label *ngIf="showview" class="labelview">{{f.groupbytext?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="groupbytext"
+                    formControlName="groupbytext" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('groupby2') == -1) && (groupby2visible==undefined || groupby2visible==true))"
+                  style='' class="col-3 ">
+                  <label for="groupby2" class="control-label">Group By2</label>
+                  <label *ngIf="showview" class="labelview">{{f.groupby2?.value}}</label>
+                  <input *ngIf="!showview" id="groupby2" formControlName="groupby2" class="form-control">
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('groupby2text') == -1) && (groupby2textvisible==undefined || groupby2textvisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="groupby2text" class="control-label">Group By2 Text</label>
+                  <label *ngIf="showview" class="labelview">{{f.groupby2text?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="groupby2text"
+                    formControlName="groupby2text" class="form-control">
+</textarea>
+                </div>
+              </div>
+
+
+              <!--groupbyrelationship-->
+
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('groupbyrelationship') == -1) && (groupbyrelationshipvisible==undefined || groupbyrelationshipvisible==true))"
+                  style='' class="col-3"><label for="groupbyrelationship" class="control-label">Group By
+                    Relationship</label>
+                  <select *ngIf="!showview" id="groupbyrelationship"
+                    (change)="groupbyrelationship_onChange($event.target)" formControlName="groupbyrelationship"
+                    class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of groupbyrelationship_List" value="{{item.value}}">{{item.label}}</option>
+                  </select>
+                  <label *ngIf="showview" class="labelview">{{f.groupbyrelationshipdesc?.value}}</label>
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+          <p-accordion [multiple]='true'>
+            <p-accordionTab header='Sort' [selected]='false'>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('sortby1') == -1) && (sortby1visible==undefined || sortby1visible==true))"
+                  style='' class="col-3 ">
+                  <label for="sortby1" class="control-label">Sort By1</label>
+                  <label *ngIf="showview" class="labelview">{{f.sortby1?.value}}</label>
+                  <input *ngIf="!showview" id="sortby1" formControlName="sortby1" class="form-control">
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('sortby2') == -1) && (sortby2visible==undefined || sortby2visible==true))"
+                  style='' class="col-3 ">
+                  <label for="sortby2" class="control-label">Sort By2</label>
+                  <label *ngIf="showview" class="labelview">{{f.sortby2?.value}}</label>
+                  <input *ngIf="!showview" id="sortby2" formControlName="sortby2" class="form-control">
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('sortby3') == -1) && (sortby3visible==undefined || sortby3visible==true))"
+                  style='' class="col-3 ">
+                  <label for="sortby3" class="control-label">Sort By3</label>
+                  <label *ngIf="showview" class="labelview">{{f.sortby3?.value}}</label>
+                  <input *ngIf="!showview" id="sortby3" formControlName="sortby3" class="form-control">
+                </div>
+                <div class="col"></div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+          <p-accordion [multiple]='true'>
+            <p-accordionTab header='Parent' [selected]='false'>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('parentid') == -1) && (parentidvisible==undefined || parentidvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="parentid" class="control-label">Parent</label>
+                  <label *ngIf="showview" class="labelview">{{f.parentid?.value}}</label>
+                  <input *ngIf="!showview" id="parentid" formControlName="parentid" class="form-control">
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('parentdescription') == -1) && (parentdescriptionvisible==undefined || parentdescriptionvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="parentdescription" class="control-label">Parent Description</label>
+                  <label *ngIf="showview" class="labelview">{{f.parentdescription?.value}}</label>
+                  <input *ngIf="!showview" id="parentdescription" formControlName="parentdescription"
+                    class="form-control">
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+          <p-accordion [multiple]='true'>
+            <p-accordionTab header='Detail Table' [selected]='false'>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('detailtablename') == -1) && (detailtablenamevisible==undefined || detailtablenamevisible==true))"
+                  style='' class="col-3 ">
+                  <label for="detailtablename" class="control-label">Detail Table Name</label>
+                  <label *ngIf="showview" class="labelview">{{f.detailtablename?.value}}</label>
+                  <input *ngIf="!showview" id="detailtablename" formControlName="detailtablename" class="form-control">
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('detailtablealias') == -1) && (detailtablealiasvisible==undefined || detailtablealiasvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="detailtablealias" class="control-label">Detail Table Alias</label>
+                  <label *ngIf="showview" class="labelview">{{f.detailtablealias?.value}}</label>
+                  <input *ngIf="!showview" id="detailtablealias" formControlName="detailtablealias"
+                    class="form-control">
+                </div>
+
+
+                <!--jointype-->
+
+                <div
+                  *ngIf="((hidelist.indexOf('jointype') == -1) && (jointypevisible==undefined || jointypevisible==true))"
+                  style='' class="col-3"><label for="jointype" class="control-label">Join Type</label>
+                  <select *ngIf="!showview" id="jointype" (change)="jointype_onChange($event.target)"
+                    formControlName="jointype" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of jointype_List" value="{{item.value}}">{{item.label}}</option>
+                  </select>
+                  <label *ngIf="showview" class="labelview">{{f.jointypedesc?.value}}</label>
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('detailtableidentityfield') == -1) && (detailtableidentityfieldvisible==undefined || detailtableidentityfieldvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="detailtableidentityfield" class="control-label">Detail Table Identity Field</label>
+                  <label *ngIf="showview" class="labelview">{{f.detailtableidentityfield?.value}}</label>
+                  <input *ngIf="!showview" id="detailtableidentityfield" formControlName="detailtableidentityfield"
+                    class="form-control">
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('detailtablefk') == -1) && (detailtablefkvisible==undefined || detailtablefkvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="detailtablefk" class="control-label">Detail Table F K</label>
+                  <label *ngIf="showview" class="labelview">{{f.detailtablefk?.value}}</label>
+                  <input *ngIf="!showview" id="detailtablefk" formControlName="detailtablefk" class="form-control">
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('detailtableconcatenate') == -1) && (detailtableconcatenatevisible==undefined || detailtableconcatenatevisible==true))"
+                  style='' class="col-3 ">
+                  <div class="columnchk">
+                    <label for="detailtableconcatenate" class="control-label">Detail Table Concatenate</label>
+                    <label *ngIf="showview" class="labelview">{{f.detailtableconcatenate?.value}}</label>
+                    <input type="checkbox" *ngIf="!showview" id="detailtableconcatenate"
+                      formControlName="detailtableconcatenate" class="form-control">
+                  </div>
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('detailtableheader') == -1) && (detailtableheadervisible==undefined || detailtableheadervisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="detailtableheader" class="control-label">Detail Table Header</label>
+                  <label *ngIf="showview" class="labelview">{{f.detailtableheader?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="detailtableheader"
+                    formControlName="detailtableheader" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('detailtablefooter') == -1) && (detailtablefootervisible==undefined || detailtablefootervisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="detailtablefooter" class="control-label">Detail Table Footer</label>
+                  <label *ngIf="showview" class="labelview">{{f.detailtablefooter?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="detailtablefooter"
+                    formControlName="detailtablefooter" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('detailtablequery') == -1) && (detailtablequeryvisible==undefined || detailtablequeryvisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="detailtablequery" class="control-label">Detail Table Query</label>
+                  <label *ngIf="showview" class="labelview">{{f.detailtablequery?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="detailtablequery"
+                    formControlName="detailtablequery" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('masterdetailwhere') == -1) && (masterdetailwherevisible==undefined || masterdetailwherevisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="masterdetailwhere" class="control-label">Master Detail Where</label>
+                  <label *ngIf="showview" class="labelview">{{f.masterdetailwhere?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="masterdetailwhere"
+                    formControlName="masterdetailwhere" class="form-control">
+</textarea>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+          <p-accordion [multiple]='true'>
+            <p-accordionTab header='Others' [selected]='false'>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('numrows') == -1) && (numrowsvisible==undefined || numrowsvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="numrows" class="control-label">Num Rows</label>
+                  <label *ngIf="showview" class="labelview">{{f.numrows?.value}}</label>
+                  <input *ngIf="!showview" id="numrows" formControlName="numrows" class="form-control">
+                </div>
+
+
+                <!--reportoutputtype-->
+
+                <div
+                  *ngIf="((hidelist.indexOf('reportoutputtype') == -1) && (reportoutputtypevisible==undefined || reportoutputtypevisible==true))"
+                  style='' class="col-3"><label for="reportoutputtype" class="control-label">Report Output Type</label>
+                  <select *ngIf="!showview" id="reportoutputtype" (change)="reportoutputtype_onChange($event.target)"
+                    formControlName="reportoutputtype" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of reportoutputtype_List" value="{{item.value}}">{{item.label}}</option>
+                  </select>
+                  <label *ngIf="showview" class="labelview">{{f.reportoutputtypedesc?.value}}</label>
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('noheader') == -1) && (noheadervisible==undefined || noheadervisible==true))"
+                  style='' class="col-3 ">
+                  <div class="columnchk">
+                    <label for="noheader" class="control-label">No Header</label>
+                    <label *ngIf="showview" class="labelview">{{f.noheader?.value}}</label>
+                    <input type="checkbox" *ngIf="!showview" id="noheader" formControlName="noheader"
+                      class="form-control">
+                  </div>
+                </div>
+                <div class="col"></div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div *ngIf="((hidelist.indexOf('header') == -1) && (headervisible==undefined || headervisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="header" class="control-label">Header</label>
+                  <label *ngIf="showview" class="labelview">{{f.header?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header"
+                    formControlName="header" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div *ngIf="((hidelist.indexOf('footer') == -1) && (footervisible==undefined || footervisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footer" class="control-label">Footer</label>
+                  <label *ngIf="showview" class="labelview">{{f.footer?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer"
+                    formControlName="footer" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('headerquery') == -1) && (headerqueryvisible==undefined || headerqueryvisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="headerquery" class="control-label">Header Query</label>
+                  <label *ngIf="showview" class="labelview">{{f.headerquery?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="headerquery"
+                    formControlName="headerquery" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('footerquery') == -1) && (footerqueryvisible==undefined || footerqueryvisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footerquery" class="control-label">Footer Query</label>
+                  <label *ngIf="showview" class="labelview">{{f.footerquery?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footerquery"
+                    formControlName="footerquery" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('headerquery1') == -1) && (headerquery1visible==undefined || headerquery1visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="headerquery1" class="control-label">Header Query1</label>
+                  <label *ngIf="showview" class="labelview">{{f.headerquery1?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="headerquery1"
+                    formControlName="headerquery1" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('footerquery1') == -1) && (footerquery1visible==undefined || footerquery1visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footerquery1" class="control-label">Footer Query1</label>
+                  <label *ngIf="showview" class="labelview">{{f.footerquery1?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footerquery1"
+                    formControlName="footerquery1" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('headerquery2') == -1) && (headerquery2visible==undefined || headerquery2visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="headerquery2" class="control-label">Header Query2</label>
+                  <label *ngIf="showview" class="labelview">{{f.headerquery2?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="headerquery2"
+                    formControlName="headerquery2" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('footerquery2') == -1) && (footerquery2visible==undefined || footerquery2visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footerquery2" class="control-label">Footer Query2</label>
+                  <label *ngIf="showview" class="labelview">{{f.footerquery2?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footerquery2"
+                    formControlName="footerquery2" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('headerquery3') == -1) && (headerquery3visible==undefined || headerquery3visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="headerquery3" class="control-label">Header Query3</label>
+                  <label *ngIf="showview" class="labelview">{{f.headerquery3?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="headerquery3"
+                    formControlName="headerquery3" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('footerquery3') == -1) && (footerquery3visible==undefined || footerquery3visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footerquery3" class="control-label">Footer Query3</label>
+                  <label *ngIf="showview" class="labelview">{{f.footerquery3?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footerquery3"
+                    formControlName="footerquery3" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('headerquery4') == -1) && (headerquery4visible==undefined || headerquery4visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="headerquery4" class="control-label">Header Query4</label>
+                  <label *ngIf="showview" class="labelview">{{f.headerquery4?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="headerquery4"
+                    formControlName="headerquery4" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('footerquery4') == -1) && (footerquery4visible==undefined || footerquery4visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footerquery4" class="control-label">Footer Query4</label>
+                  <label *ngIf="showview" class="labelview">{{f.footerquery4?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footerquery4"
+                    formControlName="footerquery4" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('headerquery5') == -1) && (headerquery5visible==undefined || headerquery5visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="headerquery5" class="control-label">Header Query5</label>
+                  <label *ngIf="showview" class="labelview">{{f.headerquery5?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="headerquery5"
+                    formControlName="headerquery5" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('footerquery5') == -1) && (footerquery5visible==undefined || footerquery5visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footerquery5" class="control-label">Footer Query5</label>
+                  <label *ngIf="showview" class="labelview">{{f.footerquery5?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footerquery5"
+                    formControlName="footerquery5" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('header1') == -1) && (header1visible==undefined || header1visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="header1" class="control-label">Header1</label>
+                  <label *ngIf="showview" class="labelview">{{f.header1?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header1"
+                    formControlName="header1" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('footer1') == -1) && (footer1visible==undefined || footer1visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footer1" class="control-label">Footer1</label>
+                  <label *ngIf="showview" class="labelview">{{f.footer1?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer1"
+                    formControlName="footer1" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('header2') == -1) && (header2visible==undefined || header2visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="header2" class="control-label">Header2</label>
+                  <label *ngIf="showview" class="labelview">{{f.header2?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header2"
+                    formControlName="header2" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('footer2') == -1) && (footer2visible==undefined || footer2visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footer2" class="control-label">Footer2</label>
+                  <label *ngIf="showview" class="labelview">{{f.footer2?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer2"
+                    formControlName="footer2" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('header3') == -1) && (header3visible==undefined || header3visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="header3" class="control-label">Header3</label>
+                  <label *ngIf="showview" class="labelview">{{f.header3?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header3"
+                    formControlName="header3" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('footer3') == -1) && (footer3visible==undefined || footer3visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footer3" class="control-label">Footer3</label>
+                  <label *ngIf="showview" class="labelview">{{f.footer3?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer3"
+                    formControlName="footer3" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('header4') == -1) && (header4visible==undefined || header4visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="header4" class="control-label">Header4</label>
+                  <label *ngIf="showview" class="labelview">{{f.header4?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header4"
+                    formControlName="header4" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('footer4') == -1) && (footer4visible==undefined || footer4visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footer4" class="control-label">Footer4</label>
+                  <label *ngIf="showview" class="labelview">{{f.footer4?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer4"
+                    formControlName="footer4" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('header5') == -1) && (header5visible==undefined || header5visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="header5" class="control-label">Header5</label>
+                  <label *ngIf="showview" class="labelview">{{f.header5?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header5"
+                    formControlName="header5" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('footer5') == -1) && (footer5visible==undefined || footer5visible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="footer5" class="control-label">Footer5</label>
+                  <label *ngIf="showview" class="labelview">{{f.footer5?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer5"
+                    formControlName="footer5" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div *ngIf="((hidelist.indexOf('css') == -1) && (cssvisible==undefined || cssvisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="css" class="control-label">C S S</label>
+                  <label *ngIf="showview" class="labelview">{{f.css?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="css"
+                    formControlName="css" class="form-control">
+</textarea>
+                </div>
+              </div>
+
+
+              <!--viewhtmltype-->
+
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('viewhtmltype') == -1) && (viewhtmltypevisible==undefined || viewhtmltypevisible==true))"
+                  style='' class="col-3"><label for="viewhtmltype" class="control-label">View H T M L Type</label>
+                  <select *ngIf="!showview" id="viewhtmltype" (change)="viewhtmltype_onChange($event.target)"
+                    formControlName="viewhtmltype" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of viewhtmltype_List" value="{{item.value}}">{{item.label}}</option>
+                  </select>
+                  <label *ngIf="showview" class="labelview">{{f.viewhtmltypedesc?.value}}</label>
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('viewhtml') == -1) && (viewhtmlvisible==undefined || viewhtmlvisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="viewhtml" class="control-label">View Html</label>
+                  <label *ngIf="showview" class="labelview">{{f.viewhtml?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="viewhtml"
+                    formControlName="viewhtml" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('viewcss') == -1) && (viewcssvisible==undefined || viewcssvisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="viewcss" class="control-label">View C S S</label>
+                  <label *ngIf="showview" class="labelview">{{f.viewcss?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="viewcss"
+                    formControlName="viewcss" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('reporthtml') == -1) && (reporthtmlvisible==undefined || reporthtmlvisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="reporthtml" class="control-label">Report H T M L</label>
+                  <label *ngIf="showview" class="labelview">{{f.reporthtml?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="reporthtml"
+                    formControlName="reporthtml" class="form-control">
+</textarea>
+                </div>
+              </div>
+
+
+              <!--workflowhtmltype-->
+
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('workflowhtmltype') == -1) && (workflowhtmltypevisible==undefined || workflowhtmltypevisible==true))"
+                  style='' class="col-3"><label for="workflowhtmltype" class="control-label">Work Flow H T M L
+                    Type</label>
+                  <select *ngIf="!showview" id="workflowhtmltype" (change)="workflowhtmltype_onChange($event.target)"
+                    formControlName="workflowhtmltype" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of workflowhtmltype_List" value="{{item.value}}">{{item.label}}</option>
+                  </select>
+                  <label *ngIf="showview" class="labelview">{{f.workflowhtmltypedesc?.value}}</label>
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('workflowhtml') == -1) && (workflowhtmlvisible==undefined || workflowhtmlvisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="workflowhtml" class="control-label">Work Flow H T M L</label>
+                  <label *ngIf="showview" class="labelview">{{f.workflowhtml?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="workflowhtml"
+                    formControlName="workflowhtml" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('component') == -1) && (componentvisible==undefined || componentvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="component" class="control-label">Component</label>
+                  <label *ngIf="showview" class="labelview">{{f.component?.value}}</label>
+                  <input *ngIf="!showview" id="component" formControlName="component" class="form-control">
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('alternateview') == -1) && (alternateviewvisible==undefined || alternateviewvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="alternateview" class="control-label">Alternate View</label>
+                  <label *ngIf="showview" class="labelview">{{f.alternateview?.value}}</label>
+                  <input *ngIf="!showview" id="alternateview" formControlName="alternateview" class="form-control">
+                </div>
+
+
+                <!--recordtype-->
+
+                <div
+                  *ngIf="((hidelist.indexOf('recordtype') == -1) && (recordtypevisible==undefined || recordtypevisible==true))"
+                  style='' class="col-3"><label for="recordtype" class="control-label">Record Type</label>
+                  <select *ngIf="!showview" id="recordtype" (change)="recordtype_onChange($event.target)"
+                    formControlName="recordtype" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of recordtype_List" value="{{item.value}}">{{item.label}}</option>
+                  </select>
+                  <label *ngIf="showview" class="labelview">{{f.recordtypedesc?.value}}</label>
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('userfield') == -1) && (userfieldvisible==undefined || userfieldvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="userfield" class="control-label">User Field</label>
+                  <label *ngIf="showview" class="labelview">{{f.userfield?.value}}</label>
+                  <input *ngIf="!showview" id="userfield" formControlName="userfield" class="form-control">
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('employeefield') == -1) && (employeefieldvisible==undefined || employeefieldvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="employeefield" class="control-label">Employee Field</label>
+                  <label *ngIf="showview" class="labelview">{{f.employeefield?.value}}</label>
+                  <input *ngIf="!showview" id="employeefield" formControlName="employeefield" class="form-control">
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('userfiltertype') == -1) && (userfiltertypevisible==undefined || userfiltertypevisible==true))"
+                  style='' class="col-3 ">
+                  <label for="userfiltertype" class="control-label">User Filter Type</label>
+                  <label *ngIf="showview" class="labelview">{{f.userfiltertype?.value}}</label>
+                  <input *ngIf="!showview" id="userfiltertype" formControlName="userfiltertype" class="form-control">
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('rolefield') == -1) && (rolefieldvisible==undefined || rolefieldvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="rolefield" class="control-label">Role Field</label>
+                  <label *ngIf="showview" class="labelview">{{f.rolefield?.value}}</label>
+                  <input *ngIf="!showview" id="rolefield" formControlName="rolefield" class="form-control">
+                </div>
+
+
+                <!--dashboardid-->
+
+                <div
+                  *ngIf="((hidelist.indexOf('dashboardid') == -1) && (dashboardidvisible==undefined || dashboardidvisible==true))"
+                  style='' class="col-3"><label for="dashboardid" class="control-label"
+                    (click)="AddOrEdit_dashboardid(null)">Dashboard</label>
+                  <app-popupselect *ngIf="!showview" [options]="dashboardid_List"
+                    [optionsEvent]="dashboardid_optionsEvent" [form]="bodashboard"
+                    (selectItem)="onSelected_dashboardid($event)" [reportid]='ybg3p' [menuid]='ybg3p'
+                    formControlName="dashboardid" id="value" desc="label"></app-popupselect>
+                  <div class="input-group">
+                  </div>
+                  <label *ngIf="showview" class="labelview">{{f.dashboardiddesc?.value}}</label>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('tableheader') == -1) && (tableheadervisible==undefined || tableheadervisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="tableheader" class="control-label">Table Header</label>
+                  <label *ngIf="showview" class="labelview">{{f.tableheader?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="tableheader"
+                    formControlName="tableheader" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('reportjsondata') == -1) && (reportjsondatavisible==undefined || reportjsondatavisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="reportjsondata" class="control-label">Report J S O N Data</label>
+                  <label *ngIf="showview" class="labelview">{{f.reportjsondata?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="reportjsondata"
+                    formControlName="reportjsondata" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('helptext') == -1) && (helptextvisible==undefined || helptextvisible==true))"
+                  style='width:1500px' class="col-12 ">
+                  <label for="helptext" class="control-label">Help Text</label>
+                  <label *ngIf="showview" class="labelview">{{f.helptext?.value}}</label>
+                  <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="helptext"
+                    formControlName="helptext" class="form-control">
+</textarea>
+                </div>
+              </div>
+              <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+                <div
+                  *ngIf="((hidelist.indexOf('filters') == -1) && (filtersvisible==undefined || filtersvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="filters" class="control-label">Filters</label>
+                  <label *ngIf="showview" class="labelview">{{f.filters?.value}}</label>
+                  <input *ngIf="!showview" id="filters" formControlName="filters" class="form-control">
+                </div>
+                <div
+                  *ngIf="((hidelist.indexOf('filtercolumns') == -1) && (filtercolumnsvisible==undefined || filtercolumnsvisible==true))"
+                  style='' class="col-3 ">
+                  <label for="filtercolumns" class="control-label">Filter Columns</label>
+                  <label *ngIf="showview" class="labelview">{{f.filtercolumns?.value}}</label>
+                  <input *ngIf="!showview" id="filtercolumns" formControlName="filtercolumns" class="form-control">
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">boreportdetails</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table boreportdetails-->
+            <div [ngClass]="Is_boreportdetails_Visible()">
+              <!--End-->
+              <h4 class="form-group sticky1  columns left">{{'boreportdetails' | translate}}
+                <select class='child' id="boreportdetailsPagingdropdown"
+                  (change)="boreportdetails_Paging($event.target.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="boreportdetailtoggleOption();boreportdetails_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                      <li role="separator" class="divider">
+                        <hr>
+                      </li>
+                      <li><a class="dropdown-item" [routerLink]='' (click)="showboreportdetailsFilter()"><i
+                            class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                      <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <a class="rightside" [routerLink]='' (click)="boreportdetails_route(null, 'create')"><i
+                    class="fa fa-plus"></i></a>
+              </h4>
+              <ng2-smart-table #tbl_boreportdetails (userRowSelect)="handle_boreportdetails_GridSelected($event)"
+                [settings]="boreportdetails_settings" (custom)="onCustom_boreportdetails_Action($event)"
+                [source]="tbl_boreportdetails?.source?.data" (delete)="boreportdetails_route($event,'delete')"
+                (deleteConfirm)="boreportdetails_route($event,'delete')"
+                (create)="boreportdetails_route($event,'create')" (createConfirm)="boreportdetails_beforesave($event)"
+                (edit)="boreportdetails_route($event,'edit')" (editConfirm)="boreportdetails_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table boreportdetails-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">boreportothertables</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table boreportothertables-->
+            <div [ngClass]="Is_boreportothertables_Visible()">
+              <!--End-->
+              <h4 class="form-group sticky1  columns left">{{'boreportothertables' | translate}}
+                <select class='child' id="boreportothertablesPagingdropdown"
+                  (change)="boreportothertables_Paging($event.target.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="boreportothertabletoggleOption();boreportothertables_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                      <li role="separator" class="divider">
+                        <hr>
+                      </li>
+                      <li><a class="dropdown-item" [routerLink]='' (click)="showboreportothertablesFilter()"><i
+                            class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                      <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <a class="rightside" [routerLink]='' (click)="boreportothertables_route(null, 'create')"><i
+                    class="fa fa-plus"></i></a>
+              </h4>
+              <ng2-smart-table #tbl_boreportothertables
+                (userRowSelect)="handle_boreportothertables_GridSelected($event)"
+                [settings]="boreportothertables_settings" (custom)="onCustom_boreportothertables_Action($event)"
+                [source]="tbl_boreportothertables?.source?.data" (delete)="boreportothertables_route($event,'delete')"
+                (deleteConfirm)="boreportothertables_route($event,'delete')"
+                (create)="boreportothertables_route($event,'create')"
+                (createConfirm)="boreportothertables_beforesave($event)"
+                (edit)="boreportothertables_route($event,'edit')"
+                (editConfirm)="boreportothertables_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table boreportothertables-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Columns</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table boreportcolumns-->
+            <div [ngClass]="Is_boreportcolumns_Visible()">
+              <!--End-->
+              <h4 class="form-group sticky1  columns left">{{'Columns' | translate}}
+                <select class='child' id="boreportcolumnsPagingdropdown"
+                  (change)="boreportcolumns_Paging($event.target.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="boreportcolumntoggleOption();boreportcolumns_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                      <li role="separator" class="divider">
+                        <hr>
+                      </li>
+                      <li><a class="dropdown-item" [routerLink]='' (click)="showboreportcolumnsFilter()"><i
+                            class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                      <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <a class="rightside" [routerLink]='' (click)="boreportcolumns_route(null, 'create')"><i
+                    class="fa fa-plus"></i></a>
+              </h4>
+              <ng2-smart-table #tbl_boreportcolumns (userRowSelect)="handle_boreportcolumns_GridSelected($event)"
+                [settings]="boreportcolumns_settings" (custom)="onCustom_boreportcolumns_Action($event)"
+                [source]="tbl_boreportcolumns?.source?.data" (delete)="boreportcolumns_route($event,'delete')"
+                (deleteConfirm)="boreportcolumns_route($event,'delete')"
+                (create)="boreportcolumns_route($event,'create')" (createConfirm)="boreportcolumns_beforesave($event)"
+                (edit)="boreportcolumns_route($event,'edit')" (editConfirm)="boreportcolumns_beforesave($event)">
+              </ng2-smart-table>
+              <button type="button" (click)="boreportcolumnsmoveUp()"><i class="fas fa-arrow-up"></i></button>
+              <button type="button" (click)="boreportcolumnsmoveDown()"><i class="fas fa-arrow-down"></i></button>
+            </div>
+            <!--End of child table boreportcolumns-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</form>

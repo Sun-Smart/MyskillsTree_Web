@@ -1,0 +1,81 @@
+<div class="dialog">
+<form  [formGroup]="crmcustomerkycmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="container1"   *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<p-accordion  [multiple]='true'>
+
+
+<!--identityname-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'identityname'; "  for="identityname" class="control-label" (click)="AddOrEditidentityname(null)" (click)="AddOrEditidentityname(null)">Identity Name</label>
+      <select  *ngIf="!showview"  id="identityname"  (change)="identitynameonChange($event.target)" formControlName="identityname"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of identitynameList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='identityname'"  (click)="editfield = 'identityname';"  class="form-control labelview">{{f.identitynamedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'identitynumber'; "  for="identitynumber" class="control-label">Identity Number</label>
+      <input   *ngIf="!showview || editfield=='identitynumber'"  id="identitynumber"  formControlName="identitynumber" class="form-control"
+        placeholder="{{'Identity Number' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'issuedate'; "  for="issuedate" class="control-label">Issue Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='issuedate'">
+<input #issuedateformpicker="ngbDatepicker"      ngbDatepicker name="issuedateformpicker" id="issuedate"  formControlName="issuedate"  class="form-control"   placeholder="Choose Issue Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='issuedate'"  (click)="issuedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='issuedate'"  (click)="editfield = 'issuedate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.issuedate?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'expirydate'; "  for="expirydate" class="control-label">Expiry Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='expirydate'">
+<input #expirydateformpicker="ngbDatepicker"      ngbDatepicker name="expirydateformpicker" id="expirydate"  formControlName="expirydate"  class="form-control"   placeholder="Choose Expiry Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='expirydate'"  (click)="expirydateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='expirydate'"  (click)="editfield = 'expirydate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.expirydate?.value)}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'renewalrequired'; "  for="renewalrequired" class="control-label">Renewal Required</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='renewalrequired'"  id="renewalrequired"  formControlName="renewalrequired" class="form-control"
+        placeholder="{{'Renewal Required' | translate}}">
+  </div>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div><div *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.length>0">
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</div>
+<div *ngIf="attachmentvisible">
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</div>
+</p-accordion>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-info" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-info" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.kycid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.kycid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>
+</div>

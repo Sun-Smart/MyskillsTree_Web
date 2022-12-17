@@ -1,0 +1,236 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="bocompanysetting_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Company Settings' | translate}}</a>
+    </h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bocompanysettings()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of bocompanysetting_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.settingsid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.settingsid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+
+
+    <!--adminroleid-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('adminroleid') == -1) && (adminroleidvisible==undefined || adminroleidvisible==true))"
+        style='' class="col-3"><label for="adminroleid" class="control-label"
+          (click)="AddOrEdit_adminroleid(null)">Admin Role</label>
+        <app-popupselect *ngIf="!showview" [options]="adminroleid_List" [optionsEvent]="adminroleid_optionsEvent"
+          [form]="bouserrolemaster" (selectItem)="onSelected_adminroleid($event)" [reportid]='tnf39' [menuid]='tnf39'
+          formControlName="adminroleid" id="value" desc="label"></app-popupselect>
+        <div class="input-group">
+        </div>
+        <label *ngIf="showview" class="labelview">{{f.adminroleiddesc?.value}}</label>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('purchaseterms') == -1) && (purchasetermsvisible==undefined || purchasetermsvisible==true))"
+        style='width:1500px' class="col-12 ">
+        <label for="purchaseterms" class="control-label">Purchase Terms</label>
+        <label *ngIf="showview" class="labelview">{{f.purchaseterms?.value}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="purchaseterms"
+          formControlName="purchaseterms" class="form-control">
+</textarea>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('annualdays') == -1) && (annualdaysvisible==undefined || annualdaysvisible==true))"
+        style='' class="col-3 ">
+        <label for="annualdays" class="control-label">Annual Days</label>
+        <label *ngIf="showview" class="labelview">{{f.annualdays?.value}}</label>
+        <input *ngIf="!showview" id="annualdays" formControlName="annualdays" class="form-control">
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('leavecarryforward') == -1) && (leavecarryforwardvisible==undefined || leavecarryforwardvisible==true))"
+        style='' class="col-3 ">
+        <div class="columnchk">
+          <label for="leavecarryforward" class="control-label">Leave Carry Forward</label>
+          <label *ngIf="showview" class="labelview">{{f.leavecarryforward?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="leavecarryforward" formControlName="leavecarryforward"
+            class="form-control">
+        </div>
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('maxleavescarryforward') == -1) && (maxleavescarryforwardvisible==undefined || maxleavescarryforwardvisible==true))"
+        style='' class="col-3 ">
+        <label for="maxleavescarryforward" class="control-label">Max Leaves Carry Forward</label>
+        <label *ngIf="showview" class="labelview">{{f.maxleavescarryforward?.value}}</label>
+        <input *ngIf="!showview" id="maxleavescarryforward" formControlName="maxleavescarryforward"
+          class="form-control">
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('earnedleave') == -1) && (earnedleavevisible==undefined || earnedleavevisible==true))"
+        style='' class="col-3 ">
+        <div class="columnchk">
+          <label for="earnedleave" class="control-label">Earned Leave</label>
+          <label *ngIf="showview" class="labelview">{{f.earnedleave?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="earnedleave" formControlName="earnedleave" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('sickdaysallowed') == -1) && (sickdaysallowedvisible==undefined || sickdaysallowedvisible==true))"
+        style='' class="col-3 ">
+        <div class="columnchk">
+          <label for="sickdaysallowed" class="control-label">Sick Days Allowed</label>
+          <label *ngIf="showview" class="labelview">{{f.sickdaysallowed?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="sickdaysallowed" formControlName="sickdaysallowed"
+            class="form-control">
+        </div>
+      </div>
+      <div *ngIf="((hidelist.indexOf('sickdays') == -1) && (sickdaysvisible==undefined || sickdaysvisible==true))"
+        style='' class="col-3 ">
+        <label for="sickdays" class="control-label">Sick Days</label>
+        <label *ngIf="showview" class="labelview">{{f.sickdays?.value}}</label>
+        <input *ngIf="!showview" id="sickdays" formControlName="sickdays" class="form-control">
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('medicaldays') == -1) && (medicaldaysvisible==undefined || medicaldaysvisible==true))"
+        style='' class="col-3 ">
+        <label for="medicaldays" class="control-label">Medical Days</label>
+        <label *ngIf="showview" class="labelview">{{f.medicaldays?.value}}</label>
+        <input *ngIf="!showview" id="medicaldays" formControlName="medicaldays" class="form-control">
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('maternityleaveallowed') == -1) && (maternityleaveallowedvisible==undefined || maternityleaveallowedvisible==true))"
+        style='' class="col-3 ">
+        <div class="columnchk">
+          <label for="maternityleaveallowed" class="control-label">Maternity Leave Allowed</label>
+          <label *ngIf="showview" class="labelview">{{f.maternityleaveallowed?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="maternityleaveallowed" formControlName="maternityleaveallowed"
+            class="form-control">
+        </div>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('maternitydays') == -1) && (maternitydaysvisible==undefined || maternitydaysvisible==true))"
+        style='' class="col-3 ">
+        <label for="maternitydays" class="control-label">Maternity Days</label>
+        <label *ngIf="showview" class="labelview">{{f.maternitydays?.value}}</label>
+        <input *ngIf="!showview" id="maternitydays" formControlName="maternitydays" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('lop') == -1) && (lopvisible==undefined || lopvisible==true))" style=''
+        class="col-3 ">
+        <label for="lop" class="control-label">L O P</label>
+        <label *ngIf="showview" class="labelview">{{f.lop?.value}}</label>
+        <input *ngIf="!showview" id="lop" formControlName="lop" class="form-control">
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('lopcarryforward') == -1) && (lopcarryforwardvisible==undefined || lopcarryforwardvisible==true))"
+        style='' class="col-3 ">
+        <div class="columnchk">
+          <label for="lopcarryforward" class="control-label">L O P Carry Forward</label>
+          <label *ngIf="showview" class="labelview">{{f.lopcarryforward?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="lopcarryforward" formControlName="lopcarryforward"
+            class="form-control">
+        </div>
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('lopmaxdayscarryforward') == -1) && (lopmaxdayscarryforwardvisible==undefined || lopmaxdayscarryforwardvisible==true))"
+        style='' class="col-3 ">
+        <label for="lopmaxdayscarryforward" class="control-label">Lop Max Days Carry Forward</label>
+        <label *ngIf="showview" class="labelview">{{f.lopmaxdayscarryforward?.value}}</label>
+        <input *ngIf="!showview" id="lopmaxdayscarryforward" formControlName="lopmaxdayscarryforward"
+          class="form-control">
+      </div>
+    </div>
+    <div class='full-width'
+      *ngIf="customFieldVisible  && customFieldServiceList!=null && customFieldServiceList!=undefined  && customFieldServiceList.fields.length>0">
+      <p-accordion [multiple]='true'>
+        <p-accordionTab header='CustomField' [selected]='false'>
+          <div class="sticky"
+            *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+            Custom Fields</div>
+          <div class="form-group row"
+            *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+            <dynamic-form-builder [customfields]="customFieldServiceList" #customform></dynamic-form-builder>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+</form>

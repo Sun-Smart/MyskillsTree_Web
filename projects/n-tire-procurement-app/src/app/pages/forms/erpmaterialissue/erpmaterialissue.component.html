@@ -1,0 +1,84 @@
+<form [formGroup]="erpmaterialissueForm" class="frm" (ngSubmit)="onSubmit()"
+  [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row">
+    <h1 class="col columns  left"><a class="h1" href='#/home/{{pcurrenturl}}'>Material Issues</a></h1>
+    <div class="col  sticky1 right" role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <pre><br/></pre>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col">
+        <label for="branchid" class="control-label">Branch</label>
+        <input id="branchid" formControlName="branchid" class="form-control" placeholder="Branch">
+      </div>
+      <div class="col">
+        <label for="issuetype" class="control-label">Issue Type</label>
+        <input id="issuetype" formControlName="issuetype" class="form-control" placeholder="Issue Type">
+      </div>
+      <div class="col">
+        <label for="referenceid" class="control-label">Reference</label>
+        <input id="referenceid" formControlName="referenceid" class="form-control" placeholder="Reference">
+      </div>
+      <div class="col">
+        <label for="itemid" class="control-label">Item</label>
+        <input id="itemid" formControlName="itemid" class="form-control" placeholder="Item">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="uom" class="control-label">U O M</label>
+        <input id="uom" formControlName="uom" class="form-control" placeholder="U O M">
+      </div>
+      <div class="col">
+        <label for="locationid" class="control-label">Location</label>
+        <input id="locationid" formControlName="locationid" class="form-control" placeholder="Location">
+      </div>
+      <div class="col">
+        <label for="binlocationid" class="control-label">B I N Location</label>
+        <input id="binlocationid" formControlName="binlocationid" class="form-control" placeholder="B I N Location">
+      </div>
+      <div class="col">
+        <label for="requestedqty" class="control-label">Requested Qty</label>
+        <input id="requestedqty" formControlName="requestedqty" class="form-control" placeholder="Requested Qty">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="issueqty" class="control-label">Issue Qty</label>
+        <input id="issueqty" formControlName="issueqty" class="form-control" placeholder="Issue Qty">
+      </div>
+      <div class="col">
+        <label for="serialbatch" class="control-label">Serial Batch</label>
+        <input id="serialbatch" formControlName="serialbatch" class="form-control" placeholder="Serial Batch">
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.miid!.value != null" [menuid]="pmenuid" [value]="f.miid!.value" [status]="f.status!.value">
+        </app-action>
+        <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+          class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,235 @@
+<div class="dialog">
+  <form [formGroup]="erpsupplierquotationdetailForm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <p-accordionTab header='Item Details' [selected]='true'>
+          <div class="form-group row">
+            <div class="col"><label for="itemid" class="control-label" (click)="AddOrEdititemid(null)">Item</label>
+              <app-popupselect *ngIf="!showview" [options]="itemidList" [optionsEvent]="itemidoptionsEvent"
+                [form]="erpitemmaster" (selectItem)="onSelecteditemid($event)" [reportid]=48 [menuid]=48
+                formControlName="itemid" id="itemid" desc="itemcode"></app-popupselect>
+              <div class="input-group">
+              </div>
+              <label *ngIf="showview" class="form-control labelview">{{f.itemiddesc?.value}}</label>
+            </div>
+            <div class="col"><label for="uom" class="control-label">U O M</label>
+              <select *ngIf="!showview" id="uom" (change)="uomonChange($event.target)" formControlName="uom"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of uomList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+              <label *ngIf="showview" class="form-control labelview">{{f.uomdesc?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="quantity" class="control-label">Quantity</label>
+              <input *ngIf="!showview" id="quantity" formControlName="quantity" class="form-control"
+                placeholder="{{'Quantity' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.quantity?.value}}</label>
+            </div>
+            <div class="col"></div>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header='Pricing' [selected]='true'>
+          <div class="form-group row">
+            <div class="col">
+              <label for="currency" class="control-label">Currency</label>
+              <input *ngIf="!showview" id="currency" formControlName="currency" class="form-control"
+                placeholder="{{'Currency' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.currency?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="unitprice" class="control-label">Unit Price</label>
+              <input *ngIf="!showview" id="unitprice" formControlName="unitprice" class="form-control"
+                placeholder="{{'Unit Price' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.unitprice?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="discountpercent" class="control-label">Discount Percent</label>
+              <input *ngIf="!showview" id="discountpercent" formControlName="discountpercent" class="form-control"
+                placeholder="{{'Discount Percent' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.discountpercent?.value}}</label>
+            </div>
+            <div class="col"><label for="tax1name" class="control-label" (click)="AddOrEdittax1name(null)">Tax1
+                Name</label>
+              <select *ngIf="!showview" id="tax1name" (change)="tax1nameonChange($event.target)"
+                formControlName="tax1name" class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of tax1nameList" value="{{item.taxid}}">{{item.taxname}}</option>
+              </select>
+              <label *ngIf="showview" class="form-control labelview">{{f.tax1namedesc?.value}}</label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="tax1value" class="control-label">Tax1 Value</label>
+              <input *ngIf="!showview" id="tax1value" formControlName="tax1value" class="form-control"
+                placeholder="{{'Tax1 Value' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.tax1value?.value}}</label>
+            </div>
+            <div class="col"><label for="tax2name" class="control-label" (click)="AddOrEdittax2name(null)">Tax2
+                Name</label>
+              <select *ngIf="!showview" id="tax2name" (change)="tax2nameonChange($event.target)"
+                formControlName="tax2name" class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of tax2nameList" value="{{item.taxid}}">{{item.taxname}}</option>
+              </select>
+              <label *ngIf="showview" class="form-control labelview">{{f.tax2namedesc?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="tax2value" class="control-label">Tax2 Value</label>
+              <input *ngIf="!showview" id="tax2value" formControlName="tax2value" class="form-control"
+                placeholder="{{'Tax2 Value' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.tax2value?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="othercharges" class="control-label">Other Charges</label>
+              <input *ngIf="!showview" id="othercharges" formControlName="othercharges" class="form-control"
+                placeholder="{{'Other Charges' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.othercharges?.value}}</label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="totalquotevalue" class="control-label">Total Quote Value</label>
+              <input *ngIf="!showview" id="totalquotevalue" formControlName="totalquotevalue" class="form-control"
+                placeholder="{{'Total Quote Value' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.totalquotevalue?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="basecurrency" class="control-label">Base Currency</label>
+              <input *ngIf="!showview" id="basecurrency" formControlName="basecurrency" class="form-control"
+                placeholder="{{'Base Currency' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.basecurrency?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="basevalue" class="control-label">Base Value</label>
+              <input *ngIf="!showview" id="basevalue" formControlName="basevalue" class="form-control"
+                placeholder="{{'Base Value' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.basevalue?.value}}</label>
+            </div>
+            <div class="col"></div>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header='Terms' [selected]='true'>
+          <div class="form-group row">
+            <div class="col">
+              <label for="expecteddelivery" class="control-label">Expected Delivery</label>
+              <div class="input-group" *ngIf="!showview">
+                <input #expecteddeliveryformpicker="ngbDatepicker" ngbDatepicker name="expecteddeliveryformpicker"
+                  id="expecteddelivery" formControlName="expecteddelivery" class="form-control"
+                  placeholder="Choose Expected Delivery">
+                <button class="input-group-addon" *ngIf="!showview" (click)="expecteddeliveryformpicker.toggle()"
+                  type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+              <label *ngIf="showview"
+                class="form-control labelview">{{ngbDateParserFormatter.format(f.expecteddelivery?.value)}}</label>
+            </div>
+            <div class="col"><label for="paymenttermtype" class="control-label">Payment Term Type</label>
+              <select *ngIf="!showview" id="paymenttermtype" (change)="paymenttermtypeonChange($event.target)"
+                formControlName="paymenttermtype" class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of paymenttermtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+              <label *ngIf="showview" class="form-control labelview">{{f.paymenttermtypedesc?.value}}</label>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="remarks" class="control-label">Remarks</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="remarks"
+                formControlName="remarks" class="form-control" placeholder="{{'Remarks' | translate}}">
+</textarea>
+              <label *ngIf="showview" class="form-control labelview">{{f.remarks?.value}}</label>
+            </div>
+          </div>
+        </p-accordionTab>
+        <p-accordionTab header='Offers' [selected]='true'>
+          <div class="form-group row">
+            <div class="col">
+              <label for="offerquantity1" class="control-label">Offer Quantity1</label>
+              <input *ngIf="!showview" id="offerquantity1" formControlName="offerquantity1" class="form-control"
+                placeholder="{{'Offer Quantity1' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.offerquantity1?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="unitprice1" class="control-label">Unit Price1</label>
+              <input *ngIf="!showview" id="unitprice1" formControlName="unitprice1" class="form-control"
+                placeholder="{{'Unit Price1' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.unitprice1?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="totalcost1" class="control-label">Total Cost1</label>
+              <input *ngIf="!showview" id="totalcost1" formControlName="totalcost1" class="form-control"
+                placeholder="{{'Total Cost1' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.totalcost1?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="offerquantity2" class="control-label">Offer Quantity2</label>
+              <input *ngIf="!showview" id="offerquantity2" formControlName="offerquantity2" class="form-control"
+                placeholder="{{'Offer Quantity2' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.offerquantity2?.value}}</label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="unitprice2" class="control-label">Unit Price2</label>
+              <input *ngIf="!showview" id="unitprice2" formControlName="unitprice2" class="form-control"
+                placeholder="{{'Unit Price2' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.unitprice2?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="totalcost2" class="control-label">Total Cost2</label>
+              <input *ngIf="!showview" id="totalcost2" formControlName="totalcost2" class="form-control"
+                placeholder="{{'Total Cost2' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.totalcost2?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="offerquantity3" class="control-label">Offer Quantity3</label>
+              <input *ngIf="!showview" id="offerquantity3" formControlName="offerquantity3" class="form-control"
+                placeholder="{{'Offer Quantity3' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.offerquantity3?.value}}</label>
+            </div>
+            <div class="col">
+              <label for="unitprice3" class="control-label">Unit Price3</label>
+              <input *ngIf="!showview" id="unitprice3" formControlName="unitprice3" class="form-control"
+                placeholder="{{'Unit Price3' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.unitprice3?.value}}</label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="totalcost3" class="control-label">Total Cost3</label>
+              <input *ngIf="!showview" id="totalcost3" formControlName="totalcost3" class="form-control"
+                placeholder="{{'Total Cost3' | translate}}">
+              <label *ngIf="showview" class="form-control labelview">{{f.totalcost3?.value}}</label>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.quotationdetailid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.quotationdetailid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

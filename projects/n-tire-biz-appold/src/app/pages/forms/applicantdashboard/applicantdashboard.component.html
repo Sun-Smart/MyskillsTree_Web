@@ -1,0 +1,335 @@
+<style type="text/css">
+  /* #divChart {
+    display: block;
+    width: 400px;
+    height: 400px;
+  } */
+
+  .skill_btn {
+    width: 98%;
+    margin: 0px !important;
+    padding: 0px;
+    text-align: left !important;
+    border-radius: 0px !important;
+  }
+
+  .ref_btn {
+    background-color: #ed7d31;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .res_ref_btn {
+    background-color: #a5a5a5;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .pro_ref_btn {
+    background-color: #ECB50E;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .edu_ref_btn {
+    background-color: #5B9BD5;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .soc_ref_btn {
+    background-color: #65AE12;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .per_ref_btn {
+    background-color: #ed7d31;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .breadcrumb {
+    /* background: #ddd;
+    display: inline-block; */
+    /* padding: 1px;
+    padding-right: 18px; */
+    background-color: transparent !important;
+    /* background-color: red !important; */
+
+  }
+
+  .breadcrumb li {
+    display: inline-block;
+    /* background: white; */
+    padding: 0;
+    position: relative;
+    min-width: 50px;
+    height: fit-content;
+    text-decoration: none;
+    z-index: auto;
+    -webkit-clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 15px 50%);
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 15px 50%);
+    margin-right: -13px;
+  }
+
+  .breadcrumb li#last {
+    -webkit-clip-path: polygon(0 0, calc(100% - 0px) 0, 100% 50%, calc(100% - 0px) 100%, 0 100%, 15px 50%);
+    clip-path: polygon(0 0, calc(100% - 0px) 0, 100% 50%, calc(100% - 0px) 100%, 0 100%, 15px 50%);
+  }
+
+  .breadcrumb li:hover {
+    color: white;
+    background: #fff;
+  }
+
+  .breadcrumb li:first-child {
+    -webkit-clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
+  }
+
+  .tabbed {
+    overflow-x: hidden;
+    /* border-bottom: 1px solid #ccc; */
+  }
+
+  .tabbed [type="radio"] {
+    display: none;
+  }
+
+  .tab {
+    margin-bottom: 1px !important;
+  }
+
+  .tabs {
+    display: flex;
+    align-items: stretch;
+    list-style: none;
+    padding: 0;
+    /* border-bottom: 1px solid #ccc; */
+  }
+
+  .tab>label {
+    display: block;
+    /* margin-bottom: -1px; */
+    padding: 12px 15px;
+    /* border: 1px solid #ccc; */
+    background: #eee;
+    color: #666;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    /* transition: all 3s; */
+  }
+
+  .tab:hover label {
+    /* border-top-color: gray; */
+    color: #333;
+  }
+
+  .tab-content {
+    display: none;
+    color: #777;
+  }
+
+  .tabbed [type="radio"]:nth-of-type(1):checked~.tabs .tab:nth-of-type(1) label,
+  .tabbed [type="radio"]:nth-of-type(2):checked~.tabs .tab:nth-of-type(2) label,
+  .tabbed [type="radio"]:nth-of-type(3):checked~.tabs .tab:nth-of-type(3) label,
+  .tabbed [type="radio"]:nth-of-type(4):checked~.tabs .tab:nth-of-type(4) label,
+  .tabbed [type="radio"]:nth-of-type(5):checked~.tabs .tab:nth-of-type(5) label,
+  .tabbed [type="radio"]:nth-of-type(6):checked~.tabs .tab:nth-of-type(6) label {
+    /* border-bottom-color: #fff; */
+    /* border-top-color: gray; */
+    border-top: 5px solid green;
+    /* border-bottom: 5px solid green; */
+    /* line-height: 34px;
+    margin-bottom: 10px; */
+    /* border: 5px solid #000 !important; */
+    /* transform: scale(2); */
+    /* font-size: 10px; */
+    /* width: 140px; */
+    background: #fff;
+    color: #222;
+  }
+
+  .tabbed [type="radio"]:nth-of-type(1):checked~.tab-content:nth-of-type(1),
+  .tabbed [type="radio"]:nth-of-type(2):checked~.tab-content:nth-of-type(2),
+  .tabbed [type="radio"]:nth-of-type(3):checked~.tab-content:nth-of-type(3),
+  .tabbed [type="radio"]:nth-of-type(4):checked~.tab-content:nth-of-type(4),
+  .tabbed [type="radio"]:nth-of-type(5):checked~.tab-content:nth-of-type(5),
+  .tabbed [type="radio"]:nth-of-type(6):checked~.tab-content:nth-of-type(6) {
+    display: block;
+  }
+</style>
+<div id="contentArea1" class="main container full-height">
+  <br />
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="card" style="background-color: white !important;
+                height: 100% !important;
+                padding: 0px !important;
+                color: black !important;width: 100% !important;">
+          <div class="card-header" style="background-color: #148eeb;
+                color: white;border-radius: 8px 8px 0px 0px;
+                font-size: 15px;font-weight: bold;">
+            User Profile
+          </div>
+          <div class="card-body">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-8 col-sm-7">
+                  <!--<div><canvas id="canvas"></canvas></div>-->
+                  <ngx-dashboardviewer  [customdashboardid]="14"></ngx-dashboardviewer>
+                </div>
+                <div class="col-4 col-sm-5">
+                  <ul class="list-group col">
+                    <li class="list-group-item dash_list" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Skillsets.png" width="30px" /> 1.SKILLSETS
+                      <img src="assets/User Profile/Complete.png" width="30px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Sresum.png" width="30px" /> 2.RESUME
+                      <img src="assets/User Profile/Complete.png" width="30px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Project.png" width="30px" /> 3.PROJECT
+                      <img src="assets/User Profile/Complete.png" width="30px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/education.png" width="30px" /> 4.EDUCATION
+                      <img src="assets/User Profile/Bending.png" width="30px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Social Info.png" width="30px" /> 5. SOCIAL INFO
+                      <img src="assets/User Profile/Not Started.png" width="30px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Personal.png" width="30px" /> 6. PERSONAL
+                      <img src="assets/User Profile/Not Started.png" width="30px" style="float: right;" />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" style="background-color: white !important;box-shadow: 0.5px;
+    height: 100% !important;
+    padding: 0px !important;
+    color: black !important;width: 100% !important;">
+          <div class="card-header" style="background-color: #148eeb;
+      color: white;
+      text-transform: uppercase;border-radius: 8px 8px 0px 0px;
+      font-size: 20px;">
+            <button type="button" class="btn btn-default" style="background: white;
+        color: #148eeb;
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: bold;
+        border-radius: 0px !important;position: relative;left: 74%;">Show My Profile</button>
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="tabbed">
+                <input type="radio" id="tab1" name="css-tabs" checked>
+                <input type="radio" id="tab2" name="css-tabs">
+                <input type="radio" id="tab3" name="css-tabs">
+                <input type="radio" id="tab4" name="css-tabs">
+                <input type="radio" id="tab5" name="css-tabs">
+                <input type="radio" id="tab6" name="css-tabs">
+                <ul class="tabs breadcrumb">
+                  <li class="tab"><label for="tab1"
+                      style="background-color: #ed7d31;color: white;margin-top: 10px;">SKILLSETS</label></li>
+                  <li class="tab"><label for="tab2"
+                      style="background-color: #a5a5a5;color: white;margin-top: 10px;">RESUME</label></li>
+                  <li class="tab"><label for="tab3"
+                      style="background-color: #ECB50E;color: white;margin-top: 10px;">PROJECT</label></li>
+                  <li class="tab"><label for="tab4"
+                      style="background-color: #5B9BD5;color: white;margin-top: 10px;">EDUCATION</label></li>
+                  <li class="tab"><label for="tab5"
+                      style="background-color: #65AE12;color: white;margin-top: 10px;">SOCIAL INFO</label></li>
+                  <li class="tab"><label for="tab6"
+                      style="background-color: #ED7D31;color: white;margin-top: 10px;">PERSONAL</label></li>
+                </ul>
+                <div class="tab-content">
+                  <button class="btn btn-outline-secondary skill_btn" (click)="showSkills()"><img src="assets/Skillsets/Skillsets.png"
+                      width="40px;" /> What is your skillsets?</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/Skillsets/Located.png"
+                      width="40px;" /> Where are you located?</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/Skillsets/Experience.png"
+                      width="40px;" /> What is your experience relevant to this skillset?</button><br /><br />
+                  <button class="btn btn-outline-secondary ref_btn"> Reference</button>
+                </div>
+                <div class="tab-content">
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/Resume/About.png"
+                      width="40px;" /> Can you give you a Elevated Pitch about you in 100 words?</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/Resume/Resume.png"
+                      width="40px;" /> Upload your Resume[PDF/Word]</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/Resume/Links to Portals.png"
+                      width="40px;" /> Links to Portal where your resume already present</button><br /><br />
+                  <button class="btn btn-outline-secondary res_ref_btn"> Reference</button>
+                </div>
+                <div class="tab-content">
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/Project/Experince.png"
+                      width="40px;" /> Can you tell your work experiences?</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/Project/Key Project.png"
+                      width="40px;" /> Please provide details of Key Projects</button><br /><br />
+                  <button class="btn btn-outline-secondary pro_ref_btn"> Reference</button>
+                </div>
+                <div class="tab-content">
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/Education/Education.png"
+                      width="40px;" /> Let us know details of your Education</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn"><img
+                      src="assets/Education/Additional Certificates.png" width="40px;" /> Can you share any additional
+                    certificates</button><br /><br />
+                  <button class="btn btn-outline-secondary edu_ref_btn"> Reference</button>
+                </div>
+                <div class="tab-content">
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/Social Info/Profile.png"
+                      width="40px;" /> Can you share social media profile?</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/Social Info/Group 286.png"
+                      width="40px;" /> Upload your project references,Images and videos</button>
+                </div>
+                <div class="tab-content">
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/personal/About you.png"
+                      width="40px;" /> Please provide details about you</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn"><img src="assets/personal/Language.png"
+                      width="40px;" /> Share your language proficiencies</button><br /><br />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

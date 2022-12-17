@@ -1,0 +1,79 @@
+@font-face {
+  /*
+  font-family: 'ssgicons';
+  src: url('./ssgicons/ssgicons.eot?89143489');
+  src: url('./ssgicons/ssgicons.eot?89143489#iefix') format('embedded-opentype'),
+       url('./ssgicons/ssgicons.woff2?89143489') format('woff2'),
+       url('./ssgicons/ssgicons.woff?89143489') format('woff'),
+       url('./ssgicons/ssgicons.ttf?89143489') format('truetype'),
+       url('./ssgicons/ssgicons.svg?89143489#ssgicons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+*/
+  font-family: 'ssgicons';
+  src: url('./ssgicons/fontello.eot?24278602');
+  src: url('./ssgicons/fontello.eot?24278602#iefix') format('embedded-opentype'),
+       url('./ssgicons/fontello.woff?24278602') format('woff'),
+       url('./ssgicons/fontello.ttf?24278602') format('truetype'),
+       url('./ssgicons/fontello.svg?24278602#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'ssgicons';
+    src: url('src/assets/fonts/ssgicons.svg?89143489#ssgicons') format('svg');
+  }
+}
+*/
+ 
+ 
+.crm:before { 
+  content: '\e800';
+  font-family: "ssgicons";
+  font-style: normal;
+  font-weight: normal;
+} /* '' */
+.workflow:before { 
+  content: '\e801'; 
+  font-family: "ssgicons";
+} /* '' */
+.visitormanagement:before { content: '\e802'; font-family: "ssgicons"; } /* '' */ 
+.ecommerce:before { content: '\e80c'; font-family: "ssgicons"; } /* '' */ 
+.invoice:before { content: '\e814'; font-family: "ssgicons"; } /* '' */
+.gettingstarted:before { content: '\e80f'; font-family: "ssgicons"; } /* '' */
+.workflow:before { content: '\e803'; font-family: "ssgicons"; } /* '' */
+.grievancesystem:before { content: '\e810'; font-family: "ssgicons"; } /* '' */
+.legalmanagement:before { content: '\e818'; font-family: "ssgicons"; } /* '' */
+.assetmanagement:before { content: '\e804'; font-family: "ssgicons"; } /* '' */
+.sunsmart:before { content: '\e806'; font-family: "ssgicons"; } /* '' */
+.backoffice:before { content: '\e805'; font-family: "ssgicons"; } /* '' */
+.it:before { content: '\e815'; font-family: "ssgicons"; } /* '' */
+.crm:before { content: '\e808'; font-family: "ssgicons"; } /* '' */
+.performancemanagement:before { content: '\e81b';  font-family: "ssgicons";} /* '' */
+.hospitalmanagement:before { content: '\e812'; font-family: "ssgicons"; } /* '' */
+.hrms:before { content: '\e813'; font-family: "ssgicons"; } /* '' */
+.learningmanagement:before { content: '\e817'; font-family: "ssgicons"; } /* '' */
+.fleetmanagement:before { content: '\e80e'; font-family: "ssgicons"; } /* '' */
+.tnsamb:before { content: '\e806'; font-family: "ssgicons"; } /* '' */
+.sunsmartsystem:before { content: '\e801'; font-family: "ssgicons"; } /* '' */
+.procurement:before { content: '\e81c';  font-family: "ssgicons";} /* '' */
+.reports:before { content: '\e800'; font-family: "ssgicons"; } /* '' */
+.dashboards:before { content: '\e80a'; font-family: "ssgicons"; } /* '' */
+.customforms:before { content: '\e809'; font-family: "ssgicons"; } /* '' */
+.finance:before { content: '\e80d'; font-family: "ssgicons"; } /* '' */
+.propertymanagement:before { content: '\e81e'; font-family: "ssgicons"; } /* '' */
+.loyaltymanagement:before { content: '\e819'; font-family: "ssgicons"; } /* '' */
+.mybiz:before { content: '\e81a'; font-family: "ssgicons"; } /* '' */
+.helpdesk:before { content: '\e811'; font-family: "ssgicons"; } /* '' */
+.complaintmanagement:before { content: '\e806'; font-family: "ssgicons"; } /* '' */
+.recordmanagement:before { content: '\e81f';  font-family: "ssgicons";} /* '' */
+.documentmanagement:before { content: '\e80b'; font-family: "ssgicons"; } /* '' */
+.contentmanagement:before { content: '\e807'; font-family: "ssgicons"; } /* '' */
+.leadmanagement:before { content: '\e816'; font-family: "ssgicons"; } /* '' */
+.projectmanagement:before { content: '\e81d';  font-family: "ssgicons";} /* '' */
+.xxx:before { content: '\e806'; font-family: "ssgicons"; } /* '' */

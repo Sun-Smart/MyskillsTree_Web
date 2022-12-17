@@ -1,0 +1,146 @@
+<form [formGroup]="pmkpiForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'KPI Master' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="code" class="control-label">{{'Code' | translate}}</label>
+        <input id="code" formControlName="code" class="form-control" placeholder="{{'Code' | translate}}">
+      </div>
+      <div class="col">
+        <label for="name" class="control-label">{{'Name' | translate}}</label>
+        <input id="name" formControlName="name" class="form-control" placeholder="{{'Name' | translate}}">
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="description" class="control-label">{{'Description' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="description" formControlName="description"
+          class="form-control" placeholder="{{'Description' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col"><label for="category" class="control-label">{{'Category' | translate}}</label>
+        <select id="category" (change)="categoryonChange($event.target)" formControlName="category"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of categoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col"><label for="type" class="control-label">{{'Type' | translate}}</label>
+        <select id="type" (change)="typeonChange($event.target)" formControlName="type" class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of typeList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col"><label for="departmentid" class="control-label" (click)="AddOrEditdepartmentid(null)"
+          (click)="AddOrEditdepartmentid(null)">{{'Department' | translate}}</label>
+        <select id="departmentid" (change)="departmentidonChange($event.target)" formControlName="departmentid"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of departmentidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+          </option>
+        </select>
+      </div>
+      <div class="col"><label for="designationid" class="control-label">{{'Designation' | translate}}</label>
+        <select id="designationid" (change)="designationidonChange($event.target)" formControlName="designationid"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of designationidList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col"><label for="frequency" class="control-label">{{'Frequency' | translate}}</label>
+        <select id="frequency" (change)="frequencyonChange($event.target)" formControlName="frequency"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of frequencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="target" class="control-label">{{'Target' | translate}}</label>
+        <input id="target" formControlName="target" class="form-control" placeholder="{{'Target' | translate}}">
+      </div>
+      <div class="col"><label for="format" class="control-label">{{'Format' | translate}}</label>
+        <select id="format" (change)="formatonChange($event.target)" formControlName="format" class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of formatList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="weight" class="control-label">{{'Weight' | translate}}</label>
+        <input id="weight" formControlName="weight" class="form-control" placeholder="{{'Weight' | translate}}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="measures" class="control-label">{{'Measures' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="measures" formControlName="measures"
+          class="form-control" placeholder="{{'Measures' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="reviewquestions" class="control-label">{{'Review Questions' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="reviewquestions"
+          formControlName="reviewquestions" class="form-control" placeholder="{{'Review Questions' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="redmaxscore" class="control-label">{{'Red Max Score' | translate}}</label>
+        <input id="redmaxscore" formControlName="redmaxscore" class="form-control"
+          placeholder="{{'Red Max Score' | translate}}">
+      </div>
+      <div class="col">
+        <label for="ambermaxscore" class="control-label">{{'Amber Max Score' | translate}}</label>
+        <input id="ambermaxscore" formControlName="ambermaxscore" class="form-control"
+          placeholder="{{'Amber Max Score' | translate}}">
+      </div>
+      <div class="col">
+        <label for="greenmaxscore" class="control-label">{{'Green Max Score' | translate}}</label>
+        <input id="greenmaxscore" formControlName="greenmaxscore" class="form-control"
+          placeholder="{{'Green Max Score' | translate}}">
+      </div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+        <app-action *ngIf="f.kpiid!.value != null" [menuid]="pmenuid" [value]="f.kpiid!.value" [status]="f.status!.value">
+        </app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

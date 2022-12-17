@@ -1,0 +1,130 @@
+<div class="dialog">
+  <form [formGroup]="hmsadmissionForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Admissions' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="code" class="control-label">{{'Code' | translate}}</label>
+          <input id="code" formControlName="code" class="form-control" placeholder="{{'Code' | translate}}">
+        </div>
+        <div class="col">
+          <label for="admissiondate" class="control-label">{{'AdmissionDate' | translate}}</label>
+          <div class="input-group">
+            <input #admissiondateformpicker="ngbDatepicker" ngbDatepicker name="admissiondateformpicker"
+              id="admissiondate" formControlName="admissiondate" class="form-control"
+              placeholder="Choose {{'AdmissionDate' | translate}}">
+            <button class="input-group-addon" (click)="admissiondateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="admissiontime" class="control-label">{{'AdmissionTime' | translate}}</label>
+          <ngb-timepicker class="form-control timepicker" formControlName="admissiontime"></ngb-timepicker>
+        </div>
+        <div class="col"><label for="doctorid" class="control-label" (click)="AddOrEditdoctorid(null)">{{'Doctor' |
+            translate}}</label>
+          <select id="doctorid" (change)="doctoridonChange($event.target)" formControlName="doctorid"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of doctoridList" value="{{item.doctorid}}">{{item.doctorname}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="category" class="control-label" (click)="AddOrEditcategory(null)"
+            (click)="AddOrEditcategory(null)">{{'Category' | translate}}</label>
+          <select id="category" (change)="categoryonChange($event.target)" formControlName="category"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of categoryList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+            </option>
+          </select>
+        </div>
+        <div class="col"><label for="subcategory" class="control-label" (click)="AddOrEditsubcategory(null)">{{'Sub
+            Category' | translate}}</label>
+          <select id="subcategory" (change)="subcategoryonChange($event.target)" formControlName="subcategory"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of subcategoryList" value="{{item.subcategoryid}}">{{item.subcategoryname}}
+            </option>
+          </select>
+        </div>
+        <div class="col"><label for="ward" class="control-label" (click)="AddOrEditward(null)">{{'Ward' |
+            translate}}</label>
+          <select id="ward" (change)="wardonChange($event.target)" formControlName="ward" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of wardList" value="{{item.wardid}}">{{item.wardname}}</option>
+          </select>
+        </div>
+        <div class="col"><label for="bed" class="control-label" (click)="AddOrEditbed(null)">{{'Bed' |
+            translate}}</label>
+          <select id="bed" (change)="bedonChange($event.target)" formControlName="bed" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of bedList" value="{{item.bedid}}">{{item.bedname}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="diagnosis" class="control-label">{{'Diagnosis' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="diagnosis" formControlName="diagnosis"
+            class="form-control" placeholder="{{'Diagnosis' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="admissiondetails" class="control-label">{{'AdmissionDetails' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="admissiondetails"
+            formControlName="admissiondetails" class="form-control" placeholder="{{'AdmissionDetails' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="treatment" class="control-label">{{'Treatment' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="treatment" formControlName="treatment"
+            class="form-control" placeholder="{{'Treatment' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="responsibilityid" class="control-label"
+            (click)="AddOrEditresponsibilityid(null)">{{'Responsibility' | translate}}</label>
+          <div class="input-group">
+            <input id="responsibilityid" placeholder="" [ngbTypeahead]="responsibilityid_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedresponsibilityid($event)"
+              formControlName='responsibilityid' [resultFormatter]="responsibilityid_bousermastersformatter">
+            <input readonly id="responsibilityiddesc" formControlName="responsibilityiddesc"
+              class="form-control autocompletedesc" placeholder="{{'Responsibility' | translate}}">
+          </div>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="notes" class="control-label">{{'Notes' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="notes" formControlName="notes"
+            class="form-control" placeholder="{{'Notes' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.admissionid!.value != null" [menuid]="pmenuid" [value]="f.admissionid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

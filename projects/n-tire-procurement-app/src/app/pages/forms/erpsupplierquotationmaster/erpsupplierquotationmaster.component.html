@@ -1,0 +1,346 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="erpsupplierquotationmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Quotation Masters' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editerpsupplierquotationmasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpsupplierquotationmastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpsupplierquotationmastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.quotationid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.quotationid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+
+
+<!--rfqid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('rfqid') == -1"  class="col" >{{'R F Q' | translate}}
+<app-popupselect  *ngIf="!showview"  [options]="rfqidList"  [optionsEvent]="rfqidoptionsEvent" [form]="erprfqmaster" (selectItem)="onSelectedrfqid($event)"  [reportid]= 'i4m7c' [menuid]='i4m7c' formControlName="rfqid" id="rfqid" desc="rfqcode" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.rfqid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('rfqreference') == -1"  class="col " >
+<label  for="rfqreference" class="control-label">R F Q Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.rfqreference?.value}}</label>
+      <input   *ngIf="!showview"  id="rfqreference"  readonly formControlName="rfqreference" class="form-control"
+        >
+  </div>
+
+
+<!--supplierid-->
+
+  <div   *ngIf="hidelist.indexOf('supplierid') == -1"  class="col" ><label  for="supplierid" class="control-label" (click)="AddOrEditsupplierid(null)">Supplier</label>
+<app-popupselect  *ngIf="!showview"  [options]="supplieridList"  [optionsEvent]="supplieridoptionsEvent" [form]="erpsuppliermaster" (selectItem)="onSelectedsupplierid($event)"  [reportid]= 'qtmcq' [menuid]='qtmcq' formControlName="supplierid" id="supplierid" desc="suppliercode" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.supplierid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('quotationreference') == -1"  class="col " >
+<label  for="quotationreference" class="control-label">Quotation Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.quotationreference?.value}}</label>
+      <input   *ngIf="!showview"  id="quotationreference"  readonly formControlName="quotationreference" class="form-control"
+        >
+<ngx-barcode [bc-value]='f.quotationreference.value' [bc-display-value]='true'></ngx-barcode>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('versionnumber') == -1"  class="col " >
+<label  for="versionnumber" class="control-label">Version Number</label>
+      <label *ngIf="showview"     class="labelview">{{f.versionnumber?.value}}</label>
+      <input   *ngIf="!showview"  id="versionnumber"  formControlName="versionnumber" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Dates'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('quotationdate') == -1"  class="col " >
+<label  for="quotationdate" class="control-label">Quotation Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.quotationdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #quotationdateformpicker="ngbDatepicker"      ngbDatepicker name="quotationdateformpicker" id="quotationdate"  formControlName="quotationdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="quotationdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('rfqreleaseddate') == -1"  class="col " >
+<label  for="rfqreleaseddate" class="control-label">R F Q Released Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.rfqreleaseddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #rfqreleaseddateformpicker="ngbDatepicker"      ngbDatepicker name="rfqreleaseddateformpicker" id="rfqreleaseddate"  readonly formControlName="rfqreleaseddate"  class="form-control"   >
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('expirationdate') == -1"  class="col " >
+<label  for="expirationdate" class="control-label">Expiration Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.expirationdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #expirationdateformpicker="ngbDatepicker"      ngbDatepicker name="expirationdateformpicker" id="expirationdate"  readonly formControlName="expirationdate"  class="form-control"   >
+</div>
+  </div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Amount'  [selected]='true'>
+
+
+<!--currency-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('currency') == -1"  class="col" ><label  for="currency" class="control-label">Currency</label>
+      <select  *ngIf="!showview"  id="currency"  (change)="currencyonChange($event.target)" formControlName="currency"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of currencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.currency?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('quotationamount') == -1"  class="col " >
+<label  for="quotationamount" class="control-label">Quotation Amount</label>
+      <label *ngIf="showview"     class="labelview">{{f.quotationamount?.value}}</label>
+      <input   *ngIf="!showview"  id="quotationamount"  formControlName="quotationamount" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('discountpercent') == -1"  class="col " >
+<label  for="discountpercent" class="control-label">Discount Percent</label>
+      <label *ngIf="showview"     class="labelview">{{f.discountpercent?.value}}</label>
+      <input   *ngIf="!showview"  id="discountpercent"  formControlName="discountpercent" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Terms'  [selected]='true'>
+
+
+<!--shipto-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('shipto') == -1"  class="col" ><label  for="shipto" class="control-label" (click)="AddOrEditshipto(null)">Ship To</label>
+<app-popupselect  *ngIf="!showview"  [options]="shiptoList"  [optionsEvent]="shiptooptionsEvent" [form]="bobranchlocation" (selectItem)="onSelectedshipto($event)"  [reportid]= 'fcx84' [menuid]='fcx84' formControlName="shipto" id="locationid" desc="locationname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.shipto?.value}}</label>
+  </div>
+
+
+<!--billto-->
+
+  <div   *ngIf="hidelist.indexOf('billto') == -1"  class="col" ><label  for="billto" class="control-label" (click)="AddOrEditbillto(null)">Bill To</label>
+<app-popupselect  *ngIf="!showview"  [options]="billtoList"  [optionsEvent]="billtooptionsEvent" [form]="bobranchmaster" (selectItem)="onSelectedbillto($event)"  [reportid]= 'bxg94' [menuid]='bxg94' formControlName="billto" id="branchid" desc="branchname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.billto?.value}}</label>
+  </div>
+
+
+<!--freightterms-->
+
+  <div   *ngIf="hidelist.indexOf('freightterms') == -1"  class="col" ><label  for="freightterms" class="control-label">Freight Terms</label>
+      <select  *ngIf="!showview"  id="freightterms"  (change)="freighttermsonChange($event.target)" formControlName="freightterms"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of freighttermsList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.freightterms?.value}}</label>
+  </div>
+
+
+<!--paymentterms-->
+
+  <div   *ngIf="hidelist.indexOf('paymentterms') == -1"  class="col" ><label  for="paymentterms" class="control-label">Payment Terms</label>
+      <select  *ngIf="!showview"  id="paymentterms"  (change)="paymenttermsonChange($event.target)" formControlName="paymentterms"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of paymenttermsList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.paymentterms?.value}}</label>
+  </div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Notes'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('quotationremarks') == -1"  class="col " >
+<label  for="quotationremarks" class="control-label">Quotation Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.quotationremarks?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="quotationremarks"  formControlName="quotationremarks" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('batchid') == -1"  class="col " >
+<label  for="batchid" class="control-label">Batch</label>
+      <label *ngIf="showview"     class="labelview">{{f.batchid?.value}}</label>
+      <input   *ngIf="!showview"  id="batchid"  formControlName="batchid" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Status Details'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('statusremarks') == -1"  class="col " >
+<label  for="statusremarks" class="control-label">Status Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.statusremarks?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="statusremarks"  formControlName="statusremarks" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+</p-accordionTab></p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Quotation Payment Terms</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table erpquotationpaymentterms-->
+<div [ngClass]="IserpquotationpaymenttermsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Quotation Payment Terms' | translate}}
+<select class='child'  id="erpquotationpaymenttermsPagingdropdown" (change)="erpquotationpaymenttermsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpquotationpaymenttermtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpquotationpaymenttermshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="erpquotationpaymenttermtoggleOption();erpquotationpaymenttermsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="erpquotationpaymenttermtoggleOption();showerpquotationpaymenttermsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblerpquotationpaymenttermssource (userRowSelect)="handleerpquotationpaymenttermsGridSelected($event)" [settings]="erpquotationpaymenttermssettings" (custom)="onCustomerpquotationpaymenttermsAction($event)" [source]="erpquotationpaymenttermssource"  (delete)="erpquotationpaymenttermsroute($event,'delete')"  (deleteConfirm)="erpquotationpaymenttermsroute($event,'delete')" (create)="erpquotationpaymenttermsroute($event,'create')"   (createConfirm)="erpquotationpaymenttermsbeforesave($event)"  (edit)="erpquotationpaymenttermsroute($event,'edit')"  (editConfirm)="erpquotationpaymenttermsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table erpquotationpaymentterms-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Quotation Details</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table erpsupplierquotationdetails-->
+<div [ngClass]="IserpsupplierquotationdetailsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Quotation Details' | translate}}
+<select class='child'  id="erpsupplierquotationdetailsPagingdropdown" (change)="erpsupplierquotationdetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpsupplierquotationdetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpsupplierquotationdetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="erpsupplierquotationdetailtoggleOption();erpsupplierquotationdetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="erpsupplierquotationdetailtoggleOption();showerpsupplierquotationdetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblerpsupplierquotationdetailssource (userRowSelect)="handleerpsupplierquotationdetailsGridSelected($event)" [settings]="erpsupplierquotationdetailssettings" (custom)="onCustomerpsupplierquotationdetailsAction($event)" [source]="erpsupplierquotationdetailssource"  (delete)="erpsupplierquotationdetailsroute($event,'delete')"  (deleteConfirm)="erpsupplierquotationdetailsroute($event,'delete')" (create)="erpsupplierquotationdetailsroute($event,'create')"   (createConfirm)="erpsupplierquotationdetailsbeforesave($event)"  (edit)="erpsupplierquotationdetailsroute($event,'edit')"  (editConfirm)="erpsupplierquotationdetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table erpsupplierquotationdetails-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

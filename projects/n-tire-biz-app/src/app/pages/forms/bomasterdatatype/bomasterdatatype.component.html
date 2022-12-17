@@ -1,0 +1,268 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="bomasterdatatype_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Master DataTypes' | translate}}</a>
+    </h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bomasterdatatypes()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of bomasterdatatype_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.datatypeid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.datatypeid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+      </div>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+
+
+            <!--code-->
+
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div *ngIf="((hidelist.indexOf('code') == -1) && (codevisible==undefined || codevisible==true))" style=''
+                class="col-3"><label for="code" class="control-label">Code</label>
+                <input type="number" id="code" formControlName="code" class="form-control" *ngIf="!showview"/>
+                <!-- <select *ngIf="!showview" id="code" (change)="code_onChange($event.target)" formControlName="code"
+                  class="form-control">
+                  <option value="0">-Select-</option>
+                  <option *ngFor="let item of code_List" value="{{item.value}}">{{item.label}}</option>
+                </select> -->
+                <label *ngIf="showview" class="labelview">{{f.codedesc?.value}}</label>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('masterdataname') == -1) && (masterdatanamevisible==undefined || masterdatanamevisible==true))"
+                style='' class="col-3 ">
+                <label for="masterdataname" class="control-label required">Master Dataname</label>
+                <label *ngIf="showview" class="labelview">{{f.masterdataname?.value}}</label>
+                <input *ngIf="!showview" id="masterdataname" required formControlName="masterdataname"
+                  class="form-control">
+                <app-field-error-display [displayError]="f.masterdataname.errors?.required"
+                  errorMsg="Enter {{'Master Dataname' | translate}}">
+                </app-field-error-display>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('hassubcategory') == -1) && (hassubcategoryvisible==undefined || hassubcategoryvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="hassubcategory" class="control-label">Has Subcategory</label>
+                  <label *ngIf="showview" class="labelview">{{f.hassubcategory?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="hassubcategory" formControlName="hassubcategory"
+                    class="form-control">
+                </div>
+              </div>
+              <div *ngIf="((hidelist.indexOf('canadd') == -1) && (canaddvisible==undefined || canaddvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="canadd" class="control-label">Can Add</label>
+                  <label *ngIf="showview" class="labelview">{{f.canadd?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="canadd" formControlName="canadd" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div *ngIf="((hidelist.indexOf('canedit') == -1) && (caneditvisible==undefined || caneditvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="canedit" class="control-label">Can Edit</label>
+                  <label *ngIf="showview" class="labelview">{{f.canedit?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="canedit" formControlName="canedit" class="form-control">
+                </div>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('candelete') == -1) && (candeletevisible==undefined || candeletevisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="candelete" class="control-label">Can Delete</label>
+                  <label *ngIf="showview" class="labelview">{{f.candelete?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="candelete" formControlName="candelete"
+                    class="form-control">
+                </div>
+              </div>
+              <div *ngIf="((hidelist.indexOf('erp') == -1) && (erpvisible==undefined || erpvisible==true))" style=''
+                class="col-3 ">
+                <div class="columnchk">
+                  <label for="erp" class="control-label">E R P</label>
+                  <label *ngIf="showview" class="labelview">{{f.erp?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="erp" formControlName="erp" class="form-control">
+                </div>
+              </div>
+              <div *ngIf="((hidelist.indexOf('cams') == -1) && (camsvisible==undefined || camsvisible==true))" style=''
+                class="col-3 ">
+                <div class="columnchk">
+                  <label for="cams" class="control-label">C A M S</label>
+                  <label *ngIf="showview" class="labelview">{{f.cams?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="cams" formControlName="cams" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div *ngIf="((hidelist.indexOf('crm') == -1) && (crmvisible==undefined || crmvisible==true))" style=''
+                class="col-3 ">
+                <div class="columnchk">
+                  <label for="crm" class="control-label">C R M</label>
+                  <label *ngIf="showview" class="labelview">{{f.crm?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="crm" formControlName="crm" class="form-control">
+                </div>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('procurement') == -1) && (procurementvisible==undefined || procurementvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="procurement" class="control-label">Procurement</label>
+                  <label *ngIf="showview" class="labelview">{{f.procurement?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="procurement" formControlName="procurement"
+                    class="form-control">
+                </div>
+              </div>
+              <div *ngIf="((hidelist.indexOf('legal') == -1) && (legalvisible==undefined || legalvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="legal" class="control-label">Legal</label>
+                  <label *ngIf="showview" class="labelview">{{f.legal?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="legal" formControlName="legal" class="form-control">
+                </div>
+              </div>
+              <div *ngIf="((hidelist.indexOf('hrms') == -1) && (hrmsvisible==undefined || hrmsvisible==true))" style=''
+                class="col-3 ">
+                <div class="columnchk">
+                  <label for="hrms" class="control-label">H R M S</label>
+                  <label *ngIf="showview" class="labelview">{{f.hrms?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="hrms" formControlName="hrms" class="form-control">
+                </div>
+              </div>
+            </div>
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">MasterData</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table bomasterdatas-->
+            <div [ngClass]="Is_bomasterdatas_Visible()">
+              <!--End-->
+              <h4 class="form-group sticky1  columns left">{{'MasterData' | translate}}
+                <select class='child' id="bomasterdatasPagingdropdown"
+                  (change)="bomasterdatas_Paging($event.target.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="bomasterdatatoggleOption();bomasterdatas_route(null, 'create')"><i class="fa fa-plus"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                      <li role="separator" class="divider">
+                        <hr>
+                      </li>
+                      <li><a class="dropdown-item" [routerLink]='' (click)="showbomasterdatasFilter()"><i
+                            class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                      <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <a class="rightside" [routerLink]='' (click)="bomasterdatas_route(null, 'create')"><i
+                    class="fa fa-plus"></i></a>
+              </h4>
+              <ng2-smart-table #tbl_bomasterdatas (userRowSelect)="handle_bomasterdatas_GridSelected($event)"
+                [settings]="bomasterdatas_settings" (custom)="onCustom_bomasterdatas_Action($event)"
+                [source]="tbl_bomasterdatas?.source?.data" (delete)="bomasterdatas_route($event,'delete')"
+                (deleteConfirm)="bomasterdatas_route($event,'delete')" (create)="bomasterdatas_route($event,'create')"
+                (createConfirm)="bomasterdatas_beforesave($event)" (edit)="bomasterdatas_route($event,'edit')"
+                (editConfirm)="bomasterdatas_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table bomasterdatas-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</form>

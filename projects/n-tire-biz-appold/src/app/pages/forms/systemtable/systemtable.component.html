@@ -1,0 +1,461 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="systemtable_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'systemtables' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_systemtables()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of systemtable_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.tableid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.tableid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+      </div>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('tablecode') == -1) && (tablecodevisible==undefined || tablecodevisible==true))"
+                style='' class="col-3 ">
+                <label for="tablecode" class="control-label">Table Code</label>
+                <label *ngIf="showview" class="labelview">{{f.tablecode?.value}}</label>
+                <input *ngIf="!showview" id="tablecode" formControlName="tablecode" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('tablename') == -1) && (tablenamevisible==undefined || tablenamevisible==true))"
+                style='' class="col-3 ">
+                <label for="tablename" class="control-label">Table Name</label>
+                <label *ngIf="showview" class="labelview">{{f.tablename?.value}}</label>
+                <input *ngIf="!showview" id="tablename" formControlName="tablename" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('insertaction') == -1) && (insertactionvisible==undefined || insertactionvisible==true))"
+                style='' class="col-3 ">
+                <label for="insertaction" class="control-label">Insert Action</label>
+                <label *ngIf="showview" class="labelview">{{f.insertaction?.value}}</label>
+                <input *ngIf="!showview" id="insertaction" formControlName="insertaction" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('updateaction') == -1) && (updateactionvisible==undefined || updateactionvisible==true))"
+                style='' class="col-3 ">
+                <label for="updateaction" class="control-label">Update Action</label>
+                <label *ngIf="showview" class="labelview">{{f.updateaction?.value}}</label>
+                <input *ngIf="!showview" id="updateaction" formControlName="updateaction" class="form-control">
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('deleteaction') == -1) && (deleteactionvisible==undefined || deleteactionvisible==true))"
+                style='' class="col-3 ">
+                <label for="deleteaction" class="control-label">Delete Action</label>
+                <label *ngIf="showview" class="labelview">{{f.deleteaction?.value}}</label>
+                <input *ngIf="!showview" id="deleteaction" formControlName="deleteaction" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('workflow') == -1) && (workflowvisible==undefined || workflowvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="workflow" class="control-label">Work Flow</label>
+                  <label *ngIf="showview" class="labelview">{{f.workflow?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="workflow" formControlName="workflow"
+                    class="form-control">
+                </div>
+              </div>
+
+
+              <!--remindercolorcode-->
+
+              <div
+                *ngIf="((hidelist.indexOf('remindercolorcode') == -1) && (remindercolorcodevisible==undefined || remindercolorcodevisible==true))"
+                style='' class="col-3"><label for="remindercolorcode" class="control-label">Reminder Color Code</label>
+                <select *ngIf="!showview" id="remindercolorcode" (change)="remindercolorcode_onChange($event.target)"
+                  formControlName="remindercolorcode" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of remindercolorcode_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.remindercolorcodedesc?.value}}</label>
+              </div>
+
+
+              <!--reminderpriority-->
+
+              <div
+                *ngIf="((hidelist.indexOf('reminderpriority') == -1) && (reminderpriorityvisible==undefined || reminderpriorityvisible==true))"
+                style='' class="col-3"><label for="reminderpriority" class="control-label">Reminder Priority</label>
+                <select *ngIf="!showview" id="reminderpriority" (change)="reminderpriority_onChange($event.target)"
+                  formControlName="reminderpriority" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of reminderpriority_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.reminderprioritydesc?.value}}</label>
+              </div>
+            </div>
+
+
+            <!--remindericon-->
+
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('remindericon') == -1) && (remindericonvisible==undefined || remindericonvisible==true))"
+                style='' class="col-3"><label for="remindericon" class="control-label">Reminder Icon</label>
+                <select *ngIf="!showview" id="remindericon" (change)="remindericon_onChange($event.target)"
+                  formControlName="remindericon" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of remindericon_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.remindericondesc?.value}}</label>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('documentadminusers') == -1) && (documentadminusersvisible==undefined || documentadminusersvisible==true))"
+                style='' class="col-3 ">
+                <label for="documentadminusers" class="control-label">Document Admin Users</label>
+                <label *ngIf="showview" class="labelview">{{f.documentadminusers?.value}}</label>
+                <input *ngIf="!showview" id="documentadminusers" formControlName="documentadminusers"
+                  class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('documentsecurity') == -1) && (documentsecurityvisible==undefined || documentsecurityvisible==true))"
+                style='' class="col-3 ">
+                <label for="documentsecurity" class="control-label">Document Security</label>
+                <label *ngIf="showview" class="labelview">{{f.documentsecurity?.value}}</label>
+                <input *ngIf="!showview" id="documentsecurity" formControlName="documentsecurity" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('attachmentcategory') == -1) && (attachmentcategoryvisible==undefined || attachmentcategoryvisible==true))"
+                style='' class="col-3 ">
+                <label for="attachmentcategory" class="control-label">Attachment Category</label>
+                <label *ngIf="showview" class="labelview">{{f.attachmentcategory?.value}}</label>
+                <input *ngIf="!showview" id="attachmentcategory" formControlName="attachmentcategory"
+                  class="form-control">
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('noattachmentdelete') == -1) && (noattachmentdeletevisible==undefined || noattachmentdeletevisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="noattachmentdelete" class="control-label">No Attachment Delete</label>
+                  <label *ngIf="showview" class="labelview">{{f.noattachmentdelete?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="noattachmentdelete" formControlName="noattachmentdelete"
+                    class="form-control">
+                </div>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('audittrailenabled') == -1) && (audittrailenabledvisible==undefined || audittrailenabledvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="audittrailenabled" class="control-label">Audit Trail Enabled</label>
+                  <label *ngIf="showview" class="labelview">{{f.audittrailenabled?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="audittrailenabled" formControlName="audittrailenabled"
+                    class="form-control">
+                </div>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('audittrailview') == -1) && (audittrailviewvisible==undefined || audittrailviewvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="audittrailview" class="control-label">Audit Trail View</label>
+                  <label *ngIf="showview" class="labelview">{{f.audittrailview?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="audittrailview" formControlName="audittrailview"
+                    class="form-control">
+                </div>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('audittrailfields') == -1) && (audittrailfieldsvisible==undefined || audittrailfieldsvisible==true))"
+                style='' class="col-3 ">
+                <label for="audittrailfields" class="control-label">Audit Trail Fields</label>
+                <label *ngIf="showview" class="labelview">{{f.audittrailfields?.value}}</label>
+                <input *ngIf="!showview" id="audittrailfields" formControlName="audittrailfields" class="form-control">
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('versionmaintenance') == -1) && (versionmaintenancevisible==undefined || versionmaintenancevisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="versionmaintenance" class="control-label">Version Maintenance</label>
+                  <label *ngIf="showview" class="labelview">{{f.versionmaintenance?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="versionmaintenance" formControlName="versionmaintenance"
+                    class="form-control">
+                </div>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('documentcontrolenabled') == -1) && (documentcontrolenabledvisible==undefined || documentcontrolenabledvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="documentcontrolenabled" class="control-label">Document Control Enabled</label>
+                  <label *ngIf="showview" class="labelview">{{f.documentcontrolenabled?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="documentcontrolenabled"
+                    formControlName="documentcontrolenabled" class="form-control">
+                </div>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('documentsharingenabled') == -1) && (documentsharingenabledvisible==undefined || documentsharingenabledvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="documentsharingenabled" class="control-label">Document Sharing Enabled</label>
+                  <label *ngIf="showview" class="labelview">{{f.documentsharingenabled?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="documentsharingenabled"
+                    formControlName="documentsharingenabled" class="form-control">
+                </div>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('fieldstyles') == -1) && (fieldstylesvisible==undefined || fieldstylesvisible==true))"
+                style='' class="col-3 ">
+                <label for="fieldstyles" class="control-label">Field Styles</label>
+                <label *ngIf="showview" class="labelview">{{f.fieldstyles?.value}}</label>
+                <input *ngIf="!showview" id="fieldstyles" formControlName="fieldstyles" class="form-control">
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('notifyusersoncreation') == -1) && (notifyusersoncreationvisible==undefined || notifyusersoncreationvisible==true))"
+                style='' class="col-3 ">
+                <label for="notifyusersoncreation" class="control-label">Notify Users On Creation</label>
+                <label *ngIf="showview" class="labelview">{{f.notifyusersoncreation?.value}}</label>
+                <input *ngIf="!showview" id="notifyusersoncreation" formControlName="notifyusersoncreation"
+                  class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('notifyusersonupdation') == -1) && (notifyusersonupdationvisible==undefined || notifyusersonupdationvisible==true))"
+                style='' class="col-3 ">
+                <label for="notifyusersonupdation" class="control-label">Notify Users On Updation</label>
+                <label *ngIf="showview" class="labelview">{{f.notifyusersonupdation?.value}}</label>
+                <input *ngIf="!showview" id="notifyusersonupdation" formControlName="notifyusersonupdation"
+                  class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('notifyusersondeletion') == -1) && (notifyusersondeletionvisible==undefined || notifyusersondeletionvisible==true))"
+                style='' class="col-3 ">
+                <label for="notifyusersondeletion" class="control-label">Notify Users On Deletion</label>
+                <label *ngIf="showview" class="labelview">{{f.notifyusersondeletion?.value}}</label>
+                <input *ngIf="!showview" id="notifyusersondeletion" formControlName="notifyusersondeletion"
+                  class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('notifyusersonviewing') == -1) && (notifyusersonviewingvisible==undefined || notifyusersonviewingvisible==true))"
+                style='' class="col-3 ">
+                <label for="notifyusersonviewing" class="control-label">Notify Users On Viewing</label>
+                <label *ngIf="showview" class="labelview">{{f.notifyusersonviewing?.value}}</label>
+                <input *ngIf="!showview" id="notifyusersonviewing" formControlName="notifyusersonviewing"
+                  class="form-control">
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('recordaccesscondition') == -1) && (recordaccessconditionvisible==undefined || recordaccessconditionvisible==true))"
+                style='' class="col-3 ">
+                <label for="recordaccesscondition" class="control-label">Record Access Condition</label>
+                <label *ngIf="showview" class="labelview">{{f.recordaccesscondition?.value}}</label>
+                <input *ngIf="!showview" id="recordaccesscondition" formControlName="recordaccesscondition"
+                  class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('recordnoaccesscondition') == -1) && (recordnoaccessconditionvisible==undefined || recordnoaccessconditionvisible==true))"
+                style='' class="col-3 ">
+                <label for="recordnoaccesscondition" class="control-label">Record No Access Condition</label>
+                <label *ngIf="showview" class="labelview">{{f.recordnoaccesscondition?.value}}</label>
+                <input *ngIf="!showview" id="recordnoaccesscondition" formControlName="recordnoaccesscondition"
+                  class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('folderview') == -1) && (folderviewvisible==undefined || folderviewvisible==true))"
+                style='' class="col-3 ">
+                <label for="folderview" class="control-label">Folder View</label>
+                <label *ngIf="showview" class="labelview">{{f.folderview?.value}}</label>
+                <input *ngIf="!showview" id="folderview" formControlName="folderview" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('metatagfields') == -1) && (metatagfieldsvisible==undefined || metatagfieldsvisible==true))"
+                style='' class="col-3 ">
+                <label for="metatagfields" class="control-label">Meta Tag Fields</label>
+                <label *ngIf="showview" class="labelview">{{f.metatagfields?.value}}</label>
+                <input *ngIf="!showview" id="metatagfields" formControlName="metatagfields" class="form-control">
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('digitalsignature') == -1) && (digitalsignaturevisible==undefined || digitalsignaturevisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="digitalsignature" class="control-label">Digital Signature</label>
+                  <label *ngIf="showview" class="labelview">{{f.digitalsignature?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="digitalsignature" formControlName="digitalsignature"
+                    class="form-control">
+                </div>
+              </div>
+              <div class="col"></div>
+              <div class="col"></div>
+              <div class="col"></div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('viewhtml') == -1) && (viewhtmlvisible==undefined || viewhtmlvisible==true))"
+                style='width:1500px' class="col-12 ">
+                <label for="viewhtml" class="control-label">View Html</label>
+                <label *ngIf="showview" class="labelview">{{f.viewhtml?.value}}</label>
+                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="viewhtml"
+                  formControlName="viewhtml" class="form-control">
+</textarea>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('templatehtml') == -1) && (templatehtmlvisible==undefined || templatehtmlvisible==true))"
+                style='width:1500px' class="col-12 ">
+                <label for="templatehtml" class="control-label">Template Html</label>
+                <label *ngIf="showview" class="labelview">{{f.templatehtml?.value}}</label>
+                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="templatehtml"
+                  formControlName="templatehtml" class="form-control">
+</textarea>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('helptext') == -1) && (helptextvisible==undefined || helptextvisible==true))"
+                style='width:1500px' class="col-12 ">
+                <label for="helptext" class="control-label">Help Text</label>
+                <label *ngIf="showview" class="labelview">{{f.helptext?.value}}</label>
+                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="helptext"
+                  formControlName="helptext" class="form-control">
+</textarea>
+              </div>
+            </div>
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Templates</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table systemtabletemplates-->
+            <div [ngClass]="Is_systemtabletemplates_Visible()">
+              <!--End-->
+              <h4 class="form-group sticky1  columns left">{{'Templates' | translate}}
+                <select class='child' id="systemtabletemplatesPagingdropdown"
+                  (change)="systemtabletemplates_Paging($event.target.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="systemtabletemplatetoggleOption();systemtabletemplates_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                      <li role="separator" class="divider">
+                        <hr>
+                      </li>
+                      <li><a class="dropdown-item" [routerLink]='' (click)="showsystemtabletemplatesFilter()"><i
+                            class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                      <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <a class="rightside" [routerLink]='' (click)="systemtabletemplates_route(null, 'create')"><i
+                    class="fa fa-plus"></i></a>
+              </h4>
+              <ng2-smart-table #tbl_systemtabletemplates
+                (userRowSelect)="handle_systemtabletemplates_GridSelected($event)"
+                [settings]="systemtabletemplates_settings" (custom)="onCustom_systemtabletemplates_Action($event)"
+                [source]="tbl_systemtabletemplates?.source?.data" (delete)="systemtabletemplates_route($event,'delete')"
+                (deleteConfirm)="systemtabletemplates_route($event,'delete')"
+                (create)="systemtabletemplates_route($event,'create')"
+                (createConfirm)="systemtabletemplates_beforesave($event)"
+                (edit)="systemtabletemplates_route($event,'edit')"
+                (editConfirm)="systemtabletemplates_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table systemtabletemplates-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</form>

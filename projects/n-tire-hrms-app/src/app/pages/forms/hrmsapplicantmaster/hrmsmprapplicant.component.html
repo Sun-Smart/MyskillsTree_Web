@@ -1,0 +1,77 @@
+<div class="dialog">
+  <form [formGroup]="hrmsmprapplicantForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col">
+            <label for="mprid" class="control-label">M R P</label>
+            <input type="hidden" name="mprid" [value]="mprid">
+          </div>
+          <div class="col">
+            <label for="offerdate" class="control-label">Offer Date</label>
+            <div class="input-group" *ngIf="!showview">
+              <input #offerdateformpicker="ngbDatepicker" ngbDatepicker name="offerdateformpicker" id="offerdate"
+                formControlName="offerdate" class="form-control" placeholder="Choose Offer Date">
+              <button class="input-group-addon" *ngIf="!showview" (click)="offerdateformpicker.toggle()"
+                type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+            <label *ngIf="showview"
+              class="form-control labelview">{{ngbDateParserFormatter.format(f.offerdate?.value)}}</label>
+          </div>
+          <div class="col">
+            <label for="planneddoj" class="control-label">Planned D O J</label>
+            <div class="input-group" *ngIf="!showview">
+              <input #planneddojformpicker="ngbDatepicker" ngbDatepicker name="planneddojformpicker" id="planneddoj"
+                formControlName="planneddoj" class="form-control" placeholder="Choose Planned D O J">
+              <button class="input-group-addon" *ngIf="!showview" (click)="planneddojformpicker.toggle()"
+                type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+            <label *ngIf="showview"
+              class="form-control labelview">{{ngbDateParserFormatter.format(f.planneddoj?.value)}}</label>
+          </div>
+          <div class="col">
+            <label for="joineddate" class="control-label">Joined Date</label>
+            <div class="input-group" *ngIf="!showview">
+              <input #joineddateformpicker="ngbDatepicker" ngbDatepicker name="joineddateformpicker" id="joineddate"
+                formControlName="joineddate" class="form-control" placeholder="Choose Joined Date">
+              <button class="input-group-addon" *ngIf="!showview" (click)="joineddateformpicker.toggle()"
+                type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+            <label *ngIf="showview"
+              class="form-control labelview">{{ngbDateParserFormatter.format(f.joineddate?.value)}}</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="remarks" class="control-label">Remarks</label>
+            <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" placeholder="Remarks' | translat"
+              [style]="{  height: '320' }"></p-editor>
+          </div>
+        </div>
+        <div *ngIf="attachmentvisible">
+          <p-accordionTab header='Attachment' [selected]='false'>
+            <app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+          </p-accordionTab>
+        </div>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.mprid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.mprid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

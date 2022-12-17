@@ -1,0 +1,2240 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="hrmsemployeeForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Employees' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="edithrmsemployees()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeeshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.employeeid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.employeeid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+
+
+<!--branchid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('branchid') == -1"  class="col" ><label  for="branchid" class="control-label" (click)="AddOrEditbranchid(null)">Branch</label>
+<app-popupselect  *ngIf="!showview"  [options]="branchidList"  [optionsEvent]="branchidoptionsEvent" [form]="bobranchmaster" (selectItem)="onSelectedbranchid($event)"  [reportid]= 'bxg94' [menuid]='bxg94' formControlName="branchid" id="branchid" desc="branchname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"      class="labelview">{{f.branchiddesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('applicantref') == -1"  class="col "  >
+<label  for="applicantref" class="control-label">Applicant Reference</label>
+      <input   *ngIf="!showview"  id="applicantref"  formControlName="applicantref" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('code') == -1"  class="col "  >
+<label  for="code" class="control-label">Code</label>
+      <input   *ngIf="!showview"  id="code"  readonly formControlName="code" class="form-control"
+        >
+<ngx-barcode [bc-value]='f.code.value' [bc-display-value]='true'></ngx-barcode>
+  </div>
+  <div  *ngIf="hidelist.indexOf('employeename') == -1"  class="col "  >
+<label  for="employeename" class="control-label">Employee Name</label>
+      <input   *ngIf="!showview"  id="employeename"  formControlName="employeename" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('nickname') == -1"  class="col "  >
+<label  for="nickname" class="control-label">Nick Name</label>
+      <input   *ngIf="!showview"  id="nickname"  formControlName="nickname" class="form-control"
+        >
+  </div>
+
+
+<!--departmentid-->
+
+  <div   *ngIf="hidelist.indexOf('departmentid') == -1"  class="col" ><label  for="departmentid" class="control-label" (click)="AddOrEditdepartmentid(null)" (click)="AddOrEditdepartmentid(null)">Department</label>
+      <select  *ngIf="!showview"  id="departmentid"  (change)="departmentidonChange($event.target)" formControlName="departmentid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of departmentidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.departmentiddesc?.value}}</label>
+  </div>
+
+
+<!--designationid-->
+
+  <div   *ngIf="hidelist.indexOf('designationid') == -1"  class="col" ><label  for="designationid" class="control-label">Designation</label>
+      <select  *ngIf="!showview"  id="designationid"  (change)="designationidonChange($event.target)" formControlName="designationid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of designationidList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.designationiddesc?.value}}</label>
+  </div>
+
+
+<!--roleid-->
+
+  <div   *ngIf="hidelist.indexOf('roleid') == -1"  class="col" ><label  for="roleid" class="control-label" (click)="AddOrEditroleid(null)">Role</label>
+      <select  *ngIf="!showview"  id="roleid"  (change)="roleidonChange($event.target)" formControlName="roleid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of roleidList" value="{{item.userroleid}}">{{item.userrole}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.roleiddesc?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('dateofjoin') == -1"  class="col "  >
+<label  for="dateofjoin" class="control-label">Dateof Join</label>
+<div class="input-group" *ngIf="!showview" >
+<input #dateofjoinformpicker="ngbDatepicker"      ngbDatepicker name="dateofjoinformpicker" id="dateofjoin"  formControlName="dateofjoin"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="dateofjoinformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.dateofjoin?.value)}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('appointedby') == -1"  class="col "  >
+<label  for="appointedby" class="control-label">Appointed By</label>
+      <input   *ngIf="!showview"  id="appointedby"  formControlName="appointedby" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('jobnature') == -1"  class="col "  >
+<label  for="jobnature" class="control-label">Job Nature</label>
+      <input   *ngIf="!showview"  id="jobnature"  formControlName="jobnature" class="form-control"
+        >
+  </div>
+
+
+<!--shiftid-->
+
+  <div   *ngIf="hidelist.indexOf('shiftid') == -1"  class="col" ><label  for="shiftid" class="control-label" (click)="AddOrEditshiftid(null)">Shift</label>
+      <select  *ngIf="!showview"  id="shiftid"  (change)="shiftidonChange($event.target)" formControlName="shiftid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of shiftidList" value="{{item.shiftid}}">{{item.shiftname}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.shiftiddesc?.value}}</label>
+  </div>
+</div>
+
+
+<!--grade-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('grade') == -1"  class="col" ><label  for="grade" class="control-label">Grade</label>
+      <select  *ngIf="!showview"  id="grade"  (change)="gradeonChange($event.target)" formControlName="grade"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of gradeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.gradedesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('mobile') == -1"  class="col "  >
+<label  for="mobile" class="control-label">Mobile</label>
+      <int-phone-prefix   *ngIf="!showview"  id="mobile"  formControlName="mobile"  [locale]="'en'" [defaultCountry]="'ae'"  class="form-control telephone" 
+        >
+</int-phone-prefix>
+  </div>
+  <div  *ngIf="hidelist.indexOf('personalemail') == -1"  class="col "  >
+<label  for="personalemail" class="control-label">Personal Email</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview"  id="personalemail"  formControlName="personalemail" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.personalemail.invalid && (f.personalemail.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+  <div  *ngIf="hidelist.indexOf('residencephone') == -1"  class="col "  >
+<label  for="residencephone" class="control-label">Residence Phone</label>
+      <int-phone-prefix   *ngIf="!showview"  id="residencephone"  formControlName="residencephone"  [locale]="'en'" [defaultCountry]="'ae'"  class="form-control telephone" 
+        >
+</int-phone-prefix>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('spousename') == -1"  class="col "  >
+<label  for="spousename" class="control-label">Spouse Name</label>
+      <input   *ngIf="!showview"  id="spousename"  formControlName="spousename" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('fathername') == -1"  class="col "  >
+<label  for="fathername" class="control-label">Father Name</label>
+      <input   *ngIf="!showview"  id="fathername"  formControlName="fathername" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('mothername') == -1"  class="col "  >
+<label  for="mothername" class="control-label">Mother Name</label>
+      <input   *ngIf="!showview"  id="mothername"  formControlName="mothername" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('dob') == -1"  class="col "  >
+<label  for="dob" class="control-label">D O B</label>
+<div class="input-group" *ngIf="!showview" >
+<input #dobformpicker="ngbDatepicker"      ngbDatepicker name="dobformpicker" id="dob"  formControlName="dob"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="dobformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.dob?.value)}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('age') == -1"  class="col "  >
+<label  for="age" class="control-label">Age</label>
+      <input   *ngIf="!showview"  id="age"  formControlName="age" class="form-control"
+        >
+  </div>
+
+
+<!--countryofbirth-->
+
+  <div   *ngIf="hidelist.indexOf('countryofbirth') == -1"  class="col" ><label  for="countryofbirth" class="control-label" (click)="AddOrEditcountryofbirth(null)">Countryof Birth</label>
+<app-popupselect  *ngIf="!showview"  [options]="countryofbirthList"  [optionsEvent]="countryofbirthoptionsEvent" [form]="bocountry" (selectItem)="onSelectedcountryofbirth($event)"  [reportid]= 'wc9rn' [menuid]='wc9rn' formControlName="countryofbirth" id="countryid" desc="name" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"      class="labelview">{{f.countryofbirthdesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('filenumber') == -1"  class="col "  >
+<label  for="filenumber" class="control-label">File Number</label>
+      <input   *ngIf="!showview"  id="filenumber"  formControlName="filenumber" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('validfrom') == -1"  class="col "  >
+<label  for="validfrom" class="control-label">Valid From</label>
+<div class="input-group" *ngIf="!showview" >
+<input #validfromformpicker="ngbDatepicker"      ngbDatepicker name="validfromformpicker" id="validfrom"  formControlName="validfrom"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="validfromformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.validfrom?.value)}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('validto') == -1"  class="col "  >
+<label  for="validto" class="control-label">Valid To</label>
+<div class="input-group" *ngIf="!showview" >
+<input #validtoformpicker="ngbDatepicker"      ngbDatepicker name="validtoformpicker" id="validto"  formControlName="validto"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="validtoformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.validto?.value)}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('glcode') == -1"  class="col "  >
+<label  for="glcode" class="control-label">G L Code</label>
+      <input   *ngIf="!showview"  id="glcode"  formControlName="glcode" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('photo') == -1"  class="col "  >
+<label  for="photo" class="control-label">Photo</label>
+<app-attachment #photo formControlName="photo" [SessionData]="sessiondata"></app-attachment>
+<button  type="button" class="btn" *ngIf="photo.getattachmentlist().length > 0"    (click) = "getphoto()" >Open File</button>
+  </div>
+  <div  *ngIf="hidelist.indexOf('thumbnail') == -1"  class="col "  >
+<label  for="thumbnail" class="control-label">Thumb Nail</label>
+      <input   *ngIf="!showview"  id="thumbnail"  formControlName="thumbnail" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('signature') == -1"  class="col "  >
+<label  for="signature" class="control-label">Signature</label>
+<app-attachment #signature formControlName="signature" [SessionData]="sessiondata"></app-attachment>
+<button  type="button" class="btn" *ngIf="signature.getattachmentlist().length > 0"    (click) = "getsignature()" >Open File</button>
+  </div>
+
+
+<!--gender-->
+
+  <div   *ngIf="hidelist.indexOf('gender') == -1"  class="col" ><label  for="gender" class="control-label">Gender</label>
+      <select  *ngIf="!showview"  id="gender"  (change)="genderonChange($event.target)" formControlName="gender"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of genderList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.genderdesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Qualifications'  [selected]='true'>
+
+
+<!--qualification1-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('qualification1') == -1"  class="col" ><label  for="qualification1" class="control-label">Qualification1</label>
+      <select  *ngIf="!showview"  id="qualification1"  (change)="qualification1onChange($event.target)" formControlName="qualification1"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of qualification1List" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.qualification1desc?.value}}</label>
+  </div>
+
+
+<!--qualification2-->
+
+  <div   *ngIf="hidelist.indexOf('qualification2') == -1"  class="col" ><label  for="qualification2" class="control-label">Qualification2</label>
+      <select  *ngIf="!showview"  id="qualification2"  (change)="qualification2onChange($event.target)" formControlName="qualification2"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of qualification2List" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.qualification2desc?.value}}</label>
+  </div>
+
+
+<!--qualification3-->
+
+  <div   *ngIf="hidelist.indexOf('qualification3') == -1"  class="col" ><label  for="qualification3" class="control-label">Qualification3</label>
+      <select  *ngIf="!showview"  id="qualification3"  (change)="qualification3onChange($event.target)" formControlName="qualification3"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of qualification3List" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.qualification3desc?.value}}</label>
+  </div>
+
+
+<!--recruitmentmode-->
+
+  <div   *ngIf="hidelist.indexOf('recruitmentmode') == -1"  class="col" ><label  for="recruitmentmode" class="control-label">Recruitment Mode</label>
+      <select  *ngIf="!showview"  id="recruitmentmode"  (change)="recruitmentmodeonChange($event.target)" formControlName="recruitmentmode"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of recruitmentmodeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.recruitmentmodedesc?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('currentlocationtype') == -1"  class="col "  >
+<label  for="currentlocationtype" class="control-label">Current Location Type</label>
+      <input   *ngIf="!showview"  id="currentlocationtype"  formControlName="currentlocationtype" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('currentaddress') == -1"  class="col "  >
+<label  for="currentaddress" class="control-label">Current Address</label>
+      <input   *ngIf="!showview"  id="currentaddress"  formControlName="currentaddress" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('permanentaddress') == -1"  class="col "  >
+<label  for="permanentaddress" class="control-label">Permanent Address</label>
+      <input   *ngIf="!showview"  id="permanentaddress"  formControlName="permanentaddress" class="form-control"
+        >
+  </div>
+
+
+<!--nationality-->
+
+  <div   *ngIf="hidelist.indexOf('nationality') == -1"  class="col" ><label  for="nationality" class="control-label">Nationality</label>
+      <select  *ngIf="!showview"  id="nationality"  (change)="nationalityonChange($event.target)" formControlName="nationality"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of nationalityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.nationalitydesc?.value}}</label>
+  </div>
+</div>
+
+
+<!--religion-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('religion') == -1"  class="col" ><label  for="religion" class="control-label">Religion</label>
+      <select  *ngIf="!showview"  id="religion"  (change)="religiononChange($event.target)" formControlName="religion"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of religionList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.religiondesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Personal'  [selected]='true'>
+
+
+<!--maritalstatus-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('maritalstatus') == -1"  class="col" ><label  for="maritalstatus" class="control-label">Marital Status</label>
+      <select  *ngIf="!showview"  id="maritalstatus"  (change)="maritalstatusonChange($event.target)" formControlName="maritalstatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of maritalstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.maritalstatusdesc?.value}}</label>
+  </div>
+
+
+<!--bloodgroup-->
+
+  <div   *ngIf="hidelist.indexOf('bloodgroup') == -1"  class="col" ><label  for="bloodgroup" class="control-label">Blood Group</label>
+      <select  *ngIf="!showview"  id="bloodgroup"  (change)="bloodgrouponChange($event.target)" formControlName="bloodgroup"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of bloodgroupList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.bloodgroupdesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('nationalid') == -1"  class="col "  >
+<label  for="nationalid" class="control-label">National</label>
+      <input   *ngIf="!showview"  id="nationalid"  formControlName="nationalid" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('taxnumber') == -1"  class="col "  >
+<label  for="taxnumber" class="control-label">Tax Number</label>
+      <input   *ngIf="!showview"  id="taxnumber"  formControlName="taxnumber" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('passportnumber') == -1"  class="col "  >
+<label  for="passportnumber" class="control-label">Passport Number</label>
+      <input   *ngIf="!showview"  id="passportnumber"  formControlName="passportnumber" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('placeofissue') == -1"  class="col "  >
+<label  for="placeofissue" class="control-label">Placeof Issue</label>
+      <input   *ngIf="!showview"  id="placeofissue"  formControlName="placeofissue" class="form-control"
+        >
+  </div>
+
+
+<!--issuingcountry-->
+
+  <div   *ngIf="hidelist.indexOf('issuingcountry') == -1"  class="col" ><label  for="issuingcountry" class="control-label" (click)="AddOrEditissuingcountry(null)">Issue Country</label>
+<app-popupselect  *ngIf="!showview"  [options]="issuingcountryList"  [optionsEvent]="issuingcountryoptionsEvent" [form]="bocountry" (selectItem)="onSelectedissuingcountry($event)"  [reportid]= 'wc9rn' [menuid]='wc9rn' formControlName="issuingcountry" id="countryid" desc="name" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"      class="labelview">{{f.issuingcountrydesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('issuingdate') == -1"  class="col "  >
+<label  for="issuingdate" class="control-label">Issue Date</label>
+<div class="input-group" *ngIf="!showview" >
+<input #issuingdateformpicker="ngbDatepicker"      ngbDatepicker name="issuingdateformpicker" id="issuingdate"  formControlName="issuingdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="issuingdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.issuingdate?.value)}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('expirydate') == -1"  class="col "  >
+<label  for="expirydate" class="control-label">Expiry Date</label>
+<div class="input-group" *ngIf="!showview" >
+<input #expirydateformpicker="ngbDatepicker"      ngbDatepicker name="expirydateformpicker" id="expirydate"  formControlName="expirydate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="expirydateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.expirydate?.value)}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('drivinglicensenumber') == -1"  class="col "  >
+<label  for="drivinglicensenumber" class="control-label">Driving License Number</label>
+      <input   *ngIf="!showview"  id="drivinglicensenumber"  formControlName="drivinglicensenumber" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('drivinglicenseexpiration') == -1"  class="col "  >
+<label  for="drivinglicenseexpiration" class="control-label">Driving License Expiration</label>
+<div class="input-group" *ngIf="!showview" >
+<input #drivinglicenseexpirationformpicker="ngbDatepicker"      ngbDatepicker name="drivinglicenseexpirationformpicker" id="drivinglicenseexpiration"  formControlName="drivinglicenseexpiration"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="drivinglicenseexpirationformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.drivinglicenseexpiration?.value)}}</label>
+  </div>
+
+
+<!--employmenttype-->
+
+  <div   *ngIf="hidelist.indexOf('employmenttype') == -1"  class="col" ><label  for="employmenttype" class="control-label">Employment Type</label>
+      <select  *ngIf="!showview"  id="employmenttype"  (change)="employmenttypeonChange($event.target)" formControlName="employmenttype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of employmenttypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.employmenttypedesc?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('probationmonths') == -1"  class="col "  >
+<label  for="probationmonths" class="control-label">Probation Months</label>
+      <input   *ngIf="!showview"  id="probationmonths"  formControlName="probationmonths" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.probationmonths.errors!=null && f.probationmonths.errors.pattern!=null && f.probationmonths.errors!=undefined && f.probationmonths.errors.pattern!=undefined  && (f.probationmonths.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.probationmonths.errors!=null && f.probationmonths.errors.min!=null && f.probationmonths.errors!=undefined && f.probationmonths.errors.min!=undefined  && (f.probationmonths.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.probationmonths.errors!=null && f.probationmonths.errors.max!=null && f.probationmonths.errors!=undefined && f.probationmonths.errors.max!=undefined  && (f.probationmonths.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div  *ngIf="hidelist.indexOf('confirmationdate') == -1"  class="col "  >
+<label  for="confirmationdate" class="control-label">Confirmation Date</label>
+<div class="input-group" *ngIf="!showview" >
+<input #confirmationdateformpicker="ngbDatepicker"      ngbDatepicker name="confirmationdateformpicker" id="confirmationdate"  formControlName="confirmationdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="confirmationdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.confirmationdate?.value)}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('firstappraisalstartson') == -1"  class="col "  >
+<label  for="firstappraisalstartson" class="control-label">First Appraisal Starts On</label>
+<div class="input-group" *ngIf="!showview" >
+<input #firstappraisalstartsonformpicker="ngbDatepicker"      ngbDatepicker name="firstappraisalstartsonformpicker" id="firstappraisalstartson"  formControlName="firstappraisalstartson"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="firstappraisalstartsonformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.firstappraisalstartson?.value)}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('appraisalcyclemonths') == -1"  class="col "  >
+<label  for="appraisalcyclemonths" class="control-label">Appraisal Cycle Months</label>
+      <input   *ngIf="!showview"  id="appraisalcyclemonths"  formControlName="appraisalcyclemonths" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.appraisalcyclemonths.errors!=null && f.appraisalcyclemonths.errors.pattern!=null && f.appraisalcyclemonths.errors!=undefined && f.appraisalcyclemonths.errors.pattern!=undefined  && (f.appraisalcyclemonths.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.appraisalcyclemonths.errors!=null && f.appraisalcyclemonths.errors.min!=null && f.appraisalcyclemonths.errors!=undefined && f.appraisalcyclemonths.errors.min!=undefined  && (f.appraisalcyclemonths.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.appraisalcyclemonths.errors!=null && f.appraisalcyclemonths.errors.max!=null && f.appraisalcyclemonths.errors!=undefined && f.appraisalcyclemonths.errors.max!=undefined  && (f.appraisalcyclemonths.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+</div>
+
+
+<!--category-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('category') == -1"  class="col" ><label  for="category" class="control-label" (click)="AddOrEditcategory(null)" (click)="AddOrEditcategory(null)">Category</label>
+      <select  *ngIf="!showview"  id="category"  (change)="categoryonChange($event.target)" formControlName="category"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of categoryList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.categorydesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('noticeperiod') == -1"  class="col "  >
+<label  for="noticeperiod" class="control-label">Notice Period</label>
+      <input   *ngIf="!showview"  id="noticeperiod"  formControlName="noticeperiod" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.noticeperiod.errors!=null && f.noticeperiod.errors.pattern!=null && f.noticeperiod.errors!=undefined && f.noticeperiod.errors.pattern!=undefined  && (f.noticeperiod.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.noticeperiod.errors!=null && f.noticeperiod.errors.min!=null && f.noticeperiod.errors!=undefined && f.noticeperiod.errors.min!=undefined  && (f.noticeperiod.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.noticeperiod.errors!=null && f.noticeperiod.errors.max!=null && f.noticeperiod.errors!=undefined && f.noticeperiod.errors.max!=undefined  && (f.noticeperiod.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('anyillness') == -1"  class="col "  >
+<label  for="anyillness" class="control-label">Any Illness</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="anyillness"  formControlName="anyillness" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('emergencycontactname') == -1"  class="col "  >
+<label  for="emergencycontactname" class="control-label">Emergency Contact Name</label>
+      <input   *ngIf="!showview"  id="emergencycontactname"  formControlName="emergencycontactname" class="form-control"
+        >
+  </div>
+
+
+<!--relationship-->
+
+  <div   *ngIf="hidelist.indexOf('relationship') == -1"  class="col" ><label  for="relationship" class="control-label">Relationship</label>
+      <select  *ngIf="!showview"  id="relationship"  (change)="relationshiponChange($event.target)" formControlName="relationship"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of relationshipList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.relationshipdesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('contactmobile') == -1"  class="col "  >
+<label  for="contactmobile" class="control-label">Mobile</label>
+      <int-phone-prefix   *ngIf="!showview"  id="contactmobile"  formControlName="contactmobile"  [locale]="'en'" [defaultCountry]="'ae'"  class="form-control telephone" 
+        >
+</int-phone-prefix>
+  </div>
+  <div  *ngIf="hidelist.indexOf('email') == -1"  class="col "  >
+<label  for="email" class="control-label">Email</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview"  id="email"  formControlName="email" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.email.invalid && (f.email.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('leaveencashmenteligibility') == -1"  class="col "  >
+<label  for="leaveencashmenteligibility" class="control-label">Leave Encashment Eligibility</label>
+      <input   *ngIf="!showview"  id="leaveencashmenteligibility"  formControlName="leaveencashmenteligibility" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('hraeligibility') == -1"  class="col "  >
+<label  for="hraeligibility" class="control-label">H R A Eligibility</label>
+      <input   *ngIf="!showview"  id="hraeligibility"  formControlName="hraeligibility" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('attendanceenabled') == -1"  class="col "  >
+<label  for="attendanceenabled" class="control-label">Attendance Enabled</label>
+      <input   *ngIf="!showview"  id="attendanceenabled"  formControlName="attendanceenabled" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('otenabled') == -1"  class="col "  >
+<label  for="otenabled" class="control-label">O T Enabled</label>
+      <input   *ngIf="!showview"  id="otenabled"  formControlName="otenabled" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('companyaccommodation') == -1"  class="col "  >
+<label  for="companyaccommodation" class="control-label">Company Accommodation</label>
+      <input   *ngIf="!showview"  id="companyaccommodation"  formControlName="companyaccommodation" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('freeticket') == -1"  class="col "  >
+<label  for="freeticket" class="control-label">Free Ticket</label>
+      <input   *ngIf="!showview"  id="freeticket"  formControlName="freeticket" class="form-control"
+        >
+  </div>
+
+
+<!--salarymode-->
+
+  <div   *ngIf="hidelist.indexOf('salarymode') == -1"  class="col" ><label  for="salarymode" class="control-label">Salary Mode</label>
+      <select  *ngIf="!showview"  id="salarymode"  (change)="salarymodeonChange($event.target)" formControlName="salarymode"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of salarymodeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.salarymodedesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('bankname') == -1"  class="col "  >
+<label  for="bankname" class="control-label">Bank Name</label>
+      <input   *ngIf="!showview"  id="bankname"  formControlName="bankname" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('accountnumber') == -1"  class="col "  >
+<label  for="accountnumber" class="control-label">Account Number</label>
+      <input   *ngIf="!showview"  id="accountnumber"  formControlName="accountnumber" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('branchname') == -1"  class="col "  >
+<label  for="branchname" class="control-label">Branch Name</label>
+      <input   *ngIf="!showview"  id="branchname"  formControlName="branchname" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('address') == -1"  class="col "  >
+<label  for="address" class="control-label">Address</label>
+      <input   *ngIf="!showview"  id="address"  formControlName="address" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('bankcode') == -1"  class="col "  >
+<label  for="bankcode" class="control-label">Bank Code</label>
+      <input   *ngIf="!showview"  id="bankcode"  formControlName="bankcode" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--transportmode-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('transportmode') == -1"  class="col" ><label  for="transportmode" class="control-label">Transport Mode</label>
+      <select  *ngIf="!showview"  id="transportmode"  (change)="transportmodeonChange($event.target)" formControlName="transportmode"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of transportmodeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.transportmodedesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('transportpickuppoint') == -1"  class="col "  >
+<label  for="transportpickuppoint" class="control-label">Transport Pickup Point</label>
+      <input   *ngIf="!showview"  id="transportpickuppoint"  formControlName="transportpickuppoint" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('heightcms') == -1"  class="col "  >
+<label  for="heightcms" class="control-label">Height C M S</label>
+      <input   *ngIf="!showview"  id="heightcms"  formControlName="heightcms" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.heightcms.errors!=null && f.heightcms.errors.pattern!=null && f.heightcms.errors!=undefined && f.heightcms.errors.pattern!=undefined  && (f.heightcms.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.heightcms.errors!=null && f.heightcms.errors.min!=null && f.heightcms.errors!=undefined && f.heightcms.errors.min!=undefined  && (f.heightcms.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.heightcms.errors!=null && f.heightcms.errors.max!=null && f.heightcms.errors!=undefined && f.heightcms.errors.max!=undefined  && (f.heightcms.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div  *ngIf="hidelist.indexOf('weightkgs') == -1"  class="col "  >
+<label  for="weightkgs" class="control-label">Weight K G S</label>
+      <input   *ngIf="!showview"  id="weightkgs"  formControlName="weightkgs" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.weightkgs.errors!=null && f.weightkgs.errors.pattern!=null && f.weightkgs.errors!=undefined && f.weightkgs.errors.pattern!=undefined  && (f.weightkgs.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.weightkgs.errors!=null && f.weightkgs.errors.min!=null && f.weightkgs.errors!=undefined && f.weightkgs.errors.min!=undefined  && (f.weightkgs.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.weightkgs.errors!=null && f.weightkgs.errors.max!=null && f.weightkgs.errors!=undefined && f.weightkgs.errors.max!=undefined  && (f.weightkgs.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('identificationmark') == -1"  class="col "  >
+<label  for="identificationmark" class="control-label">Identification Mark</label>
+      <input   *ngIf="!showview"  id="identificationmark"  formControlName="identificationmark" class="form-control"
+        >
+  </div>
+
+
+<!--disabilitycategory-->
+
+  <div   *ngIf="hidelist.indexOf('disabilitycategory') == -1"  class="col" ><label  for="disabilitycategory" class="control-label">Disability Category</label>
+      <select  *ngIf="!showview"  id="disabilitycategory"  (change)="disabilitycategoryonChange($event.target)" formControlName="disabilitycategory"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of disabilitycategoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.disabilitycategorydesc?.value}}</label>
+  </div>
+
+
+<!--disabilitydegree-->
+
+  <div   *ngIf="hidelist.indexOf('disabilitydegree') == -1"  class="col" ><label  for="disabilitydegree" class="control-label">Disability Degree</label>
+      <select  *ngIf="!showview"  id="disabilitydegree"  (change)="disabilitydegreeonChange($event.target)" formControlName="disabilitydegree"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of disabilitydegreeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.disabilitydegreedesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('disabilityinfo') == -1"  class="col "  >
+<label  for="disabilityinfo" class="control-label">Disability Info</label>
+      <input   *ngIf="!showview"  id="disabilityinfo"  formControlName="disabilityinfo" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('medicalassessmentdate') == -1"  class="col "  >
+<label  for="medicalassessmentdate" class="control-label">Medical Assessment Date</label>
+<div class="input-group" *ngIf="!showview" >
+<input #medicalassessmentdateformpicker="ngbDatepicker"      ngbDatepicker name="medicalassessmentdateformpicker" id="medicalassessmentdate"  formControlName="medicalassessmentdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="medicalassessmentdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.medicalassessmentdate?.value)}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('notes') == -1"  class="col "  >
+<label  for="notes" class="control-label">Notes</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="notes"  formControlName="notes" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('badgeno') == -1"  class="col "  >
+<label  for="badgeno" class="control-label">Badge No</label>
+      <input   *ngIf="!showview"  id="badgeno"  formControlName="badgeno" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('cardno') == -1"  class="col "  >
+<label  for="cardno" class="control-label">Card No</label>
+      <input   *ngIf="!showview"  id="cardno"  formControlName="cardno" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('reference1') == -1"  class="col "  >
+<label  for="reference1" class="control-label">Reference1</label>
+      <input   *ngIf="!showview"  id="reference1"  formControlName="reference1" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('reference2') == -1"  class="col "  >
+<label  for="reference2" class="control-label">Reference2</label>
+      <input   *ngIf="!showview"  id="reference2"  formControlName="reference2" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('familybenefitsallowed') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="familybenefitsallowed" class="control-label">Family Benefits Allowed</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="familybenefitsallowed"  formControlName="familybenefitsallowed" class="form-control"
+        >
+  </div>
+  </div>
+  <div  *ngIf="hidelist.indexOf('accomodation') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="accomodation" class="control-label">Accomodation</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="accomodation"  formControlName="accomodation" class="form-control"
+        >
+  </div>
+  </div>
+  <div  *ngIf="hidelist.indexOf('medicalinsurance') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="medicalinsurance" class="control-label">Medical Insurance</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="medicalinsurance"  formControlName="medicalinsurance" class="form-control"
+        >
+  </div>
+  </div>
+  <div  *ngIf="hidelist.indexOf('lifeinsurance') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="lifeinsurance" class="control-label">Life Insurance</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="lifeinsurance"  formControlName="lifeinsurance" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('airticket') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="airticket" class="control-label">Air Ticket</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="airticket"  formControlName="airticket" class="form-control"
+        >
+  </div>
+  </div>
+  <div  *ngIf="hidelist.indexOf('airsector') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="airsector" class="control-label">Air Sector</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="airsector"  formControlName="airsector" class="form-control"
+        >
+  </div>
+  </div>
+  <div  *ngIf="hidelist.indexOf('airticketcount') == -1"  class="col "  >
+<label  for="airticketcount" class="control-label">Air Ticket Count</label>
+      <input   *ngIf="!showview"  id="airticketcount"  formControlName="airticketcount" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('airticketyears') == -1"  class="col "  >
+<label  for="airticketyears" class="control-label">Air Ticket Years</label>
+      <input   *ngIf="!showview"  id="airticketyears"  formControlName="airticketyears" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('annualleaveininitialyr') == -1"  class="col "  >
+<label  for="annualleaveininitialyr" class="control-label">Annual Leave In Initial Yr</label>
+      <input   *ngIf="!showview"  id="annualleaveininitialyr"  formControlName="annualleaveininitialyr" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('initialyearscount') == -1"  class="col "  >
+<label  for="initialyearscount" class="control-label">Initial Years Count</label>
+      <input   *ngIf="!showview"  id="initialyearscount"  formControlName="initialyearscount" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('annualleaveafterinitialyr') == -1"  class="col "  >
+<label  for="annualleaveafterinitialyr" class="control-label">Annual Leave After Initial Yr</label>
+      <input   *ngIf="!showview"  id="annualleaveafterinitialyr"  formControlName="annualleaveafterinitialyr" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('pfnumber') == -1"  class="col "  >
+<label  for="pfnumber" class="control-label">P F Number</label>
+      <input   *ngIf="!showview"  id="pfnumber"  formControlName="pfnumber" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('esic') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="esic" class="control-label">E S I C</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="esic"  formControlName="esic" class="form-control"
+        >
+  </div>
+  </div>
+  <div  *ngIf="hidelist.indexOf('esicnumber') == -1"  class="col "  >
+<label  for="esicnumber" class="control-label">E S I C Number</label>
+      <input   *ngIf="!showview"  id="esicnumber"  formControlName="esicnumber" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('pancard') == -1"  class="col "  >
+<label  for="pancard" class="control-label">Pan Card</label>
+      <input   *ngIf="!showview"  id="pancard"  formControlName="pancard" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('remarks') == -1"  class="col "  >
+<label  for="remarks" class="control-label">Remarks</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="remarks"  formControlName="remarks" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('employeestatus') == -1"  class="col "  >
+<label  for="employeestatus" class="control-label">Employee Status</label>
+      <input   *ngIf="!showview"  id="employeestatus"  formControlName="employeestatus" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('employeestatusremarks') == -1"  class="col "  >
+<label  for="employeestatusremarks" class="control-label">Employee Status Remarks</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="employeestatusremarks"  formControlName="employeestatusremarks" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('salarytype') == -1"  class="col "  >
+<label  for="salarytype" class="control-label">Salary Type</label>
+      <input   *ngIf="!showview"  id="salarytype"  formControlName="salarytype" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('basic') == -1"  class="col "  >
+<label  for="basic" class="control-label">Basic</label>
+      <input   *ngIf="!showview"  id="basic"  formControlName="basic" class="form-control"
+        >
+  </div>
+
+
+<!--userid-->
+
+  <div   *ngIf="hidelist.indexOf('userid') == -1"  class="col" ><label  for="userid" class="control-label" (click)="AddOrEdituserid(null)">User</label>
+<app-popupselect  *ngIf="!showview"  [options]="useridList"  [optionsEvent]="useridoptionsEvent" [form]="bousermaster" (selectItem)="onSelecteduserid($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="userid" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"      class="labelview">{{f.useriddesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('pan') == -1"  class="col "  >
+<label  for="pan" class="control-label">P A N</label>
+      <input   *ngIf="!showview"  id="pan"  formControlName="pan" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('castecategory') == -1"  class="col "  >
+<label  for="castecategory" class="control-label">Caste Category</label>
+      <input   *ngIf="!showview"  id="castecategory"  formControlName="castecategory" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('subcastecategory') == -1"  class="col "  >
+<label  for="subcastecategory" class="control-label">Sub Caste Category</label>
+      <input   *ngIf="!showview"  id="subcastecategory"  formControlName="subcastecategory" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('differentlyabled') == -1"  class="col "  >
+<label  for="differentlyabled" class="control-label">Differently Abled</label>
+      <input   *ngIf="!showview"  id="differentlyabled"  formControlName="differentlyabled" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('salarydrawnfrom') == -1"  class="col "  >
+<label  for="salarydrawnfrom" class="control-label">Salary Drawn From</label>
+      <input   *ngIf="!showview"  id="salarydrawnfrom"  formControlName="salarydrawnfrom" class="form-control"
+        >
+  </div>
+</div>
+</p-accordionTab></p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">PA Schedules</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmspaschedules-->
+<div class="row"></div><div [ngClass]="IshrmspaschedulesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'PA Schedules' | translate}}
+<select class='child'  id="hrmspaschedulesPagingdropdown" (change)="hrmspaschedulesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmspascheduletoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmspascheduleshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmspascheduletoggleOption();hrmspaschedulesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmspascheduletoggleOption();showhrmspaschedulesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmspaschedulessource (userRowSelect)="handlehrmspaschedulesGridSelected($event)" [settings]="hrmspaschedulessettings" (custom)="onCustomhrmspaschedulesAction($event)" [source]="hrmspaschedulessource"  (delete)="hrmspaschedulesroute($event,'delete')"  (deleteConfirm)="hrmspaschedulesroute($event,'delete')" (create)="hrmspaschedulesroute($event,'create')"   (createConfirm)="hrmspaschedulesbeforesave($event)"  (edit)="hrmspaschedulesroute($event,'edit')"  (editConfirm)="hrmspaschedulesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmspaschedules-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Dependant Details</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsdependantdetails-->
+<div class="row"></div><div [ngClass]="IshrmsdependantdetailsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Dependant Details' | translate}}
+<select class='child'  id="hrmsdependantdetailsPagingdropdown" (change)="hrmsdependantdetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsdependantdetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsdependantdetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsdependantdetailtoggleOption();hrmsdependantdetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsdependantdetailtoggleOption();showhrmsdependantdetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsdependantdetailssource (userRowSelect)="handlehrmsdependantdetailsGridSelected($event)" [settings]="hrmsdependantdetailssettings" (custom)="onCustomhrmsdependantdetailsAction($event)" [source]="hrmsdependantdetailssource"  (delete)="hrmsdependantdetailsroute($event,'delete')"  (deleteConfirm)="hrmsdependantdetailsroute($event,'delete')" (create)="hrmsdependantdetailsroute($event,'create')"   (createConfirm)="hrmsdependantdetailsbeforesave($event)"  (edit)="hrmsdependantdetailsroute($event,'edit')"  (editConfirm)="hrmsdependantdetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsdependantdetails-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee EOS Details</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeeeosdetails-->
+<div class="row"></div><div [ngClass]="IshrmsemployeeeosdetailsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee EOS Details' | translate}}
+<select class='child'  id="hrmsemployeeeosdetailsPagingdropdown" (change)="hrmsemployeeeosdetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeeeosdetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeeeosdetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeeeosdetailtoggleOption();hrmsemployeeeosdetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeeeosdetailtoggleOption();showhrmsemployeeeosdetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeeeosdetailssource (userRowSelect)="handlehrmsemployeeeosdetailsGridSelected($event)" [settings]="hrmsemployeeeosdetailssettings" (custom)="onCustomhrmsemployeeeosdetailsAction($event)" [source]="hrmsemployeeeosdetailssource"  (delete)="hrmsemployeeeosdetailsroute($event,'delete')"  (deleteConfirm)="hrmsemployeeeosdetailsroute($event,'delete')" (create)="hrmsemployeeeosdetailsroute($event,'create')"   (createConfirm)="hrmsemployeeeosdetailsbeforesave($event)"  (edit)="hrmsemployeeeosdetailsroute($event,'edit')"  (editConfirm)="hrmsemployeeeosdetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeeeosdetails-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee General Waivers</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeegeneralwaivers-->
+<div class="row"></div><div [ngClass]="IshrmsemployeegeneralwaiversVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee General Waivers' | translate}}
+<select class='child'  id="hrmsemployeegeneralwaiversPagingdropdown" (change)="hrmsemployeegeneralwaiversPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeegeneralwaivertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeegeneralwaivershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeegeneralwaivertoggleOption();hrmsemployeegeneralwaiversroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeegeneralwaivertoggleOption();showhrmsemployeegeneralwaiversFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeegeneralwaiverssource (userRowSelect)="handlehrmsemployeegeneralwaiversGridSelected($event)" [settings]="hrmsemployeegeneralwaiverssettings" (custom)="onCustomhrmsemployeegeneralwaiversAction($event)" [source]="hrmsemployeegeneralwaiverssource"  (delete)="hrmsemployeegeneralwaiversroute($event,'delete')"  (deleteConfirm)="hrmsemployeegeneralwaiversroute($event,'delete')" (create)="hrmsemployeegeneralwaiversroute($event,'create')"   (createConfirm)="hrmsemployeegeneralwaiversbeforesave($event)"  (edit)="hrmsemployeegeneralwaiversroute($event,'edit')"  (editConfirm)="hrmsemployeegeneralwaiversbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeegeneralwaivers-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Insurances</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeeinsurances-->
+<div class="row"></div><div [ngClass]="IshrmsemployeeinsurancesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Insurances' | translate}}
+<select class='child'  id="hrmsemployeeinsurancesPagingdropdown" (change)="hrmsemployeeinsurancesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeeinsurancetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeeinsuranceshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeeinsurancetoggleOption();hrmsemployeeinsurancesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeeinsurancetoggleOption();showhrmsemployeeinsurancesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeeinsurancessource (userRowSelect)="handlehrmsemployeeinsurancesGridSelected($event)" [settings]="hrmsemployeeinsurancessettings" (custom)="onCustomhrmsemployeeinsurancesAction($event)" [source]="hrmsemployeeinsurancessource"  (delete)="hrmsemployeeinsurancesroute($event,'delete')"  (deleteConfirm)="hrmsemployeeinsurancesroute($event,'delete')" (create)="hrmsemployeeinsurancesroute($event,'create')"   (createConfirm)="hrmsemployeeinsurancesbeforesave($event)"  (edit)="hrmsemployeeinsurancesroute($event,'edit')"  (editConfirm)="hrmsemployeeinsurancesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeeinsurances-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Reportings</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeereportings-->
+<div class="row"></div><div [ngClass]="IshrmsemployeereportingsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Reportings' | translate}}
+<select class='child'  id="hrmsemployeereportingsPagingdropdown" (change)="hrmsemployeereportingsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeereportingtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeereportingshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeereportingtoggleOption();hrmsemployeereportingsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeereportingtoggleOption();showhrmsemployeereportingsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeereportingssource (userRowSelect)="handlehrmsemployeereportingsGridSelected($event)" [settings]="hrmsemployeereportingssettings" (custom)="onCustomhrmsemployeereportingsAction($event)" [source]="hrmsemployeereportingssource"  (delete)="hrmsemployeereportingsroute($event,'delete')"  (deleteConfirm)="hrmsemployeereportingsroute($event,'delete')" (create)="hrmsemployeereportingsroute($event,'create')"   (createConfirm)="hrmsemployeereportingsbeforesave($event)"  (edit)="hrmsemployeereportingsroute($event,'edit')"  (editConfirm)="hrmsemployeereportingsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeereportings-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Salary Masters</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeesalarymasters-->
+<div class="row"></div><div [ngClass]="IshrmsemployeesalarymastersVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Salary Masters' | translate}}
+<select class='child'  id="hrmsemployeesalarymastersPagingdropdown" (change)="hrmsemployeesalarymastersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeesalarymastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeesalarymastershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeesalarymastertoggleOption();hrmsemployeesalarymastersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeesalarymastertoggleOption();showhrmsemployeesalarymastersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeesalarymasterssource (userRowSelect)="handlehrmsemployeesalarymastersGridSelected($event)" [settings]="hrmsemployeesalarymasterssettings" (custom)="onCustomhrmsemployeesalarymastersAction($event)" [source]="hrmsemployeesalarymasterssource"  (delete)="hrmsemployeesalarymastersroute($event,'delete')"  (deleteConfirm)="hrmsemployeesalarymastersroute($event,'delete')" (create)="hrmsemployeesalarymastersroute($event,'create')"   (createConfirm)="hrmsemployeesalarymastersbeforesave($event)"  (edit)="hrmsemployeesalarymastersroute($event,'edit')"  (editConfirm)="hrmsemployeesalarymastersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeesalarymasters-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Salary Masters Histories</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeesalarymastershistories-->
+<div class="row"></div><div [ngClass]="IshrmsemployeesalarymastershistoriesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Salary Masters Histories' | translate}}
+<select class='child'  id="hrmsemployeesalarymastershistoriesPagingdropdown" (change)="hrmsemployeesalarymastershistoriesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeesalarymastershistorytoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeesalarymastershistoryshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeesalarymastershistorytoggleOption();hrmsemployeesalarymastershistoriesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeesalarymastershistorytoggleOption();showhrmsemployeesalarymastershistoriesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeesalarymastershistoriessource (userRowSelect)="handlehrmsemployeesalarymastershistoriesGridSelected($event)" [settings]="hrmsemployeesalarymastershistoriessettings" (custom)="onCustomhrmsemployeesalarymastershistoriesAction($event)" [source]="hrmsemployeesalarymastershistoriessource"  (delete)="hrmsemployeesalarymastershistoriesroute($event,'delete')"  (deleteConfirm)="hrmsemployeesalarymastershistoriesroute($event,'delete')" (create)="hrmsemployeesalarymastershistoriesroute($event,'create')"   (createConfirm)="hrmsemployeesalarymastershistoriesbeforesave($event)"  (edit)="hrmsemployeesalarymastershistoriesroute($event,'edit')"  (editConfirm)="hrmsemployeesalarymastershistoriesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeesalarymastershistories-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Section Waivers</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeesectionwaivers-->
+<div class="row"></div><div [ngClass]="IshrmsemployeesectionwaiversVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Section Waivers' | translate}}
+<select class='child'  id="hrmsemployeesectionwaiversPagingdropdown" (change)="hrmsemployeesectionwaiversPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeesectionwaivertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeesectionwaivershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeesectionwaivertoggleOption();hrmsemployeesectionwaiversroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeesectionwaivertoggleOption();showhrmsemployeesectionwaiversFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeesectionwaiverssource (userRowSelect)="handlehrmsemployeesectionwaiversGridSelected($event)" [settings]="hrmsemployeesectionwaiverssettings" (custom)="onCustomhrmsemployeesectionwaiversAction($event)" [source]="hrmsemployeesectionwaiverssource"  (delete)="hrmsemployeesectionwaiversroute($event,'delete')"  (deleteConfirm)="hrmsemployeesectionwaiversroute($event,'delete')" (create)="hrmsemployeesectionwaiversroute($event,'create')"   (createConfirm)="hrmsemployeesectionwaiversbeforesave($event)"  (edit)="hrmsemployeesectionwaiversroute($event,'edit')"  (editConfirm)="hrmsemployeesectionwaiversbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeesectionwaivers-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Statutory Benefits</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeestatutorybenefits-->
+<div class="row"></div><div [ngClass]="IshrmsemployeestatutorybenefitsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Statutory Benefits' | translate}}
+<select class='child'  id="hrmsemployeestatutorybenefitsPagingdropdown" (change)="hrmsemployeestatutorybenefitsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeestatutorybenefittoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeestatutorybenefitshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeestatutorybenefittoggleOption();hrmsemployeestatutorybenefitsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeestatutorybenefittoggleOption();showhrmsemployeestatutorybenefitsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeestatutorybenefitssource (userRowSelect)="handlehrmsemployeestatutorybenefitsGridSelected($event)" [settings]="hrmsemployeestatutorybenefitssettings" (custom)="onCustomhrmsemployeestatutorybenefitsAction($event)" [source]="hrmsemployeestatutorybenefitssource"  (delete)="hrmsemployeestatutorybenefitsroute($event,'delete')"  (deleteConfirm)="hrmsemployeestatutorybenefitsroute($event,'delete')" (create)="hrmsemployeestatutorybenefitsroute($event,'create')"   (createConfirm)="hrmsemployeestatutorybenefitsbeforesave($event)"  (edit)="hrmsemployeestatutorybenefitsroute($event,'edit')"  (editConfirm)="hrmsemployeestatutorybenefitsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeestatutorybenefits-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Tax Calculations</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeetaxcalculations-->
+<div class="row"></div><div [ngClass]="IshrmsemployeetaxcalculationsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Tax Calculations' | translate}}
+<select class='child'  id="hrmsemployeetaxcalculationsPagingdropdown" (change)="hrmsemployeetaxcalculationsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeetaxcalculationtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeetaxcalculationshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeetaxcalculationtoggleOption();hrmsemployeetaxcalculationsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeetaxcalculationtoggleOption();showhrmsemployeetaxcalculationsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeetaxcalculationssource (userRowSelect)="handlehrmsemployeetaxcalculationsGridSelected($event)" [settings]="hrmsemployeetaxcalculationssettings" (custom)="onCustomhrmsemployeetaxcalculationsAction($event)" [source]="hrmsemployeetaxcalculationssource"  (delete)="hrmsemployeetaxcalculationsroute($event,'delete')"  (deleteConfirm)="hrmsemployeetaxcalculationsroute($event,'delete')" (create)="hrmsemployeetaxcalculationsroute($event,'create')"   (createConfirm)="hrmsemployeetaxcalculationsbeforesave($event)"  (edit)="hrmsemployeetaxcalculationsroute($event,'edit')"  (editConfirm)="hrmsemployeetaxcalculationsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeetaxcalculations-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Tax Declarations</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeetaxdeclarations-->
+<div class="row"></div><div [ngClass]="IshrmsemployeetaxdeclarationsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Tax Declarations' | translate}}
+<select class='child'  id="hrmsemployeetaxdeclarationsPagingdropdown" (change)="hrmsemployeetaxdeclarationsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeetaxdeclarationtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeetaxdeclarationshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeetaxdeclarationtoggleOption();hrmsemployeetaxdeclarationsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeetaxdeclarationtoggleOption();showhrmsemployeetaxdeclarationsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeetaxdeclarationssource (userRowSelect)="handlehrmsemployeetaxdeclarationsGridSelected($event)" [settings]="hrmsemployeetaxdeclarationssettings" (custom)="onCustomhrmsemployeetaxdeclarationsAction($event)" [source]="hrmsemployeetaxdeclarationssource"  (delete)="hrmsemployeetaxdeclarationsroute($event,'delete')"  (deleteConfirm)="hrmsemployeetaxdeclarationsroute($event,'delete')" (create)="hrmsemployeetaxdeclarationsroute($event,'create')"   (createConfirm)="hrmsemployeetaxdeclarationsbeforesave($event)"  (edit)="hrmsemployeetaxdeclarationsroute($event,'edit')"  (editConfirm)="hrmsemployeetaxdeclarationsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeetaxdeclarations-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Subordinate Details</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmssubordinatedetails-->
+<div class="row"></div><div [ngClass]="IshrmssubordinatedetailsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Subordinate Details' | translate}}
+<select class='child'  id="hrmssubordinatedetailsPagingdropdown" (change)="hrmssubordinatedetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmssubordinatedetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmssubordinatedetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmssubordinatedetailtoggleOption();hrmssubordinatedetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmssubordinatedetailtoggleOption();showhrmssubordinatedetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmssubordinatedetailssource (userRowSelect)="handlehrmssubordinatedetailsGridSelected($event)" [settings]="hrmssubordinatedetailssettings" (custom)="onCustomhrmssubordinatedetailsAction($event)" [source]="hrmssubordinatedetailssource"  (delete)="hrmssubordinatedetailsroute($event,'delete')"  (deleteConfirm)="hrmssubordinatedetailsroute($event,'delete')" (create)="hrmssubordinatedetailsroute($event,'create')"   (createConfirm)="hrmssubordinatedetailsbeforesave($event)"  (edit)="hrmssubordinatedetailsroute($event,'edit')"  (editConfirm)="hrmssubordinatedetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmssubordinatedetails-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee CheckLists</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeechecklists-->
+<div class="row"></div><div [ngClass]="IshrmsemployeechecklistsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee CheckLists' | translate}}
+<select class='child'  id="hrmsemployeechecklistsPagingdropdown" (change)="hrmsemployeechecklistsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeechecklisttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeechecklistshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeechecklisttoggleOption();hrmsemployeechecklistsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeechecklisttoggleOption();showhrmsemployeechecklistsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeechecklistssource (userRowSelect)="handlehrmsemployeechecklistsGridSelected($event)" [settings]="hrmsemployeechecklistssettings" (custom)="onCustomhrmsemployeechecklistsAction($event)" [source]="hrmsemployeechecklistssource"  (delete)="hrmsemployeechecklistsroute($event,'delete')"  (deleteConfirm)="hrmsemployeechecklistsroute($event,'delete')" (create)="hrmsemployeechecklistsroute($event,'create')"   (createConfirm)="hrmsemployeechecklistsbeforesave($event)"  (edit)="hrmsemployeechecklistsroute($event,'edit')"  (editConfirm)="hrmsemployeechecklistsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeechecklists-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Transfers</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeetransfers-->
+<div class="row"></div><div [ngClass]="IshrmsemployeetransfersVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Transfers' | translate}}
+<select class='child'  id="hrmsemployeetransfersPagingdropdown" (change)="hrmsemployeetransfersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeetransfertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeetransfershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeetransfertoggleOption();hrmsemployeetransfersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeetransfertoggleOption();showhrmsemployeetransfersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeetransferssource (userRowSelect)="handlehrmsemployeetransfersGridSelected($event)" [settings]="hrmsemployeetransferssettings" (custom)="onCustomhrmsemployeetransfersAction($event)" [source]="hrmsemployeetransferssource"  (delete)="hrmsemployeetransfersroute($event,'delete')"  (deleteConfirm)="hrmsemployeetransfersroute($event,'delete')" (create)="hrmsemployeetransfersroute($event,'create')"   (createConfirm)="hrmsemployeetransfersbeforesave($event)"  (edit)="hrmsemployeetransfersroute($event,'edit')"  (editConfirm)="hrmsemployeetransfersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeetransfers-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Assets</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeeassets-->
+<div class="row"></div><div [ngClass]="IshrmsemployeeassetsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Assets' | translate}}
+<select class='child'  id="hrmsemployeeassetsPagingdropdown" (change)="hrmsemployeeassetsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeeassettoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeeassetshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeeassettoggleOption();hrmsemployeeassetsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeeassettoggleOption();showhrmsemployeeassetsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeeassetssource (userRowSelect)="handlehrmsemployeeassetsGridSelected($event)" [settings]="hrmsemployeeassetssettings" (custom)="onCustomhrmsemployeeassetsAction($event)" [source]="hrmsemployeeassetssource"  (delete)="hrmsemployeeassetsroute($event,'delete')"  (deleteConfirm)="hrmsemployeeassetsroute($event,'delete')" (create)="hrmsemployeeassetsroute($event,'create')"   (createConfirm)="hrmsemployeeassetsbeforesave($event)"  (edit)="hrmsemployeeassetsroute($event,'edit')"  (editConfirm)="hrmsemployeeassetsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeeassets-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Careers</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeecareers-->
+<div class="row"></div><div [ngClass]="IshrmsemployeecareersVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Careers' | translate}}
+<select class='child'  id="hrmsemployeecareersPagingdropdown" (change)="hrmsemployeecareersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeecareertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeecareershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeecareertoggleOption();hrmsemployeecareersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeecareertoggleOption();showhrmsemployeecareersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeecareerssource (userRowSelect)="handlehrmsemployeecareersGridSelected($event)" [settings]="hrmsemployeecareerssettings" (custom)="onCustomhrmsemployeecareersAction($event)" [source]="hrmsemployeecareerssource"  (delete)="hrmsemployeecareersroute($event,'delete')"  (deleteConfirm)="hrmsemployeecareersroute($event,'delete')" (create)="hrmsemployeecareersroute($event,'create')"   (createConfirm)="hrmsemployeecareersbeforesave($event)"  (edit)="hrmsemployeecareersroute($event,'edit')"  (editConfirm)="hrmsemployeecareersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeecareers-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Educations</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeeeducations-->
+<div class="row"></div><div [ngClass]="IshrmsemployeeeducationsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Educations' | translate}}
+<select class='child'  id="hrmsemployeeeducationsPagingdropdown" (change)="hrmsemployeeeducationsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeeeducationtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeeeducationshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeeeducationtoggleOption();hrmsemployeeeducationsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeeeducationtoggleOption();showhrmsemployeeeducationsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeeeducationssource (userRowSelect)="handlehrmsemployeeeducationsGridSelected($event)" [settings]="hrmsemployeeeducationssettings" (custom)="onCustomhrmsemployeeeducationsAction($event)" [source]="hrmsemployeeeducationssource"  (delete)="hrmsemployeeeducationsroute($event,'delete')"  (deleteConfirm)="hrmsemployeeeducationsroute($event,'delete')" (create)="hrmsemployeeeducationsroute($event,'create')"   (createConfirm)="hrmsemployeeeducationsbeforesave($event)"  (edit)="hrmsemployeeeducationsroute($event,'edit')"  (editConfirm)="hrmsemployeeeducationsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeeeducations-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Infrarequest Masters</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeeinfrarequestmasters-->
+<div class="row"></div><div [ngClass]="IshrmsemployeeinfrarequestmastersVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Infrarequest Masters' | translate}}
+<select class='child'  id="hrmsemployeeinfrarequestmastersPagingdropdown" (change)="hrmsemployeeinfrarequestmastersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeeinfrarequestmastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeeinfrarequestmastershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeeinfrarequestmastertoggleOption();hrmsemployeeinfrarequestmastersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeeinfrarequestmastertoggleOption();showhrmsemployeeinfrarequestmastersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeeinfrarequestmasterssource (userRowSelect)="handlehrmsemployeeinfrarequestmastersGridSelected($event)" [settings]="hrmsemployeeinfrarequestmasterssettings" (custom)="onCustomhrmsemployeeinfrarequestmastersAction($event)" [source]="hrmsemployeeinfrarequestmasterssource"  (delete)="hrmsemployeeinfrarequestmastersroute($event,'delete')"  (deleteConfirm)="hrmsemployeeinfrarequestmastersroute($event,'delete')" (create)="hrmsemployeeinfrarequestmastersroute($event,'create')"   (createConfirm)="hrmsemployeeinfrarequestmastersbeforesave($event)"  (edit)="hrmsemployeeinfrarequestmastersroute($event,'edit')"  (editConfirm)="hrmsemployeeinfrarequestmastersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeeinfrarequestmasters-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employer CheckLists</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployerchecklists-->
+<div class="row"></div><div [ngClass]="IshrmsemployerchecklistsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employer CheckLists' | translate}}
+<select class='child'  id="hrmsemployerchecklistsPagingdropdown" (change)="hrmsemployerchecklistsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployerchecklisttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployerchecklistshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployerchecklisttoggleOption();hrmsemployerchecklistsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployerchecklisttoggleOption();showhrmsemployerchecklistsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployerchecklistssource (userRowSelect)="handlehrmsemployerchecklistsGridSelected($event)" [settings]="hrmsemployerchecklistssettings" (custom)="onCustomhrmsemployerchecklistsAction($event)" [source]="hrmsemployerchecklistssource"  (delete)="hrmsemployerchecklistsroute($event,'delete')"  (deleteConfirm)="hrmsemployerchecklistsroute($event,'delete')" (create)="hrmsemployerchecklistsroute($event,'create')"   (createConfirm)="hrmsemployerchecklistsbeforesave($event)"  (edit)="hrmsemployerchecklistsroute($event,'edit')"  (editConfirm)="hrmsemployerchecklistsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployerchecklists-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Monthly Salary Masters</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeemonthlysalarymasters-->
+<div class="row"></div><div [ngClass]="IshrmsemployeemonthlysalarymastersVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Monthly Salary Masters' | translate}}
+<select class='child'  id="hrmsemployeemonthlysalarymastersPagingdropdown" (change)="hrmsemployeemonthlysalarymastersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeemonthlysalarymastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeemonthlysalarymastershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeemonthlysalarymastertoggleOption();hrmsemployeemonthlysalarymastersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeemonthlysalarymastertoggleOption();showhrmsemployeemonthlysalarymastersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeemonthlysalarymasterssource (userRowSelect)="handlehrmsemployeemonthlysalarymastersGridSelected($event)" [settings]="hrmsemployeemonthlysalarymasterssettings" (custom)="onCustomhrmsemployeemonthlysalarymastersAction($event)" [source]="hrmsemployeemonthlysalarymasterssource"  (delete)="hrmsemployeemonthlysalarymastersroute($event,'delete')"  (deleteConfirm)="hrmsemployeemonthlysalarymastersroute($event,'delete')" (create)="hrmsemployeemonthlysalarymastersroute($event,'create')"   (createConfirm)="hrmsemployeemonthlysalarymastersbeforesave($event)"  (edit)="hrmsemployeemonthlysalarymastersroute($event,'edit')"  (editConfirm)="hrmsemployeemonthlysalarymastersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeemonthlysalarymasters-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee KRAS</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeekras-->
+<div class="row"></div><div [ngClass]="IshrmsemployeekrasVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee KRAS' | translate}}
+<select class='child'  id="hrmsemployeekrasPagingdropdown" (change)="hrmsemployeekrasPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeekratoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeekrashowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeekratoggleOption();hrmsemployeekrasroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeekratoggleOption();showhrmsemployeekrasFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeekrassource (userRowSelect)="handlehrmsemployeekrasGridSelected($event)" [settings]="hrmsemployeekrassettings" (custom)="onCustomhrmsemployeekrasAction($event)" [source]="hrmsemployeekrassource"  (delete)="hrmsemployeekrasroute($event,'delete')"  (deleteConfirm)="hrmsemployeekrasroute($event,'delete')" (create)="hrmsemployeekrasroute($event,'create')"   (createConfirm)="hrmsemployeekrasbeforesave($event)"  (edit)="hrmsemployeekrasroute($event,'edit')"  (editConfirm)="hrmsemployeekrasbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeekras-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Language Skills</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeelanguageskills-->
+<div class="row"></div><div [ngClass]="IshrmsemployeelanguageskillsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Language Skills' | translate}}
+<select class='child'  id="hrmsemployeelanguageskillsPagingdropdown" (change)="hrmsemployeelanguageskillsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeelanguageskilltoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeelanguageskillshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeelanguageskilltoggleOption();hrmsemployeelanguageskillsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeelanguageskilltoggleOption();showhrmsemployeelanguageskillsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeelanguageskillssource (userRowSelect)="handlehrmsemployeelanguageskillsGridSelected($event)" [settings]="hrmsemployeelanguageskillssettings" (custom)="onCustomhrmsemployeelanguageskillsAction($event)" [source]="hrmsemployeelanguageskillssource"  (delete)="hrmsemployeelanguageskillsroute($event,'delete')"  (deleteConfirm)="hrmsemployeelanguageskillsroute($event,'delete')" (create)="hrmsemployeelanguageskillsroute($event,'create')"   (createConfirm)="hrmsemployeelanguageskillsbeforesave($event)"  (edit)="hrmsemployeelanguageskillsroute($event,'edit')"  (editConfirm)="hrmsemployeelanguageskillsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeelanguageskills-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Letter Managements</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeelettermanagements-->
+<div class="row"></div><div [ngClass]="IshrmsemployeelettermanagementsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Letter Managements' | translate}}
+<select class='child'  id="hrmsemployeelettermanagementsPagingdropdown" (change)="hrmsemployeelettermanagementsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeelettermanagementtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeelettermanagementshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeelettermanagementtoggleOption();hrmsemployeelettermanagementsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeelettermanagementtoggleOption();showhrmsemployeelettermanagementsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeelettermanagementssource (userRowSelect)="handlehrmsemployeelettermanagementsGridSelected($event)" [settings]="hrmsemployeelettermanagementssettings" (custom)="onCustomhrmsemployeelettermanagementsAction($event)" [source]="hrmsemployeelettermanagementssource"  (delete)="hrmsemployeelettermanagementsroute($event,'delete')"  (deleteConfirm)="hrmsemployeelettermanagementsroute($event,'delete')" (create)="hrmsemployeelettermanagementsroute($event,'create')"   (createConfirm)="hrmsemployeelettermanagementsbeforesave($event)"  (edit)="hrmsemployeelettermanagementsroute($event,'edit')"  (editConfirm)="hrmsemployeelettermanagementsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeelettermanagements-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Membership Details</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeemembershipdetails-->
+<div class="row"></div><div [ngClass]="IshrmsemployeemembershipdetailsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Membership Details' | translate}}
+<select class='child'  id="hrmsemployeemembershipdetailsPagingdropdown" (change)="hrmsemployeemembershipdetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeemembershipdetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeemembershipdetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeemembershipdetailtoggleOption();hrmsemployeemembershipdetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeemembershipdetailtoggleOption();showhrmsemployeemembershipdetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeemembershipdetailssource (userRowSelect)="handlehrmsemployeemembershipdetailsGridSelected($event)" [settings]="hrmsemployeemembershipdetailssettings" (custom)="onCustomhrmsemployeemembershipdetailsAction($event)" [source]="hrmsemployeemembershipdetailssource"  (delete)="hrmsemployeemembershipdetailsroute($event,'delete')"  (deleteConfirm)="hrmsemployeemembershipdetailsroute($event,'delete')" (create)="hrmsemployeemembershipdetailsroute($event,'create')"   (createConfirm)="hrmsemployeemembershipdetailsbeforesave($event)"  (edit)="hrmsemployeemembershipdetailsroute($event,'edit')"  (editConfirm)="hrmsemployeemembershipdetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeemembershipdetails-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Memos</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeememos-->
+<div class="row"></div><div [ngClass]="IshrmsemployeememosVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Memos' | translate}}
+<select class='child'  id="hrmsemployeememosPagingdropdown" (change)="hrmsemployeememosPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeememotoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeememoshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeememotoggleOption();hrmsemployeememosroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeememotoggleOption();showhrmsemployeememosFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeememossource (userRowSelect)="handlehrmsemployeememosGridSelected($event)" [settings]="hrmsemployeememossettings" (custom)="onCustomhrmsemployeememosAction($event)" [source]="hrmsemployeememossource"  (delete)="hrmsemployeememosroute($event,'delete')"  (deleteConfirm)="hrmsemployeememosroute($event,'delete')" (create)="hrmsemployeememosroute($event,'create')"   (createConfirm)="hrmsemployeememosbeforesave($event)"  (edit)="hrmsemployeememosroute($event,'edit')"  (editConfirm)="hrmsemployeememosbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeememos-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Presentations</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeepresentations-->
+<div class="row"></div><div [ngClass]="IshrmsemployeepresentationsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Presentations' | translate}}
+<select class='child'  id="hrmsemployeepresentationsPagingdropdown" (change)="hrmsemployeepresentationsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeepresentationtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeepresentationshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeepresentationtoggleOption();hrmsemployeepresentationsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeepresentationtoggleOption();showhrmsemployeepresentationsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeepresentationssource (userRowSelect)="handlehrmsemployeepresentationsGridSelected($event)" [settings]="hrmsemployeepresentationssettings" (custom)="onCustomhrmsemployeepresentationsAction($event)" [source]="hrmsemployeepresentationssource"  (delete)="hrmsemployeepresentationsroute($event,'delete')"  (deleteConfirm)="hrmsemployeepresentationsroute($event,'delete')" (create)="hrmsemployeepresentationsroute($event,'create')"   (createConfirm)="hrmsemployeepresentationsbeforesave($event)"  (edit)="hrmsemployeepresentationsroute($event,'edit')"  (editConfirm)="hrmsemployeepresentationsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeepresentations-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Rewards</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeerewards-->
+<div class="row"></div><div [ngClass]="IshrmsemployeerewardsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Rewards' | translate}}
+<select class='child'  id="hrmsemployeerewardsPagingdropdown" (change)="hrmsemployeerewardsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeerewardtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeerewardshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeerewardtoggleOption();hrmsemployeerewardsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeerewardtoggleOption();showhrmsemployeerewardsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeerewardssource (userRowSelect)="handlehrmsemployeerewardsGridSelected($event)" [settings]="hrmsemployeerewardssettings" (custom)="onCustomhrmsemployeerewardsAction($event)" [source]="hrmsemployeerewardssource"  (delete)="hrmsemployeerewardsroute($event,'delete')"  (deleteConfirm)="hrmsemployeerewardsroute($event,'delete')" (create)="hrmsemployeerewardsroute($event,'create')"   (createConfirm)="hrmsemployeerewardsbeforesave($event)"  (edit)="hrmsemployeerewardsroute($event,'edit')"  (editConfirm)="hrmsemployeerewardsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeerewards-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Skills</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeeskills-->
+<div class="row"></div><div [ngClass]="IshrmsemployeeskillsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Skills' | translate}}
+<select class='child'  id="hrmsemployeeskillsPagingdropdown" (change)="hrmsemployeeskillsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeeskilltoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeeskillshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeeskilltoggleOption();hrmsemployeeskillsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeeskilltoggleOption();showhrmsemployeeskillsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeeskillssource (userRowSelect)="handlehrmsemployeeskillsGridSelected($event)" [settings]="hrmsemployeeskillssettings" (custom)="onCustomhrmsemployeeskillsAction($event)" [source]="hrmsemployeeskillssource"  (delete)="hrmsemployeeskillsroute($event,'delete')"  (deleteConfirm)="hrmsemployeeskillsroute($event,'delete')" (create)="hrmsemployeeskillsroute($event,'create')"   (createConfirm)="hrmsemployeeskillsbeforesave($event)"  (edit)="hrmsemployeeskillsroute($event,'edit')"  (editConfirm)="hrmsemployeeskillsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeeskills-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Stationary Requests</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeestationaryrequests-->
+<div class="row"></div><div [ngClass]="IshrmsemployeestationaryrequestsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Stationary Requests' | translate}}
+<select class='child'  id="hrmsemployeestationaryrequestsPagingdropdown" (change)="hrmsemployeestationaryrequestsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeestationaryrequesttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeestationaryrequestshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeestationaryrequesttoggleOption();hrmsemployeestationaryrequestsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeestationaryrequesttoggleOption();showhrmsemployeestationaryrequestsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeestationaryrequestssource (userRowSelect)="handlehrmsemployeestationaryrequestsGridSelected($event)" [settings]="hrmsemployeestationaryrequestssettings" (custom)="onCustomhrmsemployeestationaryrequestsAction($event)" [source]="hrmsemployeestationaryrequestssource"  (delete)="hrmsemployeestationaryrequestsroute($event,'delete')"  (deleteConfirm)="hrmsemployeestationaryrequestsroute($event,'delete')" (create)="hrmsemployeestationaryrequestsroute($event,'create')"   (createConfirm)="hrmsemployeestationaryrequestsbeforesave($event)"  (edit)="hrmsemployeestationaryrequestsroute($event,'edit')"  (editConfirm)="hrmsemployeestationaryrequestsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeestationaryrequests-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Travel Documents</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeetraveldocuments-->
+<div class="row"></div><div [ngClass]="IshrmsemployeetraveldocumentsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Travel Documents' | translate}}
+<select class='child'  id="hrmsemployeetraveldocumentsPagingdropdown" (change)="hrmsemployeetraveldocumentsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeetraveldocumenttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeetraveldocumentshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeetraveldocumenttoggleOption();hrmsemployeetraveldocumentsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeetraveldocumenttoggleOption();showhrmsemployeetraveldocumentsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeetraveldocumentssource (userRowSelect)="handlehrmsemployeetraveldocumentsGridSelected($event)" [settings]="hrmsemployeetraveldocumentssettings" (custom)="onCustomhrmsemployeetraveldocumentsAction($event)" [source]="hrmsemployeetraveldocumentssource"  (delete)="hrmsemployeetraveldocumentsroute($event,'delete')"  (deleteConfirm)="hrmsemployeetraveldocumentsroute($event,'delete')" (create)="hrmsemployeetraveldocumentsroute($event,'create')"   (createConfirm)="hrmsemployeetraveldocumentsbeforesave($event)"  (edit)="hrmsemployeetraveldocumentsroute($event,'edit')"  (editConfirm)="hrmsemployeetraveldocumentsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeetraveldocuments-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Documents</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeedocuments-->
+<div class="row"></div><div [ngClass]="IshrmsemployeedocumentsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Documents' | translate}}
+<select class='child'  id="hrmsemployeedocumentsPagingdropdown" (change)="hrmsemployeedocumentsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeedocumenttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeedocumentshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeedocumenttoggleOption();hrmsemployeedocumentsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeedocumenttoggleOption();showhrmsemployeedocumentsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeedocumentssource (userRowSelect)="handlehrmsemployeedocumentsGridSelected($event)" [settings]="hrmsemployeedocumentssettings" (custom)="onCustomhrmsemployeedocumentsAction($event)" [source]="hrmsemployeedocumentssource"  (delete)="hrmsemployeedocumentsroute($event,'delete')"  (deleteConfirm)="hrmsemployeedocumentsroute($event,'delete')" (create)="hrmsemployeedocumentsroute($event,'create')"   (createConfirm)="hrmsemployeedocumentsbeforesave($event)"  (edit)="hrmsemployeedocumentsroute($event,'edit')"  (editConfirm)="hrmsemployeedocumentsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeedocuments-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Monthly Attendances</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeemonthlyattendances-->
+<div class="row"></div><div [ngClass]="IshrmsemployeemonthlyattendancesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Monthly Attendances' | translate}}
+<select class='child'  id="hrmsemployeemonthlyattendancesPagingdropdown" (change)="hrmsemployeemonthlyattendancesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeemonthlyattendancetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeemonthlyattendanceshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeemonthlyattendancetoggleOption();hrmsemployeemonthlyattendancesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeemonthlyattendancetoggleOption();showhrmsemployeemonthlyattendancesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeemonthlyattendancessource (userRowSelect)="handlehrmsemployeemonthlyattendancesGridSelected($event)" [settings]="hrmsemployeemonthlyattendancessettings" (custom)="onCustomhrmsemployeemonthlyattendancesAction($event)" [source]="hrmsemployeemonthlyattendancessource"  (delete)="hrmsemployeemonthlyattendancesroute($event,'delete')"  (deleteConfirm)="hrmsemployeemonthlyattendancesroute($event,'delete')" (create)="hrmsemployeemonthlyattendancesroute($event,'create')"   (createConfirm)="hrmsemployeemonthlyattendancesbeforesave($event)"  (edit)="hrmsemployeemonthlyattendancesroute($event,'edit')"  (editConfirm)="hrmsemployeemonthlyattendancesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeemonthlyattendances-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Dependents</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeedependents-->
+<div class="row"></div><div [ngClass]="IshrmsemployeedependentsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Dependents' | translate}}
+<select class='child'  id="hrmsemployeedependentsPagingdropdown" (change)="hrmsemployeedependentsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeedependenttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeedependentshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeedependenttoggleOption();hrmsemployeedependentsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeedependenttoggleOption();showhrmsemployeedependentsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeedependentssource (userRowSelect)="handlehrmsemployeedependentsGridSelected($event)" [settings]="hrmsemployeedependentssettings" (custom)="onCustomhrmsemployeedependentsAction($event)" [source]="hrmsemployeedependentssource"  (delete)="hrmsemployeedependentsroute($event,'delete')"  (deleteConfirm)="hrmsemployeedependentsroute($event,'delete')" (create)="hrmsemployeedependentsroute($event,'create')"   (createConfirm)="hrmsemployeedependentsbeforesave($event)"  (edit)="hrmsemployeedependentsroute($event,'edit')"  (editConfirm)="hrmsemployeedependentsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeedependents-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Nominees</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeenominees-->
+<div class="row"></div><div [ngClass]="IshrmsemployeenomineesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Nominees' | translate}}
+<select class='child'  id="hrmsemployeenomineesPagingdropdown" (change)="hrmsemployeenomineesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeenomineetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeenomineeshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeenomineetoggleOption();hrmsemployeenomineesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeenomineetoggleOption();showhrmsemployeenomineesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeenomineessource (userRowSelect)="handlehrmsemployeenomineesGridSelected($event)" [settings]="hrmsemployeenomineessettings" (custom)="onCustomhrmsemployeenomineesAction($event)" [source]="hrmsemployeenomineessource"  (delete)="hrmsemployeenomineesroute($event,'delete')"  (deleteConfirm)="hrmsemployeenomineesroute($event,'delete')" (create)="hrmsemployeenomineesroute($event,'create')"   (createConfirm)="hrmsemployeenomineesbeforesave($event)"  (edit)="hrmsemployeenomineesroute($event,'edit')"  (editConfirm)="hrmsemployeenomineesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeenominees-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

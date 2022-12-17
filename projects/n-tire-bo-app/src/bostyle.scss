@@ -1,0 +1,28 @@
+
+#contentArea//,#reportmaincontent
+{
+ overflow: auto !important;
+ position: absolute;
+ height: 88% !important;
+ width: 99% !important;
+ max-width: 100% !important;
+} 
+#reportmaincontent
+{
+ position: absolute;
+ height: 88% !important;
+ width: 100% !important;
+}
+ .table-container {
+ //  height: 600px;
+   scrollbar-width: medium!important;
+
+   overflow-y: auto;
+   overflow-x: auto;
+   position: absolute!important;
+   width: 99%!important;;
+   height: 96%!important;;
+ //  border-top: 1px solid #dee2e6;
+ } 
+
+ 

@@ -1,0 +1,61 @@
+<form [ngClass]="theme">
+  <div class="form-group row">
+    <div class="col">
+      <div class="dialog">
+        <!--End-->
+        <h1 class="form-group sticky1  columns left">{{'Scoring planned Close Dates' | translate}}
+          <select class='header' id="lmsscoringplannedclosedatesPagingdropdown"
+            (change)="lmsscoringplannedclosedates_Paging($event.target.value)" [value]='20'>
+            <option value='20'>20</option>
+            <option value='50'>50</option>
+            <option value='100'>100</option>
+          </select>
+          <ul class="nav navbar-nav1" style='display:none'>
+            <li class="dropdown">
+              <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                aria-expanded='false'> <span class='caret'></span></a>
+              <ul class="dropdown-menu">
+
+
+                <li><a class="dropdown-item" [routerLink]='' (click)="show_lmsscoringplannedclosedates_Checkbox()"><i
+                      class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Show Checkbox</a></li>
+                <li><a class="dropdown-item" [routerLink]='' (click)="delete_lmsscoringplannedclosedates_All()"><i
+                      class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Delete All</a></li>
+                <li><a class="dropdown-item" [routerLink]='' (click)="show_lmsscoringplannedclosedates_InActive()"><i
+                      class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Show Inactive</a></li>
+                <li><a class="dropdown-item" [routerLink]=''
+                    (click)="lmsscoringplannedclosedates_route(null, 'create')"><i class="fa fa-plus"
+                      aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                <li role="separator" class="divider">
+                  <hr>
+                </li>
+                <li><a class="dropdown-item" [routerLink]='' (click)="show_lmsscoringplannedclosedates_Filter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                <a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                    aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+            </li>
+          </ul>
+          </li>
+          </ul>
+        </h1>
+        <ng2-smart-table #tbl_lmsscoringplannedclosedates
+          (userRowSelect)="handle_lmsscoringplannedclosedates_GridSelected($event)"
+          [settings]="lmsscoringplannedclosedates_settings"
+          (custom)="onCustom_lmsscoringplannedclosedates_Action($event)"
+          [source]="tbl_lmsscoringplannedclosedates?.source?.data"
+          (delete)="lmsscoringplannedclosedates_route($event,'delete')"
+          (deleteConfirm)="lmsscoringplannedclosedates_route($event,'delete')"
+          (create)="lmsscoringplannedclosedates_route($event,'create')"
+          (createConfirm)="lmsscoringplannedclosedates_beforesave($event)"
+          (edit)="lmsscoringplannedclosedates_route($event,'edit')"
+          (editConfirm)="lmsscoringplannedclosedates_beforesave($event)">
+        </ng2-smart-table>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col">
+      <button class="btn btn-primary" (click)="onSubmit()"><i class="fa fa-database"></i> Submit</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,52 @@
+<div class="dialog">
+  <form [formGroup]="hmspatientpaymentdetailForm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Payment Details' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col"><label for="chargetype" class="control-label">{{'Charge Type' | translate}}</label>
+          <select id="chargetype" (change)="chargetypeonChange($event.target)" formControlName="chargetype"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of chargetypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="details" class="control-label">{{'Details' | translate}}</label>
+          <input id="details" formControlName="details" class="form-control" placeholder="{{'Details' | translate}}">
+        </div>
+        <div class="col">
+          <label for="rate" class="control-label">{{'Rate' | translate}}</label>
+          <input id="rate" formControlName="rate" class="form-control" placeholder="{{'Rate' | translate}}">
+        </div>
+        <div class="col">
+          <label for="quantity" class="control-label">{{'Quantity' | translate}}</label>
+          <input id="quantity" formControlName="quantity" class="form-control" placeholder="{{'Quantity' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="total" class="control-label">{{'Total' | translate}}</label>
+          <input id="total" formControlName="total" class="form-control" placeholder="{{'Total' | translate}}">
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.paymentdetailid!.value != null" [menuid]="pmenuid" [value]="f.paymentdetailid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

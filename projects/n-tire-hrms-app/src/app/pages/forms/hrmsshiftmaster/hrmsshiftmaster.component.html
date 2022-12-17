@@ -1,0 +1,197 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="hrmsshiftmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Shift Masters' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="edithrmsshiftmasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsshiftmastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsshiftmastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.shiftid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.shiftid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('shiftname') == -1"  class="col "  >
+<label  for="shiftname" class="control-label">Shift Name</label>
+      <input   *ngIf="!showview"  id="shiftname"  formControlName="shiftname" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('starttime') == -1"  class="col "  >
+<label  for="starttime" class="control-label">Start Time</label>
+<ngb-timepicker  *ngIf="!showview"  class="form-control timepicker" formControlName="starttime"  ></ngb-timepicker>
+  </div>
+  <div  *ngIf="hidelist.indexOf('endtime') == -1"  class="col "  >
+<label  for="endtime" class="control-label">End Time</label>
+<ngb-timepicker  *ngIf="!showview"  class="form-control timepicker" formControlName="endtime"  ></ngb-timepicker>
+  </div>
+  <div  *ngIf="hidelist.indexOf('previousday') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="previousday" class="control-label">Previous Day</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="previousday"  formControlName="previousday" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('graceperiod') == -1"  class="col "  >
+<label  for="graceperiod" class="control-label">Grace Period</label>
+      <input   *ngIf="!showview"  id="graceperiod"  formControlName="graceperiod" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('allowedgraceperiods') == -1"  class="col "  >
+<label  for="allowedgraceperiods" class="control-label">Allowed Grace Periods</label>
+      <input   *ngIf="!showview"  id="allowedgraceperiods"  formControlName="allowedgraceperiods" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('overtimeminutes') == -1"  class="col "  >
+<label  for="overtimeminutes" class="control-label">Over Time Minutes</label>
+      <input   *ngIf="!showview"  id="overtimeminutes"  formControlName="overtimeminutes" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('workinghours') == -1"  class="col "  >
+<label  for="workinghours" class="control-label">Working Hours</label>
+<ngb-timepicker  *ngIf="!showview"  class="form-control timepicker" formControlName="workinghours"  ></ngb-timepicker>
+  </div>
+</div>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Shifts</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeeshifts-->
+<div class="row"></div><div [ngClass]="IshrmsemployeeshiftsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Shifts' | translate}}
+<select class='child'  id="hrmsemployeeshiftsPagingdropdown" (change)="hrmsemployeeshiftsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeeshifttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeeshiftshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeeshifttoggleOption();hrmsemployeeshiftsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeeshifttoggleOption();showhrmsemployeeshiftsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeeshiftssource (userRowSelect)="handlehrmsemployeeshiftsGridSelected($event)" [settings]="hrmsemployeeshiftssettings" (custom)="onCustomhrmsemployeeshiftsAction($event)" [source]="hrmsemployeeshiftssource"  (delete)="hrmsemployeeshiftsroute($event,'delete')"  (deleteConfirm)="hrmsemployeeshiftsroute($event,'delete')" (create)="hrmsemployeeshiftsroute($event,'create')"   (createConfirm)="hrmsemployeeshiftsbeforesave($event)"  (edit)="hrmsemployeeshiftsroute($event,'edit')"  (editConfirm)="hrmsemployeeshiftsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeeshifts-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Shift Preferences</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeeshiftpreferences-->
+<div class="row"></div><div [ngClass]="IshrmsemployeeshiftpreferencesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Shift Preferences' | translate}}
+<select class='child'  id="hrmsemployeeshiftpreferencesPagingdropdown" (change)="hrmsemployeeshiftpreferencesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeeshiftpreferencetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeeshiftpreferenceshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeeshiftpreferencetoggleOption();hrmsemployeeshiftpreferencesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeeshiftpreferencetoggleOption();showhrmsemployeeshiftpreferencesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeeshiftpreferencessource (userRowSelect)="handlehrmsemployeeshiftpreferencesGridSelected($event)" [settings]="hrmsemployeeshiftpreferencessettings" (custom)="onCustomhrmsemployeeshiftpreferencesAction($event)" [source]="hrmsemployeeshiftpreferencessource"  (delete)="hrmsemployeeshiftpreferencesroute($event,'delete')"  (deleteConfirm)="hrmsemployeeshiftpreferencesroute($event,'delete')" (create)="hrmsemployeeshiftpreferencesroute($event,'create')"   (createConfirm)="hrmsemployeeshiftpreferencesbeforesave($event)"  (edit)="hrmsemployeeshiftpreferencesroute($event,'edit')"  (editConfirm)="hrmsemployeeshiftpreferencesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeeshiftpreferences-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

@@ -1,0 +1,146 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="hrmsstatutorydetailForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Statutory Details' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="edithrmsstatutorydetails()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsstatutorydetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsstatutorydetailshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.detailid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.detailid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('statutoryid') == -1"  class="col "  >
+<label  for="statutoryid" class="control-label">Statutory</label>
+      <input   *ngIf="!showview"  id="statutoryid"  formControlName="statutoryid" class="form-control"
+        >
+  </div>
+
+
+<!--basedon-->
+
+  <div   *ngIf="hidelist.indexOf('basedon') == -1"  class="col" ><label  for="basedon" class="control-label">Based On</label>
+      <select  *ngIf="!showview"  id="basedon"  (change)="basedononChange($event.target)" formControlName="basedon"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of basedonList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.basedondesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('fromamount') == -1"  class="col "  >
+<label  for="fromamount" class="control-label">From Amount</label>
+      <input   *ngIf="!showview"  id="fromamount"  formControlName="fromamount" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('toamount') == -1"  class="col "  >
+<label  for="toamount" class="control-label">To Amount</label>
+      <input   *ngIf="!showview"  id="toamount"  formControlName="toamount" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('percentageemployer') == -1"  class="col "  >
+<label  for="percentageemployer" class="control-label">Percentage Employer</label>
+      <input   *ngIf="!showview"  id="percentageemployer"  formControlName="percentageemployer" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.percentageemployer.errors!=null && f.percentageemployer.errors.pattern!=null && f.percentageemployer.errors!=undefined && f.percentageemployer.errors.pattern!=undefined  && (f.percentageemployer.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.percentageemployer.errors!=null && f.percentageemployer.errors.min!=null && f.percentageemployer.errors!=undefined && f.percentageemployer.errors.min!=undefined  && (f.percentageemployer.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.percentageemployer.errors!=null && f.percentageemployer.errors.max!=null && f.percentageemployer.errors!=undefined && f.percentageemployer.errors.max!=undefined  && (f.percentageemployer.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div  *ngIf="hidelist.indexOf('percentageemployee') == -1"  class="col "  >
+<label  for="percentageemployee" class="control-label">Percentage Employee</label>
+      <input   *ngIf="!showview"  id="percentageemployee"  formControlName="percentageemployee" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.percentageemployee.errors!=null && f.percentageemployee.errors.pattern!=null && f.percentageemployee.errors!=undefined && f.percentageemployee.errors.pattern!=undefined  && (f.percentageemployee.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.percentageemployee.errors!=null && f.percentageemployee.errors.min!=null && f.percentageemployee.errors!=undefined && f.percentageemployee.errors.min!=undefined  && (f.percentageemployee.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.percentageemployee.errors!=null && f.percentageemployee.errors.max!=null && f.percentageemployee.errors!=undefined && f.percentageemployee.errors.max!=undefined  && (f.percentageemployee.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div  *ngIf="hidelist.indexOf('maxemployerpercentage') == -1"  class="col "  >
+<label  for="maxemployerpercentage" class="control-label">Max. Employer Percentage</label>
+      <input   *ngIf="!showview"  id="maxemployerpercentage"  formControlName="maxemployerpercentage" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.maxemployerpercentage.errors!=null && f.maxemployerpercentage.errors.pattern!=null && f.maxemployerpercentage.errors!=undefined && f.maxemployerpercentage.errors.pattern!=undefined  && (f.maxemployerpercentage.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.maxemployerpercentage.errors!=null && f.maxemployerpercentage.errors.min!=null && f.maxemployerpercentage.errors!=undefined && f.maxemployerpercentage.errors.min!=undefined  && (f.maxemployerpercentage.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.maxemployerpercentage.errors!=null && f.maxemployerpercentage.errors.max!=null && f.maxemployerpercentage.errors!=undefined && f.maxemployerpercentage.errors.max!=undefined  && (f.maxemployerpercentage.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div  *ngIf="hidelist.indexOf('maxemployeepercentage') == -1"  class="col "  >
+<label  for="maxemployeepercentage" class="control-label">Max. Employee Percentage</label>
+      <input   *ngIf="!showview"  id="maxemployeepercentage"  formControlName="maxemployeepercentage" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.maxemployeepercentage.errors!=null && f.maxemployeepercentage.errors.pattern!=null && f.maxemployeepercentage.errors!=undefined && f.maxemployeepercentage.errors.pattern!=undefined  && (f.maxemployeepercentage.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.maxemployeepercentage.errors!=null && f.maxemployeepercentage.errors.min!=null && f.maxemployeepercentage.errors!=undefined && f.maxemployeepercentage.errors.min!=undefined  && (f.maxemployeepercentage.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.maxemployeepercentage.errors!=null && f.maxemployeepercentage.errors.max!=null && f.maxemployeepercentage.errors!=undefined && f.maxemployeepercentage.errors.max!=undefined  && (f.maxemployeepercentage.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+</div>
+  </div>
+</form>

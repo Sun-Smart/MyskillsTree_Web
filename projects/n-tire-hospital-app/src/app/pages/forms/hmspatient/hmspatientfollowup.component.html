@@ -1,0 +1,91 @@
+<div class="dialog">
+  <form [formGroup]="hmspatientfollowupForm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Follow-ups' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col"><label for="remindertype" class="control-label">{{'Reminder Type' | translate}}</label>
+          <select id="remindertype" (change)="remindertypeonChange($event.target)" formControlName="remindertype"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of remindertypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="remindertext" class="control-label">{{'ReminderText' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remindertext" formControlName="remindertext"
+            class="form-control" placeholder="{{'ReminderText' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="reminderdate" class="control-label">{{'ReminderDate' | translate}}</label>
+          <div class="input-group">
+            <input #reminderdateformpicker="ngbDatepicker" ngbDatepicker name="reminderdateformpicker" id="reminderdate"
+              formControlName="reminderdate" class="form-control" placeholder="Choose {{'ReminderDate' | translate}}">
+            <button class="input-group-addon" (click)="reminderdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <div class="columnchk">
+            <label for="remindersent" class="control-label">{{'ReminderSent' | translate}}</label>
+            <input type="checkbox" id="remindersent" formControlName="remindersent" class="form-control"
+              placeholder="{{'ReminderSent' | translate}}">
+          </div>
+        </div>
+        <div class="col">
+          <div class="columnchk">
+            <label for="secondremindersent" class="control-label">{{'SecondReminderSent' | translate}}</label>
+            <input type="checkbox" id="secondremindersent" formControlName="secondremindersent" class="form-control"
+              placeholder="{{'SecondReminderSent' | translate}}">
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="sticky"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        Custom Fields</div>
+      <div class="form-group row"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}" target="_blank">{{fld!.value!.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.followupid!.value != null" [menuid]="pmenuid" [value]="f.followupid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

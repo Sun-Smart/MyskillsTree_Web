@@ -1,0 +1,98 @@
+<div class="dialog">
+  <form [formGroup]="hrmsloanschemedetailForm" class="frm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row">
+      <h1 class="sticky1">Loan Scheme Details</h1>
+    </div>
+    <pre><br/></pre>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col"><label for="roleid" class="control-label">Role</label>
+          <select id="roleid" (change)="roleidonChange($event.target)" formControlName="roleid" class="form-control"
+            placeholder="Role">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of roleidList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="maxeligibleamount" class="control-label">Max. Eligible Amount</label>
+          <input id="maxeligibleamount" formControlName="maxeligibleamount" currencyMask
+            [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+            placeholder="Max. Eligible Amount">
+        </div>
+        <div class="col">
+          <label for="maximumtimes" class="control-label">Maximum Times</label>
+          <input id="maximumtimes" formControlName="maximumtimes" class="form-control" placeholder="Maximum Times">
+          <app-field-error-display
+            [displayError]="f.maximumtimes.errors!=null && f.maximumtimes.errors.pattern!=null && f.maximumtimes.errors!=undefined && f.maximumtimes.errors.pattern!=undefined  && (f.maximumtimes.touched|| isSubmitted)"
+            errorMsg="Not a valid number">
+          </app-field-error-display>
+          <app-field-error-display
+            [displayError]="f.maximumtimes.errors!=null && f.maximumtimes.errors.min!=null && f.maximumtimes.errors!=undefined && f.maximumtimes.errors.min!=undefined  && (f.maximumtimes.touched|| isSubmitted)"
+            errorMsg="Minimum value have to be entered">
+          </app-field-error-display>
+          <app-field-error-display
+            [displayError]="f.maximumtimes.errors!=null && f.maximumtimes.errors.max!=null && f.maximumtimes.errors!=undefined && f.maximumtimes.errors.max!=undefined  && (f.maximumtimes.touched|| isSubmitted)"
+            errorMsg="Maximum value Exceeded">
+          </app-field-error-display>
+        </div>
+        <div class="col">
+          <label for="interestrate" class="control-label">Interest Rate</label>
+          <input id="interestrate" formControlName="interestrate" class="form-control" placeholder="Interest Rate">
+          <app-field-error-display
+            [displayError]="f.interestrate.errors!=null && f.interestrate.errors.pattern!=null && f.interestrate.errors!=undefined && f.interestrate.errors.pattern!=undefined  && (f.interestrate.touched|| isSubmitted)"
+            errorMsg="Not a valid number">
+          </app-field-error-display>
+          <app-field-error-display
+            [displayError]="f.interestrate.errors!=null && f.interestrate.errors.min!=null && f.interestrate.errors!=undefined && f.interestrate.errors.min!=undefined  && (f.interestrate.touched|| isSubmitted)"
+            errorMsg="Minimum value have to be entered">
+          </app-field-error-display>
+          <app-field-error-display
+            [displayError]="f.interestrate.errors!=null && f.interestrate.errors.max!=null && f.interestrate.errors!=undefined && f.interestrate.errors.max!=undefined  && (f.interestrate.touched|| isSubmitted)"
+            errorMsg="Maximum value Exceeded">
+          </app-field-error-display>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="maximuminstallment" class="control-label">Maximum Installment</label>
+          <input id="maximuminstallment" formControlName="maximuminstallment" currencyMask
+            [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+            placeholder="Maximum Installment">
+        </div>
+        <div class="col">
+          <div class="columnchk">
+            <label for="restrictotherloan" class="control-label">Restrict Other Loan</label>
+            <input type="checkbox" id="restrictotherloan" formControlName="restrictotherloan" class="form-control"
+              placeholder="Restrict Other Loan">
+          </div>
+        </div>
+        <div class="col">
+          <div class="columnchk">
+            <label for="noexistingloan" class="control-label">No Existing Loan</label>
+            <input type="checkbox" id="noexistingloan" formControlName="noexistingloan" class="form-control"
+              placeholder="No Existing Loan">
+          </div>
+        </div>
+        <div class="col">
+          <div class="columnchk">
+            <label for="allowdeferral" class="control-label">Allow Deferral</label>
+            <input type="checkbox" id="allowdeferral" formControlName="allowdeferral" class="form-control"
+              placeholder="Allow Deferral">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.detailid!.value != null" [menuid]="pmenuid" [value]="f.detailid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

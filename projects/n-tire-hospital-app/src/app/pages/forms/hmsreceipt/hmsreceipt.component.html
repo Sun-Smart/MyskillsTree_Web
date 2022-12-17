@@ -1,0 +1,106 @@
+<form [formGroup]="hmsreceiptForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Receipts' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col"><label for="patientid" class="control-label" (click)="AddOrEditpatientid(null)">{{'Patient' |
+          translate}}</label>
+        <select id="patientid" (change)="patientidonChange($event.target)" formControlName="patientid"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of patientidList" value="{{item.patientid}}">{{item.lastname}}</option>
+        </select>
+      </div>
+      <div class="col"><label for="doctorid" class="control-label" (click)="AddOrEditdoctorid(null)">{{'Doctor' |
+          translate}}</label>
+        <select id="doctorid" (change)="doctoridonChange($event.target)" formControlName="doctorid"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of doctoridList" value="{{item.doctorid}}">{{item.doctorname}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="receiptcode" class="control-label">{{'ReceiptCode' | translate}}</label>
+        <input id="receiptcode" formControlName="receiptcode" class="form-control"
+          placeholder="{{'ReceiptCode' | translate}}">
+      </div>
+      <div class="col">
+        <label for="receiptdate" class="control-label">{{'ReceiptDate' | translate}}</label>
+        <div class="input-group">
+          <input #receiptdateformpicker="ngbDatepicker" ngbDatepicker name="receiptdateformpicker" id="receiptdate"
+            formControlName="receiptdate" class="form-control" placeholder="Choose {{'ReceiptDate' | translate}}">
+          <button class="input-group-addon" (click)="receiptdateformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="receipttime" class="control-label">{{'ReceiptTime' | translate}}</label>
+        <ngb-timepicker class="form-control timepicker" formControlName="receipttime"></ngb-timepicker>
+      </div>
+      <div class="col"><label for="paymentcategory" class="control-label">{{'Payment Category' | translate}}</label>
+        <select id="paymentcategory" (change)="paymentcategoryonChange($event.target)" formControlName="paymentcategory"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of paymentcategoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="outstandingamount" class="control-label">{{'OutstandingAmount' | translate}}</label>
+        <input id="outstandingamount" formControlName="outstandingamount" class="form-control"
+          placeholder="{{'OutstandingAmount' | translate}}">
+      </div>
+      <div class="col"><label for="paymentmode" class="control-label">{{'Payment Mode' | translate}}</label>
+        <select id="paymentmode" (change)="paymentmodeonChange($event.target)" formControlName="paymentmode"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of paymentmodeList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="paidamount" class="control-label">{{'PaidAmount' | translate}}</label>
+        <input id="paidamount" formControlName="paidamount" class="form-control"
+          placeholder="{{'PaidAmount' | translate}}">
+      </div>
+      <div class="col">
+        <label for="reference" class="control-label">{{'Reference' | translate}}</label>
+        <input id="reference" formControlName="reference" class="form-control"
+          placeholder="{{'Reference' | translate}}">
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.receiptid!.value != null" [menuid]="pmenuid" [value]="f.receiptid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

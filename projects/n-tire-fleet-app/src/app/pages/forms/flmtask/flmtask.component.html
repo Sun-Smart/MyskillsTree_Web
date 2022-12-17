@@ -1,0 +1,77 @@
+<form [formGroup]="flmtaskForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Tasks' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col">
+        <label for="description" class="control-label">{{'Description' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="description" formControlName="description"
+          class="form-control" placeholder="{{'Description' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="details" class="control-label">{{'Details' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="details" formControlName="details"
+          class="form-control" placeholder="{{'Details' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="frequency" class="control-label">{{'Frequency' | translate}}</label>
+        <input id="frequency" formControlName="frequency" class="form-control"
+          placeholder="{{'Frequency' | translate}}">
+      </div>
+      <div class="col"><label for="frequencyunit" class="control-label">{{'Frequency' | translate}}</label>
+        <select id="frequencyunit" (change)="frequencyunitonChange($event.target)" formControlName="frequencyunit"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of frequencyunitList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col"><label for="measurementparameter" class="control-label">{{'Parameter' | translate}}</label>
+        <select id="measurementparameter" (change)="measurementparameteronChange($event.target)"
+          formControlName="measurementparameter" class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of measurementparameterList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="measurementvalue" class="control-label">{{'MeasurementValue' | translate}}</label>
+        <input id="measurementvalue" formControlName="measurementvalue" class="form-control"
+          placeholder="{{'MeasurementValue' | translate}}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.taskid!.value != null" [menuid]="pmenuid" [value]="f.taskid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

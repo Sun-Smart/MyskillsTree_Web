@@ -1,0 +1,17 @@
+<form [formGroup]="dateForm">
+
+  <div class="input-group">
+<!--   [(ngModel)]="dateModel"-->
+    <input class="form-control"  formControlName="dateModel" 
+      ngbDatepicker #d="ngbDatepicker" (dateSelect)="onChange($event)">
+    <div class="input-group-prepend">
+      <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+        <i class="fa fa-calendar"></i>
+      </button>
+    </div>
+  </div>
+
+
+
+ 
+</form>

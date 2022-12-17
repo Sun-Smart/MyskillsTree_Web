@@ -1,0 +1,146 @@
+<div class="dialog">
+  <form [formGroup]="erppurchasesubdeliverydetailForm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col">
+            <label for="branchid" class="control-label">Branch</label>
+            <input *ngIf="!showview" id="branchid" formControlName="branchid" class="form-control"
+              placeholder="{{'Branch' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.branchid?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="poid" class="control-label">P O</label>
+            <input *ngIf="!showview" id="poid" formControlName="poid" class="form-control"
+              placeholder="{{'P O' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.poid?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="supplierid" class="control-label">Supplier</label>
+            <input *ngIf="!showview" id="supplierid" formControlName="supplierid" class="form-control"
+              placeholder="{{'Supplier' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.supplierid?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="versionnumber" class="control-label">Version Number</label>
+            <input *ngIf="!showview" id="versionnumber" formControlName="versionnumber" class="form-control"
+              placeholder="{{'Version Number' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.versionnumber?.value}}</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col"><label for="itemid" class="control-label" (click)="AddOrEdititemid(null)">Item</label>
+            <app-popupselect *ngIf="!showview" [options]="itemidList" [optionsEvent]="itemidoptionsEvent"
+              [form]="erpitemmaster" (selectItem)="onSelecteditemid($event)" [reportid]=48 [menuid]=48
+              formControlName="itemid" id="itemid" desc="itemcode"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="form-control labelview">{{f.itemiddesc?.value}}</label>
+          </div>
+          <div class="col"><label for="uom" class="control-label">U O M</label>
+            <select *ngIf="!showview" id="uom" (change)="uomonChange($event.target)" formControlName="uom"
+              class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of uomList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+            <label *ngIf="showview" class="form-control labelview">{{f.uomdesc?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="quantity" class="control-label">Quantity</label>
+            <input *ngIf="!showview" id="quantity" formControlName="quantity" class="form-control"
+              placeholder="{{'Quantity' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.quantity?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="deliveryaddress1" class="control-label">Delivery Address1</label>
+            <input *ngIf="!showview" id="deliveryaddress1" formControlName="deliveryaddress1" class="form-control"
+              placeholder="{{'Delivery Address1' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.deliveryaddress1?.value}}</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="deliveryaddress2" class="control-label">Delivery Address2</label>
+            <input *ngIf="!showview" id="deliveryaddress2" formControlName="deliveryaddress2" class="form-control"
+              placeholder="{{'Delivery Address2' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.deliveryaddress2?.value}}</label>
+          </div>
+          <div class="col"><label for="deliverycountry" class="control-label"
+              (click)="AddOrEditdeliverycountry(null)">Delivery Country</label>
+            <app-popupselect *ngIf="!showview" [options]="deliverycountryList"
+              [optionsEvent]="deliverycountryoptionsEvent" [form]="bocountry"
+              (selectItem)="onSelecteddeliverycountry($event)" [reportid]=18 [menuid]=18
+              formControlName="deliverycountry" id="countryid" desc="name"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="form-control labelview">{{f.deliverycountrydesc?.value}}</label>
+          </div>
+          <div class="col"><label for="deliverystate" class="control-label"
+              (click)="AddOrEditdeliverystate(null)">Delivery State</label>
+            <app-popupselect *ngIf="!showview" [options]="deliverystateList" [optionsEvent]="deliverystateoptionsEvent"
+              [form]="bostate" (selectItem)="onSelecteddeliverystate($event)" [reportid]=19 [menuid]=19
+              formControlName="deliverystate" id="stateid" desc="name"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="form-control labelview">{{f.deliverystatedesc?.value}}</label>
+          </div>
+          <div class="col"><label for="deliverycity" class="control-label"
+              (click)="AddOrEditdeliverycity(null)">Delivery City</label>
+            <app-popupselect *ngIf="!showview" [options]="deliverycityList" [optionsEvent]="deliverycityoptionsEvent"
+              [form]="bocity" (selectItem)="onSelecteddeliverycity($event)" [reportid]=20 [menuid]=20
+              formControlName="deliverycity" id="cityid" desc="name"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="form-control labelview">{{f.deliverycitydesc?.value}}</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="deliverypin" class="control-label">Delivery P I N</label>
+            <input *ngIf="!showview" id="deliverypin" formControlName="deliverypin" class="form-control"
+              placeholder="{{'Delivery P I N' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.deliverypin?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="deliverylatlong" class="control-label">Delivery Latlong</label>
+            <input *ngIf="!showview" id="deliverylatlong" formControlName="deliverylatlong" class="form-control"
+              placeholder="{{'Delivery Latlong' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.deliverylatlong?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="deliverydate" class="control-label">Delivery Date</label>
+            <div class="input-group" *ngIf="!showview">
+              <input #deliverydateformpicker="ngbDatepicker" ngbDatepicker name="deliverydateformpicker"
+                id="deliverydate" formControlName="deliverydate" class="form-control"
+                placeholder="Choose Delivery Date">
+              <button class="input-group-addon" *ngIf="!showview" (click)="deliverydateformpicker.toggle()"
+                type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+            <label *ngIf="showview"
+              class="form-control labelview">{{ngbDateParserFormatter.format(f.deliverydate?.value)}}</label>
+          </div>
+          <div class="col"></div>
+        </div>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.subdeliveryid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.subdeliveryid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

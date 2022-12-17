@@ -1,0 +1,113 @@
+<div class="dialog">
+  <form [formGroup]="erptenderdetailForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col"><label for="itemid" class="control-label" (click)="AddOrEdititemid(null)">Item</label>
+            <app-popupselect *ngIf="!showview" [options]="itemidList" [optionsEvent]="itemidoptionsEvent"
+              [form]="erpitemmaster" (selectItem)="onSelecteditemid($event)" [reportid]=48 [menuid]=48
+              formControlName="itemid" id="itemid" desc="itemcode"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="form-control labelview">{{f.itemiddesc?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="description" class="control-label">Description</label>
+            <input *ngIf="!showview" id="description" formControlName="description" class="form-control"
+              placeholder="{{'Description' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.description?.value}}</label>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="details" class="control-label">Details</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="details"
+              formControlName="details" class="form-control" placeholder="{{'Details' | translate}}">
+</textarea>
+            <label *ngIf="showview" class="form-control labelview">{{f.details?.value}}</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="quantity" class="control-label">Quantity</label>
+            <input *ngIf="!showview" id="quantity" formControlName="quantity" class="form-control"
+              placeholder="{{'Quantity' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.quantity?.value}}</label>
+          </div>
+          <div class="col"><label for="uom" class="control-label">U O M</label>
+            <select *ngIf="!showview" id="uom" (change)="uomonChange($event.target)" formControlName="uom"
+              class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of uomList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+            <label *ngIf="showview" class="form-control labelview">{{f.uomdesc?.value}}</label>
+          </div>
+          <div class="col"><label for="currency" class="control-label">Currency</label>
+            <select *ngIf="!showview" id="currency" (change)="currencyonChange($event.target)"
+              formControlName="currency" class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of currencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+            <label *ngIf="showview" class="form-control labelview">{{f.currencydesc?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="estimatedvalue" class="control-label">Estimated Value</label>
+            <input *ngIf="!showview" id="estimatedvalue" formControlName="estimatedvalue" class="form-control"
+              placeholder="{{'Estimated Value' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.estimatedvalue?.value}}</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col"><label for="finalsupplierid" class="control-label"
+              (click)="AddOrEditfinalsupplierid(null)">Supplier</label>
+            <app-popupselect *ngIf="!showview" [options]="finalsupplieridList"
+              [optionsEvent]="finalsupplieridoptionsEvent" [form]="erpsuppliermaster"
+              (selectItem)="onSelectedfinalsupplierid($event)" [reportid]=56 [menuid]=56
+              formControlName="finalsupplierid" id="supplierid" desc="suppliercode"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="form-control labelview">{{f.finalsupplieriddesc?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="finalquantity" class="control-label">Final Quantity</label>
+            <input *ngIf="!showview" id="finalquantity" formControlName="finalquantity" class="form-control"
+              placeholder="{{'Final Quantity' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.finalquantity?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="finalunitprice" class="control-label">Final Unit Price</label>
+            <input *ngIf="!showview" id="finalunitprice" formControlName="finalunitprice" class="form-control"
+              placeholder="{{'Final Unit Price' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.finalunitprice?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="finalcost" class="control-label">Final Cost</label>
+            <input *ngIf="!showview" id="finalcost" formControlName="finalcost" class="form-control"
+              placeholder="{{'Final Cost' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.finalcost?.value}}</label>
+          </div>
+        </div>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.tenderdetailid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.tenderdetailid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

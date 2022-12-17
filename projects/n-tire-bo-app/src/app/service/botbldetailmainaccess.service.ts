@@ -1,0 +1,83 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { botbldetailmainaccess } from '../model/botbldetailmainaccess.model';
+import { environment } from '../../environments/environment';
+import { IbotbldetailmainaccessResponse } from '../model/botbldetailmainaccess.model';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { AppConstants } from '../../../../n-tire-bo-app/src/app/shared/helper'
+import { SessionService } from '../../../../n-tire-bo-app/src/app/pages/core/services/session.service';
+@Injectable({
+  providedIn: 'root'
+})
+export class botbldetailmainaccessService {
+  SessionUser = { companyid: 0, userid: 0, usercode: '', username: '', language: '' };
+  formData: botbldetailmainaccess;
+  readonly rootURL = AppConstants.ntireboURL;
+  list: botbldetailmainaccess[];
+
+  constructor(private http: HttpClient, public sessionService: SessionService) { }
+
+  valid() {
+    var sessionuser = JSON.parse(this.sessionService.getItem("currentUser"));
+    if (sessionuser != null) {
+      this.SessionUser = sessionuser;
+      return true;
+    }
+    return false;
+
+  }
+  saveOrUpdatebotbldetailmainaccessess() {
+    {
+      var body = {
+        ...this.formData,
+        SessionUser: this.SessionUser
+      };
+      return this.http.post(AppConstants.ntireboURL + '/botbldetailmainaccess', body);
+    }
+  }
+
+  saveOrUpdatebotbldetailmainaccessessList() {
+    {
+      var body = {
+        ...this.list,
+        SessionUser: this.SessionUser
+      };
+      return this.http.post(AppConstants.ntireboURL + '/botbldetailmainaccess', body);
+    }
+  }
+
+  getbotbldetailmainaccessessList() {
+    {
+      return this.http.get(AppConstants.ntireboURL + '/botbldetailmainaccess').toPromise();
+    }
+  }
+  getList(key: string) {
+    {
+      return this.http.get(AppConstants.ntireboURL + '/botbldetailmainaccess' + '/param/' + key).toPromise();
+    }
+  }
+
+  getbotbldetailmainaccessessByID(id: number): any {
+    {
+      return this.http.get(AppConstants.ntireboURL + '/botbldetailmainaccess' + '/' + id).toPromise();
+    }
+  }
+
+  deletebotbldetailmainaccess(id: number) {
+    {
+      return this.http.delete(AppConstants.ntireboURL + '/botbldetailmainaccess' + '/' + id).toPromise();
+    }
+  }
+  clearList() {
+  }
+  refreshList() {
+    {
+      this.http.get(AppConstants.ntireboURL + '/botbldetailmainaccess')
+        .toPromise()
+        .then((res:any) => this.list = res as any[]);
+    }
+  }
+
+}
+

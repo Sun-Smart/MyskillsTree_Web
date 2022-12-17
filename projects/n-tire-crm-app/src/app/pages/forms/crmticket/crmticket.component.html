@@ -1,0 +1,214 @@
+<form [formGroup]="crmticketForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Tickets' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col">
+              <label for="ticketreference" class="control-label">{{'TicketReference' | translate}}</label>
+              <input id="ticketreference" formControlName="ticketreference" class="form-control"
+                placeholder="{{'TicketReference' | translate}}">
+            </div>
+            <div class="col"><label for="customerid" class="control-label"
+                (click)="AddOrEditcustomerid(null)">{{'Customer' | translate}}</label>
+              <div class="input-group">
+                <input id="customerid" placeholder="" [ngbTypeahead]="customerid_crmcustomermastersoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedcustomerid($event)"
+                  formControlName='customerid' [resultFormatter]="customerid_crmcustomermastersformatter">
+                <input readonly id="customeriddesc" formControlName="customeriddesc"
+                  class="form-control autocompletedesc" placeholder="{{'Customer' | translate}}">
+              </div>
+            </div>
+            <div class="col">
+              <label for="accountnumber" class="control-label">{{'AccountNumber' | translate}}</label>
+              <input id="accountnumber" formControlName="accountnumber" class="form-control"
+                placeholder="{{'AccountNumber' | translate}}">
+            </div>
+            <div class="col"><label for="tickettype" class="control-label">{{'Ticket Type' | translate}}</label>
+              <select id="tickettype" (change)="tickettypeonChange($event.target)" formControlName="tickettype"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of tickettypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="criticality" class="control-label">{{'Criticality' | translate}}</label>
+              <select id="criticality" (change)="criticalityonChange($event.target)" formControlName="criticality"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of criticalityList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="source" class="control-label">{{'Source' | translate}}</label>
+              <select id="source" (change)="sourceonChange($event.target)" formControlName="source"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of sourceList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="category" class="control-label">{{'Category' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="category" formControlName="category"
+                class="form-control" placeholder="{{'Category' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="subject" class="control-label">{{'Subject' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="subject" formControlName="subject"
+                class="form-control" placeholder="{{'Subject' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="ticketdetails" class="control-label">{{'TicketDetails' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="ticketdetails"
+                formControlName="ticketdetails" class="form-control" placeholder="{{'TicketDetails' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="rca" class="control-label" (click)="AddOrEditrca(null)"
+                (click)="AddOrEditrca(null)">{{'RCA' | translate}}</label>
+              <select id="rca" (change)="rcaonChange($event.target)" formControlName="rca" class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of rcaList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+                </option>
+              </select>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="observation" class="control-label">{{'observation' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="observation"
+                formControlName="observation" class="form-control" placeholder="{{'observation' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="rcacompletedon" class="control-label">{{'RCACompletedOn' | translate}}</label>
+              <div class="input-group">
+                <input #rcacompletedonformpicker="ngbDatepicker" ngbDatepicker name="rcacompletedonformpicker"
+                  id="rcacompletedon" formControlName="rcacompletedon" class="form-control"
+                  placeholder="Choose {{'RCACompletedOn' | translate}}">
+                <button class="input-group-addon" (click)="rcacompletedonformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="sticky"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            Custom Fields</div>
+          <div class="form-group row"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+          </div>
+          <div class="sticky">Attachments</div>
+          <div class="form-group row">
+            <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+              <a href="http://localhost:5001/MyResources/{{fld.value.value}}"
+                target="_blank">{{fld.value.value}} | </a>
+            </ng-container>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic"
+              url="{{URL}}" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+            <ng-container *ngFor="let fld of attachmentlist">
+              <div class="col">
+                <label class="control-label"></label>
+                <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+                  mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+              </div>
+            </ng-container>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Ticket Details</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table crmticketdetails-->
+          <div class="row"></div>
+          <div [ngClass]="IscrmticketdetailsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Ticket Details' | translate}}
+              <select class='child' id="crmticketdetailsPagingdropdown"
+                (change)="crmticketdetailsPaging($event.target.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="crmticketdetailsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showcrmticketdetailsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblcrmticketdetailssource (userRowSelect)="handlecrmticketdetailsGridSelected($event)"
+              [settings]="crmticketdetailssettings" [source]="crmticketdetailssource"
+              (delete)="crmticketdetailsroute($event,'delete')" (deleteConfirm)="crmticketdetailsroute($event,'delete')"
+              (create)="crmticketdetailsroute($event,'create')" (createConfirm)="crmticketdetailsbeforesave($event)"
+              (edit)="crmticketdetailsroute($event,'edit')" (editConfirm)="crmticketdetailsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table crmticketdetails-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.ticketid.value != null" [menuid]="pmenuid" [value]="f.ticketid.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

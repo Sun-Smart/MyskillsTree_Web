@@ -1,0 +1,74 @@
+<form [formGroup]="customfieldconfigurationForm" class="frm" (ngSubmit)="onSubmit()"
+  [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row">
+    <h1 class="col columns  left"><a class="h1" href='#/pages/forms/customfieldconfiguration-list'>Custom Field
+        Configurations</a></h1>
+    <div class="col  sticky1 right" role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <pre><br/></pre>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col">
+        <label for="company" class="control-label">Company</label>
+        <input id="company" formControlName="company" class="form-control" placeholder="company">
+      </div>
+      <div class="col">
+        <label for="tablename" class="control-label">Table Name</label>
+        <input id="tablename" formControlName="tablename" class="form-control" placeholder="tablename">
+      </div>
+      <div class="col">
+        <label for="fieldname" class="control-label">Field Name</label>
+        <input id="fieldname" formControlName="fieldname" class="form-control" placeholder="fieldname">
+      </div>
+      <div class="col"><label for="fieldtype" class="control-label">Field Type</label>
+        <select id="fieldtype" formControlName="fieldtype" class="form-control" placeholder="fieldtype">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of fieldtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="fieldvalues" class="control-label">Field Values</label>
+        <input id="fieldvalues" formControlName="fieldvalues" class="form-control" placeholder="fieldvalues">
+      </div>
+      <div class="col">
+        <label for="labelname" class="control-label">Label Name</label>
+        <input id="labelname" formControlName="labelname" class="form-control" placeholder="labelname">
+      </div>
+      <div class="col">
+        <label for="sequence" class="control-label">Sequence</label>
+        <input id="sequence" formControlName="sequence" class="form-control" placeholder="sequence">
+      </div>
+      <div class="col">
+        <label for="status" class="control-label">Status</label>
+        <input type="hidden" id="status" formControlName="status" class="form-control" placeholder="status">
+        <input readonly id="statusDesc" formControlName="statusDesc" class="form-control" placeholder="status">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+          class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

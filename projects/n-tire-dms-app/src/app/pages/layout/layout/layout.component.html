@@ -1,0 +1,259 @@
+<ng-container *ngIf="loggedIn" [ngClass]="theme">
+        <!-- [ngClass]="{'layout-menu-active': isMenuVisible}"-->
+
+
+        <div class="container3 full-height">
+                <div class="row" style="height:70px">
+
+                        <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-info">
+                                <a class="navbar-brand" href="#">nTireDMS</a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                </button>
+
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <ul class="navbar-nav mr-auto" style="padding-left:30px">
+                                                <li class="nav-item active">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/boreportviewer/BDC','casst',506)">
+                                                                <i class="fa fa-file"></i>
+                                                                Master
+                                                                <span class="sr-only">(current)</span>
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/docviewers/docviewers','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Viewer
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/boreportviewer/DMIM','casst',506)">
+                                                                <i class="fa fa-asterisk"></i>
+                                                                Mime
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/boreportviewer/BFLD','casst',506)">
+                                                                <i class="fa fa-folder"></i>
+                                                                Folders
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmsfolders/dmsfolders','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Folders
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmsdocuments/dmsdocuments','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Documents
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmsarchives/dmsarchives','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Archives
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmsmimetypes/dmsmimetypes','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Mime Types
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmsconfigs/dmsconfigs','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Configuration
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmsuploads/dmsuploads','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Uploads
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/showdashboard/12','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Dashboards
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmssearches/dmssearches','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Searches
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmssubscriptions/dmssubscriptions','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Subscriptions
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmsarchiverestorerequests/dmsarchiverestorerequests','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Archive Restore Requests
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmsaudittrails/dmsaudittrails','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Audit Trails
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmsdocumentfields/dmsdocumentfields','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Document Fields
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmsdownloadqueues/dmsdownloadqueues','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Download Queues
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmslinkeddocuments/dmslinkeddocuments','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Linked Documents
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmslinkedfolders/dmslinkedfolders','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Linked Folders
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/dmslinks/dmslinks','casst',506)">
+                                                                <i class="fa fa-bold"></i>
+                                                                Links
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" [routerLink]=""
+                                                                (click)="sharedService.OpenURL('home/boreportviewer/DSRH','casst',506)">
+                                                                <i class="fa fa-search"></i>
+                                                                Search
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" href="#">
+                                                                <i class="fa fa-envelope-o">
+                                                                        <span class="badge badge-danger">11</span>
+                                                                </i>
+                                                                Recent
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link disabled" href="#">
+                                                                <i class="fa fa-envelope-o">
+                                                                        <span class="badge badge-warning">11</span>
+                                                                </i>
+                                                                Approval
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item dropdown">
+                                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                                role="button" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fa fa-envelope-o">
+                                                                        <span class="badge badge-primary">11</span>
+                                                                </i>
+                                                                Reports
+                                                        </a>
+                                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                                <a class="dropdown-item" href="#">Favorite
+                                                                        Documents</a>
+                                                                <a class="dropdown-item" href="#">Documents
+                                                                        getting Expired</a>
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="dropdown-item" href="#">Top Rated
+                                                                        Documents</a>
+                                                        </div>
+                                                </li>
+                                        </ul>
+                                        <ul class="navbar-nav " style="padding-left:30px">
+                                                <li class="nav-item">
+                                                        <a class="nav-link" href="#">
+                                                                <i class="fa fa-bell">
+                                                                        <span class="badge badge-info">11</span>
+                                                                </i>
+                                                                Notifications
+                                                        </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                        <a class="nav-link" href="#">
+                                                                <i class="fa fa-globe">
+                                                                        <span class="badge badge-success">11</span>
+                                                                </i>
+                                                                Alerts
+                                                        </a>
+                                                </li>
+                                        </ul>
+                                        <form class="form-inline my-2 my-lg-0">
+                                                <input class="form-control mr-sm-2" type="text" placeholder="Search"
+                                                        aria-label="Search">
+                                                <button class="btn my-2 my-sm-0" type="submit">Search</button>
+                                        </form>
+                                </div>
+                        </nav>
+
+                </div>
+
+                <div id=contentidarea class="row">
+
+                        <div id="content" class="ng-content">
+                                <div class="ui-fluid ng-main" [ngClass]="theme">
+                                        <p-toast position="bottom-right"></p-toast>
+                                        <!--<div [class.hidden]="!showLoader" class="np-loader">
+<p-progressSpinner strokeWidth="5"></p-progressSpinner>
+</div>-->
+                                        <!--overflow:auto;height:100%;-->
+                                        <!--position:absolute;width:83%;-->
+                                        <!--margin-left:16%;  height:80%;-->
+                                        <!--height:550px;-->
+                                        <div id="contentAreaLayout" class="main container3 full-height" #contentArea
+                                                onscroll="scrollFunction1('scrollBtn2','contentArea')">
+                                                <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+                                                <router-outlet (activate)="topFunction1('contentArea')">
+                                                </router-outlet><!-- style="width:100%"-->
+                                                <button onclick="topFunction1('contentArea')" id="scrollBtn1"
+                                                        title="Go to top" style="display:none">Top</button>
+                                        </div>
+                                </div>
+                        </div>
+
+                </div>
+        </div>
+
+
+        <app-footer></app-footer>
+
+</ng-container>

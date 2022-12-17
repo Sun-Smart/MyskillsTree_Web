@@ -1,0 +1,59 @@
+<form [formGroup]="hmstestForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Tests' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col">
+        <label for="testname" class="control-label">{{'TestName' | translate}}</label>
+        <input id="testname" formControlName="testname" class="form-control" placeholder="{{'TestName' | translate}}">
+      </div>
+      <div class="col">
+        <label for="cost" class="control-label">{{'Cost' | translate}}</label>
+        <input id="cost" formControlName="cost" class="form-control" placeholder="{{'Cost' | translate}}">
+      </div>
+      <div class="col">
+        <label for="instructions" class="control-label">{{'Instructions' | translate}}</label>
+        <input id="instructions" formControlName="instructions" class="form-control"
+          placeholder="{{'Instructions' | translate}}">
+      </div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="notes" class="control-label">{{'Notes' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="notes" formControlName="notes"
+          class="form-control" placeholder="{{'Notes' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.testid!.value != null" [menuid]="pmenuid" [value]="f.testid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,113 @@
+<div class="dialog">
+  <form [formGroup]="hmstreatmentForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Treatments' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="treatmentname" class="control-label">{{'TreatmentName' | translate}}</label>
+          <input id="treatmentname" formControlName="treatmentname" class="form-control"
+            placeholder="{{'TreatmentName' | translate}}">
+        </div>
+        <div class="col"><label for="visittype" class="control-label" (click)="AddOrEditvisittype(null)"
+            (click)="AddOrEditvisittype(null)">{{'Visit Type' | translate}}</label>
+          <select id="visittype" (change)="visittypeonChange($event.target)" formControlName="visittype"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of visittypeList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+            </option>
+          </select>
+        </div>
+        <div class="col"><label for="wardroundid" class="control-label" (click)="AddOrEditwardroundid(null)">{{'Ward' |
+            translate}}</label>
+          <select id="wardroundid" (change)="wardroundidonChange($event.target)" formControlName="wardroundid"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of wardroundidList" value="{{item.doctorid}}">{{item.doctorname}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="visitid" class="control-label">{{'VisitId' | translate}}</label>
+          <input id="visitid" formControlName="visitid" class="form-control" placeholder="{{'VisitId' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="treatmentcategory" class="control-label">{{'Category' | translate}}</label>
+          <select id="treatmentcategory" (change)="treatmentcategoryonChange($event.target)"
+            formControlName="treatmentcategory" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of treatmentcategoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col"><label for="treatmenttype" class="control-label">{{'Type' | translate}}</label>
+          <select id="treatmenttype" (change)="treatmenttypeonChange($event.target)" formControlName="treatmenttype"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of treatmenttypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="medicine" class="control-label">{{'Medicine' | translate}}</label>
+          <input id="medicine" formControlName="medicine" class="form-control" placeholder="{{'Medicine' | translate}}">
+        </div>
+        <div class="col">
+          <div class="columnchk">
+            <label for="externalmedicine" class="control-label">{{'ExternalMedicine' | translate}}</label>
+            <input type="checkbox" id="externalmedicine" formControlName="externalmedicine" class="form-control"
+              placeholder="{{'ExternalMedicine' | translate}}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="dosage" class="control-label">{{'Dosage' | translate}}</label>
+          <input id="dosage" formControlName="dosage" class="form-control" placeholder="{{'Dosage' | translate}}">
+        </div>
+        <div class="col">
+          <label for="numberofdays" class="control-label">{{'NumberOfDays' | translate}}</label>
+          <input id="numberofdays" formControlName="numberofdays" class="form-control"
+            placeholder="{{'NumberOfDays' | translate}}">
+        </div>
+        <div class="col">
+          <div class="columnchk">
+            <label for="morning" class="control-label">{{'Morning' | translate}}</label>
+            <input type="checkbox" id="morning" formControlName="morning" class="form-control"
+              placeholder="{{'Morning' | translate}}">
+          </div>
+        </div>
+        <div class="col">
+          <div class="columnchk">
+            <label for="afternoon" class="control-label">{{'Afternoon' | translate}}</label>
+            <input type="checkbox" id="afternoon" formControlName="afternoon" class="form-control"
+              placeholder="{{'Afternoon' | translate}}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <div class="columnchk">
+            <label for="night" class="control-label">{{'Night' | translate}}</label>
+            <input type="checkbox" id="night" formControlName="night" class="form-control"
+              placeholder="{{'Night' | translate}}">
+          </div>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.treatmentid!.value != null" [menuid]="pmenuid" [value]="f.treatmentid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

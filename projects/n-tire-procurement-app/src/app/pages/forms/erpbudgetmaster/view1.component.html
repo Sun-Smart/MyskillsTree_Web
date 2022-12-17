@@ -1,0 +1,383 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="erpbudgetmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Budget Masters' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editerpbudgetmasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpbudgetmastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpbudgetmastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.budgetid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.budgetid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('budgetname') == -1"  class="col " >
+<label  for="budgetname" class="control-label">Budget Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.budgetname?.value}}</label>
+      <input   *ngIf="!showview"  id="budgetname"  formControlName="budgetname" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+
+<!--auto-->
+
+    <div class="row">
+      <div class="col">
+
+<!--auto-->
+<p-accordion  [multiple]='true'>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Classification'  [selected]='true'>
+
+
+<!--branchid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('branchid') == -1"  class="col" ><label  for="branchid" class="control-label" (click)="AddOrEditbranchid(null)">Branch</label>
+<app-popupselect  *ngIf="!showview"  [options]="branchidList"  [optionsEvent]="branchidoptionsEvent" [form]="bobranchmaster" (selectItem)="onSelectedbranchid($event)"  [reportid]= 'bxg94' [menuid]='bxg94' formControlName="branchid" id="branchid" desc="branchname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.branchid?.value}}</label>
+  </div>
+
+
+<!--categoryid-->
+
+  <div   *ngIf="hidelist.indexOf('categoryid') == -1"  class="col" ><label  for="categoryid" class="control-label" (click)="AddOrEditcategoryid(null)" (click)="AddOrEditcategoryid(null)">Category</label>
+      <select  *ngIf="!showview"  id="categoryid"  (change)="categoryidonChange($event.target)" formControlName="categoryid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of categoryidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.categoryid?.value}}</label>
+  </div>
+
+
+<!--subcategoryid-->
+
+  <div   *ngIf="hidelist.indexOf('subcategoryid') == -1"  class="col" ><label  for="subcategoryid" class="control-label" (click)="AddOrEditsubcategoryid(null)" (click)="AddOrEditsubcategoryid(null)">Sub Category</label>
+      <select  *ngIf="!showview"  id="subcategoryid"  (change)="subcategoryidonChange($event.target)" formControlName="subcategoryid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of subcategoryidList" value="{{item.subcategoryid}}">{{item.subcategoryname}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.subcategoryid?.value}}</label>
+  </div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion  [multiple]='true'>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Budget Details'  [selected]='true'>
+
+
+<!--finyear-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('finyear') == -1"  class="col" ><label  for="finyear" class="control-label" (click)="AddOrEditfinyear(null)">Fin Year</label>
+<input readonly  id="finyeardesc" formControlName="finyeardesc" class="form-control" >
+      <label *ngIf="showview"     class="labelview">{{f.finyear?.value}}</label>
+  </div>
+
+
+<!--currency-->
+
+  <div   *ngIf="hidelist.indexOf('currency') == -1"  class="col" ><label  for="currency" class="control-label">Currency</label>
+      <select  *ngIf="!showview"  id="currency"  formControlName="currency"  class="form-control"
+         >
+<option value="0">-Select-</option>
+  <option *ngFor="let item of currencyToSymbolMap1" value="{{item[0]}}">{{item[0]}}  {{item[1]}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.currency?.value}}</label>
+  </div>
+
+
+<!--controltype-->
+
+  <div   *ngIf="hidelist.indexOf('controltype') == -1"  class="col" ><label  for="controltype" class="control-label">Control Type</label>
+      <select  *ngIf="!showview"  id="controltype"  (change)="controltypeonChange($event.target)" formControlName="controltype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of controltypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.controltype?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('budgetstartdate') == -1"  class="col " >
+<label  for="budgetstartdate" class="control-label">Budget Start Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.budgetstartdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #budgetstartdateformpicker="ngbDatepicker"      ngbDatepicker name="budgetstartdateformpicker" id="budgetstartdate"  formControlName="budgetstartdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="budgetstartdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('multiplicationfactor') == -1"  class="col " >
+<label  for="multiplicationfactor" class="control-label">Multiplication Factor</label>
+      <label *ngIf="showview"     class="labelview">{{f.multiplicationfactor?.value}}</label>
+      <input   *ngIf="!showview"  id="multiplicationfactor"  formControlName="multiplicationfactor" class="form-control"
+        >
+  </div>
+
+
+<!--accountid-->
+
+  <div   *ngIf="hidelist.indexOf('accountid') == -1"  class="col" ><label  for="accountid" class="control-label" (click)="AddOrEditaccountid(null)">Account</label>
+<app-popupselect  *ngIf="!showview"  [options]="accountidList"  [optionsEvent]="accountidoptionsEvent" [form]="erpfaaccountmaster" (selectItem)="onSelectedaccountid($event)"  [reportid]= 'oo2ro' [menuid]='oo2ro' formControlName="accountid" id="accountid" desc="accountname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.accountid?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+
+<!--auto-->
+
+  </div>
+  <div class="col">
+</p-accordionTab>
+</p-accordion>
+
+<!--auto-->
+<p-accordion  [multiple]='true'>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Range'  [selected]='true'>
+
+
+<!--periodrange-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('periodrange') == -1"  class="col" ><label  for="periodrange" class="control-label">Period</label>
+      <select  *ngIf="!showview"  id="periodrange"  (change)="periodrangeonChange($event.target)" formControlName="periodrange"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of periodrangeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.periodrange?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion  [multiple]='true'>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Range Details'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('yearlybudgetamount') == -1 && f.periodrange.value == 'Y'"  class="col " >
+<label  for="yearlybudgetamount" class="control-label">Yearly Budget Amount</label>
+      <label *ngIf="showview"     class="labelview">{{f.yearlybudgetamount?.value}}</label>
+      <input   *ngIf="!showview"  id="yearlybudgetamount"  formControlName="yearlybudgetamount" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('halfyearlybudgetamount1') == -1 && f.periodrange.value == 'H'"  class="col " >
+<label  for="halfyearlybudgetamount1" class="control-label">Half Yearly Budget Amount1</label>
+      <label *ngIf="showview"     class="labelview">{{f.halfyearlybudgetamount1?.value}}</label>
+      <input   *ngIf="!showview"  id="halfyearlybudgetamount1"  formControlName="halfyearlybudgetamount1" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('halfyearlybudgetamount2') == -1 && f.periodrange.value == 'H'"  class="col " >
+<label  for="halfyearlybudgetamount2" class="control-label">Half Yearly Budget Amount2</label>
+      <label *ngIf="showview"     class="labelview">{{f.halfyearlybudgetamount2?.value}}</label>
+      <input   *ngIf="!showview"  id="halfyearlybudgetamount2"  formControlName="halfyearlybudgetamount2" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('quaterlyyearlybudgetamount1') == -1 && f.periodrange.value == 'Q'"  class="col " >
+<label  for="quaterlyyearlybudgetamount1" class="control-label">Quaterly Yearly Budget Amount1</label>
+      <label *ngIf="showview"     class="labelview">{{f.quaterlyyearlybudgetamount1?.value}}</label>
+      <input   *ngIf="!showview"  id="quaterlyyearlybudgetamount1"  formControlName="quaterlyyearlybudgetamount1" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('quaterlyyearlybudgetamount2') == -1 && f.periodrange.value == 'Q'"  class="col " >
+<label  for="quaterlyyearlybudgetamount2" class="control-label">Quaterly Yearly Budget Amount2</label>
+      <label *ngIf="showview"     class="labelview">{{f.quaterlyyearlybudgetamount2?.value}}</label>
+      <input   *ngIf="!showview"  id="quaterlyyearlybudgetamount2"  formControlName="quaterlyyearlybudgetamount2" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('quaterlyyearlybudgetamount3') == -1 && f.periodrange.value == 'Q'"  class="col " >
+<label  for="quaterlyyearlybudgetamount3" class="control-label">Quaterly Yearly Budget Amount3</label>
+      <label *ngIf="showview"     class="labelview">{{f.quaterlyyearlybudgetamount3?.value}}</label>
+      <input   *ngIf="!showview"  id="quaterlyyearlybudgetamount3"  formControlName="quaterlyyearlybudgetamount3" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('quaterlyyearlybudgetamount4') == -1 && f.periodrange.value == 'Q'"  class="col " >
+<label  for="quaterlyyearlybudgetamount4" class="control-label">Quaterly Yearly Budget Amount4</label>
+      <label *ngIf="showview"     class="labelview">{{f.quaterlyyearlybudgetamount4?.value}}</label>
+      <input   *ngIf="!showview"  id="quaterlyyearlybudgetamount4"  formControlName="quaterlyyearlybudgetamount4" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount1') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount1" class="control-label">Monthly Yearly Budget Amount1</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount1?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount1"  formControlName="monthlyyearlybudgetamount1" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount2') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount2" class="control-label">Monthly Yearly Budget Amount2</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount2?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount2"  formControlName="monthlyyearlybudgetamount2" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount3') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount3" class="control-label">Monthly Yearly Budget Amount3</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount3?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount3"  formControlName="monthlyyearlybudgetamount3" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount4') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount4" class="control-label">Monthly Yearly Budget Amount4</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount4?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount4"  formControlName="monthlyyearlybudgetamount4" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount5') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount5" class="control-label">Monthly Yearly Budget Amount5</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount5?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount5"  formControlName="monthlyyearlybudgetamount5" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount6') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount6" class="control-label">Monthly Yearly Budget Amount6</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount6?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount6"  formControlName="monthlyyearlybudgetamount6" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount7') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount7" class="control-label">Monthly Yearly Budget Amount7</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount7?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount7"  formControlName="monthlyyearlybudgetamount7" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount8') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount8" class="control-label">Monthly Yearly Budget Amount8</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount8?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount8"  formControlName="monthlyyearlybudgetamount8" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount9') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount9" class="control-label">Monthly Yearly Budget Amount9</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount9?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount9"  formControlName="monthlyyearlybudgetamount9" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount10') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount10" class="control-label">Monthly Yearly Budget Amount10</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount10?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount10"  formControlName="monthlyyearlybudgetamount10" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount11') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount11" class="control-label">Monthly Yearly Budget Amount11</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount11?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount11"  formControlName="monthlyyearlybudgetamount11" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('monthlyyearlybudgetamount12') == -1 && f.periodrange.value == 'M'"  class="col " >
+<label  for="monthlyyearlybudgetamount12" class="control-label">Monthly Yearly Budget Amount12</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyyearlybudgetamount12?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyyearlybudgetamount12"  formControlName="monthlyyearlybudgetamount12" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div></p-accordionTab></p-accordion>
+
+<!--auto-->
+
+  </div>  
+</div>
+
+<!--auto-->
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+  </div>
+</form>

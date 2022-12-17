@@ -1,0 +1,232 @@
+<form [formGroup]="flmservicerequestForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Service Requests' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col">
+              <label for="vehicleid" class="control-label">{{'VehicleId' | translate}}</label>
+              <input id="vehicleid" formControlName="vehicleid" class="form-control"
+                placeholder="{{'VehicleId' | translate}}">
+            </div>
+            <div class="col"><label for="servicecategory" class="control-label">{{'Service Category' |
+                translate}}</label>
+              <select id="servicecategory" (change)="servicecategoryonChange($event.target)"
+                formControlName="servicecategory" class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of servicecategoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="description" class="control-label">{{'Description' | translate}}</label>
+              <input id="description" formControlName="description" class="form-control"
+                placeholder="{{'Description' | translate}}">
+            </div>
+            <div class="col">
+              <label for="odometerreading" class="control-label">{{'OdometerReading' | translate}}</label>
+              <input id="odometerreading" formControlName="odometerreading" class="form-control"
+                placeholder="{{'OdometerReading' | translate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="startdate" class="control-label">{{'StartDate' | translate}}</label>
+              <div class="input-group">
+                <input #startdateformpicker="ngbDatepicker" ngbDatepicker name="startdateformpicker" id="startdate"
+                  formControlName="startdate" class="form-control" placeholder="Choose {{'StartDate' | translate}}">
+                <button class="input-group-addon" (click)="startdateformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col">
+              <label for="starttime" class="control-label">{{'StartTime' | translate}}</label>
+              <ngb-timepicker class="form-control timepicker" formControlName="starttime"></ngb-timepicker>
+            </div>
+            <div class="col">
+              <label for="enddate" class="control-label">{{'EndDate' | translate}}</label>
+              <div class="input-group">
+                <input #enddateformpicker="ngbDatepicker" ngbDatepicker name="enddateformpicker" id="enddate"
+                  formControlName="enddate" class="form-control" placeholder="Choose {{'EndDate' | translate}}">
+                <button class="input-group-addon" (click)="enddateformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col">
+              <label for="endtime" class="control-label">{{'EndTime' | translate}}</label>
+              <ngb-timepicker class="form-control timepicker" formControlName="endtime"></ngb-timepicker>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="vendorid" class="control-label" (click)="AddOrEditvendorid(null)">{{'Vendor' |
+                translate}}</label>
+              <div class="input-group">
+                <input id="vendorid" placeholder="" [ngbTypeahead]="vendorid_erpsuppliermastersoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedvendorid($event)" formControlName='vendorid'
+                  [resultFormatter]="vendorid_erpsuppliermastersformatter">
+                <input readonly id="vendoriddesc" formControlName="vendoriddesc" class="form-control autocompletedesc"
+                  placeholder="{{'Vendor' | translate}}">
+              </div>
+            </div>
+            <div class="col">
+              <label for="reference" class="control-label">{{'Reference' | translate}}</label>
+              <input id="reference" formControlName="reference" class="form-control"
+                placeholder="{{'Reference' | translate}}">
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="details" class="control-label">{{'Details' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="details" formControlName="details"
+                class="form-control" placeholder="{{'Details' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="labourcost" class="control-label">{{'LabourCost' | translate}}</label>
+              <input id="labourcost" formControlName="labourcost" class="form-control"
+                placeholder="{{'LabourCost' | translate}}">
+            </div>
+            <div class="col">
+              <label for="partscost" class="control-label">{{'PartsCost' | translate}}</label>
+              <input id="partscost" formControlName="partscost" class="form-control"
+                placeholder="{{'PartsCost' | translate}}">
+            </div>
+            <div class="col">
+              <label for="discountpercentage" class="control-label">{{'DiscountPercentage' | translate}}</label>
+              <input id="discountpercentage" formControlName="discountpercentage" class="form-control"
+                placeholder="{{'DiscountPercentage' | translate}}">
+            </div>
+            <div class="col">
+              <label for="discountamount" class="control-label">{{'DiscountAmount' | translate}}</label>
+              <input id="discountamount" formControlName="discountamount" class="form-control"
+                placeholder="{{'DiscountAmount' | translate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="tax" class="control-label">{{'Tax' | translate}}</label>
+              <input id="tax" formControlName="tax" class="form-control" placeholder="{{'Tax' | translate}}">
+            </div>
+            <div class="col">
+              <label for="taxamount" class="control-label">{{'TaxAmount' | translate}}</label>
+              <input id="taxamount" formControlName="taxamount" class="form-control"
+                placeholder="{{'TaxAmount' | translate}}">
+            </div>
+            <div class="col">
+              <label for="totalcost" class="control-label">{{'TotalCost' | translate}}</label>
+              <input id="totalcost" formControlName="totalcost" class="form-control"
+                placeholder="{{'TotalCost' | translate}}">
+            </div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="comments" class="control-label">{{'Comments' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="comments" formControlName="comments"
+                class="form-control" placeholder="{{'Comments' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="sticky">Attachments</div>
+          <div class="form-group row">
+            <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+              <a href="http://localhost:5001/MyResources/{{fld.value.value}}"
+                target="_blank">{{fld.value.value}} | </a>
+            </ng-container>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic"
+              url="{{URL}}" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+            <ng-container *ngFor="let fld of attachmentlist">
+              <div class="col">
+                <label class="control-label"></label>
+                <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+                  mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+              </div>
+            </ng-container>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Service Request Details</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table flmservicerequestdetails-->
+          <div class="row"></div>
+          <div [ngClass]="IsflmservicerequestdetailsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Service Request Details' | translate}}
+              <select class='child' id="flmservicerequestdetailsPagingdropdown"
+                (change)="flmservicerequestdetailsPaging($event.target.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn"
+                    (click)="flmservicerequestdetailsroute(null, 'create')"><i class="fa fa-plus"
+                      aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showflmservicerequestdetailsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblflmservicerequestdetailssource
+              (userRowSelect)="handleflmservicerequestdetailsGridSelected($event)"
+              [settings]="flmservicerequestdetailssettings" [source]="flmservicerequestdetailssource"
+              (delete)="flmservicerequestdetailsroute($event,'delete')"
+              (deleteConfirm)="flmservicerequestdetailsroute($event,'delete')"
+              (create)="flmservicerequestdetailsroute($event,'create')"
+              (createConfirm)="flmservicerequestdetailsbeforesave($event)"
+              (edit)="flmservicerequestdetailsroute($event,'edit')"
+              (editConfirm)="flmservicerequestdetailsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table flmservicerequestdetails-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.servicerequestid.value != null" [menuid]="pmenuid" [value]="f.servicerequestid.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" style='overflow:hidden;'>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>MySkillTree</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--  <link rel="icon" type="image/x-icon" href="favicon.ico">-->
+  <!--<link rel="icon" href="http://demo.herbieai.com/ntire/SSnTireApp/assets/logo.png">-->
+  <!--
+  <link src="https://unpkg.com/bootstrap-css-only@4.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <link src="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.css" rel="stylesheet">
+  <link src="https://unpkg.com/angular-calendar@0.26.4/css/angular-calendar.css" rel="stylesheet">
+  <link src="https://unpkg.com/flatpickr@4.5.2/dist/flatpickr.css" rel="stylesheet">
+
+<link src="css/bootstrap.min.css" rel="stylesheet">
+<link src="css/font-awesome.css" rel="stylesheet">
+<link src="css/angular-calendar.css" rel="stylesheet">
+<link src="css/flatpickr.css" rel="stylesheet">
+-->
+  <!-- <link src="/assets/css/font-awesome.css" rel="stylesheet">
+  <link src="/assets/css/smartwizard.css" rel="stylesheet"> -->
+  <link rel="icon" href="assets/logo2.JPG">
+  <!--<script src='https://cdn.rawgit.com/naptha/tesseract.js/1.0.10/dist/tesseract.js'></script>-->
+  <!--<script src='https://unpkg.com/tesseract.js@2.0.1/dist/tesseract.min.js'></script>-->
+  <!--
+<script src='https://unpkg.com/tesseract.js@v2.0.2/dist/tesseract.min.js'></script>
+-->
+  <!--<script lang="javascript" src="dist/xlsx.full.min.js"></script>-->
+  <!--<script  lang="javascript" src="../node_modules/xlsx/xlsx.mini.js"></script>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyfre8LqMqxyNMWv26HTIcQVM1Gsnut-A">
+    
+</script>-->
+
+  <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyfre8LqMqxyNMWv26HTIcQVM1Gsnut-A&libraries=visualization"></script>-->
+  <!-- <link src="/assets/css/material-icon.css" rel="stylesheet"> -->
+  <style>
+    #scrollBtn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 30px;
+      z-index: 99;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      background-color: #555;
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 4px;
+    }
+
+    #scrollBtn:hover {
+      background-color: #F4D843 !important;
+    }
+  </style>
+
+
+
+
+  <!--  
+<link id="themeAsset" rel="stylesheet" href="node_modules/primeng/resources/themes/luna-pink/theme.css">
+-->
+  <!-- <script src="assets/bootstrap.min.js" type="text/javascript"></script>
+  <script src="assets/jquery.min.js" type="text/javascript"></script>
+  <script src="assets/popper.min.js" type="text/javascript"></script> -->
+  <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
+  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
+</head>
+
+<body>
+  <app-root></app-root>
+
+</body>
+
+</html>
+<!-- Modal 
+  <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        
+        <div class="modal-content">
+          <div class="modal-header">        
+            <h4 class="modal-title">Sample Modal</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p>Click OK to close.</p>
+            <input [(ngModel)]="name"><br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+  -->
+
+
+
+
+<script>
+  //Get the button
+
+
+  // When the user scrolls down 20px from the top of the document, show the button
+
+  function scrollFunction() {
+    //debugger;
+    var mybutton = document.getElementById("scrollBtn");
+    if (document.getElementById("contentArea").scrollTop > 2 || document.getElementById("contentArea").scrollTop > 2) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+    /*
+        var header = document.getElementById("header");
+        var sticky = header.offsetTop;
+        if (document.getElementById("contentArea").scrollTop > sticky) {
+        header.classList.add("fixedheader");
+      } else {
+        header.classList.remove("fixedheader");
+      }
+    */
+  }
+
+  function scrollFunction1(scrollBtn, contentArea) {
+    //debugger;
+    var mybutton = document.getElementById(scrollBtn);
+    if (document.getElementById(contentArea).scrollTop > 2 || document.getElementById(contentArea).scrollTop > 2) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+    /*
+        var header = document.getElementById("header");
+        var sticky = header.offsetTop;
+        if (document.getElementById("contentArea").scrollTop > sticky) {
+        header.classList.add("fixedheader");
+      } else {
+        header.classList.remove("fixedheader");
+      }
+    */
+  }
+
+  // When the user clicks on the button, scroll to the top of the document
+  function topFunction() {
+    document.getElementById("contentArea").scrollTop = 0;
+  }
+  function topFunction1(contentArea) {
+    document.getElementById(contentArea).scrollTop = 0;
+  }
+</script>

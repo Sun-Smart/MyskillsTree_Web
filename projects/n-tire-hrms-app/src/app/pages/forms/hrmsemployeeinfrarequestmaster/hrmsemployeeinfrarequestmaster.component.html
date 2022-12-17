@@ -1,0 +1,141 @@
+<form [formGroup]="hrmsemployeeinfrarequestmasterForm" class="frm" (ngSubmit)="onSubmit()"
+  [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row">
+    <h1 class="col columns  left"><a class="h1" href='#/home/{{pcurrenturl}}'>H R M S Employee Infra Request Masters</a>
+    </h1>
+    <div class="col  sticky1 right" role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <pre><br/></pre>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col"><label for="employeeid" class="control-label"
+          (click)="AddOrEditemployeeid(null)">Employee</label>
+        <div class="input-group">
+          <input id="employeeid" placeholder="" [ngbTypeahead]="employeeid_hrmsemployeesoptions"
+            class="form-control autocomplete" (selectItem)="onSelectedemployeeid($event)" formControlName='employeeid'
+            [resultFormatter]="employeeid_hrmsemployeesformatter">
+          <input readonly id="employeeiddesc" formControlName="employeeiddesc" class="form-control autocompletedesc"
+            placeholder="employeeid">
+        </div>
+      </div>
+      <div class="col">
+        <label for="infrarequestcode" class="control-label">Infra Request Code</label>
+        <input id="infrarequestcode" formControlName="infrarequestcode" class="form-control"
+          placeholder="infrarequestcode">
+      </div>
+      <div class="col">
+        <label for="requestdate" class="control-label">Request Date</label>
+        <div class="input-group">
+          <input #requestdateformpicker="ngbDatepicker" ngbDatepicker name="requestdateformpicker" id="requestdate"
+            formControlName="requestdate" class="form-control" placeholder="Choose requestdate">
+          <button class="input-group-addon" (click)="requestdateformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="col"><label for="assetcategory" class="control-label" (click)="AddOrEditassetcategory(null)"
+          (click)="AddOrEditassetcategory(null)">Asset Category</label>
+        <select id="assetcategory" (change)="assetcategoryonChange($event.target!.value)" formControlName="assetcategory"
+          class="form-control" placeholder="assetcategory">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of assetcategoryList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col"><label for="assetsubcategory" class="control-label"
+          (click)="AddOrEditassetsubcategory(null)">Asset Sub Category</label>
+        <select id="assetsubcategory" formControlName="assetsubcategory" class="form-control"
+          placeholder="assetsubcategory">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of assetsubcategoryList" value="{{item.subcategoryid}}">{{item.subcategoryname}}
+          </option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="requiredbefore" class="control-label">Required Before</label>
+        <div class="input-group">
+          <input #requiredbeforeformpicker="ngbDatepicker" ngbDatepicker name="requiredbeforeformpicker"
+            id="requiredbefore" formControlName="requiredbefore" class="form-control"
+            placeholder="Choose requiredbefore">
+          <button class="input-group-addon" (click)="requiredbeforeformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="remarks" class="control-label">Remarks</label>
+        <p-editor id="remarks" formControlName="remarks" placeholder="remarks" [style]="{  height: '320' }"></p-editor>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="issuedate" class="control-label">Issue Date</label>
+        <div class="input-group">
+          <input #issuedateformpicker="ngbDatepicker" ngbDatepicker name="issuedateformpicker" id="issuedate"
+            formControlName="issuedate" class="form-control" placeholder="Choose issuedate">
+          <button class="input-group-addon" (click)="issuedateformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="col">
+        <label for="assetreference" class="control-label">Asset Reference</label>
+        <input id="assetreference" formControlName="assetreference" class="form-control" placeholder="assetreference">
+      </div>
+      <div class="col">
+        <label for="returndate" class="control-label">Return Date</label>
+        <div class="input-group">
+          <input #returndateformpicker="ngbDatepicker" ngbDatepicker name="returndateformpicker" id="returndate"
+            formControlName="returndate" class="form-control" placeholder="Choose returndate">
+          <button class="input-group-addon" (click)="returndateformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="col"><label for="returncondition" class="control-label">Return Condition</label>
+        <select id="returncondition" formControlName="returncondition" class="form-control"
+          placeholder="returncondition">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of returnconditionList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="returnclaim" class="control-label">Return Claim</label>
+        <input id="returnclaim" formControlName="returnclaim" class="form-control" placeholder="returnclaim">
+      </div>
+      <div class="col">
+        <label for="status" class="control-label">Status</label>
+        <input type="hidden" id="status" formControlName="status" class="form-control" placeholder="status">
+        <input readonly id="statusdesc" formControlName="statusdesc" class="form-control" placeholder="status">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+          class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

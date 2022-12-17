@@ -1,0 +1,102 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="bocompanyregistrationForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Registrations' | translate}}</a></h1>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('companyname') == -1"  class="col " >
+<label  for="companyname" class="control-label">Company Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.companyname?.value}}</label>
+      <input   *ngIf="!showview"  id="companyname"  formControlName="companyname" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--companytype-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('companytype') == -1"  class="col" ><label  for="companytype" class="control-label">Type</label>
+      <select  *ngIf="!showview"  id="companytype"  (change)="companytypeonChange($event.target)" formControlName="companytype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of companytypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.companytype?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('firstname') == -1"  class="col " >
+<label  for="firstname" class="control-label">First Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.firstname?.value}}</label>
+      <input   *ngIf="!showview"  id="firstname"  formControlName="firstname" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('lastname') == -1"  class="col " >
+<label  for="lastname" class="control-label">Last Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.lastname?.value}}</label>
+      <input   *ngIf="!showview"  id="lastname"  formControlName="lastname" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--designation-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('designation') == -1"  class="col" ><label  for="designation" class="control-label" (click)="AddOrEditdesignation(null)">Designation</label>
+      <select  *ngIf="!showview"  id="designation"  (change)="designationonChange($event.target)" formControlName="designation"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of designationList" value="{{item.userroleid}}">{{item.userrole}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.designation?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('emailid') == -1"  class="col " >
+<label  for="emailid" class="control-label">Email</label>
+      <label *ngIf="showview"     class="labelview">{{f.emailid?.value}}</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview"  id="emailid"  formControlName="emailid" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.emailid.invalid && (f.emailid.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('mobilenumber') == -1"  class="col " >
+<label  for="mobilenumber" class="control-label">Mobile</label>
+      <label *ngIf="showview"     class="labelview">{{f.mobilenumber?.value}}</label>
+      <int-phone-prefix   *ngIf="!showview"  id="mobilenumber"  formControlName="mobilenumber"  [locale]="'en'" [defaultCountry]="'ae'"  class="form-control telephone" 
+        >
+</int-phone-prefix>
+  </div>
+</div>
+</p-accordion>
+  </div>
+    <div class='row  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+<app-action *ngIf="f.registrationid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.registrationid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link active"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"  ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</form>

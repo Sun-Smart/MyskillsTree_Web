@@ -1,0 +1,106 @@
+<div class="dialog">
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="prjprojectchangeForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="container1" >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<p-accordion  [multiple]='true'>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('changerequestid') == -1"  class="col " >
+<label  for="changerequestid" class="control-label">Change Request</label>
+      <label *ngIf="showview"     class="labelview">{{f.changerequestid?.value}}</label>
+      <input   *ngIf="!showview"  id="changerequestid"  formControlName="changerequestid" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('changedetails') == -1"  class="col " >
+<label  for="changedetails" class="control-label">Change Details</label>
+      <label *ngIf="showview"     class="labelview">{{f.changedetails?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="changedetails"  formControlName="changedetails" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('changedate') == -1"  class="col " >
+<label  for="changedate" class="control-label">Change Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.changedate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #changedateformpicker="ngbDatepicker"      ngbDatepicker name="changedateformpicker" id="changedate"  formControlName="changedate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="changedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('requestedby') == -1"  class="col " >
+<label  for="requestedby" class="control-label">Requested By</label>
+      <label *ngIf="showview"     class="labelview">{{f.requestedby?.value}}</label>
+      <input   *ngIf="!showview"  id="requestedby"  formControlName="requestedby" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('assignto') == -1"  class="col " >
+<label  for="assignto" class="control-label">Assign To</label>
+      <label *ngIf="showview"     class="labelview">{{f.assignto?.value}}</label>
+      <input   *ngIf="!showview"  id="assignto"  formControlName="assignto" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('verifiedby') == -1"  class="col " >
+<label  for="verifiedby" class="control-label">Verified By</label>
+      <label *ngIf="showview"     class="labelview">{{f.verifiedby?.value}}</label>
+      <input   *ngIf="!showview"  id="verifiedby"  formControlName="verifiedby" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--changestatus-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('changestatus') == -1"  class="col" ><label  for="changestatus" class="control-label">Change Status</label>
+      <select  *ngIf="!showview"  id="changestatus"  (change)="changestatusonChange($event.target)" formControlName="changestatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of changestatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.changestatus?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('remarks') == -1"  class="col " >
+<label  for="remarks" class="control-label">Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.remarks?.value}}</label>
+      <app-comment   *ngIf="!showview"  id="remarks"  formControlName="remarks" [label]="'Remarks'" 
+        >
+</app-comment>
+  </div>
+</div>
+</p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+  </div>
+</form>
+</div>

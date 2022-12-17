@@ -1,0 +1,151 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="crmtatconfigurationForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'TAT Configurations' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editcrmtatconfigurations()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='crmtatconfigurationtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.crmtatconfigurationshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.configid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.configid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+
+
+<!--parentindex-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('parentindex') == -1"  class="col" ><label  for="parentindex" class="control-label" (click)="AddOrEditparentindex(null)">Parent Index</label>
+      <select  *ngIf="!showview"  id="parentindex"  (change)="parentindexonChange($event.target)" formControlName="parentindex"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of parentindexList" value="{{item.indexid}}">{{item.indexname}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.parentindexdesc?.value}}</label>
+  </div>
+
+
+<!--sub1index-->
+
+  <div   *ngIf="hidelist.indexOf('sub1index') == -1"  class="col" ><label  for="sub1index" class="control-label" (click)="AddOrEditsub1index(null)">Sub1 Index</label>
+      <select  *ngIf="!showview"  id="sub1index"  (change)="sub1indexonChange($event.target)" formControlName="sub1index"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of sub1indexList" value="{{item.indexid}}">{{item.indexname}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.sub1indexdesc?.value}}</label>
+  </div>
+
+
+<!--sub2index-->
+
+  <div   *ngIf="hidelist.indexOf('sub2index') == -1"  class="col" ><label  for="sub2index" class="control-label" (click)="AddOrEditsub2index(null)">Sub2 Index</label>
+      <select  *ngIf="!showview"  id="sub2index"  (change)="sub2indexonChange($event.target)" formControlName="sub2index"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of sub2indexList" value="{{item.indexid}}">{{item.indexname}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.sub2indexdesc?.value}}</label>
+  </div>
+
+
+<!--sub3index-->
+
+  <div   *ngIf="hidelist.indexOf('sub3index') == -1"  class="col" ><label  for="sub3index" class="control-label" (click)="AddOrEditsub3index(null)">Sub3 Index</label>
+      <select  *ngIf="!showview"  id="sub3index"  (change)="sub3indexonChange($event.target)" formControlName="sub3index"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of sub3indexList" value="{{item.indexid}}">{{item.indexname}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.sub3indexdesc?.value}}</label>
+  </div>
+</div>
+
+
+<!--criticality-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('criticality') == -1"  class="col" ><label  for="criticality" class="control-label">Criticality</label>
+      <select  *ngIf="!showview"  id="criticality"  (change)="criticalityonChange($event.target)" formControlName="criticality"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of criticalityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.criticalitydesc?.value}}</label>
+  </div>
+
+
+<!--source-->
+
+  <div   *ngIf="hidelist.indexOf('source') == -1"  class="col" ><label  for="source" class="control-label">Source</label>
+      <select  *ngIf="!showview"  id="source"  (change)="sourceonChange($event.target)" formControlName="source"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of sourceList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.sourcedesc?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('tathours') == -1"  class="col " >
+<label  for="tathours" class="control-label">T A T Hours</label>
+<ngb-timepicker  *ngIf="!showview"  class="form-control timepicker" formControlName="tathours"  ></ngb-timepicker>
+  </div>
+<div class="col"></div>
+</div>  </div>
+</form>

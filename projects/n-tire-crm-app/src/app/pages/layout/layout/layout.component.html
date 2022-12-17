@@ -1,0 +1,69 @@
+<ng-container *ngIf="loggedIn"   [ngClass]="theme" > <!-- [ngClass]="{'layout-menu-active': isMenuVisible}"-->
+    <div class="layout-wrapper layout-menu-light layout-topbar-blue p-input-filled layout-menu-static" >
+
+        <div class="container3" style="height:100%;">
+    
+    
+        <header style="height:50px">
+          <div class="small" id="header-scroll">
+            <h1>nTireCRM</h1>
+            <nav>
+              <ul>
+                <li><a  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/udfvf','casst',506)" >Leads</a></li>
+                <li><a  [routerLink]="" (click)="sharedService.OpenURL('home/lmsmasters/lmsmasters','casst',506)" >New Lead</a></li>
+                <li><a  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/vm3i3','casst',506)" >Opportunities</a></li>
+                <li><a  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/ie7uk','casst',506)" >Calls</a></li>
+                <li><a  [routerLink]="" (click)="sharedService.OpenURL('home/showdashboard/9','casst',506)" >Dashboard</a></li>
+                <li><a  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/v8aoq','casst',506)" >Tasks</a></li>
+                <li><a  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/BOEXP','casst',506)" >Expense</a></li>
+                <li><a  [routerLink]="" (click)="sharedService.OpenURL('home/calendar/ytvq3','casst',506)" >Calendar</a></li>
+                <li><a  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/d4dv4','casst',506)" >Opportunity Board</a></li>
+                <li><a  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/zfr5u','casst',506)" >Task Board</a></li>
+              </ul>
+            </nav>
+    
+          </div>
+        </header>
+        <div id="content" style='height:1000px!important' class="ng-content">
+          <div class="ui-fluid ng-main">
+            <p-toast position="bottom-right"></p-toast>
+            <!--<div [class.hidden]="!showLoader" class="np-loader">
+            <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+          </div>-->
+            <!--overflow:auto;height:100%;-->
+            <!--position:absolute;width:83%;-->
+            <!--margin-left:16%;  height:80%;-->
+            <!--height:550px;-->
+            <div  id="contentAreaLayout" 
+              
+              class="main container3 full-height" #contentArea1 onscroll="scrollFunction1('scrollBtn1','contentArea1')">
+              <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+              <router-outlet (activate)="topFunction1('contentArea1')"></router-outlet><!-- style="width:100%"-->
+              <button onclick="topFunction1('contentArea1')" id="scrollBtn1" title="Go to top"
+                style="display:none">Top</button>
+            </div>
+          </div>
+        </div>
+        <!--
+      <section id="1">
+        <h1>First</h1>
+      </section>
+      <section id="2">
+        <h1>Second</h1>
+      </section>
+      <section id="3">
+        <h1>Third</h1>
+      </section>
+      <section id="4">
+        <h1>Fourth</h1>
+      </section>
+      <section id="5">
+        <h1>Fifth</h1>
+      </section>
+    -->
+      </div>
+
+
+        <app-footer></app-footer>
+    </div>
+</ng-container>

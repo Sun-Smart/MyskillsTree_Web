@@ -1,0 +1,1046 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="legalcaseForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Cases' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editlegalcases()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcasetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcaseshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.caseid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.caseid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link active"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"  ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"  >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)"><i  title="Master" class="fa fa-home"><br><font style='font-size: 1rem;'>Master</font></i></div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('casecode') == -1"  class="col " >
+<label  for="casecode" class="control-label">Case Code</label>
+      <label *ngIf="showview"     class="labelview">{{f.casecode?.value}}</label>
+      <input   *ngIf="!showview"  id="casecode"  readonly formControlName="casecode" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('casenumber') == -1"  class="col " >
+<label  for="casenumber" class="control-label required">Case Number</label>
+      <label *ngIf="showview"     class="labelview">{{f.casenumber?.value}}</label>
+      <input   *ngIf="!showview"  id="casenumber"  required formControlName="casenumber" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.casenumber.invalid && (f.casenumber.touched|| isSubmitted)" errorMsg="Enter {{'Case Number' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('internalreferencenumber') == -1"  class="col " >
+<label  for="internalreferencenumber" class="control-label">Internal Reference Number</label>
+      <label *ngIf="showview"     class="labelview">{{f.internalreferencenumber?.value}}</label>
+      <input   *ngIf="!showview"  id="internalreferencenumber"  formControlName="internalreferencenumber" class="form-control"
+        >
+  </div>
+
+
+<!--courtid-->
+
+  <div   *ngIf="hidelist.indexOf('courtid') == -1"  class="col" ><label  for="courtid" class="control-label required" (click)="AddOrEditcourtid(null)">Court</label>
+      <select  *ngIf="!showview"  id="courtid"  required (change)="courtidonChange($event.target)" formControlName="courtid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of courtidList" value="{{item.courtid}}">{{item.courtname}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.courtid?.value}}</label>
+      <app-field-error-display [displayError]="f.courtid.invalid && (f.courtid.touched || isSubmitted)" errorMsg="Enter {{'Court' | translate}}">
+      </app-field-error-display>
+  </div>
+</div>
+
+
+<!--petitiontype-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('petitiontype') == -1"  class="col" ><label  for="petitiontype" class="control-label">Petition Type</label>
+      <select  *ngIf="!showview"  id="petitiontype"  (change)="petitiontypeonChange($event.target)" formControlName="petitiontype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of petitiontypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.petitiontype?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Case Details'  [selected]='true'>
+
+
+<!--customerid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('customerid') == -1"  class="col" ><label  for="customerid" class="control-label required" (click)="AddOrEditcustomerid(null)">Customer</label>
+<app-popupselect  *ngIf="!showview"  [options]="customeridList"  [optionsEvent]="customeridoptionsEvent" [form]="legalcustomermaster" (selectItem)="onSelectedcustomerid($event)"  [reportid]= 'cqbkc' [menuid]='cqbkc' formControlName="customerid" id="customerid" desc="customername" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.customerid?.value}}</label>
+      <app-field-error-display [displayError]="f.customerid.invalid && (f.customerid.touched || isSubmitted)" errorMsg="Enter {{'Customer' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--customerposition-->
+
+  <div   *ngIf="hidelist.indexOf('customerposition') == -1"  class="col" ><label  for="customerposition" class="control-label">Customer Position</label>
+      <select  *ngIf="!showview"  id="customerposition"  (change)="customerpositiononChange($event.target)" formControlName="customerposition"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of customerpositionList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.customerposition?.value}}</label>
+  </div>
+
+
+<!--opponentid-->
+
+  <div   *ngIf="hidelist.indexOf('opponentid') == -1"  class="col" ><label  for="opponentid" class="control-label" (click)="AddOrEditopponentid(null)">Opponent</label>
+      <select  *ngIf="!showview"  id="opponentid"  (change)="opponentidonChange($event.target)" formControlName="opponentid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of opponentidList" value="{{item.opponentid}}">{{item.opponentname}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.opponentid?.value}}</label>
+  </div>
+
+
+<!--opponentposition-->
+
+  <div   *ngIf="hidelist.indexOf('opponentposition') == -1"  class="col" ><label  for="opponentposition" class="control-label">Opponent Position</label>
+      <select  *ngIf="!showview"  id="opponentposition"  (change)="opponentpositiononChange($event.target)" formControlName="opponentposition"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of opponentpositionList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.opponentposition?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('casedate') == -1"  class="col " >
+<label  for="casedate" class="control-label required">Case Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.casedate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #casedateformpicker="ngbDatepicker"      ngbDatepicker name="casedateformpicker" id="casedate"  required formControlName="casedate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="casedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <app-field-error-display [displayError]="f.casedate.invalid && (f.casedate.touched|| isSubmitted)" errorMsg="Enter {{'Case Date' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('casereceiveddate') == -1"  class="col " >
+<label  for="casereceiveddate" class="control-label">Case Received Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.casereceiveddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #casereceiveddateformpicker="ngbDatepicker"      ngbDatepicker name="casereceiveddateformpicker" id="casereceiveddate"  formControlName="casereceiveddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="casereceiveddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('duedate') == -1"  class="col " >
+<label  for="duedate" class="control-label">Due Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.duedate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #duedateformpicker="ngbDatepicker"      ngbDatepicker name="duedateformpicker" id="duedate"  formControlName="duedate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="duedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('noticedate') == -1"  class="col " >
+<label  for="noticedate" class="control-label">Notice Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.noticedate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #noticedateformpicker="ngbDatepicker"      ngbDatepicker name="noticedateformpicker" id="noticedate"  formControlName="noticedate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="noticedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('fileddate') == -1"  class="col " >
+<label  for="fileddate" class="control-label">Filed Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.fileddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #fileddateformpicker="ngbDatepicker"      ngbDatepicker name="fileddateformpicker" id="fileddate"  formControlName="fileddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="fileddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+
+
+<!--previouscasenumber-->
+
+  <div   *ngIf="hidelist.indexOf('previouscasenumber') == -1"  class="col" ><label  for="previouscasenumber" class="control-label" (click)="AddOrEditpreviouscasenumber(null)">Previous Case Number</label>
+<app-popupselect  *ngIf="!showview"  [options]="previouscasenumberList"  [optionsEvent]="previouscasenumberoptionsEvent" [form]="legalcase" (selectItem)="onSelectedpreviouscasenumber($event)"  [reportid]= 'rgzrx' [menuid]='rgzrx' formControlName="previouscasenumber" id="caseid" desc="casetitle" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.previouscasenumber?.value}}</label>
+  </div>
+  <div class="col"  ><button class="btn btn-link" (click)="viewpreviouscasenumber()"  type="button" ><i class="fa fa-external-link"></i> view</button>  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('caseowner') == -1"  class="col " >
+<label  for="caseowner" class="control-label">Case Owner</label>
+      <label *ngIf="showview"     class="labelview">{{f.caseowner?.value}}</label>
+      <app-useraccess   *ngIf="!showview"  id="caseowner"  formControlName="caseowner"  (change)="caseowneronChange($event.target)" 
+        >
+</app-useraccess>
+  </div>
+</div>
+
+
+<!--requestedby-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('requestedby') == -1"  class="col" ><label  for="requestedby" class="control-label" (click)="AddOrEditrequestedby(null)">Requested by</label>
+<app-popupselect  *ngIf="!showview"  [options]="requestedbyList"  [optionsEvent]="requestedbyoptionsEvent" [form]="bousermaster" (selectItem)="onSelectedrequestedby($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="requestedby" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.requestedby?.value}}</label>
+  </div>
+
+
+<!--assignedby-->
+
+  <div   *ngIf="hidelist.indexOf('assignedby') == -1"  class="col" ><label  for="assignedby" class="control-label" (click)="AddOrEditassignedby(null)">Assigned By</label>
+<app-popupselect  *ngIf="!showview"  [options]="assignedbyList"  [optionsEvent]="assignedbyoptionsEvent" [form]="bousermaster" (selectItem)="onSelectedassignedby($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="assignedby" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.assignedby?.value}}</label>
+  </div>
+
+
+<!--casemode-->
+
+  <div   *ngIf="hidelist.indexOf('casemode') == -1"  class="col" ><label  for="casemode" class="control-label" (click)="AddOrEditcasemode(null)" (click)="AddOrEditcasemode(null)">Case Mode</label>
+      <select  *ngIf="!showview"  id="casemode"  (change)="casemodeonChange($event.target)" formControlName="casemode"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of casemodeList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.casemode?.value}}</label>
+  </div>
+
+
+<!--casetype-->
+
+  <div   *ngIf="hidelist.indexOf('casetype') == -1"  class="col" ><label  for="casetype" class="control-label required" (click)="AddOrEditcasetype(null)" (click)="AddOrEditcasetype(null)">Case Type</label>
+      <select  *ngIf="!showview"  id="casetype"  required (change)="casetypeonChange($event.target)" formControlName="casetype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of casetypeList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.casetype?.value}}</label>
+      <app-field-error-display [displayError]="f.casetype.invalid && (f.casetype.touched || isSubmitted)" errorMsg="Enter {{'Case Type' | translate}}">
+      </app-field-error-display>
+  </div>
+</div>
+
+
+<!--casesubtype-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('casesubtype') == -1"  class="col" ><label  for="casesubtype" class="control-label" (click)="AddOrEditcasesubtype(null)">Case Sub Type</label>
+      <select  *ngIf="!showview"  id="casesubtype"  (change)="casesubtypeonChange($event.target)" formControlName="casesubtype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of casesubtypeList" value="{{item.subcategoryid}}">{{item.subcategoryname}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.casesubtype?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('casetitle') == -1"  class="col " >
+<label  for="casetitle" class="control-label required">Case Title</label>
+      <label *ngIf="showview"     class="labelview">{{f.casetitle?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="casetitle"  required formControlName="casetitle" class="form-control"
+        >
+</textarea>
+      <app-field-error-display [displayError]="f.casetitle.invalid && (f.casetitle.touched|| isSubmitted)" errorMsg="Enter {{'Case Title' | translate}}">
+      </app-field-error-display>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('casedetails') == -1"  class="col " >
+<label  for="casedetails" class="control-label">Case Details</label>
+      <label *ngIf="showview"     class="labelview">{{f.casedetails?.value}}</label>
+<p-editor  *ngIf="!showview"  id="casedetails" formControlName="casedetails"    [style]="{  height: '320' }"></p-editor>  </div>
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('firstdateofhearing') == -1"  class="col " >
+<label  for="firstdateofhearing" class="control-label">First Date Of Hearing</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.firstdateofhearing?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #firstdateofhearingformpicker="ngbDatepicker"      ngbDatepicker name="firstdateofhearingformpicker" id="firstdateofhearing"  formControlName="firstdateofhearing"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="firstdateofhearingformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('date1') == -1"  class="col " >
+<label  for="date1" class="control-label">Date1</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.date1?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #date1formpicker="ngbDatepicker"      ngbDatepicker name="date1formpicker" id="date1"  formControlName="date1"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="date1formpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('notes1') == -1"  class="col " >
+<label  for="notes1" class="control-label">Notes1</label>
+      <label *ngIf="showview"     class="labelview">{{f.notes1?.value}}</label>
+      <input   *ngIf="!showview"  id="notes1"  formControlName="notes1" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('date2') == -1"  class="col " >
+<label  for="date2" class="control-label">Date2</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.date2?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #date2formpicker="ngbDatepicker"      ngbDatepicker name="date2formpicker" id="date2"  formControlName="date2"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="date2formpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('notes2') == -1"  class="col " >
+<label  for="notes2" class="control-label">Notes2</label>
+      <label *ngIf="showview"     class="labelview">{{f.notes2?.value}}</label>
+      <input   *ngIf="!showview"  id="notes2"  formControlName="notes2" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('date3') == -1"  class="col " >
+<label  for="date3" class="control-label">Date3</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.date3?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #date3formpicker="ngbDatepicker"      ngbDatepicker name="date3formpicker" id="date3"  formControlName="date3"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="date3formpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('notes3') == -1"  class="col " >
+<label  for="notes3" class="control-label">Notes3</label>
+      <label *ngIf="showview"     class="labelview">{{f.notes3?.value}}</label>
+      <input   *ngIf="!showview"  id="notes3"  formControlName="notes3" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Classification'  [selected]='true'>
+
+
+<!--category-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('category') == -1"  class="col" ><label  for="category" class="control-label">Category</label>
+      <select  *ngIf="!showview"  id="category"  (change)="categoryonChange($event.target)" formControlName="category"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of categoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.category?.value}}</label>
+  </div>
+
+
+<!--nature-->
+
+  <div   *ngIf="hidelist.indexOf('nature') == -1"  class="col" ><label  for="nature" class="control-label">Nature</label>
+      <select  *ngIf="!showview"  id="nature"  (change)="natureonChange($event.target)" formControlName="nature"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of natureList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.nature?.value}}</label>
+  </div>
+
+
+<!--complexity-->
+
+  <div   *ngIf="hidelist.indexOf('complexity') == -1"  class="col" ><label  for="complexity" class="control-label">Complexity</label>
+      <select  *ngIf="!showview"  id="complexity"  (change)="complexityonChange($event.target)" formControlName="complexity"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of complexityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.complexity?.value}}</label>
+  </div>
+
+
+<!--priority-->
+
+  <div   *ngIf="hidelist.indexOf('priority') == -1"  class="col" ><label  for="priority" class="control-label">Priority</label>
+      <select  *ngIf="!showview"  id="priority"  (change)="priorityonChange($event.target)" formControlName="priority"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of priorityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.priority?.value}}</label>
+  </div>
+</div>
+
+
+<!--timeline-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('timeline') == -1"  class="col" ><label  for="timeline" class="control-label">Timeline</label>
+      <select  *ngIf="!showview"  id="timeline"  (change)="timelineonChange($event.target)" formControlName="timeline"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of timelineList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.timeline?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('amountinvolved') == -1"  class="col " >
+<label  for="amountinvolved" class="control-label">Amount Involved</label>
+      <label *ngIf="showview"     class="labelview">{{f.amountinvolved?.value}}</label>
+      <input   *ngIf="!showview"  id="amountinvolved"  formControlName="amountinvolved" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('judgementvalue') == -1"  class="col " >
+<label  for="judgementvalue" class="control-label">Judgement Value</label>
+      <label *ngIf="showview"     class="labelview">{{f.judgementvalue?.value}}</label>
+      <input   *ngIf="!showview"  id="judgementvalue"  formControlName="judgementvalue" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('amountreceived') == -1"  class="col " >
+<label  for="amountreceived" class="control-label">Amount Received</label>
+      <label *ngIf="showview"     class="labelview">{{f.amountreceived?.value}}</label>
+      <input   *ngIf="!showview"  id="amountreceived"  formControlName="amountreceived" class="form-control"
+        >
+  </div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Judgement Details'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('judgementdate') == -1"  class="col " >
+<label  for="judgementdate" class="control-label">Judgement Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.judgementdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #judgementdateformpicker="ngbDatepicker"      ngbDatepicker name="judgementdateformpicker" id="judgementdate"  formControlName="judgementdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="judgementdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('judgementinfavour') == -1"  class="col " >
+<div class="columnchk">
+<label  for="judgementinfavour" class="control-label">Judgement In Favour</label>
+      <label *ngIf="showview"     class="labelview">{{f.judgementinfavour?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="judgementinfavour"  formControlName="judgementinfavour" class="form-control"
+        >
+  </div>
+  </div>
+
+
+<!--judgementoutcome-->
+
+  <div   *ngIf="hidelist.indexOf('judgementoutcome') == -1"  class="col" ><label  for="judgementoutcome" class="control-label">Judgement Out Come</label>
+      <select  *ngIf="!showview"  id="judgementoutcome"  (change)="judgementoutcomeonChange($event.target)" formControlName="judgementoutcome"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of judgementoutcomeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.judgementoutcome?.value}}</label>
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('judgementdescription') == -1"  class="col " >
+<label  for="judgementdescription" class="control-label">Judgement Description</label>
+      <label *ngIf="showview"     class="labelview">{{f.judgementdescription?.value}}</label>
+<p-editor  *ngIf="!showview"  id="judgementdescription" formControlName="judgementdescription"    [style]="{  height: '320' }"></p-editor>  </div>
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('actiontobetaken') == -1"  class="col " >
+<label  for="actiontobetaken" class="control-label">Action To Be Taken</label>
+      <label *ngIf="showview"     class="labelview">{{f.actiontobetaken?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="actiontobetaken"  formControlName="actiontobetaken" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--actionby-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('actionby') == -1"  class="col" ><label  for="actionby" class="control-label" (click)="AddOrEditactionby(null)">Action By</label>
+<app-popupselect  *ngIf="!showview"  [options]="actionbyList"  [optionsEvent]="actionbyoptionsEvent" [form]="bousermaster" (selectItem)="onSelectedactionby($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="actionby" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.actionby?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('actionimplemented') == -1"  class="col " >
+<div class="columnchk">
+<label  for="actionimplemented" class="control-label">Action Implemented</label>
+      <label *ngIf="showview"     class="labelview">{{f.actionimplemented?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="actionimplemented"  formControlName="actionimplemented" class="form-control"
+        >
+  </div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('contestfurther') == -1"  class="col " >
+<div class="columnchk">
+<label  for="contestfurther" class="control-label">Contest Further</label>
+      <label *ngIf="showview"     class="labelview">{{f.contestfurther?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="contestfurther"  formControlName="contestfurther" class="form-control"
+        >
+  </div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('closeddate') == -1"  class="col " >
+<label  for="closeddate" class="control-label">Closed Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.closeddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #closeddateformpicker="ngbDatepicker"      ngbDatepicker name="closeddateformpicker" id="closeddate"  formControlName="closeddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="closeddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+</div>
+
+
+<!--casestage-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('casestage') == -1"  class="col" ><label  for="casestage" class="control-label">Case Stage</label>
+      <select  *ngIf="!showview"  id="casestage"  (change)="casestageonChange($event.target)" formControlName="casestage"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of casestageList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.casestage?.value}}</label>
+  </div>
+
+
+<!--casestatus-->
+
+  <div   *ngIf="hidelist.indexOf('casestatus') == -1"  class="col" ><label  for="casestatus" class="control-label">Case Status</label>
+      <select  *ngIf="!showview"  id="casestatus"  (change)="casestatusonChange($event.target)" formControlName="casestatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of casestatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.casestatus?.value}}</label>
+  </div>
+
+
+<!--lawyer-->
+
+  <div   *ngIf="hidelist.indexOf('lawyer') == -1"  class="col" ><label  for="lawyer" class="control-label" (click)="AddOrEditlawyer(null)">Lawyer</label>
+<app-popupselect  *ngIf="!showview"  [options]="lawyerList"  [optionsEvent]="lawyeroptionsEvent" [form]="legallawyermaster" (selectItem)="onSelectedlawyer($event)"  [reportid]= 'b4tm2' [menuid]='b4tm2' formControlName="lawyer" id="lawyerid" desc="lawyername" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.lawyer?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('lastprocess') == -1"  class="col " >
+<label  for="lastprocess" class="control-label">Last Process</label>
+      <label *ngIf="showview"     class="labelview">{{f.lastprocess?.value}}</label>
+      <input   *ngIf="!showview"  id="lastprocess"  formControlName="lastprocess" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('currentprocess') == -1"  class="col " >
+<label  for="currentprocess" class="control-label">Current Process</label>
+      <label *ngIf="showview"     class="labelview">{{f.currentprocess?.value}}</label>
+      <input   *ngIf="!showview"  id="currentprocess"  formControlName="currentprocess" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('nexthearingdate') == -1"  class="col " >
+<label  for="nexthearingdate" class="control-label">Next Hearing Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.nexthearingdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #nexthearingdateformpicker="ngbDatepicker"      ngbDatepicker name="nexthearingdateformpicker" id="nexthearingdate"  formControlName="nexthearingdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="nexthearingdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('casetag') == -1"  class="col " >
+<label  for="casetag" class="control-label">Tag</label>
+      <label *ngIf="showview"     class="labelview">{{f.casetag?.value}}</label>
+      <tag-input   *ngIf="!showview"  id="casetag"  formControlName="casetag" class="form-control"
+        >
+</tag-input>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('notes') == -1"  class="col " >
+<label  for="notes" class="control-label">Notes</label>
+      <label *ngIf="showview"     class="labelview">{{f.notes?.value}}</label>
+      <app-comment   *ngIf="!showview"  id="notes"  formControlName="notes" [label]="'Notes'" 
+        >
+</app-comment>
+  </div>
+</div>
+</p-accordionTab></p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Lawyers" class="fa fa-graduation-cap"><br><font style='font-size: 1rem;'>Lawyers</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table legalcaselawyers-->
+<div [ngClass]="IslegalcaselawyersVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Lawyers' | translate}}
+<select class='child'  id="legalcaselawyersPagingdropdown" (change)="legalcaselawyersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcaselawyertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcaselawyershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="legalcaselawyertoggleOption();legalcaselawyersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legalcaselawyertoggleOption();showlegalcaselawyersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegalcaselawyerssource (userRowSelect)="handlelegalcaselawyersGridSelected($event)" [settings]="legalcaselawyerssettings" (custom)="onCustomlegalcaselawyersAction($event)" [source]="legalcaselawyerssource"  (delete)="legalcaselawyersroute($event,'delete')"  (deleteConfirm)="legalcaselawyersroute($event,'delete')" (create)="legalcaselawyersroute($event,'create')"   (createConfirm)="legalcaselawyersbeforesave($event)"  (edit)="legalcaselawyersroute($event,'edit')"  (editConfirm)="legalcaselawyersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table legalcaselawyers-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Party Details" class="fa fa-user"><br><font style='font-size: 1rem;'>Party Details</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table legalcasepartydetails-->
+<div [ngClass]="IslegalcasepartydetailsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Party Details' | translate}}
+<select class='child'  id="legalcasepartydetailsPagingdropdown" (change)="legalcasepartydetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcasepartydetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcasepartydetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="legalcasepartydetailtoggleOption();legalcasepartydetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legalcasepartydetailtoggleOption();showlegalcasepartydetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegalcasepartydetailssource (userRowSelect)="handlelegalcasepartydetailsGridSelected($event)" [settings]="legalcasepartydetailssettings" (custom)="onCustomlegalcasepartydetailsAction($event)" [source]="legalcasepartydetailssource"  (delete)="legalcasepartydetailsroute($event,'delete')"  (deleteConfirm)="legalcasepartydetailsroute($event,'delete')" (create)="legalcasepartydetailsroute($event,'create')"   (createConfirm)="legalcasepartydetailsbeforesave($event)"  (edit)="legalcasepartydetailsroute($event,'edit')"  (editConfirm)="legalcasepartydetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table legalcasepartydetails-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Process Details" class="fa fa-sitemap"><br><font style='font-size: 1rem;'>Process Details</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table legalcaseprocessdetails-->
+<div [ngClass]="IslegalcaseprocessdetailsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Process Details' | translate}}
+<select class='child'  id="legalcaseprocessdetailsPagingdropdown" (change)="legalcaseprocessdetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcaseprocessdetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcaseprocessdetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="legalcaseprocessdetailtoggleOption();legalcaseprocessdetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legalcaseprocessdetailtoggleOption();showlegalcaseprocessdetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegalcaseprocessdetailssource (userRowSelect)="handlelegalcaseprocessdetailsGridSelected($event)" [settings]="legalcaseprocessdetailssettings" (custom)="onCustomlegalcaseprocessdetailsAction($event)" [source]="legalcaseprocessdetailssource"  (delete)="legalcaseprocessdetailsroute($event,'delete')"  (deleteConfirm)="legalcaseprocessdetailsroute($event,'delete')" (create)="legalcaseprocessdetailsroute($event,'create')"   (createConfirm)="legalcaseprocessdetailsbeforesave($event)"  (edit)="legalcaseprocessdetailsroute($event,'edit')"  (editConfirm)="legalcaseprocessdetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table legalcaseprocessdetails-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Interim orders" class="fa fa-wpforms"><br><font style='font-size: 1rem;'>Interim orders</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table legalcaseinterimorders-->
+<div [ngClass]="IslegalcaseinterimordersVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Interim orders' | translate}}
+<select class='child'  id="legalcaseinterimordersPagingdropdown" (change)="legalcaseinterimordersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcaseinterimordertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcaseinterimordershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="legalcaseinterimordertoggleOption();legalcaseinterimordersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legalcaseinterimordertoggleOption();showlegalcaseinterimordersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegalcaseinterimorderssource (userRowSelect)="handlelegalcaseinterimordersGridSelected($event)" [settings]="legalcaseinterimorderssettings" (custom)="onCustomlegalcaseinterimordersAction($event)" [source]="legalcaseinterimorderssource"  (delete)="legalcaseinterimordersroute($event,'delete')"  (deleteConfirm)="legalcaseinterimordersroute($event,'delete')" (create)="legalcaseinterimordersroute($event,'create')"   (createConfirm)="legalcaseinterimordersbeforesave($event)"  (edit)="legalcaseinterimordersroute($event,'edit')"  (editConfirm)="legalcaseinterimordersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table legalcaseinterimorders-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Referred Cases" class="fa fa-link"><br><font style='font-size: 1rem;'>Referred Cases</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table legalcasereferredcases-->
+<div [ngClass]="IslegalcasereferredcasesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Referred Cases' | translate}}
+<select class='child'  id="legalcasereferredcasesPagingdropdown" (change)="legalcasereferredcasesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcasereferredcasetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcasereferredcaseshowOption'>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legalcasereferredcasetoggleOption();showlegalcasereferredcasesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegalcasereferredcasessource (userRowSelect)="handlelegalcasereferredcasesGridSelected($event)" [settings]="legalcasereferredcasessettings" (custom)="onCustomlegalcasereferredcasesAction($event)" [source]="legalcasereferredcasessource"  >
+</ng2-smart-table>
+</div>
+  <!--End of child table legalcasereferredcases-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="KBs" class="fa fa-question"><br><font style='font-size: 1rem;'>KBs</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table legalcasekbs-->
+<div [ngClass]="IslegalcasekbsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'KBs' | translate}}
+<select class='child'  id="legalcasekbsPagingdropdown" (change)="legalcasekbsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcasekbtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcasekbshowOption'>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legalcasekbtoggleOption();showlegalcasekbsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegalcasekbssource (userRowSelect)="handlelegalcasekbsGridSelected($event)" [settings]="legalcasekbssettings" (custom)="onCustomlegalcasekbsAction($event)" [source]="legalcasekbssource"  >
+</ng2-smart-table>
+</div>
+  <!--End of child table legalcasekbs-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Task Masters" class="fa fa-tasks"><br><font style='font-size: 1rem;'>Task Masters</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table legaltaskmasters-->
+<div [ngClass]="IslegaltaskmastersVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Task Masters' | translate}}
+<select class='child'  id="legaltaskmastersPagingdropdown" (change)="legaltaskmastersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legaltaskmastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legaltaskmastershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="legaltaskmastertoggleOption();legaltaskmastersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legaltaskmastertoggleOption();showlegaltaskmastersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegaltaskmasterssource (userRowSelect)="handlelegaltaskmastersGridSelected($event)" [settings]="legaltaskmasterssettings" (custom)="onCustomlegaltaskmastersAction($event)" [source]="legaltaskmasterssource"  (delete)="legaltaskmastersroute($event,'delete')"  (deleteConfirm)="legaltaskmastersroute($event,'delete')" (create)="legaltaskmastersroute($event,'create')"   (createConfirm)="legaltaskmastersbeforesave($event)"  (edit)="legaltaskmastersroute($event,'edit')"  (editConfirm)="legaltaskmastersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table legaltaskmasters-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Expenses" class="fa fa-money"><br><font style='font-size: 1rem;'>Expenses</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table boexpenses-->
+<div [ngClass]="IsboexpensesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Expenses' | translate}}
+<select class='child'  id="boexpensesPagingdropdown" (change)="boexpensesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='boexpensetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.boexpenseshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="boexpensetoggleOption();boexpensesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="boexpensetoggleOption();showboexpensesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblboexpensessource (userRowSelect)="handleboexpensesGridSelected($event)" [settings]="boexpensessettings" (custom)="onCustomboexpensesAction($event)" [source]="boexpensessource"  (delete)="boexpensesroute($event,'delete')"  (deleteConfirm)="boexpensesroute($event,'delete')" (create)="boexpensesroute($event,'create')"   (createConfirm)="boexpensesbeforesave($event)"  (edit)="boexpensesroute($event,'edit')"  (editConfirm)="boexpensesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table boexpenses-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Free Notes" class="fa fa-folder"><br><font style='font-size: 1rem;'>Free Notes</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table legalfreenotes-->
+<div [ngClass]="IslegalfreenotesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Free Notes' | translate}}
+<select class='child'  id="legalfreenotesPagingdropdown" (change)="legalfreenotesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalfreenotetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalfreenoteshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="legalfreenotetoggleOption();legalfreenotesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legalfreenotetoggleOption();showlegalfreenotesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegalfreenotessource (userRowSelect)="handlelegalfreenotesGridSelected($event)" [settings]="legalfreenotessettings" (custom)="onCustomlegalfreenotesAction($event)" [source]="legalfreenotessource"  (delete)="legalfreenotesroute($event,'delete')"  (deleteConfirm)="legalfreenotesroute($event,'delete')" (create)="legalfreenotesroute($event,'create')"   (createConfirm)="legalfreenotesbeforesave($event)"  (edit)="legalfreenotesroute($event,'edit')"  (editConfirm)="legalfreenotesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table legalfreenotes-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Communication Details" class="fa fa-envelope"><br><font style='font-size: 1rem;'>Communication Details</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table legalcommunicationdetails-->
+<div [ngClass]="IslegalcommunicationdetailsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Communication Details' | translate}}
+<select class='child'  id="legalcommunicationdetailsPagingdropdown" (change)="legalcommunicationdetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcommunicationdetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcommunicationdetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="legalcommunicationdetailtoggleOption();legalcommunicationdetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legalcommunicationdetailtoggleOption();showlegalcommunicationdetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegalcommunicationdetailssource (userRowSelect)="handlelegalcommunicationdetailsGridSelected($event)" [settings]="legalcommunicationdetailssettings" (custom)="onCustomlegalcommunicationdetailsAction($event)" [source]="legalcommunicationdetailssource"  (delete)="legalcommunicationdetailsroute($event,'delete')"  (deleteConfirm)="legalcommunicationdetailsroute($event,'delete')" (create)="legalcommunicationdetailsroute($event,'create')"   (createConfirm)="legalcommunicationdetailsbeforesave($event)"  (edit)="legalcommunicationdetailsroute($event,'edit')"  (editConfirm)="legalcommunicationdetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table legalcommunicationdetails-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Employees Against" class="fa fa-users"><br><font style='font-size: 1rem;'>Employees Against</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table legalcaseagainstemployees-->
+<div [ngClass]="IslegalcaseagainstemployeesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Employees Against' | translate}}
+<select class='child'  id="legalcaseagainstemployeesPagingdropdown" (change)="legalcaseagainstemployeesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcaseagainstemployeetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcaseagainstemployeeshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="legalcaseagainstemployeetoggleOption();legalcaseagainstemployeesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legalcaseagainstemployeetoggleOption();showlegalcaseagainstemployeesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegalcaseagainstemployeessource (userRowSelect)="handlelegalcaseagainstemployeesGridSelected($event)" [settings]="legalcaseagainstemployeessettings" (custom)="onCustomlegalcaseagainstemployeesAction($event)" [source]="legalcaseagainstemployeessource"  (delete)="legalcaseagainstemployeesroute($event,'delete')"  (deleteConfirm)="legalcaseagainstemployeesroute($event,'delete')" (create)="legalcaseagainstemployeesroute($event,'create')"   (createConfirm)="legalcaseagainstemployeesbeforesave($event)"  (edit)="legalcaseagainstemployeesroute($event,'edit')"  (editConfirm)="legalcaseagainstemployeesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table legalcaseagainstemployees-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Hearings</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table legalcasehearings-->
+<div [ngClass]="IslegalcasehearingsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Hearings' | translate}}
+<select class='child'  id="legalcasehearingsPagingdropdown" (change)="legalcasehearingsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcasehearingtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcasehearingshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="legalcasehearingtoggleOption();legalcasehearingsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legalcasehearingtoggleOption();showlegalcasehearingsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegalcasehearingssource (userRowSelect)="handlelegalcasehearingsGridSelected($event)" [settings]="legalcasehearingssettings" (custom)="onCustomlegalcasehearingsAction($event)" [source]="legalcasehearingssource"  (delete)="legalcasehearingsroute($event,'delete')"  (deleteConfirm)="legalcasehearingsroute($event,'delete')" (create)="legalcasehearingsroute($event,'create')"   (createConfirm)="legalcasehearingsbeforesave($event)"  (edit)="legalcasehearingsroute($event,'edit')"  (editConfirm)="legalcasehearingsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table legalcasehearings-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

@@ -1,0 +1,82 @@
+<div class="dialog">
+  <form [formGroup]="crmcustomeraccounttransactionForm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Transactions' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="customerid" class="control-label">{{'CustomerID' | translate}}</label>
+          <input id="customerid" formControlName="customerid" class="form-control"
+            placeholder="{{'CustomerID' | translate}}">
+        </div>
+        <div class="col">
+          <label for="cifnumber" class="control-label">{{'CIFNumber' | translate}}</label>
+          <input id="cifnumber" formControlName="cifnumber" class="form-control"
+            placeholder="{{'CIFNumber' | translate}}">
+        </div>
+        <div class="col">
+          <label for="accountnumber" class="control-label">{{'AccountNumber' | translate}}</label>
+          <input id="accountnumber" formControlName="accountnumber" class="form-control"
+            placeholder="{{'AccountNumber' | translate}}">
+        </div>
+        <div class="col">
+          <label for="date" class="control-label">{{'Date' | translate}}</label>
+          <div class="input-group">
+            <input #dateformpicker="ngbDatepicker" ngbDatepicker name="dateformpicker" id="date" formControlName="date"
+              class="form-control" placeholder="Choose {{'Date' | translate}}">
+            <button class="input-group-addon" (click)="dateformpicker.toggle()" type="button"><i class="fa fa-calendar"
+                aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="description" class="control-label">{{'Description' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="description" formControlName="description"
+            class="form-control" placeholder="{{'Description' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="amount" class="control-label">{{'Amount' | translate}}</label>
+          <input id="amount" formControlName="amount" class="form-control" placeholder="{{'Amount' | translate}}">
+        </div>
+        <div class="col"><label for="transactiontype" class="control-label">{{'Transaction Type' | translate}}</label>
+          <select id="transactiontype" (change)="transactiontypeonChange($event.target)"
+            formControlName="transactiontype" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of transactiontypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="closingbalance" class="control-label">{{'ClosingBalance' | translate}}</label>
+          <input id="closingbalance" formControlName="closingbalance" class="form-control"
+            placeholder="{{'ClosingBalance' | translate}}">
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="sticky"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        Custom Fields</div>
+      <div class="form-group row"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.transactionid.value != null" [menuid]="pmenuid" [value]="f.transactionid.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

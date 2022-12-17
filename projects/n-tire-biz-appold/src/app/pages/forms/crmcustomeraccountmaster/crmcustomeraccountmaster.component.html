@@ -1,0 +1,269 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="crmcustomeraccountmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Accounts' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_crmcustomeraccountmasters()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of crmcustomeraccountmaster_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.accountid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.accountid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+      </div>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+
+
+            <!--customerid-->
+
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('customerid') == -1) && (customeridvisible==undefined || customeridvisible==true))"
+                style='' class="col-3"><label for="customerid" class="control-label"
+                  (click)="AddOrEdit_customerid(null)">Customer</label>
+                <app-popupselect *ngIf="!showview" [options]="customerid_List" [optionsEvent]="customerid_optionsEvent"
+                  [form]="crmcustomermaster" (selectItem)="onSelected_customerid($event)" [reportid]='pofgf'
+                  [menuid]='pofgf' formControlName="customerid" id="value" desc="label"></app-popupselect>
+                <div class="input-group">
+                </div>
+                <label *ngIf="showview" class="labelview">{{f.customeriddesc?.value}}</label>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('cifnumber') == -1) && (cifnumbervisible==undefined || cifnumbervisible==true))"
+                style='' class="col-3 ">
+                <label for="cifnumber" class="control-label">C I F Number</label>
+                <label *ngIf="showview" class="labelview">{{f.cifnumber?.value}}</label>
+                <input *ngIf="!showview" id="cifnumber" formControlName="cifnumber" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('accountnumber') == -1) && (accountnumbervisible==undefined || accountnumbervisible==true))"
+                style='' class="col-3 ">
+                <label for="accountnumber" class="control-label">Account Number</label>
+                <label *ngIf="showview" class="labelview">{{f.accountnumber?.value}}</label>
+                <input *ngIf="!showview" id="accountnumber" formControlName="accountnumber" class="form-control">
+              </div>
+
+
+              <!--productid-->
+
+              <div
+                *ngIf="((hidelist.indexOf('productid') == -1) && (productidvisible==undefined || productidvisible==true))"
+                style='' class="col-3"><label for="productid" class="control-label"
+                  (click)="AddOrEdit_productid(null)">Product</label>
+                <select *ngIf="!showview" id="productid" (change)="productid_onChange($event.target)"
+                  formControlName="productid" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of productid_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.productiddesc?.value}}</label>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('accountopendate') == -1) && (accountopendatevisible==undefined || accountopendatevisible==true))"
+                style='' class="col-3 ">
+                <label for="accountopendate" class="control-label">Account Open Date</label>
+                <label *ngIf="showview"
+                  class="labelview">{{ngbDateParserFormatter.format(f.accountopendate?.value)}}</label>
+                <div class="input-group" *ngIf="!showview">
+                  <input #accountopendateformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+                    [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="accountopendateformpicker"
+                    id="accountopendate" formControlName="accountopendate" class="form-control">
+                  <button class="input-group-addon" *ngIf="!showview" (click)="accountopendateformpicker.toggle()"
+                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                </div>
+              </div>
+
+
+              <!--holdingtype-->
+
+              <div
+                *ngIf="((hidelist.indexOf('holdingtype') == -1) && (holdingtypevisible==undefined || holdingtypevisible==true))"
+                style='' class="col-3"><label for="holdingtype" class="control-label">Holding Type</label>
+                <select *ngIf="!showview" id="holdingtype" (change)="holdingtype_onChange($event.target)"
+                  formControlName="holdingtype" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of holdingtype_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.holdingtypedesc?.value}}</label>
+              </div>
+
+
+              <!--customerholding-->
+
+              <div
+                *ngIf="((hidelist.indexOf('customerholding') == -1) && (customerholdingvisible==undefined || customerholdingvisible==true))"
+                style='' class="col-3"><label for="customerholding" class="control-label">Customer Holding</label>
+                <select *ngIf="!showview" id="customerholding" (change)="customerholding_onChange($event.target)"
+                  formControlName="customerholding" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of customerholding_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.customerholdingdesc?.value}}</label>
+              </div>
+              <div class="col"></div>
+            </div>
+          </p-accordion>
+          <div class='full-width'
+            *ngIf="customFieldVisible  && customFieldServiceList!=null && customFieldServiceList!=undefined  && customFieldServiceList.fields.length>0">
+            <p-accordion [multiple]='true'>
+              <p-accordionTab header='CustomField' [selected]='false'>
+                <div class="sticky"
+                  *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+                  Custom Fields</div>
+                <div class="form-group row"
+                  *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+                  <dynamic-form-builder [customfields]="customFieldServiceList" #customform></dynamic-form-builder>
+                </div>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+          <div class='full-width' *ngIf="attachmentVisible">
+            <p-accordion [multiple]='true'>
+              <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+                <app-attachment #fileattachment isAttachment=true formControlName="attachment"
+                  [SessionData]="sessionData"></app-attachment>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Transactions</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table crmcustomeraccounttransactions-->
+            <div [ngClass]="Is_crmcustomeraccounttransactions_Visible()">
+              <!--End-->
+              <h4 class="form-group sticky1  columns left">{{'Transactions' | translate}}
+                <select class='child' id="crmcustomeraccounttransactionsPagingdropdown"
+                  (change)="crmcustomeraccounttransactions_Paging($event.target.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="crmcustomeraccounttransactiontoggleOption();crmcustomeraccounttransactions_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                      <li role="separator" class="divider">
+                        <hr>
+                      </li>
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="showcrmcustomeraccounttransactionsFilter()"><i class="fa fa-filter"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                      <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <a class="rightside" [routerLink]='' (click)="crmcustomeraccounttransactions_route(null, 'create')"><i
+                    class="fa fa-plus"></i></a>
+              </h4>
+              <ng2-smart-table #tbl_crmcustomeraccounttransactions
+                (userRowSelect)="handle_crmcustomeraccounttransactions_GridSelected($event)"
+                [settings]="crmcustomeraccounttransactions_settings"
+                (custom)="onCustom_crmcustomeraccounttransactions_Action($event)"
+                [source]="tbl_crmcustomeraccounttransactions?.source?.data"
+                (delete)="crmcustomeraccounttransactions_route($event,'delete')"
+                (deleteConfirm)="crmcustomeraccounttransactions_route($event,'delete')"
+                (create)="crmcustomeraccounttransactions_route($event,'create')"
+                (createConfirm)="crmcustomeraccounttransactions_beforesave($event)"
+                (edit)="crmcustomeraccounttransactions_route($event,'edit')"
+                (editConfirm)="crmcustomeraccounttransactions_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table crmcustomeraccounttransactions-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</form>

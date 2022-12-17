@@ -1,0 +1,108 @@
+<div class="dialog">
+  <form [formGroup]="flmassignmentForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Assignment' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="description" class="control-label">{{'Description' | translate}}</label>
+          <input id="description" formControlName="description" class="form-control"
+            placeholder="{{'Description' | translate}}">
+        </div>
+        <div class="col"><label for="userid" class="control-label" (click)="AddOrEdituserid(null)">{{'User' |
+            translate}}</label>
+          <div class="input-group">
+            <input id="userid" placeholder="" [ngbTypeahead]="userid_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelecteduserid($event)" formControlName='userid'
+              [resultFormatter]="userid_bousermastersformatter">
+            <input readonly id="useriddesc" formControlName="useriddesc" class="form-control autocompletedesc"
+              placeholder="{{'User' | translate}}">
+          </div>
+        </div>
+        <div class="col">
+          <label for="startdate" class="control-label">{{'StartDate' | translate}}</label>
+          <div class="input-group">
+            <input #startdateformpicker="ngbDatepicker" ngbDatepicker name="startdateformpicker" id="startdate"
+              formControlName="startdate" class="form-control" placeholder="Choose {{'StartDate' | translate}}">
+            <button class="input-group-addon" (click)="startdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="starttime" class="control-label">{{'StartTime' | translate}}</label>
+          <ngb-timepicker class="form-control timepicker" formControlName="starttime"></ngb-timepicker>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="odometerstart" class="control-label">{{'OdometerStart' | translate}}</label>
+          <input id="odometerstart" formControlName="odometerstart" class="form-control"
+            placeholder="{{'OdometerStart' | translate}}">
+        </div>
+        <div class="col">
+          <label for="enddate" class="control-label">{{'EndDate' | translate}}</label>
+          <div class="input-group">
+            <input #enddateformpicker="ngbDatepicker" ngbDatepicker name="enddateformpicker" id="enddate"
+              formControlName="enddate" class="form-control" placeholder="Choose {{'EndDate' | translate}}">
+            <button class="input-group-addon" (click)="enddateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="endtime" class="control-label">{{'EndTime' | translate}}</label>
+          <ngb-timepicker class="form-control timepicker" formControlName="endtime"></ngb-timepicker>
+        </div>
+        <div class="col">
+          <label for="odometerend" class="control-label">{{'OdometerEnd' | translate}}</label>
+          <input id="odometerend" formControlName="odometerend" class="form-control"
+            placeholder="{{'OdometerEnd' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="userremarks" class="control-label">{{'UserRemarks' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="userremarks" formControlName="userremarks"
+            class="form-control" placeholder="{{'UserRemarks' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="comments" class="control-label">{{'Comments' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="comments" formControlName="comments"
+            class="form-control" placeholder="{{'Comments' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld.value.value}}" target="_blank">{{fld.value.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.assignmentid.value != null" [menuid]="pmenuid" [value]="f.assignmentid.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

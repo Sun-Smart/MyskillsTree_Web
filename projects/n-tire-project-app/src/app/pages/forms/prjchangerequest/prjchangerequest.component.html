@@ -1,0 +1,318 @@
+<form  [formGroup]="prjchangerequestForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Change Requests' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'reference'; "  for="reference" class="control-label">Reference</label>
+      <input   *ngIf="!showview || editfield=='reference'"  id="reference"  formControlName="reference" class="form-control"
+        placeholder="{{'Reference' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'requestdate'; "  for="requestdate" class="control-label">Request Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='requestdate'">
+<input #requestdateformpicker="ngbDatepicker"      ngbDatepicker name="requestdateformpicker" id="requestdate"  formControlName="requestdate"  class="form-control"   placeholder="Choose Request Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='requestdate'"  (click)="requestdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='requestdate'"  (click)="editfield = 'requestdate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.requestdate?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'projectid'; "  for="projectid" class="control-label">Project</label>
+      <input   *ngIf="!showview || editfield=='projectid'"  id="projectid"  formControlName="projectid" class="form-control"
+        placeholder="{{'Project' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'requestor'; "  for="requestor" class="control-label">Requestor</label>
+      <input   *ngIf="!showview || editfield=='requestor'"  id="requestor"  formControlName="requestor" class="form-control"
+        placeholder="{{'Requestor' | translate}}">
+  </div>
+</div>
+
+
+<!--changetype-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'changetype'; "  for="changetype" class="control-label">Change Type</label>
+      <select  *ngIf="!showview"  id="changetype"  (change)="changetypeonChange($event.target)" formControlName="changetype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of changetypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='changetype'"  (click)="editfield = 'changetype';"  class="form-control labelview">{{f.changetypedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'reason'; "  for="reason" class="control-label">Reason</label>
+      <p-rating   *ngIf="!showview || editfield=='reason'"  id="reason"  formControlName="reason" class="form-control"
+        placeholder="{{'Reason' | translate}}">
+</p-rating>
+  </div>
+
+
+<!--priority-->
+
+  <div   class="col" ><label (click)="editfield = 'priority'; "  for="priority" class="control-label">Priority</label>
+      <select  *ngIf="!showview"  id="priority"  (change)="priorityonChange($event.target)" formControlName="priority"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of priorityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='priority'"  (click)="editfield = 'priority';"  class="form-control labelview">{{f.prioritydesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'products'; "  for="products" class="control-label">Products</label>
+      <input   *ngIf="!showview || editfield=='products'"  id="products"  formControlName="products" class="form-control"
+        placeholder="{{'Products' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'services'; "  for="services" class="control-label">Services</label>
+      <input   *ngIf="!showview || editfield=='services'"  id="services"  formControlName="services" class="form-control"
+        placeholder="{{'Services' | translate}}">
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'subject'; "  for="subject" class="control-label">Subject</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='subject'"  id="subject"  formControlName="subject" class="form-control"
+        placeholder="{{'Subject' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'details'; "  for="details" class="control-label">Details</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='details'"  id="details"  formControlName="details" class="form-control"
+        placeholder="{{'Details' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'expectedresult'; "  for="expectedresult" class="control-label">Expected Result</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='expectedresult'"  id="expectedresult"  formControlName="expectedresult" class="form-control"
+        placeholder="{{'Expected Result' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'workdetails'; "  for="workdetails" class="control-label">Work Details</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='workdetails'"  id="workdetails"  formControlName="workdetails" class="form-control"
+        placeholder="{{'Work Details' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'assignto'; "  for="assignto" class="control-label">Assign To</label>
+      <input   *ngIf="!showview || editfield=='assignto'"  id="assignto"  formControlName="assignto" class="form-control"
+        placeholder="{{'Assign To' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'manager'; "  for="manager" class="control-label">Manager</label>
+      <input   *ngIf="!showview || editfield=='manager'"  id="manager"  formControlName="manager" class="form-control"
+        placeholder="{{'Manager' | translate}}">
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'retrospective'; "  for="retrospective" class="control-label">Retrospective</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='retrospective'"  id="retrospective"  formControlName="retrospective" class="form-control"
+        placeholder="{{'Retrospective' | translate}}">
+  </div>
+  </div>
+
+
+<!--criticality-->
+
+  <div   class="col" ><label (click)="editfield = 'criticality'; "  for="criticality" class="control-label">Criticality</label>
+      <select  *ngIf="!showview"  id="criticality"  (change)="criticalityonChange($event.target)" formControlName="criticality"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of criticalityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='criticality'"  (click)="editfield = 'criticality';"  class="form-control labelview">{{f.criticalitydesc?.value}}</label>
+  </div>
+</div>
+
+
+<!--impact-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'impact'; "  for="impact" class="control-label">Impact</label>
+      <select  *ngIf="!showview"  id="impact"  (change)="impactonChange($event.target)" formControlName="impact"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of impactList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='impact'"  (click)="editfield = 'impact';"  class="form-control labelview">{{f.impactdesc?.value}}</label>
+  </div>
+
+
+<!--stage-->
+
+  <div   class="col" ><label (click)="editfield = 'stage'; "  for="stage" class="control-label">Stage</label>
+      <select  *ngIf="!showview"  id="stage"  (change)="stageonChange($event.target)" formControlName="stage"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of stageList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='stage'"  (click)="editfield = 'stage';"  class="form-control labelview">{{f.stagedesc?.value}}</label>
+  </div>
+
+
+<!--risk-->
+
+  <div   class="col" ><label (click)="editfield = 'risk'; "  for="risk" class="control-label">Risk</label>
+      <select  *ngIf="!showview"  id="risk"  (change)="riskonChange($event.target)" formControlName="risk"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of riskList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='risk'"  (click)="editfield = 'risk';"  class="form-control labelview">{{f.riskdesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'impacteditems'; "  for="impacteditems" class="control-label">Impacted Items</label>
+      <input   *ngIf="!showview || editfield=='impacteditems'"  id="impacteditems"  formControlName="impacteditems" class="form-control"
+        placeholder="{{'Impacted Items' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'impactedservices'; "  for="impactedservices" class="control-label">Impacted Services</label>
+      <input   *ngIf="!showview || editfield=='impactedservices'"  id="impactedservices"  formControlName="impactedservices" class="form-control"
+        placeholder="{{'Impacted Services' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'impactedproducts'; "  for="impactedproducts" class="control-label">Impacted Products</label>
+      <input   *ngIf="!showview || editfield=='impactedproducts'"  id="impactedproducts"  formControlName="impactedproducts" class="form-control"
+        placeholder="{{'Impacted Products' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'estimatedduration'; "  for="estimatedduration" class="control-label">Estimated Duration</label>
+      <input   *ngIf="!showview || editfield=='estimatedduration'"  id="estimatedduration"  formControlName="estimatedduration" class="form-control"
+        placeholder="{{'Estimated Duration' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'estimatedcost'; "  for="estimatedcost" class="control-label">Estimated Cost</label>
+      <input   *ngIf="!showview || editfield=='estimatedcost'"  id="estimatedcost"  formControlName="estimatedcost" class="form-control"
+        placeholder="{{'Estimated Cost' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'actualduration'; "  for="actualduration" class="control-label">Actual Duration</label>
+      <input   *ngIf="!showview || editfield=='actualduration'"  id="actualduration"  formControlName="actualduration" class="form-control"
+        placeholder="{{'Actual Duration' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'actualcost'; "  for="actualcost" class="control-label">Actual Cost</label>
+      <input   *ngIf="!showview || editfield=='actualcost'"  id="actualcost"  formControlName="actualcost" class="form-control"
+        placeholder="{{'Actual Cost' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'verifiedby'; "  for="verifiedby" class="control-label">Verified By</label>
+      <input   *ngIf="!showview || editfield=='verifiedby'"  id="verifiedby"  formControlName="verifiedby" class="form-control"
+        placeholder="{{'Verified By' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'verifieddate'; "  for="verifieddate" class="control-label">Verified Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='verifieddate'">
+<input #verifieddateformpicker="ngbDatepicker"      ngbDatepicker name="verifieddateformpicker" id="verifieddate"  formControlName="verifieddate"  class="form-control"   placeholder="Choose Verified Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='verifieddate'"  (click)="verifieddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='verifieddate'"  (click)="editfield = 'verifieddate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.verifieddate?.value)}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'verifiernotes'; "  for="verifiernotes" class="control-label">Verifier Notes</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='verifiernotes'"  id="verifiernotes"  formControlName="verifiernotes" class="form-control"
+        placeholder="{{'Verifier Notes' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'notes'; "  for="notes" class="control-label">Notes</label>
+      <app-comment   *ngIf="!showview || editfield=='notes'"  id="notes"  formControlName="notes" [label]="'Notes'" 
+        placeholder="{{'Notes' | translate}}">
+</app-comment>
+  </div>
+</div>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Change Request Impacts</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjchangerequestimpacts-->
+<div class="row"></div><div [ngClass]="IsprjchangerequestimpactsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Change Request Impacts' | translate}}
+<select class='child'  id="prjchangerequestimpactsPagingdropdown" (change)="prjchangerequestimpactsPaging($event.target!.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="prjchangerequestimpactsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showprjchangerequestimpactsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjchangerequestimpactssource (userRowSelect)="handleprjchangerequestimpactsGridSelected($event)" [settings]="prjchangerequestimpactssettings" (custom)="onCustomprjchangerequestimpactsAction($event)" [source]="prjchangerequestimpactssource"  (delete)="prjchangerequestimpactsroute($event,'delete')"  (deleteConfirm)="prjchangerequestimpactsroute($event,'delete')" (create)="prjchangerequestimpactsroute($event,'create')"   (createConfirm)="prjchangerequestimpactsbeforesave($event)"  (edit)="prjchangerequestimpactsroute($event,'edit')"  (editConfirm)="prjchangerequestimpactsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjchangerequestimpacts-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-info" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-info" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.changeid!.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.changeid!.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

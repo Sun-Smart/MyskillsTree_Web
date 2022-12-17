@@ -1,0 +1,148 @@
+<ng-container *ngIf="loggedIn">
+        <!-- [ngClass]="{'layout-menu-active': isMenuVisible}"-->
+        <!-- class="layout-wrapper layout-menu-light layout-topbar-blue p-input-filled layout-menu-static" -->
+
+        <style>
+                .small {
+                        max-height: 30px !important;
+                        padding: 0px !important;
+                }
+        </style>
+        <div class="full-height" style="display:flex">
+
+                <div class="col full-height w3-bar-block w3-xxlarge"
+                        style="top:50px;max-width:150px;background-color: #705697!important;">
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/poe5x','casst',506)"
+                                class="small w3-bar-item w3-button" title="Asset Masters"><i
+                                        class="Bitter fa fa-th-large">Masters</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/ynshc','fpfqh',507)"
+                                class="small w3-bar-item w3-button red" title="Asset Groups"><i
+                                        class="Bitter fa fa-object-group">Groups</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/yy5km','n92r9',514)"
+                                class="small w3-bar-item w3-button" title="PM Masters"><i
+                                        class="Bitter fa fa-list-alt">PM Master</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/iqnx7','iqnx7',511)"
+                                class="small w3-bar-item w3-button" title="pmschedules"><i
+                                        class="Bitter fa fa-calendar-check-o">schedule</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/aecva','wkreq',512)"
+                                class="small w3-bar-item w3-button" title="Work Requests"><i
+                                        class="Bitter fa fa-user-times">Requests</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/nd6u7','wm24w',234)"
+                                class="small w3-bar-item w3-button" title="Contract Orders"><i
+                                        class="Bitter fa fa-newspaper-o">Contract</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/718','wm24w',234)"
+                                class="small w3-bar-item w3-button" title="Contract Orders"><i
+                                        class="Bitter fa fa-newspaper-o">ContractDetails</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/order','wm24w',234)"
+                                class="small w3-bar-item w3-button" title="Contract Orders"><i
+                                        class="Bitter fa fa-newspaper-o">Terms</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/o22tc','o6u33',513)"
+                                class="small w3-bar-item w3-button" title="Work Orders"><i
+                                        class="Bitter fa fa-first-order">Orders</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/calendar/odh5o','wae5j',634)"
+                                class="small w3-bar-item w3-button" title="Maintenance Calendar"><i
+                                        class="Bitter fa fa-calendar">Calendar</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/g3en5','yzmtp',510)"
+                                class="small w3-bar-item w3-button" title="Asset Transfers"><i
+                                        class="Bitter fa fa-random">Transfers</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/g9icd','axfdv',509)"
+                                class="small w3-bar-item w3-button" title="Asset Readings"><i
+                                        class="Bitter fa fa-thermometer">Readings</i></a>
+
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/cadp','ofrfv',508)"
+                                class="small w3-bar-item w3-button" title="Asset Disposal Plans"><i
+                                        class="Bitter fa fa-share-square-o">Disposal Plans</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/ofrfv','ofrfv',508)"
+                                class="small w3-bar-item w3-button" title="Asset Disposals"><i
+                                        class="Bitter fa fa-share-square-o">Disposals</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/gdkyp','gufoc',516)"
+                                class="small w3-bar-item w3-button" title="Asset Additions"><i
+                                        class="Bitter fa fa-cart-plus">Additions</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/showdashboard/10','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Dashboards"><i
+                                        class="Bitter fa fa-pie-chart">Dashboards</i></a>
+
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/d7t8m','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="PM Tasks"><i
+                                        class="Bitter fa fa-certificate">Tasks</i></a>
+
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/682','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Costs"><i
+                                        class="Bitter fa fa-bookmark">AssetCosts</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/683','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Depreciation Schedules"><i
+                                        class="Bitter fa fa-briefcase">DepreciationSch</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/684','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Costs"><i
+                                        class="Bitter fa fa-id-card">MiscCosts</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/685','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Instructions"><i
+                                        class="Bitter fa fa-envelope-open">PMInstructions</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/686','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Items"><i
+                                        class="Bitter fa fa-external-link">PMItems</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/687','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Instructions"><i
+                                        class="Bitter fa fa-flag">PMSchInstructions</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/688','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Items"><i
+                                        class="Bitter fa fa-gavel">PMSchItems</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/689','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Supplier Tasks"><i
+                                        class="Bitter fa fa-life-ring">PMSchSupplierTasks</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/690','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Schedule Tasks"><i
+                                        class="Bitter fa fa-road">PMSchTasks</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/691','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Users"><i
+                                        class="Bitter fa fa-paper-plane">PMSchUsers</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/692','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Supplier Tasks"><i
+                                        class="Bitter fa fa-ticket">PMSupplier Tasks</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/693','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Users"><i
+                                        class="Bitter fa fa-university">PMUsers</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/694','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Work Instructions"><i
+                                        class="Bitter fa fa-universal-access">workInstructions</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/695','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Work Items"><i
+                                        class="Bitter fa fa-spinner">workItems</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/696','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Work Readings"><i
+                                        class="Bitter fa fa-cog">workReadings</i></a>
+                        <a [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/697','et9sn',757)"
+                                class="small w3-bar-item w3-button" title="Time Entry"><i
+                                        class="Bitter fa fa-stack-exchange">workTimeEntry</i></a>
+
+                </div>
+                <div id=contentidarea class="col">
+                        <app-header (toggleMenubar)="toggleMenu()" class="row" style="height:50px"></app-header>
+                        <div id="content" style='flex-direction: column;' class="ng-content row">
+                                <div class="ui-fluid ng-main" [ngClass]="theme">
+                                        <p-toast position="bottom-right"></p-toast>
+                                        <!--<div [class.hidden]="!showLoader" class="np-loader">
+            <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+          </div>-->
+                                        <!--overflow:auto;height:100%;-->
+                                        <!--position:absolute;width:83%;-->
+                                        <!--margin-left:16%;  height:80%;-->
+                                        <!--height:550px;-->
+                                        <div id="contentAreaLayout"  class="main container full-height" 
+                                                onscroll="scrollFunction1('scrollBtn2','contentArea')">
+                                                <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+                                                <router-outlet (activate)="topFunction1('contentArea')"></router-outlet>
+                                                <!-- style="width:100%"-->
+                                                <button onclick="topFunction1('contentArea')" id="scrollBtn1"
+                                                        title="Go to top" style="display:none">Top</button>
+                                        </div>
+                                </div>
+                        </div>
+
+                </div>
+
+        </div>
+        <!--
+        <app-footer></app-footer>
+-->
+</ng-container>

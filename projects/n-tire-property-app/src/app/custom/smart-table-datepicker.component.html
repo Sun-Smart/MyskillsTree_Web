@@ -1,0 +1,60 @@
+<form [formGroup]="inputgroup">
+
+  <!--
+    <span [owlDateTimeTrigger]="dt" class="input-group-addon"><i class="fa fa-calendar"></i></span>
+   <input
+        [owlDateTimeTrigger]="dt" [owlDateTime]="dt"
+        [formControl]="inputModel" formControlName="inputModel"  id="inputModel"  name="inputModel" 
+        placeholder="{{placeholder}}"
+        class="form-control">
+
+<owl-date-time #dt [stepMinute]="15" [hour12Timer]='true' (afterPickerClosed)="onChange()"></owl-date-time>
+  -->
+
+
+  <!--
+<input [owlDateTime]="dt2" placeholder="Date Time" [formControl]="inputModel" formControlName="inputModel"  id="inputModel"  name="inputModel" >
+<span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span>
+<owl-date-time #dt2></owl-date-time>
+ -->
+
+  <!--
+<input [formControl]="inputModel"
+[owlDateTimeTrigger]="dtPicker2" [owlDateTime]="dtPicker2">
+<owl-date-time #dtPicker2></owl-date-time>
+[value]="inputgroup.get('inputModel').value | date: 'dd.MM.yyyy'" 
+-->
+
+
+
+  <div class="input-group">
+
+    <input class="form-control" name="inputModel" formControlName="inputModel" (ngModelChange)="onSelectDate($event)"
+      ngbDatepicker #d="ngbDatepicker" (dateSelect)="onChange($event)">
+    <div class="input-group-prepend">
+      <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+        <i class="fa fa-calendar"></i>
+      </button>
+    </div>
+  </div>
+
+
+
+  <!-- 
+   format="dd-MMM-yyyy"
+          [min]='min' [max]='max'
+        readonly
+-->
+  <!--       
+ <input nbInput ngbDatepicker name="dt" id="dt"  formControlName="inputModel"
+class="form-control" placeholder="{{placeholder}}" (dateSelect)="onChange($event)">
+ <nb-datepicker #dt ></nb-datepicker>
+ -->
+  <!--
+ <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp" formControlName="inputModel" ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+      </div>
+      -->
+</form>

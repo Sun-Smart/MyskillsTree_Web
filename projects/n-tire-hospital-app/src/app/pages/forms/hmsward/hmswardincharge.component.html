@@ -1,0 +1,42 @@
+<div class="dialog">
+  <form [formGroup]="hmswardinchargeForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Ward Incharge' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col"><label for="incharge" class="control-label" (click)="AddOrEditincharge(null)">{{'Incharge' |
+            translate}}</label>
+          <div class="input-group">
+            <input id="incharge" placeholder="" [ngbTypeahead]="incharge_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedincharge($event)" formControlName='incharge'
+              [resultFormatter]="incharge_bousermastersformatter">
+            <input readonly id="inchargedesc" formControlName="inchargedesc" class="form-control autocompletedesc"
+              placeholder="{{'Incharge' | translate}}">
+          </div>
+        </div>
+        <div class="col">
+          <label for="starttime" class="control-label">{{'StartTime' | translate}}</label>
+          <ngb-timepicker class="form-control timepicker" formControlName="starttime"></ngb-timepicker>
+        </div>
+        <div class="col">
+          <label for="endtime" class="control-label">{{'EndTime' | translate}}</label>
+          <ngb-timepicker class="form-control timepicker" formControlName="endtime"></ngb-timepicker>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.wardinchargeid!.value != null" [menuid]="pmenuid" [value]="f.wardinchargeid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

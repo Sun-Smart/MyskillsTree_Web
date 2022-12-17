@@ -1,0 +1,312 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="mstcorporatemaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second common_title_style">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Corporate Masters' | translate}}</a>
+    </h1>
+    <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group '>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_mstcorporatemasters()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of mstcorporatemaster_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success common_title_style" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.corporateid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.corporateid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+      </div>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('companyname') == -1) && (companynamevisible==undefined || companynamevisible==true))"
+                style='' class="col-3 ">
+                <label for="companyname" class="control-label">Company Name</label>
+                <label *ngIf="showview" class="labelview">{{f.companyname?.value}}</label>
+                <input *ngIf="!showview" id="companyname" formControlName="companyname" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('tlnumber') == -1) && (tlnumbervisible==undefined || tlnumbervisible==true))"
+                style='' class="col-3 ">
+                <label for="tlnumber" class="control-label">T L Number</label>
+                <label *ngIf="showview" class="labelview">{{f.tlnumber?.value}}</label>
+                <input *ngIf="!showview" id="tlnumber" formControlName="tlnumber" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('taxregistrationnumber') == -1) && (taxregistrationnumbervisible==undefined || taxregistrationnumbervisible==true))"
+                style='' class="col-3 ">
+                <label for="taxregistrationnumber" class="control-label">Tax Registration Number</label>
+                <label *ngIf="showview" class="labelview">{{f.taxregistrationnumber?.value}}</label>
+                <input *ngIf="!showview" id="taxregistrationnumber" type="number" formControlName="taxregistrationnumber"
+                  class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('licensevalidto') == -1) && (licensevalidtovisible==undefined || licensevalidtovisible==true))"
+                style='' class="col-3 ">
+                <label for="licensevalidto" class="control-label">License Valid To</label>
+                <label *ngIf="showview"
+                  class="labelview">{{ngbDateParserFormatter.format(f.licensevalidto?.value)}}</label>
+                <div class="input-group" *ngIf="!showview">
+                  <input #licensevalidtoformpicker="ngbDatepicker" [minDate]='{year: 1950, month:1, day: 1}'
+                    [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="licensevalidtoformpicker"
+                    id="licensevalidto" formControlName="licensevalidto" class="form-control">
+                  <button class="input-group-addon" *ngIf="!showview" (click)="licensevalidtoformpicker.toggle()"
+                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('kycupload') == -1) && (kycuploadvisible==undefined || kycuploadvisible==true))"
+                style='width:1500px' class="col-12 ">
+                <label for="kycupload" class="control-label">K Y C Upload</label>
+                <label *ngIf="showview" class="labelview">{{f.kycupload?.value[0]?.name}}</label>
+                <app-attachment #kycupload formControlName="kycupload" [showremove]='bmyrecord'
+                  [SessionData]="sessionData"></app-attachment>
+                <button type="button" class="btn" *ngIf="kycupload.getAttachmentList().length > 0"
+                  (click)="getkycupload()">Open File</button>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div *ngIf="((hidelist.indexOf('userid') == -1) && (useridvisible==undefined || useridvisible==true))"
+                style='' class="col-3 ">
+                <label for="userid" class="control-label">User</label>
+                <label *ngIf="showview" class="labelview">{{f.userid?.value}}</label>
+                <input *ngIf="!showview" id="userid" formControlName="userid" class="form-control">
+              </div>
+            </div>
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Corporate Locations</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table mstcorporatelocations-->
+            <div [ngClass]="Is_mstcorporatelocations_Visible()">
+              <!--End-->
+              <h4 class="form-group sticky1  columns left">{{'Corporate Locations' | translate}}
+                <select class='child' id="mstcorporatelocationsPagingdropdown"
+                  (change)="mstcorporatelocations_Paging($event.target.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstcorporatelocationtoggleOption();mstcorporatelocations_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                      <li role="separator" class="divider">
+                        <hr>
+                      </li>
+                      <li><a class="dropdown-item" [routerLink]='' (click)="showmstcorporatelocationsFilter()"><i
+                            class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                      <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <a class="rightside" [routerLink]='' (click)="mstcorporatelocations_route(null, 'create')"><i
+                    class="fa fa-plus"></i></a>
+              </h4>
+              <ng2-smart-table #tbl_mstcorporatelocations
+                (userRowSelect)="handle_mstcorporatelocations_GridSelected($event)"
+                [settings]="mstcorporatelocations_settings" (custom)="onCustom_mstcorporatelocations_Action($event)"
+                [source]="tbl_mstcorporatelocations?.source?.data"
+                (delete)="mstcorporatelocations_route($event,'delete')"
+                (deleteConfirm)="mstcorporatelocations_route($event,'delete')"
+                (create)="mstcorporatelocations_route($event,'create')"
+                (createConfirm)="mstcorporatelocations_beforesave($event)"
+                (edit)="mstcorporatelocations_route($event,'edit')"
+                (editConfirm)="mstcorporatelocations_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table mstcorporatelocations-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Job Requirements</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table mstjobrequirements-->
+            <div [ngClass]="Is_mstjobrequirements_Visible()">
+              <!--End-->
+              <h4 class="form-group sticky1  columns left">{{'Job Requirements' | translate}}
+                <select class='child' id="mstjobrequirementsPagingdropdown"
+                  (change)="mstjobrequirements_Paging($event.target.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstjobrequirementtoggleOption();mstjobrequirements_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                      <li role="separator" class="divider">
+                        <hr>
+                      </li>
+                      <li><a class="dropdown-item" [routerLink]='' (click)="showmstjobrequirementsFilter()"><i
+                            class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                      <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <a class="rightside" [routerLink]='' (click)="mstjobrequirements_route(null, 'create')"><i
+                    class="fa fa-plus"></i></a>
+              </h4>
+              <ng2-smart-table #tbl_mstjobrequirements (userRowSelect)="handle_mstjobrequirements_GridSelected($event)"
+                [settings]="mstjobrequirements_settings" (custom)="onCustom_mstjobrequirements_Action($event)"
+                [source]="tbl_mstjobrequirements?.source?.data" (delete)="mstjobrequirements_route($event,'delete')"
+                (deleteConfirm)="mstjobrequirements_route($event,'delete')"
+                (create)="mstjobrequirements_route($event,'create')"
+                (createConfirm)="mstjobrequirements_beforesave($event)" (edit)="mstjobrequirements_route($event,'edit')"
+                (editConfirm)="mstjobrequirements_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table mstjobrequirements-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Job Statuses</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table mstjobstatuses-->
+            <div [ngClass]="Is_mstjobstatuses_Visible()">
+              <!--End-->
+              <h4 class="form-group sticky1  columns left">{{'Job Statuses' | translate}}
+                <select class='child' id="mstjobstatusesPagingdropdown"
+                  (change)="mstjobstatuses_Paging($event.target.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstjobstatustoggleOption();mstjobstatuses_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                      <li role="separator" class="divider">
+                        <hr>
+                      </li>
+                      <li><a class="dropdown-item" [routerLink]='' (click)="showmstjobstatusesFilter()"><i
+                            class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                      <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <!-- <a class="rightside" [routerLink]='' (click)="mstjobstatuses_route(null, 'create')"><i
+                    class="fa fa-plus"></i></a> -->
+              </h4>
+              <ng2-smart-table #tbl_mstjobstatuses (userRowSelect)="handle_mstjobstatuses_GridSelected($event)"
+                [settings]="mstjobstatuses_settings" (custom)="onCustom_mstjobstatuses_Action($event)"
+                [source]="tbl_mstjobstatuses?.source?.data" (delete)="mstjobstatuses_route($event,'delete')"
+                (deleteConfirm)="mstjobstatuses_route($event,'delete')" (create)="mstjobstatuses_route($event,'create')"
+                (createConfirm)="mstjobstatuses_beforesave($event)" (edit)="mstjobstatuses_route($event,'edit')"
+                (editConfirm)="mstjobstatuses_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table mstjobstatuses-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</form>

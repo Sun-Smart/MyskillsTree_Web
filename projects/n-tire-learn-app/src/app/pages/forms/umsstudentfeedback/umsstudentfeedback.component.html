@@ -1,0 +1,119 @@
+<form [formGroup]="umsstudentfeedbackForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Feedbacks' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col">
+              <label for="studentid" class="control-label">{{'StudentID' | translate}}</label>
+              <input id="studentid" formControlName="studentid" class="form-control"
+                placeholder="{{'StudentID' | translate}}">
+            </div>
+            <div class="col">
+              <label for="courseid" class="control-label">{{'CourseID' | translate}}</label>
+              <input id="courseid" formControlName="courseid" class="form-control"
+                placeholder="{{'CourseID' | translate}}">
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="feedback" class="control-label">{{'Feedback' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="feedback" formControlName="feedback"
+                class="form-control" placeholder="{{'Feedback' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="totalrating" class="control-label">{{'Total Rating' | translate}}</label>
+              <select id="totalrating" (change)="totalratingonChange($event.target)" formControlName="totalrating"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of totalratingList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Ratings</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table umsfeedbackratings-->
+          <div class="row"></div>
+          <div [ngClass]="IsumsfeedbackratingsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Ratings' | translate}}
+              <select class='child' id="umsfeedbackratingsPagingdropdown"
+                (change)="umsfeedbackratingsPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="umsfeedbackratingsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showumsfeedbackratingsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblumsfeedbackratingssource (userRowSelect)="handleumsfeedbackratingsGridSelected($event)"
+              [settings]="umsfeedbackratingssettings" [source]="umsfeedbackratingssource"
+              (delete)="umsfeedbackratingsroute($event,'delete')"
+              (deleteConfirm)="umsfeedbackratingsroute($event,'delete')"
+              (create)="umsfeedbackratingsroute($event,'create')" (createConfirm)="umsfeedbackratingsbeforesave($event)"
+              (edit)="umsfeedbackratingsroute($event,'edit')" (editConfirm)="umsfeedbackratingsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table umsfeedbackratings-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.feedbackid!.value != null" [menuid]="pmenuid" [value]="f.feedbackid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

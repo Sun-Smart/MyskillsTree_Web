@@ -1,0 +1,263 @@
+<form  [formGroup]="bodashboarddetailForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Dashboard Details' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+
+
+<!--dashboardid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'dashboardid'; "  for="dashboardid" class="control-label" (click)="AddOrEditdashboardid(null)">Dashboard</label>
+<app-popupselect  *ngIf="!showview"  [options]="dashboardidList"  [optionsEvent]="dashboardidoptionsEvent" [form]="bodashboard" (selectItem)="onSelecteddashboardid($event)"  [reportid]= 'ybg3p' [menuid]='ybg3p' formControlName="dashboardid" id="dashboardid" desc="dashboardname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='dashboardid'"  (click)="editfield = 'dashboardid';"  class="form-control labelview">{{f.dashboardiddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'dashboardname'; "  for="dashboardname" class="control-label">Dashboard Name</label>
+      <input   *ngIf="!showview || editfield=='dashboardname'"  id="dashboardname"  formControlName="dashboardname" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'title'; "  for="title" class="control-label">Title</label>
+      <input   *ngIf="!showview || editfield=='title'"  id="title"  formControlName="title" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'row'; "  for="row" class="control-label">Row</label>
+      <input   *ngIf="!showview || editfield=='row'"  id="row"  formControlName="row" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'col'; "  for="col" class="control-label">Col</label>
+      <input   *ngIf="!showview || editfield=='col'"  id="col"  formControlName="col" class="form-control"
+        >
+  </div>
+
+
+<!--charttype-->
+
+  <div   class="col" ><label (click)="editfield = 'charttype'; "  for="charttype" class="control-label">Chart Type</label>
+      <select  *ngIf="!showview"  id="charttype"  (change)="charttypeonChange($event.target)" formControlName="charttype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of charttypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='charttype'"  (click)="editfield = 'charttype';"  class="form-control labelview">{{f.charttypedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'tablename'; "  for="tablename" class="control-label">Table Name</label>
+      <input   *ngIf="!showview || editfield=='tablename'"  id="tablename"  formControlName="tablename" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'recordname'; "  for="recordname" class="control-label">Record Name</label>
+      <input   *ngIf="!showview || editfield=='recordname'"  id="recordname"  formControlName="recordname" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'parameter'; "  for="parameter" class="control-label">Parameter</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='parameter'"  id="parameter"  formControlName="parameter" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'name'; "  for="name" class="control-label">Name</label>
+      <input   *ngIf="!showview || editfield=='name'"  id="name"  formControlName="name" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'value'; "  for="value" class="control-label">Value</label>
+      <input   *ngIf="!showview || editfield=='value'"  id="value"  formControlName="value" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'parameter1variable'; "  for="parameter1variable" class="control-label">Parameter1 Variable</label>
+      <input   *ngIf="!showview || editfield=='parameter1variable'"  id="parameter1variable"  formControlName="parameter1variable" class="form-control"
+        >
+  </div>
+
+
+<!--parameter1type-->
+
+  <div   class="col" ><label (click)="editfield = 'parameter1type'; "  for="parameter1type" class="control-label" (click)="AddOrEditparameter1type(null)">Parameter1 Type</label>
+      <select  *ngIf="!showview"  id="parameter1type"  (change)="parameter1typeonChange($event.target)" formControlName="parameter1type"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of parameter1typeList" value="{{item.datatypeid}}">{{item.masterdataname}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='parameter1type'"  (click)="editfield = 'parameter1type';"  class="form-control labelview">{{f.parameter1typedesc?.value}}</label>
+  </div>
+</div>
+
+
+<!--parameter1datetype-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'parameter1datetype'; "  for="parameter1datetype" class="control-label">Parameter1 Date Type</label>
+      <select  *ngIf="!showview"  id="parameter1datetype"  (change)="parameter1datetypeonChange($event.target)" formControlName="parameter1datetype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of parameter1datetypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='parameter1datetype'"  (click)="editfield = 'parameter1datetype';"  class="form-control labelview">{{f.parameter1datetypedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'parameter2variable'; "  for="parameter2variable" class="control-label">Parameter2 Variable</label>
+      <input   *ngIf="!showview || editfield=='parameter2variable'"  id="parameter2variable"  formControlName="parameter2variable" class="form-control"
+        >
+  </div>
+
+
+<!--parameter2type-->
+
+  <div   class="col" ><label (click)="editfield = 'parameter2type'; "  for="parameter2type" class="control-label" (click)="AddOrEditparameter2type(null)">Parameter2 Type</label>
+      <select  *ngIf="!showview"  id="parameter2type"  (change)="parameter2typeonChange($event.target)" formControlName="parameter2type"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of parameter2typeList" value="{{item.datatypeid}}">{{item.masterdataname}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='parameter2type'"  (click)="editfield = 'parameter2type';"  class="form-control labelview">{{f.parameter2typedesc?.value}}</label>
+  </div>
+
+
+<!--parameter2datetype-->
+
+  <div   class="col" ><label (click)="editfield = 'parameter2datetype'; "  for="parameter2datetype" class="control-label">Parameter2 Date Type</label>
+      <select  *ngIf="!showview"  id="parameter2datetype"  (change)="parameter2datetypeonChange($event.target)" formControlName="parameter2datetype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of parameter2datetypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='parameter2datetype'"  (click)="editfield = 'parameter2datetype';"  class="form-control labelview">{{f.parameter2datetypedesc?.value}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'parameter3variable'; "  for="parameter3variable" class="control-label">Parameter3 Variable</label>
+      <input   *ngIf="!showview || editfield=='parameter3variable'"  id="parameter3variable"  formControlName="parameter3variable" class="form-control"
+        >
+  </div>
+
+
+<!--parameter3type-->
+
+  <div   class="col" ><label (click)="editfield = 'parameter3type'; "  for="parameter3type" class="control-label" (click)="AddOrEditparameter3type(null)">Parameter3 Type</label>
+      <select  *ngIf="!showview"  id="parameter3type"  (change)="parameter3typeonChange($event.target)" formControlName="parameter3type"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of parameter3typeList" value="{{item.datatypeid}}">{{item.masterdataname}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='parameter3type'"  (click)="editfield = 'parameter3type';"  class="form-control labelview">{{f.parameter3typedesc?.value}}</label>
+  </div>
+
+
+<!--parameter3datetype-->
+
+  <div   class="col" ><label (click)="editfield = 'parameter3datetype'; "  for="parameter3datetype" class="control-label">Parameter3 Date Type</label>
+      <select  *ngIf="!showview"  id="parameter3datetype"  (change)="parameter3datetypeonChange($event.target)" formControlName="parameter3datetype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of parameter3datetypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='parameter3datetype'"  (click)="editfield = 'parameter3datetype';"  class="form-control labelview">{{f.parameter3datetypedesc?.value}}</label>
+  </div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'backgroundcolor'; "  for="backgroundcolor" class="control-label">Background Color</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='backgroundcolor'"  id="backgroundcolor"  formControlName="backgroundcolor" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'hoverbackgroundcolor'; "  for="hoverbackgroundcolor" class="control-label">Hover Background Color</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='hoverbackgroundcolor'"  id="hoverbackgroundcolor"  formControlName="hoverbackgroundcolor" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'bordercolor'; "  for="bordercolor" class="control-label">Border Color</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='bordercolor'"  id="bordercolor"  formControlName="bordercolor" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--menuid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'menuid'; "  for="menuid" class="control-label" (click)="AddOrEditmenuid(null)">Menu</label>
+<app-popupselect  *ngIf="!showview"  [options]="menuidList"  [optionsEvent]="menuidoptionsEvent" [form]="bomenumaster" (selectItem)="onSelectedmenuid($event)"  [reportid]= 'urtra' [menuid]='urtra' formControlName="menuid" id="menuid" desc="menudescription" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='menuid'"  (click)="editfield = 'menuid';"  class="form-control labelview">{{f.menuiddesc?.value}}</label>
+  </div>
+
+
+<!--reportid-->
+
+  <div   class="col" ><label (click)="editfield = 'reportid'; "  for="reportid" class="control-label">Report</label>
+      <select  *ngIf="!showview"  id="reportid"  (change)="reportidonChange($event.target)" formControlName="reportid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of reportidList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='reportid'"  (click)="editfield = 'reportid';"  class="form-control labelview">{{f.reportiddesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'helptext'; "  for="helptext" class="control-label">Help Text</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='helptext'"  id="helptext"  formControlName="helptext" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.dashboarddetailid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.dashboarddetailid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

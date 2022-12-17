@@ -1,0 +1,164 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="bocityForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Cities' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editbocities()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'  *ngIf='maindata==null || maindata==undefined' >
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+<ul class="nav navbar-nav1">
+<li class="dropdown">
+<a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'> <span class='caret'></span>Actions</a>
+<ul class="dropdown-menu">
+              <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+              <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+              <li><a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+              <li role="separator" class="divider"></li>
+
+              <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+              <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+              <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+              <li><a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+    </ul>
+    </li>
+  </ul>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.cityid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.cityid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link active"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"  ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"    id="contentArea1" >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('code') == -1"  class="col " >
+<label  for="code" class="control-label required">Code</label>
+      <label *ngIf="showview"     class="labelview">{{f.code?.value}}</label>
+      <input   *ngIf="!showview"  id="code"  required formControlName="code" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.code.invalid && (f.code.touched|| isSubmitted)" errorMsg="Enter {{'Code' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('name') == -1"  class="col " >
+<label  for="name" class="control-label required">Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.name?.value}}</label>
+      <input   *ngIf="!showview"  id="name"  required formControlName="name" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.name.invalid && (f.name.touched|| isSubmitted)" errorMsg="Enter {{'Name' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('stateid') == -1"  class="col " >
+<label  for="stateid" class="control-label">State</label>
+      <label *ngIf="showview"     class="labelview">{{f.stateid?.value}}</label>
+      <input   *ngIf="!showview"  id="stateid"  formControlName="stateid" class="form-control"
+        >
+  </div>
+
+
+<!--countryid-->
+
+  <div   *ngIf="hidelist.indexOf('countryid') == -1"  class="col" ><label  for="countryid" class="control-label" (click)="AddOrEditcountryid(null)">Country</label>
+<app-popupselect  *ngIf="!showview"  [options]="countryidList"  [optionsEvent]="countryidoptionsEvent" [form]="bocountry" (selectItem)="onSelectedcountryid($event)"  [reportid]= 'wc9rn' [menuid]='wc9rn' formControlName="countryid" id="countryid" desc="name" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.countryid?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('metro') == -1"  class="col " >
+<div class="columnchk">
+<label  for="metro" class="control-label">Metro</label>
+      <label *ngIf="showview"     class="labelview">{{f.metro?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="metro"  formControlName="metro" class="form-control"
+        >
+  </div>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Locations</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table bolocations-->
+<div [ngClass]="IsbolocationsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Locations' | translate}}
+<select class='child'  id="bolocationsPagingdropdown" (change)="bolocationsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<ul class="nav navbar-nav1">
+<li class="dropdown">
+<a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'> <span class='caret'></span></a>
+<ul class="dropdown-menu">
+      <li><a  class="dropdown-item"  [routerLink]='' (click)="bolocationtoggleOption();bolocationsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+              <li role="separator" class="divider"></li>
+      <li><a class="dropdown-item" [routerLink]=''  (click)="showbolocationsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+      <li><a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+    </ul>
+    </li>
+  </ul>
+</h4>
+<ng2-smart-table  #tblbolocationssource (userRowSelect)="handlebolocationsGridSelected($event)" [settings]="bolocationssettings" (custom)="onCustombolocationsAction($event)" [source]="bolocationssource"  (delete)="bolocationsroute($event,'delete')"  (deleteConfirm)="bolocationsroute($event,'delete')" (create)="bolocationsroute($event,'create')"   (createConfirm)="bolocationsbeforesave($event)"  (edit)="bolocationsroute($event,'edit')"  (editConfirm)="bolocationsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table bolocations-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

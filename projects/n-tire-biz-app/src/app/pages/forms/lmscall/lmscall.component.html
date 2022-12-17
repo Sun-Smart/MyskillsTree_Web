@@ -1,0 +1,513 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="lmscall_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Activities' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_lmscalls()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of lmscall_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.callid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.callid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <p-accordion [multiple]='true'>
+
+
+      <!--branchid-->
+
+      <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+        <div
+          *ngIf="((hidelist.indexOf('branchid') == -1) && (branchidvisible==undefined || branchidvisible==true)) || maindata==undefined || maindata==null || maindata.ScreenType==null"
+          style='' class="col-3"><label for="branchid" class="control-label"
+            (click)="AddOrEdit_branchid(null)">Branch</label>
+          <app-popupselect *ngIf="!showview" [options]="branchid_List" [optionsEvent]="branchid_optionsEvent"
+            [form]="bobranchmaster" (selectItem)="onSelected_branchid($event)" [reportid]='bxg94' [menuid]='bxg94'
+            formControlName="branchid" id="value" desc="label"></app-popupselect>
+          <div class="input-group">
+          </div>
+          <label *ngIf="showview" class="labelview">{{f.branchiddesc?.value}}</label>
+        </div>
+
+
+        <!--branchlocationid-->
+
+        <div
+          *ngIf="((hidelist.indexOf('branchlocationid') == -1) && (branchlocationidvisible==undefined || branchlocationidvisible==true)) || maindata==undefined || maindata==null || maindata.ScreenType==null"
+          style='' class="col-3"><label for="branchlocationid" class="control-label"
+            (click)="AddOrEdit_branchlocationid(null)">Branch Location</label>
+          <app-popupselect *ngIf="!showview" [options]="branchlocationid_List"
+            [optionsEvent]="branchlocationid_optionsEvent" [form]="bobranchlocation"
+            (selectItem)="onSelected_branchlocationid($event)" [reportid]='fcx84' [menuid]='fcx84'
+            formControlName="branchlocationid" id="value" desc="label"></app-popupselect>
+          <div class="input-group">
+          </div>
+          <label *ngIf="showview" class="labelview">{{f.branchlocationiddesc?.value}}</label>
+        </div>
+        <div *ngIf="((hidelist.indexOf('eventdate') == -1) && (eventdatevisible==undefined || eventdatevisible==true))"
+          style='' class="col-3 ">
+          <label for="eventdate" class="control-label required">Event Date</label>
+          <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.eventdate?.value)}}</label>
+          <div class="input-group" *ngIf="!showview">
+            <input #eventdateformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+              [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="eventdateformpicker" id="eventdate"
+              required formControlName="eventdate" class="form-control">
+            <button class="input-group-addon" *ngIf="!showview" (click)="eventdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+          <app-field-error-display [displayError]="f.eventdate.errors?.required"
+            errorMsg="Enter {{'Event Date' | translate}}">
+          </app-field-error-display>
+        </div>
+        <div *ngIf="((hidelist.indexOf('eventtime') == -1) && (eventtimevisible==undefined || eventtimevisible==true))"
+          style='' class="col-3 ">
+          <label for="eventtime" class="control-label required">Event Time</label>
+          <label *ngIf="showview" class="labelview">{{f.eventtime?.value}}</label>
+          <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="eventtime" required>
+          </ngb-timepicker>
+          <app-field-error-display [displayError]="f.eventtime.errors?.required"
+            errorMsg="Enter {{'Event Time' | translate}}">
+          </app-field-error-display>
+        </div>
+      </div>
+      <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+        <div
+          *ngIf="((hidelist.indexOf('eventenddate') == -1) && (eventenddatevisible==undefined || eventenddatevisible==true))"
+          style='' class="col-3 ">
+          <label for="eventenddate" class="control-label">Event End Date</label>
+          <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.eventenddate?.value)}}</label>
+          <div class="input-group" *ngIf="!showview">
+            <input #eventenddateformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+              [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="eventenddateformpicker" id="eventenddate"
+              formControlName="eventenddate" class="form-control">
+            <button class="input-group-addon" *ngIf="!showview" (click)="eventenddateformpicker.toggle()"
+              type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div
+          *ngIf="((hidelist.indexOf('eventendtime') == -1) && (eventendtimevisible==undefined || eventendtimevisible==true))"
+          style='' class="col-3 ">
+          <label for="eventendtime" class="control-label">Event End Time</label>
+          <label *ngIf="showview" class="labelview">{{f.eventendtime?.value}}</label>
+          <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="eventendtime">
+          </ngb-timepicker>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+    </p-accordion>
+    <p-accordion [multiple]='true'>
+    </p-accordion>
+    <p-accordion [multiple]='true'>
+      <p-accordionTab header='Lead Details' [selected]='true'>
+
+
+        <!--leadid-->
+
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('leadid') == -1) && (leadidvisible==undefined || leadidvisible==true)) || maindata==undefined || maindata==null || maindata.ScreenType==null"
+            style='' class="col-3"><label for="leadid" class="control-label"
+              (click)="AddOrEdit_leadid(null)">Lead</label>
+            <select *ngIf="!showview" id="leadid" (change)="leadid_onChange($event.target)" formControlName="leadid"
+              class="form-control">
+              <option [ngValue]="null" selected>-Select-</option>
+              <option *ngFor="let item of leadid_List" value="{{item.value}}">{{item.label}}</option>
+            </select>
+            <label *ngIf="showview" class="labelview">{{f.leadiddesc?.value}}</label>
+          </div>
+
+
+          <!--opportunityid-->
+
+          <div
+            *ngIf="((hidelist.indexOf('opportunityid') == -1) && (opportunityidvisible==undefined || opportunityidvisible==true)) || maindata==undefined || maindata==null || maindata.ScreenType==null"
+            style='' class="col-3"><label for="opportunityid" class="control-label"
+              (click)="AddOrEdit_opportunityid(null)">Opportunity</label>
+            <app-popupselect *ngIf="!showview" [options]="opportunityid_List"
+              [optionsEvent]="opportunityid_optionsEvent" [form]="lmsopportunity"
+              (selectItem)="onSelected_opportunityid($event)" [reportid]='vm3i3' [menuid]='vm3i3'
+              formControlName="opportunityid" id="value" desc="label"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="labelview">{{f.opportunityiddesc?.value}}</label>
+          </div>
+          <div *ngIf="((hidelist.indexOf('agenda') == -1) && (agendavisible==undefined || agendavisible==true))"
+            style='' class="col-3 ">
+            <label for="agenda" class="control-label">Agenda</label>
+            <label *ngIf="showview" class="labelview">{{f.agenda?.value}}</label>
+            <input *ngIf="!showview" id="agenda" formControlName="agenda" class="form-control">
+          </div>
+
+
+          <!--campaignid-->
+
+          <div
+            *ngIf="((hidelist.indexOf('campaignid') == -1) && (campaignidvisible==undefined || campaignidvisible==true)) || maindata==undefined || maindata==null || maindata.ScreenType==null"
+            style='' class="col-3"><label for="campaignid" class="control-label"
+              (click)="AddOrEdit_campaignid(null)">Campaign</label>
+            <select *ngIf="!showview" id="campaignid" (change)="campaignid_onChange($event.target)"
+              formControlName="campaignid" class="form-control">
+              <option [ngValue]="null" selected>-Select-</option>
+              <option *ngFor="let item of campaignid_List" value="{{item.value}}">{{item.label}}</option>
+            </select>
+            <label *ngIf="showview" class="labelview">{{f.campaigniddesc?.value}}</label>
+          </div>
+        </div>
+
+
+        <!--leadby-->
+
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('leadby') == -1) && (leadbyvisible==undefined || leadbyvisible==true)) || maindata==undefined || maindata==null || maindata.ScreenType==null"
+            style='' class="col-3"><label for="leadby" class="control-label" (click)="AddOrEdit_leadby(null)">Lead
+              By</label>
+            <app-popupselect *ngIf="!showview" [options]="leadby_List" [optionsEvent]="leadby_optionsEvent"
+              [form]="bousermaster" (selectItem)="onSelected_leadby($event)" [reportid]='e99kq' [menuid]='e99kq'
+              formControlName="leadby" id="value" desc="label"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="labelview">{{f.leadbydesc?.value}}</label>
+          </div>
+
+
+          <!--currentowner-->
+
+          <div
+            *ngIf="((hidelist.indexOf('currentowner') == -1) && (currentownervisible==undefined || currentownervisible==true))"
+            style='' class="col-3"><label for="currentowner" class="control-label required"
+              (click)="AddOrEdit_currentowner(null)">Current Owner</label>
+            <app-popupselect *ngIf="!showview" [options]="currentowner_List" [optionsEvent]="currentowner_optionsEvent"
+              [form]="bousermaster" (selectItem)="onSelected_currentowner($event)" [reportid]='e99kq' [menuid]='e99kq'
+              formControlName="currentowner" id="value" desc="label"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="labelview">{{f.currentownerdesc?.value}}</label>
+            <app-field-error-display [displayError]="f.currentowner.errors?.required"
+              errorMsg="Enter {{'Current Owner' | translate}}">
+            </app-field-error-display>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+    <p-accordion [multiple]='true'>
+    </p-accordion>
+    <p-accordion [multiple]='true'>
+      <p-accordionTab header='Activity' [selected]='false'>
+
+
+        <!--activitytype-->
+
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('activitytype') == -1) && (activitytypevisible==undefined || activitytypevisible==true))"
+            style='' class="col-3"><label for="activitytype" class="control-label required">Activity Type</label>
+            <select *ngIf="!showview" id="activitytype" required (change)="activitytype_onChange($event.target)"
+              formControlName="activitytype" class="form-control">
+              <option [ngValue]="null" selected>-Select-</option>
+              <option *ngFor="let item of activitytype_List" value="{{item.value}}">{{item.label}}</option>
+            </select>
+            <label *ngIf="showview" class="labelview">{{f.activitytypedesc?.value}}</label>
+            <app-field-error-display [displayError]="f.activitytype.errors?.required"
+              errorMsg="Enter {{'Activity Type' | translate}}">
+            </app-field-error-display>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('attendedusers') == -1) && (attendedusersvisible==undefined || attendedusersvisible==true))"
+            style='' class="col-3 ">
+            <label for="attendedusers" class="control-label">Attended Users</label>
+            <label *ngIf="showview" class="labelview">{{f.attendedusers?.value}}</label>
+            <app-useraccess *ngIf="!showview" id="attendedusers" formControlName="attendedusers"
+              (change)="attendedusers_onChange($event.target)">
+            </app-useraccess>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('clientusers') == -1) && (clientusersvisible==undefined || clientusersvisible==true))"
+            style='' class="col-3 ">
+            <label for="clientusers" class="control-label">Client Users</label>
+            <label *ngIf="showview" class="labelview">{{f.clientusers?.value}}</label>
+            <input *ngIf="!showview" id="clientusers" formControlName="clientusers" class="form-control">
+          </div>
+          <div
+            *ngIf="((hidelist.indexOf('nextcalldate') == -1) && (nextcalldatevisible==undefined || nextcalldatevisible==true))"
+            style='' class="col-3 ">
+            <label for="nextcalldate" class="control-label">Next Call Date</label>
+            <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.nextcalldate?.value)}}</label>
+            <div class="input-group" *ngIf="!showview">
+              <input #nextcalldateformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+                [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="nextcalldateformpicker"
+                id="nextcalldate" formControlName="nextcalldate" class="form-control">
+              <button class="input-group-addon" *ngIf="!showview" (click)="nextcalldateformpicker.toggle()"
+                type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+          </div>
+
+
+          <!--nextaction-->
+
+          <div
+            *ngIf="((hidelist.indexOf('nextaction') == -1) && (nextactionvisible==undefined || nextactionvisible==true))"
+            style='' class="col-3"><label for="nextaction" class="control-label">Next Action</label>
+            <select *ngIf="!showview" id="nextaction" (change)="nextaction_onChange($event.target)"
+              formControlName="nextaction" class="form-control">
+              <option [ngValue]="null" selected>-Select-</option>
+              <option *ngFor="let item of nextaction_List" value="{{item.value}}">{{item.label}}</option>
+            </select>
+            <label *ngIf="showview" class="labelview">{{f.nextactiondesc?.value}}</label>
+          </div>
+          <div
+            *ngIf="((hidelist.indexOf('actiondatetime') == -1) && (actiondatetimevisible==undefined || actiondatetimevisible==true))"
+            style='' class="col-3 ">
+            <label for="actiondatetime" class="control-label">Action Date Time</label>
+            <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.actiondatetime?.value)}}</label>
+            <div class="input-group" *ngIf="!showview">
+              <input #actiondatetimeformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+                [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="actiondatetimeformpicker"
+                id="actiondatetime" formControlName="actiondatetime" class="form-control">
+              <button class="input-group-addon" *ngIf="!showview" (click)="actiondatetimeformpicker.toggle()"
+                type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('score') == -1) && (scorevisible==undefined || scorevisible==true))" style=''
+            class="col-3 ">
+            <label for="score" class="control-label">Score</label>
+            <label *ngIf="showview" class="labelview">{{f.score?.value}}</label>
+            <input *ngIf="!showview" id="score" formControlName="score" class="form-control">
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('remarks') == -1) && (remarksvisible==undefined || remarksvisible==true))"
+            style='' class="col-3 ">
+            <label for="remarks" class="control-label">Remarks</label>
+            <label *ngIf="showview" class="labelview">{{f.remarks?.value}}</label>
+            <app-comment *ngIf="!showview" id="remarks" formControlName="remarks" [label]="'Remarks'">
+            </app-comment>
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+    <div class='full-width'
+      *ngIf="customFieldVisible  && customFieldServiceList!=null && customFieldServiceList!=undefined  && customFieldServiceList.fields.length>0">
+      <p-accordion [multiple]='true'>
+        <p-accordionTab header='CustomField' [selected]='false'>
+          <div class="sticky"
+            *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+            Custom Fields</div>
+          <div class="form-group row"
+            *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+            <dynamic-form-builder [customfields]="customFieldServiceList" #customform></dynamic-form-builder>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+    <div class='full-width' *ngIf="attachmentVisible">
+      <p-accordion [multiple]='true'>
+        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+          <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+          </app-attachment>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+    <!-- child table lmstasks-->
+    <div [ngClass]="Is_lmstasks_Visible()">
+      <!--End-->
+      <h4 class="form-group sticky1  columns left">{{'Tasks' | translate}}
+        <select class='child' id="lmstasksPagingdropdown" (change)="lmstasks_Paging($event.target.value)" [value]='20'>
+          <option value='20'>20</option>
+          <option value='50'>50</option>
+          <option value='100'>100</option>
+        </select>
+        <ul class="nav navbar-nav1" style='display:none'>
+          <li class="dropdown">
+            <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+              aria-expanded='false'> <span class='caret'></span></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]='' (click)="lmstasks_route(null, 'create')"><i
+                    class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+              <li role="separator" class="divider">
+                <hr>
+              </li>
+              <li><a class="dropdown-item" [routerLink]='' (click)="showlmstasksFilter()"><i class="fa fa-filter"
+                    aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+              <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                    aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+            </ul>
+          </li>
+        </ul>
+        <a class="rightside" [routerLink]='' (click)="lmstasktoggleOption();lmstasks_route(null, 'create')"><i
+            class="fa fa-plus"></i></a>
+      </h4>
+      <ng2-smart-table #tbl_lmstasks (userRowSelect)="handle_lmstasks_GridSelected($event)"
+        [settings]="lmstasks_settings" (custom)="onCustom_lmstasks_Action($event)" [source]="tbl_lmstasks?.source?.data"
+        (delete)="lmstasks_route($event,'delete')" (deleteConfirm)="lmstasks_route($event,'delete')"
+        (create)="lmstasks_route($event,'create')" (createConfirm)="lmstasks_beforesave($event)"
+        (edit)="lmstasks_route($event,'edit')" (editConfirm)="lmstasks_beforesave($event)">
+      </ng2-smart-table>
+    </div>
+    <!--End of child table lmstasks-->
+    <!-- child table lmsreminders-->
+    <div [ngClass]="Is_lmsreminders_Visible()">
+      <!--End-->
+      <h4 class="form-group sticky1  columns left">{{'Reminders' | translate}}
+        <select class='child' id="lmsremindersPagingdropdown" (change)="lmsreminders_Paging($event.target.value)"
+          [value]='20'>
+          <option value='20'>20</option>
+          <option value='50'>50</option>
+          <option value='100'>100</option>
+        </select>
+        <ul class="nav navbar-nav1" style='display:none'>
+          <li class="dropdown">
+            <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+              aria-expanded='false'> <span class='caret'></span></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]='' (click)="lmsreminders_route(null, 'create')"><i
+                    class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+              <li role="separator" class="divider">
+                <hr>
+              </li>
+              <li><a class="dropdown-item" [routerLink]='' (click)="showlmsremindersFilter()"><i class="fa fa-filter"
+                    aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+              <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                    aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+            </ul>
+          </li>
+        </ul>
+        <a class="rightside" [routerLink]='' (click)="lmsreminders_route(null, 'create')"><i class="fa fa-plus"></i></a>
+      </h4>
+      <ng2-smart-table #tbl_lmsreminders (userRowSelect)="handle_lmsreminders_GridSelected($event)"
+        [settings]="lmsreminders_settings" (custom)="onCustom_lmsreminders_Action($event)"
+        [source]="tbl_lmsreminders?.source?.data" (delete)="lmsreminders_route($event,'delete')"
+        (deleteConfirm)="lmsreminders_route($event,'delete')" (create)="lmsreminders_route($event,'create')"
+        (createConfirm)="lmsreminders_beforesave($event)" (edit)="lmsreminders_route($event,'edit')"
+        (editConfirm)="lmsreminders_beforesave($event)">
+      </ng2-smart-table>
+    </div>
+    <!--End of child table lmsreminders-->
+    <!-- child table lmshistories-->
+    <div [ngClass]="Is_lmshistories_Visible()">
+      <!--End-->
+      <h4 class="form-group sticky1  columns left">{{'Histories' | translate}}
+        <select class='child' id="lmshistoriesPagingdropdown" (change)="lmshistories_Paging($event.target.value)"
+          [value]='20'>
+          <option value='20'>20</option>
+          <option value='50'>50</option>
+          <option value='100'>100</option>
+        </select>
+        <ul class="nav navbar-nav1" style='display:none'>
+          <li class="dropdown">
+            <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+              aria-expanded='false'> <span class='caret'></span></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]=''
+                  (click)="lmshistorytoggleOption();lmshistories_route(null, 'create')"><i class="fa fa-plus"
+                    aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+              <li role="separator" class="divider">
+                <hr>
+              </li>
+              <li><a class="dropdown-item" [routerLink]='' (click)="showlmshistoriesFilter()"><i class="fa fa-filter"
+                    aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+              <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                    aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+            </ul>
+          </li>
+        </ul>
+        <a class="rightside" [routerLink]='' (click)="lmshistories_route(null, 'create')"><i class="fa fa-plus"></i></a>
+      </h4>
+      <ng2-smart-table #tbl_lmshistories (userRowSelect)="handle_lmshistories_GridSelected($event)"
+        [settings]="lmshistories_settings" (custom)="onCustom_lmshistories_Action($event)"
+        [source]="tbl_lmshistories?.source?.data" (delete)="lmshistories_route($event,'delete')"
+        (deleteConfirm)="lmshistories_route($event,'delete')" (create)="lmshistories_route($event,'create')"
+        (createConfirm)="lmshistories_beforesave($event)" (edit)="lmshistories_route($event,'edit')"
+        (editConfirm)="lmshistories_beforesave($event)">
+      </ng2-smart-table>
+    </div>
+    <!--End of child table lmshistories-->
+  </div>
+</form>

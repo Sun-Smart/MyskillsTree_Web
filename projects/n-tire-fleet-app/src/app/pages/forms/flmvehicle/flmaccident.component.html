@@ -1,0 +1,178 @@
+<div class="dialog">
+  <form [formGroup]="flmaccidentForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Accidents' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="description" class="control-label">{{'Description' | translate}}</label>
+          <input id="description" formControlName="description" class="form-control"
+            placeholder="{{'Description' | translate}}">
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="accidentdetails" class="control-label">{{'AccidentDetails' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="accidentdetails"
+            formControlName="accidentdetails" class="form-control" placeholder="{{'AccidentDetails' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="driverid" class="control-label" (click)="AddOrEditdriverid(null)">{{'Driver' |
+            translate}}</label>
+          <div class="input-group">
+            <input id="driverid" placeholder="" [ngbTypeahead]="driverid_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelecteddriverid($event)" formControlName='driverid'
+              [resultFormatter]="driverid_bousermastersformatter">
+            <input readonly id="driveriddesc" formControlName="driveriddesc" class="form-control autocompletedesc"
+              placeholder="{{'Driver' | translate}}">
+          </div>
+        </div>
+        <div class="col">
+          <div class="columnchk">
+            <label for="learnerlicense" class="control-label">{{'LearnerLicense' | translate}}</label>
+            <input type="checkbox" id="learnerlicense" formControlName="learnerlicense" class="form-control"
+              placeholder="{{'LearnerLicense' | translate}}">
+          </div>
+        </div>
+        <div class="col">
+          <label for="licenseno" class="control-label">{{'LicenseNo' | translate}}</label>
+          <input id="licenseno" formControlName="licenseno" class="form-control"
+            placeholder="{{'LicenseNo' | translate}}">
+        </div>
+        <div class="col">
+          <label for="rto" class="control-label">{{'RTO' | translate}}</label>
+          <input id="rto" formControlName="rto" class="form-control" placeholder="{{'RTO' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="copassengerdetails" class="control-label">{{'CoPassengerDetails' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="copassengerdetails"
+            formControlName="copassengerdetails" class="form-control"
+            placeholder="{{'CoPassengerDetails' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="goodscarried" class="control-label">{{'GoodsCarried' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="goodscarried" formControlName="goodscarried"
+            class="form-control" placeholder="{{'GoodsCarried' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="accidenttype" class="control-label">{{'AccidentType' | translate}}</label>
+          <input id="accidenttype" formControlName="accidenttype" class="form-control"
+            placeholder="{{'AccidentType' | translate}}">
+        </div>
+        <div class="col">
+          <label for="accidentplace" class="control-label">{{'AccidentPlace' | translate}}</label>
+          <input id="accidentplace" formControlName="accidentplace" class="form-control"
+            placeholder="{{'AccidentPlace' | translate}}">
+        </div>
+        <div class="col">
+          <label for="accidentdate" class="control-label">{{'AccidentDate' | translate}}</label>
+          <div class="input-group">
+            <input #accidentdateformpicker="ngbDatepicker" ngbDatepicker name="accidentdateformpicker" id="accidentdate"
+              formControlName="accidentdate" class="form-control" placeholder="Choose {{'AccidentDate' | translate}}">
+            <button class="input-group-addon" (click)="accidentdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="accidenttime" class="control-label">{{'AccidentTime' | translate}}</label>
+          <ngb-timepicker class="form-control timepicker" formControlName="accidenttime"></ngb-timepicker>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <div class="columnchk">
+            <label for="policereportlodged" class="control-label">{{'PoliceReportLodged' | translate}}</label>
+            <input type="checkbox" id="policereportlodged" formControlName="policereportlodged" class="form-control"
+              placeholder="{{'PoliceReportLodged' | translate}}">
+          </div>
+        </div>
+        <div class="col">
+          <label for="policestationname" class="control-label">{{'PoliceStationName' | translate}}</label>
+          <input id="policestationname" formControlName="policestationname" class="form-control"
+            placeholder="{{'PoliceStationName' | translate}}">
+        </div>
+        <div class="col">
+          <label for="firno" class="control-label">{{'FIRNo' | translate}}</label>
+          <input id="firno" formControlName="firno" class="form-control" placeholder="{{'FIRNo' | translate}}">
+        </div>
+        <div class="col">
+          <label for="insuranceid" class="control-label">{{'InsuranceId' | translate}}</label>
+          <input id="insuranceid" formControlName="insuranceid" class="form-control"
+            placeholder="{{'InsuranceId' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="claimdate" class="control-label">{{'ClaimDate' | translate}}</label>
+          <div class="input-group">
+            <input #claimdateformpicker="ngbDatepicker" ngbDatepicker name="claimdateformpicker" id="claimdate"
+              formControlName="claimdate" class="form-control" placeholder="Choose {{'ClaimDate' | translate}}">
+            <button class="input-group-addon" (click)="claimdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="claimamount" class="control-label">{{'ClaimAmount' | translate}}</label>
+          <input id="claimamount" formControlName="claimamount" class="form-control"
+            placeholder="{{'ClaimAmount' | translate}}">
+        </div>
+        <div class="col">
+          <label for="amountreceived" class="control-label">{{'AmountReceived' | translate}}</label>
+          <input id="amountreceived" formControlName="amountreceived" class="form-control"
+            placeholder="{{'AmountReceived' | translate}}">
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="comments" class="control-label">{{'Comments' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="comments" formControlName="comments"
+            class="form-control" placeholder="{{'Comments' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}" target="_blank">{{fld!.value!.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.accidentid!.value != null" [menuid]="pmenuid" [value]="f.accidentid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

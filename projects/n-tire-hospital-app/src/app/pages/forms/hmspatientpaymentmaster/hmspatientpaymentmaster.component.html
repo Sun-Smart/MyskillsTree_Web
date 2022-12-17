@@ -1,0 +1,174 @@
+<form [formGroup]="hmspatientpaymentmasterForm" (ngSubmit)="onSubmit()"
+  [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Payments' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col">
+              <label for="visitid" class="control-label">{{'VisitId' | translate}}</label>
+              <input id="visitid" formControlName="visitid" class="form-control"
+                placeholder="{{'VisitId' | translate}}">
+            </div>
+            <div class="col">
+              <label for="patientid" class="control-label">{{'PatientId' | translate}}</label>
+              <input id="patientid" formControlName="patientid" class="form-control"
+                placeholder="{{'PatientId' | translate}}">
+            </div>
+            <div class="col">
+              <label for="doctorid" class="control-label">{{'DoctorId' | translate}}</label>
+              <input id="doctorid" formControlName="doctorid" class="form-control"
+                placeholder="{{'DoctorId' | translate}}">
+            </div>
+            <div class="col">
+              <label for="paymentcode" class="control-label">{{'PaymentCode' | translate}}</label>
+              <input id="paymentcode" formControlName="paymentcode" class="form-control"
+                placeholder="{{'PaymentCode' | translate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="paymentdate" class="control-label">{{'PaymentDate' | translate}}</label>
+              <div class="input-group">
+                <input #paymentdateformpicker="ngbDatepicker" ngbDatepicker name="paymentdateformpicker"
+                  id="paymentdate" formControlName="paymentdate" class="form-control"
+                  placeholder="Choose {{'PaymentDate' | translate}}">
+                <button class="input-group-addon" (click)="paymentdateformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col">
+              <label for="totalamount" class="control-label">{{'TotalAmount' | translate}}</label>
+              <input id="totalamount" formControlName="totalamount" class="form-control"
+                placeholder="{{'TotalAmount' | translate}}">
+            </div>
+            <div class="col">
+              <label for="discountpercentage" class="control-label">{{'DiscountPercentage' | translate}}</label>
+              <input id="discountpercentage" formControlName="discountpercentage" class="form-control"
+                placeholder="{{'DiscountPercentage' | translate}}">
+            </div>
+            <div class="col">
+              <label for="discountamount" class="control-label">{{'DiscountAmount' | translate}}</label>
+              <input id="discountamount" formControlName="discountamount" class="form-control"
+                placeholder="{{'DiscountAmount' | translate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="taxpercentage" class="control-label">{{'TaxPercentage' | translate}}</label>
+              <input id="taxpercentage" formControlName="taxpercentage" class="form-control"
+                placeholder="{{'TaxPercentage' | translate}}">
+            </div>
+            <div class="col">
+              <label for="taxamount" class="control-label">{{'TaxAmount' | translate}}</label>
+              <input id="taxamount" formControlName="taxamount" class="form-control"
+                placeholder="{{'TaxAmount' | translate}}">
+            </div>
+            <div class="col">
+              <label for="netamount" class="control-label">{{'NetAmount' | translate}}</label>
+              <input id="netamount" formControlName="netamount" class="form-control"
+                placeholder="{{'NetAmount' | translate}}">
+            </div>
+            <div class="col">
+              <label for="paid" class="control-label">{{'Paid' | translate}}</label>
+              <input id="paid" formControlName="paid" class="form-control" placeholder="{{'Paid' | translate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="amountpaid" class="control-label">{{'AmountPaid' | translate}}</label>
+              <input id="amountpaid" formControlName="amountpaid" class="form-control"
+                placeholder="{{'AmountPaid' | translate}}">
+            </div>
+            <div class="col">
+              <label for="paymentdoneby" class="control-label">{{'PaymentDoneBy' | translate}}</label>
+              <input id="paymentdoneby" formControlName="paymentdoneby" class="form-control"
+                placeholder="{{'PaymentDoneBy' | translate}}">
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Payment Details</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table hmspatientpaymentdetails-->
+          <div class="row"></div>
+          <div [ngClass]="IshmspatientpaymentdetailsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Payment Details' | translate}}
+              <select class='child' id="hmspatientpaymentdetailsPagingdropdown"
+                (change)="hmspatientpaymentdetailsPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn"
+                    (click)="hmspatientpaymentdetailsroute(null, 'create')"><i class="fa fa-plus"
+                      aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showhmspatientpaymentdetailsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblhmspatientpaymentdetailssource
+              (userRowSelect)="handlehmspatientpaymentdetailsGridSelected($event)"
+              [settings]="hmspatientpaymentdetailssettings" [source]="hmspatientpaymentdetailssource"
+              (delete)="hmspatientpaymentdetailsroute($event,'delete')"
+              (deleteConfirm)="hmspatientpaymentdetailsroute($event,'delete')"
+              (create)="hmspatientpaymentdetailsroute($event,'create')"
+              (createConfirm)="hmspatientpaymentdetailsbeforesave($event)"
+              (edit)="hmspatientpaymentdetailsroute($event,'edit')"
+              (editConfirm)="hmspatientpaymentdetailsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table hmspatientpaymentdetails-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.paymentid!.value != null" [menuid]="pmenuid" [value]="f.paymentid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

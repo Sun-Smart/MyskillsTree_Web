@@ -1,0 +1,245 @@
+<form [formGroup]="lmsproductForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'L M S Products' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <div (click)="ShowForm()"><i title="Form" class="fa fa-backward"></i></div>
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col">
+              <label for="branchid" class="control-label">{{'Branch' | translate}}</label>
+              <input id="branchid" formControlName="branchid" class="form-control"
+                placeholder="{{'Branch' | translate}}">
+            </div>
+            <div class="col"><label for="leadid" class="control-label" (click)="AddOrEditleadid(null)">{{'Lead' |
+                translate}}</label>
+              <select id="leadid" (change)="leadidonChange($event.target)" formControlName="leadid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of leadidList" value="{{item.leadid}}">{{item.lastname}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="productid" class="control-label" (click)="AddOrEditproductid(null)">{{'Product'
+                | translate}}</label>
+              <select id="productid" (change)="productidonChange($event.target)" formControlName="productid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of productidList" value="{{item.productid}}">{{item.productname}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="campaignid" class="control-label"
+                (click)="AddOrEditcampaignid(null)">{{'Campaign' | translate}}</label>
+              <select id="campaignid" (change)="campaignidonChange($event.target)" formControlName="campaignid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of campaignidList" value="{{item.campaignid}}">{{item.campaignname}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="source" class="control-label">{{'Source' | translate}}</label>
+              <select id="source" (change)="sourceonChange($event.target)" formControlName="source"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of sourceList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="leadby" class="control-label" (click)="AddOrEditleadby(null)">{{'Lead By' |
+                translate}}</label>
+              <div class="input-group">
+                <input id="leadby" placeholder="" [ngbTypeahead]="leadby_bousermastersoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedleadby($event)" formControlName='leadby'
+                  [resultFormatter]="leadby_bousermastersformatter">
+                <input readonly id="leadbydesc" formControlName="leadbydesc" class="form-control autocompletedesc"
+                  placeholder="{{'Lead By' | translate}}">
+              </div>
+            </div>
+            <div class="col">
+              <label for="creationdate" class="control-label">{{'Creation Date' | translate}}</label>
+              <div class="input-group">
+                <input #creationdateformpicker="ngbDatepicker" ngbDatepicker name="creationdateformpicker"
+                  id="creationdate" formControlName="creationdate" class="form-control"
+                  placeholder="Choose {{'Creation Date' | translate}}">
+                <button class="input-group-addon" (click)="creationdateformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="genericcustomfield" class="control-label">{{'Generic Custom Field' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="genericcustomfield"
+                formControlName="genericcustomfield" class="form-control"
+                placeholder="{{'Generic Custom Field' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="productcustomfield" class="control-label">{{'Product Custom Field' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="productcustomfield"
+                formControlName="productcustomfield" class="form-control"
+                placeholder="{{'Product Custom Field' | translate}}">
+</textarea>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">L M S Pendings</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table lmspendings-->
+          <div class="row"></div>
+          <div [ngClass]="IslmspendingsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'L M S Pendings' | translate}}
+              <select class='child' id="lmspendingsPagingdropdown" (change)="lmspendingsPaging($event.target.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="lmspendingsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showlmspendingsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tbllmspendingssource (userRowSelect)="handlelmspendingsGridSelected($event)"
+              [settings]="lmspendingssettings" [source]="lmspendingssource" (delete)="lmspendingsroute($event,'delete')"
+              (deleteConfirm)="lmspendingsroute($event,'delete')" (create)="lmspendingsroute($event,'create')"
+              (createConfirm)="lmspendingsbeforesave($event)" (edit)="lmspendingsroute($event,'edit')"
+              (editConfirm)="lmspendingsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table lmspendings-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">L M S Reminders</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table lmsreminders-->
+          <div class="row"></div>
+          <div [ngClass]="IslmsremindersVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'L M S Reminders' | translate}}
+              <select class='child' id="lmsremindersPagingdropdown" (change)="lmsremindersPaging($event.target.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="lmsremindersroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showlmsremindersFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tbllmsreminderssource (userRowSelect)="handlelmsremindersGridSelected($event)"
+              [settings]="lmsreminderssettings" [source]="lmsreminderssource"
+              (delete)="lmsremindersroute($event,'delete')" (deleteConfirm)="lmsremindersroute($event,'delete')"
+              (create)="lmsremindersroute($event,'create')" (createConfirm)="lmsremindersbeforesave($event)"
+              (edit)="lmsremindersroute($event,'edit')" (editConfirm)="lmsremindersbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table lmsreminders-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">L M S Secondary Contacts</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table lmssecondarycontacts-->
+          <div class="row"></div>
+          <div [ngClass]="IslmssecondarycontactsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'L M S Secondary Contacts' | translate}}
+              <select class='child' id="lmssecondarycontactsPagingdropdown"
+                (change)="lmssecondarycontactsPaging($event.target.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn"
+                    (click)="lmssecondarycontactsroute(null, 'create')"><i class="fa fa-plus"
+                      aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showlmssecondarycontactsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tbllmssecondarycontactssource
+              (userRowSelect)="handlelmssecondarycontactsGridSelected($event)" [settings]="lmssecondarycontactssettings"
+              [source]="lmssecondarycontactssource" (delete)="lmssecondarycontactsroute($event,'delete')"
+              (deleteConfirm)="lmssecondarycontactsroute($event,'delete')"
+              (create)="lmssecondarycontactsroute($event,'create')"
+              (createConfirm)="lmssecondarycontactsbeforesave($event)" (edit)="lmssecondarycontactsroute($event,'edit')"
+              (editConfirm)="lmssecondarycontactsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table lmssecondarycontacts-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.opportunityid.value != null" [menuid]="pmenuid" [value]="f.opportunityid.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,19 @@
+<div *ngIf="loggedIn" class="container">
+    <div class="layout-wrapper layout-menu-light layout-topbar-blue p-input-filled layout-menu-static"
+        [ngClass]="{'layout-menu-active': isMenuVisible}">
+        <app-header (toggleMenubar)="toggleMenu()"></app-header>
+        <div class="menu-wrapper col">
+            <div class="layout-menu-container3">
+                <app-menu (closeClicked)="isMobileResolution && isMenuVisible=$event" [items]="menuItems"></app-menu>
+            </div>
+        </div>
+        <div class="col"  id="contentAreaLayout" >
+            <!--  id="contentAreaLayout"
+        style="overflow-y:scroll!important;overflow-x:scroll!important;scrollbar-width: thin;"
+        class="layout-main main" onscroll="scrollFunction()"-->
+            <router-outlet (activate)="topFunction()"></router-outlet>
+            <button onclick="topFunction()" id="scrollBtn" title="Go to top" style="display:none">Top</button>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

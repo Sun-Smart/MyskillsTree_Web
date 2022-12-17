@@ -1,0 +1,203 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="hrmstrainingForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Trainings' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="edithrmstrainings()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmstrainingtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmstrainingshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.trainingid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.trainingid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('trainingtitle') == -1"  class="col "  >
+<label  for="trainingtitle" class="control-label">Training Title</label>
+      <input   *ngIf="!showview"  id="trainingtitle"  formControlName="trainingtitle" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('details') == -1"  class="col "  >
+<label  for="details" class="control-label">Details</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="details"  formControlName="details" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--jobfield-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('jobfield') == -1"  class="col" ><label  for="jobfield" class="control-label">Field</label>
+      <select  *ngIf="!showview"  id="jobfield"  (change)="jobfieldonChange($event.target)" formControlName="jobfield"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of jobfieldList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.jobfielddesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('organizationname') == -1"  class="col "  >
+<label  for="organizationname" class="control-label">Organization Name</label>
+      <input   *ngIf="!showview"  id="organizationname"  formControlName="organizationname" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('location') == -1"  class="col "  >
+<label  for="location" class="control-label">Location</label>
+      <input   *ngIf="!showview"  id="location"  formControlName="location" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('trainingstartdate') == -1"  class="col "  >
+<label  for="trainingstartdate" class="control-label">Training Start Date</label>
+<div class="input-group" *ngIf="!showview" >
+<input #trainingstartdateformpicker="ngbDatepicker"      ngbDatepicker name="trainingstartdateformpicker" id="trainingstartdate"  formControlName="trainingstartdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="trainingstartdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.trainingstartdate?.value)}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('trainingenddate') == -1"  class="col "  >
+<label  for="trainingenddate" class="control-label">Training End Date</label>
+<div class="input-group" *ngIf="!showview" >
+<input #trainingenddateformpicker="ngbDatepicker"      ngbDatepicker name="trainingenddateformpicker" id="trainingenddate"  formControlName="trainingenddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="trainingenddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.trainingenddate?.value)}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('trainer') == -1"  class="col "  >
+<label  for="trainer" class="control-label">Trainer</label>
+      <input   *ngIf="!showview"  id="trainer"  formControlName="trainer" class="form-control"
+        >
+  </div>
+
+
+<!--color-->
+
+  <div   *ngIf="hidelist.indexOf('color') == -1"  class="col" ><label  for="color" class="control-label">Color</label>
+      <select  *ngIf="!showview"  id="color"  (change)="coloronChange($event.target)" formControlName="color"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of colorList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.colordesc?.value}}</label>
+  </div>
+<div class="col"></div>
+</div></p-accordion>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Trainings</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeetrainings-->
+<div class="row"></div><div [ngClass]="IshrmsemployeetrainingsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Trainings' | translate}}
+<select class='child'  id="hrmsemployeetrainingsPagingdropdown" (change)="hrmsemployeetrainingsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeetrainingtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeetrainingshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeetrainingtoggleOption();hrmsemployeetrainingsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeetrainingtoggleOption();showhrmsemployeetrainingsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeetrainingssource (userRowSelect)="handlehrmsemployeetrainingsGridSelected($event)" [settings]="hrmsemployeetrainingssettings" (custom)="onCustomhrmsemployeetrainingsAction($event)" [source]="hrmsemployeetrainingssource"  (delete)="hrmsemployeetrainingsroute($event,'delete')"  (deleteConfirm)="hrmsemployeetrainingsroute($event,'delete')" (create)="hrmsemployeetrainingsroute($event,'create')"   (createConfirm)="hrmsemployeetrainingsbeforesave($event)"  (edit)="hrmsemployeetrainingsroute($event,'edit')"  (editConfirm)="hrmsemployeetrainingsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeetrainings-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

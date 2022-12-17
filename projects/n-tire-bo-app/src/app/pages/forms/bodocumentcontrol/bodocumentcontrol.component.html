@@ -1,0 +1,79 @@
+<form  [formGroup]="bodocumentcontrolForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Document Controls' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+
+
+<!--documentid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'documentid'; "  for="documentid" class="control-label" (click)="AddOrEditdocumentid(null)">Document</label>
+<app-popupselect  *ngIf="!showview"  [options]="documentidList"  [optionsEvent]="documentidoptionsEvent" [form]="dmsdocument" (selectItem)="onSelecteddocumentid($event)"  [reportid]= 'BDC' [menuid]='BDC' formControlName="documentid" id="documentid" desc="reference" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='documentid'"  (click)="editfield = 'documentid';"  class="form-control labelview">{{f.documentiddesc?.value}}</label>
+  </div>
+
+
+<!--action-->
+
+  <div   class="col" ><label (click)="editfield = 'action'; "  for="action" class="control-label">Action</label>
+      <select  *ngIf="!showview"  id="action"  (change)="actiononChange($event.target)" formControlName="action"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of actionList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='action'"  (click)="editfield = 'action';"  class="form-control labelview">{{f.actiondesc?.value}}</label>
+  </div>
+
+
+<!--userid-->
+
+  <div   class="col" ><label (click)="editfield = 'userid'; "  for="userid" class="control-label" (click)="AddOrEdituserid(null)">User</label>
+<app-popupselect  *ngIf="!showview"  [options]="useridList"  [optionsEvent]="useridoptionsEvent" [form]="bousermaster" (selectItem)="onSelecteduserid($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="userid" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='userid'"  (click)="editfield = 'userid';"  class="form-control labelview">{{f.useriddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'actiondatetime'; "  for="actiondatetime" class="control-label">Action Date Time</label>
+<div class="input-group" *ngIf="!showview || editfield=='actiondatetime'">
+<input #actiondatetimeformpicker="ngbDatepicker"      ngbDatepicker name="actiondatetimeformpicker" id="actiondatetime"  formControlName="actiondatetime"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='actiondatetime'"  (click)="actiondatetimeformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='actiondatetime'"  (click)="editfield = 'actiondatetime';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.actiondatetime?.value)}}</label>
+  </div>
+</div>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.controlid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.controlid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

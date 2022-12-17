@@ -1,0 +1,207 @@
+<div class="dialog">
+  <form [formGroup]="erpsalesorderdetailForm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div  class="container"     id="contentArea1"   >
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col">
+            <label for="versionnumber" class="control-label">{{'Version Number' | translate}}</label>
+            <input id="versionnumber" formControlName="versionnumber" class="form-control"
+              placeholder="{{'Version Number' | translate}}">
+          </div>
+          <div class="col"><label for="detailtype" class="control-label">{{'Type' | translate}}</label>
+            <select id="detailtype" (change)="detailtypeonChange($event.target)" formControlName="detailtype"
+              class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of detailtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+          </div>
+          <div class="col"><label for="itemid" class="control-label" (click)="AddOrEdititemid(null)">{{'Item' |
+              translate}}</label>
+            <app-popupselect [options]="itemidList" [optionsEvent]="itemidoptionsEvent" [form]="erpitemmaster"
+              (selectItem)="onSelecteditemid($event)" [reportid]=48 [menuid]=48 formControlName="itemid" id="itemid"
+              desc="itemcode#itemshortname"></app-popupselect>
+            <div class="input-group">
+            </div>
+          </div>
+          <div class="col">
+            <label for="description" class="control-label">{{'Description' | translate}}</label>
+            <input id="description" formControlName="description" class="form-control"
+              placeholder="{{'Description' | translate}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="details" class="control-label">{{'Details' | translate}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="details" formControlName="details"
+              class="form-control" placeholder="{{'Details' | translate}}">
+</textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="quantity" class="control-label">{{'Quantity' | translate}}</label>
+            <input id="quantity" formControlName="quantity" class="form-control"
+              placeholder="{{'Quantity' | translate}}">
+          </div>
+          <div class="col"><label for="uom" class="control-label">{{'U O M' | translate}}</label>
+            <select id="uom" (change)="uomonChange($event.target)" formControlName="uom" class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of uomList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+          </div>
+          <div class="col"><label for="currency" class="control-label">{{'Currency' | translate}}</label>
+            <select id="currency" (change)="currencyonChange($event.target)" formControlName="currency"
+              class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of currencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="unitprice" class="control-label">{{'Unit Price' | translate}}</label>
+            <input id="unitprice" formControlName="unitprice" class="form-control"
+              placeholder="{{'Unit Price' | translate}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="discountpercent" class="control-label">{{'Discount Percent' | translate}}</label>
+            <input id="discountpercent" formControlName="discountpercent" class="form-control"
+              placeholder="{{'Discount Percent' | translate}}">
+          </div>
+          <div class="col"><label for="discounttype" class="control-label">{{'Discount Type' | translate}}</label>
+            <select id="discounttype" (change)="discounttypeonChange($event.target)" formControlName="discounttype"
+              class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of discounttypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="discountvalue" class="control-label">{{'Discount Value' | translate}}</label>
+            <input id="discountvalue" formControlName="discountvalue" class="form-control"
+              placeholder="{{'Discount Value' | translate}}">
+          </div>
+          <div class="col">
+            <label for="saleprice" class="control-label">{{'Sale Price' | translate}}</label>
+            <input id="saleprice" formControlName="saleprice" class="form-control"
+              placeholder="{{'Sale Price' | translate}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col"><label for="tax1name" class="control-label" (click)="AddOrEdittax1name(null)">{{'Tax1' |
+              translate}}</label>
+            <select id="tax1name" (change)="tax1nameonChange($event.target)" formControlName="tax1name"
+              class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of tax1nameList" value="{{item.taxid}}">{{item.taxname}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="tax1value" class="control-label">{{'Tax1 Value' | translate}}</label>
+            <input id="tax1value" formControlName="tax1value" class="form-control"
+              placeholder="{{'Tax1 Value' | translate}}">
+          </div>
+          <div class="col"><label for="tax2name" class="control-label" (click)="AddOrEdittax2name(null)">{{'Tax2' |
+              translate}}</label>
+            <select id="tax2name" (change)="tax2nameonChange($event.target)" formControlName="tax2name"
+              class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of tax2nameList" value="{{item.taxid}}">{{item.taxname}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="tax2value" class="control-label">{{'Tax2 Value' | translate}}</label>
+            <input id="tax2value" formControlName="tax2value" class="form-control"
+              placeholder="{{'Tax2 Value' | translate}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="othercharges" class="control-label">{{'Other Charges' | translate}}</label>
+            <input id="othercharges" formControlName="othercharges" class="form-control"
+              placeholder="{{'Other Charges' | translate}}">
+          </div>
+          <div class="col">
+            <label for="totalvalue" class="control-label">{{'Total Value' | translate}}</label>
+            <input id="totalvalue" formControlName="totalvalue" class="form-control"
+              placeholder="{{'Total Value' | translate}}">
+          </div>
+          <div class="col"><label for="basecurrency" class="control-label">{{'Base Currency' | translate}}</label>
+            <select id="basecurrency" (change)="basecurrencyonChange($event.target)" formControlName="basecurrency"
+              class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of basecurrencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="basevalue" class="control-label">{{'Base Value' | translate}}</label>
+            <input id="basevalue" formControlName="basevalue" class="form-control"
+              placeholder="{{'Base Value' | translate}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="expecteddelivery" class="control-label">{{'Expected Delivery' | translate}}</label>
+            <div class="input-group">
+              <input #expecteddeliveryformpicker="ngbDatepicker" ngbDatepicker name="expecteddeliveryformpicker"
+                id="expecteddelivery" formControlName="expecteddelivery" class="form-control"
+                placeholder="Choose {{'Expected Delivery' | translate}}">
+              <button class="input-group-addon" (click)="expecteddeliveryformpicker.toggle()" type="button"><i
+                  class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+          </div>
+          <div class="col">
+            <label for="size" class="control-label">{{'Size' | translate}}</label>
+            <input id="size" formControlName="size" class="form-control" placeholder="{{'Size' | translate}}">
+          </div>
+          <div class="col">
+            <label for="color" class="control-label">{{'Color' | translate}}</label>
+            <input id="color" formControlName="color" class="form-control" placeholder="{{'Color' | translate}}">
+          </div>
+          <div class="col">
+            <label for="weight" class="control-label">{{'Weight' | translate}}</label>
+            <input id="weight" formControlName="weight" class="form-control" placeholder="{{'Weight' | translate}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="notes" class="control-label">{{'Notes' | translate}}</label>
+            <input id="notes" formControlName="notes" class="form-control" placeholder="{{'Notes' | translate}}">
+          </div>
+          <div class="col">
+            <div class="columnchk">
+              <label for="paymenttermtype" class="control-label">{{'Payment Term Type' | translate}}</label>
+              <input type="checkbox" id="paymenttermtype" formControlName="paymenttermtype" class="form-control"
+                placeholder="{{'Payment Term Type' | translate}}">
+            </div>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remarks" formControlName="remarks"
+              class="form-control" placeholder="{{'Remarks' | translate}}">
+</textarea>
+          </div>
+        </div>
+      </p-accordion>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.sodetailid!.value != null" [menuid]="pmenuid" [value]="f.sodetailid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

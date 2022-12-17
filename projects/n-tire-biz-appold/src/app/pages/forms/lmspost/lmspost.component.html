@@ -1,0 +1,222 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="lmspost_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Posts' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_lmsposts()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of lmspost_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.postid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.postid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('campaignid') == -1) && (campaignidvisible==undefined || campaignidvisible==true))"
+        style='' class="col-3 ">
+        <label for="campaignid" class="control-label">Campaign</label>
+        <label *ngIf="showview" class="labelview">{{f.campaignid?.value}}</label>
+        <input *ngIf="!showview" id="campaignid" formControlName="campaignid" class="form-control">
+      </div>
+
+
+      <!--userid-->
+
+      <div *ngIf="((hidelist.indexOf('userid') == -1) && (useridvisible==undefined || useridvisible==true))" style=''
+        class="col-3"><label for="userid" class="control-label" (click)="AddOrEdit_userid(null)">User</label>
+        <app-popupselect *ngIf="!showview" [options]="userid_List" [optionsEvent]="userid_optionsEvent"
+          [form]="bousermaster" (selectItem)="onSelected_userid($event)" [reportid]='e99kq' [menuid]='e99kq'
+          formControlName="userid" id="value" desc="label"></app-popupselect>
+        <div class="input-group">
+        </div>
+        <label *ngIf="showview" class="labelview">{{f.useriddesc?.value}}</label>
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('senderemail') == -1) && (senderemailvisible==undefined || senderemailvisible==true))"
+        style='' class="col-3 ">
+        <label for="senderemail" class="control-label">Sender Email</label>
+        <label *ngIf="showview" class="labelview">{{f.senderemail?.value}}</label>
+        <input type="email" [email]="true" *ngIf="!showview" id="senderemail" formControlName="senderemail"
+          class="form-control">
+        <app-field-error-display [displayError]="f.senderemail.errors!=null && f.senderemail.errors?.email"
+          errorMsg="Enter valid email">
+        </app-field-error-display>
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('scheduledate') == -1) && (scheduledatevisible==undefined || scheduledatevisible==true))"
+        style='' class="col-3 ">
+        <label for="scheduledate" class="control-label">Schedule Date</label>
+        <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.scheduledate?.value)}}</label>
+        <div class="input-group" *ngIf="!showview">
+          <input #scheduledateformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+            [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="scheduledateformpicker" id="scheduledate"
+            formControlName="scheduledate" class="form-control">
+          <button class="input-group-addon" *ngIf="!showview" (click)="scheduledateformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('scheduletime') == -1) && (scheduletimevisible==undefined || scheduletimevisible==true))"
+        style='' class="col-3 ">
+        <label for="scheduletime" class="control-label">Schedule Time</label>
+        <label *ngIf="showview" class="labelview">{{f.scheduletime?.value}}</label>
+        <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="scheduletime">
+        </ngb-timepicker>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('contenttext') == -1) && (contenttextvisible==undefined || contenttextvisible==true))"
+        style='width:1500px' class="col-12 ">
+        <label for="contenttext" class="control-label">Content Text</label>
+        <label *ngIf="showview" class="labelview">{{f.contenttext?.value}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="contenttext"
+          formControlName="contenttext" class="form-control">
+</textarea>
+      </div>
+    </div>
+
+
+    <!--campaigntype-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('campaigntype') == -1) && (campaigntypevisible==undefined || campaigntypevisible==true)) || maindata==undefined || maindata==null || maindata.ScreenType==null"
+        style='' class="col-3"><label for="campaigntype" class="control-label">Campaign Type</label>
+        <select *ngIf="!showview" id="campaigntype" (change)="campaigntype_onChange($event.target)"
+          formControlName="campaigntype" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of campaigntype_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.campaigntypedesc?.value}}</label>
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('recipientgroup') == -1) && (recipientgroupvisible==undefined || recipientgroupvisible==true))"
+        style='' class="col-3 ">
+        <label for="recipientgroup" class="control-label">Recipient Group</label>
+        <label *ngIf="showview" class="labelview">{{f.recipientgroup?.value}}</label>
+        <input *ngIf="!showview" id="recipientgroup" formControlName="recipientgroup" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('testgroup') == -1) && (testgroupvisible==undefined || testgroupvisible==true))"
+        style='' class="col-3 ">
+        <label for="testgroup" class="control-label">Test Group</label>
+        <label *ngIf="showview" class="labelview">{{f.testgroup?.value}}</label>
+        <input *ngIf="!showview" id="testgroup" formControlName="testgroup" class="form-control">
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('sendunsubscribelink') == -1) && (sendunsubscribelinkvisible==undefined || sendunsubscribelinkvisible==true))"
+        style='' class="col-3 ">
+        <div class="columnchk">
+          <label for="sendunsubscribelink" class="control-label">Send Unsubscribe Link</label>
+          <label *ngIf="showview" class="labelview">{{f.sendunsubscribelink?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="sendunsubscribelink" formControlName="sendunsubscribelink"
+            class="form-control">
+        </div>
+      </div>
+    </div>
+
+
+    <!--campaignstatus-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('campaignstatus') == -1) && (campaignstatusvisible==undefined || campaignstatusvisible==true)) || maindata==undefined || maindata==null || maindata.ScreenType==null"
+        style='' class="col-3"><label for="campaignstatus" class="control-label">Campaign Status</label>
+        <select *ngIf="!showview" id="campaignstatus" (change)="campaignstatus_onChange($event.target)"
+          formControlName="campaignstatus" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of campaignstatus_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.campaignstatusdesc?.value}}</label>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class='full-width' *ngIf="attachmentVisible">
+      <p-accordion [multiple]='true'>
+        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+          <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+          </app-attachment>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+</form>

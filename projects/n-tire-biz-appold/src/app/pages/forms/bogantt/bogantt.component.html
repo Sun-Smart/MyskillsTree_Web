@@ -1,0 +1,7 @@
+<form [formGroup]="boganttForm" [ngClass]="theme">
+  <button (click)="changeData()">New Data</button>
+
+  <div style="height:300px;">
+    <ng-gantt [options]="editorOptions" [data]="data" #editor></ng-gantt>
+  </div>
+</form>

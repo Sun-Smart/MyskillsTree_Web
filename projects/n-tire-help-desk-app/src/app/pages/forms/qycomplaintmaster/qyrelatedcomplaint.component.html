@@ -1,0 +1,63 @@
+<div class="dialog">
+  <form [formGroup]="qyrelatedcomplaintForm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col">
+            <label for="relatedcomplaintid" class="control-label">Related Complaint</label>
+            <input *ngIf="!showview" id="relatedcomplaintid" formControlName="relatedcomplaintid" class="form-control"
+              placeholder="{{'Related Complaint' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.relatedcomplaintid?.value}}</label>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="comments" class="control-label">Comments</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="comments"
+              formControlName="comments" class="form-control" placeholder="{{'Comments' | translate}}">
+</textarea>
+            <label *ngIf="showview" class="form-control labelview">{{f.comments?.value}}</label>
+          </div>
+        </div>
+        <div *ngIf="customfieldvisible">
+          <p-accordionTab header='CustomField' [selected]='true'>
+            <div class="sticky"
+              *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+              Custom Fields</div>
+            <div class="form-group row"
+              *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+              <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+            </div>
+          </p-accordionTab>
+        </div>
+        <div *ngIf="attachmentvisible">
+          <p-accordionTab header='Attachment' [selected]='true'>
+            <app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+          </p-accordionTab>
+        </div>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.relatedid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.relatedid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

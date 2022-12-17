@@ -1,0 +1,140 @@
+<form  [formGroup]="bobarcodeForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Bar Codes' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'elementtype'; "  for="elementtype" class="control-label">Element Type</label>
+      <input   *ngIf="!showview || editfield=='elementtype'"  id="elementtype"  formControlName="elementtype" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'format'; "  for="format" class="control-label">Format</label>
+      <input   *ngIf="!showview || editfield=='format'"  id="format"  formControlName="format" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'linecolor'; "  for="linecolor" class="control-label">Line Color</label>
+      <input   *ngIf="!showview || editfield=='linecolor'"  id="linecolor"  formControlName="linecolor" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'width'; "  for="width" class="control-label">Width</label>
+      <input   *ngIf="!showview || editfield=='width'"  id="width"  formControlName="width" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'height'; "  for="height" class="control-label">Height</label>
+      <input   *ngIf="!showview || editfield=='height'"  id="height"  formControlName="height" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'displayvalue'; "  for="displayvalue" class="control-label">Display Value</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='displayvalue'"  id="displayvalue"  formControlName="displayvalue" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'fontoptions'; "  for="fontoptions" class="control-label">Font Options</label>
+      <input   *ngIf="!showview || editfield=='fontoptions'"  id="fontoptions"  formControlName="fontoptions" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'font'; "  for="font" class="control-label">Font</label>
+      <input   *ngIf="!showview || editfield=='font'"  id="font"  formControlName="font" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'textalign'; "  for="textalign" class="control-label">Text Align</label>
+      <input   *ngIf="!showview || editfield=='textalign'"  id="textalign"  formControlName="textalign" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'textposition'; "  for="textposition" class="control-label">Text Position</label>
+      <input   *ngIf="!showview || editfield=='textposition'"  id="textposition"  formControlName="textposition" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'textmargin'; "  for="textmargin" class="control-label">Text Margin</label>
+      <input   *ngIf="!showview || editfield=='textmargin'"  id="textmargin"  formControlName="textmargin" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'fontsize'; "  for="fontsize" class="control-label">Font Size</label>
+      <input   *ngIf="!showview || editfield=='fontsize'"  id="fontsize"  formControlName="fontsize" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'background'; "  for="background" class="control-label">Background</label>
+      <input   *ngIf="!showview || editfield=='background'"  id="background"  formControlName="background" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'margin'; "  for="margin" class="control-label">Margin</label>
+      <input   *ngIf="!showview || editfield=='margin'"  id="margin"  formControlName="margin" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'margintop'; "  for="margintop" class="control-label">Margin Top</label>
+      <input   *ngIf="!showview || editfield=='margintop'"  id="margintop"  formControlName="margintop" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'marginbottom'; "  for="marginbottom" class="control-label">Margin Bottom</label>
+      <input   *ngIf="!showview || editfield=='marginbottom'"  id="marginbottom"  formControlName="marginbottom" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'marginleft'; "  for="marginleft" class="control-label">Margin Left</label>
+      <input   *ngIf="!showview || editfield=='marginleft'"  id="marginleft"  formControlName="marginleft" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'marginright'; "  for="marginright" class="control-label">Margin Right</label>
+      <input   *ngIf="!showview || editfield=='marginright'"  id="marginright"  formControlName="marginright" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div><div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.barcodeid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.barcodeid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

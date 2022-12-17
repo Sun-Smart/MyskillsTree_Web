@@ -1,0 +1,83 @@
+<div class="dialog">
+<form  [formGroup]="prjprojectrequirementForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="container1"   *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<p-accordion  [multiple]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'requirement'; "  for="requirement" class="control-label">Requirement</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='requirement'"  id="requirement"  formControlName="requirement" class="form-control"
+        placeholder="{{'Requirement' | translate}}">
+</textarea>
+  </div>
+</div>
+
+
+<!--authorid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'authorid'; "  for="authorid" class="control-label" (click)="AddOrEditauthorid(null)">Author</label>
+<app-popupselect  *ngIf="!showview"  [options]="authoridList"  [optionsEvent]="authoridoptionsEvent" [form]="bousermaster" (selectItem)="onSelectedauthorid($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="authorid" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='authorid'"  (click)="editfield = 'authorid';"  class="form-control labelview">{{f.authoriddesc?.value}}</label>
+  </div>
+
+
+<!--reviewerid-->
+
+  <div   class="col" ><label (click)="editfield = 'reviewerid'; "  for="reviewerid" class="control-label" (click)="AddOrEditreviewerid(null)">Reviewer</label>
+<app-popupselect  *ngIf="!showview"  [options]="revieweridList"  [optionsEvent]="revieweridoptionsEvent" [form]="bousermaster" (selectItem)="onSelectedreviewerid($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="reviewerid" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='reviewerid'"  (click)="editfield = 'reviewerid';"  class="form-control labelview">{{f.revieweriddesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'tousers'; "  for="tousers" class="control-label">To Users</label>
+      <app-useraccess   *ngIf="!showview || editfield=='tousers'"  id="tousers"  formControlName="tousers"
+        placeholder="{{'To Users' | translate}}">
+</app-useraccess>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'remarks'; "  for="remarks" class="control-label">Remarks</label>
+      <app-comment   *ngIf="!showview || editfield=='remarks'"  id="remarks"  formControlName="remarks" [label]="'Remarks'" 
+        placeholder="{{'Remarks' | translate}}">
+</app-comment>
+  </div>
+</div>
+<div *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.length>0">
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</div>
+<div *ngIf="attachmentvisible">
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</div>
+</p-accordion>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-info" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-info" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.requirementid!.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.requirementid!.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>
+</div>

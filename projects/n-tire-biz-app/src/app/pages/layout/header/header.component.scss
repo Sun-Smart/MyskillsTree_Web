@@ -1,0 +1,247 @@
+//  .layout-topbar
+//  {
+//    background-color: var(--frontcolor)!important;
+//   color: var(--backcolor)!important;
+//  }
+
+//  .layout-topbar
+// {
+//   background: #f5f3e4 !important;
+//   // background-color: var(--frontcolor)!important;
+//   // background: linear-gradient(to bottom, #004fce 0%, #009c8e 90%);
+//   // color: #fff !important;
+//   height: 50px !important;
+// }
+// .headerClass {
+//   span {
+//     // color: #fff;
+//     color: #000;
+//   }
+//   ul {
+//     li {
+//       // color: #fff;
+//       color: #000;
+//     }
+//   }
+//  }
+
+// .logo-2{
+//   width: 48px;
+//   margin: -3px;
+//     /* height: 100%; */
+//     // margin: 1px;
+//   // width: 70%;
+//   //   height: 100%;
+//   //   margin: 5px;
+// }
+// .icon {
+//   height: 50px;
+//   width: 50px;
+//   // color: #fff !important;
+//   color: #000 !important;
+// }
+// .card{
+//   background-color: #fff !important;
+// }
+// .newfont_header{
+//   font-size: 10px !important;
+// }
+// .img_content:hover{
+//   .list-group{
+//     display: block;
+//   }
+// }
+// .layout-topbar
+// {
+//   background-color: var(--frontcolor)!important;
+//   color: var(--backcolor)!important;
+// }
+
+.layout-topbar {
+  background-color: #f5f3e4 !important;
+  // background-color: #d8ecc1 !important;
+  color: black !important;
+  // background-color: var(--frontcolor)!important;
+  // background: linear-gradient(to bottom, #004fce 0%, #009c8e 90%);
+
+  // color: #fff !important;
+}
+
+.headerClass {
+  span {
+    // color: #fff;
+    color: black !important;
+  }
+
+  ul {
+    li {
+      // color: #fff;
+      color: black;
+    }
+  }
+}
+
+.logo-2 {
+  // width: 70%;
+  //   height: 100%;
+  //   margin: 5px;
+  width: 42px;
+  border-radius: 50px;
+  margin-right: 86%;
+  margin-bottom: 0 rem;
+}
+
+.icon {
+  height: 50px;
+  width: 50px;
+  // color: #fff !important;
+}
+
+a {
+  color: black !important;
+}
+
+.layout-topbar {
+  height: 3.5rem !important;
+}
+
+body {
+  color: #000000;
+  font-family: Sans-Serif;
+  padding: 30px;
+  background-color: #f6f6f6;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
+a:hover {
+  color: #222222
+}
+
+
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.dd-button {
+  display: inline-block;
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 10px 30px 10px 20px;
+  background-color: #ffffff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dd-button:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+}
+
+.dd-button:hover {
+  background-color: #eeeeee;
+}
+
+
+.dd-input {
+  display: none;
+}
+
+.dd-menu {
+  position: absolute;
+  top: 100%;
+  right: 0px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 2px 0 0 0;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  list-style-type: none;
+}
+
+.dd-input+.dd-menu {
+  display: none;
+}
+
+.dd-input:checked+.dd-menu {
+  display: block;
+}
+
+.dd-menu li {
+  padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dd-menu li:hover {
+  background-color: #f6f6f6;
+}
+
+.dd-menu li a {
+  display: block;
+  margin: -10px -20px;
+  padding: 10px 20px;
+}
+
+.dd-menu li.divider {
+  padding: 0;
+  border-bottom: 1px solid #cccccc;
+}
+
+.col-4 {
+  //border-style: groove;
+  border-color: #e0dfdf;
+}
+
+.p-menubar-root-list>.p-menuitem-active>p-menubarsub>.p-submenu-list {
+  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  height: 250px;
+  width: 33rem !important;
+  order: 7;
+  right: 0px;
+}
+
+.p-menubar-root-list>.p-menuitem-active>p-menubarsub>.p-submenu-list {
+  display: grid !important;
+  grid-template-columns: 165px 1fr 1fr !important;
+  right: 0px !important;
+  height: 270px !important;
+}
+
+
+.card {
+  height: 78px !important;
+  border-color: #ffffff !important;
+  background-color: #d8ecc1 !important;
+  padding: 3px;
+   //margin: 3px 3px !important;
+}
+
+// .col-4[_ngcontent-hub-c401] {
+//   border-color: #ffffff !important;
+//   background-color: #cbf29f !important;
+//   /* gap: 5px !important; */
+// }
+i {
+  font-size: 24px !important;
+}
+
+.col-4 .card:hover {
+  background-color: #d8ecc1 !important;
+}

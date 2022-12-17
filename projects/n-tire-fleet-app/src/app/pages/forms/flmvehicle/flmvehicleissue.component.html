@@ -1,0 +1,118 @@
+<div class="dialog">
+  <form [formGroup]="flmvehicleissueForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Vehicle Issues' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="description" class="control-label">{{'Description' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="description" formControlName="description"
+            class="form-control" placeholder="{{'Description' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="issuedate" class="control-label">{{'IssueDate' | translate}}</label>
+          <div class="input-group">
+            <input #issuedateformpicker="ngbDatepicker" ngbDatepicker name="issuedateformpicker" id="issuedate"
+              formControlName="issuedate" class="form-control" placeholder="Choose {{'IssueDate' | translate}}">
+            <button class="input-group-addon" (click)="issuedateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="detaildescription" class="control-label">{{'DetailDescription' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="detaildescription"
+            formControlName="detaildescription" class="form-control" placeholder="{{'DetailDescription' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="odometer" class="control-label">{{'Odometer' | translate}}</label>
+          <input id="odometer" formControlName="odometer" class="form-control" placeholder="{{'Odometer' | translate}}">
+        </div>
+        <div class="col"><label for="issuecategory" class="control-label">{{'Category' | translate}}</label>
+          <select id="issuecategory" (change)="issuecategoryonChange($event.target)" formControlName="issuecategory"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of issuecategoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col"><label for="severity" class="control-label">{{'Severity' | translate}}</label>
+          <select id="severity" (change)="severityonChange($event.target)" formControlName="severity"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of severityList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col"><label for="priority" class="control-label">{{'Priority' | translate}}</label>
+          <select id="priority" (change)="priorityonChange($event.target)" formControlName="priority"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of priorityList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="reportedby" class="control-label" (click)="AddOrEditreportedby(null)">{{'Reported
+            By' | translate}}</label>
+          <div class="input-group">
+            <input id="reportedby" placeholder="" [ngbTypeahead]="reportedby_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedreportedby($event)" formControlName='reportedby'
+              [resultFormatter]="reportedby_bousermastersformatter">
+            <input readonly id="reportedbydesc" formControlName="reportedbydesc" class="form-control autocompletedesc"
+              placeholder="{{'Reported By' | translate}}">
+          </div>
+        </div>
+        <div class="col"><label for="assignedto" class="control-label"
+            (click)="AddOrEditassignedto(null)">{{'AssignedTo' | translate}}</label>
+          <div class="input-group">
+            <input id="assignedto" placeholder="" [ngbTypeahead]="assignedto_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedassignedto($event)" formControlName='assignedto'
+              [resultFormatter]="assignedto_bousermastersformatter">
+            <input readonly id="assignedtodesc" formControlName="assignedtodesc" class="form-control autocompletedesc"
+              placeholder="{{'AssignedTo' | translate}}">
+          </div>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}" target="_blank">{{fld!.value!.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.issueid!.value != null" [menuid]="pmenuid" [value]="f.issueid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

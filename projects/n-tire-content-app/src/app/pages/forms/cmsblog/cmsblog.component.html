@@ -1,0 +1,110 @@
+<form [formGroup]="cmsblogForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Blogs' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col">
+        <label for="title" class="control-label">{{'Title' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="title" formControlName="title"
+          class="form-control" placeholder="{{'Title' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="body" class="control-label">{{'Body' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="body" formControlName="body"
+          class="form-control" placeholder="{{'Body' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="image" class="control-label">{{'Image' | translate}}</label>
+        <input id="image" formControlName="image" class="form-control" placeholder="{{'Image' | translate}}">
+      </div>
+      <div class="col">
+        <label for="tags" class="control-label">{{'Tags' | translate}}</label>
+        <input id="tags" formControlName="tags" class="form-control" placeholder="{{'Tags' | translate}}">
+      </div>
+      <div class="col">
+        <div class="columnchk">
+          <label for="enablecomments" class="control-label">{{'EnableComments' | translate}}</label>
+          <input type="checkbox" id="enablecomments" formControlName="enablecomments" class="form-control"
+            placeholder="{{'EnableComments' | translate}}">
+        </div>
+      </div>
+      <div class="col">
+        <div class="columnchk">
+          <label for="enablenotifications" class="control-label">{{'EnableNotifications' | translate}}</label>
+          <input type="checkbox" id="enablenotifications" formControlName="enablenotifications" class="form-control"
+            placeholder="{{'EnableNotifications' | translate}}">
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <div class="columnchk">
+          <label for="makevisible" class="control-label">{{'MakeVisible' | translate}}</label>
+          <input type="checkbox" id="makevisible" formControlName="makevisible" class="form-control"
+            placeholder="{{'MakeVisible' | translate}}">
+        </div>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="sticky"
+      *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+      Custom Fields</div>
+    <div class="form-group row"
+      *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+      <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+    </div>
+    <div class="sticky">Attachments</div>
+    <div class="form-group row">
+      <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+        <a href="http://localhost:5001/MyResources/{{fld.value.value}}" target="_blank">{{fld.value.value}} |
+        </a>
+      </ng-container>
+      <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+        (onSelect)="attachmentuploader($event)"></p-fileUpload>
+      <ng-container *ngFor="let fld of attachmentlist">
+        <div class="col">
+          <label class="control-label"></label>
+          <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}" mode="basic"
+            (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        </div>
+      </ng-container>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.blogid.value != null" [menuid]="pmenuid" [value]="f.blogid.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

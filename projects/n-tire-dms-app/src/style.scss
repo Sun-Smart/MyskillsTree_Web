@@ -1,0 +1,64 @@
+#contentArea//,#reportmaincontent
+{
+ overflow: auto !important;
+ position: absolute;
+ height: 88% !important;
+ width: 99% !important;
+ max-width: 100% !important;
+} 
+
+::-webkit-scrollbar {
+  width: 12px!important;
+  height: 12px!important;
+  background-color:var(--backcolor)!important;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 4px solid var(--frontcolor)!important;
+  background: var(--frontcolor)!important;
+  border-radius: 12px!important;
+  box-shadow: inset 2px 2px 2px #68C3D6, inset -2px -2px 2px #111!important;
+}
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+90deg
+,#434343,#434343 1px,#111 0,#111)!important;
+}
+
+#reportmaincontent
+{
+ position: absolute;
+ height: 85% !important;
+ width: 100% !important;
+}
+ .table-container {
+ //  height: 600px;
+   scrollbar-width: medium!important;
+
+   overflow-y: auto;
+   overflow-x: auto;
+   position: absolute!important;
+   width: 99%!important;;
+   height: 99%!important;;
+ //  border-top: 1px solid #dee2e6;
+ } 
+input:focus,select:focus,textarea:focus
+{
+border-width: 2px;
+-webkit-box-shadow: 0 5px 30px 0 #68C3D6!important;
+border-color:#68C3D6;
+}
+thead
+{
+text-transform: uppercase;
+}
+.cupertino .p-datatable .p-datatable-tbody > tr > td,.cupertino .p-datatable .p-datatable-thead > tr > th  {
+
+  border-left: 0px!important;
+  border-right: 0px!important;
+  border-top:0px!important;
+  border-bottom:thin;
+  margin:15px;
+  padding-top:15px;
+  padding-bottom:15px;
+}

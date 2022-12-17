@@ -1,0 +1,117 @@
+<div class="dialog">
+  <form [formGroup]="lmstaskForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'L M S Tasks' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="subject" class="control-label">{{'Subject' | translate}}</label>
+          <input id="subject" formControlName="subject" class="form-control" placeholder="{{'Subject' | translate}}">
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="description" class="control-label">{{'Description' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="description" formControlName="description"
+            class="form-control" placeholder="{{'Description' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="assignto" class="control-label" (click)="AddOrEditassignto(null)">{{'Assign To' |
+            translate}}</label>
+          <div class="input-group">
+            <input id="assignto" placeholder="" [ngbTypeahead]="assignto_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedassignto($event)" formControlName='assignto'
+              [resultFormatter]="assignto_bousermastersformatter">
+            <input readonly id="assigntodesc" formControlName="assigntodesc" class="form-control autocompletedesc"
+              placeholder="{{'Assign To' | translate}}">
+          </div>
+        </div>
+        <div class="col">
+          <label for="targetdate" class="control-label">{{'Target Date' | translate}}</label>
+          <div class="input-group">
+            <input #targetdateformpicker="ngbDatepicker" ngbDatepicker name="targetdateformpicker" id="targetdate"
+              formControlName="targetdate" class="form-control" placeholder="Choose {{'Target Date' | translate}}">
+            <button class="input-group-addon" (click)="targetdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="assigneddate" class="control-label">{{'Assigned Date' | translate}}</label>
+          <div class="input-group">
+            <input #assigneddateformpicker="ngbDatepicker" ngbDatepicker name="assigneddateformpicker" id="assigneddate"
+              formControlName="assigneddate" class="form-control" placeholder="Choose {{'Assigned Date' | translate}}">
+            <button class="input-group-addon" (click)="assigneddateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div>Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngIf="formid != null">
+          <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+            <a href="{{sharedService.AttachmentURL+fld.value.value}}" target="_blank">{{fld.value.value}} | </a>
+          </ng-container>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}" mode="basic"
+            (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        </ng-container>
+      </div>
+      <div>
+        <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+          *ngIf="showWebcam" [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+          [videoOptions]="videoOptions" [imageQuality]="1" (cameraSwitched)="cameraWasSwitched($event)"
+          (initError)="handleInitError($event)"></webcam>
+        <br />
+        <button class="actionBtn" type="button" (click)="triggerSnapshot();"><i class="fa fa-image"
+            aria-hidden="true"></i></button>
+        <button class="actionBtn" type="button" (click)="toggleWebcam();"><i class="fa fa-camera"
+            aria-hidden="true"></i></button>
+        <button class="actionBtn" type="button" (click)="pushtoUpload();"><i class="fa fa-upload"
+            aria-hidden="true"></i></button>
+        <input id="ImageName" formControlName="ImageName" style="width:100px"
+          placeholder="{{'Image Name' | translate}}">
+        <button class="actionBtn" type="button" (click)="OCR();"><i class="fa fa-barcode"
+            aria-hidden="true"></i></button>
+        <!--
+            <br/>
+            <button class="actionBtn" type="button" (click)="showNextWebcam(true);" [disabled]="!multipleWebcamsAvailable">Next Webcam</button>
+            <input id="cameraSwitchCheckbox" type="checkbox" formControlName="allowCameraSwitch"><label for="cameraSwitchCheckbox">Allow Camera Switch</label>
+            <br/>
+            DeviceId: <input id="deviceId" type="text" formControlName="deviceId" style="width: 500px">
+            <button type="button" (click)="showNextWebcam(deviceId);">Activate</button>
+            -->
+      </div>
+
+      <div class="snapshot" *ngIf="webcamImage">
+        <img [src]="webcamImage.imageAsDataUrl" />
+      </div>
+
+      <h4 *ngIf="errors.length > 0">Messages:</h4>
+      <ul *ngFor="let error of errors">
+        <li>{{error | json}}</li>
+      </ul>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.taskid.value != null" [menuid]="pmenuid" [value]="f.taskid.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,246 @@
+<form [formGroup]="botableconfigurationForm" class="frm" (ngSubmit)="onSubmit()"
+  [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row">
+    <h1 class="col columns  left"><a class="h1" href='#/pages/forms/botableconfiguration-list'>Table Configurations</a>
+    </h1>
+    <div class="col  sticky1 right" role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <pre><br/></pre>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab title="Master">
+        <ng-template ngbTabContent>
+          <br />
+          <div class="form-group row">
+            <div class="col">
+              <label for="templateid" class="control-label">Template</label>
+              <input id="templateid" formControlName="templateid" class="form-control" placeholder="templateid">
+            </div>
+            <div class="col">
+              <label for="description" class="control-label">Description</label>
+              <input id="description" formControlName="description" class="form-control" placeholder="description">
+            </div>
+            <div class="col">
+              <label for="company" class="control-label">Company</label>
+              <input id="company" formControlName="company" class="form-control" placeholder="company">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="listhtml" class="control-label">List Html</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="listhtml" formControlName="listhtml"
+                class="form-control" placeholder="listhtml">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="maintableid" class="control-label" (click)="AddOrEditmaintableid(null)">Main
+                Table</label>
+              <select id="maintableid" formControlName="maintableid" class="form-control" placeholder="maintableid">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of maintableidList" value="{{item.tableid}}">{{item.tablename}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="type" class="control-label">Type</label>
+              <input id="type" formControlName="type" class="form-control" placeholder="type">
+            </div>
+            <div class="col">
+              <label for="usertype" class="control-label">User Type</label>
+              <input id="usertype" formControlName="usertype" class="form-control" placeholder="usertype">
+            </div>
+            <div class="col">
+              <div class="columnchk">
+                <label for="addrecord" class="control-label">Add Record</label>
+                <input type="checkbox" id="addrecord" formControlName="addrecord" class="form-control"
+                  placeholder="addrecord">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <div class="columnchk">
+                <label for="editrecord" class="control-label">Edit Record</label>
+                <input type="checkbox" id="editrecord" formControlName="editrecord" class="form-control"
+                  placeholder="editrecord">
+              </div>
+            </div>
+            <div class="col">
+              <div class="columnchk">
+                <label for="viewrecord" class="control-label">View Record</label>
+                <input type="checkbox" id="viewrecord" formControlName="viewrecord" class="form-control"
+                  placeholder="viewrecord">
+              </div>
+            </div>
+            <div class="col">
+              <div class="columnchk">
+                <label for="deleterecord" class="control-label">Delete Record</label>
+                <input type="checkbox" id="deleterecord" formControlName="deleterecord" class="form-control"
+                  placeholder="deleterecord">
+              </div>
+            </div>
+            <div class="col">
+              <div class="columnchk">
+                <label for="hasheader" class="control-label">Has Header</label>
+                <input type="checkbox" id="hasheader" formControlName="hasheader" class="form-control"
+                  placeholder="hasheader">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <div class="columnchk">
+                <label for="hascontent" class="control-label">Has Content</label>
+                <input type="checkbox" id="hascontent" formControlName="hascontent" class="form-control"
+                  placeholder="hascontent">
+              </div>
+            </div>
+            <div class="col">
+              <div class="columnchk">
+                <label for="hasfooter" class="control-label">Has Footer</label>
+                <input type="checkbox" id="hasfooter" formControlName="hasfooter" class="form-control"
+                  placeholder="hasfooter">
+              </div>
+            </div>
+            <div class="col">
+              <label for="headerheight" class="control-label">Header Height</label>
+              <input id="headerheight" formControlName="headerheight" class="form-control" placeholder="headerheight">
+              <app-field-error-display
+                [displayError]="f.headerheight.errors!=null && f.headerheight.errors.pattern!=null && f.headerheight.errors!=undefined && f.headerheight.errors.pattern!=undefined  && (f.headerheight.touched|| isSubmitted)"
+                errorMsg="Not a valid number">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.headerheight.errors!=null && f.headerheight.errors.min!=null && f.headerheight.errors!=undefined && f.headerheight.errors.min!=undefined  && (f.headerheight.touched|| isSubmitted)"
+                errorMsg="Minimum value have to be entered">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.headerheight.errors!=null && f.headerheight.errors.max!=null && f.headerheight.errors!=undefined && f.headerheight.errors.max!=undefined  && (f.headerheight.touched|| isSubmitted)"
+                errorMsg="Maximum value Exceeded">
+              </app-field-error-display>
+            </div>
+            <div class="col">
+              <label for="contentheight" class="control-label">Content Height</label>
+              <input id="contentheight" formControlName="contentheight" class="form-control"
+                placeholder="contentheight">
+              <app-field-error-display
+                [displayError]="f.contentheight.errors!=null && f.contentheight.errors.pattern!=null && f.contentheight.errors!=undefined && f.contentheight.errors.pattern!=undefined  && (f.contentheight.touched|| isSubmitted)"
+                errorMsg="Not a valid number">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.contentheight.errors!=null && f.contentheight.errors.min!=null && f.contentheight.errors!=undefined && f.contentheight.errors.min!=undefined  && (f.contentheight.touched|| isSubmitted)"
+                errorMsg="Minimum value have to be entered">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.contentheight.errors!=null && f.contentheight.errors.max!=null && f.contentheight.errors!=undefined && f.contentheight.errors.max!=undefined  && (f.contentheight.touched|| isSubmitted)"
+                errorMsg="Maximum value Exceeded">
+              </app-field-error-display>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="footerheight" class="control-label">Footer Height</label>
+              <input id="footerheight" formControlName="footerheight" class="form-control" placeholder="footerheight">
+              <app-field-error-display
+                [displayError]="f.footerheight.errors!=null && f.footerheight.errors.pattern!=null && f.footerheight.errors!=undefined && f.footerheight.errors.pattern!=undefined  && (f.footerheight.touched|| isSubmitted)"
+                errorMsg="Not a valid number">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.footerheight.errors!=null && f.footerheight.errors.min!=null && f.footerheight.errors!=undefined && f.footerheight.errors.min!=undefined  && (f.footerheight.touched|| isSubmitted)"
+                errorMsg="Minimum value have to be entered">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.footerheight.errors!=null && f.footerheight.errors.max!=null && f.footerheight.errors!=undefined && f.footerheight.errors.max!=undefined  && (f.footerheight.touched|| isSubmitted)"
+                errorMsg="Maximum value Exceeded">
+              </app-field-error-display>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="columnlist" class="control-label">Column List</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="columnlist" formControlName="columnlist"
+                class="form-control" placeholder="columnlist">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="tablestyletype" class="control-label">Table Style Type</label>
+              <input id="tablestyletype" formControlName="tablestyletype" class="form-control"
+                placeholder="tablestyletype">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="remarks" class="control-label">Remarks</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remarks" formControlName="remarks"
+                class="form-control" placeholder="remarks">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="status" class="control-label">Status</label>
+              <input type="hidden" id="status" formControlName="status" class="form-control" placeholder="status">
+              <input readonly id="statusDesc" formControlName="statusDesc" class="form-control" placeholder="status">
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Tbl Detail Main Accessess">
+        <ng-template ngbTabContent>
+          <br />
+          <!-- child table botbldetailmainaccessess-->
+          <div [ngClass]="IsbotbldetailmainaccessessVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">Tbl Detail Main Accessess
+              <select class='child' id="botbldetailmainaccessessPagingdropdown"
+                (change)="botbldetailmainaccessessPaging($event.target.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="showbotbldetailmainaccessessFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblbotbldetailmainaccessesssource
+              (userRowSelect)="handlebotbldetailmainaccessessGridSelected($event)"
+              [settings]="botbldetailmainaccessesssettings" [source]="botbldetailmainaccessesssource">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table botbldetailmainaccessess-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+          class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

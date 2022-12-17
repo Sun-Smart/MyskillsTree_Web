@@ -1,0 +1,133 @@
+<div class="dialog">
+  <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+  <ngx-spinner></ngx-spinner>
+  <form [formGroup]="hlpticketdetail_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+    <div class="container1">
+      <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+        </div>
+
+
+        <!--ticketid-->
+
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('ticketid') == -1) && (ticketidvisible==undefined || ticketidvisible==true))"
+            style='' class="col-3"><label for="ticketid" class="control-label"
+              (click)="AddOrEdit_ticketid(null)">Ticket</label>
+            <app-popupselect *ngIf="!showview" [options]="ticketid_List" [optionsEvent]="ticketid_optionsEvent"
+              [form]="hlpticket" (selectItem)="onSelected_ticketid($event)" [reportid]='ipad7' [menuid]='ipad7'
+              formControlName="ticketid" id="value" desc="label"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="labelview">{{f.ticketiddesc?.value}}</label>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('assignedto') == -1) && (assignedtovisible==undefined || assignedtovisible==true))"
+            style='' class="col-3 ">
+            <label for="assignedto" class="control-label">Assigned To</label>
+            <label *ngIf="showview" class="labelview">{{f.assignedto?.value}}</label>
+            <app-useraccess *ngIf="!showview" id="assignedto" formControlName="assignedto">
+            </app-useraccess>
+          </div>
+        </div>
+
+
+        <!--actionuser-->
+
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('actionuser') == -1) && (actionuservisible==undefined || actionuservisible==true))"
+            style='' class="col-3"><label for="actionuser" class="control-label"
+              (click)="AddOrEdit_actionuser(null)">Action User</label>
+            <app-popupselect *ngIf="!showview" [options]="actionuser_List" [optionsEvent]="actionuser_optionsEvent"
+              [form]="bousermaster" (selectItem)="onSelected_actionuser($event)" [reportid]='e99kq' [menuid]='e99kq'
+              formControlName="actionuser" id="value" desc="label"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="labelview">{{f.actionuserdesc?.value}}</label>
+          </div>
+          <div
+            *ngIf="((hidelist.indexOf('assigneddate') == -1) && (assigneddatevisible==undefined || assigneddatevisible==true))"
+            style='' class="col-3 ">
+            <label for="assigneddate" class="control-label">Assigned Date</label>
+            <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.assigneddate?.value)}}</label>
+            <div class="input-group" *ngIf="!showview">
+              <input #assigneddateformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+                [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="assigneddateformpicker"
+                id="assigneddate" formControlName="assigneddate" class="form-control">
+              <button class="input-group-addon" *ngIf="!showview" (click)="assigneddateformpicker.toggle()"
+                type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+          </div>
+          <div
+            *ngIf="((hidelist.indexOf('actiondate') == -1) && (actiondatevisible==undefined || actiondatevisible==true))"
+            style='' class="col-3 ">
+            <label for="actiondate" class="control-label">Action Date</label>
+            <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.actiondate?.value)}}</label>
+            <div class="input-group" *ngIf="!showview">
+              <input #actiondateformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+                [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="actiondateformpicker" id="actiondate"
+                formControlName="actiondate" class="form-control">
+              <button class="input-group-addon" *ngIf="!showview" (click)="actiondateformpicker.toggle()"
+                type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+          </div>
+          <div *ngIf="((hidelist.indexOf('tatends') == -1) && (tatendsvisible==undefined || tatendsvisible==true))"
+            style='' class="col-3 ">
+            <label for="tatends" class="control-label">T A T Ends</label>
+            <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.tatends?.value)}}</label>
+            <div class="input-group" *ngIf="!showview">
+              <input #tatendsformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+                [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="tatendsformpicker" id="tatends"
+                formControlName="tatends" class="form-control">
+              <button class="input-group-addon" *ngIf="!showview" (click)="tatendsformpicker.toggle()" type="button"><i
+                  class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('actionremarks') == -1) && (actionremarksvisible==undefined || actionremarksvisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="actionremarks" class="control-label">Action Remarks</label>
+            <label *ngIf="showview" class="labelview">{{f.actionremarks?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="actionremarks"
+              formControlName="actionremarks" class="form-control">
+</textarea>
+          </div>
+        </div>
+      </p-accordion>
+      <div class='full-width'
+        *ngIf="customFieldVisible  && customFieldServiceList!=null && customFieldServiceList!=undefined  && customFieldServiceList.fields.length>0">
+        <p-accordion [multiple]='true'>
+          <p-accordionTab header='CustomField' [selected]='false'>
+            <div class="sticky"
+              *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+              Custom Fields</div>
+            <div class="form-group row"
+              *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+              <dynamic-form-builder [customfields]="customFieldServiceList" #customform></dynamic-form-builder>
+            </div>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+      <div class='full-width' *ngIf="attachmentVisible">
+        <p-accordion [multiple]='true'>
+          <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+            <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+            </app-attachment>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+  </form>
+</div>

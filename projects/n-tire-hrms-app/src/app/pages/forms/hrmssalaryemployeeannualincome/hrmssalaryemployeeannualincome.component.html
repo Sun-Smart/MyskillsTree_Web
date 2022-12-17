@@ -1,0 +1,150 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="hrmssalaryemployeeannualincomeForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Salary Employee Annual Incomes' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="edithrmssalaryemployeeannualincomes()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmssalaryemployeeannualincometoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmssalaryemployeeannualincomeshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.aiid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.aiid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('salarymasterid') == -1"  class="col "  >
+<label  for="salarymasterid" class="control-label">Salary Master</label>
+      <input   *ngIf="!showview"  id="salarymasterid"  formControlName="salarymasterid" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('employeeid') == -1"  class="col "  >
+<label  for="employeeid" class="control-label">Employee</label>
+      <input   *ngIf="!showview"  id="employeeid"  formControlName="employeeid" class="form-control"
+        >
+  </div>
+
+
+<!--annualincomeid-->
+
+  <div   *ngIf="hidelist.indexOf('annualincomeid') == -1"  class="col" ><label  for="annualincomeid" class="control-label" (click)="AddOrEditannualincomeid(null)">Annual Income</label>
+      <select  *ngIf="!showview"  id="annualincomeid"  (change)="annualincomeidonChange($event.target)" formControlName="annualincomeid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of annualincomeidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.annualincomeiddesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('description') == -1"  class="col "  >
+<label  for="description" class="control-label">Description</label>
+      <input   *ngIf="!showview"  id="description"  formControlName="description" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--mode-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('mode') == -1"  class="col" ><label  for="mode" class="control-label">Mode</label>
+      <select  *ngIf="!showview"  id="mode"  (change)="modeonChange($event.target)" formControlName="mode"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of modeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.modedesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('combination') == -1"  class="col "  >
+<label  for="combination" class="control-label">Combination</label>
+      <input   *ngIf="!showview"  id="combination"  formControlName="combination" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('value') == -1"  class="col "  >
+<label  for="value" class="control-label">Value</label>
+      <input   *ngIf="!showview"  id="value"  formControlName="value" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('ceiling') == -1"  class="col "  >
+<label  for="ceiling" class="control-label">Ceiling</label>
+      <input   *ngIf="!showview"  id="ceiling"  formControlName="ceiling" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('modify') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="modify" class="control-label">Modify</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="modify"  formControlName="modify" class="form-control"
+        >
+  </div>
+  </div>
+  <div  *ngIf="hidelist.indexOf('redemptioneveryyear') == -1"  class="col "  >
+<label  for="redemptioneveryyear" class="control-label">Redemption Every Year</label>
+      <input   *ngIf="!showview"  id="redemptioneveryyear"  formControlName="redemptioneveryyear" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.redemptioneveryyear.errors!=null && f.redemptioneveryyear.errors.pattern!=null && f.redemptioneveryyear.errors!=undefined && f.redemptioneveryyear.errors.pattern!=undefined  && (f.redemptioneveryyear.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.redemptioneveryyear.errors!=null && f.redemptioneveryyear.errors.min!=null && f.redemptioneveryyear.errors!=undefined && f.redemptioneveryyear.errors.min!=undefined  && (f.redemptioneveryyear.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.redemptioneveryyear.errors!=null && f.redemptioneveryyear.errors.max!=null && f.redemptioneveryyear.errors!=undefined && f.redemptioneveryyear.errors.max!=undefined  && (f.redemptioneveryyear.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>  </div>
+</form>

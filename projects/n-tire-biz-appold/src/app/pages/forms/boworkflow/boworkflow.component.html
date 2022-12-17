@@ -1,0 +1,367 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="boworkflow_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Workflow' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_boworkflows()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of boworkflow_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.workflowid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.workflowid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('workflowmasterid') == -1) && (workflowmasteridvisible==undefined || workflowmasteridvisible==true))"
+        style='' class="col-3 ">
+        <label for="workflowmasterid" class="control-label">Work Flow Master</label>
+        <label *ngIf="showview" class="labelview">{{f.workflowmasterid?.value}}</label>
+        <input *ngIf="!showview" id="workflowmasterid" formControlName="workflowmasterid" class="form-control">
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('currentstepno') == -1) && (currentstepnovisible==undefined || currentstepnovisible==true))"
+        style='' class="col-3 ">
+        <label for="currentstepno" class="control-label">Current Step No</label>
+        <label *ngIf="showview" class="labelview">{{f.currentstepno?.value}}</label>
+        <input *ngIf="!showview" id="currentstepno" formControlName="currentstepno" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('modulename') == -1) && (modulenamevisible==undefined || modulenamevisible==true))"
+        style='' class="col-3 ">
+        <label for="modulename" class="control-label">Module Name</label>
+        <label *ngIf="showview" class="labelview">{{f.modulename?.value}}</label>
+        <input *ngIf="!showview" id="modulename" formControlName="modulename" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('pkvalue') == -1) && (pkvaluevisible==undefined || pkvaluevisible==true))" style=''
+        class="col-3 ">
+        <label for="pkvalue" class="control-label">P K Value</label>
+        <label *ngIf="showview" class="labelview">{{f.pkvalue?.value}}</label>
+        <input *ngIf="!showview" id="pkvalue" formControlName="pkvalue" class="form-control">
+      </div>
+    </div>
+
+
+    <!--currentapproved-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('currentapproved') == -1) && (currentapprovedvisible==undefined || currentapprovedvisible==true))"
+        style='' class="col-3"><label for="currentapproved" class="control-label"
+          (click)="AddOrEdit_currentapproved(null)">Current Approved</label>
+        <app-popupselect *ngIf="!showview" [options]="currentapproved_List"
+          [optionsEvent]="currentapproved_optionsEvent" [form]="bousermaster"
+          (selectItem)="onSelected_currentapproved($event)" [reportid]='' [menuid]='' formControlName="currentapproved"
+          id="value" desc="label"></app-popupselect>
+        <div class="input-group">
+        </div>
+        <label *ngIf="showview" class="labelview">{{f.currentapproveddesc?.value}}</label>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('currentapprovers') == -1) && (currentapproversvisible==undefined || currentapproversvisible==true))"
+        style='' class="col-3 ">
+        <label for="currentapprovers" class="control-label">Current Approvers</label>
+        <label *ngIf="showview" class="labelview">{{f.currentapprovers?.value}}</label>
+        <app-useraccess *ngIf="!showview" id="currentapprovers" formControlName="currentapprovers">
+        </app-useraccess>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('nextapprovers') == -1) && (nextapproversvisible==undefined || nextapproversvisible==true))"
+        style='' class="col-3 ">
+        <label for="nextapprovers" class="control-label">Next Approvers</label>
+        <label *ngIf="showview" class="labelview">{{f.nextapprovers?.value}}</label>
+        <app-useraccess *ngIf="!showview" id="nextapprovers" formControlName="nextapprovers">
+        </app-useraccess>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('assigneddatetime') == -1) && (assigneddatetimevisible==undefined || assigneddatetimevisible==true))"
+        style='' class="col-3 ">
+        <label for="assigneddatetime" class="control-label">Assigned Date Time</label>
+        <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.assigneddatetime?.value)}}</label>
+        <div class="input-group" *ngIf="!showview">
+          <input #assigneddatetimeformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+            [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="assigneddatetimeformpicker"
+            id="assigneddatetime" formControlName="assigneddatetime" class="form-control">
+          <button class="input-group-addon" *ngIf="!showview" (click)="assigneddatetimeformpicker.toggle()"
+            type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('closeddatetime') == -1) && (closeddatetimevisible==undefined || closeddatetimevisible==true))"
+        style='' class="col-3 ">
+        <label for="closeddatetime" class="control-label">Closed Date Time</label>
+        <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.closeddatetime?.value)}}</label>
+        <div class="input-group" *ngIf="!showview">
+          <input #closeddatetimeformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+            [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="closeddatetimeformpicker"
+            id="closeddatetime" formControlName="closeddatetime" class="form-control">
+          <button class="input-group-addon" *ngIf="!showview" (click)="closeddatetimeformpicker.toggle()"
+            type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+
+
+      <!--standardrating-->
+
+      <div
+        *ngIf="((hidelist.indexOf('standardrating') == -1) && (standardratingvisible==undefined || standardratingvisible==true))"
+        style='' class="col-3"><label for="standardrating" class="control-label">Standard Rating</label>
+        <select *ngIf="!showview" id="standardrating" (change)="standardrating_onChange($event.target)"
+          formControlName="standardrating" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of standardrating_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.standardratingdesc?.value}}</label>
+      </div>
+
+
+      <!--performancerating-->
+
+      <div
+        *ngIf="((hidelist.indexOf('performancerating') == -1) && (performanceratingvisible==undefined || performanceratingvisible==true))"
+        style='' class="col-3"><label for="performancerating" class="control-label">Performance Rating</label>
+        <select *ngIf="!showview" id="performancerating" (change)="performancerating_onChange($event.target)"
+          formControlName="performancerating" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of performancerating_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.performanceratingdesc?.value}}</label>
+      </div>
+    </div>
+
+
+    <!--performancestatus-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('performancestatus') == -1) && (performancestatusvisible==undefined || performancestatusvisible==true))"
+        style='' class="col-3"><label for="performancestatus" class="control-label">Performance Status</label>
+        <select *ngIf="!showview" id="performancestatus" (change)="performancestatus_onChange($event.target)"
+          formControlName="performancestatus" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of performancestatus_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.performancestatusdesc?.value}}</label>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('exception') == -1) && (exceptionvisible==undefined || exceptionvisible==true))"
+        style='width:1500px' class="col-12 ">
+        <label for="exception" class="control-label">Exception</label>
+        <label *ngIf="showview" class="labelview">{{f.exception?.value}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="exception"
+          formControlName="exception" class="form-control">
+</textarea>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('approvedusers') == -1) && (approvedusersvisible==undefined || approvedusersvisible==true))"
+        style='' class="col-3 ">
+        <label for="approvedusers" class="control-label">Approved Users</label>
+        <label *ngIf="showview" class="labelview">{{f.approvedusers?.value}}</label>
+        <app-useraccess *ngIf="!showview" id="approvedusers" formControlName="approvedusers">
+        </app-useraccess>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('approvedcondition') == -1) && (approvedconditionvisible==undefined || approvedconditionvisible==true))"
+        style='' class="col-3 ">
+        <label for="approvedcondition" class="control-label">Approved Condition</label>
+        <label *ngIf="showview" class="labelview">{{f.approvedcondition?.value}}</label>
+        <input *ngIf="!showview" id="approvedcondition" formControlName="approvedcondition" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('tathours') == -1) && (tathoursvisible==undefined || tathoursvisible==true))"
+        style='' class="col-3 ">
+        <label for="tathours" class="control-label">T A T Hours</label>
+        <label *ngIf="showview" class="labelview">{{f.tathours?.value}}</label>
+        <app-duration *ngIf="!showview" id="tathours" formControlName="tathours">
+        </app-duration>
+      </div>
+      <div
+        *ngIf="((hidelist.indexOf('totalactualtime') == -1) && (totalactualtimevisible==undefined || totalactualtimevisible==true))"
+        style='' class="col-3 ">
+        <label for="totalactualtime" class="control-label">Total Actual Time</label>
+        <label *ngIf="showview" class="labelview">{{f.totalactualtime?.value}}</label>
+        <app-duration *ngIf="!showview" id="totalactualtime" formControlName="totalactualtime">
+        </app-duration>
+      </div>
+      <div *ngIf="((hidelist.indexOf('processid') == -1) && (processidvisible==undefined || processidvisible==true))"
+        style='' class="col-3 ">
+        <label for="processid" class="control-label">Process</label>
+        <label *ngIf="showview" class="labelview">{{f.processid?.value}}</label>
+        <input *ngIf="!showview" id="processid" formControlName="processid" class="form-control">
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('workflowdetails') == -1) && (workflowdetailsvisible==undefined || workflowdetailsvisible==true))"
+        style='width:1500px' class="col-12 ">
+        <label for="workflowdetails" class="control-label">Work Flow Details</label>
+        <label *ngIf="showview" class="labelview">{{f.workflowdetails?.value}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="workflowdetails"
+          formControlName="workflowdetails" class="form-control">
+</textarea>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('comments') == -1) && (commentsvisible==undefined || commentsvisible==true))"
+        style='' class="col-3 ">
+        <label for="comments" class="control-label">Comments</label>
+        <label *ngIf="showview" class="labelview">{{f.comments?.value}}</label>
+        <app-comment *ngIf="!showview" id="comments" formControlName="comments" [label]="'Comments'">
+        </app-comment>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div class="help-tip">
+        <p> {{f.history?.value}}</p>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('lastapprover') == -1) && (lastapprovervisible==undefined || lastapprovervisible==true))"
+        style='' class="col-3 ">
+        <label for="lastapprover" class="control-label">Last Approver</label>
+        <label *ngIf="showview" class="labelview">{{f.lastapprover?.value}}</label>
+        <app-useraccess *ngIf="!showview" id="lastapprover" formControlName="lastapprover"
+          (change)="lastapprover_onChange($event.target)">
+        </app-useraccess>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('cc') == -1) && (ccvisible==undefined || ccvisible==true))" style=''
+        class="col-3 ">
+        <label for="cc" class="control-label">C C</label>
+        <label *ngIf="showview" class="labelview">{{f.cc?.value}}</label>
+        <app-useraccess *ngIf="!showview" id="cc" formControlName="cc" (change)="cc_onChange($event.target)">
+        </app-useraccess>
+      </div>
+    </div>
+
+
+    <!--workflowstatus-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('workflowstatus') == -1) && (workflowstatusvisible==undefined || workflowstatusvisible==true))"
+        style='' class="col-3"><label for="workflowstatus" class="control-label">Workflow Status</label>
+        <select *ngIf="!showview" id="workflowstatus" (change)="workflowstatus_onChange($event.target)"
+          formControlName="workflowstatus" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of workflowstatus_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.workflowstatusdesc?.value}}</label>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class='full-width'
+      *ngIf="customFieldVisible  && customFieldServiceList!=null && customFieldServiceList!=undefined  && customFieldServiceList.fields.length>0">
+      <p-accordion [multiple]='true'>
+        <p-accordionTab header='CustomField' [selected]='false'>
+          <div class="sticky"
+            *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+            Custom Fields</div>
+          <div class="form-group row"
+            *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+            <dynamic-form-builder [customfields]="customFieldServiceList" #customform></dynamic-form-builder>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+    <div class='full-width' *ngIf="attachmentVisible">
+      <p-accordion [multiple]='true'>
+        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+          <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+          </app-attachment>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+</form>

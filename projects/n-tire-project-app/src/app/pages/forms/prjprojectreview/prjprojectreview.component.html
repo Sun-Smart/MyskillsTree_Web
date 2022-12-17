@@ -1,0 +1,135 @@
+<form [formGroup]="prjprojectreviewForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+  <div class="row second" *ngIf="viewhtml == '' && !showview">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Project Reviews' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward"
+            aria-hidden="true"></i></button>
+        <app-popupselect *ngIf="!showview" [options]="pkList" [optionsEvent]="pkoptionsEvent" [form]="pkform"
+          (selectItem)="onSelectedpk($event)" [reportid]=31 [menuid]=31 formControlName="pk" id="pk" desc="">
+        </app-popupselect>
+        <button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"    *ngIf="!(viewhtml != '' && showview)">
+    <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="projectid" class="control-label">Project</label>
+        <input *ngIf="!showview" id="projectid" formControlName="projectid" class="form-control"
+          placeholder="{{'Project' | translate}}">
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="review" class="control-label">Review</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="review"
+          formControlName="review" class="form-control" placeholder="{{'Review' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="reviewstage" class="control-label">Review Stage</label>
+        <input *ngIf="!showview" id="reviewstage" formControlName="reviewstage" class="form-control"
+          placeholder="{{'Review Stage' | translate}}">
+      </div>
+      <div class="col">
+        <label for="reviewby" class="control-label">Review By</label>
+        <input *ngIf="!showview" id="reviewby" formControlName="reviewby" class="form-control"
+          placeholder="{{'Review By' | translate}}">
+      </div>
+      <div class="col">
+        <label for="verifiedby" class="control-label">Verified By</label>
+        <input *ngIf="!showview" id="verifiedby" formControlName="verifiedby" class="form-control"
+          placeholder="{{'Verified By' | translate}}">
+      </div>
+      <div class="col">
+        <label for="reviewdate" class="control-label">Review Date</label>
+        <div class="input-group" *ngIf="!showview">
+          <input #reviewdateformpicker="ngbDatepicker" ngbDatepicker name="reviewdateformpicker" id="reviewdate"
+            formControlName="reviewdate" class="form-control" placeholder="Choose Review Date">
+          <button class="input-group-addon" *ngIf="!showview" (click)="reviewdateformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+        <label *ngIf="showview"
+          class="form-control labelview">{{ngbDateParserFormatter.format(f.reviewdate?.value)}}</label>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="reviewresult" class="control-label">Review Result</label>
+        <input *ngIf="!showview" id="reviewresult" formControlName="reviewresult" class="form-control"
+          placeholder="{{'Review Result' | translate}}">
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="remarks" class="control-label">Remarks</label>
+        <app-comment *ngIf="!showview" id="remarks" formControlName="remarks" [label]="'Remarks'"
+          placeholder="{{'Remarks' | translate}}">
+        </app-comment>
+      </div>
+    </div>
+    <p-accordion [multiple]='true'>
+      <div
+        *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.length>0">
+        <p-accordionTab header='CustomField' [selected]='false'>
+          <div class="sticky"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            Custom Fields</div>
+          <div class="form-group row"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+          </div>
+        </p-accordionTab>
+      </div>
+      <div *ngIf="attachmentvisible">
+        <p-accordionTab header='Attachment' [selected]='false'>
+          <app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+        </p-accordionTab>
+      </div>
+    </p-accordion>
+    <div class="form-group row" *ngIf="!showview">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+        <app-action *ngIf="f.reviewid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+          [value]="f.reviewid!.value" [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

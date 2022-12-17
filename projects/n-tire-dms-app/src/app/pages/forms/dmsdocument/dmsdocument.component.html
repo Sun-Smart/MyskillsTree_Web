@@ -1,0 +1,600 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="dmsdocumentForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Documents' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editdmsdocuments()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='dmsdocumenttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.dmsdocumentshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.documentid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.documentid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link active"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"  ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"    id="contentArea1" >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('reference') == -1"  class="col " >
+<label  for="reference" class="control-label">Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.reference?.value}}</label>
+      <input   *ngIf="!showview"  id="reference"  readonly formControlName="reference" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('name') == -1"  class="col " >
+<label  for="name" class="control-label required">Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.name?.value}}</label>
+      <input   *ngIf="!showview"  id="name"  required formControlName="name" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.name.invalid && (f.name.touched|| isSubmitted)" errorMsg="Enter {{'Name' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--folderid-->
+
+  <div   *ngIf="hidelist.indexOf('folderid') == -1"  class="col" ><label  for="folderid" class="control-label required" (click)="AddOrEditfolderid(null)">Folder</label>
+      <select  *ngIf="!showview"  id="folderid"  required (change)="folderidonChange($event.target)" formControlName="folderid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of folderidList" value="{{item.folderid}}">{{item.foldername}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.folderid?.value}}</label>
+      <app-field-error-display [displayError]="f.folderid.invalid && (f.folderid.touched || isSubmitted)" errorMsg="Enter {{'Folder' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('versionnumber') == -1"  class="col " >
+<label  for="versionnumber" class="control-label">Version Number</label>
+      <label *ngIf="showview"     class="labelview">{{f.versionnumber?.value}}</label>
+      <input   *ngIf="!showview"  id="versionnumber"  formControlName="versionnumber" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('versiondate') == -1"  class="col " >
+<label  for="versiondate" class="control-label">Version Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.versiondate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #versiondateformpicker="ngbDatepicker"      ngbDatepicker name="versiondateformpicker" id="versiondate"  formControlName="versiondate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="versiondateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Classification'  [selected]='true'>
+
+
+<!--departmentid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('departmentid') == -1"  class="col" ><label  for="departmentid" class="control-label" (click)="AddOrEditdepartmentid(null)" (click)="AddOrEditdepartmentid(null)">Department</label>
+      <select  *ngIf="!showview"  id="departmentid"  (change)="departmentidonChange($event.target)" formControlName="departmentid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of departmentidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.departmentid?.value}}</label>
+  </div>
+
+
+<!--type-->
+
+  <div   *ngIf="hidelist.indexOf('type') == -1"  class="col" ><label  for="type" class="control-label">Type</label>
+      <select  *ngIf="!showview"  id="type"  (change)="typeonChange($event.target)" formControlName="type"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of typeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.type?.value}}</label>
+  </div>
+
+
+<!--source-->
+
+  <div   *ngIf="hidelist.indexOf('source') == -1"  class="col" ><label  for="source" class="control-label">Source</label>
+      <select  *ngIf="!showview"  id="source"  (change)="sourceonChange($event.target)" formControlName="source"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of sourceList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.source?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('documentimage') == -1"  class="col " >
+<label  for="documentimage" class="control-label">Image</label>
+      <label *ngIf="showview"     class="labelview">{{f.documentimage?.value}}</label>
+<app-attachment #documentimage formControlName="documentimage" [SessionData]="sessiondata"></app-attachment>
+<button  type="button" class="btn" *ngIf="documentimage.getattachmentlist().length > 0"    (click) = "getdocumentimage()" >Open File</button>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('thumbnail') == -1"  class="col " >
+<label  for="thumbnail" class="control-label">Thumbnail</label>
+      <label *ngIf="showview"     class="labelview">{{f.thumbnail?.value}}</label>
+<app-attachment #thumbnail formControlName="thumbnail" [SessionData]="sessiondata"></app-attachment>
+<button  type="button" class="btn" *ngIf="thumbnail.getattachmentlist().length > 0"    (click) = "getthumbnail()" >Open File</button>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('details') == -1"  class="col " >
+<label  for="details" class="control-label">Details</label>
+      <label *ngIf="showview"     class="labelview">{{f.details?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="details"  formControlName="details" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('origin') == -1"  class="col " >
+<label  for="origin" class="control-label">Origin</label>
+      <label *ngIf="showview"     class="labelview">{{f.origin?.value}}</label>
+      <input   *ngIf="!showview"  id="origin"  formControlName="origin" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('receiptdate') == -1"  class="col " >
+<label  for="receiptdate" class="control-label">Receipt Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.receiptdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #receiptdateformpicker="ngbDatepicker"      ngbDatepicker name="receiptdateformpicker" id="receiptdate"  formControlName="receiptdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="receiptdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('documentlink') == -1"  class="col " >
+<label  for="documentlink" class="control-label">Document Link</label>
+      <label *ngIf="showview"     class="labelview">{{f.documentlink?.value}}</label>
+      <input   *ngIf="!showview"  id="documentlink"  formControlName="documentlink" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Document Details'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('size') == -1"  class="col " >
+<label  for="size" class="control-label">Size</label>
+      <label *ngIf="showview"     class="labelview">{{f.size?.value}}</label>
+      <input   *ngIf="!showview"  id="size"  formControlName="size" class="form-control"
+        >
+  </div>
+
+
+<!--filetype-->
+
+  <div   *ngIf="hidelist.indexOf('filetype') == -1"  class="col" ><label  for="filetype" class="control-label">File Type</label>
+      <select  *ngIf="!showview"  id="filetype"  (change)="filetypeonChange($event.target)" formControlName="filetype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of filetypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.filetype?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('render') == -1"  class="col " >
+<div class="columnchk">
+<label  for="render" class="control-label">Render</label>
+      <label *ngIf="showview"     class="labelview">{{f.render?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="render"  formControlName="render" class="form-control"
+        >
+  </div>
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('metatag') == -1"  class="col " >
+<label  for="metatag" class="control-label">Meta Tag</label>
+      <label *ngIf="showview"     class="labelview">{{f.metatag?.value}}</label>
+      <tag-input   *ngIf="!showview"  id="metatag"  formControlName="metatag" class="form-control"
+        >
+</tag-input>
+  </div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Document Control'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('checkedout') == -1"  class="col " >
+<div class="columnchk">
+<label  for="checkedout" class="control-label">Checked Out</label>
+      <label *ngIf="showview"     class="labelview">{{f.checkedout?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="checkedout"  readonly formControlName="checkedout" class="form-control"
+        >
+  </div>
+  </div>
+
+
+<!--checkoutby-->
+
+  <div   *ngIf="hidelist.indexOf('checkoutby') == -1"  class="col" ><label  for="checkoutby" class="control-label" (click)="AddOrEditcheckoutby(null)">Check Out By</label>
+<input readonly  id="checkoutbydesc" formControlName="checkoutbydesc" class="form-control" >
+      <label *ngIf="showview"     class="labelview">{{f.checkoutby?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('checkoutdatetime') == -1"  class="col " >
+<label  for="checkoutdatetime" class="control-label">Check Out Date Time</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.checkoutdatetime?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #checkoutdatetimeformpicker="ngbDatepicker"      ngbDatepicker name="checkoutdatetimeformpicker" id="checkoutdatetime"  readonly formControlName="checkoutdatetime"  class="form-control"   >
+</div>
+  </div>
+
+
+<!--documentstatus-->
+
+  <div   *ngIf="hidelist.indexOf('documentstatus') == -1"  class="col" ><label  for="documentstatus" class="control-label">Document Status</label>
+      <select  *ngIf="!showview"  id="documentstatus"  (change)="documentstatusonChange($event.target)" formControlName="documentstatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of documentstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.documentstatus?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('expirationdate') == -1"  class="col " >
+<label  for="expirationdate" class="control-label">Expiration Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.expirationdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #expirationdateformpicker="ngbDatepicker"      ngbDatepicker name="expirationdateformpicker" id="expirationdate"  formControlName="expirationdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="expirationdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('rank') == -1"  class="col " >
+<label  for="rank" class="control-label">Rank</label>
+      <label *ngIf="showview"     class="labelview">{{f.rank?.value}}</label>
+      <input   *ngIf="!showview"  id="rank"  formControlName="rank" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('fullpath') == -1"  class="col " >
+<label  for="fullpath" class="control-label">Full Path</label>
+      <label *ngIf="showview"     class="labelview">{{f.fullpath?.value}}</label>
+      <input   *ngIf="!showview"  id="fullpath"  formControlName="fullpath" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('remarks') == -1"  class="col " >
+<label  for="remarks" class="control-label">Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.remarks?.value}}</label>
+      <app-comment   *ngIf="!showview"  id="remarks"  formControlName="remarks" [label]="'Remarks'" 
+        >
+</app-comment>
+  </div>
+</div>
+</p-accordionTab></p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Document Controls</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table bodocumentcontrols-->
+<div [ngClass]="IsbodocumentcontrolsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Document Controls' | translate}}
+<select class='child'  id="bodocumentcontrolsPagingdropdown" (change)="bodocumentcontrolsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='bodocumentcontroltoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.bodocumentcontrolshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="bodocumentcontroltoggleOption();bodocumentcontrolsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="bodocumentcontroltoggleOption();showbodocumentcontrolsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblbodocumentcontrolssource (userRowSelect)="handlebodocumentcontrolsGridSelected($event)" [settings]="bodocumentcontrolssettings" (custom)="onCustombodocumentcontrolsAction($event)" [source]="bodocumentcontrolssource"  (delete)="bodocumentcontrolsroute($event,'delete')"  (deleteConfirm)="bodocumentcontrolsroute($event,'delete')" (create)="bodocumentcontrolsroute($event,'create')"   (createConfirm)="bodocumentcontrolsbeforesave($event)"  (edit)="bodocumentcontrolsroute($event,'edit')"  (editConfirm)="bodocumentcontrolsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table bodocumentcontrols-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Subscriptions</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table dmssubscriptions-->
+<div [ngClass]="IsdmssubscriptionsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Subscriptions' | translate}}
+<select class='child'  id="dmssubscriptionsPagingdropdown" (change)="dmssubscriptionsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='dmssubscriptiontoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.dmssubscriptionshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="dmssubscriptiontoggleOption();dmssubscriptionsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="dmssubscriptiontoggleOption();showdmssubscriptionsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbldmssubscriptionssource (userRowSelect)="handledmssubscriptionsGridSelected($event)" [settings]="dmssubscriptionssettings" (custom)="onCustomdmssubscriptionsAction($event)" [source]="dmssubscriptionssource"  (delete)="dmssubscriptionsroute($event,'delete')"  (deleteConfirm)="dmssubscriptionsroute($event,'delete')" (create)="dmssubscriptionsroute($event,'create')"   (createConfirm)="dmssubscriptionsbeforesave($event)"  (edit)="dmssubscriptionsroute($event,'edit')"  (editConfirm)="dmssubscriptionsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table dmssubscriptions-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Archive Restore Requests</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table dmsarchiverestorerequests-->
+<div [ngClass]="IsdmsarchiverestorerequestsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Archive Restore Requests' | translate}}
+<select class='child'  id="dmsarchiverestorerequestsPagingdropdown" (change)="dmsarchiverestorerequestsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='dmsarchiverestorerequesttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.dmsarchiverestorerequestshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="dmsarchiverestorerequesttoggleOption();dmsarchiverestorerequestsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="dmsarchiverestorerequesttoggleOption();showdmsarchiverestorerequestsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbldmsarchiverestorerequestssource (userRowSelect)="handledmsarchiverestorerequestsGridSelected($event)" [settings]="dmsarchiverestorerequestssettings" (custom)="onCustomdmsarchiverestorerequestsAction($event)" [source]="dmsarchiverestorerequestssource"  (delete)="dmsarchiverestorerequestsroute($event,'delete')"  (deleteConfirm)="dmsarchiverestorerequestsroute($event,'delete')" (create)="dmsarchiverestorerequestsroute($event,'create')"   (createConfirm)="dmsarchiverestorerequestsbeforesave($event)"  (edit)="dmsarchiverestorerequestsroute($event,'edit')"  (editConfirm)="dmsarchiverestorerequestsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table dmsarchiverestorerequests-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Audit Trails</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table dmsaudittrails-->
+<div [ngClass]="IsdmsaudittrailsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Audit Trails' | translate}}
+<select class='child'  id="dmsaudittrailsPagingdropdown" (change)="dmsaudittrailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='dmsaudittrailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.dmsaudittrailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="dmsaudittrailtoggleOption();dmsaudittrailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="dmsaudittrailtoggleOption();showdmsaudittrailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbldmsaudittrailssource (userRowSelect)="handledmsaudittrailsGridSelected($event)" [settings]="dmsaudittrailssettings" (custom)="onCustomdmsaudittrailsAction($event)" [source]="dmsaudittrailssource"  (delete)="dmsaudittrailsroute($event,'delete')"  (deleteConfirm)="dmsaudittrailsroute($event,'delete')" (create)="dmsaudittrailsroute($event,'create')"   (createConfirm)="dmsaudittrailsbeforesave($event)"  (edit)="dmsaudittrailsroute($event,'edit')"  (editConfirm)="dmsaudittrailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table dmsaudittrails-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Document Fields</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table dmsdocumentfields-->
+<div [ngClass]="IsdmsdocumentfieldsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Document Fields' | translate}}
+<select class='child'  id="dmsdocumentfieldsPagingdropdown" (change)="dmsdocumentfieldsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='dmsdocumentfieldtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.dmsdocumentfieldshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="dmsdocumentfieldtoggleOption();dmsdocumentfieldsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="dmsdocumentfieldtoggleOption();showdmsdocumentfieldsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbldmsdocumentfieldssource (userRowSelect)="handledmsdocumentfieldsGridSelected($event)" [settings]="dmsdocumentfieldssettings" (custom)="onCustomdmsdocumentfieldsAction($event)" [source]="dmsdocumentfieldssource"  (delete)="dmsdocumentfieldsroute($event,'delete')"  (deleteConfirm)="dmsdocumentfieldsroute($event,'delete')" (create)="dmsdocumentfieldsroute($event,'create')"   (createConfirm)="dmsdocumentfieldsbeforesave($event)"  (edit)="dmsdocumentfieldsroute($event,'edit')"  (editConfirm)="dmsdocumentfieldsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table dmsdocumentfields-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Linked Documents</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table dmslinkeddocuments-->
+<div [ngClass]="IsdmslinkeddocumentsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Linked Documents' | translate}}
+<select class='child'  id="dmslinkeddocumentsPagingdropdown" (change)="dmslinkeddocumentsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='dmslinkeddocumenttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.dmslinkeddocumentshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="dmslinkeddocumenttoggleOption();dmslinkeddocumentsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="dmslinkeddocumenttoggleOption();showdmslinkeddocumentsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbldmslinkeddocumentssource (userRowSelect)="handledmslinkeddocumentsGridSelected($event)" [settings]="dmslinkeddocumentssettings" (custom)="onCustomdmslinkeddocumentsAction($event)" [source]="dmslinkeddocumentssource"  (delete)="dmslinkeddocumentsroute($event,'delete')"  (deleteConfirm)="dmslinkeddocumentsroute($event,'delete')" (create)="dmslinkeddocumentsroute($event,'create')"   (createConfirm)="dmslinkeddocumentsbeforesave($event)"  (edit)="dmslinkeddocumentsroute($event,'edit')"  (editConfirm)="dmslinkeddocumentsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table dmslinkeddocuments-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Links</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table dmslinks-->
+<div [ngClass]="IsdmslinksVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Links' | translate}}
+<select class='child'  id="dmslinksPagingdropdown" (change)="dmslinksPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='dmslinktoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.dmslinkshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="dmslinktoggleOption();dmslinksroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="dmslinktoggleOption();showdmslinksFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbldmslinkssource (userRowSelect)="handledmslinksGridSelected($event)" [settings]="dmslinkssettings" (custom)="onCustomdmslinksAction($event)" [source]="dmslinkssource"  (delete)="dmslinksroute($event,'delete')"  (deleteConfirm)="dmslinksroute($event,'delete')" (create)="dmslinksroute($event,'create')"   (createConfirm)="dmslinksbeforesave($event)"  (edit)="dmslinksroute($event,'edit')"  (editConfirm)="dmslinksbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table dmslinks-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

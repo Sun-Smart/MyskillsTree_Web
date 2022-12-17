@@ -1,0 +1,107 @@
+<div class="dialog">
+  <form [formGroup]="hmslabresultForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Lab Results' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="testdate" class="control-label">{{'TestDate' | translate}}</label>
+          <div class="input-group">
+            <input #testdateformpicker="ngbDatepicker" ngbDatepicker name="testdateformpicker" id="testdate"
+              formControlName="testdate" class="form-control" placeholder="Choose {{'TestDate' | translate}}">
+            <button class="input-group-addon" (click)="testdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="testid" class="control-label">{{'TestId' | translate}}</label>
+          <input id="testid" formControlName="testid" class="form-control" placeholder="{{'TestId' | translate}}">
+        </div>
+        <div class="col">
+          <label for="testname" class="control-label">{{'TestName' | translate}}</label>
+          <input id="testname" formControlName="testname" class="form-control" placeholder="{{'TestName' | translate}}">
+        </div>
+        <div class="col">
+          <label for="testby" class="control-label">{{'TestBy' | translate}}</label>
+          <input id="testby" formControlName="testby" class="form-control" placeholder="{{'TestBy' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="normalrange" class="control-label">{{'NormalRange' | translate}}</label>
+          <input id="normalrange" formControlName="normalrange" class="form-control"
+            placeholder="{{'NormalRange' | translate}}">
+        </div>
+        <div class="col">
+          <label for="result" class="control-label">{{'Result' | translate}}</label>
+          <input id="result" formControlName="result" class="form-control" placeholder="{{'Result' | translate}}">
+        </div>
+        <div class="col">
+          <label for="notes" class="control-label">{{'Notes' | translate}}</label>
+          <input id="notes" formControlName="notes" class="form-control" placeholder="{{'Notes' | translate}}">
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="observations" class="control-label">{{'Observations' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="observations" formControlName="observations"
+            class="form-control" placeholder="{{'Observations' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="conclusion" class="control-label">{{'Conclusion' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="conclusion" formControlName="conclusion"
+            class="form-control" placeholder="{{'Conclusion' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remarks" formControlName="remarks"
+            class="form-control" placeholder="{{'Remarks' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="sticky"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        Custom Fields</div>
+      <div class="form-group row"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}" target="_blank">{{fld!.value!.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.labtestid!.value != null" [menuid]="pmenuid" [value]="f.labtestid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

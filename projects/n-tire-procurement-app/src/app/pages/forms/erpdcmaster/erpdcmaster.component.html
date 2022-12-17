@@ -1,0 +1,296 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="erpdcmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'dcmasters' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editerpdcmasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpdcmastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpdcmastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.dcid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.dcid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('branchid') == -1"  class="col " >
+<label  for="branchid" class="control-label">Branch</label>
+      <label *ngIf="showview"     class="labelview">{{f.branchid?.value}}</label>
+      <input   *ngIf="!showview"  id="branchid"  formControlName="branchid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('dcnumber') == -1"  class="col " >
+<label  for="dcnumber" class="control-label">D C Number</label>
+      <label *ngIf="showview"     class="labelview">{{f.dcnumber?.value}}</label>
+      <input   *ngIf="!showview"  id="dcnumber"  formControlName="dcnumber" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('dcdate') == -1"  class="col " >
+<label  for="dcdate" class="control-label">D C Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.dcdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #dcdateformpicker="ngbDatepicker"      ngbDatepicker name="dcdateformpicker" id="dcdate"  formControlName="dcdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="dcdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('dctype') == -1"  class="col " >
+<label  for="dctype" class="control-label">D C Type</label>
+      <label *ngIf="showview"     class="labelview">{{f.dctype?.value}}</label>
+      <input   *ngIf="!showview"  id="dctype"  formControlName="dctype" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('referenceid') == -1"  class="col " >
+<label  for="referenceid" class="control-label">Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.referenceid?.value}}</label>
+      <input   *ngIf="!showview"  id="referenceid"  formControlName="referenceid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('totalpieces') == -1"  class="col " >
+<label  for="totalpieces" class="control-label">Total Pieces</label>
+      <label *ngIf="showview"     class="labelview">{{f.totalpieces?.value}}</label>
+      <input   *ngIf="!showview"  id="totalpieces"  formControlName="totalpieces" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('shipmode') == -1"  class="col " >
+<label  for="shipmode" class="control-label">Shipmode</label>
+      <label *ngIf="showview"     class="labelview">{{f.shipmode?.value}}</label>
+      <input   *ngIf="!showview"  id="shipmode"  formControlName="shipmode" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('shippingcompany') == -1"  class="col " >
+<label  for="shippingcompany" class="control-label">Shipping Company</label>
+      <label *ngIf="showview"     class="labelview">{{f.shippingcompany?.value}}</label>
+      <input   *ngIf="!showview"  id="shippingcompany"  formControlName="shippingcompany" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('airwaybillnumber') == -1"  class="col " >
+<label  for="airwaybillnumber" class="control-label">Airway Bill Number</label>
+      <label *ngIf="showview"     class="labelview">{{f.airwaybillnumber?.value}}</label>
+      <input   *ngIf="!showview"  id="airwaybillnumber"  formControlName="airwaybillnumber" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('bookingdate') == -1"  class="col " >
+<label  for="bookingdate" class="control-label">Booking Date</label>
+      <label *ngIf="showview"     class="labelview">{{f.bookingdate?.value}}</label>
+      <input   *ngIf="!showview"  id="bookingdate"  formControlName="bookingdate" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('expecteddeliveryby') == -1"  class="col " >
+<label  for="expecteddeliveryby" class="control-label">Expected Delivery By</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.expecteddeliveryby?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #expecteddeliverybyformpicker="ngbDatepicker"      ngbDatepicker name="expecteddeliverybyformpicker" id="expecteddeliveryby"  formControlName="expecteddeliveryby"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="expecteddeliverybyformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('shipto') == -1"  class="col " >
+<label  for="shipto" class="control-label">Ship To</label>
+      <label *ngIf="showview"     class="labelview">{{f.shipto?.value}}</label>
+      <input   *ngIf="!showview"  id="shipto"  formControlName="shipto" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('shiptocustomer') == -1"  class="col " >
+<label  for="shiptocustomer" class="control-label">Ship To Customer</label>
+      <label *ngIf="showview"     class="labelview">{{f.shiptocustomer?.value}}</label>
+      <input   *ngIf="!showview"  id="shiptocustomer"  formControlName="shiptocustomer" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('shiptobranch') == -1"  class="col " >
+<label  for="shiptobranch" class="control-label">Ship To Branch</label>
+      <label *ngIf="showview"     class="labelview">{{f.shiptobranch?.value}}</label>
+      <input   *ngIf="!showview"  id="shiptobranch"  formControlName="shiptobranch" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('shiptovendor') == -1"  class="col " >
+<label  for="shiptovendor" class="control-label">Ship To Vendor</label>
+      <label *ngIf="showview"     class="labelview">{{f.shiptovendor?.value}}</label>
+      <input   *ngIf="!showview"  id="shiptovendor"  formControlName="shiptovendor" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('contactperson') == -1"  class="col " >
+<label  for="contactperson" class="control-label">Contact Person</label>
+      <label *ngIf="showview"     class="labelview">{{f.contactperson?.value}}</label>
+      <input   *ngIf="!showview"  id="contactperson"  formControlName="contactperson" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('contactnumber') == -1"  class="col " >
+<label  for="contactnumber" class="control-label">Contact Number</label>
+      <label *ngIf="showview"     class="labelview">{{f.contactnumber?.value}}</label>
+      <input   *ngIf="!showview"  id="contactnumber"  formControlName="contactnumber" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('deliveryaddress1') == -1"  class="col " >
+<label  for="deliveryaddress1" class="control-label">Delivery Address1</label>
+      <label *ngIf="showview"     class="labelview">{{f.deliveryaddress1?.value}}</label>
+      <input   *ngIf="!showview"  id="deliveryaddress1"  formControlName="deliveryaddress1" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('deliveryaddress2') == -1"  class="col " >
+<label  for="deliveryaddress2" class="control-label">Delivery Address2</label>
+      <label *ngIf="showview"     class="labelview">{{f.deliveryaddress2?.value}}</label>
+      <input   *ngIf="!showview"  id="deliveryaddress2"  formControlName="deliveryaddress2" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('deliverycity') == -1"  class="col " >
+<label  for="deliverycity" class="control-label">Delivery City</label>
+      <label *ngIf="showview"     class="labelview">{{f.deliverycity?.value}}</label>
+      <input   *ngIf="!showview"  id="deliverycity"  formControlName="deliverycity" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('deliverystate') == -1"  class="col " >
+<label  for="deliverystate" class="control-label">Delivery State</label>
+      <label *ngIf="showview"     class="labelview">{{f.deliverystate?.value}}</label>
+      <input   *ngIf="!showview"  id="deliverystate"  formControlName="deliverystate" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('deliverypin') == -1"  class="col " >
+<label  for="deliverypin" class="control-label">Delivery Pin</label>
+      <label *ngIf="showview"     class="labelview">{{f.deliverypin?.value}}</label>
+      <input   *ngIf="!showview"  id="deliverypin"  formControlName="deliverypin" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('deliverycountry') == -1"  class="col " >
+<label  for="deliverycountry" class="control-label">Delivery Country</label>
+      <label *ngIf="showview"     class="labelview">{{f.deliverycountry?.value}}</label>
+      <input   *ngIf="!showview"  id="deliverycountry"  formControlName="deliverycountry" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('deliverylatlong') == -1"  class="col " >
+<label  for="deliverylatlong" class="control-label">Delivery Latlong</label>
+      <label *ngIf="showview"     class="labelview">{{f.deliverylatlong?.value}}</label>
+      <input   *ngIf="!showview"  id="deliverylatlong"  formControlName="deliverylatlong" class="form-control"
+        >
+  </div>
+</div>
+</p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">DC Details</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table erpdcdetails-->
+<div [ngClass]="IserpdcdetailsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'DC Details' | translate}}
+<select class='child'  id="erpdcdetailsPagingdropdown" (change)="erpdcdetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpdcdetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpdcdetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="erpdcdetailtoggleOption();erpdcdetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="erpdcdetailtoggleOption();showerpdcdetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblerpdcdetailssource (userRowSelect)="handleerpdcdetailsGridSelected($event)" [settings]="erpdcdetailssettings" (custom)="onCustomerpdcdetailsAction($event)" [source]="erpdcdetailssource"  (delete)="erpdcdetailsroute($event,'delete')"  (deleteConfirm)="erpdcdetailsroute($event,'delete')" (create)="erpdcdetailsroute($event,'create')"   (createConfirm)="erpdcdetailsbeforesave($event)"  (edit)="erpdcdetailsroute($event,'edit')"  (editConfirm)="erpdcdetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table erpdcdetails-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

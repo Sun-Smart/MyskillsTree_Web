@@ -1,0 +1,161 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="erpqcmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'QC Masters' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editerpqcmasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpqcmastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpqcmastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.qcid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.qcid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('branchid') == -1"  class="col " >
+<label  for="branchid" class="control-label">Branch</label>
+      <label *ngIf="showview"     class="labelview">{{f.branchid?.value}}</label>
+      <input   *ngIf="!showview"  id="branchid"  formControlName="branchid" class="form-control"
+        >
+  </div>
+
+
+<!--grnid-->
+
+  <div   *ngIf="hidelist.indexOf('grnid') == -1"  class="col" ><label  for="grnid" class="control-label" (click)="AddOrEditgrnid(null)">G R N</label>
+<app-popupselect  *ngIf="!showview"  [options]="grnidList"  [optionsEvent]="grnidoptionsEvent" [form]="erpgoodsreceiptmaster" (selectItem)="onSelectedgrnid($event)"  [reportid]= 'yr2iu' [menuid]='yr2iu' formControlName="grnid" id="grnid" desc="grnnumber" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.grnid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('grnnumber') == -1"  class="col " >
+<label  for="grnnumber" class="control-label">G R N Number</label>
+      <label *ngIf="showview"     class="labelview">{{f.grnnumber?.value}}</label>
+      <input   *ngIf="!showview"  id="grnnumber"  formControlName="grnnumber" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('qcref') == -1"  class="col " >
+<label  for="qcref" class="control-label">Q C R E F</label>
+      <label *ngIf="showview"     class="labelview">{{f.qcref?.value}}</label>
+      <input   *ngIf="!showview"  id="qcref"  formControlName="qcref" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('qcdate') == -1"  class="col " >
+<label  for="qcdate" class="control-label">Q C Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.qcdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #qcdateformpicker="ngbDatepicker"      ngbDatepicker name="qcdateformpicker" id="qcdate"  formControlName="qcdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="qcdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">qcdetails</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table erpqcdetails-->
+<div [ngClass]="IserpqcdetailsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'qcdetails' | translate}}
+<select class='child'  id="erpqcdetailsPagingdropdown" (change)="erpqcdetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpqcdetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpqcdetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="erpqcdetailtoggleOption();erpqcdetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="erpqcdetailtoggleOption();showerpqcdetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblerpqcdetailssource (userRowSelect)="handleerpqcdetailsGridSelected($event)" [settings]="erpqcdetailssettings" (custom)="onCustomerpqcdetailsAction($event)" [source]="erpqcdetailssource"  (delete)="erpqcdetailsroute($event,'delete')"  (deleteConfirm)="erpqcdetailsroute($event,'delete')" (create)="erpqcdetailsroute($event,'create')"   (createConfirm)="erpqcdetailsbeforesave($event)"  (edit)="erpqcdetailsroute($event,'edit')"  (editConfirm)="erpqcdetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table erpqcdetails-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

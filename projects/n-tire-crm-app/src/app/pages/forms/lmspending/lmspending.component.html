@@ -1,0 +1,380 @@
+<form [formGroup]="lmspendingForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'L M S Pendings' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col"><label for="branchid" class="control-label" (click)="AddOrEditbranchid(null)">{{'Branch' |
+                translate}}</label>
+              <div class="input-group">
+                <input id="branchid" placeholder="" [ngbTypeahead]="branchid_bobranchmastersoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedbranchid($event)" formControlName='branchid'
+                  [resultFormatter]="branchid_bobranchmastersformatter">
+                <input readonly id="branchiddesc" formControlName="branchiddesc" class="form-control autocompletedesc"
+                  placeholder="{{'Branch' | translate}}">
+              </div>
+            </div>
+            <div class="col"><label for="branchlocationid" class="control-label"
+                (click)="AddOrEditbranchlocationid(null)">{{'Branch Location' | translate}}</label>
+              <div class="input-group">
+                <input id="branchlocationid" placeholder="" [ngbTypeahead]="branchlocationid_bobranchlocationsoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedbranchlocationid($event)"
+                  formControlName='branchlocationid' [resultFormatter]="branchlocationid_bobranchlocationsformatter">
+                <input readonly id="branchlocationiddesc" formControlName="branchlocationiddesc"
+                  class="form-control autocompletedesc" placeholder="{{'Branch Location' | translate}}">
+              </div>
+            </div>
+            <div class="col"><label for="leadid" class="control-label" (click)="AddOrEditleadid(null)">{{'Lead' |
+                translate}}</label>
+              <select id="leadid" (change)="leadidonChange($event.target)" formControlName="leadid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of leadidList" value="{{item.leadid}}">{{item.lastname}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="opportunityid" class="control-label">{{'Opportunity' | translate}}</label>
+              <input id="opportunityid" formControlName="opportunityid" class="form-control"
+                placeholder="{{'Opportunity' | translate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="productid" class="control-label" (click)="AddOrEditproductid(null)">{{'Product'
+                | translate}}</label>
+              <select id="productid" (change)="productidonChange($event.target)" formControlName="productid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of productidList" value="{{item.productid}}">{{item.productname}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="campaignid" class="control-label"
+                (click)="AddOrEditcampaignid(null)">{{'Campaign' | translate}}</label>
+              <select id="campaignid" (change)="campaignidonChange($event.target)" formControlName="campaignid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of campaignidList" value="{{item.productid}}">{{item.productname}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="leadby" class="control-label" (click)="AddOrEditleadby(null)">{{'Lead By' |
+                translate}}</label>
+              <div class="input-group">
+                <input id="leadby" placeholder="" [ngbTypeahead]="leadby_bousermastersoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedleadby($event)" formControlName='leadby'
+                  [resultFormatter]="leadby_bousermastersformatter">
+                <input readonly id="leadbydesc" formControlName="leadbydesc" class="form-control autocompletedesc"
+                  placeholder="{{'Lead By' | translate}}">
+              </div>
+            </div>
+            <div class="col"><label for="currentowner" class="control-label"
+                (click)="AddOrEditcurrentowner(null)">{{'Current Owner' | translate}}</label>
+              <div class="input-group">
+                <input id="currentowner" placeholder="" [ngbTypeahead]="currentowner_bousermastersoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedcurrentowner($event)"
+                  formControlName='currentowner' [resultFormatter]="currentowner_bousermastersformatter">
+                <input readonly id="currentownerdesc" formControlName="currentownerdesc"
+                  class="form-control autocompletedesc" placeholder="{{'Current Owner' | translate}}">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="leadresponse" class="control-label">{{'Lead Response' | translate}}</label>
+              <select id="leadresponse" (change)="leadresponseonChange($event.target)" formControlName="leadresponse"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of leadresponseList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="nextcalldate" class="control-label">{{'Next Call Date' | translate}}</label>
+              <div class="input-group">
+                <input #nextcalldateformpicker="ngbDatepicker" ngbDatepicker name="nextcalldateformpicker"
+                  id="nextcalldate" formControlName="nextcalldate" class="form-control"
+                  placeholder="Choose {{'Next Call Date' | translate}}">
+                <button class="input-group-addon" (click)="nextcalldateformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col"><label for="nextaction" class="control-label">{{'Next Action' | translate}}</label>
+              <select id="nextaction" (change)="nextactiononChange($event.target)" formControlName="nextaction"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of nextactionList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="actiondatetime" class="control-label">{{'Action Date Time' | translate}}</label>
+              <div class="input-group">
+                <input #actiondatetimeformpicker="ngbDatepicker" ngbDatepicker name="actiondatetimeformpicker"
+                  id="actiondatetime" formControlName="actiondatetime" class="form-control"
+                  placeholder="Choose {{'Action Date Time' | translate}}">
+                <button class="input-group-addon" (click)="actiondatetimeformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="previousremarks" class="control-label">{{'Previous Remarks' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="previousremarks"
+                formControlName="previousremarks" class="form-control" placeholder="{{'Previous Remarks' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="leadscore" class="control-label">{{'Lead Score' | translate}}</label>
+              <input id="leadscore" formControlName="leadscore" class="form-control"
+                placeholder="{{'Lead Score' | translate}}">
+            </div>
+            <div class="col"><label for="source" class="control-label">{{'Source' | translate}}</label>
+              <select id="source" (change)="sourceonChange($event.target)" formControlName="source"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of sourceList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="stage" class="control-label">{{'Stage' | translate}}</label>
+              <select id="stage" (change)="stageonChange($event.target)" formControlName="stage" class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of stageList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="criticality" class="control-label">{{'Criticality' | translate}}</label>
+              <select id="criticality" (change)="criticalityonChange($event.target)" formControlName="criticality"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of criticalityList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="expectedcloseby" class="control-label">{{'Expected Close By' | translate}}</label>
+              <div class="input-group">
+                <input #expectedclosebyformpicker="ngbDatepicker" ngbDatepicker name="expectedclosebyformpicker"
+                  id="expectedcloseby" formControlName="expectedcloseby" class="form-control"
+                  placeholder="Choose {{'Expected Close By' | translate}}">
+                <button class="input-group-addon" (click)="expectedclosebyformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col">
+              <label for="expectedvalue" class="control-label">{{'Expected Value' | translate}}</label>
+              <input id="expectedvalue" formControlName="expectedvalue" class="form-control"
+                placeholder="{{'Expected Value' | translate}}">
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="sticky"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            Custom Fields</div>
+          <div class="form-group row"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+          </div>
+          <div>Attachments</div>
+          <div class="form-group row">
+            <ng-container *ngIf="formid != null">
+              <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+                <a href="{{sharedService.AttachmentURL+fld.value.value}}" target="_blank">{{fld.value.value}} | </a>
+              </ng-container>
+            </ng-container>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic"
+              url="{{URL}}" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+            <ng-container *ngFor="let fld of attachmentlist">
+              <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+                mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+            </ng-container>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">L M S Tasks</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table lmstasks-->
+          <div class="row"></div>
+          <div [ngClass]="IslmstasksVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'L M S Tasks' | translate}}
+              <select class='child' id="lmstasksPagingdropdown" (change)="lmstasksPaging($event.target.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="lmstasksroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showlmstasksFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tbllmstaskssource (userRowSelect)="handlelmstasksGridSelected($event)"
+              [settings]="lmstaskssettings" [source]="lmstaskssource" (delete)="lmstasksroute($event,'delete')"
+              (deleteConfirm)="lmstasksroute($event,'delete')" (create)="lmstasksroute($event,'create')"
+              (createConfirm)="lmstasksbeforesave($event)" (edit)="lmstasksroute($event,'edit')"
+              (editConfirm)="lmstasksbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table lmstasks-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">L M S Reminders</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table lmsreminders-->
+          <div class="row"></div>
+          <div [ngClass]="IslmsremindersVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'L M S Reminders' | translate}}
+              <select class='child' id="lmsremindersPagingdropdown" (change)="lmsremindersPaging($event.target.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="lmsremindersroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showlmsremindersFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tbllmsreminderssource (userRowSelect)="handlelmsremindersGridSelected($event)"
+              [settings]="lmsreminderssettings" [source]="lmsreminderssource"
+              (delete)="lmsremindersroute($event,'delete')" (deleteConfirm)="lmsremindersroute($event,'delete')"
+              (create)="lmsremindersroute($event,'create')" (createConfirm)="lmsremindersbeforesave($event)"
+              (edit)="lmsremindersroute($event,'edit')" (editConfirm)="lmsremindersbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table lmsreminders-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">L M S Histories</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table lmshistories-->
+          <div class="row"></div>
+          <div [ngClass]="IslmshistoriesVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'L M S Histories' | translate}}
+              <select class='child' id="lmshistoriesPagingdropdown" (change)="lmshistoriesPaging($event.target.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="lmshistoriesroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showlmshistoriesFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tbllmshistoriessource (userRowSelect)="handlelmshistoriesGridSelected($event)"
+              [settings]="lmshistoriessettings" [source]="lmshistoriessource"
+              (delete)="lmshistoriesroute($event,'delete')" (deleteConfirm)="lmshistoriesroute($event,'delete')"
+              (create)="lmshistoriesroute($event,'create')" (createConfirm)="lmshistoriesbeforesave($event)"
+              (edit)="lmshistoriesroute($event,'edit')" (editConfirm)="lmshistoriesbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table lmshistories-->
+          <div>
+            <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+              *ngIf="showWebcam" [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+              [videoOptions]="videoOptions" [imageQuality]="1" (cameraSwitched)="cameraWasSwitched($event)"
+              (initError)="handleInitError($event)"></webcam>
+            <br />
+            <button class="actionBtn" type="button" (click)="triggerSnapshot();"><i class="fa fa-image"
+                aria-hidden="true"></i></button>
+            <button class="actionBtn" type="button" (click)="toggleWebcam();"><i class="fa fa-camera"
+                aria-hidden="true"></i></button>
+            <button class="actionBtn" type="button" (click)="pushtoUpload();"><i class="fa fa-upload"
+                aria-hidden="true"></i></button>
+            <input id="ImageName" formControlName="ImageName" style="width:100px"
+              placeholder="{{'Image Name' | translate}}">
+            <button class="actionBtn" type="button" (click)="OCR();"><i class="fa fa-barcode"
+                aria-hidden="true"></i></button>
+            <!--
+            <br/>
+            <button class="actionBtn" type="button" (click)="showNextWebcam(true);" [disabled]="!multipleWebcamsAvailable">Next Webcam</button>
+            <input id="cameraSwitchCheckbox" type="checkbox" formControlName="allowCameraSwitch"><label for="cameraSwitchCheckbox">Allow Camera Switch</label>
+            <br/>
+            DeviceId: <input id="deviceId" type="text" formControlName="deviceId" style="width: 500px">
+            <button type="button" (click)="showNextWebcam(deviceId);">Activate</button>
+            -->
+          </div>
+
+          <div class="snapshot" *ngIf="webcamImage">
+            <img [src]="webcamImage.imageAsDataUrl" />
+          </div>
+
+          <h4 *ngIf="errors.length > 0">Messages:</h4>
+          <ul *ngFor="let error of errors">
+            <li>{{error | json}}</li>
+          </ul>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.callid.value != null" [menuid]="pmenuid" [value]="f.callid.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

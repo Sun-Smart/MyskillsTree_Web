@@ -1,0 +1,75 @@
+<nav class="navbar fixed-top navbar-expand-md custom-navbar navbar-dark">
+    <img class="navbar-brand logo" src="assets/companylogo.png" id="logo_custom" width="10%" alt="logo">
+</nav>
+<div class="container-fluid register">
+    <div class="row">
+        <div class="col-md-6 register-left">
+            <img src="assets/register.png" alt="MySkillTree" />
+        </div>
+        <div class="col-md-6 register-right">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">Let's Get Started</h3><br /><br />
+                    <label class="custom_header">Already have an account? <a href="javascript:void(0);"
+                            (click)="gotoLogin()">Log in</a></label>
+                    <div class="row">
+                        <div class="col-sm reduce_radio">
+                            <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
+                                value="provider" checked> Skill Provider
+                        </div>
+                        <div class="col-sm reduce_radio">
+                            <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
+                                value="availer"> Skill Availer
+                        </div>
+                        <div class="col-sm reduce_radio">
+                            <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
+                                value="enhancer"> Skill Enhancer
+                        </div>
+                    </div>
+                    <form [formGroup]="bouserregistration_Form" (ngSubmit)="onSubmit()">
+                        <div class="register-form">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="loginPassword">First Name</label>
+                                        <input type="text" [(ngModel)]="firstname" class="form-control input-sm"
+                                            formControlName="firstname" required placeholder="First Name">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="loginPassword">Last Name</label>
+                                        <input type="text" [(ngModel)]="lastname" class="form-control input-sm" required
+                                            formControlName="lastname" placeholder="Last Name">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="loginPassword">Email</label>
+                                        <input type="email" [email]="true" [(ngModel)]="emailid" required
+                                            formControlName="emailid" class="form-control input-sm" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="loginPassword">Mobile</label>
+                                        <input type="number" class="form-control input-sm"
+                                            onKeyPress="if(this.value.length==10) return false;" required
+                                            formControlName="mobilenumber" [(ngModel)]="mobilenumber"
+                                            placeholder="Mobile">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div>
+                            <button class="btn btn-info btn-block register_btn"
+                                [disabled]="!bouserregistration_Form.valid">REGISTER</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

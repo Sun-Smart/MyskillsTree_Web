@@ -1,0 +1,115 @@
+<div class="dialog">
+  <form [formGroup]="pmreviewdetailForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div  class="container"     id="contentArea1"   >
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col"><label for="departmentid" class="control-label" (click)="AddOrEditdepartmentid(null)"
+              (click)="AddOrEditdepartmentid(null)">{{'Department' | translate}}</label>
+            <select id="departmentid" (change)="departmentidonChange($event.target)" formControlName="departmentid"
+              class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of departmentidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+              </option>
+            </select>
+          </div>
+          <div class="col"><label for="designationid" class="control-label">{{'Designation' | translate}}</label>
+            <select id="designationid" (change)="designationidonChange($event.target)" formControlName="designationid"
+              class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of designationidList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+          </div>
+          <div class="col"><label for="employeeid" class="control-label"
+              (click)="AddOrEditemployeeid(null)">{{'Employee' | translate}}</label>
+            <app-popupselect [options]="employeeidList" [optionsEvent]="employeeidoptionsEvent" [form]="hrmsemployee"
+              (selectItem)="onSelectedemployeeid($event)" [reportid]=99 [menuid]=99 formControlName="employeeid"
+              id="employeeid" desc="employeename"></app-popupselect>
+            <div class="input-group">
+            </div>
+          </div>
+          <div class="col"><label for="kpiid" class="control-label" (click)="AddOrEditkpiid(null)">{{'K P I' |
+              translate}}</label>
+            <app-popupselect [options]="kpiidList" [optionsEvent]="kpiidoptionsEvent" [form]="pmkpi"
+              (selectItem)="onSelectedkpiid($event)" [reportid]=428 [menuid]=428 formControlName="kpiid" id="kpiid"
+              desc="name"></app-popupselect>
+            <div class="input-group">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="name" class="control-label">{{'Name' | translate}}</label>
+            <input id="name" formControlName="name" class="form-control" placeholder="{{'Name' | translate}}">
+          </div>
+          <div class="col">
+            <label for="target" class="control-label">{{'Target' | translate}}</label>
+            <input id="target" formControlName="target" class="form-control" placeholder="{{'Target' | translate}}">
+          </div>
+          <div class="col">
+            <label for="actual" class="control-label">{{'Actual' | translate}}</label>
+            <input id="actual" formControlName="actual" class="form-control" placeholder="{{'Actual' | translate}}">
+          </div>
+          <div class="col"><label for="format" class="control-label">{{'Format' | translate}}</label>
+            <select id="format" (change)="formatonChange($event.target)" formControlName="format" class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of formatList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="employeescore" class="control-label">{{'Employee Score' | translate}}</label>
+            <input id="employeescore" formControlName="employeescore" class="form-control"
+              placeholder="{{'Employee Score' | translate}}">
+          </div>
+          <div class="col">
+            <label for="reviewerscore" class="control-label">{{'Reviewer Score' | translate}}</label>
+            <input id="reviewerscore" formControlName="reviewerscore" class="form-control"
+              placeholder="{{'Reviewer Score' | translate}}">
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="reviewquestions" class="control-label">{{'Review Questions' | translate}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="reviewquestions"
+              formControlName="reviewquestions" class="form-control" placeholder="{{'Review Questions' | translate}}">
+</textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="reviewanswers" class="control-label">{{'Review Answers' | translate}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="reviewanswers"
+              formControlName="reviewanswers" class="form-control" placeholder="{{'Review Answers' | translate}}">
+</textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="recommendations" class="control-label">{{'Recommendations' | translate}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="recommendations"
+              formControlName="recommendations" class="form-control" placeholder="{{'Recommendations' | translate}}">
+</textarea>
+          </div>
+        </div>
+      </p-accordion>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.reviewdetailid!.value != null" [menuid]="pmenuid" [value]="f.reviewdetailid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

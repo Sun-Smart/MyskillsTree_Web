@@ -1,0 +1,180 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="erpmaterialissuingForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Material Issuings' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editerpmaterialissuings()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpmaterialissuingtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpmaterialissuingshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.miid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.miid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('branchid') == -1"  class="col " >
+<label  for="branchid" class="control-label">Branch</label>
+      <label *ngIf="showview"     class="labelview">{{f.branchid?.value}}</label>
+      <input   *ngIf="!showview"  id="branchid"  formControlName="branchid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('issuetype') == -1"  class="col " >
+<label  for="issuetype" class="control-label">Issue Type</label>
+      <label *ngIf="showview"     class="labelview">{{f.issuetype?.value}}</label>
+      <input   *ngIf="!showview"  id="issuetype"  formControlName="issuetype" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('referenceid') == -1"  class="col " >
+<label  for="referenceid" class="control-label">Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.referenceid?.value}}</label>
+      <input   *ngIf="!showview"  id="referenceid"  formControlName="referenceid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('purchaserequisitionid') == -1"  class="col " >
+<label  for="purchaserequisitionid" class="control-label">Purchase Requisition</label>
+      <label *ngIf="showview"     class="labelview">{{f.purchaserequisitionid?.value}}</label>
+      <input   *ngIf="!showview"  id="purchaserequisitionid"  formControlName="purchaserequisitionid" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--storeuserid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('storeuserid') == -1"  class="col" ><label  for="storeuserid" class="control-label" (click)="AddOrEditstoreuserid(null)">Store User</label>
+<app-popupselect  *ngIf="!showview"  [options]="storeuseridList"  [optionsEvent]="storeuseridoptionsEvent" [form]="bousermaster" (selectItem)="onSelectedstoreuserid($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="storeuserid" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.storeuserid?.value}}</label>
+  </div>
+
+
+<!--issuedto-->
+
+  <div   *ngIf="hidelist.indexOf('issuedto') == -1"  class="col" ><label  for="issuedto" class="control-label" (click)="AddOrEditissuedto(null)">Issued To</label>
+<app-popupselect  *ngIf="!showview"  [options]="issuedtoList"  [optionsEvent]="issuedtooptionsEvent" [form]="bousermaster" (selectItem)="onSelectedissuedto($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="issuedto" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.issuedto?.value}}</label>
+  </div>
+
+
+<!--projectid-->
+
+  <div   *ngIf="hidelist.indexOf('projectid') == -1"  class="col" ><label  for="projectid" class="control-label" (click)="AddOrEditprojectid(null)">Project</label>
+<app-popupselect  *ngIf="!showview"  [options]="projectidList"  [optionsEvent]="projectidoptionsEvent" [form]="prjprojectmaster" (selectItem)="onSelectedprojectid($event)"  [reportid]= 'nnj2t' [menuid]='nnj2t' formControlName="projectid" id="projectid" desc="projectname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.projectid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('itemid') == -1"  class="col " >
+<label  for="itemid" class="control-label">Item</label>
+      <label *ngIf="showview"     class="labelview">{{f.itemid?.value}}</label>
+      <input   *ngIf="!showview"  id="itemid"  formControlName="itemid" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('uom') == -1"  class="col " >
+<label  for="uom" class="control-label">U O M</label>
+      <label *ngIf="showview"     class="labelview">{{f.uom?.value}}</label>
+      <input   *ngIf="!showview"  id="uom"  formControlName="uom" class="form-control"
+        >
+  </div>
+
+
+<!--locationid-->
+
+  <div   *ngIf="hidelist.indexOf('locationid') == -1"  class="col" ><label  for="locationid" class="control-label" (click)="AddOrEditlocationid(null)">Location</label>
+<app-popupselect  *ngIf="!showview"  [options]="locationidList"  [optionsEvent]="locationidoptionsEvent" [form]="bobranchlocation" (selectItem)="onSelectedlocationid($event)"  [reportid]= 'fcx84' [menuid]='fcx84' formControlName="locationid" id="locationid" desc="locationname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.locationid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('binlocationid') == -1"  class="col " >
+<label  for="binlocationid" class="control-label">B I N Location</label>
+      <label *ngIf="showview"     class="labelview">{{f.binlocationid?.value}}</label>
+      <input   *ngIf="!showview"  id="binlocationid"  formControlName="binlocationid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('requestedqty') == -1"  class="col " >
+<label  for="requestedqty" class="control-label">Requested Qty</label>
+      <label *ngIf="showview"     class="labelview">{{f.requestedqty?.value}}</label>
+      <input   *ngIf="!showview"  id="requestedqty"  formControlName="requestedqty" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('issueqty') == -1"  class="col " >
+<label  for="issueqty" class="control-label">Issue Qty</label>
+      <label *ngIf="showview"     class="labelview">{{f.issueqty?.value}}</label>
+      <input   *ngIf="!showview"  id="issueqty"  formControlName="issueqty" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('serialbatch') == -1"  class="col " >
+<label  for="serialbatch" class="control-label">Serial Batch</label>
+      <label *ngIf="showview"     class="labelview">{{f.serialbatch?.value}}</label>
+      <input   *ngIf="!showview"  id="serialbatch"  formControlName="serialbatch" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>  </div>
+</form>

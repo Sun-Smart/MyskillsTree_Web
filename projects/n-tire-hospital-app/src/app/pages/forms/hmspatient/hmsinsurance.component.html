@@ -1,0 +1,54 @@
+<div class="dialog">
+  <form [formGroup]="hmsinsuranceForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Insurances' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="insurancedperson" class="control-label">{{'InsurancedPerson' | translate}}</label>
+          <input id="insurancedperson" formControlName="insurancedperson" class="form-control"
+            placeholder="{{'InsurancedPerson' | translate}}">
+        </div>
+        <div class="col"><label for="relationship" class="control-label">{{'Relationship' | translate}}</label>
+          <select id="relationship" (change)="relationshiponChange($event.target)" formControlName="relationship"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of relationshipList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="insuranceno" class="control-label">{{'InsuranceNo' | translate}}</label>
+          <input id="insuranceno" formControlName="insuranceno" class="form-control"
+            placeholder="{{'InsuranceNo' | translate}}">
+        </div>
+        <div class="col"><label for="coverageamount" class="control-label">{{'Coverage Amount' | translate}}</label>
+          <select id="coverageamount" formControlName="coverageamount" class="form-control"
+            placeholder="Coverage Amount">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of currencyToSymbolMap1" value="{{item[0]}}">{{item[0]}} {{item[1]}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="notes" class="control-label">{{'Notes' | translate}}</label>
+          <p-editor id="notes" formControlName="notes" placeholder="{{'Notes' | translate}}"
+            [style]="{  height: '320' }"></p-editor>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.insuranceid!.value != null" [menuid]="pmenuid" [value]="f.insuranceid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

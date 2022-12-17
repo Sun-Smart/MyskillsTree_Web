@@ -1,0 +1,169 @@
+<form [formGroup]="umsinstructormasterForm" (ngSubmit)="onSubmit()"
+  [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Instructor Masters' | translate}}</a>
+    </h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col">
+              <label for="name" class="control-label">{{'Name' | translate}}</label>
+              <input id="name" formControlName="name" class="form-control" placeholder="{{'Name' | translate}}">
+            </div>
+            <div class="col">
+              <label for="contactno" class="control-label">{{'Contact No' | translate}}</label>
+              <int-phone-prefix id="contactno" formControlName="contactno" [locale]="'en'" [defaultCountry]="'in'"
+                class="form-control telephone" placeholder="{{'Contact No' | translate}}">
+              </int-phone-prefix>
+            </div>
+            <div class="col">
+              <label for="email" class="control-label">{{'Email' | translate}}</label>
+              <input type="email" [email]="true" id="email" formControlName="email" class="form-control"
+                placeholder="{{'Email' | translate}}">
+              <app-field-error-display [displayError]="f.email.invalid && (f.email.touched|| isSubmitted)"
+                errorMsg="Enter valid email">
+              </app-field-error-display>
+            </div>
+            <div class="col"><label for="instructortype" class="control-label">{{'Instructor Type' | translate}}</label>
+              <select id="instructortype" (change)="instructortypeonChange($event.target)"
+                formControlName="instructortype" class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of instructortypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="employeeid" class="control-label"
+                (click)="AddOrEditemployeeid(null)">{{'Employee' | translate}}</label>
+              <div class="input-group">
+                <input id="employeeid" placeholder="" [ngbTypeahead]="employeeid_hrmsemployeesoptions"
+                  class="form-control autocomplete" (selectItem)="onSelectedemployeeid($event)"
+                  formControlName='employeeid' [resultFormatter]="employeeid_hrmsemployeesformatter">
+                <input readonly id="employeeiddesc" formControlName="employeeiddesc"
+                  class="form-control autocompletedesc" placeholder="{{'Employee' | translate}}">
+              </div>
+            </div>
+            <div class="col"><label for="department" class="control-label" (click)="AddOrEditdepartment(null)"
+                (click)="AddOrEditdepartment(null)">{{'Department' | translate}}</label>
+              <select id="department" (change)="departmentonChange($event.target)" formControlName="department"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of departmentList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+                </option>
+              </select>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remarks" formControlName="remarks"
+                class="form-control" placeholder="{{'Remarks' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="sticky"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            Custom Fields</div>
+          <div class="form-group row"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+          </div>
+          <div class="sticky">Attachments</div>
+          <div class="form-group row">
+            <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+              <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}"
+                target="_blank">{{fld!.value!.value}} | </a>
+            </ng-container>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic"
+              url="{{URL}}" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+            <ng-container *ngFor="let fld of attachmentlist">
+              <div class="col">
+                <label class="control-label"></label>
+                <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+                  mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+              </div>
+            </ng-container>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Ratings</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table umsinstructorskills-->
+          <div class="row"></div>
+          <div [ngClass]="IsumsinstructorskillsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Ratings' | translate}}
+              <select class='child' id="umsinstructorskillsPagingdropdown"
+                (change)="umsinstructorskillsPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="umsinstructorskillsroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showumsinstructorskillsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblumsinstructorskillssource
+              (userRowSelect)="handleumsinstructorskillsGridSelected($event)" [settings]="umsinstructorskillssettings"
+              [source]="umsinstructorskillssource" (delete)="umsinstructorskillsroute($event,'delete')"
+              (deleteConfirm)="umsinstructorskillsroute($event,'delete')"
+              (create)="umsinstructorskillsroute($event,'create')"
+              (createConfirm)="umsinstructorskillsbeforesave($event)" (edit)="umsinstructorskillsroute($event,'edit')"
+              (editConfirm)="umsinstructorskillsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table umsinstructorskills-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.instructorid!.value != null" [menuid]="pmenuid" [value]="f.instructorid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

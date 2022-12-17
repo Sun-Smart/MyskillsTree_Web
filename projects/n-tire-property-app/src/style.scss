@@ -1,0 +1,134 @@
+::-webkit-scrollbar-track
+{
+	border: 5px solid white;
+	// border color does not support transparent on scrollbar
+	// border-color: transparent;
+	background-color: #b2bec3;
+}
+
+::-webkit-scrollbar
+{
+	width: 12px;
+  height: 12px;
+	background-color: #dfe6e9;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #74b9ff;
+	border-radius: 10px;
+}
+
+#contentArea//,#reportmaincontent
+{
+ overflow: auto !important;
+ position: absolute;
+ height: 88% !important;
+ width: 100% !important;
+ max-width: 100% !important;
+} 
+#contentArea1
+{
+  width:100%!important;
+}
+#reportmaincontent
+{
+ position: absolute;
+ height: 85% !important;
+ width: 100% !important;
+}
+ .table-container {
+ //  height: 600px;
+/*   scrollbar-width: medium!important;
+
+   overflow-y: auto;
+   overflow-x: auto;
+   position: absolute!important;
+   width: 100%!important;;
+   height: 100%!important;;*/
+ //  border-top: 1px solid #dee2e6;
+ } 
+body {
+color:#E96694!important;
+--backcolor:#E96694!important;
+--frontcolor:#F4F7F6!important;
+
+}
+.p-accordion-header {
+  margin-top: 50px!important;
+  
+}
+.p-accordion-content-wrapper
+{
+  box-shadow: 5px 10px #888888;
+}
+.nova-colored .p-datatable .p-datatable-tbody > tr > td,.nova-colored .p-datatable .p-datatable-thead > tr > th  {
+
+  border: 0px!important;
+}
+input,select,textarea
+{
+  -webkit-box-shadow: 0 5px 30px 0 #E7D5D5!important;
+}
+::placeholder,:-ms-input-placeholder,::-ms-input-placeholder,.form-control
+{
+  color:#F4F7F6!important;
+}
+.container
+{
+  background-color: beige;
+  color:#E96694!important;
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff;
+}
+.nova-colored
+{
+  --backcolor:#E96694!important;
+  --frontcolor:#F4F7F6!important;
+  --color1:#E3978E;
+--color2:#8D512F;
+--color3:rgba(0,0,0,0.9);
+--color4:#BE5825;
+--color5:#0057e7;
+--backcolor1:#EFEFF0;
+--backcolor2:#E08B5F;
+--backcolor3:#F0F0F0;
+--backcolor4:#F1F1F1;
+--backcolor5:#0057e7;
+}
+.frontcolor
+{
+  color:var(--frontcolor);
+}
+.color1
+{
+  color:#D38A3B;
+}
+.color2
+{
+  color:#F4F7F6;
+}
+.color3
+{
+  color:#7CB342;
+}
+$color1:#E96694;
+$color2:#D38A3B;
+$color3:#7CB342;
+$color4:#008744;
+$color5:#0057e7;
+
+.nav-tabs {
+  background: beige;
+
+}
+
+.nav-tabs .nav-item {
+
+  
+  border-radius: 10px 10px 0 0;
+
+ // transform: perspective(3px) rotateX( 0.9deg ) translateZ(-1px);
+
+}

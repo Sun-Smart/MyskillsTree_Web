@@ -1,0 +1,218 @@
+<form [formGroup]="umsexamForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Exam' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col"><label for="courseid" class="control-label" (click)="AddOrEditcourseid(null)">{{'Course' |
+                translate}}</label>
+              <select id="courseid" (change)="courseidonChange($event.target)" formControlName="courseid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of courseidList" value="{{item.courseid}}">{{item.coursename}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="semesterid" class="control-label"
+                (click)="AddOrEditsemesterid(null)">{{'Semester' | translate}}</label>
+              <select id="semesterid" (change)="semesteridonChange($event.target)" formControlName="semesterid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of semesteridList" value="{{item.semesterid}}">{{item.description}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="examtype" class="control-label">{{'Exam Type' | translate}}</label>
+              <select id="examtype" (change)="examtypeonChange($event.target)" formControlName="examtype"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of examtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+              </select>
+            </div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="examtitle" class="control-label">{{'ExamTitle' | translate}}</label>
+              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="examtitle" formControlName="examtitle"
+                class="form-control" placeholder="{{'ExamTitle' | translate}}">
+</textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="questions" class="control-label">{{'Questions' | translate}}</label>
+              <input id="questions" formControlName="questions" class="form-control"
+                placeholder="{{'Questions' | translate}}">
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="instructions" class="control-label">{{'Instructions' | translate}}</label>
+              <p-editor id="instructions" formControlName="instructions" placeholder="{{'Instructions' | translate}}"
+                [style]="{  height: '320' }"></p-editor>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="totalmarks" class="control-label">{{'Total Marks' | translate}}</label>
+              <input id="totalmarks" formControlName="totalmarks" class="form-control"
+                placeholder="{{'Total Marks' | translate}}">
+              <app-field-error-display
+                [displayError]="f.totalmarks.errors!=null && f.totalmarks.errors.pattern!=null && f.totalmarks.errors!=undefined && f.totalmarks.errors.pattern!=undefined  && (f.totalmarks.touched|| isSubmitted)"
+                errorMsg="Not a valid number">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.totalmarks.errors!=null && f.totalmarks.errors.min!=null && f.totalmarks.errors!=undefined && f.totalmarks.errors.min!=undefined  && (f.totalmarks.touched|| isSubmitted)"
+                errorMsg="Minimum value have to be entered">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.totalmarks.errors!=null && f.totalmarks.errors.max!=null && f.totalmarks.errors!=undefined && f.totalmarks.errors.max!=undefined  && (f.totalmarks.touched|| isSubmitted)"
+                errorMsg="Maximum value Exceeded">
+              </app-field-error-display>
+            </div>
+            <div class="col">
+              <label for="examdate" class="control-label">{{'Exam Date' | translate}}</label>
+              <div class="input-group">
+                <input #examdateformpicker="ngbDatepicker" ngbDatepicker name="examdateformpicker" id="examdate"
+                  formControlName="examdate" class="form-control" placeholder="Choose {{'Exam Date' | translate}}">
+                <button class="input-group-addon" (click)="examdateformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col">
+              <label for="fromtime" class="control-label">{{'From Time' | translate}}</label>
+              <ngb-timepicker class="form-control timepicker" formControlName="fromtime"></ngb-timepicker>
+            </div>
+            <div class="col">
+              <label for="totime" class="control-label">{{'To Time' | translate}}</label>
+              <ngb-timepicker class="form-control timepicker" formControlName="totime"></ngb-timepicker>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="sectionid" class="control-label" (click)="AddOrEditsectionid(null)">{{'Section'
+                | translate}}</label>
+              <select id="sectionid" (change)="sectionidonChange($event.target)" formControlName="sectionid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of sectionidList" value="{{item.sectionid}}">{{item.sectionname}}</option>
+              </select>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Student Marks</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table umsstudentmarks-->
+          <div class="row"></div>
+          <div [ngClass]="IsumsstudentmarksVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Student Marks' | translate}}
+              <select class='child' id="umsstudentmarksPagingdropdown"
+                (change)="umsstudentmarksPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="umsstudentmarksroute(null, 'create')"><i
+                      class="fa fa-plus" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showumsstudentmarksFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblumsstudentmarkssource (userRowSelect)="handleumsstudentmarksGridSelected($event)"
+              [settings]="umsstudentmarkssettings" [source]="umsstudentmarkssource"
+              (delete)="umsstudentmarksroute($event,'delete')" (deleteConfirm)="umsstudentmarksroute($event,'delete')"
+              (create)="umsstudentmarksroute($event,'create')" (createConfirm)="umsstudentmarksbeforesave($event)"
+              (edit)="umsstudentmarksroute($event,'edit')" (editConfirm)="umsstudentmarksbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table umsstudentmarks-->
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Exam Topics</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table umsexamtopics-->
+          <div class="row"></div>
+          <div [ngClass]="IsumsexamtopicsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Exam Topics' | translate}}
+              <select class='child' id="umsexamtopicsPagingdropdown" (change)="umsexamtopicsPaging($event.target!.value)"
+                [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="showumsexamtopicsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblumsexamtopicssource (userRowSelect)="handleumsexamtopicsGridSelected($event)"
+              [settings]="umsexamtopicssettings" [source]="umsexamtopicssource">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table umsexamtopics-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.examid!.value != null" [menuid]="pmenuid" [value]="f.examid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,337 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="mstapplicantreferencerequest_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second common_title_style">
+    <h1 class="col-4 columns mainheader left common_titles_new">{{'Reference Requests' | translate}}
+    </h1>
+    <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li *ngIf="checkUser"><a class='alert-info' [routerLink]='' *ngIf='showview'
+              (click)="edit_mstapplicantreferencerequests()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of mstapplicantreferencerequest_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader common_title_style' *ngIf="!showview">
+            <!-- <a class="alert-success" [routerLink]=''>  -->
+            <button type="button" class="btn btn-outline-primary" style="border-color: #000 !important;margin: 5px;
+              padding: 3px;
+              color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
+            <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
+            <!-- <button type="button" class="btn btn-outline-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+              style="border-color: #fff !important;
+              color: #fff;margin: 5px;
+    padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp; -->
+            <app-action *ngIf="f.requestid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.requestid.value" [status]="f.status.value"></app-action>
+          </li>
+          <i class='nav-item actionheader common_title_style'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
+            class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
+          <!-- <li class='nav-item actionheader common_title_style' *ngIf="!showview">
+            <a class="alert-success"  style='background: #0368b7 !important;' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.requestid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.requestid.value" [status]="f.status.value"></app-action>
+          </li> -->
+          <!-- <li class='nav-item actionheader common_title_style'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li> -->
+          <!-- <i class='nav-item actionheader common_title_style'
+          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
+          class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i> -->
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+
+
+    <!--applicantid-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="applicantidvisible==undefined || applicantidvisible==true" style='' class="col-3"><label
+          for="applicantid" class="control-label" (click)="AddOrEdit_applicantid(null)">Applicant</label>
+        <app-popupselect *ngIf="!(showview || bapplicantentry)" [options]="applicantid_List"
+          [optionsEvent]="applicantid_optionsEvent" [form]="mstapplicantmaster"
+          (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM' formControlName="applicantid"
+          id="value" desc="label"></app-popupselect>
+        <div class="input-group">
+        </div>
+        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.applicantiddesc?.value}}</label>
+      </div>
+    </div>
+
+
+    <!--requestmasterdatatypeid-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="requestmasterdatatypeidvisible==undefined || requestmasterdatatypeidvisible==true" style=''
+        class="col-3"><label for="requestmasterdatatypeid" class="control-label"
+          (click)="AddOrEdit_requestmasterdatatypeid(null)" (click)="AddOrEdit_requestmasterdatatypeid(null)">Data
+          Type</label>
+        <select *ngIf="!(showview || bapplicantentry)" id="requestmasterdatatypeid"
+          (change)="requestmasterdatatypeid_onChange($event.target)" formControlName="requestmasterdatatypeid"
+          class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of requestmasterdatatypeid_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.requestmasterdatatypeiddesc?.value}}</label>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="requestmasteridvisible==undefined || requestmasteridvisible==true" style='' class="col-3 ">
+        <label for="requestmasterid" class="control-label">Request Masterid</label>
+        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.requestmasterid?.value}}</label>
+        <input *ngIf="!(showview || bapplicantentry)" id="requestmasterid" formControlName="requestmasterid"
+          class="form-control">
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="requestreferencedatevisible==undefined || requestreferencedatevisible==true" style='' class="col-3 ">
+        <label for="requestreferencedate" class="control-label required">Date</label>
+        <label *ngIf="(showview || bapplicantentry)"
+          class="labelview">{{ngbDateParserFormatter.format(f.requestreferencedate?.value)}}</label>
+        <div class="input-group" *ngIf="!(showview || bapplicantentry)">
+          <input #requestreferencedateformpicker="ngbDatepicker" [minDate]='{year: 1950, month:1, day: 1}'
+            [maxDate]='{year: 2030, month:12, day: 31}' ngbDatepicker name="requestreferencedateformpicker"
+            id="requestreferencedate" required formControlName="requestreferencedate" class="form-control">
+          <button class="input-group-addon" *ngIf="!(showview || bapplicantentry)"
+            (click)="requestreferencedateformpicker.toggle()" type="button"><i class="fa fa-calendar"
+              aria-hidden="true"></i></button>
+        </div>
+        <app-field-error-display [displayError]="f.requestreferencedate.errors?.required"
+          errorMsg="Enter {{'Date' | translate}}">
+        </app-field-error-display>
+      </div>
+      <div *ngIf="requestedcontactvisible==undefined || requestedcontactvisible==true" style='' class="col-3 ">
+        <label for="requestedcontact" class="control-label required">Contact Person</label>
+        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.requestedcontact?.value}}</label>
+        <input *ngIf="!(showview || bapplicantentry)" id="requestedcontact" required formControlName="requestedcontact"
+          class="form-control">
+        <app-field-error-display [displayError]="f.requestedcontact.errors?.required"
+          errorMsg="Enter {{'Contact' | translate}}">
+        </app-field-error-display>
+        <app-field-error-display [displayError]="f.requestedcontact.errors?.pattern"
+          errorMsg="{{'Contact' | translate}} not valid">
+        </app-field-error-display>
+      </div>
+      <div *ngIf="contactdesignationvisible==undefined || contactdesignationvisible==true" style='' class="col-3 ">
+        <label for="contactdesignation" class="control-label">Designation</label>
+        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.contactdesignation?.value}}</label>
+        <input *ngIf="!(showview || bapplicantentry)" id="contactdesignation" formControlName="contactdesignation"
+          class="form-control">
+        <!-- <app-field-error-display [displayError]="f.contactdesignation.errors?.required"
+          errorMsg="Enter {{'Designation' | translate}}">
+        </app-field-error-display> -->
+      </div>
+      <div *ngIf="contactemailidvisible==undefined || contactemailidvisible==true" style='' class="col-3 ">
+        <label for="contactemailid" class="control-label required">Email</label>
+        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.contactemailid?.value}}</label>
+        <input type="email" [email]="true" *ngIf="!(showview || bapplicantentry)" id="contactemailid"
+          formControlName="contactemailid" class="form-control" required>
+        <app-field-error-display [displayError]="f.contactemailid.errors?.required"
+          errorMsg="Enter {{'email' | translate}}">
+        </app-field-error-display>
+        <app-field-error-display [displayError]="f.contactemailid.errors!=null && f.contactemailid.errors?.email"
+          errorMsg="Enter valid email">
+        </app-field-error-display>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="contactmobilevisible==undefined || contactmobilevisible==true" style='' class="col-3 ">
+        <label for="contactmobile" class="control-label">Mobile</label>
+        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.contactmobile?.value}}</label>
+        <int-phone-prefix *ngIf="!(showview || bapplicantentry)" id="contactmobile" formControlName="contactmobile"
+          [locale]="'en'" class="form-control telephone">
+        </int-phone-prefix>
+      </div>
+      <div *ngIf="contactuseridvisible==undefined || contactuseridvisible==true" style='' class="col-3 ">
+        <label for="contactuserid" class="control-label">Contact User</label>
+        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.contactuserid?.value}}</label>
+        <input *ngIf="!(showview || bapplicantentry)" id="contactuserid" formControlName="contactuserid"
+          class="form-control">
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="requestremarksvisible==undefined || requestremarksvisible==true" style='width:1500px' class="col-12 ">
+        <label for="requestremarks" class="control-label">Request Remarks</label>
+        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.requestremarks?.value}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!(showview || bapplicantentry)"
+          id="requestremarks" formControlName="requestremarks" class="form-control">
+</textarea>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="referencedatevisible==undefined || referencedatevisible==true" style='' class="col-3 ">
+        <label for="referencedate" class="control-label">Reference Date</label>
+        <label *ngIf="(showview || bcompanyentry)"
+          class="labelview">{{ngbDateParserFormatter.format(f.referencedate?.value)}}</label>
+        <div class="input-group" *ngIf="!(showview || bcompanyentry)">
+          <input #referencedateformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+            [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="referencedateformpicker" id="referencedate"
+            formControlName="referencedate" class="form-control">
+          <button class="input-group-addon" *ngIf="!(showview || bcompanyentry)"
+            (click)="referencedateformpicker.toggle()" type="button"><i class="fa fa-calendar"
+              aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+
+
+    <!--referenceacceptance-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="referenceacceptancevisible==undefined || referenceacceptancevisible==true" style='' class="col-3">
+        <label for="referenceacceptance" class="control-label">Reference Acceptance</label>
+        <select *ngIf="!(showview || bcompanyentry)" id="referenceacceptance"
+          (change)="referenceacceptance_onChange($event.target)" formControlName="referenceacceptance"
+          class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of referenceacceptance_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="(showview || bcompanyentry)" class="labelview">{{f.referenceacceptancedesc?.value}}</label>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="referenceremarksvisible==undefined || referenceremarksvisible==true" style='width:1500px'
+        class="col-12 ">
+        <label for="referenceremarks" class="control-label">Reference Remarks</label>
+        <label *ngIf="(showview || bcompanyentry)" class="labelview">{{f.referenceremarks?.value}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!(showview || bcompanyentry)"
+          id="referenceremarks" formControlName="referenceremarks" class="form-control">
+</textarea>
+      </div>
+    </div>
+    <br />
+    <div class="alert alert-success" role="alert"
+      style="color: #000 !important;background: #fff !important;width: 100% !important;height: auto !important;"
+      *ngIf="(viewhtml == '' || !showview)" innerHtml="{{f.referencesourcedetails?.value}}">
+
+    </div>
+    <br />
+    <!-- <div class="card form-group row blue" style="width: 100% !important;height: auto !important;" *ngIf="(viewhtml == '' || !showview)">
+      <div class="card-body" innerHtml="{{f.referencesourcedetails?.value}}">
+      </div>
+    </div> -->
+
+    <!-- <div *ngIf="(viewhtml == '' || !showview)" class="form-group row blue"
+      innerHtml="{{f.referencesourcedetails?.value}}">
+    </div> -->
+
+
+    <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="contactfileattachvisible==undefined || contactfileattachvisible==true" style='width:1500px'
+        class="col-12 ">
+        <label for="contactfileattach" class="control-label">File Attachment</label>
+        <label *ngIf="showview" class="labelview">{{f.contactfileattach?.value[0]?.name}}</label>
+        <app-attachment #contactfileattach formControlName="contactfileattach" [showremove]='bmyrecord'
+          [SessionData]="sessionData"></app-attachment>
+        <button type="button" class="btn" *ngIf="contactfileattach.getAttachmentList().length > 0"
+          (click)="getcontactfileattach()">Download File</button>
+      </div>
+    </div> -->
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="sentvisible==undefined || sentvisible==true" style='' class="col-3 ">
+        <div class="columnchk">
+          <label for="sent" class="control-label">Sent</label>
+          <label *ngIf="showview" class="labelview">{{f.sent?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="sent" formControlName="sent" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="receivedvisible==undefined || receivedvisible==true" style='' class="col-3 ">
+        <div class="columnchk">
+          <label for="received" class="control-label">Received</label>
+          <label *ngIf="showview" class="labelview">{{f.received?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="received" formControlName="received" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class='full-width' *ngIf="attachmentVisible">
+      <p-accordion [multiple]='true'>
+        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+          <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+          </app-attachment>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+</form>
+
+<div class="card-footer text-muted">
+  <li class='nav-item actionheader common_title_style' style="background:transparent !important;  margin-top: 12px;"
+    *ngIf="!showview">
+
+    <button type="button" class="btn btn-outline-primary1" style="border-color: #fff !important;margin: -3px;
+      padding: -2px;
+      position: sticky;
+  margin-left: 985px  !important;
+  background:#0368b7 !important;
+
+      color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
+  </li>
+</div>

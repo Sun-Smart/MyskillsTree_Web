@@ -1,0 +1,119 @@
+<form [formGroup]="bocompanybankdetailForm" class="frm" (ngSubmit)="onSubmit()"
+  [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row">
+    <h1 class="col columns  left"><a class="h1" href='#/pages/forms/bocompanybankdetail-list'>Companybankdetails</a>
+    </h1>
+    <div class="col  sticky1 right" role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <pre><br/></pre>
+  <div  class="container"     id="contentArea1"   >
+    <div class="form-group row">
+      <div class="col">
+        <label for="bankname" class="control-label">Bankname</label>
+        <input id="bankname" formControlName="bankname" class="form-control" placeholder="bankname">
+      </div>
+      <div class="col">
+        <label for="accountnumber" class="control-label">Accountnumber</label>
+        <input id="accountnumber" formControlName="accountnumber" class="form-control" placeholder="accountnumber">
+      </div>
+      <div class="col">
+        <label for="ibancode" class="control-label">Ibancode</label>
+        <input id="ibancode" formControlName="ibancode" class="form-control" placeholder="ibancode">
+      </div>
+      <div class="col">
+        <label for="swiftcode" class="control-label">Swiftcode</label>
+        <input id="swiftcode" formControlName="swiftcode" class="form-control" placeholder="swiftcode">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="otherreferences" class="control-label">Otherreferences</label>
+        <input id="otherreferences" formControlName="otherreferences" class="form-control"
+          placeholder="otherreferences">
+      </div>
+      <div class="col"><label for="bankcurrency" class="control-label">Bankcurrency</label>
+        <select id="bankcurrency" formControlName="bankcurrency" class="form-control" placeholder="bankcurrency">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of bankcurrencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="bankaddress1" class="control-label">Bankaddress1</label>
+        <input id="bankaddress1" formControlName="bankaddress1" class="form-control" placeholder="bankaddress1">
+      </div>
+      <div class="col">
+        <label for="bankaddress2" class="control-label">Bankaddress2</label>
+        <input id="bankaddress2" formControlName="bankaddress2" class="form-control" placeholder="bankaddress2">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col"><label for="bankcountry" class="control-label"
+          (click)="AddOrEditbankcountry(null)">Bankcountry</label>
+        <div class="input-group">
+          <input id="bankcountry" placeholder="" [ngbTypeahead]="bankcountry_bocountriesoptions"
+            class="form-control autocomplete" (selectItem)="onSelectedbankcountry($event)" formControlName='bankcountry'
+            [resultFormatter]="bankcountry_bocountriesformatter">
+          <input readonly id="bankcountryDesc" formControlName="bankcountryDesc" class="form-control autocompletedesc"
+            placeholder="bankcountry">
+        </div>
+      </div>
+      <div class="col"><label for="bankstate" class="control-label" (click)="AddOrEditbankstate(null)">Bankstate</label>
+        <div class="input-group">
+          <input id="bankstate" placeholder="" [ngbTypeahead]="bankstate_bostatesoptions"
+            class="form-control autocomplete" (selectItem)="onSelectedbankstate($event)" formControlName='bankstate'
+            [resultFormatter]="bankstate_bostatesformatter">
+          <input readonly id="bankstateDesc" formControlName="bankstateDesc" class="form-control autocompletedesc"
+            placeholder="bankstate">
+        </div>
+      </div>
+      <div class="col"><label for="bankcity" class="control-label" (click)="AddOrEditbankcity(null)">Bankcity</label>
+        <div class="input-group">
+          <input id="bankcity" placeholder="" [ngbTypeahead]="bankcity_bocitiesoptions"
+            class="form-control autocomplete" (selectItem)="onSelectedbankcity($event)" formControlName='bankcity'
+            [resultFormatter]="bankcity_bocitiesformatter">
+          <input readonly id="bankcityDesc" formControlName="bankcityDesc" class="form-control autocompletedesc"
+            placeholder="bankcity">
+        </div>
+      </div>
+      <div class="col">
+        <label for="bankpin" class="control-label">Bankpin</label>
+        <input id="bankpin" formControlName="bankpin" class="form-control" placeholder="bankpin">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="banklatlong" class="control-label">Banklatlong</label>
+        <input id="banklatlong" formControlName="banklatlong" class="form-control" placeholder="banklatlong">
+      </div>
+      <div class="col">
+        <label for="status" class="control-label">Status</label>
+        <input type="hidden" id="status" formControlName="status" class="form-control" placeholder="status">
+        <input readonly id="statusDesc" formControlName="statusDesc" class="form-control" placeholder="status">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+          class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,218 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="hrmsemployeeloanrequestForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Employee Loan Requests' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="edithrmsemployeeloanrequests()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeeloanrequesttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeeloanrequestshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.loanid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.loanid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+
+
+<!--branchid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('branchid') == -1"  class="col" ><label  for="branchid" class="control-label" (click)="AddOrEditbranchid(null)">Branch</label>
+<app-popupselect  *ngIf="!showview"  [options]="branchidList"  [optionsEvent]="branchidoptionsEvent" [form]="bouserbranchaccess" (selectItem)="onSelectedbranchid($event)"  [reportid]= 'oxubv' [menuid]='oxubv' formControlName="branchid" id="branchid" desc="branchname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"      class="labelview">{{f.branchiddesc?.value}}</label>
+  </div>
+
+
+<!--employeeid-->
+
+  <div   *ngIf="hidelist.indexOf('employeeid') == -1"  class="col" ><label  for="employeeid" class="control-label" (click)="AddOrEditemployeeid(null)">Employee</label>
+<app-popupselect  *ngIf="!showview"  [options]="employeeidList"  [optionsEvent]="employeeidoptionsEvent" [form]="hrmsemployee" (selectItem)="onSelectedemployeeid($event)"  [reportid]= 'zcqka' [menuid]='zcqka' formControlName="employeeid" id="employeeid" desc="employeename" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"      class="labelview">{{f.employeeiddesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('employeename') == -1"  class="col "  >
+<label  for="employeename" class="control-label">Employee Name</label>
+      <input   *ngIf="!showview"  id="employeename"  formControlName="employeename" class="form-control"
+        >
+  </div>
+
+
+<!--departmentid-->
+
+  <div   *ngIf="hidelist.indexOf('departmentid') == -1"  class="col" ><label  for="departmentid" class="control-label" (click)="AddOrEditdepartmentid(null)" (click)="AddOrEditdepartmentid(null)">Department</label>
+      <select  *ngIf="!showview"  id="departmentid"  (change)="departmentidonChange($event.target)" formControlName="departmentid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of departmentidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.departmentiddesc?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('loanschemeid') == -1"  class="col "  >
+<label  for="loanschemeid" class="control-label">Loan Scheme</label>
+      <input   *ngIf="!showview"  id="loanschemeid"  formControlName="loanschemeid" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('loanreference') == -1"  class="col "  >
+<label  for="loanreference" class="control-label">Loan Reference</label>
+      <input   *ngIf="!showview"  id="loanreference"  formControlName="loanreference" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('referencedate') == -1"  class="col "  >
+<label  for="referencedate" class="control-label">Reference Date</label>
+<div class="input-group" *ngIf="!showview" >
+<input #referencedateformpicker="ngbDatepicker"      ngbDatepicker name="referencedateformpicker" id="referencedate"  formControlName="referencedate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="referencedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.referencedate?.value)}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('requestamount') == -1"  class="col "  >
+<label  for="requestamount" class="control-label">Request Amount</label>
+      <input   *ngIf="!showview"  id="requestamount"  formControlName="requestamount" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('requiredfrom') == -1"  class="col "  >
+<label  for="requiredfrom" class="control-label">Required From</label>
+<div class="input-group" *ngIf="!showview" >
+<input #requiredfromformpicker="ngbDatepicker"      ngbDatepicker name="requiredfromformpicker" id="requiredfrom"  formControlName="requiredfrom"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="requiredfromformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.requiredfrom?.value)}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('numinstallments') == -1"  class="col "  >
+<label  for="numinstallments" class="control-label">Number of Installments</label>
+      <input   *ngIf="!showview"  id="numinstallments"  formControlName="numinstallments" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.numinstallments.errors!=null && f.numinstallments.errors.pattern!=null && f.numinstallments.errors!=undefined && f.numinstallments.errors.pattern!=undefined  && (f.numinstallments.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.numinstallments.errors!=null && f.numinstallments.errors.min!=null && f.numinstallments.errors!=undefined && f.numinstallments.errors.min!=undefined  && (f.numinstallments.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.numinstallments.errors!=null && f.numinstallments.errors.max!=null && f.numinstallments.errors!=undefined && f.numinstallments.errors.max!=undefined  && (f.numinstallments.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div  *ngIf="hidelist.indexOf('emi') == -1"  class="col "  >
+<label  for="emi" class="control-label">E M I</label>
+      <input   *ngIf="!showview"  id="emi"  formControlName="emi" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('reason') == -1"  class="col "  >
+<label  for="reason" class="control-label">Reason</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="reason"  formControlName="reason" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Employee Loan Details</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmsemployeeloandetails-->
+<div class="row"></div><div [ngClass]="IshrmsemployeeloandetailsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Employee Loan Details' | translate}}
+<select class='child'  id="hrmsemployeeloandetailsPagingdropdown" (change)="hrmsemployeeloandetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsemployeeloandetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsemployeeloandetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmsemployeeloandetailtoggleOption();hrmsemployeeloandetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmsemployeeloandetailtoggleOption();showhrmsemployeeloandetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmsemployeeloandetailssource (userRowSelect)="handlehrmsemployeeloandetailsGridSelected($event)" [settings]="hrmsemployeeloandetailssettings" (custom)="onCustomhrmsemployeeloandetailsAction($event)" [source]="hrmsemployeeloandetailssource"  (delete)="hrmsemployeeloandetailsroute($event,'delete')"  (deleteConfirm)="hrmsemployeeloandetailsroute($event,'delete')" (create)="hrmsemployeeloandetailsroute($event,'create')"   (createConfirm)="hrmsemployeeloandetailsbeforesave($event)"  (edit)="hrmsemployeeloandetailsroute($event,'edit')"  (editConfirm)="hrmsemployeeloandetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmsemployeeloandetails-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

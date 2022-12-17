@@ -1,0 +1,122 @@
+<div class="dialog">
+  <form [formGroup]="crmticketdetailForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Ticket Details' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="orderno" class="control-label">{{'OrderNo' | translate}}</label>
+          <input id="orderno" formControlName="orderno" class="form-control" placeholder="{{'OrderNo' | translate}}">
+        </div>
+        <div class="col"><label for="assignedtype" class="control-label">{{'Assigned Type' | translate}}</label>
+          <select id="assignedtype" (change)="assignedtypeonChange($event.target)" formControlName="assignedtype"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of assignedtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col"><label for="assigneduser" class="control-label"
+            (click)="AddOrEditassigneduser(null)">{{'Assigned User' | translate}}</label>
+          <div class="input-group">
+            <input id="assigneduser" placeholder="" [ngbTypeahead]="assigneduser_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedassigneduser($event)"
+              formControlName='assigneduser' [resultFormatter]="assigneduser_bousermastersformatter">
+            <input readonly id="assigneduserdesc" formControlName="assigneduserdesc"
+              class="form-control autocompletedesc" placeholder="{{'Assigned User' | translate}}">
+          </div>
+        </div>
+        <div class="col"><label for="assignedrole" class="control-label"
+            (click)="AddOrEditassignedrole(null)">{{'Assigned Role' | translate}}</label>
+          <select id="assignedrole" (change)="assignedroleonChange($event.target)" formControlName="assignedrole"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of assignedroleList" value="{{item.userroleid}}">{{item.userrole}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="actionuser" class="control-label" (click)="AddOrEditactionuser(null)">{{'Action
+            User' | translate}}</label>
+          <div class="input-group">
+            <input id="actionuser" placeholder="" [ngbTypeahead]="actionuser_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedactionuser($event)" formControlName='actionuser'
+              [resultFormatter]="actionuser_bousermastersformatter">
+            <input readonly id="actionuserdesc" formControlName="actionuserdesc" class="form-control autocompletedesc"
+              placeholder="{{'Action User' | translate}}">
+          </div>
+        </div>
+        <div class="col">
+          <label for="assigneddate" class="control-label">{{'AssignedDate' | translate}}</label>
+          <div class="input-group">
+            <input #assigneddateformpicker="ngbDatepicker" ngbDatepicker name="assigneddateformpicker" id="assigneddate"
+              formControlName="assigneddate" class="form-control" placeholder="Choose {{'AssignedDate' | translate}}">
+            <button class="input-group-addon" (click)="assigneddateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="actiondate" class="control-label">{{'ActionDate' | translate}}</label>
+          <div class="input-group">
+            <input #actiondateformpicker="ngbDatepicker" ngbDatepicker name="actiondateformpicker" id="actiondate"
+              formControlName="actiondate" class="form-control" placeholder="Choose {{'ActionDate' | translate}}">
+            <button class="input-group-addon" (click)="actiondateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="tatends" class="control-label">{{'TATEnds' | translate}}</label>
+          <div class="input-group">
+            <input #tatendsformpicker="ngbDatepicker" ngbDatepicker name="tatendsformpicker" id="tatends"
+              formControlName="tatends" class="form-control" placeholder="Choose {{'TATEnds' | translate}}">
+            <button class="input-group-addon" (click)="tatendsformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="actionremarks" class="control-label">{{'ActionRemarks' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="actionremarks"
+            formControlName="actionremarks" class="form-control" placeholder="{{'ActionRemarks' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="sticky"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        Custom Fields</div>
+      <div class="form-group row"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld.value.value}}" target="_blank">{{fld.value.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.ticketdetailid.value != null" [menuid]="pmenuid" [value]="f.ticketdetailid.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

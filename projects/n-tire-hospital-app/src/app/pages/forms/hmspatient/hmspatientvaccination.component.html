@@ -1,0 +1,68 @@
+<div class="dialog">
+  <form [formGroup]="hmspatientvaccinationForm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'H M S Patient Vaccinations' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="doctorid" class="control-label">{{'DoctorId' | translate}}</label>
+          <input id="doctorid" formControlName="doctorid" class="form-control" placeholder="{{'DoctorId' | translate}}">
+        </div>
+        <div class="col"><label for="vaccinationid" class="control-label"
+            (click)="AddOrEditvaccinationid(null)">{{'Vaccination' | translate}}</label>
+          <select id="vaccinationid" (change)="vaccinationidonChange($event.target)" formControlName="vaccinationid"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of vaccinationidList" value="{{item.vaccinationid}}">{{item.vaccinationname}}
+            </option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="startdate" class="control-label">{{'StartDate' | translate}}</label>
+          <div class="input-group">
+            <input #startdateformpicker="ngbDatepicker" ngbDatepicker name="startdateformpicker" id="startdate"
+              formControlName="startdate" class="form-control" placeholder="Choose {{'StartDate' | translate}}">
+            <button class="input-group-addon" (click)="startdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <div class="columnchk">
+            <label for="vaccinated" class="control-label">{{'Vaccinated' | translate}}</label>
+            <input type="checkbox" id="vaccinated" formControlName="vaccinated" class="form-control"
+              placeholder="{{'Vaccinated' | translate}}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="vaccinateddate" class="control-label">{{'VaccinatedDate' | translate}}</label>
+          <div class="input-group">
+            <input #vaccinateddateformpicker="ngbDatepicker" ngbDatepicker name="vaccinateddateformpicker"
+              id="vaccinateddate" formControlName="vaccinateddate" class="form-control"
+              placeholder="Choose {{'VaccinatedDate' | translate}}">
+            <button class="input-group-addon" (click)="vaccinateddateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.patientvaccinationid!.value != null" [menuid]="pmenuid"
+            [value]="f.patientvaccinationid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

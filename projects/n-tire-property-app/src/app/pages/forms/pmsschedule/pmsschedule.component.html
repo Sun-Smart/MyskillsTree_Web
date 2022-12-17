@@ -1,0 +1,215 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="pmsscheduleForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Schedules' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editpmsschedules()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='pmsscheduletoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.pmsscheduleshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.scheduleid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.scheduleid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+
+
+<!--propertyid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('propertyid') == -1"  class="col" ><label  for="propertyid" class="control-label" (click)="AddOrEditpropertyid(null)">Property</label>
+<app-popupselect  *ngIf="!showview"  [options]="propertyidList"  [optionsEvent]="propertyidoptionsEvent" [form]="pmsproperty" (selectItem)="onSelectedpropertyid($event)"  [reportid]= 'dio86' [menuid]='dio86' formControlName="propertyid" id="propertyid" desc="title" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.propertyid?.value}}</label>
+  </div>
+
+
+<!--tenantid-->
+
+  <div   *ngIf="hidelist.indexOf('tenantid') == -1"  class="col" ><label  for="tenantid" class="control-label" (click)="AddOrEdittenantid(null)">Tenant</label>
+<app-popupselect  *ngIf="!showview"  [options]="tenantidList"  [optionsEvent]="tenantidoptionsEvent" [form]="pmstenant" (selectItem)="onSelectedtenantid($event)"  [reportid]= 'e5jd2' [menuid]='e5jd2' formControlName="tenantid" id="tenantid" desc="lastname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.tenantid?.value}}</label>
+  </div>
+
+
+<!--unitid-->
+
+  <div   *ngIf="hidelist.indexOf('unitid') == -1"  class="col" ><label  for="unitid" class="control-label" (click)="AddOrEditunitid(null)">Unit</label>
+      <select  *ngIf="!showview"  id="unitid"  (change)="unitidonChange($event.target)" formControlName="unitid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of unitidList" value="{{item.unitid}}">{{item.unitno}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.unitid?.value}}</label>
+  </div>
+
+
+<!--ownerid-->
+
+  <div   *ngIf="hidelist.indexOf('ownerid') == -1"  class="col" ><label  for="ownerid" class="control-label" (click)="AddOrEditownerid(null)">Owner</label>
+      <select  *ngIf="!showview"  id="ownerid"  (change)="owneridonChange($event.target)" formControlName="ownerid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of owneridList" value="{{item.ownerid}}">{{item.lastname}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.ownerid?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('description') == -1"  class="col " >
+<label  for="description" class="control-label">Description</label>
+      <label *ngIf="showview"     class="labelview">{{f.description?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="description"  formControlName="description" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('details') == -1"  class="col " >
+<label  for="details" class="control-label">Details</label>
+      <label *ngIf="showview"     class="labelview">{{f.details?.value}}</label>
+<p-editor  *ngIf="!showview"  id="details" formControlName="details"    [style]="{  height: '320' }"></p-editor>  </div>
+  </div>
+
+
+<!--workordertype-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('workordertype') == -1"  class="col" ><label  for="workordertype" class="control-label">Work Order Type</label>
+      <select  *ngIf="!showview"  id="workordertype"  (change)="workordertypeonChange($event.target)" formControlName="workordertype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of workordertypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.workordertype?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<p-accordion  [multiple]='true'>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Frequency'  [selected]='true'>
+
+
+<!--workorderfrequency-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('workorderfrequency') == -1"  class="col" ><label  for="workorderfrequency" class="control-label">Work Order Frequency</label>
+      <select  *ngIf="!showview"  id="workorderfrequency"  (change)="workorderfrequencyonChange($event.target)" formControlName="workorderfrequency"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of workorderfrequencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.workorderfrequency?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('recurringstartdate') == -1"  class="col " >
+<label  for="recurringstartdate" class="control-label">Recurring Start Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.recurringstartdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #recurringstartdateformpicker="ngbDatepicker"      ngbDatepicker name="recurringstartdateformpicker" id="recurringstartdate"  formControlName="recurringstartdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="recurringstartdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('noenddate') == -1"  class="col " >
+<div class="columnchk">
+<label  for="noenddate" class="control-label">No End Date</label>
+      <label *ngIf="showview"     class="labelview">{{f.noenddate?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="noenddate"  formControlName="noenddate" class="form-control"
+        >
+  </div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('recurringenddate') == -1"  class="col " >
+<label  for="recurringenddate" class="control-label">Recurring End Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.recurringenddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #recurringenddateformpicker="ngbDatepicker"      ngbDatepicker name="recurringenddateformpicker" id="recurringenddate"  formControlName="recurringenddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="recurringenddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+</div>
+
+
+<!--priority-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('priority') == -1"  class="col" ><label  for="priority" class="control-label">Priority</label>
+      <select  *ngIf="!showview"  id="priority"  (change)="priorityonChange($event.target)" formControlName="priority"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of priorityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.priority?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordionTab></p-accordion>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+  </div>
+</form>

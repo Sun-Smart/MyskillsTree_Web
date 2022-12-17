@@ -1,0 +1,116 @@
+<div class="dialog">
+<form  [formGroup]="erpfacustomerreceiptdetailForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="container1"   *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<p-accordion  [multiple]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'receiptdetails'; "  for="receiptdetails" class="control-label">Receipt Details</label>
+      <input   *ngIf="!showview || editfield=='receiptdetails'"  id="receiptdetails"  formControlName="receiptdetails" class="form-control"
+        placeholder="{{'Receipt Details' | translate}}">
+  </div>
+
+
+<!--invoiceid-->
+
+  <div   class="col" ><label (click)="editfield = 'invoiceid'; "  for="invoiceid" class="control-label" (click)="AddOrEditinvoiceid(null)">Invoice</label>
+      <select  *ngIf="!showview"  id="invoiceid"  (change)="invoiceidonChange($event.target)" formControlName="invoiceid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of invoiceidList" value="{{item.invoiceid}}">{{item.invoicenumber}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='invoiceid'"  (click)="editfield = 'invoiceid';"  class="form-control labelview">{{f.invoiceiddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'customerreference'; "  for="customerreference" class="control-label">Customer Reference</label>
+      <input   *ngIf="!showview || editfield=='customerreference'"  id="customerreference"  formControlName="customerreference" class="form-control"
+        placeholder="{{'Customer Reference' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'invoicedate'; "  for="invoicedate" class="control-label">Invoice Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='invoicedate'">
+<input #invoicedateformpicker="ngbDatepicker"      ngbDatepicker name="invoicedateformpicker" id="invoicedate"  formControlName="invoicedate"  class="form-control"   placeholder="Choose Invoice Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='invoicedate'"  (click)="invoicedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='invoicedate'"  (click)="editfield = 'invoicedate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.invoicedate?.value)}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'totalvalue'; "  for="totalvalue" class="control-label">Total Value</label>
+      <input   *ngIf="!showview || editfield=='totalvalue'"  id="totalvalue"  formControlName="totalvalue" class="form-control"
+        placeholder="{{'Total Value' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'discountamount'; "  for="discountamount" class="control-label">Discount Amount</label>
+      <input   *ngIf="!showview || editfield=='discountamount'"  id="discountamount"  formControlName="discountamount" class="form-control"
+        placeholder="{{'Discount Amount' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'tax1'; "  for="tax1" class="control-label">Tax1</label>
+      <input   *ngIf="!showview || editfield=='tax1'"  id="tax1"  formControlName="tax1" class="form-control"
+        placeholder="{{'Tax1' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'tax2'; "  for="tax2" class="control-label">Tax2</label>
+      <input   *ngIf="!showview || editfield=='tax2'"  id="tax2"  formControlName="tax2" class="form-control"
+        placeholder="{{'Tax2' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'taxdeduction'; "  for="taxdeduction" class="control-label">Tax Deduction</label>
+      <input   *ngIf="!showview || editfield=='taxdeduction'"  id="taxdeduction"  formControlName="taxdeduction" class="form-control"
+        placeholder="{{'Tax Deduction' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'othercharges'; "  for="othercharges" class="control-label">Other Charges</label>
+      <input   *ngIf="!showview || editfield=='othercharges'"  id="othercharges"  formControlName="othercharges" class="form-control"
+        placeholder="{{'Other Charges' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'invoiceamount'; "  for="invoiceamount" class="control-label">Invoice Amount</label>
+      <input   *ngIf="!showview || editfield=='invoiceamount'"  id="invoiceamount"  formControlName="invoiceamount" class="form-control"
+        placeholder="{{'Invoice Amount' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'paid'; "  for="paid" class="control-label">Pa</label>
+      <input   *ngIf="!showview || editfield=='paid'"  id="paid"  formControlName="paid" class="form-control"
+        placeholder="{{'Pa' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'balance'; "  for="balance" class="control-label">Balance</label>
+      <input   *ngIf="!showview || editfield=='balance'"  id="balance"  formControlName="balance" class="form-control"
+        placeholder="{{'Balance' | translate}}">
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'narration'; "  for="narration" class="control-label">Narration</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='narration'"  id="narration"  formControlName="narration" class="form-control"
+        placeholder="{{'Narration' | translate}}">
+</textarea>
+  </div>
+</div>
+</p-accordion>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.receiptdetailid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.receiptdetailid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>
+</div>

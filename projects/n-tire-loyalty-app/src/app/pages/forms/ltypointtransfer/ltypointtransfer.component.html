@@ -1,0 +1,131 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="ltypointtransferForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Point Transfers' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'reference'; "  for="reference" class="control-label">Reference</label>
+      <input   *ngIf="!showview || editfield=='reference'"  id="reference"  readonly formControlName="reference" class="form-control"
+        >
+  </div>
+
+
+<!--customerid-->
+
+  <div   class="col" ><label (click)="editfield = 'customerid'; "  for="customerid" class="control-label" (click)="AddOrEditcustomerid(null)">Customer</label>
+<app-popupselect  *ngIf="!showview"  [options]="customeridList"  [optionsEvent]="customeridoptionsEvent" [form]="crmcustomermaster" (selectItem)="onSelectedcustomerid($event)"  [reportid]= 'pofgf' [menuid]='pofgf' formControlName="customerid" id="customerid" desc="lastname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='customerid'"  (click)="editfield = 'customerid';"  class="form-control labelview">{{f.customeriddesc?.value}}</label>
+  </div>
+
+
+<!--transfertype-->
+
+  <div   class="col" ><label (click)="editfield = 'transfertype'; "  for="transfertype" class="control-label">Transfer Type</label>
+      <select  *ngIf="!showview"  id="transfertype"  (change)="transfertypeonChange($event.target)" formControlName="transfertype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of transfertypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='transfertype'"  (click)="editfield = 'transfertype';"  class="form-control labelview">{{f.transfertypedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'value'; "  for="value" class="control-label">Value</label>
+      <input   *ngIf="!showview || editfield=='value'"  id="value"  formControlName="value" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--reason-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'reason'; "  for="reason" class="control-label">Reason</label>
+      <select  *ngIf="!showview"  id="reason"  (change)="reasononChange($event.target)" formControlName="reason"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of reasonList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='reason'"  (click)="editfield = 'reason';"  class="form-control labelview">{{f.reasondesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'comment'; "  for="comment" class="control-label">Comment</label>
+      <app-comment   *ngIf="!showview || editfield=='comment'"  id="comment"  formControlName="comment" [label]="'Comment'" 
+        >
+</app-comment>
+  </div>
+</div>
+
+
+<!--issuer-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'issuer'; "  for="issuer" class="control-label" (click)="AddOrEditissuer(null)" (click)="AddOrEditissuer(null)">Issuer</label>
+      <select  *ngIf="!showview"  id="issuer"  (change)="issueronChange($event.target)" formControlName="issuer"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of issuerList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='issuer'"  (click)="editfield = 'issuer';"  class="form-control labelview">{{f.issuerdesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'transferdate'; "  for="transferdate" class="control-label">Transfer Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='transferdate'">
+<input #transferdateformpicker="ngbDatepicker"      ngbDatepicker name="transferdateformpicker" id="transferdate"  formControlName="transferdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='transferdate'"  (click)="transferdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='transferdate'"  (click)="editfield = 'transferdate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.transferdate?.value)}}</label>
+  </div>
+
+
+<!--transferstatus-->
+
+  <div   class="col" ><label (click)="editfield = 'transferstatus'; "  for="transferstatus" class="control-label">Transfer Status</label>
+      <select  *ngIf="!showview"  id="transferstatus"  (change)="transferstatusonChange($event.target)" formControlName="transferstatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of transferstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='transferstatus'"  (click)="editfield = 'transferstatus';"  class="form-control labelview">{{f.transferstatusdesc?.value}}</label>
+  </div>
+<div class="col"></div>
+</div><div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.transferid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.transferid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

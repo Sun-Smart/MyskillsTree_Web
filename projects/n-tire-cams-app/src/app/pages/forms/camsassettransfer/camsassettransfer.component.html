@@ -1,0 +1,279 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="camsassettransferForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Asset Transfers' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editcamsassettransfers()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='camsassettransfertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camsassettransfershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.transferid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.transferid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('transferdate') == -1"  class="col " >
+<label  for="transferdate" class="control-label required">Transfer Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.transferdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #transferdateformpicker="ngbDatepicker"      ngbDatepicker name="transferdateformpicker" id="transferdate"  required formControlName="transferdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="transferdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <app-field-error-display [displayError]="f.transferdate.invalid && (f.transferdate.touched|| isSubmitted)" errorMsg="Enter {{'Transfer Date' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--transfertype-->
+
+  <div   *ngIf="hidelist.indexOf('transfertype') == -1"  class="col" ><label  for="transfertype" class="control-label">Transfer Type</label>
+      <select  *ngIf="!showview"  id="transfertype"  (change)="transfertypeonChange($event.target)" formControlName="transfertype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of transfertypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.transfertype?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('reference') == -1"  class="col " >
+<label  for="reference" class="control-label">Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.reference?.value}}</label>
+      <input   *ngIf="!showview"  id="reference"  formControlName="reference" class="form-control"
+        >
+  </div>
+
+
+<!--fromdepartment-->
+
+  <div   *ngIf="hidelist.indexOf('fromdepartment') == -1"  class="col" ><label  for="fromdepartment" class="control-label" (click)="AddOrEditfromdepartment(null)" (click)="AddOrEditfromdepartment(null)">From Department</label>
+      <select  *ngIf="!showview"  id="fromdepartment"  (change)="fromdepartmentonChange($event.target)" formControlName="fromdepartment"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of fromdepartmentList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.fromdepartment?.value}}</label>
+  </div>
+</div>
+
+
+<!--currentlocation-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('currentlocation') == -1"  class="col" ><label  for="currentlocation" class="control-label required" (click)="AddOrEditcurrentlocation(null)">Current Location</label>
+<app-popupselect  *ngIf="!showview"  [options]="currentlocationList"  [optionsEvent]="currentlocationoptionsEvent" [form]="bobranchlocation" (selectItem)="onSelectedcurrentlocation($event)"  [reportid]= 'fcx84' [menuid]='fcx84' formControlName="currentlocation" id="locationid" desc="locationname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.currentlocation?.value}}</label>
+      <app-field-error-display [displayError]="f.currentlocation.invalid && (f.currentlocation.touched || isSubmitted)" errorMsg="Enter {{'Current Location' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--fromemployee-->
+
+  <div   *ngIf="hidelist.indexOf('fromemployee') == -1"  class="col" ><label  for="fromemployee" class="control-label" (click)="AddOrEditfromemployee(null)">From Employee</label>
+<input readonly  id="fromemployeedesc" formControlName="fromemployeedesc" class="form-control" >
+      <label *ngIf="showview"     class="labelview">{{f.fromemployee?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('building') == -1"  class="col " >
+<label  for="building" class="control-label">Building</label>
+      <label *ngIf="showview"     class="labelview">{{f.building?.value}}</label>
+      <input   *ngIf="!showview"  id="building"  formControlName="building" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('room') == -1"  class="col " >
+<label  for="room" class="control-label">Room</label>
+      <label *ngIf="showview"     class="labelview">{{f.room?.value}}</label>
+      <input   *ngIf="!showview"  id="room"  formControlName="room" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--todepartment-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('todepartment') == -1"  class="col" ><label  for="todepartment" class="control-label" (click)="AddOrEdittodepartment(null)" (click)="AddOrEdittodepartment(null)">To Department</label>
+      <select  *ngIf="!showview"  id="todepartment"  (change)="todepartmentonChange($event.target)" formControlName="todepartment"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of todepartmentList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.todepartment?.value}}</label>
+  </div>
+
+
+<!--newlocation-->
+
+  <div   *ngIf="hidelist.indexOf('newlocation') == -1"  class="col" ><label  for="newlocation" class="control-label required" (click)="AddOrEditnewlocation(null)">New Location</label>
+<app-popupselect  *ngIf="!showview"  [options]="newlocationList"  [optionsEvent]="newlocationoptionsEvent" [form]="bobranchlocation" (selectItem)="onSelectednewlocation($event)"  [reportid]= 'fcx84' [menuid]='fcx84' formControlName="newlocation" id="locationid" desc="locationname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.newlocation?.value}}</label>
+      <app-field-error-display [displayError]="f.newlocation.invalid && (f.newlocation.touched || isSubmitted)" errorMsg="Enter {{'New Location' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--toemployee-->
+
+  <div   *ngIf="hidelist.indexOf('toemployee') == -1"  class="col" ><label  for="toemployee" class="control-label" (click)="AddOrEdittoemployee(null)">To Employee</label>
+<app-popupselect  *ngIf="!showview"  [options]="toemployeeList"  [optionsEvent]="toemployeeoptionsEvent" [form]="hrmsemployee" (selectItem)="onSelectedtoemployee($event)"  [reportid]= 'zcqka' [menuid]='zcqka' formControlName="toemployee" id="employeeid" desc="employeename" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.toemployee?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('tobuilding') == -1"  class="col " >
+<label  for="tobuilding" class="control-label">To Building</label>
+      <label *ngIf="showview"     class="labelview">{{f.tobuilding?.value}}</label>
+      <input   *ngIf="!showview"  id="tobuilding"  formControlName="tobuilding" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('toroom') == -1"  class="col " >
+<label  for="toroom" class="control-label">To Room</label>
+      <label *ngIf="showview"     class="labelview">{{f.toroom?.value}}</label>
+      <input   *ngIf="!showview"  id="toroom"  formControlName="toroom" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('transferreason') == -1"  class="col " >
+<label  for="transferreason" class="control-label">Transfer Reason</label>
+      <label *ngIf="showview"     class="labelview">{{f.transferreason?.value}}</label>
+      <input   *ngIf="!showview"  id="transferreason"  formControlName="transferreason" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('remarks') == -1"  class="col " >
+<label  for="remarks" class="control-label">Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.remarks?.value}}</label>
+      <app-comment   *ngIf="!showview"  id="remarks"  formControlName="remarks" [label]="'Remarks'" 
+        >
+</app-comment>
+  </div>
+</div>
+</p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Asset Transfer Details</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camsassettransferdetails-->
+<div class="row"></div><div [ngClass]="IscamsassettransferdetailsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Asset Transfer Details' | translate}}
+<select class='child'  id="camsassettransferdetailsPagingdropdown" (change)="camsassettransferdetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camsassettransferdetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camsassettransferdetailshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camsassettransferdetailtoggleOption();camsassettransferdetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camsassettransferdetailtoggleOption();showcamsassettransferdetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamsassettransferdetailssource (userRowSelect)="handlecamsassettransferdetailsGridSelected($event)" [settings]="camsassettransferdetailssettings" (custom)="onCustomcamsassettransferdetailsAction($event)" [source]="camsassettransferdetailssource"  (delete)="camsassettransferdetailsroute($event,'delete')"  (deleteConfirm)="camsassettransferdetailsroute($event,'delete')" (create)="camsassettransferdetailsroute($event,'create')"   (createConfirm)="camsassettransferdetailsbeforesave($event)"  (edit)="camsassettransferdetailsroute($event,'edit')"  (editConfirm)="camsassettransferdetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table camsassettransferdetails-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

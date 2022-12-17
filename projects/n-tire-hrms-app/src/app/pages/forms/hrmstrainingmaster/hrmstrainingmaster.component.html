@@ -1,0 +1,307 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="hrmstrainingmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Training Masters' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="edithrmstrainingmasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmstrainingmastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmstrainingmastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.trainingmasterid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.trainingmasterid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('topic') == -1"  class="col "  >
+<label  for="topic" class="control-label">Topic</label>
+      <input   *ngIf="!showview"  id="topic"  formControlName="topic" class="form-control"
+        >
+  </div>
+
+
+<!--trainingmode-->
+
+  <div   *ngIf="hidelist.indexOf('trainingmode') == -1"  class="col" ><label  for="trainingmode" class="control-label">Training Mode</label>
+      <select  *ngIf="!showview"  id="trainingmode"  (change)="trainingmodeonChange($event.target)" formControlName="trainingmode"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of trainingmodeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.trainingmodedesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('copyfrom') == -1"  class="col "  >
+<label  for="copyfrom" class="control-label">Copy From</label>
+      <input   *ngIf="!showview"  id="copyfrom"  formControlName="copyfrom" class="form-control"
+        >
+  </div>
+
+
+<!--category-->
+
+  <div   *ngIf="hidelist.indexOf('category') == -1"  class="col" ><label  for="category" class="control-label" (click)="AddOrEditcategory(null)">Category</label>
+      <select  *ngIf="!showview"  id="category"  (change)="categoryonChange($event.target)" formControlName="category"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of categoryList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.categorydesc?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('startdate') == -1"  class="col "  >
+<label  for="startdate" class="control-label">Start Date</label>
+<div class="input-group" *ngIf="!showview" >
+<input #startdateformpicker="ngbDatepicker"      ngbDatepicker name="startdateformpicker" id="startdate"  formControlName="startdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="startdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.startdate?.value)}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Training Attendances</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmstrainingattendances-->
+<div class="row"></div><div [ngClass]="IshrmstrainingattendancesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Training Attendances' | translate}}
+<select class='child'  id="hrmstrainingattendancesPagingdropdown" (change)="hrmstrainingattendancesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmstrainingattendancetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmstrainingattendanceshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmstrainingattendancetoggleOption();hrmstrainingattendancesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmstrainingattendancetoggleOption();showhrmstrainingattendancesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmstrainingattendancessource (userRowSelect)="handlehrmstrainingattendancesGridSelected($event)" [settings]="hrmstrainingattendancessettings" (custom)="onCustomhrmstrainingattendancesAction($event)" [source]="hrmstrainingattendancessource"  (delete)="hrmstrainingattendancesroute($event,'delete')"  (deleteConfirm)="hrmstrainingattendancesroute($event,'delete')" (create)="hrmstrainingattendancesroute($event,'create')"   (createConfirm)="hrmstrainingattendancesbeforesave($event)"  (edit)="hrmstrainingattendancesroute($event,'edit')"  (editConfirm)="hrmstrainingattendancesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmstrainingattendances-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Training Feedback Trainees</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmstrainingfeedbacktrainees-->
+<div class="row"></div><div [ngClass]="IshrmstrainingfeedbacktraineesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Training Feedback Trainees' | translate}}
+<select class='child'  id="hrmstrainingfeedbacktraineesPagingdropdown" (change)="hrmstrainingfeedbacktraineesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmstrainingfeedbacktraineetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmstrainingfeedbacktraineeshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmstrainingfeedbacktraineetoggleOption();hrmstrainingfeedbacktraineesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmstrainingfeedbacktraineetoggleOption();showhrmstrainingfeedbacktraineesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmstrainingfeedbacktraineessource (userRowSelect)="handlehrmstrainingfeedbacktraineesGridSelected($event)" [settings]="hrmstrainingfeedbacktraineessettings" (custom)="onCustomhrmstrainingfeedbacktraineesAction($event)" [source]="hrmstrainingfeedbacktraineessource"  (delete)="hrmstrainingfeedbacktraineesroute($event,'delete')"  (deleteConfirm)="hrmstrainingfeedbacktraineesroute($event,'delete')" (create)="hrmstrainingfeedbacktraineesroute($event,'create')"   (createConfirm)="hrmstrainingfeedbacktraineesbeforesave($event)"  (edit)="hrmstrainingfeedbacktraineesroute($event,'edit')"  (editConfirm)="hrmstrainingfeedbacktraineesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmstrainingfeedbacktrainees-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Training Feedback Trainers</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmstrainingfeedbacktrainers-->
+<div class="row"></div><div [ngClass]="IshrmstrainingfeedbacktrainersVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Training Feedback Trainers' | translate}}
+<select class='child'  id="hrmstrainingfeedbacktrainersPagingdropdown" (change)="hrmstrainingfeedbacktrainersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmstrainingfeedbacktrainertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmstrainingfeedbacktrainershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmstrainingfeedbacktrainertoggleOption();hrmstrainingfeedbacktrainersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmstrainingfeedbacktrainertoggleOption();showhrmstrainingfeedbacktrainersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmstrainingfeedbacktrainerssource (userRowSelect)="handlehrmstrainingfeedbacktrainersGridSelected($event)" [settings]="hrmstrainingfeedbacktrainerssettings" (custom)="onCustomhrmstrainingfeedbacktrainersAction($event)" [source]="hrmstrainingfeedbacktrainerssource"  (delete)="hrmstrainingfeedbacktrainersroute($event,'delete')"  (deleteConfirm)="hrmstrainingfeedbacktrainersroute($event,'delete')" (create)="hrmstrainingfeedbacktrainersroute($event,'create')"   (createConfirm)="hrmstrainingfeedbacktrainersbeforesave($event)"  (edit)="hrmstrainingfeedbacktrainersroute($event,'edit')"  (editConfirm)="hrmstrainingfeedbacktrainersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmstrainingfeedbacktrainers-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Training Participants</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmstrainingparticipants-->
+<div class="row"></div><div [ngClass]="IshrmstrainingparticipantsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Training Participants' | translate}}
+<select class='child'  id="hrmstrainingparticipantsPagingdropdown" (change)="hrmstrainingparticipantsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmstrainingparticipanttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmstrainingparticipantshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmstrainingparticipanttoggleOption();hrmstrainingparticipantsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmstrainingparticipanttoggleOption();showhrmstrainingparticipantsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmstrainingparticipantssource (userRowSelect)="handlehrmstrainingparticipantsGridSelected($event)" [settings]="hrmstrainingparticipantssettings" (custom)="onCustomhrmstrainingparticipantsAction($event)" [source]="hrmstrainingparticipantssource"  (delete)="hrmstrainingparticipantsroute($event,'delete')"  (deleteConfirm)="hrmstrainingparticipantsroute($event,'delete')" (create)="hrmstrainingparticipantsroute($event,'create')"   (createConfirm)="hrmstrainingparticipantsbeforesave($event)"  (edit)="hrmstrainingparticipantsroute($event,'edit')"  (editConfirm)="hrmstrainingparticipantsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmstrainingparticipants-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Training Schedules</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hrmstrainingschedules-->
+<div class="row"></div><div [ngClass]="IshrmstrainingschedulesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Training Schedules' | translate}}
+<select class='child'  id="hrmstrainingschedulesPagingdropdown" (change)="hrmstrainingschedulesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmstrainingscheduletoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmstrainingscheduleshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hrmstrainingscheduletoggleOption();hrmstrainingschedulesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hrmstrainingscheduletoggleOption();showhrmstrainingschedulesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhrmstrainingschedulessource (userRowSelect)="handlehrmstrainingschedulesGridSelected($event)" [settings]="hrmstrainingschedulessettings" (custom)="onCustomhrmstrainingschedulesAction($event)" [source]="hrmstrainingschedulessource"  (delete)="hrmstrainingschedulesroute($event,'delete')"  (deleteConfirm)="hrmstrainingschedulesroute($event,'delete')" (create)="hrmstrainingschedulesroute($event,'create')"   (createConfirm)="hrmstrainingschedulesbeforesave($event)"  (edit)="hrmstrainingschedulesroute($event,'edit')"  (editConfirm)="hrmstrainingschedulesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hrmstrainingschedules-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

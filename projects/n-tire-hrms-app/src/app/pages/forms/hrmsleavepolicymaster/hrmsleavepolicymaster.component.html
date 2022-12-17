@@ -1,0 +1,273 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="hrmsleavepolicymasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Leave Policy Masters' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="edithrmsleavepolicymasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='hrmsleavepolicymastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hrmsleavepolicymastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.leavetypeid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.leavetypeid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('leavename') == -1"  class="col "  >
+<label  for="leavename" class="control-label">Leave Name</label>
+      <input   *ngIf="!showview"  id="leavename"  formControlName="leavename" class="form-control"
+        >
+  </div>
+
+
+<!--applicableto-->
+
+  <div   *ngIf="hidelist.indexOf('applicableto') == -1"  class="col" ><label  for="applicableto" class="control-label">Applicable To</label>
+      <select  *ngIf="!showview"  id="applicableto"  (change)="applicabletoonChange($event.target)" formControlName="applicableto"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of applicabletoList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.applicabletodesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('effectivefrom') == -1"  class="col "  >
+<label  for="effectivefrom" class="control-label">Effective From</label>
+      <input   *ngIf="!showview"  id="effectivefrom"  formControlName="effectivefrom" class="form-control"
+        >
+  </div>
+
+
+<!--leavebasedon-->
+
+  <div   *ngIf="hidelist.indexOf('leavebasedon') == -1"  class="col" ><label  for="leavebasedon" class="control-label">Leave Based On</label>
+      <select  *ngIf="!showview"  id="leavebasedon"  (change)="leavebasedononChange($event.target)" formControlName="leavebasedon"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of leavebasedonList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.leavebasedondesc?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('eligibledays') == -1"  class="col "  >
+<label  for="eligibledays" class="control-label">Eligible Days</label>
+      <input   *ngIf="!showview"  id="eligibledays"  formControlName="eligibledays" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.eligibledays.errors!=null && f.eligibledays.errors.pattern!=null && f.eligibledays.errors!=undefined && f.eligibledays.errors.pattern!=undefined  && (f.eligibledays.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.eligibledays.errors!=null && f.eligibledays.errors.min!=null && f.eligibledays.errors!=undefined && f.eligibledays.errors.min!=undefined  && (f.eligibledays.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.eligibledays.errors!=null && f.eligibledays.errors.max!=null && f.eligibledays.errors!=undefined && f.eligibledays.errors.max!=undefined  && (f.eligibledays.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div  *ngIf="hidelist.indexOf('carryforward') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="carryforward" class="control-label">Carry Forward</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="carryforward"  formControlName="carryforward" class="form-control"
+        >
+  </div>
+  </div>
+  <div  *ngIf="hidelist.indexOf('encashmentdays') == -1"  class="col "  >
+<label  for="encashmentdays" class="control-label">Encashment Days</label>
+      <input   *ngIf="!showview"  id="encashmentdays"  formControlName="encashmentdays" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.encashmentdays.errors!=null && f.encashmentdays.errors.pattern!=null && f.encashmentdays.errors!=undefined && f.encashmentdays.errors.pattern!=undefined  && (f.encashmentdays.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.encashmentdays.errors!=null && f.encashmentdays.errors.min!=null && f.encashmentdays.errors!=undefined && f.encashmentdays.errors.min!=undefined  && (f.encashmentdays.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.encashmentdays.errors!=null && f.encashmentdays.errors.max!=null && f.encashmentdays.errors!=undefined && f.encashmentdays.errors.max!=undefined  && (f.encashmentdays.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div  *ngIf="hidelist.indexOf('maxaccumulation') == -1"  class="col "  >
+<label  for="maxaccumulation" class="control-label">Max. Accumulation</label>
+      <input   *ngIf="!showview"  id="maxaccumulation"  formControlName="maxaccumulation" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.maxaccumulation.errors!=null && f.maxaccumulation.errors.pattern!=null && f.maxaccumulation.errors!=undefined && f.maxaccumulation.errors.pattern!=undefined  && (f.maxaccumulation.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.maxaccumulation.errors!=null && f.maxaccumulation.errors.min!=null && f.maxaccumulation.errors!=undefined && f.maxaccumulation.errors.min!=undefined  && (f.maxaccumulation.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.maxaccumulation.errors!=null && f.maxaccumulation.errors.max!=null && f.maxaccumulation.errors!=undefined && f.maxaccumulation.errors.max!=undefined  && (f.maxaccumulation.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+</div>
+
+
+<!--prorata-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('prorata') == -1"  class="col" ><label  for="prorata" class="control-label">Prorata</label>
+      <select  *ngIf="!showview"  id="prorata"  (change)="prorataonChange($event.target)" formControlName="prorata"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of prorataList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.proratadesc?.value}}</label>
+  </div>
+
+
+<!--proratabasis-->
+
+  <div   *ngIf="hidelist.indexOf('proratabasis') == -1"  class="col" ><label  for="proratabasis" class="control-label">Prorata Basis</label>
+      <select  *ngIf="!showview"  id="proratabasis"  (change)="proratabasisonChange($event.target)" formControlName="proratabasis"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of proratabasisList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.proratabasisdesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('prefixsuffix') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="prefixsuffix" class="control-label">Prefix Suffix</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="prefixsuffix"  formControlName="prefixsuffix" class="form-control"
+        >
+  </div>
+  </div>
+  <div  *ngIf="hidelist.indexOf('maxleaveinmonth') == -1"  class="col "  >
+<label  for="maxleaveinmonth" class="control-label">Max. Leave in Month</label>
+      <input   *ngIf="!showview"  id="maxleaveinmonth"  formControlName="maxleaveinmonth" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.maxleaveinmonth.errors!=null && f.maxleaveinmonth.errors.pattern!=null && f.maxleaveinmonth.errors!=undefined && f.maxleaveinmonth.errors.pattern!=undefined  && (f.maxleaveinmonth.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.maxleaveinmonth.errors!=null && f.maxleaveinmonth.errors.min!=null && f.maxleaveinmonth.errors!=undefined && f.maxleaveinmonth.errors.min!=undefined  && (f.maxleaveinmonth.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.maxleaveinmonth.errors!=null && f.maxleaveinmonth.errors.max!=null && f.maxleaveinmonth.errors!=undefined && f.maxleaveinmonth.errors.max!=undefined  && (f.maxleaveinmonth.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+</div>
+
+
+<!--conversiontoleavetype-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('conversiontoleavetype') == -1"  class="col" ><label  for="conversiontoleavetype" class="control-label" (click)="AddOrEditconversiontoleavetype(null)">Conversion To Leave Type</label>
+      <select  *ngIf="!showview"  id="conversiontoleavetype"  (change)="conversiontoleavetypeonChange($event.target)" formControlName="conversiontoleavetype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of conversiontoleavetypeList" value="{{item.leavetypeid}}">{{item.leavename}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.conversiontoleavetypedesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('salaryreduction') == -1"  class="col "  >
+<label  for="salaryreduction" class="control-label">Salary Reduction</label>
+      <input   *ngIf="!showview"  id="salaryreduction"  formControlName="salaryreduction" class="form-control"
+        >
+  </div>
+
+
+<!--gender-->
+
+  <div   *ngIf="hidelist.indexOf('gender') == -1"  class="col" ><label  for="gender" class="control-label">Gender</label>
+      <select  *ngIf="!showview"  id="gender"  (change)="genderonChange($event.target)" formControlName="gender"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of genderList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.genderdesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('allowhalfday') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="allowhalfday" class="control-label">Allow Half Day</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="allowhalfday"  formControlName="allowhalfday" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('allowduringresignation') == -1"  class="col "  >
+<div class="columnchk">
+<label  for="allowduringresignation" class="control-label">Allow During Resignation</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="allowduringresignation"  formControlName="allowduringresignation" class="form-control"
+        >
+  </div>
+  </div>
+  <div  *ngIf="hidelist.indexOf('preapproveddays') == -1"  class="col "  >
+<label  for="preapproveddays" class="control-label">Pre Approved Days</label>
+      <input   *ngIf="!showview"  id="preapproveddays"  formControlName="preapproveddays" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.preapproveddays.errors!=null && f.preapproveddays.errors.pattern!=null && f.preapproveddays.errors!=undefined && f.preapproveddays.errors.pattern!=undefined  && (f.preapproveddays.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.preapproveddays.errors!=null && f.preapproveddays.errors.min!=null && f.preapproveddays.errors!=undefined && f.preapproveddays.errors.min!=undefined  && (f.preapproveddays.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.preapproveddays.errors!=null && f.preapproveddays.errors.max!=null && f.preapproveddays.errors!=undefined && f.preapproveddays.errors.max!=undefined  && (f.preapproveddays.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div  *ngIf="hidelist.indexOf('attachmentname') == -1"  class="col "  >
+<label  for="attachmentname" class="control-label">Attachment Name</label>
+      <input   *ngIf="!showview"  id="attachmentname"  formControlName="attachmentname" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('attachmentcondition') == -1"  class="col "  >
+<label  for="attachmentcondition" class="control-label">Attachment Condition</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="attachmentcondition"  formControlName="attachmentcondition" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('notes') == -1"  class="col "  >
+<label  for="notes" class="control-label">Notes</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="notes"  formControlName="notes" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+  </div>
+</form>

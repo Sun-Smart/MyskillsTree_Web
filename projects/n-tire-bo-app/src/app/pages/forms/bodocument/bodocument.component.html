@@ -1,0 +1,169 @@
+<form  [formGroup]="bodocumentForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Documents' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="documentname" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'referencetype'; "  for="referencetype" class="control-label">Reference Type</label>
+      <input   *ngIf="!showview || editfield=='referencetype'"  id="referencetype"  formControlName="referencetype" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'referenceid'; "  for="referenceid" class="control-label">Reference</label>
+      <input   *ngIf="!showview || editfield=='referenceid'"  id="referenceid"  formControlName="referenceid" class="form-control"
+        >
+  </div>
+
+
+<!--documenttype-->
+
+  <div   class="col" ><label (click)="editfield = 'documenttype'; "  for="documenttype" class="control-label">Type</label>
+      <select  *ngIf="!showview"  id="documenttype"  (change)="documenttypeonChange($event.target)" formControlName="documenttype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of documenttypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='documenttype'"  (click)="editfield = 'documenttype';"  class="form-control labelview">{{f.documenttypedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'documentcode'; "  for="documentcode" class="control-label">Document Code</label>
+      <input   *ngIf="!showview || editfield=='documentcode'"  id="documentcode"  readonly formControlName="documentcode" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'versionnumber'; "  for="versionnumber" class="control-label">Version Number</label>
+      <input   *ngIf="!showview || editfield=='versionnumber'"  id="versionnumber"  formControlName="versionnumber" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'documentname'; "  for="documentname" class="control-label">Document Name</label>
+      <input   *ngIf="!showview || editfield=='documentname'"  id="documentname"  formControlName="documentname" class="form-control"
+        >
+  </div>
+
+
+<!--category-->
+
+  <div   class="col" ><label (click)="editfield = 'category'; "  for="category" class="control-label" (click)="AddOrEditcategory(null)" (click)="AddOrEditcategory(null)">Category</label>
+      <select  *ngIf="!showview"  id="category"  (change)="categoryonChange($event.target)" formControlName="category"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of categoryList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='category'"  (click)="editfield = 'category';"  class="form-control labelview">{{f.categorydesc?.value}}</label>
+  </div>
+
+
+<!--subcategory-->
+
+  <div   class="col" ><label (click)="editfield = 'subcategory'; "  for="subcategory" class="control-label" (click)="AddOrEditsubcategory(null)">Sub Category</label>
+      <select  *ngIf="!showview"  id="subcategory"  (change)="subcategoryonChange($event.target)" formControlName="subcategory"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of subcategoryList" value="{{item.subcategoryid}}">{{item.subcategoryname}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='subcategory'"  (click)="editfield = 'subcategory';"  class="form-control labelview">{{f.subcategorydesc?.value}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'issuedate'; "  for="issuedate" class="control-label">Issue Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='issuedate'">
+<input #issuedateformpicker="ngbDatepicker"      ngbDatepicker name="issuedateformpicker" id="issuedate"  formControlName="issuedate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='issuedate'"  (click)="issuedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='issuedate'"  (click)="editfield = 'issuedate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.issuedate?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'expirydate'; "  for="expirydate" class="control-label">Expiry Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='expirydate'">
+<input #expirydateformpicker="ngbDatepicker"      ngbDatepicker name="expirydateformpicker" id="expirydate"  formControlName="expirydate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='expirydate'"  (click)="expirydateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='expirydate'"  (click)="editfield = 'expirydate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.expirydate?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'certified'; "  for="certified" class="control-label">Certified</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='certified'"  id="certified"  formControlName="certified" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'certificatenumber'; "  for="certificatenumber" class="control-label">Certificate Number</label>
+      <input   *ngIf="!showview || editfield=='certificatenumber'"  id="certificatenumber"  formControlName="certificatenumber" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'certifyingagency'; "  for="certifyingagency" class="control-label">Certifying Agency</label>
+      <input   *ngIf="!showview || editfield=='certifyingagency'"  id="certifyingagency"  formControlName="certifyingagency" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'renewcompulsary'; "  for="renewcompulsary" class="control-label">Renew Compulsary</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='renewcompulsary'"  id="renewcompulsary"  formControlName="renewcompulsary" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'reminder'; "  for="reminder" class="control-label">Reminder</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='reminder'"  id="reminder"  formControlName="reminder" class="form-control"
+        >
+  </div>
+  </div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'remarks'; "  for="remarks" class="control-label">Remarks</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='remarks'"  id="remarks"  formControlName="remarks" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<p-accordion  [multiple]='true'>
+<div *ngIf="attachmentvisible">
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</div>
+</p-accordion>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.documentid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.documentid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

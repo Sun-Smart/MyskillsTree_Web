@@ -1,0 +1,112 @@
+<ng-container *ngIf="loggedIn"   [ngClass]="theme"  [ngClass]="theme">
+  <!-- [ngClass]="{'layout-menu-active': isMenuVisible}"-->
+  <!-- class="layout-wrapper layout-menu-light layout-topbar-blue p-input-filled layout-menu-static"-->
+
+    <div class="container3 full-height">
+      <div class="row" >
+        <app-header class="row" (toggleMenubar)="toggleMenu()"></app-header>
+      </div>
+      
+    <div class="container row  full-height"   style="margin-top:35px!important">
+
+      <div class="col sidebar">
+        <div class="d-flex flex-column" id="navigation">
+          <a href="index.html" class="mb-0 brand-icon">
+            <span class="logo-icon" style="margin:10px;position: relative;">
+              <svg width="35" height="35" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z">
+                </path>
+                <path
+                  d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z">
+                </path>
+                <path
+                  d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z">
+                </path>
+              </svg>
+            </span>
+            <span class="logo-text">Visitor</span>
+          </a>
+          <!-- Menu: main ul -->
+
+          <ul>
+            <li>
+              <a class="m-link active collapsed" data-bs-toggle="collapse" data-bs-target="#Visitor-Components" href="#"
+                aria-expanded="false">
+                <i class="icofont-home fs-5"></i> <span>Visitor Management</span> <span
+                  class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+              <!-- Menu: Sub menu ul -->
+              <ul id="Visitor-Components">
+                <li><a class="ms-link active"  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/visit','casst',506)"  > <span>Visitors</span></a></li>
+                <li><a class="ms-link active"  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/vmst','casst',506)"  > <span>Visitor Master</span></a></li>
+                <li><a class="ms-link"  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/invit','casst',506)" > <span>Invitations</span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="m-link active collapsed" data-bs-toggle="collapse" data-bs-target="#Workplace-Components"
+                href="#" aria-expanded="false">
+                <i class="icofont-home fs-5"></i> <span>Workplace Management</span> <span
+                  class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+              <!-- Menu: Sub menu ul -->
+              <ul id="Workplace-Components">
+                <li><a class="ms-link active"  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/place','casst',506)" > <span>Workplaces</span></a></li>
+                <li><a class="ms-link"  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/book','casst',506)" > <span>Work Place Bookings</span></a></li>
+                <li><a class="ms-link active"  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/workp','casst',506)" > <span>Work Place Requests</span></a>
+                </li>
+                <li><a class="ms-link"  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/park','casst',506)" > <span>Parkings</span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="m-link active collapsed" data-bs-toggle="collapse" data-bs-target="#Request-Components" href="#"
+                aria-expanded="false">
+                <i class="icofont-home fs-5"></i> <span>Visitor Management</span> <span
+                  class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+              <!-- Menu: Sub menu ul -->
+              <ul id="Request-Components">
+                <li><a class="ms-link active"  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/prcel','casst',506)" > <span>Employee Parcels</span></a></li>
+                <li><a class="ms-link"  [routerLink]="" (click)="sharedService.OpenURL('home/boreportviewer/event','casst',506)" > <span>Events</span></a></li>
+              </ul>
+            </li>
+          </ul>
+
+
+
+          <!-- Menu: menu collepce btn -->
+          <button type="button" class="btn btn-link sidebar-mini-btn text-light">
+            <span class="ms-2"><i class="icofont-bubble-right"></i></span>
+          </button>
+        </div>
+      </div>
+
+
+      <div class="col-10">
+        
+        <div id="content"  class="ng-content" >
+          <div class="ui-fluid ng-main" [ngClass]="theme">
+            <p-toast position="bottom-right"></p-toast>
+            <!--<div [class.hidden]="!showLoader" class="np-loader">
+          <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+        </div>-->
+            <!--overflow:auto;height:100%;-->
+            <!--position:absolute;width:83%;-->
+            <!--margin-left:16%;  height:80%;-->
+            <!--height:550px;-->
+            <div id="contentAreaLayout"
+              
+              class="main container3 full-height"  id="contentAreaLayout"  onscroll="scrollFunction1('scrollBtn2','contentArea')">
+              <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+              <router-outlet (activate)="topFunction1('contentArea')"></router-outlet><!-- style="width:100%"-->
+              <button onclick="topFunction1('contentArea')" id="scrollBtn1" title="Go to top"
+                style="display:none">Top</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+    <app-footer></app-footer>
+
+</ng-container>

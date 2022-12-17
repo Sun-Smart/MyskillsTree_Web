@@ -1,0 +1,515 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="camspmscheduleForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Preventive Maintenance Schedule' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editcamspmschedules()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspmscheduletoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspmscheduleshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="showsubmit && !showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.scheduleid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.scheduleid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+<app-workflow *ngIf="showworkflow"  [modulename]="'camspmschedules'"  [value]="pkcol"  [menuid]="pmenuid"></app-workflow>
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('reference') == -1"  class="col " >
+<label  for="reference" class="control-label required">Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.reference?.value}}</label>
+      <input   *ngIf="!showview"  id="reference"  required formControlName="reference" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.reference.invalid && (f.reference.touched|| isSubmitted)" errorMsg="Enter {{'Reference' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('description') == -1"  class="col " >
+<label  for="description" class="control-label required">Description</label>
+      <label *ngIf="showview"     class="labelview">{{f.description?.value}}</label>
+      <input   *ngIf="!showview"  id="description"  required formControlName="description" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.description.invalid && (f.description.touched|| isSubmitted)" errorMsg="Enter {{'Description' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--worktype-->
+
+  <div   *ngIf="hidelist.indexOf('worktype') == -1"  class="col" ><label  for="worktype" class="control-label required">Work Type</label>
+      <select  *ngIf="!showview"  id="worktype"  required (change)="worktypeonChange($event.target)" formControlName="worktype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of worktypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.worktype?.value}}</label>
+      <app-field-error-display [displayError]="f.worktype.invalid && (f.worktype.touched || isSubmitted)" errorMsg="Enter {{'Work Type' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--assetid-->
+
+  <div   *ngIf="hidelist.indexOf('assetid') == -1"  class="col" ><label  for="assetid" class="control-label required" (click)="AddOrEditassetid(null)">Asset</label>
+<app-popupselect  *ngIf="!showview"  [options]="assetidList"  [optionsEvent]="assetidoptionsEvent" [form]="camsassetmaster" (selectItem)="onSelectedassetid($event)"  [reportid]= 'poe5x' [menuid]='poe5x' formControlName="assetid" id="assetid" desc="description" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.assetid?.value}}</label>
+      <app-field-error-display [displayError]="f.assetid.invalid && (f.assetid.touched || isSubmitted)" errorMsg="Enter {{'Asset' | translate}}">
+      </app-field-error-display>
+  </div>
+</div>
+
+
+<!--pmlocationid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('pmlocationid') == -1"  class="col" ><label  for="pmlocationid" class="control-label" (click)="AddOrEditpmlocationid(null)">Location</label>
+<app-popupselect  *ngIf="!showview"  [options]="pmlocationidList"  [optionsEvent]="pmlocationidoptionsEvent" [form]="bobranchlocation" (selectItem)="onSelectedpmlocationid($event)"  [reportid]= 'fcx84' [menuid]='fcx84' formControlName="pmlocationid" id="locationid" desc="locationname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.pmlocationid?.value}}</label>
+  </div>
+
+
+<!--pmtype-->
+
+  <div   *ngIf="hidelist.indexOf('pmtype') == -1"  class="col" ><label  for="pmtype" class="control-label required">P M Type</label>
+      <select  *ngIf="!showview"  id="pmtype"  required (change)="pmtypeonChange($event.target)" formControlName="pmtype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of pmtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.pmtype?.value}}</label>
+      <app-field-error-display [displayError]="f.pmtype.invalid && (f.pmtype.touched || isSubmitted)" errorMsg="Enter {{'P M Type' | translate}}">
+      </app-field-error-display>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordion>
+<div class='full-width' *ngIf="readingbasedvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Reading Based'  [selected]='true'>
+
+
+<!--measurementmeter-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('measurementmeter') == -1"  class="col" ><label  for="measurementmeter" class="control-label">Measurement Meter</label>
+      <select  *ngIf="!showview"  id="measurementmeter"  (change)="measurementmeteronChange($event.target)" formControlName="measurementmeter"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of measurementmeterList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.measurementmeter?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('meterreadingstart') == -1"  class="col " >
+<label  for="meterreadingstart" class="control-label">Meter Reading Start</label>
+      <label *ngIf="showview"     class="labelview">{{f.meterreadingstart?.value}}</label>
+      <input   *ngIf="!showview"  id="meterreadingstart"  formControlName="meterreadingstart" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('meterfrequency') == -1"  class="col " >
+<label  for="meterfrequency" class="control-label">Meter Frequency</label>
+      <label *ngIf="showview"     class="labelview">{{f.meterfrequency?.value}}</label>
+      <input   *ngIf="!showview"  id="meterfrequency"  formControlName="meterfrequency" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('pmdue') == -1"  class="col " >
+<label  for="pmdue" class="control-label">P M Due</label>
+      <label *ngIf="showview"     class="labelview">{{f.pmdue?.value}}</label>
+      <input   *ngIf="!showview"  id="pmdue"  formControlName="pmdue" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('lowerthresholdlimit') == -1"  class="col " >
+<label  for="lowerthresholdlimit" class="control-label">Lower Threshold Limit</label>
+      <label *ngIf="showview"     class="labelview">{{f.lowerthresholdlimit?.value}}</label>
+      <input   *ngIf="!showview"  id="lowerthresholdlimit"  formControlName="lowerthresholdlimit" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('upperthresholdlimit') == -1"  class="col " >
+<label  for="upperthresholdlimit" class="control-label">Upper Threshold Limit</label>
+      <label *ngIf="showview"     class="labelview">{{f.upperthresholdlimit?.value}}</label>
+      <input   *ngIf="!showview"  id="upperthresholdlimit"  formControlName="upperthresholdlimit" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div class='full-width' *ngIf="timebasedvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Time Based'  [selected]='true'>
+
+
+<!--frequencyunit-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('frequencyunit') == -1"  class="col" ><label  for="frequencyunit" class="control-label">Frequency Unit</label>
+      <select  *ngIf="!showview"  id="frequencyunit"  (change)="frequencyunitonChange($event.target)" formControlName="frequencyunit"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of frequencyunitList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.frequencyunit?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('frequency') == -1"  class="col " >
+<label  for="frequency" class="control-label">Frequency</label>
+      <label *ngIf="showview"     class="labelview">{{f.frequency?.value}}</label>
+      <input   *ngIf="!showview"  id="frequency"  formControlName="frequency" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('days') == -1"  class="col " >
+<label  for="days" class="control-label">Days</label>
+      <label *ngIf="showview"     class="labelview">{{f.days?.value}}</label>
+      <input   *ngIf="!showview"  id="days"  formControlName="days" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Schedule Details'  [selected]='true'>
+
+
+<!--pmgenerationtype-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('pmgenerationtype') == -1"  class="col" ><label  for="pmgenerationtype" class="control-label">P M Generation Type</label>
+      <select  *ngIf="!showview"  id="pmgenerationtype"  (change)="pmgenerationtypeonChange($event.target)" formControlName="pmgenerationtype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of pmgenerationtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.pmgenerationtype?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('startdate') == -1"  class="col " >
+<label  for="startdate" class="control-label required">Start Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.startdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #startdateformpicker="ngbDatepicker"      ngbDatepicker name="startdateformpicker" id="startdate"  required formControlName="startdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="startdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <app-field-error-display [displayError]="f.startdate.errors!=null &&  f.startdate.errors.mustGreater" errorMsg="Start Date to be less than End Date">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.startdate.invalid && (f.startdate.touched|| isSubmitted)" errorMsg="Enter {{'Start Date' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('enddate') == -1"  class="col " >
+<label  for="enddate" class="control-label required">End Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.enddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #enddateformpicker="ngbDatepicker"      ngbDatepicker name="enddateformpicker" id="enddate"  required formControlName="enddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="enddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <app-field-error-display [displayError]="f.enddate.invalid && (f.enddate.touched|| isSubmitted)" errorMsg="Enter {{'End Date' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('nextstartdate') == -1"  class="col " >
+<label  for="nextstartdate" class="control-label">Next Start Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.nextstartdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #nextstartdateformpicker="ngbDatepicker"      ngbDatepicker name="nextstartdateformpicker" id="nextstartdate"  formControlName="nextstartdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="nextstartdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('notes') == -1"  class="col " >
+<label  for="notes" class="control-label">Notes</label>
+      <label *ngIf="showview"     class="labelview">{{f.notes?.value}}</label>
+      <app-comment   *ngIf="!showview"  id="notes"  formControlName="notes" [label]="'Notes'" 
+        >
+</app-comment>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('remarks') == -1"  class="col " >
+<label  for="remarks" class="control-label">Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.remarks?.value}}</label>
+      <app-comment   *ngIf="!showview"  id="remarks"  formControlName="remarks" [label]="'Remarks'" 
+        >
+</app-comment>
+  </div>
+</div>
+
+
+<!--pmstatus-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('pmstatus') == -1"  class="col" ><label  for="pmstatus" class="control-label">Status</label>
+      <select  *ngIf="!showview"  id="pmstatus"  (change)="pmstatusonChange($event.target)" formControlName="pmstatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of pmstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.pmstatus?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('status') == -1"  class="col " >
+<label  for="status" class="control-label">Status</label>
+      <label *ngIf="showview"     class="labelview">{{f.status?.value}}</label>
+      <input   *ngIf="!showview"  type="hidden"  id="status"  formControlName="status" class="form-control"
+        >
+      <input  readonly  id="statusdesc"  formControlName="statusdesc" class="form-control"
+        >
+  </div>
+
+
+<!--pmid-->
+
+  <div   *ngIf="hidelist.indexOf('pmid') == -1"  class="col" ><label  for="pmid" class="control-label" (click)="AddOrEditpmid(null)">P M</label>
+<app-popupselect  *ngIf="!showview"  [options]="pmidList"  [optionsEvent]="pmidoptionsEvent" [form]="camspmmaster" (selectItem)="onSelectedpmid($event)"  [reportid]= 'yy5km' [menuid]='yy5km' formControlName="pmid" id="pmid" desc="reference" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.pmid?.value}}</label>
+  </div>
+<div class="col"></div>
+</div></p-accordionTab></p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Schedule Tasks</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camspmscheduletasks-->
+<div class="row"></div><div [ngClass]="IscamspmscheduletasksVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Schedule Tasks' | translate}}
+<select class='child'  id="camspmscheduletasksPagingdropdown" (change)="camspmscheduletasksPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspmscheduletasktoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspmscheduletaskshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camspmscheduletasktoggleOption();camspmscheduletasksroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camspmscheduletasktoggleOption();showcamspmscheduletasksFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamspmscheduletaskssource (userRowSelect)="handlecamspmscheduletasksGridSelected($event)" [settings]="camspmscheduletaskssettings" (custom)="onCustomcamspmscheduletasksAction($event)" [source]="camspmscheduletaskssource"  (delete)="camspmscheduletasksroute($event,'delete')"  (deleteConfirm)="camspmscheduletasksroute($event,'delete')" (create)="camspmscheduletasksroute($event,'create')"   (createConfirm)="camspmscheduletasksbeforesave($event)"  (edit)="camspmscheduletasksroute($event,'edit')"  (editConfirm)="camspmscheduletasksbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table camspmscheduletasks-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Instructions</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camspmscheduleinstructions-->
+<div class="row"></div><div [ngClass]="IscamspmscheduleinstructionsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Instructions' | translate}}
+<select class='child'  id="camspmscheduleinstructionsPagingdropdown" (change)="camspmscheduleinstructionsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspmscheduleinstructiontoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspmscheduleinstructionshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camspmscheduleinstructiontoggleOption();camspmscheduleinstructionsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camspmscheduleinstructiontoggleOption();showcamspmscheduleinstructionsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamspmscheduleinstructionssource (userRowSelect)="handlecamspmscheduleinstructionsGridSelected($event)" [settings]="camspmscheduleinstructionssettings" (custom)="onCustomcamspmscheduleinstructionsAction($event)" [source]="camspmscheduleinstructionssource"  (delete)="camspmscheduleinstructionsroute($event,'delete')"  (deleteConfirm)="camspmscheduleinstructionsroute($event,'delete')" (create)="camspmscheduleinstructionsroute($event,'create')"   (createConfirm)="camspmscheduleinstructionsbeforesave($event)"  (edit)="camspmscheduleinstructionsroute($event,'edit')"  (editConfirm)="camspmscheduleinstructionsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table camspmscheduleinstructions-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Items</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camspmscheduleitems-->
+<div class="row"></div><div [ngClass]="IscamspmscheduleitemsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Items' | translate}}
+<select class='child'  id="camspmscheduleitemsPagingdropdown" (change)="camspmscheduleitemsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspmscheduleitemtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspmscheduleitemshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camspmscheduleitemtoggleOption();camspmscheduleitemsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camspmscheduleitemtoggleOption();showcamspmscheduleitemsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamspmscheduleitemssource (userRowSelect)="handlecamspmscheduleitemsGridSelected($event)" [settings]="camspmscheduleitemssettings" (custom)="onCustomcamspmscheduleitemsAction($event)" [source]="camspmscheduleitemssource"  (delete)="camspmscheduleitemsroute($event,'delete')"  (deleteConfirm)="camspmscheduleitemsroute($event,'delete')" (create)="camspmscheduleitemsroute($event,'create')"   (createConfirm)="camspmscheduleitemsbeforesave($event)"  (edit)="camspmscheduleitemsroute($event,'edit')"  (editConfirm)="camspmscheduleitemsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table camspmscheduleitems-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Supplier Tasks</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camspmschedulesuppliertasks-->
+<div class="row"></div><div [ngClass]="IscamspmschedulesuppliertasksVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Supplier Tasks' | translate}}
+<select class='child'  id="camspmschedulesuppliertasksPagingdropdown" (change)="camspmschedulesuppliertasksPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspmschedulesuppliertasktoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspmschedulesuppliertaskshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camspmschedulesuppliertasktoggleOption();camspmschedulesuppliertasksroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camspmschedulesuppliertasktoggleOption();showcamspmschedulesuppliertasksFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamspmschedulesuppliertaskssource (userRowSelect)="handlecamspmschedulesuppliertasksGridSelected($event)" [settings]="camspmschedulesuppliertaskssettings" (custom)="onCustomcamspmschedulesuppliertasksAction($event)" [source]="camspmschedulesuppliertaskssource"  (delete)="camspmschedulesuppliertasksroute($event,'delete')"  (deleteConfirm)="camspmschedulesuppliertasksroute($event,'delete')" (create)="camspmschedulesuppliertasksroute($event,'create')"   (createConfirm)="camspmschedulesuppliertasksbeforesave($event)"  (edit)="camspmschedulesuppliertasksroute($event,'edit')"  (editConfirm)="camspmschedulesuppliertasksbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table camspmschedulesuppliertasks-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Users</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camspmscheduleusers-->
+<div class="row"></div><div [ngClass]="IscamspmscheduleusersVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Users' | translate}}
+<select class='child'  id="camspmscheduleusersPagingdropdown" (change)="camspmscheduleusersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspmscheduleusertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspmscheduleusershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camspmscheduleusertoggleOption();camspmscheduleusersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camspmscheduleusertoggleOption();showcamspmscheduleusersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamspmscheduleuserssource (userRowSelect)="handlecamspmscheduleusersGridSelected($event)" [settings]="camspmscheduleuserssettings" (custom)="onCustomcamspmscheduleusersAction($event)" [source]="camspmscheduleuserssource"  (delete)="camspmscheduleusersroute($event,'delete')"  (deleteConfirm)="camspmscheduleusersroute($event,'delete')" (create)="camspmscheduleusersroute($event,'create')"   (createConfirm)="camspmscheduleusersbeforesave($event)"  (edit)="camspmscheduleusersroute($event,'edit')"  (editConfirm)="camspmscheduleusersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table camspmscheduleusers-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

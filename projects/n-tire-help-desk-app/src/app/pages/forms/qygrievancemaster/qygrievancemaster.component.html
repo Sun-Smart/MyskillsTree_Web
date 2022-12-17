@@ -1,0 +1,409 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="qygrievancemasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Grievance Masters' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editqygrievancemasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='qygrievancemastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.qygrievancemastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.grievanceid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.grievanceid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link active"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"  ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"  >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('branchid') == -1"  class="col " >
+<label  for="branchid" class="control-label">Branch</label>
+      <label *ngIf="showview"     class="labelview">{{f.branchid?.value}}</label>
+      <input   *ngIf="!showview"  id="branchid"  formControlName="branchid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('reference') == -1"  class="col " >
+<label  for="reference" class="control-label">Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.reference?.value}}</label>
+      <input   *ngIf="!showview"  id="reference"  formControlName="reference" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('grievancedate') == -1"  class="col " >
+<label  for="grievancedate" class="control-label">Grievance Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.grievancedate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #grievancedateformpicker="ngbDatepicker"      ngbDatepicker name="grievancedateformpicker" id="grievancedate"  formControlName="grievancedate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="grievancedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('occurencedate') == -1"  class="col " >
+<label  for="occurencedate" class="control-label">Occurence Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.occurencedate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #occurencedateformpicker="ngbDatepicker"      ngbDatepicker name="occurencedateformpicker" id="occurencedate"  formControlName="occurencedate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="occurencedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('title') == -1"  class="col " >
+<label  for="title" class="control-label">Title</label>
+      <label *ngIf="showview"     class="labelview">{{f.title?.value}}</label>
+      <input   *ngIf="!showview"  id="title"  formControlName="title" class="form-control"
+        >
+  </div>
+
+
+<!--grievancesource-->
+
+  <div   *ngIf="hidelist.indexOf('grievancesource') == -1"  class="col" ><label  for="grievancesource" class="control-label">Grievance Source</label>
+      <select  *ngIf="!showview"  id="grievancesource"  (change)="grievancesourceonChange($event.target)" formControlName="grievancesource"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of grievancesourceList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.grievancesource?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Complainant Info'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('grievanceby') == -1"  class="col " >
+<label  for="grievanceby" class="control-label">Grievance By</label>
+      <label *ngIf="showview"     class="labelview">{{f.grievanceby?.value}}</label>
+      <input   *ngIf="!showview"  id="grievanceby"  formControlName="grievanceby" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('complainantname') == -1"  class="col " >
+<label  for="complainantname" class="control-label">Complainant Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.complainantname?.value}}</label>
+      <input   *ngIf="!showview"  id="complainantname"  formControlName="complainantname" class="form-control"
+        >
+  </div>
+
+
+<!--gender-->
+
+  <div   *ngIf="hidelist.indexOf('gender') == -1"  class="col" ><label  for="gender" class="control-label">Gender</label>
+      <select  *ngIf="!showview"  id="gender"  (change)="genderonChange($event.target)" formControlName="gender"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of genderList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.gender?.value}}</label>
+  </div>
+
+
+<!--relationship-->
+
+  <div   *ngIf="hidelist.indexOf('relationship') == -1"  class="col" ><label  for="relationship" class="control-label">Relationship</label>
+      <select  *ngIf="!showview"  id="relationship"  (change)="relationshiponChange($event.target)" formControlName="relationship"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of relationshipList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.relationship?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('mobileno') == -1"  class="col " >
+<label  for="mobileno" class="control-label">Mobile No</label>
+      <label *ngIf="showview"     class="labelview">{{f.mobileno?.value}}</label>
+      <input   *ngIf="!showview"  id="mobileno"  formControlName="mobileno" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('phoneno') == -1"  class="col " >
+<label  for="phoneno" class="control-label">Phone No</label>
+      <label *ngIf="showview"     class="labelview">{{f.phoneno?.value}}</label>
+      <input   *ngIf="!showview"  id="phoneno"  formControlName="phoneno" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('emailid') == -1"  class="col " >
+<label  for="emailid" class="control-label">Email</label>
+      <label *ngIf="showview"     class="labelview">{{f.emailid?.value}}</label>
+      <input   *ngIf="!showview"  id="emailid"  formControlName="emailid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('complainantaddress') == -1"  class="col " >
+<label  for="complainantaddress" class="control-label">Complainant Address</label>
+      <label *ngIf="showview"     class="labelview">{{f.complainantaddress?.value}}</label>
+      <input   *ngIf="!showview"  id="complainantaddress"  formControlName="complainantaddress" class="form-control"
+        >
+  </div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Against'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('grievanceagainst') == -1"  class="col " >
+<label  for="grievanceagainst" class="control-label">Grievance Against</label>
+      <label *ngIf="showview"     class="labelview">{{f.grievanceagainst?.value}}</label>
+      <input   *ngIf="!showview"  id="grievanceagainst"  formControlName="grievanceagainst" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('defendantaddress') == -1"  class="col " >
+<label  for="defendantaddress" class="control-label">Defendant Address</label>
+      <label *ngIf="showview"     class="labelview">{{f.defendantaddress?.value}}</label>
+      <input   *ngIf="!showview"  id="defendantaddress"  formControlName="defendantaddress" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('onbehalf') == -1"  class="col " >
+<label  for="onbehalf" class="control-label">On Behalf</label>
+      <label *ngIf="showview"     class="labelview">{{f.onbehalf?.value}}</label>
+      <input   *ngIf="!showview"  id="onbehalf"  formControlName="onbehalf" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Grievance Details'  [selected]='true'>
+
+
+<!--grievancecategory-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('grievancecategory') == -1"  class="col" ><label  for="grievancecategory" class="control-label">Grievance Category</label>
+      <select  *ngIf="!showview"  id="grievancecategory"  (change)="grievancecategoryonChange($event.target)" formControlName="grievancecategory"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of grievancecategoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.grievancecategory?.value}}</label>
+  </div>
+
+
+<!--severity-->
+
+  <div   *ngIf="hidelist.indexOf('severity') == -1"  class="col" ><label  for="severity" class="control-label">Severity</label>
+      <select  *ngIf="!showview"  id="severity"  (change)="severityonChange($event.target)" formControlName="severity"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of severityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.severity?.value}}</label>
+  </div>
+
+
+<!--grievancetype-->
+
+  <div   *ngIf="hidelist.indexOf('grievancetype') == -1"  class="col" ><label  for="grievancetype" class="control-label">Grievance Type</label>
+      <select  *ngIf="!showview"  id="grievancetype"  (change)="grievancetypeonChange($event.target)" formControlName="grievancetype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of grievancetypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.grievancetype?.value}}</label>
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('grievancedetails') == -1"  class="col " >
+<label  for="grievancedetails" class="control-label">Grievance Details</label>
+      <label *ngIf="showview"     class="labelview">{{f.grievancedetails?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="grievancedetails"  formControlName="grievancedetails" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('methodofcontact') == -1"  class="col " >
+<label  for="methodofcontact" class="control-label">Method Of Contact</label>
+      <label *ngIf="showview"     class="labelview">{{f.methodofcontact?.value}}</label>
+      <input   *ngIf="!showview"  id="methodofcontact"  formControlName="methodofcontact" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('contactperson') == -1"  class="col " >
+<label  for="contactperson" class="control-label">Contact Person</label>
+      <label *ngIf="showview"     class="labelview">{{f.contactperson?.value}}</label>
+      <input   *ngIf="!showview"  id="contactperson"  formControlName="contactperson" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('comments') == -1"  class="col " >
+<label  for="comments" class="control-label">Comments</label>
+      <label *ngIf="showview"     class="labelview">{{f.comments?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="comments"  formControlName="comments" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('allcomments') == -1"  class="col " >
+<label  for="allcomments" class="control-label">All Comments</label>
+      <label *ngIf="showview"     class="labelview">{{f.allcomments?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="allcomments"  formControlName="allcomments" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('actiontype') == -1"  class="col " >
+<label  for="actiontype" class="control-label">Action Type</label>
+      <label *ngIf="showview"     class="labelview">{{f.actiontype?.value}}</label>
+      <input   *ngIf="!showview"  id="actiontype"  formControlName="actiontype" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('actiontakenby') == -1"  class="col " >
+<label  for="actiontakenby" class="control-label">Action Taken By</label>
+      <label *ngIf="showview"     class="labelview">{{f.actiontakenby?.value}}</label>
+      <input   *ngIf="!showview"  id="actiontakenby"  formControlName="actiontakenby" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('actiontakenon') == -1"  class="col " >
+<label  for="actiontakenon" class="control-label">Action Taken On</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.actiontakenon?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #actiontakenonformpicker="ngbDatepicker"      ngbDatepicker name="actiontakenonformpicker" id="actiontakenon"  formControlName="actiontakenon"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="actiontakenonformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+
+
+<!--actionstatus-->
+
+  <div   *ngIf="hidelist.indexOf('actionstatus') == -1"  class="col" ><label  for="actionstatus" class="control-label">Action Status</label>
+      <select  *ngIf="!showview"  id="actionstatus"  (change)="actionstatusonChange($event.target)" formControlName="actionstatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of actionstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.actionstatus?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('actionremarks') == -1"  class="col " >
+<label  for="actionremarks" class="control-label">Action Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.actionremarks?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="actionremarks"  formControlName="actionremarks" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+</p-accordionTab></p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Related Grievances</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table qyrelatedgrievances-->
+<div [ngClass]="IsqyrelatedgrievancesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Related Grievances' | translate}}
+<select class='child'  id="qyrelatedgrievancesPagingdropdown" (change)="qyrelatedgrievancesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='qyrelatedgrievancetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.qyrelatedgrievanceshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="qyrelatedgrievancetoggleOption();qyrelatedgrievancesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="qyrelatedgrievancetoggleOption();showqyrelatedgrievancesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblqyrelatedgrievancessource (userRowSelect)="handleqyrelatedgrievancesGridSelected($event)" [settings]="qyrelatedgrievancessettings" (custom)="onCustomqyrelatedgrievancesAction($event)" [source]="qyrelatedgrievancessource"  (delete)="qyrelatedgrievancesroute($event,'delete')"  (deleteConfirm)="qyrelatedgrievancesroute($event,'delete')" (create)="qyrelatedgrievancesroute($event,'create')"   (createConfirm)="qyrelatedgrievancesbeforesave($event)"  (edit)="qyrelatedgrievancesroute($event,'edit')"  (editConfirm)="qyrelatedgrievancesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table qyrelatedgrievances-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

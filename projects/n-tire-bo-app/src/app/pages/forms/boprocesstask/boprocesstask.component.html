@@ -1,0 +1,196 @@
+<form  [formGroup]="boprocesstaskForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Process Tasks' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'processgroupid'; "  for="processgroupid" class="control-label">Process Group</label>
+      <input   *ngIf="!showview || editfield=='processgroupid'"  id="processgroupid"  formControlName="processgroupid" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'processid'; "  for="processid" class="control-label">Process</label>
+      <input   *ngIf="!showview || editfield=='processid'"  id="processid"  formControlName="processid" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'assigneduser'; "  for="assigneduser" class="control-label">Assigned User</label>
+      <input   *ngIf="!showview || editfield=='assigneduser'"  id="assigneduser"  formControlName="assigneduser" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'assigneddatetime'; "  for="assigneddatetime" class="control-label">Assigned Date Time</label>
+<div class="input-group" *ngIf="!showview || editfield=='assigneddatetime'">
+<input #assigneddatetimeformpicker="ngbDatepicker"      ngbDatepicker name="assigneddatetimeformpicker" id="assigneddatetime"  formControlName="assigneddatetime"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='assigneddatetime'"  (click)="assigneddatetimeformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='assigneddatetime'"  (click)="editfield = 'assigneddatetime';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.assigneddatetime?.value)}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'closeddatetime'; "  for="closeddatetime" class="control-label">Closed Date Time</label>
+<div class="input-group" *ngIf="!showview || editfield=='closeddatetime'">
+<input #closeddatetimeformpicker="ngbDatepicker"      ngbDatepicker name="closeddatetimeformpicker" id="closeddatetime"  formControlName="closeddatetime"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='closeddatetime'"  (click)="closeddatetimeformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='closeddatetime'"  (click)="editfield = 'closeddatetime';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.closeddatetime?.value)}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'description'; "  for="description" class="control-label">Description</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='description'"  id="description"  formControlName="description" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'details'; "  for="details" class="control-label">Details</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='details'"  id="details"  formControlName="details" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--performancestatus-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'performancestatus'; "  for="performancestatus" class="control-label">Performance Status</label>
+      <select  *ngIf="!showview"  id="performancestatus"  (change)="performancestatusonChange($event.target)" formControlName="performancestatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of performancestatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='performancestatus'"  (click)="editfield = 'performancestatus';"  class="form-control labelview">{{f.performancestatusdesc?.value}}</label>
+  </div>
+
+
+<!--standard-->
+
+  <div   class="col" ><label (click)="editfield = 'standard'; "  for="standard" class="control-label">Standard</label>
+      <select  *ngIf="!showview"  id="standard"  (change)="standardonChange($event.target)" formControlName="standard"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of standardList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='standard'"  (click)="editfield = 'standard';"  class="form-control labelview">{{f.standarddesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'exception'; "  for="exception" class="control-label">Exception</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='exception'"  id="exception"  formControlName="exception" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'allcomments'; "  for="allcomments" class="control-label">All Comments</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='allcomments'"  id="allcomments"  formControlName="allcomments" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'comments'; "  for="comments" class="control-label">Comments</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='comments'"  id="comments"  formControlName="comments" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'keyid'; "  for="keyid" class="control-label">Key</label>
+      <input   *ngIf="!showview || editfield=='keyid'"  id="keyid"  formControlName="keyid" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'keyiddesc'; "  for="keyiddesc" class="control-label">Key Id Desc</label>
+      <input   *ngIf="!showview || editfield=='keyiddesc'"  id="keyiddesc"  formControlName="keyiddesc" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Forms</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table boprocesstaskforms-->
+<div class="row"></div><div [ngClass]="IsboprocesstaskformsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Forms' | translate}}
+<select class='child'  id="boprocesstaskformsPagingdropdown" (change)="boprocesstaskformsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="boprocesstaskformsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showboprocesstaskformsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblboprocesstaskformssource (userRowSelect)="handleboprocesstaskformsGridSelected($event)" [settings]="boprocesstaskformssettings" (custom)="onCustomboprocesstaskformsAction($event)" [source]="boprocesstaskformssource"  (delete)="boprocesstaskformsroute($event,'delete')"  (deleteConfirm)="boprocesstaskformsroute($event,'delete')" (create)="boprocesstaskformsroute($event,'create')"   (createConfirm)="boprocesstaskformsbeforesave($event)"  (edit)="boprocesstaskformsroute($event,'edit')"  (editConfirm)="boprocesstaskformsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table boprocesstaskforms-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.taskprocessid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.taskprocessid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

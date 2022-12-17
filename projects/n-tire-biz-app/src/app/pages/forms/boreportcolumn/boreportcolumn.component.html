@@ -1,0 +1,470 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="boreportcolumn_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Columns' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_boreportcolumns()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of boreportcolumn_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.reportcolumnid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.reportcolumnid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('reportid') == -1) && (reportidvisible==undefined || reportidvisible==true))"
+        style='' class="col-3 ">
+        <label for="reportid" class="control-label">Report</label>
+        <label *ngIf="showview" class="labelview">{{f.reportid?.value}}</label>
+        <input *ngIf="!showview" id="reportid" formControlName="reportid" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('tablealias') == -1) && (tablealiasvisible==undefined || tablealiasvisible==true))"
+        style='' class="col-3 ">
+        <label for="tablealias" class="control-label">Table Alias</label>
+        <label *ngIf="showview" class="labelview">{{f.tablealias?.value}}</label>
+        <input *ngIf="!showview" id="tablealias" formControlName="tablealias" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('field') == -1) && (fieldvisible==undefined || fieldvisible==true))" style=''
+        class="col-3 ">
+        <label for="field" class="control-label">Field</label>
+        <label *ngIf="showview" class="labelview">{{f.field?.value}}</label>
+        <input *ngIf="!showview" id="field" formControlName="field" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('header') == -1) && (headervisible==undefined || headervisible==true))" style=''
+        class="col-3 ">
+        <label for="header" class="control-label">Header</label>
+        <label *ngIf="showview" class="labelview">{{f.header?.value}}</label>
+        <input *ngIf="!showview" id="header" formControlName="header" class="form-control">
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('columnalias') == -1) && (columnaliasvisible==undefined || columnaliasvisible==true))"
+        style='' class="col-3 ">
+        <label for="columnalias" class="control-label">Column Alias</label>
+        <label *ngIf="showview" class="labelview">{{f.columnalias?.value}}</label>
+        <input *ngIf="!showview" id="columnalias" formControlName="columnalias" class="form-control">
+      </div>
+      <div *ngIf="((hidelist.indexOf('hide') == -1) && (hidevisible==undefined || hidevisible==true))" style=''
+        class="col-3 ">
+        <div class="columnchk">
+          <label for="hide" class="control-label">Hide</label>
+          <label *ngIf="showview" class="labelview">{{f.hide?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="hide" formControlName="hide" class="form-control">
+        </div>
+      </div>
+      <div *ngIf="((hidelist.indexOf('derived') == -1) && (derivedvisible==undefined || derivedvisible==true))" style=''
+        class="col-3 ">
+        <div class="columnchk">
+          <label for="derived" class="control-label">Derived</label>
+          <label *ngIf="showview" class="labelview">{{f.derived?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="derived" formControlName="derived" class="form-control">
+        </div>
+      </div>
+
+
+      <!--datatype-->
+
+      <div *ngIf="((hidelist.indexOf('datatype') == -1) && (datatypevisible==undefined || datatypevisible==true))"
+        style='' class="col-3"><label for="datatype" class="control-label">Datatype</label>
+        <select *ngIf="!showview" id="datatype" (change)="datatype_onChange($event.target)" formControlName="datatype"
+          class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of datatype_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.datatypedesc?.value}}</label>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('fkfilter') == -1) && (fkfiltervisible==undefined || fkfiltervisible==true))"
+        style='' class="col-3 ">
+        <div class="columnchk">
+          <label for="fkfilter" class="control-label">F K Filter</label>
+          <label *ngIf="showview" class="labelview">{{f.fkfilter?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="fkfilter" formControlName="fkfilter" class="form-control">
+        </div>
+      </div>
+
+
+      <!--filtertype-->
+
+      <div *ngIf="((hidelist.indexOf('filtertype') == -1) && (filtertypevisible==undefined || filtertypevisible==true))"
+        style='' class="col-3"><label for="filtertype" class="control-label">Filter Type</label>
+        <select *ngIf="!showview" id="filtertype" (change)="filtertype_onChange($event.target)"
+          formControlName="filtertype" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of filtertype_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.filtertypedesc?.value}}</label>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <p-accordion [multiple]='true'>
+    </p-accordion>
+    <p-accordion [multiple]='true'>
+      <p-accordionTab header='Others' [selected]='false'>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('width') == -1) && (widthvisible==undefined || widthvisible==true))" style=''
+            class="col-3 ">
+            <label for="width" class="control-label">Width</label>
+            <label *ngIf="showview" class="labelview">{{f.width?.value}}</label>
+            <input *ngIf="!showview" id="width" formControlName="width" class="form-control">
+          </div>
+          <div *ngIf="((hidelist.indexOf('nofilter') == -1) && (nofiltervisible==undefined || nofiltervisible==true))"
+            style='' class="col-3 ">
+            <div class="columnchk">
+              <label for="nofilter" class="control-label">No Filter</label>
+              <label *ngIf="showview" class="labelview">{{f.nofilter?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="nofilter" formControlName="nofilter" class="form-control">
+            </div>
+          </div>
+          <div *ngIf="((hidelist.indexOf('groupby') == -1) && (groupbyvisible==undefined || groupbyvisible==true))"
+            style='' class="col-3 ">
+            <div class="columnchk">
+              <label for="groupby" class="control-label">Group By</label>
+              <label *ngIf="showview" class="labelview">{{f.groupby?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="groupby" formControlName="groupby" class="form-control">
+            </div>
+          </div>
+          <div *ngIf="((hidelist.indexOf('sum') == -1) && (sumvisible==undefined || sumvisible==true))" style=''
+            class="col-3 ">
+            <div class="columnchk">
+              <label for="sum" class="control-label">Sum</label>
+              <label *ngIf="showview" class="labelview">{{f.sum?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="sum" formControlName="sum" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('count') == -1) && (countvisible==undefined || countvisible==true))" style=''
+            class="col-3 ">
+            <div class="columnchk">
+              <label for="count" class="control-label">Count</label>
+              <label *ngIf="showview" class="labelview">{{f.count?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="count" formControlName="count" class="form-control">
+            </div>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('colhtml') == -1) && (colhtmlvisible==undefined || colhtmlvisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="colhtml" class="control-label">Col H T M L</label>
+            <label *ngIf="showview" class="labelview">{{f.colhtml?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="colhtml"
+              formControlName="colhtml" class="form-control">
+</textarea>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('poptitle') == -1) && (poptitlevisible==undefined || poptitlevisible==true))"
+            style='' class="col-3 ">
+            <label for="poptitle" class="control-label">Pop Title</label>
+            <label *ngIf="showview" class="labelview">{{f.poptitle?.value}}</label>
+            <input *ngIf="!showview" id="poptitle" formControlName="poptitle" class="form-control">
+          </div>
+          <div *ngIf="((hidelist.indexOf('link') == -1) && (linkvisible==undefined || linkvisible==true))" style=''
+            class="col-3 ">
+            <div class="columnchk">
+              <label for="link" class="control-label">Link</label>
+              <label *ngIf="showview" class="labelview">{{f.link?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="link" formControlName="link" class="form-control">
+            </div>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('linkurl') == -1) && (linkurlvisible==undefined || linkurlvisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="linkurl" class="control-label">Link U R L</label>
+            <label *ngIf="showview" class="labelview">{{f.linkurl?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="linkurl"
+              formControlName="linkurl" class="form-control">
+</textarea>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('service') == -1) && (servicevisible==undefined || servicevisible==true))"
+            style='' class="col-3 ">
+            <div class="columnchk">
+              <label for="service" class="control-label">Service</label>
+              <label *ngIf="showview" class="labelview">{{f.service?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="service" formControlName="service" class="form-control">
+            </div>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('servicename') == -1) && (servicenamevisible==undefined || servicenamevisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="servicename" class="control-label">Service Name</label>
+            <label *ngIf="showview" class="labelview">{{f.servicename?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="servicename"
+              formControlName="servicename" class="form-control">
+</textarea>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('sp') == -1) && (spvisible==undefined || spvisible==true))" style=''
+            class="col-3 ">
+            <div class="columnchk">
+              <label for="sp" class="control-label">S P</label>
+              <label *ngIf="showview" class="labelview">{{f.sp?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="sp" formControlName="sp" class="form-control">
+            </div>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('spname') == -1) && (spnamevisible==undefined || spnamevisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="spname" class="control-label">S P Name</label>
+            <label *ngIf="showview" class="labelview">{{f.spname?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="spname"
+              formControlName="spname" class="form-control">
+</textarea>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('alert') == -1) && (alertvisible==undefined || alertvisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="alert" class="control-label">Alert</label>
+            <label *ngIf="showview" class="labelview">{{f.alert?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="alert"
+              formControlName="alert" class="form-control">
+</textarea>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('caps') == -1) && (capsvisible==undefined || capsvisible==true))" style=''
+            class="col-3 ">
+            <div class="columnchk">
+              <label for="caps" class="control-label">Caps</label>
+              <label *ngIf="showview" class="labelview">{{f.caps?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="caps" formControlName="caps" class="form-control">
+            </div>
+          </div>
+          <div *ngIf="((hidelist.indexOf('bold') == -1) && (boldvisible==undefined || boldvisible==true))" style=''
+            class="col-3 ">
+            <div class="columnchk">
+              <label for="bold" class="control-label">Bold</label>
+              <label *ngIf="showview" class="labelview">{{f.bold?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="bold" formControlName="bold" class="form-control">
+            </div>
+          </div>
+          <div *ngIf="((hidelist.indexOf('italic') == -1) && (italicvisible==undefined || italicvisible==true))"
+            style='' class="col-3 ">
+            <div class="columnchk">
+              <label for="italic" class="control-label">Italic</label>
+              <label *ngIf="showview" class="labelview">{{f.italic?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="italic" formControlName="italic" class="form-control">
+            </div>
+          </div>
+          <div
+            *ngIf="((hidelist.indexOf('strikethrough') == -1) && (strikethroughvisible==undefined || strikethroughvisible==true))"
+            style='' class="col-3 ">
+            <div class="columnchk">
+              <label for="strikethrough" class="control-label">Strikethrough</label>
+              <label *ngIf="showview" class="labelview">{{f.strikethrough?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="strikethrough" formControlName="strikethrough"
+                class="form-control">
+            </div>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('bgcolor') == -1) && (bgcolorvisible==undefined || bgcolorvisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="bgcolor" class="control-label">B G Color</label>
+            <label *ngIf="showview" class="labelview">{{f.bgcolor?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="bgcolor"
+              formControlName="bgcolor" class="form-control">
+</textarea>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('forecolor') == -1) && (forecolorvisible==undefined || forecolorvisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="forecolor" class="control-label">Fore Color</label>
+            <label *ngIf="showview" class="labelview">{{f.forecolor?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="forecolor"
+              formControlName="forecolor" class="form-control">
+</textarea>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('conditionstyle') == -1) && (conditionstylevisible==undefined || conditionstylevisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="conditionstyle" class="control-label">Condition Style</label>
+            <label *ngIf="showview" class="labelview">{{f.conditionstyle?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="conditionstyle"
+              formControlName="conditionstyle" class="form-control">
+</textarea>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('performancestatusvalues') == -1) && (performancestatusvaluesvisible==undefined || performancestatusvaluesvisible==true))"
+            style='' class="col-3 ">
+            <label for="performancestatusvalues" class="control-label">Performance Status Values</label>
+            <label *ngIf="showview" class="labelview">{{f.performancestatusvalues?.value}}</label>
+            <input *ngIf="!showview" id="performancestatusvalues" formControlName="performancestatusvalues"
+              class="form-control">
+          </div>
+          <div
+            *ngIf="((hidelist.indexOf('notsortable') == -1) && (notsortablevisible==undefined || notsortablevisible==true))"
+            style='' class="col-3 ">
+            <div class="columnchk">
+              <label for="notsortable" class="control-label">Not Sortable</label>
+              <label *ngIf="showview" class="labelview">{{f.notsortable?.value}}</label>
+              <input type="checkbox" *ngIf="!showview" id="notsortable" formControlName="notsortable"
+                class="form-control">
+            </div>
+          </div>
+          <div *ngIf="((hidelist.indexOf('sequence') == -1) && (sequencevisible==undefined || sequencevisible==true))"
+            style='' class="col-3 ">
+            <label for="sequence" class="control-label">Sequence</label>
+            <label *ngIf="showview" class="labelview">{{f.sequence?.value}}</label>
+            <input *ngIf="!showview" id="sequence" formControlName="sequence" class="form-control">
+          </div>
+          <div class="col"></div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('sumcondition') == -1) && (sumconditionvisible==undefined || sumconditionvisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="sumcondition" class="control-label">Sum Condition</label>
+            <label *ngIf="showview" class="labelview">{{f.sumcondition?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="sumcondition"
+              formControlName="sumcondition" class="form-control">
+</textarea>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div
+            *ngIf="((hidelist.indexOf('countcondition') == -1) && (countconditionvisible==undefined || countconditionvisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="countcondition" class="control-label">Count Condition</label>
+            <label *ngIf="showview" class="labelview">{{f.countcondition?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="countcondition"
+              formControlName="countcondition" class="form-control">
+</textarea>
+          </div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('min') == -1) && (minvisible==undefined || minvisible==true))" style=''
+            class="col-3 ">
+            <label for="min" class="control-label">Min</label>
+            <label *ngIf="showview" class="labelview">{{f.min?.value}}</label>
+            <input *ngIf="!showview" id="min" formControlName="min" class="form-control">
+          </div>
+          <div *ngIf="((hidelist.indexOf('max') == -1) && (maxvisible==undefined || maxvisible==true))" style=''
+            class="col-3 ">
+            <label for="max" class="control-label">Max</label>
+            <label *ngIf="showview" class="labelview">{{f.max?.value}}</label>
+            <input *ngIf="!showview" id="max" formControlName="max" class="form-control">
+          </div>
+          <div *ngIf="((hidelist.indexOf('maxchars') == -1) && (maxcharsvisible==undefined || maxcharsvisible==true))"
+            style='' class="col-3 ">
+            <label for="maxchars" class="control-label">Max Chars</label>
+            <label *ngIf="showview" class="labelview">{{f.maxchars?.value}}</label>
+            <input *ngIf="!showview" id="maxchars" formControlName="maxchars" class="form-control">
+          </div>
+          <div class="col"></div>
+        </div>
+        <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+          <div *ngIf="((hidelist.indexOf('helptext') == -1) && (helptextvisible==undefined || helptextvisible==true))"
+            style='width:1500px' class="col-12 ">
+            <label for="helptext" class="control-label">Help Text</label>
+            <label *ngIf="showview" class="labelview">{{f.helptext?.value}}</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="helptext"
+              formControlName="helptext" class="form-control">
+</textarea>
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</form>

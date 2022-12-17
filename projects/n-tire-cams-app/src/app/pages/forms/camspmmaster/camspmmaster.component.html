@@ -1,0 +1,409 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="camspmmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Preventive Maintenance Master' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editcamspmmasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspmmastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspmmastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.pmid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.pmid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+
+
+<!--assetcategory-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('assetcategory') == -1"  class="col" ><label  for="assetcategory" class="control-label required">Asset Category</label>
+      <select  *ngIf="!showview"  id="assetcategory"  required (change)="assetcategoryonChange($event.target)" formControlName="assetcategory"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of assetcategoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.assetcategory?.value}}</label>
+      <app-field-error-display [displayError]="f.assetcategory.invalid && (f.assetcategory.touched || isSubmitted)" errorMsg="Enter {{'Asset Category' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('reference') == -1"  class="col " >
+<label  for="reference" class="control-label required">Reference</label>
+      <label *ngIf="showview"     class="labelview">{{f.reference?.value}}</label>
+      <input   *ngIf="!showview"  id="reference"  required formControlName="reference" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.reference.invalid && (f.reference.touched|| isSubmitted)" errorMsg="Enter {{'Reference' | translate}}">
+      </app-field-error-display>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('description') == -1"  class="col " >
+<label  for="description" class="control-label required">Description</label>
+      <label *ngIf="showview"     class="labelview">{{f.description?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="description"  required formControlName="description" class="form-control"
+        >
+</textarea>
+      <app-field-error-display [displayError]="f.description.invalid && (f.description.touched|| isSubmitted)" errorMsg="Enter {{'Description' | translate}}">
+      </app-field-error-display>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('tat') == -1"  class="col " >
+<label  for="tat" class="control-label required">T A T</label>
+      <label *ngIf="showview"     class="labelview">{{f.tat?.value}}</label>
+      <app-duration   *ngIf="!showview"  id="tat"  required formControlName="tat"
+        >
+</app-duration>
+      <app-field-error-display [displayError]="f.tat.invalid && (f.tat.touched|| isSubmitted)" errorMsg="Enter {{'T A T' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--worktype-->
+
+  <div   *ngIf="hidelist.indexOf('worktype') == -1"  class="col" ><label  for="worktype" class="control-label">Work Type</label>
+      <select  *ngIf="!showview"  id="worktype"  (change)="worktypeonChange($event.target)" formControlName="worktype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of worktypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.worktype?.value}}</label>
+  </div>
+
+
+<!--pmtype-->
+
+  <div   *ngIf="hidelist.indexOf('pmtype') == -1"  class="col" ><label  for="pmtype" class="control-label">P M Type</label>
+      <select  *ngIf="!showview"  id="pmtype"  (change)="pmtypeonChange($event.target)" formControlName="pmtype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of pmtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.pmtype?.value}}</label>
+  </div>
+
+
+<!--measurementmeter-->
+
+  <div   *ngIf="hidelist.indexOf('measurementmeter') == -1"  class="col" ><label  for="measurementmeter" class="control-label">Measurement Meter</label>
+      <select  *ngIf="!showview"  id="measurementmeter"  (change)="measurementmeteronChange($event.target)" formControlName="measurementmeter"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of measurementmeterList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.measurementmeter?.value}}</label>
+  </div>
+</div>
+
+
+<!--frequencyunit-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('frequencyunit') == -1"  class="col" ><label  for="frequencyunit" class="control-label">Frequency Unit</label>
+      <select  *ngIf="!showview"  id="frequencyunit"  (change)="frequencyunitonChange($event.target)" formControlName="frequencyunit"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of frequencyunitList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.frequencyunit?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('frequency') == -1"  class="col " >
+<label  for="frequency" class="control-label">Frequency</label>
+      <label *ngIf="showview"     class="labelview">{{f.frequency?.value}}</label>
+      <input   *ngIf="!showview"  id="frequency"  formControlName="frequency" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('days') == -1"  class="col " >
+<label  for="days" class="control-label">Days</label>
+      <label *ngIf="showview"     class="labelview">{{f.days?.value}}</label>
+      <input   *ngIf="!showview"  id="days"  formControlName="days" class="form-control"
+        >
+  </div>
+
+
+<!--pmgenerationtype-->
+
+  <div   *ngIf="hidelist.indexOf('pmgenerationtype') == -1"  class="col" ><label  for="pmgenerationtype" class="control-label">P M Generation Type</label>
+      <select  *ngIf="!showview"  id="pmgenerationtype"  (change)="pmgenerationtypeonChange($event.target)" formControlName="pmgenerationtype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of pmgenerationtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.pmgenerationtype?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('remarks') == -1"  class="col " >
+<label  for="remarks" class="control-label">Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.remarks?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="remarks"  formControlName="remarks" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+</p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Tasks</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camspmtasks-->
+<div class="row"></div><div [ngClass]="IscamspmtasksVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Tasks' | translate}}
+<select class='child'  id="camspmtasksPagingdropdown" (change)="camspmtasksPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspmtasktoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspmtaskshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camspmtasktoggleOption();camspmtasksroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camspmtasktoggleOption();showcamspmtasksFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamspmtaskssource (userRowSelect)="handlecamspmtasksGridSelected($event)" [settings]="camspmtaskssettings" (custom)="onCustomcamspmtasksAction($event)" [source]="camspmtaskssource"  (delete)="camspmtasksroute($event,'delete')"  (deleteConfirm)="camspmtasksroute($event,'delete')" (create)="camspmtasksroute($event,'create')"   (createConfirm)="camspmtasksbeforesave($event)"  (edit)="camspmtasksroute($event,'edit')"  (editConfirm)="camspmtasksbeforesave($event)"    >
+</ng2-smart-table>
+<button type="button" (click)="camspmtasksmoveUp()"><i class="fas fa-arrow-up"></i></button>
+<button type="button" (click)="camspmtasksmoveDown()"><i class="fas fa-arrow-down"></i></button>
+</div>
+  <!--End of child table camspmtasks-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Instructions</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camspminstructions-->
+<div class="row"></div><div [ngClass]="IscamspminstructionsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Instructions' | translate}}
+<select class='child'  id="camspminstructionsPagingdropdown" (change)="camspminstructionsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspminstructiontoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspminstructionshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camspminstructiontoggleOption();camspminstructionsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camspminstructiontoggleOption();showcamspminstructionsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamspminstructionssource (userRowSelect)="handlecamspminstructionsGridSelected($event)" [settings]="camspminstructionssettings" (custom)="onCustomcamspminstructionsAction($event)" [source]="camspminstructionssource"  (delete)="camspminstructionsroute($event,'delete')"  (deleteConfirm)="camspminstructionsroute($event,'delete')" (create)="camspminstructionsroute($event,'create')"   (createConfirm)="camspminstructionsbeforesave($event)"  (edit)="camspminstructionsroute($event,'edit')"  (editConfirm)="camspminstructionsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table camspminstructions-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Items</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camspmitems-->
+<div class="row"></div><div [ngClass]="IscamspmitemsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Items' | translate}}
+<select class='child'  id="camspmitemsPagingdropdown" (change)="camspmitemsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspmitemtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspmitemshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camspmitemtoggleOption();camspmitemsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camspmitemtoggleOption();showcamspmitemsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamspmitemssource (userRowSelect)="handlecamspmitemsGridSelected($event)" [settings]="camspmitemssettings" (custom)="onCustomcamspmitemsAction($event)" [source]="camspmitemssource"  (delete)="camspmitemsroute($event,'delete')"  (deleteConfirm)="camspmitemsroute($event,'delete')" (create)="camspmitemsroute($event,'create')"   (createConfirm)="camspmitemsbeforesave($event)"  (edit)="camspmitemsroute($event,'edit')"  (editConfirm)="camspmitemsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table camspmitems-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Supplier Tasks</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camspmsuppliertasks-->
+<div class="row"></div><div [ngClass]="IscamspmsuppliertasksVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Supplier Tasks' | translate}}
+<select class='child'  id="camspmsuppliertasksPagingdropdown" (change)="camspmsuppliertasksPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspmsuppliertasktoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspmsuppliertaskshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camspmsuppliertasktoggleOption();camspmsuppliertasksroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camspmsuppliertasktoggleOption();showcamspmsuppliertasksFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamspmsuppliertaskssource (userRowSelect)="handlecamspmsuppliertasksGridSelected($event)" [settings]="camspmsuppliertaskssettings" (custom)="onCustomcamspmsuppliertasksAction($event)" [source]="camspmsuppliertaskssource"  (delete)="camspmsuppliertasksroute($event,'delete')"  (deleteConfirm)="camspmsuppliertasksroute($event,'delete')" (create)="camspmsuppliertasksroute($event,'create')"   (createConfirm)="camspmsuppliertasksbeforesave($event)"  (edit)="camspmsuppliertasksroute($event,'edit')"  (editConfirm)="camspmsuppliertasksbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table camspmsuppliertasks-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Users</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table camspmusers-->
+<div class="row"></div><div [ngClass]="IscamspmusersVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Users' | translate}}
+<select class='child'  id="camspmusersPagingdropdown" (change)="camspmusersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='camspmusertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camspmusershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="camspmusertoggleOption();camspmusersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="camspmusertoggleOption();showcamspmusersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblcamspmuserssource (userRowSelect)="handlecamspmusersGridSelected($event)" [settings]="camspmuserssettings" (custom)="onCustomcamspmusersAction($event)" [source]="camspmuserssource"  (delete)="camspmusersroute($event,'delete')"  (deleteConfirm)="camspmusersroute($event,'delete')" (create)="camspmusersroute($event,'create')"   (createConfirm)="camspmusersbeforesave($event)"  (edit)="camspmusersroute($event,'edit')"  (editConfirm)="camspmusersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table camspmusers-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

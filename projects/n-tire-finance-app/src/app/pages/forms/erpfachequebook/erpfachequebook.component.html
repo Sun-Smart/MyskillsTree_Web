@@ -1,0 +1,96 @@
+<form  [formGroup]="erpfachequebookForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Cheque Books' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+
+
+<!--bankid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'bankid'; "  for="bankid" class="control-label" (click)="AddOrEditbankid(null)">Bank</label>
+      <select  *ngIf="!showview"  id="bankid"  (change)="bankidonChange($event.target)" formControlName="bankid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of bankidList" value="{{item.bankaccountid}}">{{item.accountnumber}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='bankid'"  (click)="editfield = 'bankid';"  class="form-control labelview">{{f.bankiddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'txndate'; "  for="txndate" class="control-label">Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='txndate'">
+<input #txndateformpicker="ngbDatepicker"      ngbDatepicker name="txndateformpicker" id="txndate"  formControlName="txndate"  class="form-control"   placeholder="Choose Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='txndate'"  (click)="txndateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='txndate'"  (click)="editfield = 'txndate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.txndate?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'chequefrom'; "  for="chequefrom" class="control-label">Cheque From</label>
+      <input   *ngIf="!showview || editfield=='chequefrom'"  id="chequefrom"  formControlName="chequefrom" class="form-control"
+        placeholder="{{'Cheque From' | translate}}">
+      <app-field-error-display [displayError]="f.chequefrom.errors!=null && f.chequefrom.errors.pattern!=null && f.chequefrom.errors!=undefined && f.chequefrom.errors.pattern!=undefined  && (f.chequefrom.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.chequefrom.errors!=null && f.chequefrom.errors.min!=null && f.chequefrom.errors!=undefined && f.chequefrom.errors.min!=undefined  && (f.chequefrom.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.chequefrom.errors!=null && f.chequefrom.errors.max!=null && f.chequefrom.errors!=undefined && f.chequefrom.errors.max!=undefined  && (f.chequefrom.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'chequeto'; "  for="chequeto" class="control-label">Cheque To</label>
+      <input   *ngIf="!showview || editfield=='chequeto'"  id="chequeto"  formControlName="chequeto" class="form-control"
+        placeholder="{{'Cheque To' | translate}}">
+      <app-field-error-display [displayError]="f.chequeto.errors!=null && f.chequeto.errors.pattern!=null && f.chequeto.errors!=undefined && f.chequeto.errors.pattern!=undefined  && (f.chequeto.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.chequeto.errors!=null && f.chequeto.errors.min!=null && f.chequeto.errors!=undefined && f.chequeto.errors.min!=undefined  && (f.chequeto.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.chequeto.errors!=null && f.chequeto.errors.max!=null && f.chequeto.errors!=undefined && f.chequeto.errors.max!=undefined  && (f.chequeto.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'totalleaves'; "  for="totalleaves" class="control-label">Total Leaves</label>
+      <input   *ngIf="!showview || editfield=='totalleaves'"  id="totalleaves"  formControlName="totalleaves" class="form-control"
+        placeholder="{{'Total Leaves' | translate}}">
+      <app-field-error-display [displayError]="f.totalleaves.errors!=null && f.totalleaves.errors.pattern!=null && f.totalleaves.errors!=undefined && f.totalleaves.errors.pattern!=undefined  && (f.totalleaves.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.totalleaves.errors!=null && f.totalleaves.errors.min!=null && f.totalleaves.errors!=undefined && f.totalleaves.errors.min!=undefined  && (f.totalleaves.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.totalleaves.errors!=null && f.totalleaves.errors.max!=null && f.totalleaves.errors!=undefined && f.totalleaves.errors.max!=undefined  && (f.totalleaves.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div><div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.txnid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.txnid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

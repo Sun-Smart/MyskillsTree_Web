@@ -1,0 +1,38 @@
+<form [ngClass]="theme">
+  <div class="form-group row">
+  <div class="col">
+<div class="dialog">
+<p></p>
+<h1  class="form-group sticky1  columns left">{{'Target - Organization' | translate}}
+<select class='header'  id="lmstargetorglevelsPagingdropdown" (change)="lmstargetorglevelsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='lmstargetorgleveltoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.lmstargetorglevelshowOption'>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmstargetorgleveltoggleOption();showlmstargetorglevelsCheckbox()"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Show Checkbox</a>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmstargetorgleveltoggleOption();deletelmstargetorglevelsAll()" ><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Delete All</a>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmstargetorgleveltoggleOption();showlmstargetorglevelsInActive()" ><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Show Inactive</a>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmstargetorgleveltoggleOption();lmstargetorglevelsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item"  [routerLink]='' (click)="lmstargetorgleveltoggleOption();showlmstargetorglevelsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h1>
+<ng2-smart-table  #tbllmstargetorglevelssource (userRowSelect)="handlelmstargetorglevelsGridSelected($event)" [settings]="lmstargetorglevelssettings" (custom)="onCustomlmstargetorglevelsAction($event)" [source]="lmstargetorglevelssource"  (delete)="lmstargetorglevelsroute($event,'delete')"  (deleteConfirm)="lmstargetorglevelsroute($event,'delete')" (create)="lmstargetorglevelsroute($event,'create')"   (createConfirm)="lmstargetorglevelsbeforesave($event)"  (edit)="lmstargetorglevelsroute($event,'edit')"  (editConfirm)="lmstargetorglevelsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  </div>
+  </div>
+  <div class="form-group row">
+  <div class="col">
+    <button class="btn btn-primary" (click)="onSubmit()" ><i class="fa fa-database"></i> Submit</button>
+  </div>
+  </div>
+</form>

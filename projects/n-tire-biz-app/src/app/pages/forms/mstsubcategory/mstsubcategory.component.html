@@ -1,0 +1,130 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="mstsubcategory_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Subcategories' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_mstsubcategories()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of mstsubcategory_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+
+            <button type="button" class="btn btn-outline-primary" style="border-color: #fff !important;margin: 5px;
+  padding: 3px;
+  color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
+
+            <button type="button" class="btn btn-outline-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+              style="border-color: #fff !important;
+  color: #fff;margin: 5px;
+     padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
+
+            <!-- <a class="alert-success" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="alert-primary"  *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a> -->
+            <app-action *ngIf="f.subcategoryid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.subcategoryid.value" [status]="f.status.value"></app-action>
+          </li>
+          <!-- <li  class='nav-item actionheader'   *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+    <a class="alert-danger"  [routerLink]=''  (click)="onClose()"   ><i class="fa fa-close"></i> Close</a>
+  </li> -->
+          <i class='nav-item actionheader common_title_style'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
+            class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <!-- <div   *ngIf="((hidelist.indexOf('code') == -1) && (codevisible==undefined || codevisible==true))"  style='' class="col-3 " >
+<label  for="code" class="control-label required">Code</label>
+      <label *ngIf="showview"     class="labelview">{{f.code?.value}}</label>
+      <input   *ngIf="!showview"  id="code"  required formControlName="code" class="form-control"        >
+      <app-field-error-display [displayError]="f.code.errors?.required" errorMsg="Enter {{'Code'}}">
+      </app-field-error-display>
+  </div> -->
+      <div *ngIf="((hidelist.indexOf('name') == -1) && (namevisible==undefined || namevisible==true))" style=''
+        class="col-3 ">
+        <label for="name" class="control-label required">Name</label>
+        <label *ngIf="showview" class="labelview">{{f.name?.value}}</label>
+        <input *ngIf="!showview" id="name" required formControlName="name" class="form-control">
+        <app-field-error-display [displayError]="f.name.errors?.required" errorMsg="Enter {{'Name'}}">
+        </app-field-error-display>
+      </div>
+      <div *ngIf="((hidelist.indexOf('categoryid') == -1) && (categoryidvisible==undefined || categoryidvisible==true))"
+        style='' class="col-3 ">
+        <label for="categoryid" class="control-label">Category</label>
+        <label *ngIf="showview" class="labelview">{{f.categoryid?.value}}</label>
+        <input *ngIf="!showview" id="categoryid" formControlName="categoryid" class="form-control">
+      </div>
+
+
+      <!--segmentid-->
+
+      <!-- <div   *ngIf="((hidelist.indexOf('segmentid') == -1) && (segmentidvisible==undefined || segmentidvisible==true)) || maindata==undefined || maindata==null || maindata.ScreenType==null"  style='' class="col-3" ><label  for="segmentid" class="control-label" (click)="AddOrEdit_segmentid(null)">Segment</label>
+<app-popupselect  *ngIf="!showview"  [options]="segmentid_List"  [optionsEvent]="segmentid_optionsEvent" [form]="mstsegment" (selectItem)="onSelected_segmentid($event)"  [reportid]= 'wc9rn' [menuid]='wc9rn' formControlName="segmentid" id="value" desc="label" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"   class="labelview">{{f.segmentiddesc?.value}}</label>
+  </div> -->
+    </div>
+  </div>
+</form>

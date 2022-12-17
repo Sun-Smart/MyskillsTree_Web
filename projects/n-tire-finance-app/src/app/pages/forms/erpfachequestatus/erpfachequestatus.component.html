@@ -1,0 +1,106 @@
+<form  [formGroup]="erpfachequestatusForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Cheque Status' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+
+
+<!--bankid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'bankid'; "  for="bankid" class="control-label" (click)="AddOrEditbankid(null)">Bank</label>
+      <select  *ngIf="!showview"  id="bankid"  (change)="bankidonChange($event.target)" formControlName="bankid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of bankidList" value="{{item.bankaccountid}}">{{item.accountnumber}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='bankid'"  (click)="editfield = 'bankid';"  class="form-control labelview">{{f.bankiddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'chequenumber'; "  for="chequenumber" class="control-label">Cheque Number</label>
+      <input   *ngIf="!showview || editfield=='chequenumber'"  id="chequenumber"  formControlName="chequenumber" class="form-control"
+        placeholder="{{'Cheque Number' | translate}}">
+      <app-field-error-display [displayError]="f.chequenumber.errors!=null && f.chequenumber.errors.pattern!=null && f.chequenumber.errors!=undefined && f.chequenumber.errors.pattern!=undefined  && (f.chequenumber.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.chequenumber.errors!=null && f.chequenumber.errors.min!=null && f.chequenumber.errors!=undefined && f.chequenumber.errors.min!=undefined  && (f.chequenumber.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.chequenumber.errors!=null && f.chequenumber.errors.max!=null && f.chequenumber.errors!=undefined && f.chequenumber.errors.max!=undefined  && (f.chequenumber.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'issuedate'; "  for="issuedate" class="control-label">Issue Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='issuedate'">
+<input #issuedateformpicker="ngbDatepicker"      ngbDatepicker name="issuedateformpicker" id="issuedate"  formControlName="issuedate"  class="form-control"   placeholder="Choose Issue Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='issuedate'"  (click)="issuedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='issuedate'"  (click)="editfield = 'issuedate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.issuedate?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'party'; "  for="party" class="control-label">Party</label>
+      <input   *ngIf="!showview || editfield=='party'"  id="party"  formControlName="party" class="form-control"
+        placeholder="{{'Party' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'amount'; "  for="amount" class="control-label">Amount</label>
+      <input   *ngIf="!showview || editfield=='amount'"  id="amount"  formControlName="amount" currencyMask   [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+        placeholder="{{'Amount' | translate}}">
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'remarks'; "  for="remarks" class="control-label">Remarks</label>
+<p-editor  *ngIf="!showview || editfield=='remarks'"  id="remarks" formControlName="remarks"   placeholder="Remarks' | translat" [style]="{  height: '320' }"></p-editor>  </div>
+  </div>
+
+
+<!--status-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'status'; "  for="status" class="control-label">Status</label>
+      <select  *ngIf="!showview"  id="status"  readonly (change)="statusonChange($event.target)" formControlName="status"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of statusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='status'"  (click)="editfield = 'status';"  class="form-control labelview">{{f.statusdesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div><div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.txnid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.txnid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

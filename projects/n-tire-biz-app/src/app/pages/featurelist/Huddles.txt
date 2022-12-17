@@ -1,0 +1,64 @@
+Every monday, during huddles time, I would like to see your previous day deliverables.As the time is limited, let's rush through your works. 
+
+tomm' Schedule
+
+Bot
+====
+Jayaram - fastness, wit.ai issues, new member training
+Nisha - CUB delivery
+Jayavarman - if CBD delivered, DMS discussion
+Rajashree - BO
+Maria - Complete the bugs in the sheet
+
+MobileApp
+=========
+Cloud - Bhargavi, Pandi, Vinoth
+Procurement(feature list & functional doc sent) - Akshayan
+
+
+CRM
+=====
+CRM Queries to be rewritten. Technical Document & Video preparation for the new team- Jenifer under the guidance of satish - Plan of delivery need to be published by Inba
+UK POC delivery - Ragul
+Post the Pending - Arul
+
+Procurement
+===========
+Auction - Sudhish & Thiruvengadam
+Procurement Reports - Santhosh & Arul raj
+Training - Anthony
+
+BO
+===
+schedule in the sheet & redmine - Pravin
+Live Chat - SDK4 discussion - Vivek
+
+ 
+
+
+
+CRM Scenarios
+================
+1.
+Lead - Task
+     - Estimate
+     - Customer
+     - Sales Order
+
+
+
+
+
+
+Workflow
+=========
+Requested
+Approved
+Denied
+Stopped
+
+
+
+
+
+

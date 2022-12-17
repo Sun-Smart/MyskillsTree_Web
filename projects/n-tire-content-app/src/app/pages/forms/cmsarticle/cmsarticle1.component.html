@@ -1,0 +1,177 @@
+<form [formGroup]="cmsarticleForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Articles' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="code" class="control-label">{{'Code' | translate}}</label>
+        <input id="code" formControlName="code" class="form-control" placeholder="{{'Code' | translate}}">
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="title" class="control-label">{{'Title' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="title" formControlName="title"
+          class="form-control" placeholder="{{'Title' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col"><label for="type" class="control-label">{{'Type' | translate}}</label>
+        <select id="type" (change)="typeonChange($event.target)" formControlName="type" class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of typeList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="keywords" class="control-label">{{'Keywords' | translate}}</label>
+        <input id="keywords" formControlName="keywords" class="form-control" placeholder="{{'Keywords' | translate}}">
+      </div>
+      <div class="col"><label for="icon" class="control-label">{{'Icon' | translate}}</label>
+        <select id="icon" (change)="icononChange($event.target)" formControlName="icon" class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of iconList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="summary" class="control-label">{{'Summary' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="summary" formControlName="summary"
+          class="form-control" placeholder="{{'Summary' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="details" class="control-label">{{'Details' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="details" formControlName="details"
+          class="form-control" placeholder="{{'Details' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <div class="columnchk">
+          <label for="markpublic" class="control-label">{{'Mark Public' | translate}}</label>
+          <input type="checkbox" id="markpublic" formControlName="markpublic" class="form-control"
+            placeholder="{{'Mark Public' | translate}}">
+        </div>
+      </div>
+      <div class="col"><label for="author" class="control-label" (click)="AddOrEditauthor(null)">{{'Author' |
+          translate}}</label>
+        <app-popupselect [options]="authorList" [optionsEvent]="authoroptionsEvent" [form]="bousermaster"
+          (selectItem)="onSelectedauthor($event)" [reportid]=14 [menuid]=14 formControlName="author" id="userid"
+          desc="username"></app-popupselect>
+        <div class="input-group">
+        </div>
+      </div>
+      <div class="col">
+        <label for="publisheddate" class="control-label">{{'Published Date' | translate}}</label>
+        <div class="input-group">
+          <input #publisheddateformpicker="ngbDatepicker" ngbDatepicker name="publisheddateformpicker"
+            id="publisheddate" formControlName="publisheddate" class="form-control"
+            placeholder="Choose {{'Published Date' | translate}}">
+          <button class="input-group-addon" (click)="publisheddateformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="col">
+        <label for="expirationdate" class="control-label">{{'Expiration Date' | translate}}</label>
+        <div class="input-group">
+          <input #expirationdateformpicker="ngbDatepicker" ngbDatepicker name="expirationdateformpicker"
+            id="expirationdate" formControlName="expirationdate" class="form-control"
+            placeholder="Choose {{'Expiration Date' | translate}}">
+          <button class="input-group-addon" (click)="expirationdateformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col"><label for="language" class="control-label">{{'Language' | translate}}</label>
+        <select id="language" (change)="languageonChange($event.target)" formControlName="language"
+          class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of languageList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="rating" class="control-label">{{'Rating' | translate}}</label>
+        <p-rating id="rating" formControlName="rating" class="form-control" placeholder="{{'Rating' | translate}}">
+        </p-rating>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="notes" class="control-label">{{'Notes' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="notes" formControlName="notes"
+          class="form-control" placeholder="{{'Notes' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="comments" class="control-label">{{'Comments' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="comments" formControlName="comments"
+          class="form-control" placeholder="{{'Comments' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <p-accordion [multiple]='true'>
+      <div *ngIf="customfieldvisible">
+        <p-accordionTab header='CustomField' [selected]='true'>
+          <div class="sticky"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            Custom Fields</div>
+          <div class="form-group row"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+          </div>
+        </p-accordionTab>
+      </div>
+      <div *ngIf="attachmentvisible">
+        <p-accordionTab header='Attachment' [selected]='true'>
+          <app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+        </p-accordionTab>
+      </div>
+    </p-accordion>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+        <app-action *ngIf="f.articleid.value != null" [menuid]="pmenuid" [value]="f.articleid.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

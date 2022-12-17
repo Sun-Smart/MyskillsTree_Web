@@ -1,0 +1,9 @@
+export class pmspropertyunit {
+public unitiddesc :string;public unitid :number;public propertyid :number;public propertyiddesc :string;public unitno :string;public details :string;public unittype :string;public unittypedesc :string;public address1 :string;public address2 :string;public sqft :number;public sizedetails :string;public beds :string;public bedsdesc :string;public baths :string;public bathsdesc :string;public term :string;public termdesc :string;public rent :number;public deposit :number;public notes :string;public assignowner :boolean;public ownernotes :string;public advance :number;public invoiceday :number;public hasfirstrentcommission :boolean;public firstrentcommissiontype :string;public firstrentcommissiontypedesc :string;public firstrentcommission :number;public hasrentcommission :boolean;public rentcommissiontype :string;public rentcommissiontypedesc :string;public rentcommission :number;public hasrenewalfee :boolean;public renewalfeetype :string;public renewalfeetypedesc :string;public renewalfee :number;public hasservicefee :boolean;public servicefeetype :string;public servicefeetypedesc :string;public servicefee :number;public unitstatus :string;public unitstatusdesc :string;public tenantid :number;public tenantiddesc :string;public vacateddate :Date;public customfield :string;public attachment :string;public status :string;public DeletedpmsdepositIDs :string;public DeletedpmspdcIDs :string;public DeletedpmspropertyapplicantsIDs :string;public DeletedpmspropertyopexdetailIDs :string;public DeletedpmsscheduleIDs :string;public DeletedpmstransactionIDs :string;public DeletedpmstransactionscheduleIDs :string;public DeletedpmsunitchargesIDs :string;public DeletedpmspropertyinsuranceIDs :string;public DeletedpmschargeIDs :string;public DeletedpmsleaseIDs :string;public DeletedpmsworkorderIDs :string;
+constructor() {}
+}
+export interface IpmspropertyunitResponse {
+total: number;
+results: pmspropertyunit[];
+}
+

@@ -1,0 +1,164 @@
+<form [formGroup]="prjtimecardForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+  <div class="row second" *ngIf="viewhtml == '' && !showview">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'TimeCards' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward"
+            aria-hidden="true"></i></button>
+        <app-popupselect *ngIf="!showview" [options]="pkList" [optionsEvent]="pkoptionsEvent" [form]="pkform"
+          (selectItem)="onSelectedpk($event)" [reportid]=31 [menuid]=31 formControlName="pk" id="pk" desc="">
+        </app-popupselect>
+        <button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"    *ngIf="!(viewhtml != '' && showview)">
+    <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div class="form-group row">
+      <div class="col"><label for="projectid" class="control-label" (click)="AddOrEditprojectid(null)">Project</label>
+        <app-popupselect *ngIf="!showview" [options]="projectidList" [optionsEvent]="projectidoptionsEvent"
+          [form]="prjprojectmaster" (selectItem)="onSelectedprojectid($event)" [reportid]='nnj2t' [menuid]='nnj2t'
+          formControlName="projectid" id="projectid" desc="projectname"></app-popupselect>
+        <div class="input-group">
+        </div>
+        <label *ngIf="showview" class="form-control labelview">{{f.projectiddesc?.value}}</label>
+      </div>
+      <div class="col"><label for="deliverableid" class="control-label"
+          (click)="AddOrEditdeliverableid(null)">Deliverable</label>
+        <select *ngIf="!showview" id="deliverableid" (change)="deliverableidonChange($event.target)"
+          formControlName="deliverableid" class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of deliverableidList" value="{{item.deliverableid}}">{{item.deliverablename}}
+          </option>
+        </select>
+        <label *ngIf="showview" class="form-control labelview">{{f.deliverableiddesc?.value}}</label>
+      </div>
+      <div class="col"><label for="taskid" class="control-label" (click)="AddOrEdittaskid(null)">Task</label>
+        <app-popupselect *ngIf="!showview" [options]="taskidList" [optionsEvent]="taskidoptionsEvent"
+          [form]="prjprojecttask" (selectItem)="onSelectedtaskid($event)" [reportid]='tuyur' [menuid]='tuyur'
+          formControlName="taskid" id="taskid" desc="taskname"></app-popupselect>
+        <div class="input-group">
+        </div>
+        <label *ngIf="showview" class="form-control labelview">{{f.taskiddesc?.value}}</label>
+      </div>
+      <div class="col"><label for="userid" class="control-label" (click)="AddOrEdituserid(null)">User</label>
+        <app-popupselect *ngIf="!showview" [options]="useridList" [optionsEvent]="useridoptionsEvent"
+          [form]="bousermaster" (selectItem)="onSelecteduserid($event)" [reportid]='e99kq' [menuid]='e99kq'
+          formControlName="userid" id="userid" desc="username"></app-popupselect>
+        <div class="input-group">
+        </div>
+        <label *ngIf="showview" class="form-control labelview">{{f.useriddesc?.value}}</label>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="carddate" class="control-label">Card Date</label>
+        <div class="input-group" *ngIf="!showview">
+          <input #carddateformpicker="ngbDatepicker" ngbDatepicker name="carddateformpicker" id="carddate"
+            formControlName="carddate" class="form-control" placeholder="Choose Card Date">
+          <button class="input-group-addon" *ngIf="!showview" (click)="carddateformpicker.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+        </div>
+        <label *ngIf="showview"
+          class="form-control labelview">{{ngbDateParserFormatter.format(f.carddate?.value)}}</label>
+      </div>
+      <div class="col">
+        <label for="fromtime" class="control-label">From Time</label>
+        <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="fromtime"></ngb-timepicker>
+      </div>
+      <div class="col">
+        <label for="totime" class="control-label">To Time</label>
+        <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="totime"></ngb-timepicker>
+      </div>
+      <div class="col">
+        <label for="hoursspent" class="control-label">Hours Spent</label>
+        <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="hoursspent"></ngb-timepicker>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="notes" class="control-label">Notes</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="notes"
+          formControlName="notes" class="form-control" placeholder="{{'Notes' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <div class="columnchk">
+          <label for="isbillable" class="control-label">Is Billable</label>
+          <input type="checkbox" *ngIf="!showview" id="isbillable" formControlName="isbillable" class="form-control"
+            placeholder="{{'Is Billable' | translate}}">
+        </div>
+      </div>
+      <div class="col">
+        <label for="billablehrs" class="control-label">Billable Hrs</label>
+        <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="billablehrs">
+        </ngb-timepicker>
+      </div>
+      <div class="col">
+        <label for="billableamount" class="control-label">Billable Amount</label>
+        <input *ngIf="!showview" id="billableamount" formControlName="billableamount" class="form-control"
+          placeholder="{{'Billable Amount' | translate}}">
+      </div>
+      <div class="col">
+        <label for="billid" class="control-label">Bill</label>
+        <input *ngIf="!showview" id="billid" formControlName="billid" class="form-control"
+          placeholder="{{'Bill' | translate}}">
+      </div>
+    </div>
+    <p-accordion [multiple]='true'>
+      <div
+        *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.length>0">
+        <p-accordionTab header='CustomField' [selected]='false'>
+          <div class="sticky"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            Custom Fields</div>
+          <div class="form-group row"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+          </div>
+        </p-accordionTab>
+      </div>
+      <div *ngIf="attachmentvisible">
+        <p-accordionTab header='Attachment' [selected]='false'>
+          <app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+        </p-accordionTab>
+      </div>
+    </p-accordion>
+    <div class="form-group row" *ngIf="!showview">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+        <app-action *ngIf="f.timecardid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+          [value]="f.timecardid!.value" [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

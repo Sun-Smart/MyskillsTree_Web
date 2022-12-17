@@ -1,0 +1,143 @@
+<form  [formGroup]="boworkflowmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Workflow Masters' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'description'; "  for="description" class="control-label">Description</label>
+      <input   *ngIf="!showview || editfield=='description'"  id="description"  formControlName="description" class="form-control"
+        >
+  </div>
+
+
+<!--menucode-->
+
+  <div   class="col" ><label (click)="editfield = 'menucode'; "  for="menucode" class="control-label" (click)="AddOrEditmenucode(null)">Menu</label>
+<app-popupselect  *ngIf="!showview"  [options]="menucodeList"  [optionsEvent]="menucodeoptionsEvent" [form]="bomenumaster" (selectItem)="onSelectedmenucode($event)"  [reportid]= '' [menuid]='' formControlName="menucode" id="menucode" desc="menudescription" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='menucode'"  (click)="editfield = 'menucode';"  class="form-control labelview">{{f.menucodedesc?.value}}</label>
+  </div>
+
+
+<!--tablecode-->
+
+  <div   class="col" ><label (click)="editfield = 'tablecode'; "  for="tablecode" class="control-label" (click)="AddOrEdittablecode(null)">Table</label>
+<app-popupselect  *ngIf="!showview"  [options]="tablecodeList"  [optionsEvent]="tablecodeoptionsEvent" [form]="systemtable" (selectItem)="onSelectedtablecode($event)"  [reportid]= '' [menuid]='' formControlName="tablecode" id="tablecode" desc="tablename" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='tablecode'"  (click)="editfield = 'tablecode';"  class="form-control labelview">{{f.tablecodedesc?.value}}</label>
+  </div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'workflowhtml'; "  for="workflowhtml" class="control-label">Work Flow Html</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='workflowhtml'"  id="workflowhtml"  formControlName="workflowhtml" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Workflow</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table boworkflows-->
+<div class="row"></div><div [ngClass]="IsboworkflowsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Workflow' | translate}}
+<select class='child'  id="boworkflowsPagingdropdown" (change)="boworkflowsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="boworkflowsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showboworkflowsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblboworkflowssource (userRowSelect)="handleboworkflowsGridSelected($event)" [settings]="boworkflowssettings" (custom)="onCustomboworkflowsAction($event)" [source]="boworkflowssource"  (delete)="boworkflowsroute($event,'delete')"  (deleteConfirm)="boworkflowsroute($event,'delete')" (create)="boworkflowsroute($event,'create')"   (createConfirm)="boworkflowsbeforesave($event)"  (edit)="boworkflowsroute($event,'edit')"  (editConfirm)="boworkflowsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table boworkflows-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Workflow Steps</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table boworkflowsteps-->
+<div class="row"></div><div [ngClass]="IsboworkflowstepsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Workflow Steps' | translate}}
+<select class='child'  id="boworkflowstepsPagingdropdown" (change)="boworkflowstepsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="boworkflowstepsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showboworkflowstepsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblboworkflowstepssource (userRowSelect)="handleboworkflowstepsGridSelected($event)" [settings]="boworkflowstepssettings" (custom)="onCustomboworkflowstepsAction($event)" [source]="boworkflowstepssource"  (delete)="boworkflowstepsroute($event,'delete')"  (deleteConfirm)="boworkflowstepsroute($event,'delete')" (create)="boworkflowstepsroute($event,'create')"   (createConfirm)="boworkflowstepsbeforesave($event)"  (edit)="boworkflowstepsroute($event,'edit')"  (editConfirm)="boworkflowstepsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table boworkflowsteps-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.workflowmasterid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.workflowmasterid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

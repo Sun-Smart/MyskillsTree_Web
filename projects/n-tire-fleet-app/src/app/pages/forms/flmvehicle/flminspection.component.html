@@ -1,0 +1,385 @@
+<div class="dialog">
+  <form [formGroup]="flminspectionForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Inspections' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="description" class="control-label">{{'Description' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="description" formControlName="description"
+            class="form-control" placeholder="{{'Description' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="odometerreading" class="control-label">{{'OdometerReading' | translate}}</label>
+          <input id="odometerreading" formControlName="odometerreading" class="form-control"
+            placeholder="{{'OdometerReading' | translate}}">
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="odometerreadingremarks" class="control-label">{{'OdometerReadingRemarks' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="odometerreadingremarks"
+            formControlName="odometerreadingremarks" class="form-control"
+            placeholder="{{'OdometerReadingRemarks' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="interiorcleanliness" class="control-label">{{'InteriorCleanliness' |
+            translate}}</label>
+          <select id="interiorcleanliness" (change)="interiorcleanlinessonChange($event.target)"
+            formControlName="interiorcleanliness" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of interiorcleanlinessList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="interiorcleanlinessremarks" class="control-label">{{'InteriorCleanlinessRemarks' |
+            translate}}</label>
+          <input id="interiorcleanlinessremarks" formControlName="interiorcleanlinessremarks" class="form-control"
+            placeholder="{{'InteriorCleanlinessRemarks' | translate}}">
+        </div>
+        <div class="col"><label for="engine" class="control-label">{{'Engine' | translate}}</label>
+          <select id="engine" (change)="engineonChange($event.target)" formControlName="engine" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of engineList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="engineremarks" class="control-label">{{'EngineRemarks' | translate}}</label>
+          <input id="engineremarks" formControlName="engineremarks" class="form-control"
+            placeholder="{{'EngineRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="oillife" class="control-label">{{'Oillife' | translate}}</label>
+          <select id="oillife" (change)="oillifeonChange($event.target)" formControlName="oillife" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of oillifeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="oilliferemarks" class="control-label">{{'OillifeRemarks' | translate}}</label>
+          <input id="oilliferemarks" formControlName="oilliferemarks" class="form-control"
+            placeholder="{{'OillifeRemarks' | translate}}">
+        </div>
+        <div class="col"><label for="fuellevel" class="control-label">{{'Fuellevel' | translate}}</label>
+          <select id="fuellevel" (change)="fuellevelonChange($event.target)" formControlName="fuellevel"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of fuellevelList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="fuellevelremarks" class="control-label">{{'FuellevelRemarks' | translate}}</label>
+          <input id="fuellevelremarks" formControlName="fuellevelremarks" class="form-control"
+            placeholder="{{'FuellevelRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="transmission" class="control-label">{{'Transmission' | translate}}</label>
+          <select id="transmission" (change)="transmissiononChange($event.target)" formControlName="transmission"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of transmissionList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="transmissionremarks" class="control-label">{{'TransmissionRemarks' | translate}}</label>
+          <input id="transmissionremarks" formControlName="transmissionremarks" class="form-control"
+            placeholder="{{'TransmissionRemarks' | translate}}">
+        </div>
+        <div class="col"><label for="clutch" class="control-label">{{'Clutch' | translate}}</label>
+          <select id="clutch" (change)="clutchonChange($event.target)" formControlName="clutch" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of clutchList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="clutchremarks" class="control-label">{{'ClutchRemarks' | translate}}</label>
+          <input id="clutchremarks" formControlName="clutchremarks" class="form-control"
+            placeholder="{{'ClutchRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="steeringmechanism" class="control-label">{{'SteeringMechanism' |
+            translate}}</label>
+          <select id="steeringmechanism" (change)="steeringmechanismonChange($event.target)"
+            formControlName="steeringmechanism" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of steeringmechanismList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="steeringmechanismremarks" class="control-label">{{'SteeringMechanismRemarks' | translate}}</label>
+          <input id="steeringmechanismremarks" formControlName="steeringmechanismremarks" class="form-control"
+            placeholder="{{'SteeringMechanismRemarks' | translate}}">
+        </div>
+        <div class="col"><label for="horn" class="control-label">{{'Horn' | translate}}</label>
+          <select id="horn" (change)="hornonChange($event.target)" formControlName="horn" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of hornList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="hornremarks" class="control-label">{{'HornRemarks' | translate}}</label>
+          <input id="hornremarks" formControlName="hornremarks" class="form-control"
+            placeholder="{{'HornRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="windshield" class="control-label">{{'Windshield' | translate}}</label>
+          <select id="windshield" (change)="windshieldonChange($event.target)" formControlName="windshield"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of windshieldList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="windshieldremarks" class="control-label">{{'WindshieldRemarks' | translate}}</label>
+          <input id="windshieldremarks" formControlName="windshieldremarks" class="form-control"
+            placeholder="{{'WindshieldRemarks' | translate}}">
+        </div>
+        <div class="col"><label for="wipers" class="control-label">{{'Wipers' | translate}}</label>
+          <select id="wipers" (change)="wipersonChange($event.target)" formControlName="wipers" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of wipersList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="wipersremarks" class="control-label">{{'WipersRemarks' | translate}}</label>
+          <input id="wipersremarks" formControlName="wipersremarks" class="form-control"
+            placeholder="{{'WipersRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="washers" class="control-label">{{'Washers' | translate}}</label>
+          <select id="washers" (change)="washersonChange($event.target)" formControlName="washers" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of washersList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="washersremarks" class="control-label">{{'WashersRemarks' | translate}}</label>
+          <input id="washersremarks" formControlName="washersremarks" class="form-control"
+            placeholder="{{'WashersRemarks' | translate}}">
+        </div>
+        <div class="col"><label for="rearvisionmirrors" class="control-label">{{'RearVisionMirrors' |
+            translate}}</label>
+          <select id="rearvisionmirrors" (change)="rearvisionmirrorsonChange($event.target)"
+            formControlName="rearvisionmirrors" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of rearvisionmirrorsList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="rearvisionmirrorsremarks" class="control-label">{{'RearVisionMirrorsRemarks' | translate}}</label>
+          <input id="rearvisionmirrorsremarks" formControlName="rearvisionmirrorsremarks" class="form-control"
+            placeholder="{{'RearVisionMirrorsRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="lighting" class="control-label">{{'Lighting' | translate}}</label>
+          <select id="lighting" (change)="lightingonChange($event.target)" formControlName="lighting"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of lightingList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="lightingremarks" class="control-label">{{'LightingRemarks' | translate}}</label>
+          <input id="lightingremarks" formControlName="lightingremarks" class="form-control"
+            placeholder="{{'LightingRemarks' | translate}}">
+        </div>
+        <div class="col"><label for="reflector" class="control-label">{{'Reflector' | translate}}</label>
+          <select id="reflector" (change)="reflectoronChange($event.target)" formControlName="reflector"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of reflectorList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="reflectorremarks" class="control-label">{{'ReflectorRemarks' | translate}}</label>
+          <input id="reflectorremarks" formControlName="reflectorremarks" class="form-control"
+            placeholder="{{'ReflectorRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="parkingbrake" class="control-label">{{'ParkingBrake' | translate}}</label>
+          <select id="parkingbrake" (change)="parkingbrakeonChange($event.target)" formControlName="parkingbrake"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of parkingbrakeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="parkingbrakeremarks" class="control-label">{{'ParkingBrakeRemarks' | translate}}</label>
+          <input id="parkingbrakeremarks" formControlName="parkingbrakeremarks" class="form-control"
+            placeholder="{{'ParkingBrakeRemarks' | translate}}">
+        </div>
+        <div class="col"><label for="servicebrake" class="control-label">{{'ServiceBrake' | translate}}</label>
+          <select id="servicebrake" (change)="servicebrakeonChange($event.target)" formControlName="servicebrake"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of servicebrakeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="servicebrakeremarks" class="control-label">{{'ServiceBrakeRemarks' | translate}}</label>
+          <input id="servicebrakeremarks" formControlName="servicebrakeremarks" class="form-control"
+            placeholder="{{'ServiceBrakeRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="airlines" class="control-label">{{'AirLines' | translate}}</label>
+          <select id="airlines" (change)="airlinesonChange($event.target)" formControlName="airlines"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of airlinesList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="airlinesremarks" class="control-label">{{'AirLinesRemarks' | translate}}</label>
+          <input id="airlinesremarks" formControlName="airlinesremarks" class="form-control"
+            placeholder="{{'AirLinesRemarks' | translate}}">
+        </div>
+        <div class="col"><label for="couplingdevice" class="control-label">{{'CouplingDevice' | translate}}</label>
+          <select id="couplingdevice" (change)="couplingdeviceonChange($event.target)" formControlName="couplingdevice"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of couplingdeviceList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="couplingdeviceremarks" class="control-label">{{'CouplingDeviceRemarks' | translate}}</label>
+          <input id="couplingdeviceremarks" formControlName="couplingdeviceremarks" class="form-control"
+            placeholder="{{'CouplingDeviceRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="tyres" class="control-label">{{'Tyres' | translate}}</label>
+          <select id="tyres" (change)="tyresonChange($event.target)" formControlName="tyres" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of tyresList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="tyresremarks" class="control-label">{{'TyresRemarks' | translate}}</label>
+          <input id="tyresremarks" formControlName="tyresremarks" class="form-control"
+            placeholder="{{'TyresRemarks' | translate}}">
+        </div>
+        <div class="col"><label for="wheels" class="control-label">{{'Wheels' | translate}}</label>
+          <select id="wheels" (change)="wheelsonChange($event.target)" formControlName="wheels" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of wheelsList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="wheelsremarks" class="control-label">{{'WheelsRemarks' | translate}}</label>
+          <input id="wheelsremarks" formControlName="wheelsremarks" class="form-control"
+            placeholder="{{'WheelsRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="rims" class="control-label">{{'Rims' | translate}}</label>
+          <select id="rims" (change)="rimsonChange($event.target)" formControlName="rims" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of rimsList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="rimsremarks" class="control-label">{{'RimsRemarks' | translate}}</label>
+          <input id="rimsremarks" formControlName="rimsremarks" class="form-control"
+            placeholder="{{'RimsRemarks' | translate}}">
+        </div>
+        <div class="col"><label for="emergencyequipment" class="control-label">{{'EmergencyEquipment' |
+            translate}}</label>
+          <select id="emergencyequipment" (change)="emergencyequipmentonChange($event.target)"
+            formControlName="emergencyequipment" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of emergencyequipmentList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="emergencyequipmentremarks" class="control-label">{{'EmergencyEquipmentRemarks' |
+            translate}}</label>
+          <input id="emergencyequipmentremarks" formControlName="emergencyequipmentremarks" class="form-control"
+            placeholder="{{'EmergencyEquipmentRemarks' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="vehiclecondition" class="control-label">{{'VehicleCondition' | translate}}</label>
+          <select id="vehiclecondition" (change)="vehicleconditiononChange($event.target)"
+            formControlName="vehiclecondition" class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of vehicleconditionList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remarks" formControlName="remarks"
+            class="form-control" placeholder="{{'Remarks' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="drivernotes" class="control-label">{{'DriverNotes' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="drivernotes" formControlName="drivernotes"
+            class="form-control" placeholder="{{'DriverNotes' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="driversignature" class="control-label">{{'DriverSignature' | translate}}</label>
+          <input id="driversignature" formControlName="driversignature" class="form-control"
+            placeholder="{{'DriverSignature' | translate}}">
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}" target="_blank">{{fld!.value!.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.inspectionid!.value != null" [menuid]="pmenuid" [value]="f.inspectionid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

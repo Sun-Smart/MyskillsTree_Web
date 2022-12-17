@@ -1,0 +1,1062 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="prjprojectmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Project Masters' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editprjprojectmasters()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjprojectmastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjprojectmastershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.projectid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.projectid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)"><i  title="Master" class="fa fa-home"><br><font style='font-size: 1rem;'>Master</font></i></div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('projectcode') == -1"  class="col " >
+<label  for="projectcode" class="control-label">Project Code</label>
+      <label *ngIf="showview"     class="labelview">{{f.projectcode?.value}}</label>
+      <input   *ngIf="!showview"  id="projectcode"  readonly formControlName="projectcode" class="form-control"
+        >
+<ngx-barcode [bc-value]='f.projectcode.value' [bc-display-value]='true'></ngx-barcode>
+  </div>
+  <div   *ngIf="hidelist.indexOf('projectname') == -1"  class="col " >
+<label  for="projectname" class="control-label required">Project Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.projectname?.value}}</label>
+      <input   *ngIf="!showview"  id="projectname"  required formControlName="projectname" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.projectname.invalid && (f.projectname.touched|| isSubmitted)" errorMsg="Enter {{'Project Name' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('departmentid') == -1"  class="col " >
+<label  for="departmentid" class="control-label">Department</label>
+      <label *ngIf="showview"     class="labelview">{{f.departmentid?.value}}</label>
+      <input   *ngIf="!showview"  id="departmentid"  formControlName="departmentid" class="form-control"
+        >
+  </div>
+
+
+<!--customerid-->
+
+  <div   *ngIf="hidelist.indexOf('customerid') == -1"  class="col" ><label  for="customerid" class="control-label" (click)="AddOrEditcustomerid(null)">Customer</label>
+<app-popupselect  *ngIf="!showview"  [options]="customeridList"  [optionsEvent]="customeridoptionsEvent" [form]="crmcustomermaster" (selectItem)="onSelectedcustomerid($event)"  [reportid]= 'pofgf' [menuid]='pofgf' formControlName="customerid" id="customerid" desc="lastname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.customerid?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('salesorderid') == -1"  class="col " >
+<label  for="salesorderid" class="control-label">Sales Order</label>
+      <label *ngIf="showview"     class="labelview">{{f.salesorderid?.value}}</label>
+      <input   *ngIf="!showview"  id="salesorderid"  formControlName="salesorderid" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('briefdescription') == -1"  class="col " >
+<label  for="briefdescription" class="control-label required">Brief Description</label>
+      <label *ngIf="showview"     class="labelview">{{f.briefdescription?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="briefdescription"  required formControlName="briefdescription" class="form-control"
+        >
+</textarea>
+      <app-field-error-display [displayError]="f.briefdescription.invalid && (f.briefdescription.touched|| isSubmitted)" errorMsg="Enter {{'Brief Description' | translate}}">
+      </app-field-error-display>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('projectscope') == -1"  class="col " >
+<label  for="projectscope" class="control-label">Project Scope</label>
+      <label *ngIf="showview"     class="labelview">{{f.projectscope?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="projectscope"  formControlName="projectscope" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('thumbnail') == -1"  class="col " >
+<label  for="thumbnail" class="control-label">Thumb Nail</label>
+      <label *ngIf="showview"     class="labelview">{{f.thumbnail?.value}}</label>
+<app-attachment #thumbnail formControlName="thumbnail" [SessionData]="sessiondata"></app-attachment>
+<button  type="button" class="btn" *ngIf="thumbnail.getattachmentlist().length > 0"    (click) = "getthumbnail()" >Open File</button>
+  </div>
+
+
+<!--projectmanager-->
+
+  <div   *ngIf="hidelist.indexOf('projectmanager') == -1"  class="col" ><label  for="projectmanager" class="control-label" (click)="AddOrEditprojectmanager(null)">Project Manager</label>
+<app-popupselect  *ngIf="!showview"  [options]="projectmanagerList"  [optionsEvent]="projectmanageroptionsEvent" [form]="bousermaster" (selectItem)="onSelectedprojectmanager($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="projectmanager" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.projectmanager?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Project Dates'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('startdate') == -1"  class="col " >
+<label  for="startdate" class="control-label required">Start Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.startdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #startdateformpicker="ngbDatepicker"      ngbDatepicker name="startdateformpicker" id="startdate"  required formControlName="startdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="startdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <app-field-error-display [displayError]="f.startdate.invalid && (f.startdate.touched|| isSubmitted)" errorMsg="Enter {{'Start Date' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('enddate') == -1"  class="col " >
+<label  for="enddate" class="control-label">End Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.enddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #enddateformpicker="ngbDatepicker"      ngbDatepicker name="enddateformpicker" id="enddate"  formControlName="enddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="enddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('progressrate') == -1"  class="col " >
+<label  for="progressrate" class="control-label">Progress Rate</label>
+      <label *ngIf="showview"     class="labelview">{{f.progressrate?.value}}</label>
+      <input   *ngIf="!showview"  id="progressrate"  formControlName="progressrate" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('lastupdateddate') == -1"  class="col " >
+<label  for="lastupdateddate" class="control-label">Last Updated Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.lastupdateddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #lastupdateddateformpicker="ngbDatepicker"      ngbDatepicker name="lastupdateddateformpicker" id="lastupdateddate"  formControlName="lastupdateddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="lastupdateddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('actualstartdate') == -1"  class="col " >
+<label  for="actualstartdate" class="control-label">Actual Start Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.actualstartdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #actualstartdateformpicker="ngbDatepicker"      ngbDatepicker name="actualstartdateformpicker" id="actualstartdate"  formControlName="actualstartdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="actualstartdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('projectedenddate') == -1"  class="col " >
+<label  for="projectedenddate" class="control-label">Projected End Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.projectedenddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #projectedenddateformpicker="ngbDatepicker"      ngbDatepicker name="projectedenddateformpicker" id="projectedenddate"  formControlName="projectedenddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="projectedenddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('completeddate') == -1"  class="col " >
+<label  for="completeddate" class="control-label">Completed Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.completeddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #completeddateformpicker="ngbDatepicker"      ngbDatepicker name="completeddateformpicker" id="completeddate"  formControlName="completeddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="completeddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('closeddate') == -1"  class="col " >
+<label  for="closeddate" class="control-label">Closed Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.closeddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #closeddateformpicker="ngbDatepicker"      ngbDatepicker name="closeddateformpicker" id="closeddate"  formControlName="closeddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="closeddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('lastreviseddate') == -1"  class="col " >
+<label  for="lastreviseddate" class="control-label">Last Revised Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.lastreviseddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #lastreviseddateformpicker="ngbDatepicker"      ngbDatepicker name="lastreviseddateformpicker" id="lastreviseddate"  formControlName="lastreviseddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="lastreviseddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Classification'  [selected]='true'>
+
+
+<!--projecttype-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('projecttype') == -1"  class="col" ><label  for="projecttype" class="control-label">Project Type</label>
+      <select  *ngIf="!showview"  id="projecttype"  (change)="projecttypeonChange($event.target)" formControlName="projecttype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of projecttypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.projecttype?.value}}</label>
+  </div>
+
+
+<!--priority-->
+
+  <div   *ngIf="hidelist.indexOf('priority') == -1"  class="col" ><label  for="priority" class="control-label">Priority</label>
+      <select  *ngIf="!showview"  id="priority"  (change)="priorityonChange($event.target)" formControlName="priority"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of priorityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.priority?.value}}</label>
+  </div>
+
+
+<!--projectphase-->
+
+  <div   *ngIf="hidelist.indexOf('projectphase') == -1"  class="col" ><label  for="projectphase" class="control-label">Project Phase</label>
+      <select  *ngIf="!showview"  id="projectphase"  (change)="projectphaseonChange($event.target)" formControlName="projectphase"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of projectphaseList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.projectphase?.value}}</label>
+  </div>
+
+
+<!--projectstatus-->
+
+  <div   *ngIf="hidelist.indexOf('projectstatus') == -1"  class="col" ><label  for="projectstatus" class="control-label">Project Status</label>
+      <select  *ngIf="!showview"  id="projectstatus"  (change)="projectstatusonChange($event.target)" formControlName="projectstatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of projectstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.projectstatus?.value}}</label>
+  </div>
+</div>
+
+
+<!--currency-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('currency') == -1"  class="col" ><label  for="currency" class="control-label">Currency</label>
+      <select  *ngIf="!showview"  id="currency"  (change)="currencyonChange($event.target)" formControlName="currency"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of currencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.currency?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('totalbudgetamount') == -1"  class="col " >
+<label  for="totalbudgetamount" class="control-label">Total Budget Amount</label>
+      <label *ngIf="showview"     class="labelview">{{f.totalbudgetamount?.value}}</label>
+      <input   *ngIf="!showview"  id="totalbudgetamount"  formControlName="totalbudgetamount" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('feedbacktags') == -1"  class="col " >
+<label  for="feedbacktags" class="control-label">Feedback Tags</label>
+      <label *ngIf="showview"     class="labelview">{{f.feedbacktags?.value}}</label>
+      <input   *ngIf="!showview"  id="feedbacktags"  formControlName="feedbacktags" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('budgetmaterialcost') == -1"  class="col " >
+<label  for="budgetmaterialcost" class="control-label">Budget Material Cost</label>
+      <label *ngIf="showview"     class="labelview">{{f.budgetmaterialcost?.value}}</label>
+      <input   *ngIf="!showview"  id="budgetmaterialcost"  formControlName="budgetmaterialcost" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('budgetlabourcost') == -1"  class="col " >
+<label  for="budgetlabourcost" class="control-label">Budget Labour Cost</label>
+      <label *ngIf="showview"     class="labelview">{{f.budgetlabourcost?.value}}</label>
+      <input   *ngIf="!showview"  id="budgetlabourcost"  formControlName="budgetlabourcost" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('actualmaterialcost') == -1"  class="col " >
+<label  for="actualmaterialcost" class="control-label">Actual Material Cost</label>
+      <label *ngIf="showview"     class="labelview">{{f.actualmaterialcost?.value}}</label>
+      <input   *ngIf="!showview"  id="actualmaterialcost"  formControlName="actualmaterialcost" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('actuallabourcost') == -1"  class="col " >
+<label  for="actuallabourcost" class="control-label">Actual Labour Cost</label>
+      <label *ngIf="showview"     class="labelview">{{f.actuallabourcost?.value}}</label>
+      <input   *ngIf="!showview"  id="actuallabourcost"  formControlName="actuallabourcost" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('materialbudgetremaining') == -1"  class="col " >
+<label  for="materialbudgetremaining" class="control-label">Material Budget Remaining</label>
+      <label *ngIf="showview"     class="labelview">{{f.materialbudgetremaining?.value}}</label>
+      <input   *ngIf="!showview"  id="materialbudgetremaining"  formControlName="materialbudgetremaining" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('totalbudgetremaining') == -1"  class="col " >
+<label  for="totalbudgetremaining" class="control-label">Total Budget Remaining</label>
+      <label *ngIf="showview"     class="labelview">{{f.totalbudgetremaining?.value}}</label>
+      <input   *ngIf="!showview"  id="totalbudgetremaining"  formControlName="totalbudgetremaining" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('totalhoursestimated') == -1"  class="col " >
+<label  for="totalhoursestimated" class="control-label">Total Hours Estimated</label>
+      <label *ngIf="showview"     class="labelview">{{f.totalhoursestimated?.value}}</label>
+      <input   *ngIf="!showview"  id="totalhoursestimated"  formControlName="totalhoursestimated" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('totalactualhours') == -1"  class="col " >
+<label  for="totalactualhours" class="control-label">Total Actual Hours</label>
+      <label *ngIf="showview"     class="labelview">{{f.totalactualhours?.value}}</label>
+      <input   *ngIf="!showview"  id="totalactualhours"  formControlName="totalactualhours" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('notes') == -1"  class="col " >
+<label  for="notes" class="control-label">Notes</label>
+      <label *ngIf="showview"     class="labelview">{{f.notes?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="notes"  formControlName="notes" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('costcenterid') == -1"  class="col " >
+<label  for="costcenterid" class="control-label">Cost Center</label>
+      <label *ngIf="showview"     class="labelview">{{f.costcenterid?.value}}</label>
+      <input   *ngIf="!showview"  id="costcenterid"  formControlName="costcenterid" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordionTab></p-accordion>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Project Deliverables" class="fa fa-envelope"><br><font style='font-size: 1rem;'>Project Deliverables</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjprojectdeliverables-->
+<div [ngClass]="IsprjprojectdeliverablesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Project Deliverables' | translate}}
+<select class='child'  id="prjprojectdeliverablesPagingdropdown" (change)="prjprojectdeliverablesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjprojectdeliverabletoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjprojectdeliverableshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjprojectdeliverabletoggleOption();prjprojectdeliverablesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjprojectdeliverabletoggleOption();showprjprojectdeliverablesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjprojectdeliverablessource (userRowSelect)="handleprjprojectdeliverablesGridSelected($event)" [settings]="prjprojectdeliverablessettings" (custom)="onCustomprjprojectdeliverablesAction($event)" [source]="prjprojectdeliverablessource"  (delete)="prjprojectdeliverablesroute($event,'delete')"  (deleteConfirm)="prjprojectdeliverablesroute($event,'delete')" (create)="prjprojectdeliverablesroute($event,'create')"   (createConfirm)="prjprojectdeliverablesbeforesave($event)"  (edit)="prjprojectdeliverablesroute($event,'edit')"  (editConfirm)="prjprojectdeliverablesbeforesave($event)"    >
+</ng2-smart-table>
+<button type="button" (click)="prjprojectdeliverablesmoveUp()"><i class="fas fa-arrow-up"></i></button>
+<button type="button" (click)="prjprojectdeliverablesmoveDown()"><i class="fas fa-arrow-down"></i></button>
+</div>
+  <!--End of child table prjprojectdeliverables-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Expenses" class="fa fa-wpforms"><br><font style='font-size: 1rem;'>Expenses</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjexpenses-->
+<div [ngClass]="IsprjexpensesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Expenses' | translate}}
+<select class='child'  id="prjexpensesPagingdropdown" (change)="prjexpensesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjexpensetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjexpenseshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjexpensetoggleOption();prjexpensesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjexpensetoggleOption();showprjexpensesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjexpensessource (userRowSelect)="handleprjexpensesGridSelected($event)" [settings]="prjexpensessettings" (custom)="onCustomprjexpensesAction($event)" [source]="prjexpensessource"  (delete)="prjexpensesroute($event,'delete')"  (deleteConfirm)="prjexpensesroute($event,'delete')" (create)="prjexpensesroute($event,'create')"   (createConfirm)="prjexpensesbeforesave($event)"  (edit)="prjexpensesroute($event,'edit')"  (editConfirm)="prjexpensesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjexpenses-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Tasks" class="fa fa-folder"><br><font style='font-size: 1rem;'>Tasks</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjprojecttasks-->
+<div [ngClass]="IsprjprojecttasksVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Tasks' | translate}}
+<select class='child'  id="prjprojecttasksPagingdropdown" (change)="prjprojecttasksPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjprojecttasktoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjprojecttaskshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjprojecttasktoggleOption();prjprojecttasksroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjprojecttasktoggleOption();showprjprojecttasksFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjprojecttaskssource (userRowSelect)="handleprjprojecttasksGridSelected($event)" [settings]="prjprojecttaskssettings" (custom)="onCustomprjprojecttasksAction($event)" [source]="prjprojecttaskssource"  (delete)="prjprojecttasksroute($event,'delete')"  (deleteConfirm)="prjprojecttasksroute($event,'delete')" (create)="prjprojecttasksroute($event,'create')"   (createConfirm)="prjprojecttasksbeforesave($event)"  (edit)="prjprojecttasksroute($event,'edit')"  (editConfirm)="prjprojecttasksbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjprojecttasks-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Facts" class="fa fa-question"><br><font style='font-size: 1rem;'>Facts</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table bofacts-->
+<div [ngClass]="IsbofactsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Facts' | translate}}
+<select class='child'  id="bofactsPagingdropdown" (change)="bofactsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='bofacttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.bofactshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="bofacttoggleOption();bofactsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="bofacttoggleOption();showbofactsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblbofactssource (userRowSelect)="handlebofactsGridSelected($event)" [settings]="bofactssettings" (custom)="onCustombofactsAction($event)" [source]="bofactssource"  (delete)="bofactsroute($event,'delete')"  (deleteConfirm)="bofactsroute($event,'delete')" (create)="bofactsroute($event,'create')"   (createConfirm)="bofactsbeforesave($event)"  (edit)="bofactsroute($event,'edit')"  (editConfirm)="bofactsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table bofacts-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Project Changes</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjprojectchanges-->
+<div [ngClass]="IsprjprojectchangesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Project Changes' | translate}}
+<select class='child'  id="prjprojectchangesPagingdropdown" (change)="prjprojectchangesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjprojectchangetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjprojectchangeshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjprojectchangetoggleOption();prjprojectchangesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjprojectchangetoggleOption();showprjprojectchangesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjprojectchangessource (userRowSelect)="handleprjprojectchangesGridSelected($event)" [settings]="prjprojectchangessettings" (custom)="onCustomprjprojectchangesAction($event)" [source]="prjprojectchangessource"  (delete)="prjprojectchangesroute($event,'delete')"  (deleteConfirm)="prjprojectchangesroute($event,'delete')" (create)="prjprojectchangesroute($event,'create')"   (createConfirm)="prjprojectchangesbeforesave($event)"  (edit)="prjprojectchangesroute($event,'edit')"  (editConfirm)="prjprojectchangesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjprojectchanges-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Reminder Masters" class="fa fa-user"><br><font style='font-size: 1rem;'>Reminder Masters</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table boremindermasters-->
+<div [ngClass]="IsboremindermastersVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Reminder Masters' | translate}}
+<select class='child'  id="boremindermastersPagingdropdown" (change)="boremindermastersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='boremindermastertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.boremindermastershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="boremindermastertoggleOption();boremindermastersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="boremindermastertoggleOption();showboremindermastersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblboremindermasterssource (userRowSelect)="handleboremindermastersGridSelected($event)" [settings]="boremindermasterssettings" (custom)="onCustomboremindermastersAction($event)" [source]="boremindermasterssource"  (delete)="boremindermastersroute($event,'delete')"  (deleteConfirm)="boremindermastersroute($event,'delete')" (create)="boremindermastersroute($event,'create')"   (createConfirm)="boremindermastersbeforesave($event)"  (edit)="boremindermastersroute($event,'edit')"  (editConfirm)="boremindermastersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table boremindermasters-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Project Team Members</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjprojectteammembers-->
+<div [ngClass]="IsprjprojectteammembersVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Project Team Members' | translate}}
+<select class='child'  id="prjprojectteammembersPagingdropdown" (change)="prjprojectteammembersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjprojectteammembertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjprojectteammembershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjprojectteammembertoggleOption();prjprojectteammembersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjprojectteammembertoggleOption();showprjprojectteammembersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjprojectteammemberssource (userRowSelect)="handleprjprojectteammembersGridSelected($event)" [settings]="prjprojectteammemberssettings" (custom)="onCustomprjprojectteammembersAction($event)" [source]="prjprojectteammemberssource"  (delete)="prjprojectteammembersroute($event,'delete')"  (deleteConfirm)="prjprojectteammembersroute($event,'delete')" (create)="prjprojectteammembersroute($event,'create')"   (createConfirm)="prjprojectteammembersbeforesave($event)"  (edit)="prjprojectteammembersroute($event,'edit')"  (editConfirm)="prjprojectteammembersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjprojectteammembers-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Project Verifications</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjprojectverifications-->
+<div [ngClass]="IsprjprojectverificationsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Project Verifications' | translate}}
+<select class='child'  id="prjprojectverificationsPagingdropdown" (change)="prjprojectverificationsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjprojectverificationtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjprojectverificationshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjprojectverificationtoggleOption();prjprojectverificationsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjprojectverificationtoggleOption();showprjprojectverificationsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjprojectverificationssource (userRowSelect)="handleprjprojectverificationsGridSelected($event)" [settings]="prjprojectverificationssettings" (custom)="onCustomprjprojectverificationsAction($event)" [source]="prjprojectverificationssource"  (delete)="prjprojectverificationsroute($event,'delete')"  (deleteConfirm)="prjprojectverificationsroute($event,'delete')" (create)="prjprojectverificationsroute($event,'create')"   (createConfirm)="prjprojectverificationsbeforesave($event)"  (edit)="prjprojectverificationsroute($event,'edit')"  (editConfirm)="prjprojectverificationsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjprojectverifications-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="TimeCards" class="fa fa-clock-o"><br><font style='font-size: 1rem;'>TimeCards</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjtimecards-->
+<div [ngClass]="IsprjtimecardsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'TimeCards' | translate}}
+<select class='child'  id="prjtimecardsPagingdropdown" (change)="prjtimecardsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjtimecardtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjtimecardshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjtimecardtoggleOption();prjtimecardsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjtimecardtoggleOption();showprjtimecardsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjtimecardssource (userRowSelect)="handleprjtimecardsGridSelected($event)" [settings]="prjtimecardssettings" (custom)="onCustomprjtimecardsAction($event)" [source]="prjtimecardssource"  (delete)="prjtimecardsroute($event,'delete')"  (deleteConfirm)="prjtimecardsroute($event,'delete')" (create)="prjtimecardsroute($event,'create')"   (createConfirm)="prjtimecardsbeforesave($event)"  (edit)="prjtimecardsroute($event,'edit')"  (editConfirm)="prjtimecardsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjtimecards-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Documents" class="fa fa-file"><br><font style='font-size: 1rem;'>Documents</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjdocuments-->
+<div [ngClass]="IsprjdocumentsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Documents' | translate}}
+<select class='child'  id="prjdocumentsPagingdropdown" (change)="prjdocumentsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjdocumenttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjdocumentshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjdocumenttoggleOption();prjdocumentsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjdocumenttoggleOption();showprjdocumentsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjdocumentssource (userRowSelect)="handleprjdocumentsGridSelected($event)" [settings]="prjdocumentssettings" (custom)="onCustomprjdocumentsAction($event)" [source]="prjdocumentssource"  (delete)="prjdocumentsroute($event,'delete')"  (deleteConfirm)="prjdocumentsroute($event,'delete')" (create)="prjdocumentsroute($event,'create')"   (createConfirm)="prjdocumentsbeforesave($event)"  (edit)="prjdocumentsroute($event,'edit')"  (editConfirm)="prjdocumentsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjdocuments-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Project Billings</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjprojectbillings-->
+<div [ngClass]="IsprjprojectbillingsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Project Billings' | translate}}
+<select class='child'  id="prjprojectbillingsPagingdropdown" (change)="prjprojectbillingsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjprojectbillingtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjprojectbillingshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjprojectbillingtoggleOption();prjprojectbillingsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjprojectbillingtoggleOption();showprjprojectbillingsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjprojectbillingssource (userRowSelect)="handleprjprojectbillingsGridSelected($event)" [settings]="prjprojectbillingssettings" (custom)="onCustomprjprojectbillingsAction($event)" [source]="prjprojectbillingssource"  (delete)="prjprojectbillingsroute($event,'delete')"  (deleteConfirm)="prjprojectbillingsroute($event,'delete')" (create)="prjprojectbillingsroute($event,'create')"   (createConfirm)="prjprojectbillingsbeforesave($event)"  (edit)="prjprojectbillingsroute($event,'edit')"  (editConfirm)="prjprojectbillingsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjprojectbillings-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Project Objectives" class="fa fa-graduation-cap"><br><font style='font-size: 1rem;'>Project Objectives</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjprojectobjectives-->
+<div [ngClass]="IsprjprojectobjectivesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Project Objectives' | translate}}
+<select class='child'  id="prjprojectobjectivesPagingdropdown" (change)="prjprojectobjectivesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjprojectobjectivetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjprojectobjectiveshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjprojectobjectivetoggleOption();prjprojectobjectivesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjprojectobjectivetoggleOption();showprjprojectobjectivesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjprojectobjectivessource (userRowSelect)="handleprjprojectobjectivesGridSelected($event)" [settings]="prjprojectobjectivessettings" (custom)="onCustomprjprojectobjectivesAction($event)" [source]="prjprojectobjectivessource"  (delete)="prjprojectobjectivesroute($event,'delete')"  (deleteConfirm)="prjprojectobjectivesroute($event,'delete')" (create)="prjprojectobjectivesroute($event,'create')"   (createConfirm)="prjprojectobjectivesbeforesave($event)"  (edit)="prjprojectobjectivesroute($event,'edit')"  (editConfirm)="prjprojectobjectivesbeforesave($event)"    >
+</ng2-smart-table>
+<button type="button" (click)="prjprojectobjectivesmoveUp()"><i class="fas fa-arrow-up"></i></button>
+<button type="button" (click)="prjprojectobjectivesmoveDown()"><i class="fas fa-arrow-down"></i></button>
+</div>
+  <!--End of child table prjprojectobjectives-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Daily Standups</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjdailystandups-->
+<div [ngClass]="IsprjdailystandupsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Daily Standups' | translate}}
+<select class='child'  id="prjdailystandupsPagingdropdown" (change)="prjdailystandupsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjdailystanduptoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjdailystandupshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjdailystanduptoggleOption();prjdailystandupsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjdailystanduptoggleOption();showprjdailystandupsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjdailystandupssource (userRowSelect)="handleprjdailystandupsGridSelected($event)" [settings]="prjdailystandupssettings" (custom)="onCustomprjdailystandupsAction($event)" [source]="prjdailystandupssource"  (delete)="prjdailystandupsroute($event,'delete')"  (deleteConfirm)="prjdailystandupsroute($event,'delete')" (create)="prjdailystandupsroute($event,'create')"   (createConfirm)="prjdailystandupsbeforesave($event)"  (edit)="prjdailystandupsroute($event,'edit')"  (editConfirm)="prjdailystandupsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjdailystandups-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Change Requests</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjchangerequests-->
+<div [ngClass]="IsprjchangerequestsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Change Requests' | translate}}
+<select class='child'  id="prjchangerequestsPagingdropdown" (change)="prjchangerequestsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjchangerequesttoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjchangerequestshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjchangerequesttoggleOption();prjchangerequestsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjchangerequesttoggleOption();showprjchangerequestsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjchangerequestssource (userRowSelect)="handleprjchangerequestsGridSelected($event)" [settings]="prjchangerequestssettings" (custom)="onCustomprjchangerequestsAction($event)" [source]="prjchangerequestssource"  (delete)="prjchangerequestsroute($event,'delete')"  (deleteConfirm)="prjchangerequestsroute($event,'delete')" (create)="prjchangerequestsroute($event,'create')"   (createConfirm)="prjchangerequestsbeforesave($event)"  (edit)="prjchangerequestsroute($event,'edit')"  (editConfirm)="prjchangerequestsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjchangerequests-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Releases</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjreleases-->
+<div [ngClass]="IsprjreleasesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Releases' | translate}}
+<select class='child'  id="prjreleasesPagingdropdown" (change)="prjreleasesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjreleasetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjreleaseshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjreleasetoggleOption();prjreleasesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjreleasetoggleOption();showprjreleasesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjreleasessource (userRowSelect)="handleprjreleasesGridSelected($event)" [settings]="prjreleasessettings" (custom)="onCustomprjreleasesAction($event)" [source]="prjreleasessource"  (delete)="prjreleasesroute($event,'delete')"  (deleteConfirm)="prjreleasesroute($event,'delete')" (create)="prjreleasesroute($event,'create')"   (createConfirm)="prjreleasesbeforesave($event)"  (edit)="prjreleasesroute($event,'edit')"  (editConfirm)="prjreleasesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjreleases-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Process Gaps</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table proprocessgaps-->
+<div [ngClass]="IsproprocessgapsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Process Gaps' | translate}}
+<select class='child'  id="proprocessgapsPagingdropdown" (change)="proprocessgapsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='proprocessgaptoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.proprocessgapshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="proprocessgaptoggleOption();proprocessgapsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="proprocessgaptoggleOption();showproprocessgapsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblproprocessgapssource (userRowSelect)="handleproprocessgapsGridSelected($event)" [settings]="proprocessgapssettings" (custom)="onCustomproprocessgapsAction($event)" [source]="proprocessgapssource"  (delete)="proprocessgapsroute($event,'delete')"  (deleteConfirm)="proprocessgapsroute($event,'delete')" (create)="proprocessgapsroute($event,'create')"   (createConfirm)="proprocessgapsbeforesave($event)"  (edit)="proprocessgapsroute($event,'edit')"  (editConfirm)="proprocessgapsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table proprocessgaps-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle><div (click)="ToolBar(false)"><i  title="Users" class="fa fa-users"><br><font style='font-size: 1rem;'>Users</font></i></div></ng-template><ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table bousers-->
+<div [ngClass]="IsbousersVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Users' | translate}}
+<select class='child'  id="bousersPagingdropdown" (change)="bousersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='bousertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.bousershowOption'>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="bousertoggleOption();showbousersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblbouserssource (userRowSelect)="handlebousersGridSelected($event)" [settings]="bouserssettings" (custom)="onCustombousersAction($event)" [source]="bouserssource"  >
+</ng2-smart-table>
+</div>
+  <!--End of child table bousers-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Project Outputs</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjprojectoutputs-->
+<div [ngClass]="IsprjprojectoutputsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Project Outputs' | translate}}
+<select class='child'  id="prjprojectoutputsPagingdropdown" (change)="prjprojectoutputsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjprojectoutputtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjprojectoutputshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjprojectoutputtoggleOption();prjprojectoutputsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjprojectoutputtoggleOption();showprjprojectoutputsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjprojectoutputssource (userRowSelect)="handleprjprojectoutputsGridSelected($event)" [settings]="prjprojectoutputssettings" (custom)="onCustomprjprojectoutputsAction($event)" [source]="prjprojectoutputssource"  (delete)="prjprojectoutputsroute($event,'delete')"  (deleteConfirm)="prjprojectoutputsroute($event,'delete')" (create)="prjprojectoutputsroute($event,'create')"   (createConfirm)="prjprojectoutputsbeforesave($event)"  (edit)="prjprojectoutputsroute($event,'edit')"  (editConfirm)="prjprojectoutputsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjprojectoutputs-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Project Requirements</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table prjprojectrequirements-->
+<div [ngClass]="IsprjprojectrequirementsVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Project Requirements' | translate}}
+<select class='child'  id="prjprojectrequirementsPagingdropdown" (change)="prjprojectrequirementsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='prjprojectrequirementtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.prjprojectrequirementshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="prjprojectrequirementtoggleOption();prjprojectrequirementsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="prjprojectrequirementtoggleOption();showprjprojectrequirementsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblprjprojectrequirementssource (userRowSelect)="handleprjprojectrequirementsGridSelected($event)" [settings]="prjprojectrequirementssettings" (custom)="onCustomprjprojectrequirementsAction($event)" [source]="prjprojectrequirementssource"  (delete)="prjprojectrequirementsroute($event,'delete')"  (deleteConfirm)="prjprojectrequirementsroute($event,'delete')" (create)="prjprojectrequirementsroute($event,'create')"   (createConfirm)="prjprojectrequirementsbeforesave($event)"  (edit)="prjprojectrequirementsroute($event,'edit')"  (editConfirm)="prjprojectrequirementsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table prjprojectrequirements-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

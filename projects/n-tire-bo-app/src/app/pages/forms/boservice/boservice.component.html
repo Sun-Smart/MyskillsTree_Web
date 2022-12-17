@@ -1,0 +1,230 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="boserviceForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Services' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editboservices()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='boservicetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.boserviceshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.serviceid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.serviceid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('description') == -1"  class="col " >
+<label  for="description" class="control-label">Description</label>
+      <label *ngIf="showview"     class="labelview">{{f.description?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="description"  formControlName="description" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--category-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('category') == -1"  class="col" ><label  for="category" class="control-label">Category</label>
+      <select  *ngIf="!showview"  id="category"  (change)="categoryonChange($event.target)" formControlName="category"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of categoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.category?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('owner') == -1"  class="col " >
+<label  for="owner" class="control-label">Owner</label>
+      <label *ngIf="showview"     class="labelview">{{f.owner?.value}}</label>
+      <input   *ngIf="!showview"  id="owner"  formControlName="owner" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('parentid') == -1"  class="col " >
+<label  for="parentid" class="control-label">Parent</label>
+      <label *ngIf="showview"     class="labelview">{{f.parentid?.value}}</label>
+      <input   *ngIf="!showview"  id="parentid"  formControlName="parentid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('products') == -1"  class="col " >
+<label  for="products" class="control-label">Products</label>
+      <label *ngIf="showview"     class="labelview">{{f.products?.value}}</label>
+      <input   *ngIf="!showview"  id="products"  formControlName="products" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--servicestatus-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('servicestatus') == -1"  class="col" ><label  for="servicestatus" class="control-label">Service Status</label>
+      <select  *ngIf="!showview"  id="servicestatus"  (change)="servicestatusonChange($event.target)" formControlName="servicestatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of servicestatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.servicestatus?.value}}</label>
+  </div>
+
+
+<!--priority-->
+
+  <div   *ngIf="hidelist.indexOf('priority') == -1"  class="col" ><label  for="priority" class="control-label">Priority</label>
+      <select  *ngIf="!showview"  id="priority"  (change)="priorityonChange($event.target)" formControlName="priority"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of priorityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.priority?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('sla') == -1"  class="col " >
+<label  for="sla" class="control-label">S L A</label>
+      <label *ngIf="showview"     class="labelview">{{f.sla?.value}}</label>
+      <input   *ngIf="!showview"  id="sla"  formControlName="sla" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('responsibilitity') == -1"  class="col " >
+<label  for="responsibilitity" class="control-label">Responsibilitity</label>
+      <label *ngIf="showview"     class="labelview">{{f.responsibilitity?.value}}</label>
+      <input   *ngIf="!showview"  id="responsibilitity"  formControlName="responsibilitity" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('cost') == -1"  class="col " >
+<label  for="cost" class="control-label">Cost</label>
+      <label *ngIf="showview"     class="labelview">{{f.cost?.value}}</label>
+      <input   *ngIf="!showview"  id="cost"  formControlName="cost" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('outsourcetosupplier') == -1"  class="col " >
+<div class="columnchk">
+<label  for="outsourcetosupplier" class="control-label">Outsource To Supplier</label>
+      <label *ngIf="showview"     class="labelview">{{f.outsourcetosupplier?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="outsourcetosupplier"  formControlName="outsourcetosupplier" class="form-control"
+        >
+  </div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('preferredsupplierid') == -1"  class="col " >
+<label  for="preferredsupplierid" class="control-label">Preferred Supplier</label>
+      <label *ngIf="showview"     class="labelview">{{f.preferredsupplierid?.value}}</label>
+      <input   *ngIf="!showview"  id="preferredsupplierid"  formControlName="preferredsupplierid" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('remarks') == -1"  class="col " >
+<label  for="remarks" class="control-label">Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.remarks?.value}}</label>
+      <app-comment   *ngIf="!showview"  id="remarks"  formControlName="remarks" [label]="'Remarks'" 
+        >
+</app-comment>
+  </div>
+</div>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Service Availabilities</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table hlpserviceavailabilities-->
+<div [ngClass]="IshlpserviceavailabilitiesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Service Availabilities' | translate}}
+<select class='child'  id="hlpserviceavailabilitiesPagingdropdown" (change)="hlpserviceavailabilitiesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='hlpserviceavailabilitytoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.hlpserviceavailabilityshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="hlpserviceavailabilitytoggleOption();hlpserviceavailabilitiesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="hlpserviceavailabilitytoggleOption();showhlpserviceavailabilitiesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblhlpserviceavailabilitiessource (userRowSelect)="handlehlpserviceavailabilitiesGridSelected($event)" [settings]="hlpserviceavailabilitiessettings" (custom)="onCustomhlpserviceavailabilitiesAction($event)" [source]="hlpserviceavailabilitiessource"  (delete)="hlpserviceavailabilitiesroute($event,'delete')"  (deleteConfirm)="hlpserviceavailabilitiesroute($event,'delete')" (create)="hlpserviceavailabilitiesroute($event,'create')"   (createConfirm)="hlpserviceavailabilitiesbeforesave($event)"  (edit)="hlpserviceavailabilitiesroute($event,'edit')"  (editConfirm)="hlpserviceavailabilitiesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table hlpserviceavailabilities-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

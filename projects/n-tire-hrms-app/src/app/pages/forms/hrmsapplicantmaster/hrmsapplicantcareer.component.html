@@ -1,0 +1,129 @@
+<div class="dialog">
+  <form [formGroup]="hrmsapplicantcareerForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col">
+            <label for="employer" class="control-label">Employer</label>
+            <input *ngIf="!showview" id="employer" formControlName="employer" class="form-control"
+              placeholder="{{'Employer' | translate}}">
+          </div>
+          <div class="col">
+            <label for="fromdate" class="control-label">From Date</label>
+            <div class="input-group" *ngIf="!showview">
+              <input #fromdateformpicker="ngbDatepicker" ngbDatepicker name="fromdateformpicker" id="fromdate"
+                formControlName="fromdate" class="form-control" placeholder="Choose From Date">
+              <button class="input-group-addon" *ngIf="!showview" (click)="fromdateformpicker.toggle()" type="button"><i
+                  class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+            <label *ngIf="showview"
+              class="form-control labelview">{{ngbDateParserFormatter.format(f.fromdate?.value)}}</label>
+          </div>
+          <div class="col">
+            <label for="todate" class="control-label">To Date</label>
+            <div class="input-group" *ngIf="!showview">
+              <input #todateformpicker="ngbDatepicker" ngbDatepicker name="todateformpicker" id="todate"
+                formControlName="todate" class="form-control" placeholder="Choose To Date">
+              <button class="input-group-addon" *ngIf="!showview" (click)="todateformpicker.toggle()" type="button"><i
+                  class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+            <label *ngIf="showview"
+              class="form-control labelview">{{ngbDateParserFormatter.format(f.todate?.value)}}</label>
+          </div>
+          <div class="col">
+            <label for="totalmonths" class="control-label">Total Months</label>
+            <input *ngIf="!showview" id="totalmonths" formControlName="totalmonths" class="form-control"
+              placeholder="{{'Total Months' | translate}}">
+            <app-field-error-display
+              [displayError]="f.totalmonths.errors!=null && f.totalmonths.errors.pattern!=null && f.totalmonths.errors!=undefined && f.totalmonths.errors.pattern!=undefined  && (f.totalmonths.touched|| isSubmitted)"
+              errorMsg="Not a valid number">
+            </app-field-error-display>
+            <app-field-error-display
+              [displayError]="f.totalmonths.errors!=null && f.totalmonths.errors.min!=null && f.totalmonths.errors!=undefined && f.totalmonths.errors.min!=undefined  && (f.totalmonths.touched|| isSubmitted)"
+              errorMsg="Minimum value have to be entered">
+            </app-field-error-display>
+            <app-field-error-display
+              [displayError]="f.totalmonths.errors!=null && f.totalmonths.errors.max!=null && f.totalmonths.errors!=undefined && f.totalmonths.errors.max!=undefined  && (f.totalmonths.touched|| isSubmitted)"
+              errorMsg="Maximum value Exceeded">
+            </app-field-error-display>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="designation" class="control-label">Designation</label>
+            <input *ngIf="!showview" id="designation" formControlName="designation" class="form-control"
+              placeholder="{{'Designation' | translate}}">
+          </div>
+          <div class="col"><label for="mappedtoourrole" class="control-label"
+              (click)="AddOrEditmappedtoourrole(null)">Mapped To Our Role</label>
+            <select *ngIf="!showview" id="mappedtoourrole" (change)="mappedtoourroleonChange($event.target)"
+              formControlName="mappedtoourrole" class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of mappedtoourroleList" value="{{item.userroleid}}">{{item.userrole}}</option>
+            </select>
+            <label *ngIf="showview" class="form-control labelview">{{f.mappedtoourroledesc?.value}}</label>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="responsibilities" class="control-label">Responsibilities</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="responsibilities"
+              formControlName="responsibilities" class="form-control" placeholder="{{'Responsibilities' | translate}}">
+</textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col"><label for="currency" class="control-label">C T C Currency</label>
+            <select *ngIf="!showview" id="currency" (change)="currencyonChange($event.target)"
+              formControlName="currency" class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of currencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+            <label *ngIf="showview" class="form-control labelview">{{f.currencydesc?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="salary" class="control-label">C T C Amount</label>
+            <input *ngIf="!showview" id="salary" formControlName="salary" currencyMask
+              [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+              placeholder="{{'C T C Amount' | translate}}">
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="remarks" class="control-label">Remarks</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="remarks"
+              formControlName="remarks" class="form-control" placeholder="{{'Remarks' | translate}}">
+</textarea>
+          </div>
+        </div>
+        <div *ngIf="attachmentvisible">
+          <p-accordionTab header='Attachment' [selected]='false'>
+            <app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+          </p-accordionTab>
+        </div>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.hacid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.hacid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

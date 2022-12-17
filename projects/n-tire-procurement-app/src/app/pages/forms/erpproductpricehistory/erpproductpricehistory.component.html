@@ -1,0 +1,189 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="erpproductpricehistoryForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Price History' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editerpproductpricehistories()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpproductpricehistorytoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpproductpricehistoryshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.priceid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.priceid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+
+
+<!--branchid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('branchid') == -1"  class="col" ><label  for="branchid" class="control-label" (click)="AddOrEditbranchid(null)">Branch</label>
+<app-popupselect  *ngIf="!showview"  [options]="branchidList"  [optionsEvent]="branchidoptionsEvent" [form]="bobranchmaster" (selectItem)="onSelectedbranchid($event)"  [reportid]= 'bxg94' [menuid]='bxg94' formControlName="branchid" id="branchid" desc="branchname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.branchid?.value}}</label>
+  </div>
+
+
+<!--productid-->
+
+  <div   *ngIf="hidelist.indexOf('productid') == -1"  class="col" ><label  for="productid" class="control-label" (click)="AddOrEditproductid(null)">Product</label>
+      <select  *ngIf="!showview"  id="productid"  (change)="productidonChange($event.target)" formControlName="productid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of productidList" value="{{item.productid}}">{{item.productname}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.productid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('pricedate') == -1"  class="col " >
+<label  for="pricedate" class="control-label">Price Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.pricedate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #pricedateformpicker="ngbDatepicker"      ngbDatepicker name="pricedateformpicker" id="pricedate"  formControlName="pricedate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="pricedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('price') == -1"  class="col " >
+<label  for="price" class="control-label">Price</label>
+      <label *ngIf="showview"     class="labelview">{{f.price?.value}}</label>
+      <input   *ngIf="!showview"  id="price"  formControlName="price" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('offerquantity1') == -1"  class="col " >
+<label  for="offerquantity1" class="control-label">Offer Quantity1</label>
+      <label *ngIf="showview"     class="labelview">{{f.offerquantity1?.value}}</label>
+      <input   *ngIf="!showview"  id="offerquantity1"  formControlName="offerquantity1" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.offerquantity1.errors!=null && f.offerquantity1.errors.pattern!=null && f.offerquantity1.errors!=undefined && f.offerquantity1.errors.pattern!=undefined  && (f.offerquantity1.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.offerquantity1.errors!=null && f.offerquantity1.errors.min!=null && f.offerquantity1.errors!=undefined && f.offerquantity1.errors.min!=undefined  && (f.offerquantity1.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.offerquantity1.errors!=null && f.offerquantity1.errors.max!=null && f.offerquantity1.errors!=undefined && f.offerquantity1.errors.max!=undefined  && (f.offerquantity1.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('unitprice1') == -1"  class="col " >
+<label  for="unitprice1" class="control-label">Unit Price1</label>
+      <label *ngIf="showview"     class="labelview">{{f.unitprice1?.value}}</label>
+      <input   *ngIf="!showview"  id="unitprice1"  formControlName="unitprice1" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('totalcost1') == -1"  class="col " >
+<label  for="totalcost1" class="control-label">Total Cost1</label>
+      <label *ngIf="showview"     class="labelview">{{f.totalcost1?.value}}</label>
+      <input   *ngIf="!showview"  id="totalcost1"  formControlName="totalcost1" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('offerquantity2') == -1"  class="col " >
+<label  for="offerquantity2" class="control-label">Offer Quantity2</label>
+      <label *ngIf="showview"     class="labelview">{{f.offerquantity2?.value}}</label>
+      <input   *ngIf="!showview"  id="offerquantity2"  formControlName="offerquantity2" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.offerquantity2.errors!=null && f.offerquantity2.errors.pattern!=null && f.offerquantity2.errors!=undefined && f.offerquantity2.errors.pattern!=undefined  && (f.offerquantity2.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.offerquantity2.errors!=null && f.offerquantity2.errors.min!=null && f.offerquantity2.errors!=undefined && f.offerquantity2.errors.min!=undefined  && (f.offerquantity2.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.offerquantity2.errors!=null && f.offerquantity2.errors.max!=null && f.offerquantity2.errors!=undefined && f.offerquantity2.errors.max!=undefined  && (f.offerquantity2.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('unitprice2') == -1"  class="col " >
+<label  for="unitprice2" class="control-label">Unit Price2</label>
+      <label *ngIf="showview"     class="labelview">{{f.unitprice2?.value}}</label>
+      <input   *ngIf="!showview"  id="unitprice2"  formControlName="unitprice2" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('totalcost2') == -1"  class="col " >
+<label  for="totalcost2" class="control-label">Total Cost2</label>
+      <label *ngIf="showview"     class="labelview">{{f.totalcost2?.value}}</label>
+      <input   *ngIf="!showview"  id="totalcost2"  formControlName="totalcost2" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('offerquantity3') == -1"  class="col " >
+<label  for="offerquantity3" class="control-label">Offer Quantity3</label>
+      <label *ngIf="showview"     class="labelview">{{f.offerquantity3?.value}}</label>
+      <input   *ngIf="!showview"  id="offerquantity3"  formControlName="offerquantity3" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.offerquantity3.errors!=null && f.offerquantity3.errors.pattern!=null && f.offerquantity3.errors!=undefined && f.offerquantity3.errors.pattern!=undefined  && (f.offerquantity3.touched|| isSubmitted)" errorMsg="Not a valid number">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.offerquantity3.errors!=null && f.offerquantity3.errors.min!=null && f.offerquantity3.errors!=undefined && f.offerquantity3.errors.min!=undefined  && (f.offerquantity3.touched|| isSubmitted)" errorMsg="Minimum value have to be entered">
+      </app-field-error-display>
+      <app-field-error-display [displayError]="f.offerquantity3.errors!=null && f.offerquantity3.errors.max!=null && f.offerquantity3.errors!=undefined && f.offerquantity3.errors.max!=undefined  && (f.offerquantity3.touched|| isSubmitted)" errorMsg="Maximum value Exceeded">
+      </app-field-error-display>
+  </div>
+  <div   *ngIf="hidelist.indexOf('unitprice3') == -1"  class="col " >
+<label  for="unitprice3" class="control-label">Unit Price3</label>
+      <label *ngIf="showview"     class="labelview">{{f.unitprice3?.value}}</label>
+      <input   *ngIf="!showview"  id="unitprice3"  formControlName="unitprice3" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('totalcost3') == -1"  class="col " >
+<label  for="totalcost3" class="control-label">Total Cost3</label>
+      <label *ngIf="showview"     class="labelview">{{f.totalcost3?.value}}</label>
+      <input   *ngIf="!showview"  id="totalcost3"  formControlName="totalcost3" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>  </div>
+</form>

@@ -1,0 +1,410 @@
+<!--display: flex!important;flex-wrap: wrap!important; position:fixed-->
+<div *ngIf="loggedIn" [ngClass]="theme">
+ <app-header (toggleMenubar)="toggleMenu()"></app-header>
+
+  <div class="container2" style="width:1520px;height:100%;padding-top:25px!important;" *ngIf="layout==100">
+    <div>
+
+      <div id="sidebar" style="width:100%">
+        <app-header (toggleMenubar)="toggleMenu()"></app-header>
+
+        <div class="ng-menubar1  col1" [ngClass]="{'hidden-menu-content': !isMobileResolution && !isMenuVisible}">
+
+          <!--     <ng-scrollbar #scrollable1
+      [invertX]=false
+      [invertY]=false
+      [trackX]=true
+      [compact]=true
+      [shown]="always"
+      [disableOnBreakpoints]=false
+      [disabled]="false">
+-->
+          <p-sidebar #menubar [visible]="isMenuVisible" position="left" [showCloseIcon]="false" styleClass="ng-menubar"
+            [modal]="false">
+
+            <app-menu (closeClicked)="isMobileResolution && isMenuVisible=$event" *ngIf="menuloaded"
+              [items]="menuItems">
+            </app-menu>
+
+          </p-sidebar>
+          <!-- </ng-scrollbar>-->
+        </div>
+      </div>
+      <div id="content" class="ng-content">
+        <div class="ui-fluid ng-main" [ngClass]="theme">
+          <p-toast position="bottom-right"></p-toast>
+          <div [class.hidden]="!showLoader" class="np-loader">
+            <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+          </div>
+          <!--overflow:auto;height:100%;-->
+          <!--position:absolute;width:83%;-->
+          <!--margin-left:16%;  height:80%;-->
+          <!--height:550px;-->
+          <div>
+            <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+            <router-outlet (activate)="topFunction()"></router-outlet><!-- style="width:100%"-->
+            <button onclick="topFunction()" id="scrollBtn" title="Go to top" style="display:none">Top</button>
+          </div>
+        </div>
+      </div>
+
+      <!--<app-footer></app-footer>-->
+    </div>
+  </div>
+
+  <div class="container2" style="width:1520px;height:100%;padding-top:25px!important;" *ngIf="layout==1">
+    <div class="layout-wrapper layout-menu-light layout-topbar-blue p-input-filled layout-menu-static"
+      [ngClass]="{'layout-menu-active': isMenuVisible}">
+      <app-header (toggleMenubar)="toggleMenu()"></app-header>
+      <div class="menu-wrapper">
+        <div class="layout-menu-container">
+          <app-menu (closeClicked)="isMobileResolution && isMenuVisible=$event" [items]="menuItems"></app-menu>
+        </div>
+      </div>
+      <div>
+        <!--    id="contentArea1"  
+    style="overflow-y:scroll!important;overflow-x:scroll!important;scrollbar-width: thin1;"
+    class="layout-main main" onscroll="scrollFunction()"-->
+        <router-outlet (activate)="topFunction()"></router-outlet>
+        <button onclick="topFunction()" id="scrollBtn" title="Go to top" style="display:none">Top</button>
+      </div>
+      <app-footer></app-footer>
+    </div>
+
+  </div>
+
+  <div class="container2" style="width:1500px;height:100%;padding-top:25px!important;position:fixed"
+    *ngIf="layout=='CRM'">
+
+
+    <header style="height:50px">
+      <div class="small" id="header-scroll">
+        <h1></h1>
+        <nav>
+          <ul>
+            <li><a href="#/home/boreportviewer/udfvf">Leads</a></li>
+            <li><a href="#/home/lmsmasters/lmsmasters">New Lead</a></li>
+            <li><a href="#/home/boreportviewer/vm3i3">Opportunities</a></li>
+            <li><a href="#/home/boreportviewer/ie7uk">Calls</a></li>
+            <li><a href="#/home/showdashboard/9">Dashboard</a></li>
+            <li><a href="#/home/boreportviewer/v8aoq">Tasks</a></li>
+            <li><a href="#/home/boexpenses/boexpenses">Expense</a></li>
+            <li><a href="#/home/calendar/ytvq3">Calendar</a></li>
+            <li><a href="#/home/boreportviewer/ytvq3">Opportunity Board</a></li>
+            <li><a href="#/home/boreportviewer/zfr5u">Task Board</a></li>
+          </ul>
+        </nav>
+
+      </div>
+    </header>
+    <div id="content" style='height:1000px!important' class="ng-content">
+      <div class="ui-fluid ng-main" [ngClass]="theme">
+        <p-toast position="bottom-right"></p-toast>
+        <!--<div [class.hidden]="!showLoader" class="np-loader">
+        <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+      </div>-->
+        <!--overflow:auto;height:100%;-->
+        <!--position:absolute;width:83%;-->
+        <!--margin-left:16%;  height:80%;-->
+        <!--height:550px;-->
+        <div id="contentArea1"
+          
+          class="main container full-height" #contentArea1 onscroll="scrollFunction1('scrollBtn1','contentArea1')">
+          <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+          <router-outlet (activate)="topFunction1('contentArea1')"></router-outlet><!-- style="width:100%"-->
+          <button onclick="topFunction1('contentArea1')" id="scrollBtn1" title="Go to top"
+            style="display:none">Top</button>
+        </div>
+      </div>
+    </div>
+    <!--
+  <section id="1">
+    <h1>First</h1>
+  </section>
+  <section id="2">
+    <h1>Second</h1>
+  </section>
+  <section id="3">
+    <h1>Third</h1>
+  </section>
+  <section id="4">
+    <h1>Fourth</h1>
+  </section>
+  <section id="5">
+    <h1>Fifth</h1>
+  </section>
+-->
+  </div>
+
+  <div class="container2" style="width:1500px;height:100%;padding-top:35px!important;position:fixed"
+    *ngIf="layout=='CAMS'">
+    <div class="row">
+      <div class="col w3-sidebar w3-bar-block w3-xxlarge" style="max-width:70px">
+        <a href="#/home/boreportviewer/poe5x" class="w3-bar-item w3-button" title="Asset Masters"><i
+            class="Bitter fa fa-th-large"></i></a>
+        <a href="#/home/boreportviewer/ynshc" class="w3-bar-item w3-button red" title="Asset Groups"><i
+            class="Bitter fa fa-object-group"></i></a>
+        <a href="#/home/boreportviewer/yy5km" class="w3-bar-item w3-button" title="PM Masters"><i
+            class="Bitter fa fa-list-alt"></i></a>
+        <a href="#/home/boreportviewer/iqnx7" class="w3-bar-item w3-button" title="pmschedules"><i
+            class="Bitter fa fa-calendar-check-o"></i></a>
+        <a href="#/home/boreportviewer/aecva" class="w3-bar-item w3-button" title="Work Requests"><i
+            class="Bitter fa fa-user-times"></i></a>
+        <a href="#/home/boreportviewer/nd6u7" class="w3-bar-item w3-button" title="Contract Orders"><i
+            class="Bitter fa fa-newspaper-o"></i></a>
+        <a href="#/home/boreportviewer/o22tc" class="w3-bar-item w3-button" title="Work Orders"><i
+            class="Bitter fa fa-first-order"></i></a>
+        <a href="#/home/calendar/odh5o" class="w3-bar-item w3-button" title="Maintenance Calendar"><i
+            class="Bitter fa fa-calendar"></i></a>
+        <a href="#/home/boreportviewer/g3en5" class="w3-bar-item w3-button" title="Asset Transfers"><i
+            class="Bitter fa fa-random"></i></a>
+        <a href="#/home/boreportviewer/g9icd" class="w3-bar-item w3-button" title="Asset Readings"><i
+            class="Bitter fa fa-thermometer"></i></a>
+        <a href="#/home/boreportviewer/ofrfv" class="w3-bar-item w3-button" title="Asset Disposals"><i
+            class="Bitter fa fa-share-square-o"></i></a>
+        <a href="#/home/boreportviewer/gdkyp" class="w3-bar-item w3-button" title="Asset Additions"><i
+            class="Bitter fa fa-cart-plus"></i></a>
+        <a href="#/home/showdashboard/10" class="w3-bar-item w3-button" title=""><i
+            class="Bitter fa fa-pie-chart"></i></a>
+      </div>
+      <div
+         id=contentidarea 
+        class="col">
+        <app-header (toggleMenubar)="toggleMenu()"></app-header>
+        <div id="content" style='height:1000px!important' class="ng-content">
+          <div class="ui-fluid ng-main" [ngClass]="theme">
+            <p-toast position="bottom-right"></p-toast>
+            <!--<div [class.hidden]="!showLoader" class="np-loader">
+          <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+        </div>-->
+            <!--overflow:auto;height:100%;-->
+            <!--position:absolute;width:83%;-->
+            <!--margin-left:16%;  height:80%;-->
+            <!--height:550px;-->
+            <div   id="contentArea1"  
+              
+              class="main container full-height" #contentArea onscroll="scrollFunction1('scrollBtn2','contentArea')">
+              <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+              <router-outlet (activate)="topFunction1('contentArea')"></router-outlet><!-- style="width:100%"-->
+              <button onclick="topFunction1('contentArea')" id="scrollBtn1" title="Go to top"
+                style="display:none">Top</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="container2" style="width:1500px;height:100%;padding-top:55px!important;position:fixed"
+    *ngIf="layout=='VISITOR'">
+    <div class="row">
+
+      <div class="col sidebar">
+        <div class="d-flex flex-column h-100" id="navigation">
+          <a href="index.html" class="mb-0 brand-icon">
+            <span class="logo-icon" style="margin:10px;position: relative;">
+              <svg width="35" height="35" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z">
+                </path>
+                <path
+                  d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z">
+                </path>
+                <path
+                  d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z">
+                </path>
+              </svg>
+            </span>
+            <span class="logo-text">Visitor</span>
+          </a>
+          <!-- Menu: main ul -->
+
+          <ul>
+            <li>
+              <a class="m-link active collapsed" data-bs-toggle="collapse" data-bs-target="#Visitor-Components" href="#"
+                aria-expanded="false">
+                <i class="icofont-home fs-5"></i> <span>Visitor Management</span> <span
+                  class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+              <!-- Menu: Sub menu ul -->
+              <ul id="Visitor-Components">
+                <li><a class="ms-link active" href="#/home/boreportviewer/visit"> <span>Visitors</span></a></li>
+                <li><a class="ms-link" href="#/home/boreportviewer/invit"> <span>Invitations</span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="m-link active collapsed" data-bs-toggle="collapse" data-bs-target="#Workplace-Components"
+                href="#" aria-expanded="false">
+                <i class="icofont-home fs-5"></i> <span>Workplace Management</span> <span
+                  class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+              <!-- Menu: Sub menu ul -->
+              <ul id="Workplace-Components">
+                <li><a class="ms-link active" href="#/home/boreportviewer/place"> <span>Workplaces</span></a></li>
+                <li><a class="ms-link" href="#/home/boreportviewer/book"> <span>Work Place Bookings</span></a></li>
+                <li><a class="ms-link active" href="#/home/boreportviewer/workp"> <span>Work Place Requests</span></a>
+                </li>
+                <li><a class="ms-link" href="#/home/boreportviewer/Parkings"> <span>Parkings</span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a class="m-link active collapsed" data-bs-toggle="collapse" data-bs-target="#Request-Components" href="#"
+                aria-expanded="false">
+                <i class="icofont-home fs-5"></i> <span>Visitor Management</span> <span
+                  class="arrow icofont-dotted-down ms-auto text-end fs-5"></span></a>
+              <!-- Menu: Sub menu ul -->
+              <ul id="Request-Components">
+                <li><a class="ms-link active" href="#/home/boreportviewer/prcel"> <span>Employee Parcels</span></a></li>
+                <li><a class="ms-link" href="#/home/boreportviewer/event"> <span>Events</span></a></li>
+              </ul>
+            </li>
+          </ul>
+
+
+
+          <!-- Menu: menu collepce btn -->
+          <button type="button" class="btn btn-link sidebar-mini-btn text-light">
+            <span class="ms-2"><i class="icofont-bubble-right"></i></span>
+          </button>
+        </div>
+      </div>
+
+
+      <div
+         id=contentidarea 
+        class="col">
+        <app-header (toggleMenubar)="toggleMenu()"></app-header>
+        <div id="content" style='height:1000px!important' class="ng-content">
+          <div class="ui-fluid ng-main" [ngClass]="theme">
+            <p-toast position="bottom-right"></p-toast>
+            <!--<div [class.hidden]="!showLoader" class="np-loader">
+          <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+        </div>-->
+            <!--overflow:auto;height:100%;-->
+            <!--position:absolute;width:83%;-->
+            <!--margin-left:16%;  height:80%;-->
+            <!--height:550px;-->
+            <div   id="contentArea1"  
+              
+              class="main container full-height" #contentArea onscroll="scrollFunction1('scrollBtn2','contentArea')">
+              <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+              <router-outlet (activate)="topFunction1('contentArea')"></router-outlet><!-- style="width:100%"-->
+              <button onclick="topFunction1('contentArea')" id="scrollBtn1" title="Go to top"
+                style="display:none">Top</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container2" style="width:1500px;height:100%;padding-top:80px!important;position:fixed"
+    *ngIf="layout=='PROCURE'">
+    <div>
+      
+      <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">
+                <i class="fa fa-home"></i>
+                Home
+                <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-envelope-o">
+                  <span class="badge badge-danger">11</span>
+                </i>
+                Link
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">
+                <i class="fa fa-envelope-o">
+                  <span class="badge badge-warning">11</span>
+                </i>
+                Disabled
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-envelope-o">
+                  <span class="badge badge-primary">11</span>
+                </i>
+                Dropdown
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav ">
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-bell">
+                  <span class="badge badge-info">11</span>
+                </i>
+                Test
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fa fa-globe">
+                  <span class="badge badge-success">11</span>
+                </i>
+                Test
+              </a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+
+      <div
+         id=contentidarea 
+        class="row">
+        
+        <div id="content" style='height:1000px!important' class="ng-content">
+          <div class="ui-fluid ng-main" [ngClass]="theme">
+            <p-toast position="bottom-right"></p-toast>
+            <!--<div [class.hidden]="!showLoader" class="np-loader">
+          <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+        </div>-->
+            <!--overflow:auto;height:100%;-->
+            <!--position:absolute;width:83%;-->
+            <!--margin-left:16%;  height:80%;-->
+            <!--height:550px;-->
+            <div   id="contentArea1"  
+              
+              class="main container full-height" #contentArea onscroll="scrollFunction1('scrollBtn2','contentArea')">
+              <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+              <router-outlet (activate)="topFunction1('contentArea')"></router-outlet><!-- style="width:100%"-->
+              <button onclick="topFunction1('contentArea')" id="scrollBtn1" title="Go to top"
+                style="display:none">Top</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <app-footer></app-footer>
+</div>

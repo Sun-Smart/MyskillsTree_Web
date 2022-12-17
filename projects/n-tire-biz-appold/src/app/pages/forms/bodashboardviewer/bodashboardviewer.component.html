@@ -1,0 +1,415 @@
+<style type="text/css">
+  /* #divChart {
+    display: block;
+    width: 400px;
+    height: 400px;
+  } */
+
+  .skill_btn {
+    width: 98%;
+    margin: 0px !important;
+    padding: 0px;
+    text-align: left !important;
+    border-radius: 0px !important;
+  }
+
+  .ref_btn2{
+    background-color: #5B9BD5;
+    color: #fff;
+    border-radius: 0px;
+  }
+  .ref_btn1{
+    background-color: #65AE12;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+
+
+  .ref_btn {
+    background-color: #ed7d31;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .res_ref_btn {
+    background-color: #a5a5a5;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .pro_ref_btn {
+    background-color: #ECB50E;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .edu_ref_btn {
+    background-color: #5B9BD5;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .soc_ref_btn {
+    background-color: #65AE12;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .per_ref_btn {
+    background-color: #ed7d31;
+    color: #fff;
+    border-radius: 0px;
+  }
+
+  .breadcrumb {
+    background-color: transparent !important;
+  }
+
+  .breadcrumb li {
+    display: inline-block;
+    padding: 0;
+    position: relative;
+    min-width: 50px;
+    height: fit-content;
+    text-decoration: none;
+    z-index: auto;
+    -webkit-clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 15px 50%);
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 15px 50%);
+    margin-right: -13px;
+  }
+
+  .breadcrumb li#last {
+    -webkit-clip-path: polygon(0 0, calc(100% - 0px) 0, 100% 50%, calc(100% - 0px) 100%, 0 100%, 15px 50%);
+    clip-path: polygon(0 0, calc(100% - 0px) 0, 100% 50%, calc(100% - 0px) 100%, 0 100%, 15px 50%);
+  }
+
+  .breadcrumb li:hover {
+    color: white;
+    background: #fff;
+  }
+
+  .breadcrumb li:first-child {
+    -webkit-clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
+    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
+  }
+
+  .tabbed {
+    overflow-x: hidden;
+  }
+
+  .tabbed [type="radio"] {
+    display: none;
+  }
+
+  .tab {
+    margin-bottom: 1px !important;
+  }
+
+  .tabs {
+    display: flex;
+    align-items: stretch;
+    list-style: none;
+    padding: 0;
+    /* border-bottom: 1px solid #ccc; */
+  }
+
+  .tab>label {
+    display: block;
+    /* margin-bottom: -1px; */
+    padding: 12px 15px;
+    /* border: 1px solid #ccc; */
+    background: #eee;
+    color: #666;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    /* letter-spacing: 1px; */
+    cursor: pointer;
+    /* transition: all 3s; */
+  }
+
+  .tab:hover label {
+    /* border-top-color: gray; */
+    color: #333;
+  }
+
+  .tab-content {
+    display: none;
+    color: #777;
+  }
+
+  .tabbed [type="radio"]:nth-of-type(1):checked~.tabs .tab:nth-of-type(1) label,
+  .tabbed [type="radio"]:nth-of-type(2):checked~.tabs .tab:nth-of-type(2) label,
+  .tabbed [type="radio"]:nth-of-type(3):checked~.tabs .tab:nth-of-type(3) label,
+  .tabbed [type="radio"]:nth-of-type(4):checked~.tabs .tab:nth-of-type(4) label,
+  .tabbed [type="radio"]:nth-of-type(5):checked~.tabs .tab:nth-of-type(5) label,
+  .tabbed [type="radio"]:nth-of-type(6):checked~.tabs .tab:nth-of-type(6) label,
+  .tabbed [type="radio"]:nth-of-type(7):checked~.tabs .tab:nth-of-type(7) label {
+    /* border-bottom-color: #fff; */
+    /* border-top-color: gray; */
+    border-top: 5px solid green;
+    /* border-bottom: 5px solid green; */
+    /* line-height: 34px;
+    margin-bottom: 10px; */
+    /* border: 5px solid #000 !important; */
+    /* transform: scale(2); */
+    /* font-size: 10px; */
+    /* width: 140px; */
+    background: #fff;
+    color: #222;
+  }
+
+  .tabbed [type="radio"]:nth-of-type(1):checked~.tab-content:nth-of-type(1),
+  .tabbed [type="radio"]:nth-of-type(2):checked~.tab-content:nth-of-type(2),
+  .tabbed [type="radio"]:nth-of-type(3):checked~.tab-content:nth-of-type(3),
+  .tabbed [type="radio"]:nth-of-type(4):checked~.tab-content:nth-of-type(4),
+  .tabbed [type="radio"]:nth-of-type(5):checked~.tab-content:nth-of-type(5),
+  .tabbed [type="radio"]:nth-of-type(6):checked~.tab-content:nth-of-type(6),
+  .tabbed [type="radio"]:nth-of-type(7):checked~.tab-content:nth-of-type(7) {
+    display: block;
+  }
+</style>
+<div id="contentArea1" class="main container full-height">
+  <br /> <br /> <br />
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="card" style="background-color: white !important;
+                height: 100% !important;
+                padding: 0px !important;
+                color: black !important;width: 100% !important;">
+          <div class="card-header" style="background-color: #0368b7;
+                color: white;border-radius: 5px 5px 0px 0px;
+                font-size: 15px;font-weight: bold;">
+            User Profile
+          </div>
+          <div class="card-body">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-8 col-sm-7">
+                  <img src="assets/User Profile/status.png" width="90%" style="margin-left:6%;">
+                  <div><canvas id="canvas" width="500px" height="500px"></canvas></div>
+                </div>
+                <div class="col-4 col-sm-5">
+                  <ul class="list-group col">
+                    <li class="list-group-item dash_list"  style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Skillsets.png" width="30px" /> 1.SKILLSETS
+
+                      <img src="assets/User Profile/Complete.png"  *ngIf="isskillcompleted"width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Bending.png" *ngIf="isskillpending" width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Not Started.png" *ngIf="isskillnotstarted" width="27px" style="float: right;" />
+                    </li>
+                    <li id="#tab1" class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Sresum.png" width="30px" /> 2.RESUME
+                      <img src="assets/User Profile/Complete.png" *ngIf="isresumecompleted" width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Bending.png" *ngIf="isresumepending" width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Not Started.png" *ngIf="isresumenotstarted" width="27px" style="float: right;" />
+                    </li>
+                    <li  class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Project.png" width="30px" /> 3.PROJECT
+                      <img src="assets/User Profile/Complete.png" *ngIf="isprojectcompleted" width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Bending.png" *ngIf="isprojectpending" width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Not Started.png" *ngIf="isprojectnotstarted" width="27px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/education.png" width="30px" /> 4.EDUCATION
+                      <img src="assets/User Profile/Complete.png" *ngIf="iseducationcompleted" width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Bending.png" *ngIf="iseducationpending" width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Not Started.png" *ngIf="iseducationnotstarted" width="27px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Social Info.png" width="30px" /> 5.SOCIAL INFO
+                      <img src="assets/User Profile/Complete.png" *ngIf="issocialcompleted" width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Bending.png" *ngIf="issocialpending" width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Not Started.png" *ngIf="issocialnotstarted" width="27px" style="float: right;" />
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Personal.png" width="30px" /> 6.PERSONAL
+                      <img src="assets/User Profile/Complete.png" *ngIf="ispersonalcompleted" width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Bending.png" *ngIf="ispersonalpending" width="27px" style="float: right;" />
+                      <img src="assets/User Profile/Not Started.png" *ngIf="ispersonalnotstarted" width="27px" style="float: right;" />
+                    </li>
+
+                  </ul>
+                  <!-- <ul class="list-group col">
+                    <li class="list-group-item dash_list" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Skillsets.png" width="30px" /> 1.SKILLSETS
+                      <img src="assets/User Profile/Complete.png" width="30px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Sresum.png" width="30px" /> 2.RESUME
+                      <img src="assets/User Profile/Complete.png" width="30px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Project.png" width="30px" /> 3.PROJECT
+                      <img src="assets/User Profile/Complete.png" width="30px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/education.png" width="30px" /> 4.EDUCATION
+                      <img src="assets/User Profile/Bending.png" width="30px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Social Info.png" width="30px" /> 5. SOCIAL INFO
+                      <img src="assets/User Profile/Not Started.png" width="30px" style="float: right;" />
+                    </li>
+                    <li class="list-group-item" style="color: gray;
+                          margin: 5px;
+                          padding: 1px;
+                          border: 1px solid gray;
+                          border-radius: 0px;">
+                      <img src="assets/User Profile/Personal.png" width="30px" /> 6. PERSONAL
+                      <img src="assets/User Profile/Not Started.png" width="30px" style="float: right;" />
+                    </li>
+                  </ul> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ <div style="padding: 8px;"></div>
+      <div class="col">
+        <div class="card" style="background-color: white !important;box-shadow: 0.5px;
+    height: 100% !important;
+    padding: 0px !important;
+    color: black !important;width: 100% !important;
+    margin-left: 15px !important;">
+          <div class="card-header" style="background-color: #0368b7;
+      color: white;height: 43px;
+      text-transform: uppercase;border-radius: 5px 5px 0px 0px;
+      font-size: 20px;">
+            <button type="button" class="btn btn-default" (click)="showmyProfile();" style="background: white;
+            color: #148eeb;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 0px !important;position: relative;left: 74%; margin-left: 5%;">Show My Profile</button>
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="tabbed">
+                <input type="radio" id="tab1" name="css-tabs" checked>
+                <input type="radio" id="tab2" name="css-tabs">
+                <input type="radio" id="tab3" name="css-tabs">
+                <input type="radio" id="tab4" name="css-tabs">
+                <input type="radio" id="tab5" name="css-tabs">
+                <input type="radio" id="tab6" name="css-tabs">
+                <input type="radio" id="tab7" name="css-tabs">
+                <ul class="tabs breadcrumb">
+                  <li class="tab"><label for="tab1"
+                      style="background-color: #ed7d31;color: white;margin-top: 10px;text-transform: unset;">&nbsp; Skill Sets</label></li>
+                  <li class="tab"><label for="tab2"
+                      style="background-color: #a5a5a5;color: white;margin-top: 10px;text-transform: unset;">&nbsp; Resume</label></li>
+                  <li class="tab"><label for="tab3"
+                      style="background-color: #ECB50E;color: white;margin-top: 10px;text-transform: unset;">&nbsp; Project</label></li>
+                  <li class="tab"><label for="tab4"
+                      style="background-color: #5B9BD5;color: white;margin-top: 10px;text-transform: unset;"> &nbsp; Education</label></li>
+                  <li class="tab"><label for="tab5"
+                      style="background-color: #65AE12;color: white;margin-top: 10px;text-transform: unset;"> &nbsp; Social Info</label></li>
+                  <li class="tab"><label for="tab6"
+                      style="background-color: #ED7D31;color: white;margin-top: 10px;text-transform: unset;"> &nbsp; Personal</label></li>
+                      <li class="tab"><label for="tab7"
+                        style="background-color: #32a9ee;color: white;margin-top: 10px;text-transform: unset;"> &nbsp; Release</label></li>
+                </ul>
+                <div class="tab-content">
+                  <button class="btn btn-outline-secondary skill_btn" (click)="showSkills()"><img
+                      src="assets/Skillsets/Skillsets.png" width="40px;" /> What are your relevant skill sets?</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn" (click)="showGeography()"><img src="assets/Skillsets/Located.png"
+                      width="40px;" /> Where are you located?</button><br /><br />
+                  <!-- <button class="btn btn-outline-secondary ref_btn">Release</button> -->
+                </div>
+                <div class="tab-content">
+                  <!-- <button class="btn btn-outline-secondary skill_btn" style="display: none;" (click)="edit_briefmstapplicantmasterss();"><img src="assets/Resume/About.png"
+                      width="40px;" /> Can you provide a elevated pitch about you in 100 words?</button><br /><br /> -->
+                  <button class="btn btn-outline-secondary skill_btn" (click)="uploadmethod()" ><img src="assets/Resume/Resume.png"
+                      width="40px;" /> Upload your Resume[PDF/Word]</button>
+                </div>
+                <div class="tab-content">
+                  <button class="btn btn-outline-secondary skill_btn" (click)="showWorkRef()"><img src="assets/Project/Experince.png"
+                      width="40px;" /> Quantify your work experiences?</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn" (click)="showcareer()"><img src="assets/Project/Key Project.png"
+                      width="40px;" />  Please provide details of Key Projects </button><br />
+                </div>
+                <div class="tab-content">
+                  <button class="btn btn-outline-secondary skill_btn" (click)="showEducation()"><img src="assets/Education/Education.png"
+                      width="40px;" /> What is your educational background?</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn" (click)="showAchievement()"><img
+                      src="assets/Education/Additional Certificates.png" width="40px;" /> Any additional certifications or Achievements?</button>
+                </div>
+                <div class="tab-content">
+                  <button class="btn btn-outline-secondary skill_btn" (click)="showSocial();"><img src="assets/Social Info/Profile.png"
+                      width="40px;" /> Happy to have your Social Media Profile to connect?</button>
+                </div>
+                <div class="tab-content">
+                  <button class="btn btn-outline-secondary skill_btn" (click)="edit_fullpagemstapplicantmasters()"><img src="assets/personal/About you.png"
+                      width="40px;" /> Add a personal touch information about you?</button><br /><br />
+                  <button class="btn btn-outline-secondary skill_btn" (click)="showLanguage()"><img src="assets/personal/Language.png"
+                      width="40px;" /> Share your language proficiencies</button><br /><br />
+                      <!-- <button class="btn btn-outline-secondary ref_btn">Release</button> -->
+                </div>
+
+
+                <div class="tab-content">
+                  <!-- <button class="btn btn-outline-secondary skill_btn" ><img src="assets/personal/About you.png"
+                      width="40px;" /> Add a personal touch information about you?</button><br /><br /> -->
+                  <label  *ngIf="isrelease==false">
+                      Your profile will be actively publishing to Corporate as per your skill match.<br>
+                       click to release </label>
+                      <label  *ngIf="isrelease==true">
+                        Your profile was in released...<br>
+                        click to hide your profile ..!
+                       </label><br /><br />
+                      <button class="btn btn-outline-secondary ref_btn1"  *ngIf="isrelease==false" (click)="releasemethod(true)">Release</button>
+                      <button class="btn btn-outline-secondary ref_btn2" *ngIf="isrelease==true" (click)="releasemethod(false)"> Hide</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

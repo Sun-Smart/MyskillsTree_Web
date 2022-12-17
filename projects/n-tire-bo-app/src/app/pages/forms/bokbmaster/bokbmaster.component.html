@@ -1,0 +1,270 @@
+<form  [formGroup]="bokbmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'KB Masters' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<p-accordionTab header='Basic'  [selected]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'kbcode'; "  for="kbcode" class="control-label">K B Code</label>
+      <input   *ngIf="!showview || editfield=='kbcode'"  id="kbcode"  formControlName="kbcode" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'kbsubject'; "  for="kbsubject" class="control-label required">Subject</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='kbsubject'"  id="kbsubject"  required formControlName="kbsubject" class="form-control"
+        >
+</textarea>
+      <app-field-error-display [displayError]="f.kbsubject.invalid && (f.kbsubject.touched|| isSubmitted)" errorMsg="Enter {{'Subject' | translate}}">
+      </app-field-error-display>
+  </div>
+</div>
+
+
+<!--kbcategory-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'kbcategory'; "  for="kbcategory" class="control-label" (click)="AddOrEditkbcategory(null)" (click)="AddOrEditkbcategory(null)">Category</label>
+      <select  *ngIf="!showview"  id="kbcategory"  (change)="kbcategoryonChange($event.target)" formControlName="kbcategory"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of kbcategoryList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='kbcategory'"  (click)="editfield = 'kbcategory';"  class="form-control labelview">{{f.kbcategorydesc?.value}}</label>
+  </div>
+
+
+<!--kbsubcategory-->
+
+  <div   class="col" ><label (click)="editfield = 'kbsubcategory'; "  for="kbsubcategory" class="control-label" (click)="AddOrEditkbsubcategory(null)" (click)="AddOrEditkbsubcategory(null)">Subcategory</label>
+      <select  *ngIf="!showview"  id="kbsubcategory"  (change)="kbsubcategoryonChange($event.target)" formControlName="kbsubcategory"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of kbsubcategoryList" value="{{item.subcategoryid}}">{{item.subcategoryname}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='kbsubcategory'"  (click)="editfield = 'kbsubcategory';"  class="form-control labelview">{{f.kbsubcategorydesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'tags'; "  for="tags" class="control-label">Tags</label>
+      <input   *ngIf="!showview || editfield=='tags'"  id="tags"  formControlName="tags" class="form-control"
+        >
+  </div>
+
+
+<!--icon-->
+
+  <div   class="col" ><label (click)="editfield = 'icon'; "  for="icon" class="control-label">Icon</label>
+      <select  *ngIf="!showview"  id="icon"  (change)="icononChange($event.target)" formControlName="icon"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of iconList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='icon'"  (click)="editfield = 'icon';"  class="form-control labelview">{{f.icondesc?.value}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'summary'; "  for="summary" class="control-label">Summary</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='summary'"  id="summary"  formControlName="summary" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+</p-accordionTab>
+<p-accordionTab header='Details'  [selected]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'kbdetails'; "  for="kbdetails" class="control-label required">Details</label>
+<p-editor  *ngIf="!showview || editfield=='kbdetails'"  id="kbdetails" formControlName="kbdetails"   required  [style]="{  height: '320' }"></p-editor>      <app-field-error-display [displayError]="f.kbdetails.invalid && (f.kbdetails.touched|| isSubmitted)" errorMsg="Enter {{'Details' | translate}}">
+      </app-field-error-display>
+  </div>
+  </div>
+</p-accordionTab>
+<p-accordionTab header='Information'  [selected]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'markpublic'; "  for="markpublic" class="control-label">Mark Public</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='markpublic'"  id="markpublic"  formControlName="markpublic" class="form-control"
+        >
+  </div>
+  </div>
+
+
+<!--author-->
+
+  <div   class="col" ><label (click)="editfield = 'author'; "  for="author" class="control-label" (click)="AddOrEditauthor(null)">Author</label>
+<app-popupselect  *ngIf="!showview"  [options]="authorList"  [optionsEvent]="authoroptionsEvent" [form]="bousermaster" (selectItem)="onSelectedauthor($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="author" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='author'"  (click)="editfield = 'author';"  class="form-control labelview">{{f.authordesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'publisheddate'; "  for="publisheddate" class="control-label">Published Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='publisheddate'">
+<input #publisheddateformpicker="ngbDatepicker"      ngbDatepicker name="publisheddateformpicker" id="publisheddate"  formControlName="publisheddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='publisheddate'"  (click)="publisheddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='publisheddate'"  (click)="editfield = 'publisheddate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.publisheddate?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'expirationdate'; "  for="expirationdate" class="control-label">Expiration Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='expirationdate'">
+<input #expirationdateformpicker="ngbDatepicker"      ngbDatepicker name="expirationdateformpicker" id="expirationdate"  formControlName="expirationdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='expirationdate'"  (click)="expirationdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='expirationdate'"  (click)="editfield = 'expirationdate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.expirationdate?.value)}}</label>
+  </div>
+</div>
+
+
+<!--language-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'language'; "  for="language" class="control-label">Language</label>
+      <select  *ngIf="!showview"  id="language"  (change)="languageonChange($event.target)" formControlName="language"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of languageList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='language'"  (click)="editfield = 'language';"  class="form-control labelview">{{f.languagedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'rating'; "  for="rating" class="control-label">Rating</label>
+      <p-rating   *ngIf="!showview || editfield=='rating'"  id="rating"  formControlName="rating" class="form-control"
+        >
+</p-rating>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+<p-accordionTab header='Other Details'  [selected]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'comments'; "  for="comments" class="control-label">Comments</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='comments'"  id="comments"  formControlName="comments" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+</p-accordionTab>
+<div *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</div>
+<div *ngIf="attachmentvisible">
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</div>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Accesses</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table bokbaccesses-->
+<div class="row"></div><div [ngClass]="IsbokbaccessesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Accesses' | translate}}
+<select class='child'  id="bokbaccessesPagingdropdown" (change)="bokbaccessesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="showbokbaccessesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblbokbaccessessource (userRowSelect)="handlebokbaccessesGridSelected($event)" [settings]="bokbaccessessettings" (custom)="onCustombokbaccessesAction($event)" [source]="bokbaccessessource"  >
+</ng2-smart-table>
+</div>
+  <!--End of child table bokbaccesses-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Topics</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table bokbtopics-->
+<div class="row"></div><div [ngClass]="IsbokbtopicsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Topics' | translate}}
+<select class='child'  id="bokbtopicsPagingdropdown" (change)="bokbtopicsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="bokbtopicsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showbokbtopicsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblbokbtopicssource (userRowSelect)="handlebokbtopicsGridSelected($event)" [settings]="bokbtopicssettings" (custom)="onCustombokbtopicsAction($event)" [source]="bokbtopicssource"  (delete)="bokbtopicsroute($event,'delete')"  (deleteConfirm)="bokbtopicsroute($event,'delete')" (create)="bokbtopicsroute($event,'create')"   (createConfirm)="bokbtopicsbeforesave($event)"  (edit)="bokbtopicsroute($event,'edit')"  (editConfirm)="bokbtopicsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table bokbtopics-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.kbid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.kbid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

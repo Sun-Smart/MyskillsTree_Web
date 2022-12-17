@@ -1,0 +1,137 @@
+<form  [formGroup]="prjconfigurationitemForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Configuration Items' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'description'; "  for="description" class="control-label">Description</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='description'"  id="description"  formControlName="description" class="form-control"
+        placeholder="{{'Description' | translate}}">
+</textarea>
+  </div>
+</div>
+
+
+<!--type-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'type'; "  for="type" class="control-label">Type</label>
+      <select  *ngIf="!showview"  id="type"  (change)="typeonChange($event.target)" formControlName="type"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of typeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='type'"  (click)="editfield = 'type';"  class="form-control labelview">{{f.typedesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'manufacturerdetails'; "  for="manufacturerdetails" class="control-label">Manufacturer Details</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='manufacturerdetails'"  id="manufacturerdetails"  formControlName="manufacturerdetails" class="form-control"
+        placeholder="{{'Manufacturer Details' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'version'; "  for="version" class="control-label">Version</label>
+      <input   *ngIf="!showview || editfield=='version'"  id="version"  formControlName="version" class="form-control"
+        placeholder="{{'Version' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'locationid'; "  for="locationid" class="control-label">Location</label>
+      <input   *ngIf="!showview || editfield=='locationid'"  id="locationid"  formControlName="locationid" class="form-control"
+        placeholder="{{'Location' | translate}}">
+  </div>
+
+
+<!--currentstatus-->
+
+  <div   class="col" ><label (click)="editfield = 'currentstatus'; "  for="currentstatus" class="control-label">Current Status</label>
+      <select  *ngIf="!showview"  id="currentstatus"  (change)="currentstatusonChange($event.target)" formControlName="currentstatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of currentstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='currentstatus'"  (click)="editfield = 'currentstatus';"  class="form-control labelview">{{f.currentstatusdesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'linkeditems'; "  for="linkeditems" class="control-label">Linked Items</label>
+      <input   *ngIf="!showview || editfield=='linkeditems'"  id="linkeditems"  formControlName="linkeditems" class="form-control"
+        placeholder="{{'Linked Items' | translate}}">
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'documentationlink'; "  for="documentationlink" class="control-label">Documentation Link</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='documentationlink'"  id="documentationlink"  formControlName="documentationlink" class="form-control"
+        placeholder="{{'Documentation Link' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'licensedetails'; "  for="licensedetails" class="control-label">License Details</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='licensedetails'"  id="licensedetails"  formControlName="licensedetails" class="form-control"
+        placeholder="{{'License Details' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'owner'; "  for="owner" class="control-label">Owner</label>
+      <input   *ngIf="!showview || editfield=='owner'"  id="owner"  formControlName="owner" class="form-control"
+        placeholder="{{'Owner' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'supplier'; "  for="supplier" class="control-label">Supplier</label>
+      <input   *ngIf="!showview || editfield=='supplier'"  id="supplier"  formControlName="supplier" class="form-control"
+        placeholder="{{'Supplier' | translate}}">
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'history'; "  for="history" class="control-label">History</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='history'"  id="history"  formControlName="history" class="form-control"
+        placeholder="{{'History' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-info" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-info" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.itemid!.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.itemid!.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

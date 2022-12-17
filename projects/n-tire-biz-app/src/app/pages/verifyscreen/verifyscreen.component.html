@@ -1,0 +1,50 @@
+<nav class="navbar fixed-top navbar-expand-md custom-navbar navbar-dark">
+    <img class="navbar-brand logo" src="assets/companylogo.png" id="logo_custom" width="10%" alt="logo">
+</nav>
+<div class="container-fluid register">
+    <div class="row">
+        <div class="col-md-6 register-left">
+            <img src="assets/register.png" alt="MySkillTree" />
+        </div>
+        <div class="col-md-6 register-right">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">Login with OTP</h3><br /><br />
+                    <h4 class="custom_header">We have sent to the OTP on Registered Mobile Number and Email ID.</h4>
+                   <!-- <form [formGroup]="otpForm"> -->
+                    <div class="register-form">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <span>Mobile OTP</span>
+                                    <input type="text" name="mobileotp" formControlName="mobileotp" [(ngModel)]="mobileotp" [ngModelOptions]="{standalone: true}" class="form-control input-sm"
+                                        placeholder="Mobile OTP">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12" style="margin-bottom: 1rem;">
+                                <div class="form-group">
+                                    <span>Email OTP</span>
+                                    <input type="text" name="emailotp" formControlName="emailotp"  [(ngModel)]="emailotp" [ngModelOptions]="{standalone: true}" class="form-control input-sm"
+                                        placeholder="Email OTP">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label><input  type="checkbox" value="" id="flexCheckDefault">&nbsp; <span class="custom_header">I accept MySkillsTree's General Terms & Conditions and acknowledge the Privacy Policy.</span></label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <button class="btn btn-info btn-block register_btn" type="button" (click)="clickCOntinue()">CONTINUE</button>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <br/>
+                                <button class="btn btn-info btn-block cancel_btn" (click)="backLogin()">CANCEL</button>
+                            </div>
+                        </div>
+                    </div>
+                   <!-- </form> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

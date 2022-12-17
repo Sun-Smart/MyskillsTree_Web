@@ -1,0 +1,192 @@
+<form [formGroup]="umsclassscheduleForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Class Schedule' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col"><label for="courseid" class="control-label" (click)="AddOrEditcourseid(null)">{{'courseid'
+                | translate}}</label>
+              <select id="courseid" (change)="courseidonChange($event.target)" formControlName="courseid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of courseidList" value="{{item.courseid}}">{{item.coursename}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="semesterid" class="control-label"
+                (click)="AddOrEditsemesterid(null)">{{'Semester' | translate}}</label>
+              <select id="semesterid" (change)="semesteridonChange($event.target)" formControlName="semesterid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of semesteridList" value="{{item.semesterid}}">{{item.description}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="topicid" class="control-label" (click)="AddOrEdittopicid(null)">{{'Topic' |
+                translate}}</label>
+              <select id="topicid" (change)="topicidonChange($event.target)" formControlName="topicid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of topicidList" value="{{item.topicid}}">{{item.description}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="sectionid" class="control-label" (click)="AddOrEditsectionid(null)">{{'Section'
+                | translate}}</label>
+              <select id="sectionid" (change)="sectionidonChange($event.target)" formControlName="sectionid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of sectionidList" value="{{item.sectionid}}">{{item.sectionname}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="startdate" class="control-label">{{'Start Date' | translate}}</label>
+              <div class="input-group">
+                <input #startdateformpicker="ngbDatepicker" ngbDatepicker name="startdateformpicker" id="startdate"
+                  formControlName="startdate" class="form-control" placeholder="Choose {{'Start Date' | translate}}">
+                <button class="input-group-addon" (click)="startdateformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col">
+              <label for="starttime" class="control-label">{{'Start Time' | translate}}</label>
+              <ngb-timepicker class="form-control timepicker" formControlName="starttime"></ngb-timepicker>
+            </div>
+            <div class="col">
+              <label for="enddate" class="control-label">{{'End Date' | translate}}</label>
+              <div class="input-group">
+                <input #enddateformpicker="ngbDatepicker" ngbDatepicker name="enddateformpicker" id="enddate"
+                  formControlName="enddate" class="form-control" placeholder="Choose {{'End Date' | translate}}">
+                <button class="input-group-addon" (click)="enddateformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col">
+              <label for="endtime" class="control-label">{{'End Time' | translate}}</label>
+              <ngb-timepicker class="form-control timepicker" formControlName="endtime"></ngb-timepicker>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col"><label for="instructorid" class="control-label"
+                (click)="AddOrEditinstructorid(null)">{{'Instructor' | translate}}</label>
+              <select id="instructorid" (change)="instructoridonChange($event.target)" formControlName="instructorid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of instructoridList" value="{{item.instructorid}}">{{item.name}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="alternateinstructorid" class="control-label"
+                (click)="AddOrEditalternateinstructorid(null)">{{'Alternate Instructor' | translate}}</label>
+              <select id="alternateinstructorid" (change)="alternateinstructoridonChange($event.target)"
+                formControlName="alternateinstructorid" class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of alternateinstructoridList" value="{{item.instructorid}}">{{item.name}}
+                </option>
+              </select>
+            </div>
+            <div class="col"><label for="roomid" class="control-label" (click)="AddOrEditroomid(null)">{{'Room' |
+                translate}}</label>
+              <select id="roomid" (change)="roomidonChange($event.target)" formControlName="roomid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of roomidList" value="{{item.roomid}}">{{item.code}}</option>
+              </select>
+            </div>
+            <div class="col"></div>
+          </div>
+          <div class="sticky"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            Custom Fields</div>
+          <div class="form-group row"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+          </div>
+          <div class="sticky">Attachments</div>
+          <div class="form-group row">
+            <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+              <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}"
+                target="_blank">{{fld!.value!.value}} | </a>
+            </ng-container>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic"
+              url="{{URL}}" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+            <ng-container *ngFor="let fld of attachmentlist">
+              <div class="col">
+                <label class="control-label"></label>
+                <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+                  mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+              </div>
+            </ng-container>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Attendance</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table umsattendances-->
+          <div class="row"></div>
+          <div [ngClass]="IsumsattendancesVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Attendance' | translate}}
+              <select class='child' id="umsattendancesPagingdropdown"
+                (change)="umsattendancesPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="showumsattendancesFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblumsattendancessource (userRowSelect)="handleumsattendancesGridSelected($event)"
+              [settings]="umsattendancessettings" [source]="umsattendancessource">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table umsattendances-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.scheduleid!.value != null" [menuid]="pmenuid" [value]="f.scheduleid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

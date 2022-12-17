@@ -1,0 +1,60 @@
+<div class="dialog">
+  <form [formGroup]="erpquotationpaymenttermForm" class="frm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row">
+      <h1 class="sticky1">Quotation Payment Terms</h1>
+    </div>
+    <pre><br/></pre>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="customerid" class="control-label">Customer</label>
+          <input id="customerid" formControlName="customerid" class="form-control" placeholder="Customer">
+        </div>
+        <div class="col">
+          <label for="rfqid" class="control-label">R F Q</label>
+          <input id="rfqid" formControlName="rfqid" class="form-control" placeholder="R F Q">
+        </div>
+        <div class="col"><label for="paymenttermtype" class="control-label">Paymentterm Type</label>
+          <select id="paymenttermtype" (change)="paymenttermtypeonChange($event.target)"
+            formControlName="paymenttermtype" class="form-control" placeholder="Paymentterm Type">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of paymenttermtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="percentage" class="control-label">Percentage</label>
+          <input id="percentage" formControlName="percentage" class="form-control" placeholder="Percentage">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="description" class="control-label">Description</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="description" formControlName="description"
+            class="form-control" placeholder="Description">
+</textarea>
+        </div>
+        <div class="col">
+          <label for="amount" class="control-label">Amount</label>
+          <input id="amount" formControlName="amount" class="form-control" placeholder="Amount">
+        </div>
+        <div class="col">
+          <label for="supplierid" class="control-label">Supplier</label>
+          <input id="supplierid" formControlName="supplierid" class="form-control" placeholder="Supplier">
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.paytermid!.value != null" [menuid]="pmenuid" [value]="f.paytermid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

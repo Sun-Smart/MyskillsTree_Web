@@ -1,0 +1,97 @@
+<div class="dialog">
+  <form [formGroup]="hrmsmprapplicantForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col"><label for="applicantid" class="control-label"
+              (click)="AddOrEditapplicantid(null)">{{'Applicant' | translate}}</label>
+            <app-popupselect *ngIf="!showview" [options]="applicantidList" [optionsEvent]="applicantidoptionsEvent"
+              [form]="hrmsapplicantmaster" (selectItem)="onSelectedapplicantid($event)" [reportid]=95 [menuid]=95
+              formControlName="applicantid" id="applicantid" desc="applicantname"></app-popupselect>
+            <div class="input-group">
+            </div>
+            <label *ngIf="showview" class="form-control labelview">{{f.applicantiddesc!.value}}</label>
+          </div>
+          <div class="col">
+            <label for="mprapplicantid" class="control-label">{{'M P R Applicant' | translate}}</label>
+            <input *ngIf="!showview" id="mprapplicantid" formControlName="mprapplicantid" class="form-control"
+              placeholder="{{'M P R Applicant' | translate}}">
+            <label *ngIf="showview" class="form-control labelview">{{f.mprapplicantid!.value}}</label>
+          </div>
+          <div class="col">
+            <label for="offerdate" class="control-label">{{'Offer Date' | translate}}</label>
+            <div class="input-group">
+              <input #offerdateformpicker="ngbDatepicker" *ngIf="!showview" ngbDatepicker name="offerdateformpicker"
+                id="offerdate" formControlName="offerdate" class="form-control"
+                placeholder="Choose {{'Offer Date' | translate}}">
+              <button class="input-group-addon" *ngIf="!showview" (click)="offerdateformpicker.toggle()"
+                type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+            <label *ngIf="showview"
+              class="form-control labelview">{{ngbDateParserFormatter.format(f.offerdate!.value)}}</label>
+          </div>
+          <div class="col">
+            <label for="planneddoj" class="control-label">{{'Planned D O J' | translate}}</label>
+            <div class="input-group">
+              <input #planneddojformpicker="ngbDatepicker" *ngIf="!showview" ngbDatepicker name="planneddojformpicker"
+                id="planneddoj" formControlName="planneddoj" class="form-control"
+                placeholder="Choose {{'Planned D O J' | translate}}">
+              <button class="input-group-addon" *ngIf="!showview" (click)="planneddojformpicker.toggle()"
+                type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+            <label *ngIf="showview"
+              class="form-control labelview">{{ngbDateParserFormatter.format(f.planneddoj!.value)}}</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="joineddate" class="control-label">{{'Joined Date' | translate}}</label>
+            <div class="input-group">
+              <input #joineddateformpicker="ngbDatepicker" *ngIf="!showview" ngbDatepicker name="joineddateformpicker"
+                id="joineddate" formControlName="joineddate" class="form-control"
+                placeholder="Choose {{'Joined Date' | translate}}">
+              <button class="input-group-addon" *ngIf="!showview" (click)="joineddateformpicker.toggle()"
+                type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+            </div>
+            <label *ngIf="showview"
+              class="form-control labelview">{{ngbDateParserFormatter.format(f.joineddate!.value)}}</label>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+            <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" placeholder="{{'Remarks' | translate}}"
+              [style]="{  height: '320' }"></p-editor> <label *ngIf="showview"
+              class="form-control labelview">{{f.remarks!.value}}</label>
+          </div>
+        </div>
+        <div *ngIf="attachmentvisible">
+          <p-accordionTab header='Attachment' [selected]='true'>
+            <app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+          </p-accordionTab>
+        </div>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.mrpid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.mrpid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,204 @@
+<form  [formGroup]="boremindermasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Reminder Masters' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+
+
+<!--categoryid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'categoryid'; "  for="categoryid" class="control-label" (click)="AddOrEditcategoryid(null)" (click)="AddOrEditcategoryid(null)">Category</label>
+      <select  *ngIf="!showview"  id="categoryid"  (change)="categoryidonChange($event.target)" formControlName="categoryid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of categoryidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='categoryid'"  (click)="editfield = 'categoryid';"  class="form-control labelview">{{f.categoryiddesc?.value}}</label>
+  </div>
+
+
+<!--subcategoryid-->
+
+  <div   class="col" ><label (click)="editfield = 'subcategoryid'; "  for="subcategoryid" class="control-label" (click)="AddOrEditsubcategoryid(null)">Sub Category</label>
+      <select  *ngIf="!showview"  id="subcategoryid"  (change)="subcategoryidonChange($event.target)" formControlName="subcategoryid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of subcategoryidList" value="{{item.subcategoryid}}">{{item.subcategoryname}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='subcategoryid'"  (click)="editfield = 'subcategoryid';"  class="form-control labelview">{{f.subcategoryiddesc?.value}}</label>
+  </div>
+
+
+<!--priority-->
+
+  <div   class="col" ><label (click)="editfield = 'priority'; "  for="priority" class="control-label">Priority</label>
+      <select  *ngIf="!showview"  id="priority"  (change)="priorityonChange($event.target)" formControlName="priority"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of priorityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='priority'"  (click)="editfield = 'priority';"  class="form-control labelview">{{f.prioritydesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'reminderdate'; "  for="reminderdate" class="control-label">Reminder Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='reminderdate'">
+<input #reminderdateformpicker="ngbDatepicker"      ngbDatepicker name="reminderdateformpicker" id="reminderdate"  formControlName="reminderdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='reminderdate'"  (click)="reminderdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='reminderdate'"  (click)="editfield = 'reminderdate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.reminderdate?.value)}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'remindertime'; "  for="remindertime" class="control-label">Reminder Time</label>
+<ngb-timepicker  *ngIf="!showview || editfield=='remindertime'"  class="form-control timepicker" formControlName="remindertime"  ></ngb-timepicker>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'remindertext'; "  for="remindertext" class="control-label">Reminder Text</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='remindertext'"  id="remindertext"  formControlName="remindertext" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--reminderusertype-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'reminderusertype'; "  for="reminderusertype" class="control-label">User Type</label>
+      <select  *ngIf="!showview"  id="reminderusertype"  (change)="reminderusertypeonChange($event.target)" formControlName="reminderusertype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of reminderusertypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='reminderusertype'"  (click)="editfield = 'reminderusertype';"  class="form-control labelview">{{f.reminderusertypedesc?.value}}</label>
+  </div>
+
+
+<!--scheduletype-->
+
+  <div   class="col" ><label (click)="editfield = 'scheduletype'; "  for="scheduletype" class="control-label">Schedule Type</label>
+      <select  *ngIf="!showview"  id="scheduletype"  (change)="scheduletypeonChange($event.target)" formControlName="scheduletype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of scheduletypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='scheduletype'"  (click)="editfield = 'scheduletype';"  class="form-control labelview">{{f.scheduletypedesc?.value}}</label>
+  </div>
+
+
+<!--reminderdaysbefore-->
+
+  <div   class="col" ><label (click)="editfield = 'reminderdaysbefore'; "  for="reminderdaysbefore" class="control-label">Reminder Days Before</label>
+      <select  *ngIf="!showview"  id="reminderdaysbefore"  (change)="reminderdaysbeforeonChange($event.target)" formControlName="reminderdaysbefore"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of reminderdaysbeforeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='reminderdaysbefore'"  (click)="editfield = 'reminderdaysbefore';"  class="form-control labelview">{{f.reminderdaysbeforedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'alarm'; "  for="alarm" class="control-label">Alarm</label>
+      <input   *ngIf="!showview || editfield=='alarm'"  id="alarm"  formControlName="alarm" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'notes'; "  for="notes" class="control-label">Notes</label>
+      <app-comment   *ngIf="!showview || editfield=='notes'"  id="notes"  formControlName="notes" [label]="'Notes'" 
+        >
+</app-comment>
+  </div>
+</div>
+<div *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</div>
+<div *ngIf="attachmentvisible">
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</div>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Users</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table boreminderusers-->
+<div class="row"></div><div [ngClass]="IsboreminderusersVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Users' | translate}}
+<select class='child'  id="boreminderusersPagingdropdown" (change)="boreminderusersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="boreminderusersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showboreminderusersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblboreminderuserssource (userRowSelect)="handleboreminderusersGridSelected($event)" [settings]="boreminderuserssettings" (custom)="onCustomboreminderusersAction($event)" [source]="boreminderuserssource"  (delete)="boreminderusersroute($event,'delete')"  (deleteConfirm)="boreminderusersroute($event,'delete')" (create)="boreminderusersroute($event,'create')"   (createConfirm)="boreminderusersbeforesave($event)"  (edit)="boreminderusersroute($event,'edit')"  (editConfirm)="boreminderusersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table boreminderusers-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.remindermasterid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.remindermasterid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

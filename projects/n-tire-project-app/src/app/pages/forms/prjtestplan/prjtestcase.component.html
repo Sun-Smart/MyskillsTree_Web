@@ -1,0 +1,56 @@
+<div class="dialog">
+  <form [formGroup]="prjtestcaseForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col">
+            <label for="projectid" class="control-label">Project</label>
+            <input *ngIf="!showview" id="projectid" formControlName="projectid" class="form-control"
+              placeholder="{{'Project' | translate}}">
+          </div>
+          <div class="col">
+            <label for="parentid" class="control-label">Parent</label>
+            <input *ngIf="!showview" id="parentid" formControlName="parentid" class="form-control"
+              placeholder="{{'Parent' | translate}}">
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="details" class="control-label">Details</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="details"
+              formControlName="details" class="form-control" placeholder="{{'Details' | translate}}">
+</textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="notes" class="control-label">Notes</label>
+            <app-comment *ngIf="!showview" id="notes" formControlName="notes" [label]="'Notes'"
+              placeholder="{{'Notes' | translate}}">
+            </app-comment>
+          </div>
+        </div>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.testcaseid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.testcaseid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

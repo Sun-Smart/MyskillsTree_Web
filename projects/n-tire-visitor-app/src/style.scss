@@ -1,0 +1,204 @@
+.sidebar
+{
+  width:100px;
+ // margin-top: 35px!important;
+}
+
+
+#navigation ul {
+  padding-inline-start: 0px;
+  list-style-type: disclosure-open!important;
+  border-right: 1 px;
+  border-color: #79b7e7!important;
+  border-style: dotted;
+
+}
+.nav-ul
+{
+  width:100%!important;
+  background-color: #79b7e7!important;
+  color:#fff!important;
+}
+#navigation ul li{
+//  background-color: #79b7e7!important;
+ // color: #666666!important;
+ color:#666666!important;
+ padding-bottom:4px!important
+}
+#navigation ul li ul li{
+  
+  list-style-type:none;
+  padding-bottom:2px!important;
+  background-color:#EFEFF0!important;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  border: 2px solid blue;
+}
+/*tells the browser how the arrows will appear*/
+
+::-webkit-scrollbar-button:single-button {
+  background-color: var(--color1);
+  height: 13px;
+  width: 13px;
+}
+/* tells the browser how the scrollable 
+handle would look like */
+
+::-webkit-scrollbar-thumb {
+  background: var(--frontcolor);
+}
+/* tells the browser how will the 
+path of the handle will look like */
+
+::-webkit-scrollbar-track {
+  background: var(--backcolor);
+}
+/* works the same as ::-webkit-scrollbar-track 
+    but tells the browser how the path where 
+    the handle is not present currently*/
+/* ::-webkit-scrollbar-track-piece{
+  background: green;
+} */
+/* tells the browser how will the point 
+ where vertical and  horizontal meet will look like*/
+/* ::-webkit-scrollbar-corner{
+  background: orange ;
+  display: solid;
+} */
+/* resizer*/
+.control-label
+{
+ // z-index: 9999;
+  opacity: 1;
+}
+::-webkit-resizer {
+  background: pink;
+}
+#contentArea//,#reportmaincontent
+{
+ overflow: auto !important;
+ position: absolute;
+ height: 88% !important;
+ width: 99% !important;
+ max-width: 100% !important;
+} 
+#reportmaincontent
+{
+ position: absolute;
+ height: 85% !important;
+ width: 100% !important;
+}
+ .table-container {
+ //  height: 600px;
+   scrollbar-width: medium!important;
+
+   overflow-y: auto;
+   overflow-x: auto;
+  // position: absolute!important;
+   width: 99%!important;;
+   height: 99%!important;;
+ //  border-top: 1px solid #dee2e6;
+ }
+
+.omega .p-datatable .p-datatable-tbody td:nth-child(even) {
+ // background: #ECEADF!important;
+}
+.p-accordion-header {
+  margin-top: 20px!important;
+  box-shadow: -5px -5px 10px;
+}
+/*
+label {
+  position: absolute;
+  font-size: small;
+  top: -12px;
+  left:25px;
+  margin-left:5px!important;
+  margin-right:5px!important;
+  padding-left:5px!important;
+  padding-right:5px!important;
+  background-color:#FCFDFD;
+  border-left:1px;
+  border-top:1px;
+  border-right:1px;
+  border-bottom:0px;
+  z-index:1;
+  -webkit-transition: top 0.2s ease-in-out, font-size 0.2s ease-in-out;
+  transition: top 0.2s ease-in-out, font-size 0.2s ease-in-out;
+}
+*/
+body {
+color:#1f1f1f!important;
+
+}
+::placeholder,:-ms-input-placeholder,::-ms-input-placeholder,.form-control
+{
+  color:#eceadf!important;
+}
+.container
+{
+  background-color: #eceadf;
+  max-width:1500px!important;
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: #453821!important;
+}
+.omega,.body
+{
+  --backcolor:#79b7e7!important;//
+--frontcolor:#666666!important;
+color:#4F16B0!important;
+--color1:#F49320;
+--color2:#4F16B0;
+--color3:rgba(0,0,0,0.9);
+--color4:#AF63CD;
+--color5:#0057e7;
+--backcolor1:#EFEFF0;
+--backcolor2:#DD831D;
+--backcolor3:#F0F0F0;
+--backcolor4:#F1F1F1;
+--backcolor5:#0057e7;
+}
+$color1:#1f1f1f;
+$color2:#D38A3B;
+$color3:#7CB342;
+$color4:#008744;
+$color5:#0057e7;
+/*
+.nav-tabs {
+  background: beige;
+
+}
+
+.nav-tabs  {
+	border: 4px solid transparent;
+	margin-bottom:15px!important;
+}
+
+.nav-tabs li a {
+	margin: 0 2px;
+	background-color: #1f1f1f;
+	color: #74777b;
+	transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-tabs  li a:hover,
+.nav-tabs  li a:focus {
+	color: #2CC185;
+}
+
+.nav-tabs  li a span {
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 500;
+	font-size: 0.6em;
+}
+
+.nav-tabs  li.tab-current a {
+	background: #eceadf;
+	color: #fff;
+}
+*/

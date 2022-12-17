@@ -1,0 +1,930 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+//@import '../node_modules/primeng/resources/themes/luna-pink/theme.css';
+@import '../../../node_modules/primeng/resources/primeng.min.css';
+@import '~primeicons/primeicons.css';
+@import 'var.scss';
+@import 'theme.scss';
+@import 'layout-light.css';
+@import 'theme-light.css';
+
+.border
+{
+border:1px solid var(--primary);
+//`color: var(--secondary)!important;
+//background-color: var(--primary);
+}
+
+.ng2-smart-titles,.ng2-smart-sort-link,.ng2-smart-th
+{
+  color: var(--frontcolor)!important;
+  background-color: var(--backcolor);
+}
+p.small {
+  height: 5px;
+}
+
+.bluecolor
+{
+  color:var(--blue);
+}
+.primary
+{
+  color:var(--primary);
+}
+.secondary
+{
+  color:var(--secondary);
+}
+.success
+{
+  color:var(--success);
+}
+.info
+{
+  color:var(--info);
+}
+.warning
+{
+  color:var(--warning);
+}
+.danger
+{
+  color:var(--danger);
+}
+.light
+{
+  color:var(--light);
+}
+.dark
+{
+  color:var(--dark);
+}
+.large{
+font-size:20px;
+}
+.teal
+{
+  background-color:teal;
+  width:100%;
+  padding:0;
+  margin:0;
+}
+.red
+{
+  background-color:red;
+  color:white;
+  width:100%;
+  padding:0;
+  margin:0;
+}
+
+.indigo
+{
+  background-color:indigo;
+  width:100%;
+  padding:0;
+  margin:0;
+}
+
+.yellow
+{
+  background-color:yellow;
+  width:100%;
+  padding:0;
+  margin:0;
+}
+
+.brown
+{
+  background-color:brown;
+  width:100%;
+  padding:0;
+  margin:0;
+}
+
+.green
+{
+  background-color:green;
+  width:100%;
+  padding:0;
+  margin:0;
+}
+
+.orange
+{
+  background-color:orange;
+  width:100%;
+  padding:0;
+  margin:0;
+}
+
+.blue
+{
+  background-color:blue;
+  width:100%;
+  padding:0;
+  margin:0;
+}
+
+.pink
+{
+  background-color:pink;
+  width:100%;
+  padding:0;
+  margin:0;
+}
+.magenta
+{
+  background-color:magenta;
+  width:100%;
+  padding:0;
+  margin:0;
+}
+
+.dashboardcard .p-datatable
+{
+  height: 200px !important;
+}
+.ssgicon
+{
+  font-family: "ssgicons";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* You can be more comfortable with increased icons size */
+  /* font-size: 118%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+.cal-header,.cal-days
+{
+  background-color: #003C5E;
+    color: white;
+    opacity: 1.0;
+}
+.cal-month-view .cal-cell-row:hover {
+  background-color: #007bff; }
+  .cal-month-view .cal-day-cell.cal-weekend .cal-day-number,.cal-weekend,.cal-week-view .cal-header.cal-weekend span {
+    color: yellowgreen; }
+    .cal-week-view .cal-hour-odd,.cal-day-view .cal-hour:nth-child(odd) {
+      background-color: #007bff; }
+
+      .cal-month-view .cal-cell-row .cal-cell:hover, .cal-month-view .cal-cell.cal-has-events.cal-open
+      {
+        color:#000;
+        background-color:#fff;
+      }
+      .cal-day-cell.cal-today {
+        color:#007bff; }
+        .cal-week-view .cal-header.cal-today {
+          color:#007bff;
+      }
+        .cal-month-view .cal-day-cell.cal-out-month .cal-day-number {
+          opacity: 0.3;
+        }   
+        
+        .right
+        {
+          position: absolute!important;
+          right: 0px!important;
+         
+        }
+
+dynamic-form-builder
+{
+  margin-left: 100px!important;
+}
+
+/** Gallery 2 css **/
+
+.image-container,.iv-image
+{
+  position:absolute!important;
+  top:30px!important;
+  
+}
+.iv-image
+{
+  height: auto!important;
+  width: auto!important;
+  left:40px!important;
+}
+.inline-icon
+{
+  display: table-caption!important;
+  
+}
+
+.folder {background-image: url("http://localhost:5002/MyResources/folder.webp");height: 48px;width: 48px;display: inline-block;}
+
+.file {background-image: url("http://localhost:5002/MyResources/file.png");height: 48px;width: 48px;display: inline-block;}
+
+.flagInput .flag { 
+  background-image: url('http://localhost:5002/MyResources/flags_boi3c5.png') !important; 
+  background: url('http://localhost:5002/MyResources/flags_boi3c5.png') !important; 
+}
+.telephone
+{
+  padding: 0px!important;
+  margin: 0px!important;
+}
+.telephone > .form-control
+{
+border: none !important;
+}
+.ql-toolbar.ql-snow {
+  border: 1px solid #ccc!important;
+}
+.general,.starred,.unstarred{
+  color: var(--frontcolor)!important;
+  //background-color: var(--backcolor);
+}
+.cardclass
+{
+  background-color: var(--backcolor)!important;
+  color: var(--frontcolor)!important;
+}
+.cardtable .icon{
+  mix-blend-mode: luminosity!important;
+}
+.p-panelmenu-header-link
+{
+  background-color:inherit!important; //var(--backcolor)!important;
+  color:inherit!important; // var(--frontcolor)!important;
+}
+
+.cardrow
+{
+//display: inline-flex!important;
+min-width:100%!important;
+}
+.col4
+{
+  min-width:33.33%!important;
+}
+.col6
+{
+  min-width:50%!important;
+}
+.col3
+{
+  min-width:25%!important;
+}
+.nowrap{
+  flex-wrap: nowrap!important;
+}
+.row1
+{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hidden
+{
+  display:hidden;
+}
+
+.ngb-tp-input-container .btn{
+  padding: 0px!important;
+  margin: 0px!important;
+  font-size: .75rem!important;
+}
+.hrms:before{
+  content: "\f0c4";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: inherit;
+};
+
+/*
+.visitormanagement {background-image: url("http://localhost:5002/MyResources/visitormanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.invoice {background-image: url("http://localhost:5002/MyResources/invoice.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.gettingstarted {background-image: url("http://localhost:5002/MyResources/gettingstarted.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.workflow {background-image: url("http://localhost:5002/MyResources/workflow.webp");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.grievancesystem {background-image: url("http://localhost:5002/MyResources/grievancesystem.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.legalmanagement {background-image: url("http://localhost:5002/MyResources/legalmanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.assetmanagement {background-image: url("http://localhost:5002/MyResources/assetmanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.sunsmart {background-image: url("http://localhost:5002/MyResources/sunsmart.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.backoffice {background-image: url("http://localhost:5002/MyResources/backoffice.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.crm {background-image: url("http://localhost:5002/MyResources/crm.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.performancemanagement {background-image: url("http://localhost:5002/MyResources/performancemanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.hospitalmanagement {background-image: url("http://localhost:5002/MyResources/hospitalmanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.hrms {background-image: url("http://localhost:5002/MyResources/hrms.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.learningmanagement {background-image: url("http://localhost:5002/MyResources/learningmanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.fleetmanagement {background-image: url("http://localhost:5002/MyResources/fleetmanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.tnsamb {background-image: url("http://localhost:5002/MyResources/tnsamb.webp");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.sunsmartsystem {background-image: url("http://localhost:5002/MyResources/sunsmartsystem.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.procurement {background-image: url("http://localhost:5002/MyResources/procurement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.reports {background-image: url("http://localhost:5002/MyResources/reports.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.dashboards {background-image: url("http://localhost:5002/MyResources/dashboards.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.customforms {background-image: url("http://localhost:5002/MyResources/customforms.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.finance {background-image: url("http://localhost:5002/MyResources/finance.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.propertymanagement {background-image: url("http://localhost:5002/MyResources/propertymanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.loyaltymanagement {background-image: url("http://localhost:5002/MyResources/loyaltymanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.mybiz {background-image: url("http://localhost:5002/MyResources/mybiz.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.helpdesk {background-image: url("http://localhost:5002/MyResources/helpdesk.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.complaintmanagement {background-image: url("http://localhost:5002/MyResources/complaintmanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.recordmanagement {background-image: url("http://localhost:5002/MyResources/recordmanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.contentmanagement {background-image: url("http://localhost:5002/MyResources/contentmanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.leadmanagement {background-image: url("http://localhost:5002/MyResources/leadmanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.projectmanagement {background-image: url("http://localhost:5002/MyResources/projectmanagement.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+.xxx {background-image: url("http://localhost:5002/MyResources/xxx.png");height: 16px;width: 16px;display: inline-block;mix-blend-mode: difference;filter:brightness(2)!important;}
+*/
+.ng-header
+{
+height: 30px!important;
+}
+h1{
+font-size: 1.75rem!important;
+}
+.p-megamenu
+{
+    padding:0px;
+    line-height: 1;
+}
+/*
+  ::-webkit-scrollbar {
+    //width: 15px;
+    background-color:var(--backcolor)!important;
+    
+    //height:15px;
+    width: 1rem; 
+    height: 1rem; 
+  }
+  */
+  .main
+  {
+    //margin-left:10px!important;
+    position: absolute;
+    
+    height:90%!important;
+    margin-left: 20px;
+  }
+  ::-webkit-scrollbar-corner {
+     width: 1rem; 
+     height: 1rem; 
+    background-color: rgba(186,193,205,.2);
+}
+/*
+  ::-webkit-scrollbar-thumb {   
+    border-radius: .5rem;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color:var(--frontcolor)!important;
+    //background-color:mix(var(--backcolor), var(--frontcolor));
+    background-clip: content-box;
+  }
+*/
+
+  ::-webkit-scrollbar{
+   /* width: 15px;
+    height: 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color:var(--backcolor)!important;*/
+    background-color:var(--backcolor)!important;
+  }
+  
+ ::-webkit-scrollbar-track{
+    
+//    border-radius: 20px;
+//    background-color:var(--backcolor)!important;
+  }
+  ::-webkit-scrollbar-thumb{
+ /*   width: 10px;
+    height: 10px;
+
+    border: 5px solid var(--frontcolor)!important;
+    border-radius: 15px;
+    background-color:var(--frontcolor)!important;
+    */
+    background-color:var(--frontcolor)!important;
+  }
+  .p-dynamicdialog
+  {
+  overflow: hidden!important;
+  display:block;
+    float:left;
+    padding:0px;
+    margin:0px;
+  height:100%;
+  }
+  .layout-wrapper #contentArea
+{
+  overflow: scroll!important;
+  position: absolute;
+    
+  height:90%!important;
+  //margin-left:1%!important; 
+  //width: 100%!important;
+}
+
+.p-dynamicdialog {
+  top: inherit!important;
+  left: inherit!important; 
+}
+.layout-menu-active
+{
+    #contentArea:not(.p-dialog-content)
+{
+    //width: 82%;
+    margin-left:18%!important; 
+    width: 82%!important;
+    overflow: scroll!important;
+    position: absolute;
+    
+    height:90%!important;
+    padding-left: 1%!important;
+}
+
+}
+.p-dialog-content,.p-dynamicdialog
+{
+  height: 100% !important;
+}
+.layout-menu-static:not(.layout-menu-active)
+{
+#contentArea
+{
+  margin-left:1%!important;
+  width:99%;
+  overflow: scroll!important;
+  position: absolute;
+    
+  height:90%!important;
+  padding-left: 1%!important;
+}
+
+}
+
+.p-dialog-content #contentArea
+{
+  margin-left:1%!important;
+  width: 99%;
+  overflow: scroll!important;
+  position: absolute;
+    
+  height:90%!important;
+  padding-left: 1%!important;
+}
+
+#reportmaincontent
+{
+  position: absolute;
+    
+  height:90%!important;
+  margin-left: 20px;
+  overflow-y:scroll!important;overflow-x:scroll!important;scrollbar-width: thin1; 
+  margin-left:18%!important; width: 82%!important;
+
+}
+#reportmaincontent1
+{
+/*  margin-left: 2%;*/
+}
+.container {
+   /* width: 100%;*/
+    max-width:100%!important;
+    padding-right: 0px!important;
+    padding-left: 0px!important;
+    margin-right: 0px!important;
+    margin-left: 0px!important;
+}
+table
+{
+  //max-width: none;
+}
+.sticky1
+{
+    display: flex;
+}   
+
+td{
+    vertical-align: text-top;
+    font-size: 1em!important;
+}
+
+.p-datatable table {
+ //   width: auto!important;
+}
+
+.p-selectbutton,.p-field-checkbox
+{
+    width:1000px;
+}
+.width100
+{
+    width:100%!important;
+}
+.sticky {
+    width: 100%;
+    height:30px;
+    margin:0;
+    left:0;
+    right:0;
+    top:0;//
+    background-color:var(--backcolor)!important;// #00d977;
+    overflow: hidden;
+    //background-image: -webkit-gradient(linear, left top, right top, from(#69c), to(#69c))!important;
+    color: var(--frontcolor)!important;
+
+    display: block;
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 5;  //5
+  //  color: #fff;
+    padding-left: 20px;
+    text-transform: uppercase;
+letter-spacing: 0.4px;
+font-weight: 400;
+
+border: 2px solid transparent;
+  }
+
+  .help-tip{
+    z-index:2!important;
+    right: 18px;
+    text-align: center;
+    background-color: var(--backcolor)!important;
+    color:var(--frontcolor)!important;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 26px;
+    cursor: default;
+  }
+  .help-tip p{
+    z-index:2!important;
+    
+    display:none;
+   // position: absolute;
+    color:white;
+    text-align: center;
+    background-color: var(--backcolor)!important;
+    color:var(--frontcolor)!important;
+    //border-radius: 50%;
+    top:-20px;
+    width: 600px;
+    //height: 24px;
+    font-size: 14px;
+    line-height: 56px;
+    cursor: default;
+  }
+  .help-tip:before{
+    content:'?'!important;
+    font-weight: bold!important;
+    color:#000!important;
+  }
+  
+  .help-tip:hover p{
+    display:block;
+    transform-origin: 100% 0%;
+  
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
+  
+  }
+  
+  .cal-month-view .cal-day-number,.cal-week-view .cal-day-headers{
+    opacity: 0.75;
+  }
+  .cal-day-view .cal-drag-over .cal-hour-segment, .cal-day-view .cal-hour-segment:hover,.cal-week-view .cal-day-headers {
+    color:var(--frontcolor)!important;
+    background-color: var(--backcolor)!important;
+  }
+  .cal-month-view .cal-header .cal-cell{
+    color:var(--frontcolor)!important;
+        background-color:var(--backcolor)!important;
+  }
+
+  .comment-container
+  {
+    background-color:var(--backcolor)!important;
+    color:var(--frontcolor)!important;
+  }
+
+  .comments,.card
+  {
+    color:var(--frontcolor)!important;
+        background-color:var(--backcolor)!important;
+  }
+  .dashboardcard
+  {
+    background-color:var(--backcolor)!important;
+    color:var(--frontcolor)!important;
+  }
+  tag-input
+  {
+    background-color: transparent!important;
+    border: 0!important;
+  }
+.fixedheader
+  {
+    
+    position: fixed!important;
+    top: 0px!important;
+    display: block!important;
+    
+  }
+  .ng-header
+  {
+    height: 50px!important;
+  }
+  
+  
+  .layout-wrapper .second
+  {
+    width:82%!important;padding:2px!important;margin-left: 18%!important;
+    //margin-top: 50px;
+  }
+
+  #contentArea
+  {
+    overflow-y:scroll!important;overflow-x:scroll!important;scrollbar-width: thin1; 
+    //margin-left:16%!important; 
+    //width: 84%!important;
+  }
+  .layout-topbar-logo
+  {
+    color:#fff;
+  }
+
+  .ng-footer
+  {
+    height:10px;
+    color:var(--menu-bg-color)!important;
+    background-color:var(--menu-text-color)!important;
+    position: absolute;
+    bottom: -10px!important;
+  }
+  .p-widget-header
+  {
+    background-color: transparent!important;
+    border: none!important;
+  }
+
+  tfoot tr td{
+    background-color: transparent!important;
+    border: none!important;
+  }
+
+  
+  .cardheader
+  {
+    background-color:var(--menu-text-color);
+    color:var(--menu-bg-color)!important;
+    font-weight:500;
+    padding: 5px;
+    text-align: center;
+  }
+
+  .menu-wrapper
+  {
+    margin-top: 3%!important;
+    max-width:16%!important;
+    top:0;
+  }
+  th {
+    vertical-align: text-top!important;
+
+   // word-break:break-all
+  }
+  td{
+    //word-break:break-all
+  }
+  .form-group {
+    margin-top: 0%;
+    
+  }
+.btn{
+  margin:2px;
+}
+.p-datatable{
+ /* margin: 1%!important;*/
+}
+input[type=checkbox]
+{
+  height:15px!important;
+}
+select
+{
+  display: inline-block !important;
+  padding: 0 10px !important;
+//  height: 30px !important;
+  
+  line-height: 30px !important;
+  //font-size: 1em!important;
+  //border-radius: 25px !important;
+  
+ // background-color: #f1f1f1 !important;
+}
+.search {
+  padding-top:6px;
+  padding-left:2px;
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  //text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+.dialog
+{
+  background-color: white;
+}
+.p-dialog-titlebar
+{
+  background-color: grey!important;
+}
+.p-dynamicdialog
+{
+  //height:100%;
+  max-height: 100%;
+
+  //width:90%;
+  //height:90%;
+  width:100%;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+//  padding: 20px 50px 20px 20px;
+}
+.p-dialog .p-dialog-titlebar-icon {
+  color: #000!important;
+}
+.p-dialog .p-dialog-titlebar {
+padding: 0px!important;
+}
+.p-dynamicdialog {
+  top: 0%;
+  left: 0%;
+  transform:translateX(0%) translateY(0%)!important;
+}
+.btn
+{
+  i{
+    vertical-align: top!important;
+  };
+}
+.sticky1{
+  select{
+    margin-left: 5px;
+    height:40px;
+  }
+}
+.p-treetable table {
+  
+  width: max-content!important;
+}
+.p-datatable table:not(.cardtable) {
+  width: max-content!important;
+    
+  }
+  
+  .cardtable
+{
+  width:1500px!important;
+  th, td {
+    padding: 20px;
+    vertical-align: top;
+}
+}
+  
+  select {
+//height:auto!important;
+  }
+
+
+  ng2-smart-table
+  {
+    table
+    {
+      width:max-content!important;
+      max-width:max-content!important;
+    //  width:auto!important;
+    }
+  }
+
+  .table-container {
+  //  height: 600px;
+    overflow-y: auto;
+    overflow-x: auto;
+  //  border-top: 1px solid #dee2e6;
+  }    
+  
+  ::ng-deep table tr:first-child th {
+    position: sticky !important;
+    top: -1px;
+    z-index: 100;
+    background: white;
+    border: 1px solid #dee2e6;
+  //  height: 58px;
+  }
+
+  label.required::after {
+    content: " *";
+    color: red;
+}
+  
+.nb-theme-default .input-group-addon, .nb-theme-default .form-control .timepicker
+{
+
+  border:0px!important;
+
+}
+.timepicker{
+  & .btn{
+    background:transparent!important;
+    border: 0;
+  }
+}
+.timepicker
+{
+  border:none!important;
+}
+.ngb-tp-input-container
+{
+  & .btn{
+    background:transparent;
+  }
+}
+.ngb-tp-hour
+{
+  height:20px;
+}
+.ngb-tp-minute
+{
+  height:20px;
+}
+.nb-theme-cosmic .input-group-addon, .nb-theme-cosmic .form-control {
+  border: 1px solid white;
+ & .intl-tel-input input{
+      border: 2px solid #342e73;
+      width:100%;
+      margin:0px
+    }
+& .ngb-tp{
+  border: 2px solid #342e73;
+  margin:0px  
+   
+  }    
+}
+
+p-dynamicdialog
+{
+  top:0!important;
+}
+
+
+.menu-wrapper+div 
+{
+  margin-top: 2% !important;
+}
+.card{
+  width: max-content!important;
+}
+::-webkit-input-placeholder {
+  color:transparent!important;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  color:transparent!important; 
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  color:transparent!important; 
+}
+
+:-ms-input-placeholder {  
+  color:transparent!important;
+}

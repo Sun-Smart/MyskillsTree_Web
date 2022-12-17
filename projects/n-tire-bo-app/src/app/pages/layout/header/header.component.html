@@ -1,0 +1,135 @@
+
+
+<div class="layout-topbar ng-header p-shadow-4 ng-tns-c186-0"  [ngClass]="theme" >
+    <div class="layout-topbar-left ng-tns-c186-0" style="margin-top: 6px !important;">
+        
+        <div class="toggle-menu-button left col-1" style="max-width:2%">
+            <a class="icon" (click)="toggleMenu()"><i class="fa fa-bars"></i></a>
+        </div>
+
+        <h1><a routerlink="/" class="layout-topbar-logo ng-tns-c186-0"
+            href="#/">SUNSMART</a></h1>
+
+                <a pripple=""
+            class="layout-topbar-mobile-button ng-tns-c186-0 p-ripple"><i
+                class="pi pi-ellipsis-v fs-large ng-tns-c186-0"></i><span class="p-ink"></span></a></div>
+    <div class="layout-topbar-right ng-tns-c186-0">
+        <div class="layout-topbar-actions-left recents">
+
+         <!--  <p-megaMenu [model]="items" orientation="vertical"></p-megaMenu>--> 
+
+        </div>
+        <div class="layout-topbar-actions-right ng-tns-c186-0">
+            <ul class="layout-topbar-items ng-tns-c186-0">
+                <li class="layout-topbar-item layout-search-item ng-tns-c186-0"><a pripple=""
+                        class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple"><i
+                            class="pi pi-search fs-large ng-tns-c186-0"></i><span class="p-ink"
+                            style="height: 44px; width: 44px;"></span></a>
+                    <!---->
+                </li>
+                <li class="layout-topbar-item notifications ng-tns-c186-0"  ><a pripple=""
+                        class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple" (click)="showNotificationSidebar()"><span
+                            class="p-overlay-badge ng-tns-c186-0"><i class="pi pi-bell fs-large ng-tns-c186-0"></i><span
+                                class="p-badge p-badge-warning p-badge-dot ng-tns-c186-0">{{notifications.length}}</span></span><span
+                            class="p-ink"
+                            style="height: 44px; width: 44px;"></span></a>
+                    <!---->
+                </li>
+                <li class="layout-topbar-item app ng-tns-c186-0"><a pripple=""  (click)="themeChooser.toggle($event)" 
+                        class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple"><i
+                            class="pi pi-table fs-large ng-tns-c186-0"></i><span class="p-ink"
+                            style="height: 44px; width: 44px;" ></span></a>
+                    <!---->
+                </li>
+                <li class="layout-topbar-item ng-tns-c186-0"><a pripple=""
+                        class="layout-topbar-action p-d-flex p-dir-row p-jc-center p-ai-center p-px-2 rounded-circle ng-tns-c186-0 p-ripple"><img
+                            src="http://localhost:5002/MyResources/srimathi.jpg" alt="avatar"
+                            style="width: 32px; height: 32px;" class="ng-tns-c186-0"><span class="p-ink"><!--{{user.code}}--></span></a>
+                    <!---->
+                </li>
+                <li class="layout-topbar-item ng-tns-c186-0"><a pripple=""  (click)="logout()"
+                        class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple"><i
+                            class="pi fs-large ng-tns-c186-0 pi-arrow-right"></i><span class="p-ink"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- user detials overlay panel -->
+<p-overlayPanel #userdetails>
+    <div><b>User Name: </b><i [innerHtml]="user.username"></i></div>
+    <div><b>Code: </b><i [innerHtml]="user.usercode"></i></div>
+    <div><b>Logindate: </b><i [innerHtml]="user.logindate | date:'dd/MM/yyyy'"></i></div>
+</p-overlayPanel>
+
+<!-- notifications sidebar -->
+<p-sidebar [(visible)]="displayNotifications" [(position)]="right">
+    <div *ngFor="let notification of notifications; let i=index" class="notification-message">
+        <div (click)="ShowTask(notification)"><b><i [innerHtml]="notification.targetdate"></i></b><i [innerHtml]="notification.subject"></i></div>
+    </div>
+</p-sidebar>
+
+<!-- theme chooser overlay panel -->
+<p-overlayPanel #themeChooser>
+    <div class="ui-g">
+         
+        <select (change)="selectTheme($event.target.value)">
+            <option value="">Select Theme</option>
+            <option value="cruze">cruze</option>
+            <option value="cupertino">cupertino</option>
+            <option value="darkness">darkness</option>
+            <option value="flick">flick</option>
+            <option value="home">home</option>
+            <option value="kasper">kasper</option>
+            <option value="lightness">lightness</option>
+            <option value="ludvig">ludvig</option>
+            <option value="luna-amber">luna-amber</option>
+            <option value="luna-blue">luna-blue</option>
+            <option value="luna-green">luna-green</option>
+            <option value="luna-pink">luna-pink</option>
+            <option value="nova-colored">nova-colored</option>
+            <option value="nova-light">nova-light</option>
+            <option value="omega">omega</option>
+            <option value="pepper-grinder">pepper-grinder</option>
+            <option value="redmond">redmond</option>
+            <option value="rhea">rhea</option>
+            <option value="rocket">rocket</option>
+            <option value="south-street">south-street</option>
+            <option value="start">start</option>
+            <option value="trontastic">trontastic</option>
+            <option value="voclain">voclain</option>
+        </select>    
+    
+    <!--
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('blue-theme')" style="background-color:#517fa4"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('grey-theme')" style="background-color:#C0C0C0"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('pink-theme')" style="background-color:#BD7CB4"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('green-theme')"
+                style="background-color:#668014"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('orange-theme')"
+                style="background-color:#D8552E"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('brown-theme')"
+                style="background-color:#2E0000"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('cupertino')"
+                style="background-color:#2E0000"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('cruze')"
+                style="background-color:#2E0000"></button>
+        </div>
+    -->
+    </div>
+</p-overlayPanel>

@@ -1,0 +1,140 @@
+<form  [formGroup]="boannouncementForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Announcements' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'title'; "  for="title" class="control-label">Title</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='title'"  id="title"  formControlName="title" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'description'; "  for="description" class="control-label">Description</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='description'"  id="description"  formControlName="description" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'scheduledfromdate'; "  for="scheduledfromdate" class="control-label">Scheduled From Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='scheduledfromdate'">
+<input #scheduledfromdateformpicker="ngbDatepicker"      ngbDatepicker name="scheduledfromdateformpicker" id="scheduledfromdate"  formControlName="scheduledfromdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='scheduledfromdate'"  (click)="scheduledfromdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='scheduledfromdate'"  (click)="editfield = 'scheduledfromdate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.scheduledfromdate?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'scheduledfromtime'; "  for="scheduledfromtime" class="control-label">Scheduled From Time</label>
+<ngb-timepicker  *ngIf="!showview || editfield=='scheduledfromtime'"  class="form-control timepicker" formControlName="scheduledfromtime"  ></ngb-timepicker>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'scheduledtodate'; "  for="scheduledtodate" class="control-label">Scheduled To Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='scheduledtodate'">
+<input #scheduledtodateformpicker="ngbDatepicker"      ngbDatepicker name="scheduledtodateformpicker" id="scheduledtodate"  formControlName="scheduledtodate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='scheduledtodate'"  (click)="scheduledtodateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='scheduledtodate'"  (click)="editfield = 'scheduledtodate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.scheduledtodate?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'scheduledtotime'; "  for="scheduledtotime" class="control-label">Scheduled To Time</label>
+<ngb-timepicker  *ngIf="!showview || editfield=='scheduledtotime'"  class="form-control timepicker" formControlName="scheduledtotime"  ></ngb-timepicker>
+  </div>
+</div>
+
+
+<!--announcementtype-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'announcementtype'; "  for="announcementtype" class="control-label">Announcement Type</label>
+      <select  *ngIf="!showview"  id="announcementtype"  (change)="announcementtypeonChange($event.target)" formControlName="announcementtype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of announcementtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='announcementtype'"  (click)="editfield = 'announcementtype';"  class="form-control labelview">{{f.announcementtypedesc?.value}}</label>
+  </div>
+
+
+<!--priority-->
+
+  <div   class="col" ><label (click)="editfield = 'priority'; "  for="priority" class="control-label">Priority</label>
+      <select  *ngIf="!showview"  id="priority"  (change)="priorityonChange($event.target)" formControlName="priority"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of priorityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='priority'"  (click)="editfield = 'priority';"  class="form-control labelview">{{f.prioritydesc?.value}}</label>
+  </div>
+
+
+<!--services-->
+
+  <div   class="col" ><label (click)="editfield = 'services'; "  for="services" class="control-label">Services</label>
+      <select  *ngIf="!showview"  id="services"  (change)="servicesonChange($event.target)" formControlName="services"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of servicesList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='services'"  (click)="editfield = 'services';"  class="form-control labelview">{{f.servicesdesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'emailusers'; "  for="emailusers" class="control-label">Email Users</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview || editfield=='emailusers'"  id="emailusers"  formControlName="emailusers" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.emailusers.invalid && (f.emailusers.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+</div>
+
+
+<!--accessibility-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'accessibility'; "  for="accessibility" class="control-label">Accessibility</label>
+      <select  *ngIf="!showview"  id="accessibility"  (change)="accessibilityonChange($event.target)" formControlName="accessibility"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of accessibilityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='accessibility'"  (click)="editfield = 'accessibility';"  class="form-control labelview">{{f.accessibilitydesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div><div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.announcementid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.announcementid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

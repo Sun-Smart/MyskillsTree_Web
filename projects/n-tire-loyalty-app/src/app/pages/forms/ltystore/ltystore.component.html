@@ -1,0 +1,120 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="ltystoreForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Stores' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'name'; "  for="name" class="control-label">Name</label>
+      <input   *ngIf="!showview || editfield=='name'"  id="name"  formControlName="name" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'description'; "  for="description" class="control-label">Description</label>
+      <input   *ngIf="!showview || editfield=='description'"  id="description"  formControlName="description" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'identifier'; "  for="identifier" class="control-label">Identifier</label>
+      <input   *ngIf="!showview || editfield=='identifier'"  id="identifier"  formControlName="identifier" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'address'; "  for="address" class="control-label">Address</label>
+      <app-address   *ngIf="!showview || editfield=='address'"  id="address"  formControlName="address"
+        >
+</app-address>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'contactperson'; "  for="contactperson" class="control-label">Contact Person</label>
+      <input   *ngIf="!showview || editfield=='contactperson'"  id="contactperson"  formControlName="contactperson" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'phone'; "  for="phone" class="control-label">Phone</label>
+      <int-phone-prefix   *ngIf="!showview || editfield=='phone'"  id="phone"  formControlName="phone"  [locale]="'en'" [defaultCountry]="sessionService.getItem('countrycode')"  class="form-control telephone" 
+        >
+</int-phone-prefix>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'email'; "  for="email" class="control-label">Email</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview || editfield=='email'"  id="email"  formControlName="email" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.email.invalid && (f.email.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+
+
+<!--currency-->
+
+  <div   class="col" ><label (click)="editfield = 'currency'; "  for="currency" class="control-label">Currency</label>
+      <select  *ngIf="!showview"  id="currency"  (change)="currencyonChange($event.target)" formControlName="currency"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of currencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='currency'"  (click)="editfield = 'currency';"  class="form-control labelview">{{f.currencydesc?.value}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'totaltransactionvalue'; "  for="totaltransactionvalue" class="control-label">Total Transaction Value</label>
+      <input   *ngIf="!showview || editfield=='totaltransactionvalue'"  id="totaltransactionvalue"  readonly formControlName="totaltransactionvalue" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'totaltransactioncount'; "  for="totaltransactioncount" class="control-label">Total Transaction Count</label>
+      <input   *ngIf="!showview || editfield=='totaltransactioncount'"  id="totaltransactioncount"  readonly formControlName="totaltransactioncount" class="form-control"
+        >
+  </div>
+
+
+<!--merchantid-->
+
+  <div   class="col" ><label (click)="editfield = 'merchantid'; "  for="merchantid" class="control-label" (click)="AddOrEditmerchantid(null)">Merchant</label>
+      <select  *ngIf="!showview"  id="merchantid"  (change)="merchantidonChange($event.target)" formControlName="merchantid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of merchantidList" value="{{item.merchantid}}">{{item.establishmentname}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='merchantid'"  (click)="editfield = 'merchantid';"  class="form-control labelview">{{f.merchantiddesc?.value}}</label>
+  </div>
+<div class="col"></div>
+</div><div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.storeid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.storeid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

@@ -1,0 +1,48 @@
+<div class="dialog">
+  <form [formGroup]="hrmsodadvanceForm" class="frm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row">
+      <h1 class="sticky1">OD Advances</h1>
+    </div>
+    <pre><br/></pre>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col"><label for="currency" class="control-label">Currency</label>
+          <select id="currency" (change)="currencyonChange($event.target)" formControlName="currency"
+            class="form-control" placeholder="Currency">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of currencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="amount" class="control-label">Amount</label>
+          <input id="amount" formControlName="amount" currencyMask
+            [options]="{ prefix: '',precision: 0, thousands: ',', decimal: '.' }" class="form-control"
+            placeholder="Amount">
+        </div>
+        <div class="col"><label for="employeeid" class="control-label"
+            (click)="AddOrEditemployeeid(null)">Employee</label>
+          <div class="input-group">
+            <input id="employeeid" placeholder="" [ngbTypeahead]="employeeid_hrmsemployeesoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedemployeeid($event)" formControlName='employeeid'
+              [resultFormatter]="employeeid_hrmsemployeesformatter">
+            <input readonly id="employeeiddesc" formControlName="employeeiddesc" class="form-control autocompletedesc"
+              placeholder="Employee">
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.odadvanceid!.value != null" [menuid]="pmenuid" [value]="f.odadvanceid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

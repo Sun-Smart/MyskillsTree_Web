@@ -1,0 +1,244 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="lmsresponse_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Responses' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_lmsresponses()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of lmsresponse_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.responseid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.responseid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+      </div>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+
+
+            <!--productgroupid-->
+
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('productgroupid') == -1) && (productgroupidvisible==undefined || productgroupidvisible==true))"
+                style='' class="col-3"><label for="productgroupid" class="control-label"
+                  (click)="AddOrEdit_productgroupid(null)" (click)="AddOrEdit_productgroupid(null)">Product
+                  Group</label>
+                <select *ngIf="!showview" id="productgroupid" (change)="productgroupid_onChange($event.target)"
+                  formControlName="productgroupid" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of productgroupid_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.productgroupiddesc?.value}}</label>
+              </div>
+
+
+              <!--baseresponse-->
+
+              <div
+                *ngIf="((hidelist.indexOf('baseresponse') == -1) && (baseresponsevisible==undefined || baseresponsevisible==true))"
+                style='' class="col-3"><label for="baseresponse" class="control-label">Base Response</label>
+                <select *ngIf="!showview" id="baseresponse" (change)="baseresponse_onChange($event.target)"
+                  formControlName="baseresponse" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of baseresponse_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.baseresponsedesc?.value}}</label>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('customresponse') == -1) && (customresponsevisible==undefined || customresponsevisible==true))"
+                style='' class="col-3 ">
+                <label for="customresponse" class="control-label">Custom Response</label>
+                <label *ngIf="showview" class="labelview">{{f.customresponse?.value}}</label>
+                <input *ngIf="!showview" id="customresponse" formControlName="customresponse" class="form-control">
+              </div>
+              <div *ngIf="((hidelist.indexOf('counter') == -1) && (countervisible==undefined || countervisible==true))"
+                style='' class="col-3 ">
+                <label for="counter" class="control-label">Counter</label>
+                <label *ngIf="showview" class="labelview">{{f.counter?.value}}</label>
+                <input *ngIf="!showview" id="counter" formControlName="counter" class="form-control">
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('movetotrash') == -1) && (movetotrashvisible==undefined || movetotrashvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="movetotrash" class="control-label">Move To Trash</label>
+                  <label *ngIf="showview" class="labelview">{{f.movetotrash?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="movetotrash" formControlName="movetotrash"
+                    class="form-control">
+                </div>
+              </div>
+
+
+              <!--workflowrole-->
+
+              <div
+                *ngIf="((hidelist.indexOf('workflowrole') == -1) && (workflowrolevisible==undefined || workflowrolevisible==true))"
+                style='' class="col-3"><label for="workflowrole" class="control-label"
+                  (click)="AddOrEdit_workflowrole(null)">Work Flow Role</label>
+                <select *ngIf="!showview" id="workflowrole" (change)="workflowrole_onChange($event.target)"
+                  formControlName="workflowrole" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of workflowrole_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.workflowroledesc?.value}}</label>
+              </div>
+
+
+              <!--colorcode-->
+
+              <div
+                *ngIf="((hidelist.indexOf('colorcode') == -1) && (colorcodevisible==undefined || colorcodevisible==true))"
+                style='' class="col-3"><label for="colorcode" class="control-label">Color Code</label>
+                <select *ngIf="!showview" id="colorcode" (change)="colorcode_onChange($event.target)"
+                  formControlName="colorcode" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of colorcode_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.colorcodedesc?.value}}</label>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('tathours') == -1) && (tathoursvisible==undefined || tathoursvisible==true))"
+                style='' class="col-3 ">
+                <label for="tathours" class="control-label">T A T Hours</label>
+                <label *ngIf="showview" class="labelview">{{f.tathours?.value}}</label>
+                <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="tathours">
+                </ngb-timepicker>
+              </div>
+            </div>
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Sub Responses</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table lmssubresponses-->
+            <div [ngClass]="Is_lmssubresponses_Visible()">
+              <!--End-->
+              <h4 class="form-group sticky1  columns left">{{'Sub Responses' | translate}}
+                <select class='child' id="lmssubresponsesPagingdropdown"
+                  (change)="lmssubresponses_Paging($event.target.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="lmssubresponsetoggleOption();lmssubresponses_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                      <li role="separator" class="divider">
+                        <hr>
+                      </li>
+                      <li><a class="dropdown-item" [routerLink]='' (click)="showlmssubresponsesFilter()"><i
+                            class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                      <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <a class="rightside" [routerLink]='' (click)="lmssubresponses_route(null, 'create')"><i
+                    class="fa fa-plus"></i></a>
+              </h4>
+              <ng2-smart-table #tbl_lmssubresponses (userRowSelect)="handle_lmssubresponses_GridSelected($event)"
+                [settings]="lmssubresponses_settings" (custom)="onCustom_lmssubresponses_Action($event)"
+                [source]="tbl_lmssubresponses?.source?.data" (delete)="lmssubresponses_route($event,'delete')"
+                (deleteConfirm)="lmssubresponses_route($event,'delete')"
+                (create)="lmssubresponses_route($event,'create')" (createConfirm)="lmssubresponses_beforesave($event)"
+                (edit)="lmssubresponses_route($event,'edit')" (editConfirm)="lmssubresponses_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table lmssubresponses-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</form>

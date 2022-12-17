@@ -1,0 +1,103 @@
+<div class="dialog">
+  <form [formGroup]="hrmsodtravelForm" class="frm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row">
+      <h1 class="sticky1">OD Travels</h1>
+    </div>
+    <pre><br/></pre>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="traveldate" class="control-label">Travel Date</label>
+          <div class="input-group">
+            <input #traveldateformpicker="ngbDatepicker" ngbDatepicker name="traveldateformpicker" id="traveldate"
+              formControlName="traveldate" class="form-control" placeholder="Choose Travel Date">
+            <button class="input-group-addon" (click)="traveldateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col"><label for="mode" class="control-label">Mode</label>
+          <select id="mode" (change)="modeonChange($event.target)" formControlName="mode" class="form-control"
+            placeholder="Mode">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of modeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="fromdate" class="control-label">From Date</label>
+          <div class="input-group">
+            <input #fromdateformpicker="ngbDatepicker" ngbDatepicker name="fromdateformpicker" id="fromdate"
+              formControlName="fromdate" class="form-control" placeholder="Choose From Date">
+            <button class="input-group-addon" (click)="fromdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="todate" class="control-label">To Date</label>
+          <div class="input-group">
+            <input #todateformpicker="ngbDatepicker" ngbDatepicker name="todateformpicker" id="todate"
+              formControlName="todate" class="form-control" placeholder="Choose To Date">
+            <button class="input-group-addon" (click)="todateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="remarks" class="control-label">Remarks</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remarks" formControlName="remarks"
+            class="form-control" placeholder="Remarks">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="traveldetails" class="control-label">Travel Details</label>
+          <p-editor id="traveldetails" formControlName="traveldetails" placeholder="Travel Details"
+            [style]="{  height: '320' }"></p-editor>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="employeeid" class="control-label"
+            (click)="AddOrEditemployeeid(null)">Employee</label>
+          <div class="input-group">
+            <input id="employeeid" placeholder="" [ngbTypeahead]="employeeid_hrmsemployeesoptions"
+              class="form-control autocomplete" (selectItem)="onSelectedemployeeid($event)" formControlName='employeeid'
+              [resultFormatter]="employeeid_hrmsemployeesformatter">
+            <input readonly id="employeeiddesc" formControlName="employeeiddesc" class="form-control autocompletedesc"
+              placeholder="Employee">
+          </div>
+        </div>
+        <div class="sticky">Attachments</div>
+        <div class="form-group row">
+          <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+            <a (click)="sharedService.showAttachment($event,fld!.value!.value)" target="_blank">{{fld!.value!.value}} | </a>
+          </ng-container>
+          <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+            (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          <ng-container *ngFor="let fld of attachmentlist">
+            <div class="col">
+              <label class="control-label"></label>
+              <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+                mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+            </div>
+          </ng-container>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.odtravelid!.value != null" [menuid]="pmenuid" [value]="f.odtravelid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

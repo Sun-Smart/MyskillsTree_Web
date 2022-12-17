@@ -1,0 +1,105 @@
+<div class="dialog">
+  <form [formGroup]="hrmsadvertisementdetailForm" class="frm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row">
+      <h1 class="sticky1">Advertisement Details</h1>
+    </div>
+    <pre><br/></pre>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="mprid" class="control-label">MPR</label>
+          <input id="mprid" formControlName="mprid" class="form-control" placeholder="MPR">
+        </div>
+        <div class="col"><label for="roleid" class="control-label" (click)="AddOrEditroleid(null)">Role</label>
+          <select id="roleid" (change)="roleidonChange($event.target)" formControlName="roleid" class="form-control"
+            placeholder="Role">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of roleidList" value="{{item.userroleid}}">{{item.userrole}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="quantity" class="control-label">Quantity</label>
+          <input id="quantity" formControlName="quantity" class="form-control" placeholder="Quantity">
+          <app-field-error-display
+            [displayError]="f.quantity.errors!=null && f.quantity.errors.pattern!=null && f.quantity.errors!=undefined && f.quantity.errors.pattern!=undefined  && (f.quantity.touched|| isSubmitted)"
+            errorMsg="Not a valid number">
+          </app-field-error-display>
+          <app-field-error-display
+            [displayError]="f.quantity.errors!=null && f.quantity.errors.min!=null && f.quantity.errors!=undefined && f.quantity.errors.min!=undefined  && (f.quantity.touched|| isSubmitted)"
+            errorMsg="Minimum value have to be entered">
+          </app-field-error-display>
+          <app-field-error-display
+            [displayError]="f.quantity.errors!=null && f.quantity.errors.max!=null && f.quantity.errors!=undefined && f.quantity.errors.max!=undefined  && (f.quantity.touched|| isSubmitted)"
+            errorMsg="Maximum value Exceeded">
+          </app-field-error-display>
+        </div>
+        <div class="col">
+          <label for="media" class="control-label">Media</label>
+          <input id="media" formControlName="media" class="form-control" placeholder="Media">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="mediatype" class="control-label">Media Type</label>
+          <select id="mediatype" (change)="mediatypeonChange($event.target)" formControlName="mediatype"
+            class="form-control" placeholder="Media Type">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of mediatypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="fromdate" class="control-label">From Date</label>
+          <div class="input-group">
+            <input #fromdateformpicker="ngbDatepicker" ngbDatepicker name="fromdateformpicker" id="fromdate"
+              formControlName="fromdate" class="form-control" placeholder="Choose From Date">
+            <button class="input-group-addon" (click)="fromdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="todate" class="control-label">To Date</label>
+          <div class="input-group">
+            <input #todateformpicker="ngbDatepicker" ngbDatepicker name="todateformpicker" id="todate"
+              formControlName="todate" class="form-control" placeholder="Choose To Date">
+            <button class="input-group-addon" (click)="todateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="details" class="control-label">Details</label>
+          <p-editor id="details" formControlName="details" placeholder="Details" [style]="{  height: '320' }">
+          </p-editor>
+        </div>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a (click)="sharedService.showAttachment($event,fld!.value!.value)" target="_blank">{{fld!.value!.value}} | </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.detailid!.value != null" [menuid]="pmenuid" [value]="f.detailid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

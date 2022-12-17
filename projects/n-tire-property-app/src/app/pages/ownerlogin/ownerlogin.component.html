@@ -1,0 +1,79 @@
+<div   *ngIf="!loggedIn"   class="full-height"  style="background-image:url('/assets/background.JPG');background-repeat: no-repeat;background-size: cover;">
+  
+<div class="bg-img">
+  <div class="content">
+    <form [formGroup]="bologinForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')"
+      target="_top" autocomplete="off" novalidate="novalidate">
+
+      <div id="main-wrapper" class="ssg-login-register h-100 d-flex flex-column bg-transparent">
+        <div>
+          <div class="row no-gutters h-100">
+            <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-4 m-auto py-5">
+              <div class="logo text-center mb-2"> <a href="http://ssg.net/index.html" title="ssg"><img src="assets/logo-light.png" alt="ssg"></a> </div>
+              <p class="lead text-center mb-3">We are glad to see you again!</p>
+              
+                <div class="vertical-input-group">
+                  <div class="input-group">
+                    <input  class="form-control" formControlName='username' required="" placeholder="Email or Username">
+                  </div>
+                  <div class="input-group">
+                    <input type="password" class="form-control" formControlName='password' required="" placeholder="Password">
+                  </div>
+                </div>
+                <button class="btn btn-primary btn-block shadow-none my-4" type="submit">Login</button>
+              
+              <p class="text-center text-muted mb-2">Don't have an account? <a class="btn-link" href="http://ssg.net/register-6.html">Sign Up</a></p>
+              <p class="text-center mb-0"><a class="btn-link text-2" href="http://ssg.net/forgot-password-6.html">Forgot Password?</a></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+
+      <!--
+
+      <div class="field">
+        <span class="fa fa-user"></span>
+        <input type="text" required formControlName='username' placeholder="User Name">
+      </div>
+      <div class="field space">
+        <span class="fa fa-lock"></span>
+        <input type="password" class="pass-key" required formControlName='password' placeholder="Password">
+        <span class="show">SHOW</span>
+      </div>
+      <div class="pass">
+        <a href="/#/forgotpassword">Forgot Password?</a>
+      </div>
+      <div class="field">
+        <input type="submit" value="LOGIN">
+      </div>
+    </form>
+    <div class="login">Or login with</div>
+    <div class="links">
+      <div class="facebook">
+        <i class="fab fa-facebook-f"><span>Facebook</span></i>
+      </div>
+      <div class="instagram">
+        <i class="fab fa-instagram"><span>Instagram</span></i>
+      </div>
+    </div>
+    <div class="signup">Don't have account?
+      <a href="#">Signup Now</a>
+    </div>
+
+  -->
+
+</form>
+
+  </div>
+</div>
+
+
+-----
+
+
+
+
+
+</div>

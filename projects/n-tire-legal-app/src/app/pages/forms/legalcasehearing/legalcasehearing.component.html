@@ -1,0 +1,211 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="legalcasehearingForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Hearings' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editlegalcasehearings()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcasehearingtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcasehearingshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.hearingid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.hearingid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link active"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"  ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"  >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('caseid') == -1"  class="col " >
+<label  for="caseid" class="control-label">Case</label>
+      <label *ngIf="showview"     class="labelview">{{f.caseid?.value}}</label>
+      <input   *ngIf="!showview"  id="caseid"  formControlName="caseid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('hearingdate') == -1"  class="col " >
+<label  for="hearingdate" class="control-label">Hearing Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.hearingdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #hearingdateformpicker="ngbDatepicker"      ngbDatepicker name="hearingdateformpicker" id="hearingdate"  formControlName="hearingdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="hearingdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+
+
+<!--lawyerid-->
+
+  <div   *ngIf="hidelist.indexOf('lawyerid') == -1"  class="col" ><label  for="lawyerid" class="control-label" (click)="AddOrEditlawyerid(null)">Lawyer</label>
+<app-popupselect  *ngIf="!showview"  [options]="lawyeridList"  [optionsEvent]="lawyeridoptionsEvent" [form]="legallawyermaster" (selectItem)="onSelectedlawyerid($event)"  [reportid]= 'b4tm2' [menuid]='b4tm2' formControlName="lawyerid" id="lawyerid" desc="lawyername" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.lawyerid?.value}}</label>
+  </div>
+
+
+<!--additionallawyerid1-->
+
+  <div   *ngIf="hidelist.indexOf('additionallawyerid1') == -1"  class="col" ><label  for="additionallawyerid1" class="control-label" (click)="AddOrEditadditionallawyerid1(null)">Additional Lawyer I D1</label>
+<app-popupselect  *ngIf="!showview"  [options]="additionallawyerid1List"  [optionsEvent]="additionallawyerid1optionsEvent" [form]="legallawyermaster" (selectItem)="onSelectedadditionallawyerid1($event)"  [reportid]= 'b4tm2' [menuid]='b4tm2' formControlName="additionallawyerid1" id="lawyerid" desc="lawyername" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.additionallawyerid1?.value}}</label>
+  </div>
+</div>
+
+
+<!--additionallawyerid2-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('additionallawyerid2') == -1"  class="col" ><label  for="additionallawyerid2" class="control-label" (click)="AddOrEditadditionallawyerid2(null)">Additional Lawyer I D2</label>
+<app-popupselect  *ngIf="!showview"  [options]="additionallawyerid2List"  [optionsEvent]="additionallawyerid2optionsEvent" [form]="legallawyermaster" (selectItem)="onSelectedadditionallawyerid2($event)"  [reportid]= 'b4tm2' [menuid]='b4tm2' formControlName="additionallawyerid2" id="lawyerid" desc="lawyername" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.additionallawyerid2?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('remarks') == -1"  class="col " >
+<label  for="remarks" class="control-label">Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.remarks?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="remarks"  formControlName="remarks" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('actiontobetaken') == -1"  class="col " >
+<label  for="actiontobetaken" class="control-label">Action To Be Taken</label>
+      <label *ngIf="showview"     class="labelview">{{f.actiontobetaken?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="actiontobetaken"  formControlName="actiontobetaken" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('nexthearingdate') == -1"  class="col " >
+<label  for="nexthearingdate" class="control-label">Next Hearing Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.nexthearingdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #nexthearingdateformpicker="ngbDatepicker"      ngbDatepicker name="nexthearingdateformpicker" id="nexthearingdate"  formControlName="nexthearingdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="nexthearingdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div><div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+  <!-- child table boexpenses-->
+<div [ngClass]="IsboexpensesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Expenses' | translate}}
+<select class='child'  id="boexpensesPagingdropdown" (change)="boexpensesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='boexpensetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.boexpenseshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="boexpensetoggleOption();boexpensesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="boexpensetoggleOption();showboexpensesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblboexpensessource (userRowSelect)="handleboexpensesGridSelected($event)" [settings]="boexpensessettings" (custom)="onCustomboexpensesAction($event)" [source]="boexpensessource"  (delete)="boexpensesroute($event,'delete')"  (deleteConfirm)="boexpensesroute($event,'delete')" (create)="boexpensesroute($event,'create')"   (createConfirm)="boexpensesbeforesave($event)"  (edit)="boexpensesroute($event,'edit')"  (editConfirm)="boexpensesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table boexpenses-->
+  <!-- child table legalcasehearingdetailnotes-->
+<div [ngClass]="IslegalcasehearingdetailnotesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Notes' | translate}}
+<select class='child'  id="legalcasehearingdetailnotesPagingdropdown" (change)="legalcasehearingdetailnotesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='legalcasehearingdetailnotetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.legalcasehearingdetailnoteshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="legalcasehearingdetailnotetoggleOption();legalcasehearingdetailnotesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="legalcasehearingdetailnotetoggleOption();showlegalcasehearingdetailnotesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbllegalcasehearingdetailnotessource (userRowSelect)="handlelegalcasehearingdetailnotesGridSelected($event)" [settings]="legalcasehearingdetailnotessettings" (custom)="onCustomlegalcasehearingdetailnotesAction($event)" [source]="legalcasehearingdetailnotessource"  (delete)="legalcasehearingdetailnotesroute($event,'delete')"  (deleteConfirm)="legalcasehearingdetailnotesroute($event,'delete')" (create)="legalcasehearingdetailnotesroute($event,'create')"   (createConfirm)="legalcasehearingdetailnotesbeforesave($event)"  (edit)="legalcasehearingdetailnotesroute($event,'edit')"  (editConfirm)="legalcasehearingdetailnotesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table legalcasehearingdetailnotes-->
+  </div>
+</form>

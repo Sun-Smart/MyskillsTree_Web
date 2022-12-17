@@ -1,0 +1,146 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="erpqcdetailForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'qcdetails' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editerpqcdetails()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='erpqcdetailtoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.erpqcdetailshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.qcdetailid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.qcdetailid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('branchid') == -1"  class="col " >
+<label  for="branchid" class="control-label">Branch</label>
+      <label *ngIf="showview"     class="labelview">{{f.branchid?.value}}</label>
+      <input   *ngIf="!showview"  id="branchid"  formControlName="branchid" class="form-control"
+        >
+  </div>
+
+
+<!--grnid-->
+
+  <div   *ngIf="hidelist.indexOf('grnid') == -1"  class="col" ><label  for="grnid" class="control-label" (click)="AddOrEditgrnid(null)">G R N</label>
+<app-popupselect  *ngIf="!showview"  [options]="grnidList"  [optionsEvent]="grnidoptionsEvent" [form]="erpgoodsreceiptmaster" (selectItem)="onSelectedgrnid($event)"  [reportid]= 'yr2iu' [menuid]='yr2iu' formControlName="grnid" id="grnid" desc="grnnumber" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.grnid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('grnnumber') == -1"  class="col " >
+<label  for="grnnumber" class="control-label">G R N Number</label>
+      <label *ngIf="showview"     class="labelview">{{f.grnnumber?.value}}</label>
+      <input   *ngIf="!showview"  id="grnnumber"  formControlName="grnnumber" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('grndetailsid') == -1"  class="col " >
+<label  for="grndetailsid" class="control-label">G R N Details</label>
+      <label *ngIf="showview"     class="labelview">{{f.grndetailsid?.value}}</label>
+      <input   *ngIf="!showview"  id="grndetailsid"  formControlName="grndetailsid" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--qcid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('qcid') == -1"  class="col" ><label  for="qcid" class="control-label" (click)="AddOrEditqcid(null)">Q C</label>
+<app-popupselect  *ngIf="!showview"  [options]="qcidList"  [optionsEvent]="qcidoptionsEvent" [form]="erpqcmaster" (selectItem)="onSelectedqcid($event)"  [reportid]= 'QCR' [menuid]='QCR' formControlName="qcid" id="qcid" desc="qcref" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.qcid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('itemid') == -1"  class="col " >
+<label  for="itemid" class="control-label">Item</label>
+      <label *ngIf="showview"     class="labelview">{{f.itemid?.value}}</label>
+      <input   *ngIf="!showview"  id="itemid"  formControlName="itemid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('uom') == -1"  class="col " >
+<label  for="uom" class="control-label">U O M</label>
+      <label *ngIf="showview"     class="labelview">{{f.uom?.value}}</label>
+      <input   *ngIf="!showview"  id="uom"  formControlName="uom" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('currentdelivery') == -1"  class="col " >
+<label  for="currentdelivery" class="control-label">Current Delivery</label>
+      <label *ngIf="showview"     class="labelview">{{f.currentdelivery?.value}}</label>
+      <input   *ngIf="!showview"  id="currentdelivery"  formControlName="currentdelivery" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('qccleared') == -1"  class="col " >
+<label  for="qccleared" class="control-label">Q C Cleared</label>
+      <label *ngIf="showview"     class="labelview">{{f.qccleared?.value}}</label>
+      <input   *ngIf="!showview"  id="qccleared"  formControlName="qccleared" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('qcfailed') == -1"  class="col " >
+<label  for="qcfailed" class="control-label">Q C Failed</label>
+      <label *ngIf="showview"     class="labelview">{{f.qcfailed?.value}}</label>
+      <input   *ngIf="!showview"  id="qcfailed"  formControlName="qcfailed" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>  </div>
+</form>

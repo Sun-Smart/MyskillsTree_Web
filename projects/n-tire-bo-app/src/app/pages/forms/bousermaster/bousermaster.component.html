@@ -1,0 +1,678 @@
+<form  [formGroup]="bousermasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'User Master' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="username" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+
+
+<!--userroleid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'userroleid'; "  for="userroleid" class="control-label" (click)="AddOrEdituserroleid(null)">User Role</label>
+      <select  *ngIf="!showview"  id="userroleid"  (change)="userroleidonChange($event.target)" formControlName="userroleid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of userroleidList" value="{{item.userroleid}}">{{item.userrole}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='userroleid'"  (click)="editfield = 'userroleid';"  class="form-control labelview">{{f.userroleiddesc?.value}}</label>
+  </div>
+
+
+<!--branchid-->
+
+  <div   class="col" ><label (click)="editfield = 'branchid'; "  for="branchid" class="control-label" (click)="AddOrEditbranchid(null)">Branch</label>
+<app-popupselect  *ngIf="!showview"  [options]="branchidList"  [optionsEvent]="branchidoptionsEvent" [form]="bobranchmaster" (selectItem)="onSelectedbranchid($event)"  [reportid]= 'bxg94' [menuid]='bxg94' formControlName="branchid" id="branchid" desc="branchname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='branchid'"  (click)="editfield = 'branchid';"  class="form-control labelview">{{f.branchiddesc?.value}}</label>
+  </div>
+
+
+<!--departmentid-->
+
+  <div   class="col" ><label (click)="editfield = 'departmentid'; "  for="departmentid" class="control-label" (click)="AddOrEditdepartmentid(null)" (click)="AddOrEditdepartmentid(null)">Department</label>
+      <select  *ngIf="!showview"  id="departmentid"  (change)="departmentidonChange($event.target)" formControlName="departmentid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of departmentidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='departmentid'"  (click)="editfield = 'departmentid';"  class="form-control labelview">{{f.departmentiddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'usercode'; "  for="usercode" class="control-label">User Code</label>
+      <input   *ngIf="!showview || editfield=='usercode'"  id="usercode"  formControlName="usercode" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'username'; "  for="username" class="control-label">User Name</label>
+      <input   *ngIf="!showview || editfield=='username'"  id="username"  formControlName="username" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'shortname'; "  for="shortname" class="control-label">Short Name</label>
+      <input   *ngIf="!showview || editfield=='shortname'"  id="shortname"  formControlName="shortname" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'bio'; "  for="bio" class="control-label">Bio</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='bio'"  id="bio"  formControlName="bio" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'avatar'; "  for="avatar" class="control-label">Avatar</label>
+      <input   *ngIf="!showview || editfield=='avatar'"  id="avatar"  formControlName="avatar" class="form-control"
+        >
+  </div>
+
+
+<!--designation-->
+
+  <div   class="col" ><label (click)="editfield = 'designation'; "  for="designation" class="control-label" (click)="AddOrEditdesignation(null)" (click)="AddOrEditdesignation(null)">Designation</label>
+      <select  *ngIf="!showview"  id="designation"  (change)="designationonChange($event.target)" formControlName="designation"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of designationList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='designation'"  (click)="editfield = 'designation';"  class="form-control labelview">{{f.designationdesc?.value}}</label>
+  </div>
+
+
+<!--reportingto-->
+
+  <div   class="col" ><label (click)="editfield = 'reportingto'; "  for="reportingto" class="control-label" (click)="AddOrEditreportingto(null)">Reporting To</label>
+<app-popupselect  *ngIf="!showview"  [options]="reportingtoList"  [optionsEvent]="reportingtooptionsEvent" [form]="bousermaster" (selectItem)="onSelectedreportingto($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="reportingto" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='reportingto'"  (click)="editfield = 'reportingto';"  class="form-control labelview">{{f.reportingtodesc?.value}}</label>
+  </div>
+
+
+<!--role-->
+
+  <div   class="col" ><label (click)="editfield = 'role'; "  for="role" class="control-label" (click)="AddOrEditrole(null)">Role</label>
+<app-popupselect  *ngIf="!showview"  [options]="roleList"  [optionsEvent]="roleoptionsEvent" [form]="bouserrolemaster" (selectItem)="onSelectedrole($event)"  [reportid]= 'tnf39' [menuid]='tnf39' formControlName="role" id="userroleid" desc="userrole" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='role'"  (click)="editfield = 'role';"  class="form-control labelview">{{f.roledesc?.value}}</label>
+  </div>
+</div>
+<p-accordionTab header='Contact Details'  [selected]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'emailid'; "  for="emailid" class="control-label">Email</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview || editfield=='emailid'"  id="emailid"  formControlName="emailid" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.emailid.invalid && (f.emailid.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'mobilenumber'; "  for="mobilenumber" class="control-label">Mobile Number</label>
+      <int-phone-prefix   *ngIf="!showview || editfield=='mobilenumber'"  id="mobilenumber"  formControlName="mobilenumber"  [locale]="'en'" [defaultCountry]="sessionService.getItem('countrycode')"  class="form-control telephone" 
+        >
+</int-phone-prefix>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'password'; "  for="password" class="control-label">Password</label>
+      <input   *ngIf="!showview || editfield=='password'"  id="password"  formControlName="password" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'nextloginchangepassword'; "  for="nextloginchangepassword" class="control-label">Next Login Change Password</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='nextloginchangepassword'"  id="nextloginchangepassword"  formControlName="nextloginchangepassword" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'validityfrom'; "  for="validityfrom" class="control-label">Validity From</label>
+<div class="input-group" *ngIf="!showview || editfield=='validityfrom'">
+<input #validityfromformpicker="ngbDatepicker"      ngbDatepicker name="validityfromformpicker" id="validityfrom"  formControlName="validityfrom"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='validityfrom'"  (click)="validityfromformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='validityfrom'"  (click)="editfield = 'validityfrom';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.validityfrom?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'validityto'; "  for="validityto" class="control-label">Validity To</label>
+<div class="input-group" *ngIf="!showview || editfield=='validityto'">
+<input #validitytoformpicker="ngbDatepicker"      ngbDatepicker name="validitytoformpicker" id="validityto"  formControlName="validityto"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='validityto'"  (click)="validitytoformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='validityto'"  (click)="editfield = 'validityto';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.validityto?.value)}}</label>
+  </div>
+
+
+<!--educationid-->
+
+  <div   class="col" ><label (click)="editfield = 'educationid'; "  for="educationid" class="control-label" (click)="AddOrEditeducationid(null)" (click)="AddOrEditeducationid(null)">Education</label>
+      <select  *ngIf="!showview"  id="educationid"  (change)="educationidonChange($event.target)" formControlName="educationid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of educationidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='educationid'"  (click)="editfield = 'educationid';"  class="form-control labelview">{{f.educationiddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'usersignature'; "  for="usersignature" class="control-label">User Signature</label>
+<app-attachment #usersignature formControlName="usersignature" [SessionData]="sessiondata"></app-attachment>
+<button  type="button" class="btn" *ngIf="usersignature.getattachmentlist().length > 0"    (click) = "getusersignature()" >Open File</button>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'userphoto'; "  for="userphoto" class="control-label">User Photo</label>
+<app-attachment #userphoto formControlName="userphoto" [SessionData]="sessiondata"></app-attachment>
+<button  type="button" class="btn" *ngIf="userphoto.getattachmentlist().length > 0"    (click) = "getuserphoto()" >Open File</button>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'thumbnail'; "  for="thumbnail" class="control-label">Thumb Nail</label>
+      <input   *ngIf="!showview || editfield=='thumbnail'"  id="thumbnail"  formControlName="thumbnail" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'emailpassword'; "  for="emailpassword" class="control-label">Email Password</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview || editfield=='emailpassword'"  id="emailpassword"  formControlName="emailpassword" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.emailpassword.invalid && (f.emailpassword.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'emailsignature'; "  for="emailsignature" class="control-label">Email Signature</label>
+      <textarea  type="email"  [email]="true" autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='emailsignature'"  id="emailsignature"  formControlName="emailsignature" class="form-control"
+        >
+</textarea>
+      <app-field-error-display [displayError]="f.emailsignature.invalid && (f.emailsignature.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'dateofbirth'; "  for="dateofbirth" class="control-label">Date of Birth</label>
+<div class="input-group" *ngIf="!showview || editfield=='dateofbirth'">
+<input #dateofbirthformpicker="ngbDatepicker"      ngbDatepicker name="dateofbirthformpicker" id="dateofbirth"  formControlName="dateofbirth"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='dateofbirth'"  (click)="dateofbirthformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='dateofbirth'"  (click)="editfield = 'dateofbirth';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.dateofbirth?.value)}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'defaultpage'; "  for="defaultpage" class="control-label">Default Page</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='defaultpage'"  id="defaultpage"  formControlName="defaultpage" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--defaultlanguage-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'defaultlanguage'; "  for="defaultlanguage" class="control-label" (click)="AddOrEditdefaultlanguage(null)" (click)="AddOrEditdefaultlanguage(null)">Default Language</label>
+      <select  *ngIf="!showview"  id="defaultlanguage"  (change)="defaultlanguageonChange($event.target)" formControlName="defaultlanguage"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of defaultlanguageList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='defaultlanguage'"  (click)="editfield = 'defaultlanguage';"  class="form-control labelview">{{f.defaultlanguagedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'layoutpage'; "  for="layoutpage" class="control-label">Layout Page</label>
+      <input   *ngIf="!showview || editfield=='layoutpage'"  id="layoutpage"  formControlName="layoutpage" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'theme'; "  for="theme" class="control-label">Theme</label>
+      <input   *ngIf="!showview || editfield=='theme'"  id="theme"  formControlName="theme" class="form-control"
+        >
+  </div>
+
+
+<!--gender-->
+
+  <div   class="col" ><label (click)="editfield = 'gender'; "  for="gender" class="control-label">Gender</label>
+      <select  *ngIf="!showview"  id="gender"  (change)="genderonChange($event.target)" formControlName="gender"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of genderList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='gender'"  (click)="editfield = 'gender';"  class="form-control labelview">{{f.genderdesc?.value}}</label>
+  </div>
+</div>
+
+
+<!--nationality-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'nationality'; "  for="nationality" class="control-label">Nationality</label>
+      <select  *ngIf="!showview"  id="nationality"  (change)="nationalityonChange($event.target)" formControlName="nationality"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of nationalityList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='nationality'"  (click)="editfield = 'nationality';"  class="form-control labelview">{{f.nationalitydesc?.value}}</label>
+  </div>
+
+
+<!--bloodgroup-->
+
+  <div   class="col" ><label (click)="editfield = 'bloodgroup'; "  for="bloodgroup" class="control-label">Blood Group</label>
+      <select  *ngIf="!showview"  id="bloodgroup"  (change)="bloodgrouponChange($event.target)" formControlName="bloodgroup"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of bloodgroupList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='bloodgroup'"  (click)="editfield = 'bloodgroup';"  class="form-control labelview">{{f.bloodgroupdesc?.value}}</label>
+  </div>
+
+
+<!--religion-->
+
+  <div   class="col" ><label (click)="editfield = 'religion'; "  for="religion" class="control-label">Religion</label>
+      <select  *ngIf="!showview"  id="religion"  (change)="religiononChange($event.target)" formControlName="religion"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of religionList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='religion'"  (click)="editfield = 'religion';"  class="form-control labelview">{{f.religiondesc?.value}}</label>
+  </div>
+
+
+<!--maritalstatus-->
+
+  <div   class="col" ><label (click)="editfield = 'maritalstatus'; "  for="maritalstatus" class="control-label">Marital Status</label>
+      <select  *ngIf="!showview"  id="maritalstatus"  (change)="maritalstatusonChange($event.target)" formControlName="maritalstatus"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of maritalstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='maritalstatus'"  (click)="editfield = 'maritalstatus';"  class="form-control labelview">{{f.maritalstatusdesc?.value}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'referencenumber'; "  for="referencenumber" class="control-label">Reference Number</label>
+      <input   *ngIf="!showview || editfield=='referencenumber'"  id="referencenumber"  formControlName="referencenumber" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'address1'; "  for="address1" class="control-label">Address1</label>
+      <input   *ngIf="!showview || editfield=='address1'"  id="address1"  formControlName="address1" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'address2'; "  for="address2" class="control-label">Address2</label>
+      <input   *ngIf="!showview || editfield=='address2'"  id="address2"  formControlName="address2" class="form-control"
+        >
+  </div>
+
+
+<!--countryid-->
+
+  <div   class="col" ><label (click)="editfield = 'countryid'; "  for="countryid" class="control-label" (click)="AddOrEditcountryid(null)">Country</label>
+<app-popupselect  *ngIf="!showview"  [options]="countryidList"  [optionsEvent]="countryidoptionsEvent" [form]="bocountry" (selectItem)="onSelectedcountryid($event)"  [reportid]= 'wc9rn' [menuid]='wc9rn' formControlName="countryid" id="countryid" desc="name" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='countryid'"  (click)="editfield = 'countryid';"  class="form-control labelview">{{f.countryiddesc?.value}}</label>
+  </div>
+</div>
+
+
+<!--stateid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'stateid'; "  for="stateid" class="control-label" (click)="AddOrEditstateid(null)">State</label>
+<app-popupselect  *ngIf="!showview"  [options]="stateidList"  [optionsEvent]="stateidoptionsEvent" [form]="bostate" (selectItem)="onSelectedstateid($event)"  [reportid]= 'tyo5r' [menuid]='tyo5r' formControlName="stateid" id="stateid" desc="name" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='stateid'"  (click)="editfield = 'stateid';"  class="form-control labelview">{{f.stateiddesc?.value}}</label>
+  </div>
+
+
+<!--cityid-->
+
+  <div   class="col" ><label (click)="editfield = 'cityid'; "  for="cityid" class="control-label" (click)="AddOrEditcityid(null)">City</label>
+<app-popupselect  *ngIf="!showview"  [options]="cityidList"  [optionsEvent]="cityidoptionsEvent" [form]="bocity" (selectItem)="onSelectedcityid($event)"  [reportid]= 'kbg3n' [menuid]='kbg3n' formControlName="cityid" id="cityid" desc="name" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='cityid'"  (click)="editfield = 'cityid';"  class="form-control labelview">{{f.cityiddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'zipcode'; "  for="zipcode" class="control-label">Zip Code</label>
+      <input   *ngIf="!showview || editfield=='zipcode'"  id="zipcode"  formControlName="zipcode" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'emergencycontactperson'; "  for="emergencycontactperson" class="control-label">Emergency Contact Person</label>
+      <input   *ngIf="!showview || editfield=='emergencycontactperson'"  id="emergencycontactperson"  formControlName="emergencycontactperson" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'relationship'; "  for="relationship" class="control-label">Relationship</label>
+      <input   *ngIf="!showview || editfield=='relationship'"  id="relationship"  formControlName="relationship" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'cpphonenumber'; "  for="cpphonenumber" class="control-label">C P Phone Number</label>
+      <input   *ngIf="!showview || editfield=='cpphonenumber'"  id="cpphonenumber"  formControlName="cpphonenumber" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'emailnotifications'; "  for="emailnotifications" class="control-label">Email Notifications</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='emailnotifications'"  id="emailnotifications"  formControlName="emailnotifications" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'whatsappnotifications'; "  for="whatsappnotifications" class="control-label">Whats App Notifications</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='whatsappnotifications'"  id="whatsappnotifications"  formControlName="whatsappnotifications" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'employeespecificapproval'; "  for="employeespecificapproval" class="control-label">Employee Specific Approval</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='employeespecificapproval'"  id="employeespecificapproval"  formControlName="employeespecificapproval" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'autoapproval'; "  for="autoapproval" class="control-label">Auto Approval</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='autoapproval'"  id="autoapproval"  formControlName="autoapproval" class="form-control"
+        >
+  </div>
+  </div>
+
+
+<!--approvallevel-->
+
+  <div   class="col" ><label (click)="editfield = 'approvallevel'; "  for="approvallevel" class="control-label" (click)="AddOrEditapprovallevel(null)">Approval Level</label>
+<app-popupselect  *ngIf="!showview"  [options]="approvallevelList"  [optionsEvent]="approvalleveloptionsEvent" [form]="bousermaster" (selectItem)="onSelectedapprovallevel($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="approvallevel" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='approvallevel'"  (click)="editfield = 'approvallevel';"  class="form-control labelview">{{f.approvalleveldesc?.value}}</label>
+  </div>
+
+
+<!--approvallevel1-->
+
+  <div   class="col" ><label (click)="editfield = 'approvallevel1'; "  for="approvallevel1" class="control-label" (click)="AddOrEditapprovallevel1(null)">Approval Level1</label>
+<app-popupselect  *ngIf="!showview"  [options]="approvallevel1List"  [optionsEvent]="approvallevel1optionsEvent" [form]="bousermaster" (selectItem)="onSelectedapprovallevel1($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="approvallevel1" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='approvallevel1'"  (click)="editfield = 'approvallevel1';"  class="form-control labelview">{{f.approvallevel1desc?.value}}</label>
+  </div>
+</div>
+
+
+<!--approvallevel2-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'approvallevel2'; "  for="approvallevel2" class="control-label" (click)="AddOrEditapprovallevel2(null)">Approval Level2</label>
+<app-popupselect  *ngIf="!showview"  [options]="approvallevel2List"  [optionsEvent]="approvallevel2optionsEvent" [form]="bousermaster" (selectItem)="onSelectedapprovallevel2($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="approvallevel2" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='approvallevel2'"  (click)="editfield = 'approvallevel2';"  class="form-control labelview">{{f.approvallevel2desc?.value}}</label>
+  </div>
+
+
+<!--approvallevel3-->
+
+  <div   class="col" ><label (click)="editfield = 'approvallevel3'; "  for="approvallevel3" class="control-label" (click)="AddOrEditapprovallevel3(null)">Approval Level3</label>
+<app-popupselect  *ngIf="!showview"  [options]="approvallevel3List"  [optionsEvent]="approvallevel3optionsEvent" [form]="bousermaster" (selectItem)="onSelectedapprovallevel3($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="approvallevel3" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='approvallevel3'"  (click)="editfield = 'approvallevel3';"  class="form-control labelview">{{f.approvallevel3desc?.value}}</label>
+  </div>
+
+
+<!--approvallevel4-->
+
+  <div   class="col" ><label (click)="editfield = 'approvallevel4'; "  for="approvallevel4" class="control-label" (click)="AddOrEditapprovallevel4(null)">Approval Level4</label>
+<app-popupselect  *ngIf="!showview"  [options]="approvallevel4List"  [optionsEvent]="approvallevel4optionsEvent" [form]="bousermaster" (selectItem)="onSelectedapprovallevel4($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="approvallevel4" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='approvallevel4'"  (click)="editfield = 'approvallevel4';"  class="form-control labelview">{{f.approvallevel4desc?.value}}</label>
+  </div>
+
+
+<!--approvallevel5-->
+
+  <div   class="col" ><label (click)="editfield = 'approvallevel5'; "  for="approvallevel5" class="control-label" (click)="AddOrEditapprovallevel5(null)">Approval Level5</label>
+<app-popupselect  *ngIf="!showview"  [options]="approvallevel5List"  [optionsEvent]="approvallevel5optionsEvent" [form]="bousermaster" (selectItem)="onSelectedapprovallevel5($event)"  [reportid]= 'e99kq' [menuid]='e99kq' formControlName="approvallevel5" id="userid" desc="username" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='approvallevel5'"  (click)="editfield = 'approvallevel5';"  class="form-control labelview">{{f.approvallevel5desc?.value}}</label>
+  </div>
+</div>
+
+
+<!--approvalleveltype1-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'approvalleveltype1'; "  for="approvalleveltype1" class="control-label">Approval Level Type1</label>
+      <select  *ngIf="!showview"  id="approvalleveltype1"  (change)="approvalleveltype1onChange($event.target)" formControlName="approvalleveltype1"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of approvalleveltype1List" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='approvalleveltype1'"  (click)="editfield = 'approvalleveltype1';"  class="form-control labelview">{{f.approvalleveltype1desc?.value}}</label>
+  </div>
+
+
+<!--approvalleveltype2-->
+
+  <div   class="col" ><label (click)="editfield = 'approvalleveltype2'; "  for="approvalleveltype2" class="control-label">Approval Level Type2</label>
+      <select  *ngIf="!showview"  id="approvalleveltype2"  (change)="approvalleveltype2onChange($event.target)" formControlName="approvalleveltype2"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of approvalleveltype2List" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='approvalleveltype2'"  (click)="editfield = 'approvalleveltype2';"  class="form-control labelview">{{f.approvalleveltype2desc?.value}}</label>
+  </div>
+
+
+<!--approvalleveltype3-->
+
+  <div   class="col" ><label (click)="editfield = 'approvalleveltype3'; "  for="approvalleveltype3" class="control-label">Approval Level Type3</label>
+      <select  *ngIf="!showview"  id="approvalleveltype3"  (change)="approvalleveltype3onChange($event.target)" formControlName="approvalleveltype3"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of approvalleveltype3List" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='approvalleveltype3'"  (click)="editfield = 'approvalleveltype3';"  class="form-control labelview">{{f.approvalleveltype3desc?.value}}</label>
+  </div>
+
+
+<!--approvalleveltype4-->
+
+  <div   class="col" ><label (click)="editfield = 'approvalleveltype4'; "  for="approvalleveltype4" class="control-label">Approval Level Type4</label>
+      <select  *ngIf="!showview"  id="approvalleveltype4"  (change)="approvalleveltype4onChange($event.target)" formControlName="approvalleveltype4"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of approvalleveltype4List" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='approvalleveltype4'"  (click)="editfield = 'approvalleveltype4';"  class="form-control labelview">{{f.approvalleveltype4desc?.value}}</label>
+  </div>
+</div>
+
+
+<!--approvalleveltype5-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'approvalleveltype5'; "  for="approvalleveltype5" class="control-label">Approval Level Type5</label>
+      <select  *ngIf="!showview"  id="approvalleveltype5"  (change)="approvalleveltype5onChange($event.target)" formControlName="approvalleveltype5"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of approvalleveltype5List" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='approvalleveltype5'"  (click)="editfield = 'approvalleveltype5';"  class="form-control labelview">{{f.approvalleveltype5desc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'twitter'; "  for="twitter" class="control-label">Twitter</label>
+      <input   *ngIf="!showview || editfield=='twitter'"  id="twitter"  formControlName="twitter" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'facebook'; "  for="facebook" class="control-label">Facebook</label>
+      <input   *ngIf="!showview || editfield=='facebook'"  id="facebook"  formControlName="facebook" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'linkedin'; "  for="linkedin" class="control-label">Linked In</label>
+      <input   *ngIf="!showview || editfield=='linkedin'"  id="linkedin"  formControlName="linkedin" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'skype'; "  for="skype" class="control-label">Skype</label>
+      <input   *ngIf="!showview || editfield=='skype'"  id="skype"  formControlName="skype" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'googleplus'; "  for="googleplus" class="control-label">Google Plus</label>
+      <input   *ngIf="!showview || editfield=='googleplus'"  id="googleplus"  formControlName="googleplus" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<button class="btn btn-link" (click)="viewhrmsemployee()"  type="button" ><i class="fa fa-external-link"></i> employeeid</button>
+  </div>
+<div class="col"></div>
+</div></p-accordionTab>
+<div *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</div>
+<div *ngIf="attachmentvisible">
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</div>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">UserBranch Access</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table bouserbranchaccesses-->
+<div class="row"></div><div [ngClass]="IsbouserbranchaccessesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'UserBranch Access' | translate}}
+<select class='child'  id="bouserbranchaccessesPagingdropdown" (change)="bouserbranchaccessesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="showbouserbranchaccessesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblbouserbranchaccessessource (userRowSelect)="handlebouserbranchaccessesGridSelected($event)" [settings]="bouserbranchaccessessettings" (custom)="onCustombouserbranchaccessesAction($event)" [source]="bouserbranchaccessessource"  >
+</ng2-smart-table>
+</div>
+  <!--End of child table bouserbranchaccesses-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">UserMenu Access</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table bousermenuaccesses-->
+<div class="row"></div><div [ngClass]="IsbousermenuaccessesVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'UserMenu Access' | translate}}
+<select class='child'  id="bousermenuaccessesPagingdropdown" (change)="bousermenuaccessesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="showbousermenuaccessesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblbousermenuaccessessource (userRowSelect)="handlebousermenuaccessesGridSelected($event)" [settings]="bousermenuaccessessettings" (custom)="onCustombousermenuaccessesAction($event)" [source]="bousermenuaccessessource"  >
+</ng2-smart-table>
+</div>
+  <!--End of child table bousermenuaccesses-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.userid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.userid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

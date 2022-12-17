@@ -1,0 +1,210 @@
+<form  [formGroup]="boworkflowstepForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Workflow Steps' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'workflowmasterid'; "  for="workflowmasterid" class="control-label">Work Flow Master</label>
+      <input   *ngIf="!showview || editfield=='workflowmasterid'"  id="workflowmasterid"  formControlName="workflowmasterid" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'stepno'; "  for="stepno" class="control-label">Step No</label>
+      <input   *ngIf="!showview || editfield=='stepno'"  id="stepno"  formControlName="stepno" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'stepname'; "  for="stepname" class="control-label">Step Name</label>
+      <input   *ngIf="!showview || editfield=='stepname'"  id="stepname"  formControlName="stepname" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'tat'; "  for="tat" class="control-label">T A T</label>
+      <input   *ngIf="!showview || editfield=='tat'"  id="tat"  formControlName="tat" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--task-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'task'; "  for="task" class="control-label">Task</label>
+      <select  *ngIf="!showview"  id="task"  (change)="taskonChange($event.target)" formControlName="task"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of taskList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='task'"  (click)="editfield = 'task';"  class="form-control labelview">{{f.taskdesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'condition'; "  for="condition" class="control-label">Condition</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='condition'"  id="condition"  formControlName="condition" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+
+
+<!--yesstep-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'yesstep'; "  for="yesstep" class="control-label" (click)="AddOrEdityesstep(null)">Yes Step</label>
+<app-popupselect  *ngIf="!showview"  [options]="yesstepList"  [optionsEvent]="yesstepoptionsEvent" [form]="boworkflowstep" (selectItem)="onSelectedyesstep($event)"  [reportid]= '' [menuid]='' formControlName="yesstep" id="workflowstepid" desc="stepname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='yesstep'"  (click)="editfield = 'yesstep';"  class="form-control labelview">{{f.yesstepdesc?.value}}</label>
+  </div>
+
+
+<!--nostep-->
+
+  <div   class="col" ><label (click)="editfield = 'nostep'; "  for="nostep" class="control-label" (click)="AddOrEditnostep(null)">No Step</label>
+<app-popupselect  *ngIf="!showview"  [options]="nostepList"  [optionsEvent]="nostepoptionsEvent" [form]="boworkflowstep" (selectItem)="onSelectednostep($event)"  [reportid]= '' [menuid]='' formControlName="nostep" id="workflowstepid" desc="stepname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='nostep'"  (click)="editfield = 'nostep';"  class="form-control labelview">{{f.nostepdesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'approver'; "  for="approver" class="control-label">Approver</label>
+      <app-useraccess   *ngIf="!showview || editfield=='approver'"  id="approver"  formControlName="approver"
+        >
+</app-useraccess>
+  </div>
+</div>
+
+
+<!--workflowuserfieldtype-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'workflowuserfieldtype'; "  for="workflowuserfieldtype" class="control-label">Work Flow User Field Type</label>
+      <select  *ngIf="!showview"  id="workflowuserfieldtype"  (change)="workflowuserfieldtypeonChange($event.target)" formControlName="workflowuserfieldtype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of workflowuserfieldtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='workflowuserfieldtype'"  (click)="editfield = 'workflowuserfieldtype';"  class="form-control labelview">{{f.workflowuserfieldtypedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'workflowuserfieldname'; "  for="workflowuserfieldname" class="control-label">Work Flow User Field Name</label>
+      <input   *ngIf="!showview || editfield=='workflowuserfieldname'"  id="workflowuserfieldname"  formControlName="workflowuserfieldname" class="form-control"
+        >
+  </div>
+
+
+<!--parentid-->
+
+  <div   class="col" ><label (click)="editfield = 'parentid'; "  for="parentid" class="control-label" (click)="AddOrEditparentid(null)">Parent</label>
+<app-popupselect  *ngIf="!showview"  [options]="parentidList"  [optionsEvent]="parentidoptionsEvent" [form]="boworkflowstep" (selectItem)="onSelectedparentid($event)"  [reportid]= '' [menuid]='' formControlName="parentid" id="workflowstepid" desc="stepname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='parentid'"  (click)="editfield = 'parentid';"  class="form-control labelview">{{f.parentiddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'noedittransaction'; "  for="noedittransaction" class="control-label">No Edit Transaction</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='noedittransaction'"  id="noedittransaction"  formControlName="noedittransaction" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'autoapproval'; "  for="autoapproval" class="control-label">Auto Approval</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='autoapproval'"  id="autoapproval"  formControlName="autoapproval" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'autodenial'; "  for="autodenial" class="control-label">Auto Denial</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='autodenial'"  id="autodenial"  formControlName="autodenial" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'waitduration'; "  for="waitduration" class="control-label">Wait Duration</label>
+      <input   *ngIf="!showview || editfield=='waitduration'"  id="waitduration"  formControlName="waitduration" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'remainderduration'; "  for="remainderduration" class="control-label">Remainder Duration</label>
+      <input   *ngIf="!showview || editfield=='remainderduration'"  id="remainderduration"  formControlName="remainderduration" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'escalationuser'; "  for="escalationuser" class="control-label">Escalation User</label>
+      <app-useraccess   *ngIf="!showview || editfield=='escalationuser'"  id="escalationuser"  formControlName="escalationuser"  (change)="escalationuseronChange($event.target)" 
+        >
+</app-useraccess>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'cc'; "  for="cc" class="control-label">C C</label>
+      <app-useraccess   *ngIf="!showview || editfield=='cc'"  id="cc"  formControlName="cc"  (change)="cconChange($event.target)" 
+        >
+</app-useraccess>
+  </div>
+</div>
+
+
+<!--customfieldid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'customfieldid'; "  for="customfieldid" class="control-label" (click)="AddOrEditcustomfieldid(null)">Custom Field</label>
+      <select  *ngIf="!showview"  id="customfieldid"  (change)="customfieldidonChange($event.target)" formControlName="customfieldid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of customfieldidList" value="{{item.formid}}">{{item.tableiddesc}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='customfieldid'"  (click)="editfield = 'customfieldid';"  class="form-control labelview">{{f.customfieldiddesc?.value}}</label>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div><div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.workflowstepid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.workflowstepid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

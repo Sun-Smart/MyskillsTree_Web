@@ -1,0 +1,88 @@
+<form  [formGroup]="bonotificationsettingForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Notification Settings' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'notificationcode'; "  for="notificationcode" class="control-label required">Notification Code</label>
+      <input   *ngIf="!showview || editfield=='notificationcode'"  id="notificationcode"  required formControlName="notificationcode" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.notificationcode.invalid && (f.notificationcode.touched|| isSubmitted)" errorMsg="Enter {{'Notification Code' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'notificationname'; "  for="notificationname" class="control-label required">Notification Name</label>
+      <input   *ngIf="!showview || editfield=='notificationname'"  id="notificationname"  required formControlName="notificationname" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.notificationname.invalid && (f.notificationname.touched|| isSubmitted)" errorMsg="Enter {{'Notification Name' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--mode-->
+
+  <div   class="col" ><label (click)="editfield = 'mode'; "  for="mode" class="control-label">Mode</label>
+      <select  *ngIf="!showview"  id="mode"  (change)="modeonChange($event.target)" formControlName="mode"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of modeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='mode'"  (click)="editfield = 'mode';"  class="form-control labelview">{{f.modedesc?.value}}</label>
+  </div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'condition'; "  for="condition" class="control-label required">Condition</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='condition'"  id="condition"  required formControlName="condition" class="form-control"
+        >
+</textarea>
+      <app-field-error-display [displayError]="f.condition.invalid && (f.condition.touched|| isSubmitted)" errorMsg="Enter {{'Condition' | translate}}">
+      </app-field-error-display>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'scheduleeveryhours'; "  for="scheduleeveryhours" class="control-label">Schedule Every Hours</label>
+<ngb-timepicker  *ngIf="!showview || editfield=='scheduleeveryhours'"  class="form-control timepicker" formControlName="scheduleeveryhours"  ></ngb-timepicker>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'schedulemonthdays'; "  for="schedulemonthdays" class="control-label">Schedule Month Days</label>
+      <input   *ngIf="!showview || editfield=='schedulemonthdays'"  id="schedulemonthdays"  formControlName="schedulemonthdays" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div><div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.notificationmasterid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.notificationmasterid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

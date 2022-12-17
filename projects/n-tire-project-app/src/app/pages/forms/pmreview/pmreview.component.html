@@ -1,0 +1,191 @@
+<form [formGroup]="pmreviewForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Reviews' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <br style='line-height:5px' />
+            <div class="form-group row">
+              <div class="col"><label for="departmentid" class="control-label" (click)="AddOrEditdepartmentid(null)"
+                  (click)="AddOrEditdepartmentid(null)">{{'Department' | translate}}</label>
+                <select id="departmentid" (change)="departmentidonChange($event.target)" formControlName="departmentid"
+                  class="form-control">
+                  <option value="0">-Select-</option>
+                  <option *ngFor="let item of departmentidList" value="{{item.masterdataid}}">
+                    {{item.masterdatadescription}}</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="designationid" class="control-label">{{'Designation' | translate}}</label>
+                <input id="designationid" formControlName="designationid" class="form-control"
+                  placeholder="{{'Designation' | translate}}">
+              </div>
+              <div class="col"><label for="employeeid" class="control-label"
+                  (click)="AddOrEditemployeeid(null)">{{'Employee' | translate}}</label>
+                <app-popupselect [options]="employeeidList" [optionsEvent]="employeeidoptionsEvent"
+                  [form]="hrmsemployee" (selectItem)="onSelectedemployeeid($event)" [reportid]=99 [menuid]=99
+                  formControlName="employeeid" id="employeeid" desc="employeename"></app-popupselect>
+                <div class="input-group">
+                </div>
+              </div>
+              <div class="col">
+                <label for="fromdate" class="control-label">{{'From Date' | translate}}</label>
+                <div class="input-group">
+                  <input #fromdateformpicker="ngbDatepicker" ngbDatepicker name="fromdateformpicker" id="fromdate"
+                    formControlName="fromdate" class="form-control" placeholder="Choose {{'From Date' | translate}}">
+                  <button class="input-group-addon" (click)="fromdateformpicker.toggle()" type="button"><i
+                      class="fa fa-calendar" aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <label for="todate" class="control-label">{{'To Date' | translate}}</label>
+                <div class="input-group">
+                  <input #todateformpicker="ngbDatepicker" ngbDatepicker name="todateformpicker" id="todate"
+                    formControlName="todate" class="form-control" placeholder="Choose {{'To Date' | translate}}">
+                  <button class="input-group-addon" (click)="todateformpicker.toggle()" type="button"><i
+                      class="fa fa-calendar" aria-hidden="true"></i></button>
+                </div>
+              </div>
+              <div class="col">
+                <label for="reviewdate" class="control-label">{{'Review Date' | translate}}</label>
+                <div class="input-group">
+                  <input #reviewdateformpicker="ngbDatepicker" ngbDatepicker name="reviewdateformpicker" id="reviewdate"
+                    formControlName="reviewdate" class="form-control"
+                    placeholder="Choose {{'Review Date' | translate}}">
+                  <button class="input-group-addon" (click)="reviewdateformpicker.toggle()" type="button"><i
+                      class="fa fa-calendar" aria-hidden="true"></i></button>
+                </div>
+              </div>
+              <div class="col"><label for="reviewedby" class="control-label"
+                  (click)="AddOrEditreviewedby(null)">{{'Reviewed By' | translate}}</label>
+                <app-popupselect [options]="reviewedbyList" [optionsEvent]="reviewedbyoptionsEvent"
+                  [form]="hrmsemployee" (selectItem)="onSelectedreviewedby($event)" [reportid]=99 [menuid]=99
+                  formControlName="reviewedby" id="employeeid" desc="employeename"></app-popupselect>
+                <div class="input-group">
+                </div>
+              </div>
+              <div class="col"><label for="supervisedby" class="control-label"
+                  (click)="AddOrEditsupervisedby(null)">{{'Supervised By' | translate}}</label>
+                <app-popupselect [options]="supervisedbyList" [optionsEvent]="supervisedbyoptionsEvent"
+                  [form]="hrmsemployee" (selectItem)="onSelectedsupervisedby($event)" [reportid]=99 [menuid]=99
+                  formControlName="supervisedby" id="employeeid" desc="employeename"></app-popupselect>
+                <div class="input-group">
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <label for="reviewerremarks" class="control-label">{{'Reviewer Remarks' | translate}}</label>
+                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="reviewerremarks"
+                  formControlName="reviewerremarks" class="form-control"
+                  placeholder="{{'Reviewer Remarks' | translate}}">
+</textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <label for="employeeremarks" class="control-label">{{'Employee Remarks' | translate}}</label>
+                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="employeeremarks"
+                  formControlName="employeeremarks" class="form-control"
+                  placeholder="{{'Employee Remarks' | translate}}">
+</textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col"><label for="decision" class="control-label">{{'Decision' | translate}}</label>
+                <select id="decision" (change)="decisiononChange($event.target)" formControlName="decision"
+                  class="form-control">
+                  <option value="0">-Select-</option>
+                  <option *ngFor="let item of decisionList" value="{{item.configkey}}">{{item.configtext}}</option>
+                </select>
+              </div>
+              <div class="col"></div>
+              <div class="col"></div>
+              <div class="col"></div>
+            </div>
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Details</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <br style='line-height:5px' />
+            <!-- child table pmreviewdetails-->
+            <div class="row"></div>
+            <div [ngClass]="IspmreviewdetailsVisible()">
+              <p></p>
+              <h4 class="form-group sticky1  columns left">{{'Details' | translate}}
+                <select class='child' id="pmreviewdetailsPagingdropdown"
+                  (change)="pmreviewdetailsPaging($event.target!.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                  <!--btn-toolbar-->
+                  <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="dialogbtn" (click)="pmreviewdetailsroute(null, 'create')"><i
+                        class="fa fa-plus" aria-hidden="true"></i></button>
+                    <button type="button" class="dialogbtn" (click)="showpmreviewdetailsFilter()"><i
+                        class="fa fa-filter" aria-hidden="true"></i></button>
+                    <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                        aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </h4>
+                <div  class="table-container"> <ng2-smart-table    #tblpmreviewdetailssource (userRowSelect)="handlepmreviewdetailsGridSelected($event)"
+                [settings]="pmreviewdetailssettings" [source]="pmreviewdetailssource"
+                (delete)="pmreviewdetailsroute($event,'delete')" (deleteConfirm)="pmreviewdetailsroute($event,'delete')"
+                (create)="pmreviewdetailsroute($event,'create')" (createConfirm)="pmreviewdetailsbeforesave($event)"
+                (edit)="pmreviewdetailsroute($event,'edit')" (editConfirm)="pmreviewdetailsbeforesave($event)">
+              </ng2-smart-table></div>
+            </div>
+            <!--End of child table pmreviewdetails-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+        <app-action *ngIf="f.reviewid!.value != null" [menuid]="pmenuid" [value]="f.reviewid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,156 @@
+<form  [formGroup]="erpfacustomerreceiptForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Receipts' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'receiptdate'; "  for="receiptdate" class="control-label">Receipt Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='receiptdate'">
+<input #receiptdateformpicker="ngbDatepicker"      ngbDatepicker name="receiptdateformpicker" id="receiptdate"  formControlName="receiptdate"  class="form-control"   placeholder="Choose Receipt Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='receiptdate'"  (click)="receiptdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='receiptdate'"  (click)="editfield = 'receiptdate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.receiptdate?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'receiptreference'; "  for="receiptreference" class="control-label">Receipt Reference</label>
+      <input   *ngIf="!showview || editfield=='receiptreference'"  id="receiptreference"  formControlName="receiptreference" class="form-control"
+        placeholder="{{'Receipt Reference' | translate}}">
+  </div>
+
+
+<!--customerid-->
+
+  <div   class="col" ><label (click)="editfield = 'customerid'; "  for="customerid" class="control-label" (click)="AddOrEditcustomerid(null)">Customer</label>
+<app-popupselect  *ngIf="!showview"  [options]="customeridList"  [optionsEvent]="customeridoptionsEvent" [form]="crmcustomermaster" (selectItem)="onSelectedcustomerid($event)"  [reportid]= 'pofgf' [menuid]='pofgf' formControlName="customerid" id="customerid" desc="lastname" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview  && editfield!='customerid'"  (click)="editfield = 'customerid';"  class="form-control labelview">{{f.customeriddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'receivedamount'; "  for="receivedamount" class="control-label">Received Amount</label>
+      <input   *ngIf="!showview || editfield=='receivedamount'"  id="receivedamount"  formControlName="receivedamount" class="form-control"
+        placeholder="{{'Received Amount' | translate}}">
+  </div>
+</div>
+
+
+<!--bankaccountid-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'bankaccountid'; "  for="bankaccountid" class="control-label" (click)="AddOrEditbankaccountid(null)">Bank Account</label>
+      <select  *ngIf="!showview"  id="bankaccountid"  (change)="bankaccountidonChange($event.target)" formControlName="bankaccountid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of bankaccountidList" value="{{item.bankaccountid}}">{{item.accountnumber}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='bankaccountid'"  (click)="editfield = 'bankaccountid';"  class="form-control labelview">{{f.bankaccountiddesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'receiptmode'; "  for="receiptmode" class="control-label">Receipt Mode</label>
+      <input   *ngIf="!showview || editfield=='receiptmode'"  id="receiptmode"  formControlName="receiptmode" class="form-control"
+        placeholder="{{'Receipt Mode' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'chequeno'; "  for="chequeno" class="control-label">Cheque No</label>
+      <input   *ngIf="!showview || editfield=='chequeno'"  id="chequeno"  formControlName="chequeno" class="form-control"
+        placeholder="{{'Cheque No' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'chequedate'; "  for="chequedate" class="control-label">Cheque Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='chequedate'">
+<input #chequedateformpicker="ngbDatepicker"      ngbDatepicker name="chequedateformpicker" id="chequedate"  formControlName="chequedate"  class="form-control"   placeholder="Choose Cheque Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='chequedate'"  (click)="chequedateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='chequedate'"  (click)="editfield = 'chequedate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.chequedate?.value)}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'narration'; "  for="narration" class="control-label">Narration</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='narration'"  id="narration"  formControlName="narration" class="form-control"
+        placeholder="{{'Narration' | translate}}">
+</textarea>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'customerpaymentreference'; "  for="customerpaymentreference" class="control-label">Customer Payment Reference</label>
+      <input   *ngIf="!showview || editfield=='customerpaymentreference'"  id="customerpaymentreference"  formControlName="customerpaymentreference" class="form-control"
+        placeholder="{{'Customer Payment Reference' | translate}}">
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Receipt Details</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table erpfacustomerreceiptdetails-->
+<div class="row"></div><div [ngClass]="IserpfacustomerreceiptdetailsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Receipt Details' | translate}}
+<select class='child'  id="erpfacustomerreceiptdetailsPagingdropdown" (change)="erpfacustomerreceiptdetailsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="erpfacustomerreceiptdetailsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showerpfacustomerreceiptdetailsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblerpfacustomerreceiptdetailssource (userRowSelect)="handleerpfacustomerreceiptdetailsGridSelected($event)" [settings]="erpfacustomerreceiptdetailssettings" (custom)="onCustomerpfacustomerreceiptdetailsAction($event)" [source]="erpfacustomerreceiptdetailssource"  (delete)="erpfacustomerreceiptdetailsroute($event,'delete')"  (deleteConfirm)="erpfacustomerreceiptdetailsroute($event,'delete')" (create)="erpfacustomerreceiptdetailsroute($event,'create')"   (createConfirm)="erpfacustomerreceiptdetailsbeforesave($event)"  (edit)="erpfacustomerreceiptdetailsroute($event,'edit')"  (editConfirm)="erpfacustomerreceiptdetailsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table erpfacustomerreceiptdetails-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.receiptid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.receiptid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

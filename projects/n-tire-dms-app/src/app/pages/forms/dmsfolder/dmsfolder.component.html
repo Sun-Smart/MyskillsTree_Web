@@ -1,0 +1,461 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="dmsfolderForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Folders' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editdmsfolders()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='dmsfoldertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.dmsfoldershowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.folderid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.folderid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link active"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"  ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"    id="contentArea1" >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('foldername') == -1"  class="col " >
+<label  for="foldername" class="control-label required">Folder Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.foldername?.value}}</label>
+      <input   *ngIf="!showview"  id="foldername"  required formControlName="foldername" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.foldername.invalid && (f.foldername.touched|| isSubmitted)" errorMsg="Enter {{'Folder Name' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--parentfolderid-->
+
+  <div   *ngIf="hidelist.indexOf('parentfolderid') == -1"  class="col" ><label  for="parentfolderid" class="control-label required" (click)="AddOrEditparentfolderid(null)">Parent Folder</label>
+      <select  *ngIf="!showview"  id="parentfolderid"  required (change)="parentfolderidonChange($event.target)" formControlName="parentfolderid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of parentfolderidList" value="{{item.folderid}}">{{item.foldername}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.parentfolderid?.value}}</label>
+      <app-field-error-display [displayError]="f.parentfolderid.invalid && (f.parentfolderid.touched || isSubmitted)" errorMsg="Enter {{'Parent Folder' | translate}}">
+      </app-field-error-display>
+  </div>
+
+
+<!--alloweddocumenttypes-->
+
+  <div   *ngIf="hidelist.indexOf('alloweddocumenttypes') == -1"  class="col" ><label  for="alloweddocumenttypes" class="control-label">Allowed Document Types</label>
+      <select  *ngIf="!showview"  id="alloweddocumenttypes"  (change)="alloweddocumenttypesonChange($event.target)" formControlName="alloweddocumenttypes"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of alloweddocumenttypesList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.alloweddocumenttypes?.value}}</label>
+  </div>
+
+
+<!--restricteddocumenttypes-->
+
+  <div   *ngIf="hidelist.indexOf('restricteddocumenttypes') == -1"  class="col" ><label  for="restricteddocumenttypes" class="control-label">Restricted Document Types</label>
+      <select  *ngIf="!showview"  id="restricteddocumenttypes"  (change)="restricteddocumenttypesonChange($event.target)" formControlName="restricteddocumenttypes"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of restricteddocumenttypesList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.restricteddocumenttypes?.value}}</label>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('subfoldersallowed') == -1"  class="col " >
+<div class="columnchk">
+<label  for="subfoldersallowed" class="control-label">Sub Folders Allowed</label>
+      <label *ngIf="showview"     class="labelview">{{f.subfoldersallowed?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="subfoldersallowed"  formControlName="subfoldersallowed" class="form-control"
+        >
+  </div>
+  </div>
+
+
+<!--type-->
+
+  <div   *ngIf="hidelist.indexOf('type') == -1"  class="col" ><label  for="type" class="control-label">Type</label>
+      <select  *ngIf="!showview"  id="type"  (change)="typeonChange($event.target)" formControlName="type"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of typeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.type?.value}}</label>
+  </div>
+
+
+<!--departmentid-->
+
+  <div   *ngIf="hidelist.indexOf('departmentid') == -1"  class="col" ><label  for="departmentid" class="control-label" (click)="AddOrEditdepartmentid(null)" (click)="AddOrEditdepartmentid(null)">Department</label>
+      <select  *ngIf="!showview"  id="departmentid"  (change)="departmentidonChange($event.target)" formControlName="departmentid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of departmentidList" value="{{item.masterdataid}}">{{item.masterdatadescription}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.departmentid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('recordlocation') == -1"  class="col " >
+<label  for="recordlocation" class="control-label">Record Location</label>
+      <label *ngIf="showview"     class="labelview">{{f.recordlocation?.value}}</label>
+      <input   *ngIf="!showview"  id="recordlocation"  formControlName="recordlocation" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('access') == -1"  class="col " >
+<div class="columnchk">
+<label  for="access" class="control-label">Access</label>
+      <label *ngIf="showview"     class="labelview">{{f.access?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="access"  formControlName="access" class="form-control"
+        >
+  </div>
+  </div>
+
+
+<!--allowedusergroups-->
+
+  <div   *ngIf="hidelist.indexOf('allowedusergroups') == -1"  class="col" ><label  for="allowedusergroups" class="control-label">Allowed User Groups</label>
+      <p-multiSelect [options]="allowedusergroupsList"  formControlName="allowedusergroups"  [filter]="true"   *ngIf="!showview"  id="allowedusergroupsdesc"  (change)="allowedusergroupsonChange($event.target)" formControlName="allowedusergroups"  class="form-control"
+         >
+</p-multiSelect>      <label *ngIf="showview"     class="labelview">{{f.allowedusergroups?.value}}</label>
+  </div>
+
+
+<!--restrictedusergroups-->
+
+  <div   *ngIf="hidelist.indexOf('restrictedusergroups') == -1"  class="col" ><label  for="restrictedusergroups" class="control-label">Restricted User Groups</label>
+      <p-multiSelect [options]="restrictedusergroupsList"  formControlName="restrictedusergroups"  [filter]="true"   *ngIf="!showview"  id="restrictedusergroupsdesc"  (change)="restrictedusergroupsonChange($event.target)" formControlName="restrictedusergroups"  class="form-control"
+         >
+</p-multiSelect>      <label *ngIf="showview"     class="labelview">{{f.restrictedusergroups?.value}}</label>
+  </div>
+
+
+<!--customfieldid-->
+
+  <div   *ngIf="hidelist.indexOf('customfieldid') == -1"  class="col" ><label  for="customfieldid" class="control-label" (click)="AddOrEditcustomfieldid(null)">Custom Field</label>
+      <select  *ngIf="!showview"  id="customfieldid"  (change)="customfieldidonChange($event.target)" formControlName="customfieldid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of customfieldidList" value="{{item.formid}}">{{item.tableiddesc}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.customfieldid?.value}}</label>
+  </div>
+</div>
+
+
+<!--documentfieldscustomid-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('documentfieldscustomid') == -1"  class="col" ><label  for="documentfieldscustomid" class="control-label" (click)="AddOrEditdocumentfieldscustomid(null)">Document Fields</label>
+      <select  *ngIf="!showview"  id="documentfieldscustomid"  (change)="documentfieldscustomidonChange($event.target)" formControlName="documentfieldscustomid"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of documentfieldscustomidList" value="{{item.tableid}}">{{item.tableiddesc}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.documentfieldscustomid?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('maxfilesize') == -1"  class="col " >
+<label  for="maxfilesize" class="control-label">Max File Size</label>
+      <label *ngIf="showview"     class="labelview">{{f.maxfilesize?.value}}</label>
+      <input   *ngIf="!showview"  id="maxfilesize"  formControlName="maxfilesize" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Subscription'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('subscriptionallowed') == -1"  class="col " >
+<div class="columnchk">
+<label  for="subscriptionallowed" class="control-label">Subscription Allowed</label>
+      <label *ngIf="showview"     class="labelview">{{f.subscriptionallowed?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="subscriptionallowed"  formControlName="subscriptionallowed" class="form-control"
+        >
+  </div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('subscriptionalert') == -1"  class="col " >
+<label  for="subscriptionalert" class="control-label">Subscription Alert</label>
+      <label *ngIf="showview"     class="labelview">{{f.subscriptionalert?.value}}</label>
+      <input   *ngIf="!showview"  id="subscriptionalert"  formControlName="subscriptionalert" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Archival'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('archivedays') == -1"  class="col " >
+<label  for="archivedays" class="control-label">Archive Days</label>
+      <label *ngIf="showview"     class="labelview">{{f.archivedays?.value}}</label>
+      <input   *ngIf="!showview"  id="archivedays"  formControlName="archivedays" class="form-control"
+        >
+  </div>
+
+
+<!--archiveperiod-->
+
+  <div   *ngIf="hidelist.indexOf('archiveperiod') == -1"  class="col" ><label  for="archiveperiod" class="control-label">Archive Period</label>
+      <select  *ngIf="!showview"  id="archiveperiod"  (change)="archiveperiodonChange($event.target)" formControlName="archiveperiod"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of archiveperiodList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.archiveperiod?.value}}</label>
+  </div>
+
+
+<!--archivetype-->
+
+  <div   *ngIf="hidelist.indexOf('archivetype') == -1"  class="col" ><label  for="archivetype" class="control-label">Archive Type</label>
+      <select  *ngIf="!showview"  id="archivetype"  (change)="archivetypeonChange($event.target)" formControlName="archivetype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of archivetypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.archivetype?.value}}</label>
+  </div>
+<div class="col"></div>
+</div>
+</p-accordionTab>
+</p-accordion>
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Document Control'  [selected]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('canview') == -1"  class="col " >
+<div class="columnchk">
+<label  for="canview" class="control-label">Can View</label>
+      <label *ngIf="showview"     class="labelview">{{f.canview?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="canview"  formControlName="canview" class="form-control"
+        >
+  </div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('canedit') == -1"  class="col " >
+<div class="columnchk">
+<label  for="canedit" class="control-label">Can Edit</label>
+      <label *ngIf="showview"     class="labelview">{{f.canedit?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="canedit"  formControlName="canedit" class="form-control"
+        >
+  </div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('candownload') == -1"  class="col " >
+<div class="columnchk">
+<label  for="candownload" class="control-label">Can Download</label>
+      <label *ngIf="showview"     class="labelview">{{f.candownload?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="candownload"  formControlName="candownload" class="form-control"
+        >
+  </div>
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('newalert') == -1"  class="col " >
+<label  for="newalert" class="control-label">New Action Alert</label>
+      <label *ngIf="showview"     class="labelview">{{f.newalert?.value}}</label>
+      <app-useraccess   *ngIf="!showview"  id="newalert"  formControlName="newalert"
+        >
+</app-useraccess>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('viewalert') == -1"  class="col " >
+<label  for="viewalert" class="control-label">View Action Alert</label>
+      <label *ngIf="showview"     class="labelview">{{f.viewalert?.value}}</label>
+      <app-useraccess   *ngIf="!showview"  id="viewalert"  formControlName="viewalert"
+        >
+</app-useraccess>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('editalert') == -1"  class="col " >
+<label  for="editalert" class="control-label">Edit Action Alert</label>
+      <label *ngIf="showview"     class="labelview">{{f.editalert?.value}}</label>
+      <app-useraccess   *ngIf="!showview"  id="editalert"  formControlName="editalert"
+        >
+</app-useraccess>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('downloadalert') == -1"  class="col " >
+<label  for="downloadalert" class="control-label">Download Action Alert</label>
+      <label *ngIf="showview"     class="labelview">{{f.downloadalert?.value}}</label>
+      <app-useraccess   *ngIf="!showview"  id="downloadalert"  formControlName="downloadalert"
+        >
+</app-useraccess>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('folderlevel') == -1"  class="col " >
+<label  for="folderlevel" class="control-label">Folder Level</label>
+      <label *ngIf="showview"     class="labelview">{{f.folderlevel?.value}}</label>
+      <input   *ngIf="!showview"  id="folderlevel"  formControlName="folderlevel" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('createmenu') == -1"  class="col " >
+<div class="columnchk">
+<label  for="createmenu" class="control-label">Create Menu</label>
+      <label *ngIf="showview"     class="labelview">{{f.createmenu?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="createmenu"  formControlName="createmenu" class="form-control"
+        >
+  </div>
+  </div>
+
+
+<!--parentmenu-->
+
+  <div   *ngIf="hidelist.indexOf('parentmenu') == -1"  class="col" ><label  for="parentmenu" class="control-label" (click)="AddOrEditparentmenu(null)">Parent Menu</label>
+<app-popupselect  *ngIf="!showview"  [options]="parentmenuList"  [optionsEvent]="parentmenuoptionsEvent" [form]="bomenumaster" (selectItem)="onSelectedparentmenu($event)"  [reportid]= 'urtra' [menuid]='urtra' formControlName="parentmenu" id="menuid" desc="menudescription" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.parentmenu?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('fullpath') == -1"  class="col " >
+<label  for="fullpath" class="control-label">Full Path</label>
+      <label *ngIf="showview"     class="labelview">{{f.fullpath?.value}}</label>
+      <input   *ngIf="!showview"  id="fullpath"  formControlName="fullpath" class="form-control"
+        >
+  </div>
+</div>
+</p-accordionTab></p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Download Queues</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table dmsdownloadqueues-->
+<div [ngClass]="IsdmsdownloadqueuesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Download Queues' | translate}}
+<select class='child'  id="dmsdownloadqueuesPagingdropdown" (change)="dmsdownloadqueuesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='dmsdownloadqueuetoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.dmsdownloadqueueshowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="dmsdownloadqueuetoggleOption();dmsdownloadqueuesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="dmsdownloadqueuetoggleOption();showdmsdownloadqueuesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbldmsdownloadqueuessource (userRowSelect)="handledmsdownloadqueuesGridSelected($event)" [settings]="dmsdownloadqueuessettings" (custom)="onCustomdmsdownloadqueuesAction($event)" [source]="dmsdownloadqueuessource"  (delete)="dmsdownloadqueuesroute($event,'delete')"  (deleteConfirm)="dmsdownloadqueuesroute($event,'delete')" (create)="dmsdownloadqueuesroute($event,'create')"   (createConfirm)="dmsdownloadqueuesbeforesave($event)"  (edit)="dmsdownloadqueuesroute($event,'edit')"  (editConfirm)="dmsdownloadqueuesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table dmsdownloadqueues-->
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Linked Folders</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table dmslinkedfolders-->
+<div [ngClass]="IsdmslinkedfoldersVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'Linked Folders' | translate}}
+<select class='child'  id="dmslinkedfoldersPagingdropdown" (change)="dmslinkedfoldersPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div   class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+            <a class='nav-link dropdown-toggle btn-success' (click)='dmslinkedfoldertoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'></a>
+            <div class='dropdown-menu' style='display:block' *ngIf='this.dmslinkedfoldershowOption'>
+      <a  class="dropdown-item"  [routerLink]='' (click)="dmslinkedfoldertoggleOption();dmslinkedfoldersroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a>
+              <div class='dropdown-divider'></div>
+      <a class="dropdown-item" [routerLink]=''  (click)="dmslinkedfoldertoggleOption();showdmslinkedfoldersFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a>
+      <a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a>
+    </div>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tbldmslinkedfolderssource (userRowSelect)="handledmslinkedfoldersGridSelected($event)" [settings]="dmslinkedfolderssettings" (custom)="onCustomdmslinkedfoldersAction($event)" [source]="dmslinkedfolderssource"  (delete)="dmslinkedfoldersroute($event,'delete')"  (deleteConfirm)="dmslinkedfoldersroute($event,'delete')" (create)="dmslinkedfoldersroute($event,'create')"   (createConfirm)="dmslinkedfoldersbeforesave($event)"  (edit)="dmslinkedfoldersroute($event,'edit')"  (editConfirm)="dmslinkedfoldersbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table dmslinkedfolders-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

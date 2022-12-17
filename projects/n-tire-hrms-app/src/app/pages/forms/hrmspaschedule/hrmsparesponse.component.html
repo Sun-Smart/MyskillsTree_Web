@@ -1,0 +1,45 @@
+<div class="dialog">
+  <form [formGroup]="hrmsparesponseForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col">
+            <label for="qmid" class="control-label">Q M</label>
+            <input *ngIf="!showview" id="qmid" formControlName="qmid" class="form-control"
+              placeholder="{{'Q M' | translate}}">
+          </div>
+          <div class="col">
+            <label for="answer" class="control-label">Answer</label>
+            <input *ngIf="!showview" id="answer" formControlName="answer" class="form-control"
+              placeholder="{{'Answer' | translate}}">
+          </div>
+          <div class="col">
+            <label for="rating" class="control-label">Rating</label>
+            <p-rating *ngIf="!showview" id="rating" formControlName="rating" class="form-control"
+              placeholder="{{'Rating' | translate}}">
+            </p-rating>
+          </div>
+          <div class="col"></div>
+        </div>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.appraisalfeedbackid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.appraisalfeedbackid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

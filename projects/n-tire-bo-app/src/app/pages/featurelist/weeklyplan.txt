@@ -1,0 +1,35 @@
+Mr.Sundar,
+
+This week delivery plans:
+Major deliveries
+=================
+Whatsapp - CUB - JSON
+Whatsapp - IT Help desk**
+HR Bot - SDK 4**
+Video calling
+Alexa, twitter**
+Alphadata**
+Instiview
+Linkus,HereApp, EmailCampaign(chitra to give feedback)
+Inventory Module(first level of demonstration to myself)
+CRM
+Property Management(Cloud)
+Asset Management(Cloud)
+
+Issue Fixing(your sheet):
+=========================
+BOT - 40 out of 56
+CRM,Linkus,HereApp, Inventory Module, Procurement - All will be fixed
+
+
+Risks
+=====
+ios - Narendh - Sr.Resource - affected with corona. Hired junior resource for backup but not joined
+Livechat - Vivek - Taking long time to complete and on leave for next 2 days.
+DMS - Jayavarman - Going slow. Balaji - sr.resource never added to the project - not attending huddles for more than a week.
+IIM - Plan of action missing. 
+
+Technical Bottlenecks 
+=================
+Wit - conversation
+sdk4 issue - validation

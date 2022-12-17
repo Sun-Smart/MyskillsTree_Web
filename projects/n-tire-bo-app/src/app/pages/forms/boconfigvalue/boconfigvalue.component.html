@@ -1,0 +1,183 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="boconfigvalueForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'boconfigvalues' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editboconfigvalues()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'  *ngIf='maindata==null || maindata==undefined' >
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+<ul class="nav navbar-nav1">
+<li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+<a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'> <span class='caret'></span>Actions</a>
+<ul class="dropdown-menu">
+              <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+              <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+              <li><a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+              <li role="separator" class="divider"><hr></li>
+
+              <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+              <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+              <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+              <li><a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+    </ul>
+    </li>
+  </ul>
+          </li>
+<ng-container *ngFor="let action of boconfigvaluemenuactions">
+    <li><a  class="nav-link active" [routerLink]=''  (click)="onChangeAction(action.actionid)" ><i class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+</ng-container>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.configid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.configid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link active"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"  ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"    id="contentArea1" >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('param') == -1"  class="col-3 " >
+<label  for="param" class="control-label">Param</label>
+      <label *ngIf="showview"     class="labelview">{{f.param?.value}}</label>
+      <input   *ngIf="!showview"  id="param"  formControlName="param" class="form-control"        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('configkey') == -1"  class="col-3 " >
+<label  for="configkey" class="control-label">Config Key</label>
+      <label *ngIf="showview"     class="labelview">{{f.configkey?.value}}</label>
+      <input   *ngIf="!showview"  id="configkey"  formControlName="configkey" class="form-control"        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('configtext') == -1"  class="col-3 " >
+<label  for="configtext" class="control-label">Config Text</label>
+      <label *ngIf="showview"     class="labelview">{{f.configtext?.value}}</label>
+      <input   *ngIf="!showview"  id="configtext"  formControlName="configtext" class="form-control"        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('orderno') == -1"  class="col-3 " >
+<label  for="orderno" class="control-label">Order No</label>
+      <label *ngIf="showview"     class="labelview">{{f.orderno?.value}}</label>
+      <input   *ngIf="!showview"  id="orderno"  formControlName="orderno" class="form-control"        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('htmlcode') == -1"  class="col-3 " >
+<label  for="htmlcode" class="control-label">H T M L Code</label>
+      <label *ngIf="showview"     class="labelview">{{f.htmlcode?.value}}</label>
+      <input   *ngIf="!showview"  id="htmlcode"  formControlName="htmlcode" class="form-control"        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('param1') == -1"  class="col-3 " >
+<label  for="param1" class="control-label">Param1</label>
+      <label *ngIf="showview"     class="labelview">{{f.param1?.value}}</label>
+      <input   *ngIf="!showview"  id="param1"  formControlName="param1" class="form-control"        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('param2') == -1"  class="col-3 " >
+<label  for="param2" class="control-label">Param2</label>
+      <label *ngIf="showview"     class="labelview">{{f.param2?.value}}</label>
+      <input   *ngIf="!showview"  id="param2"  formControlName="param2" class="form-control"        >
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('helptext') == -1"  class="col " >
+<label  for="helptext" class="control-label">Help Text</label>
+      <label *ngIf="showview"     class="labelview">{{f.helptext?.value}}</label>
+<p-editor  *ngIf="!showview"  id="helptext" formControlName="helptext"    [style]="{  height: '320' }"></p-editor>  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('flag') == -1"  class="col-3 " >
+<label  for="flag" class="control-label">Flag</label>
+      <label *ngIf="showview"     class="labelview">{{f.flag?.value}}</label>
+      <input   *ngIf="!showview"  id="flag"  formControlName="flag" class="form-control"        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">SubConfig</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table bosubconfigvalues-->
+<div [ngClass]="IsbosubconfigvaluesVisible()">
+<!--End-->
+<h4  class="form-group sticky1  columns left">{{'SubConfig' | translate}}
+<select class='child'  id="bosubconfigvaluesPagingdropdown" (change)="bosubconfigvaluesPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<ul class="nav navbar-nav1">
+<li class="dropdown">
+<a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'> <span class='caret'></span></a>
+<ul class="dropdown-menu">
+<ng-container *ngIf="bosubconfigvaluemenuactions?.length>0">
+              <li role="separator" class="divider"><hr></li>
+<ng-container *ngFor="let action of bosubconfigvaluemenuactions">
+    <li><a  class="dropdown-item" [routerLink]=''  (click)="onChangeAction(action.actionid)" ><i class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+</ng-container>
+              <li role="separator" class="divider"><hr></li>
+</ng-container>
+      <li><a  class="dropdown-item"  [routerLink]='' (click)="bosubconfigvaluetoggleOption();bosubconfigvaluesroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+              <li role="separator" class="divider"><hr></li>
+      <li><a class="dropdown-item" [routerLink]=''  (click)="showbosubconfigvaluesFilter()" ><i class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+      <li><a class="dropdown-item" [routerLink]='' ><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+    </ul>
+    </li>
+  </ul>
+</h4>
+<ng2-smart-table  #tblbosubconfigvaluessource (userRowSelect)="handlebosubconfigvaluesGridSelected($event)" [settings]="bosubconfigvaluessettings" (custom)="onCustombosubconfigvaluesAction($event)" [source]="bosubconfigvaluessource"  (delete)="bosubconfigvaluesroute($event,'delete')"  (deleteConfirm)="bosubconfigvaluesroute($event,'delete')" (create)="bosubconfigvaluesroute($event,'create')"   (createConfirm)="bosubconfigvaluesbeforesave($event)"  (edit)="bosubconfigvaluesroute($event,'edit')"  (editConfirm)="bosubconfigvaluesbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table bosubconfigvalues-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+  </div>
+</form>

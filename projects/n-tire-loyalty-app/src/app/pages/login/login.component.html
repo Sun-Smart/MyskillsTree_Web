@@ -1,0 +1,118 @@
+<div   *ngIf="!loggedIn">
+  
+<div class="bg-img">
+  <div class="content">
+    <form [formGroup]="bologinForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')"
+      target="_top" autocomplete="off" novalidate="novalidate">
+
+      <div id="main-wrapper" class="ssg-login-register">
+        <div class="container-fluid px-0">
+          <div class="row no-gutters min-vh-100"> 
+            <!-- Welcome Text
+            ========================= -->
+            <div class="col-md-6">
+              <div class="hero-wrap d-flex align-items-center h-100">
+                <div class="hero-mask opacity-8 bg-primary"></div>
+                <div class="hero-bg hero-bg-scroll" style="background-image:url(&#39;./images/login-bg.jpg&#39;);"></div>
+                <div class="hero-content mx-auto w-100 h-100 d-flex flex-column">
+                  <div class="row no-gutters">
+                    <div class="col-10 col-lg-9 mx-auto">
+                      <div class="logo mt-5 mb-5 mb-md-0"> <a class="d-flex" href="http://ssg.net/index.html" title="ssg"><img src="/assets/logo-light.png" alt="ssg"></a> </div>
+                    </div>
+                  </div>
+                  <div class="row no-gutters my-auto">
+                    <div class="col-10 col-lg-9 mx-auto">
+                      <h1 class="text-11 text-white mb-4">Welcome back!</h1>
+                      <p class="text-4 text-white line-height-4 mb-5">We are glad to see you again! Get access to your Orders, Wishlist and Recommendations.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Welcome Text End --> 
+            
+            <!-- Login Form
+            ========================= -->
+            <div class="col-md-6 d-flex align-items-center">
+              <div class="container my-auto py-5">
+                <div class="row">
+                  <div class="col-11 col-lg-9 col-xl-8 mx-auto">
+                    <h3 class="font-weight-600 mb-4">Log In</h3>
+                    
+                      <div class="form-group">
+                        <label for="username">User Name</label>
+                        <input  class="form-control"  required formControlName='username' placeholder="Enter Your User Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" class="form-control" required formControlName='password' placeholder="Enter Password">
+                      </div>
+                      <div class="row">
+                        <div class="col-sm">
+                          <div class="form-check custom-control custom-checkbox">
+                            <input id="remember-me" name="remember" class="custom-control-input" type="checkbox">
+                            <label class="custom-control-label" for="remember-me">Remember Me</label>
+                          </div>
+                        </div>
+                        <div class="col-sm text-right"><a class="btn-link" href="http://ssg.net/forgot-password.html">Forgot Password ?</a></div>
+                      </div>
+                      <input class="btn btn-primary btn-block my-4" type="submit"  value="Login">
+                      
+                    
+                    <p class="text-center text-muted mb-0">Don't have an account? <a class="btn-link" href="http://ssg.net/register.html">Sign Up</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Login Form End --> 
+          </div>
+        </div>
+      </div>
+      
+
+      <!--
+
+      <div class="field">
+        <span class="fa fa-user"></span>
+        <input type="text" required formControlName='username' placeholder="User Name">
+      </div>
+      <div class="field space">
+        <span class="fa fa-lock"></span>
+        <input type="password" class="pass-key" required formControlName='password' placeholder="Password">
+        <span class="show">SHOW</span>
+      </div>
+      <div class="pass">
+        <a href="/#/forgotpassword">Forgot Password?</a>
+      </div>
+      <div class="field">
+        <input type="submit" value="LOGIN">
+      </div>
+    </form>
+    <div class="login">Or login with</div>
+    <div class="links">
+      <div class="facebook">
+        <i class="fab fa-facebook-f"><span>Facebook</span></i>
+      </div>
+      <div class="instagram">
+        <i class="fab fa-instagram"><span>Instagram</span></i>
+      </div>
+    </div>
+    <div class="signup">Don't have account?
+      <a href="#">Signup Now</a>
+    </div>
+
+  -->
+
+</form>
+
+  </div>
+</div>
+
+
+-----
+
+
+
+
+
+</div>

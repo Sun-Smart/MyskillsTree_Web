@@ -1,0 +1,73 @@
+<div class="dialog">
+  <form [formGroup]="hmsconsentForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Consents' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="consentname" class="control-label">{{'ConsentName' | translate}}</label>
+          <input id="consentname" formControlName="consentname" class="form-control"
+            placeholder="{{'ConsentName' | translate}}">
+        </div>
+        <div class="col"><label for="relation" class="control-label">{{'Relation' | translate}}</label>
+          <select id="relation" (change)="relationonChange($event.target)" formControlName="relation"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of relationList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="consentdate" class="control-label">{{'ConsentDate' | translate}}</label>
+          <div class="input-group">
+            <input #consentdateformpicker="ngbDatepicker" ngbDatepicker name="consentdateformpicker" id="consentdate"
+              formControlName="consentdate" class="form-control" placeholder="Choose {{'ConsentDate' | translate}}">
+            <button class="input-group-addon" (click)="consentdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="signature" class="control-label">{{'Signature' | translate}}</label>
+          <p-fileUpload #signatureuploader class="form-control" type="file" name="signature[]" mode="basic"
+            url="{{URL}}" (onSelect)="signatureFileSelected($event)"></p-fileUpload>
+          <img src="http://localhost:5001/MyResources/{{ this.hmsconsentForm.get('signature')!.value}}" />
+        </div>
+      </div>
+      <div class="sticky"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        Custom Fields</div>
+      <div class="form-group row"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}" target="_blank">{{fld!.value!.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.consentid!.value != null" [menuid]="pmenuid" [value]="f.consentid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,105 @@
+<form [formGroup]="umssectionmasterForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Section Masters' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col">
+              <label for="sectionname" class="control-label">{{'SectionName' | translate}}</label>
+              <input id="sectionname" formControlName="sectionname" class="form-control"
+                placeholder="{{'SectionName' | translate}}">
+            </div>
+            <div class="col">
+              <label for="maxstrength" class="control-label">{{'Max Strength' | translate}}</label>
+              <input id="maxstrength" formControlName="maxstrength" class="form-control"
+                placeholder="{{'Max Strength' | translate}}">
+              <app-field-error-display
+                [displayError]="f.maxstrength.errors!=null && f.maxstrength.errors.pattern!=null && f.maxstrength.errors!=undefined && f.maxstrength.errors.pattern!=undefined  && (f.maxstrength.touched|| isSubmitted)"
+                errorMsg="Not a valid number">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.maxstrength.errors!=null && f.maxstrength.errors.min!=null && f.maxstrength.errors!=undefined && f.maxstrength.errors.min!=undefined  && (f.maxstrength.touched|| isSubmitted)"
+                errorMsg="Minimum value have to be entered">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.maxstrength.errors!=null && f.maxstrength.errors.max!=null && f.maxstrength.errors!=undefined && f.maxstrength.errors.max!=undefined  && (f.maxstrength.touched|| isSubmitted)"
+                errorMsg="Maximum value Exceeded">
+              </app-field-error-display>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Students</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table umssectionstudents-->
+          <div class="row"></div>
+          <div [ngClass]="IsumssectionstudentsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Students' | translate}}
+              <select class='child' id="umssectionstudentsPagingdropdown"
+                (change)="umssectionstudentsPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn" (click)="showumssectionstudentsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblumssectionstudentssource (userRowSelect)="handleumssectionstudentsGridSelected($event)"
+              [settings]="umssectionstudentssettings" [source]="umssectionstudentssource">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table umssectionstudents-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.sectionid!.value != null" [menuid]="pmenuid" [value]="f.sectionid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

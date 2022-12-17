@@ -1,0 +1,159 @@
+<form  [formGroup]="bocontactForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Contacts' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="lastname" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+
+
+<!--referencetype-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'referencetype'; "  for="referencetype" class="control-label">Contact Type</label>
+      <select  *ngIf="!showview"  id="referencetype"  (change)="referencetypeonChange($event.target)" formControlName="referencetype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of referencetypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='referencetype'"  (click)="editfield = 'referencetype';"  class="form-control labelview">{{f.referencetypedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'referenceid'; "  for="referenceid" class="control-label">Reference</label>
+      <input   *ngIf="!showview || editfield=='referenceid'"  id="referenceid"  formControlName="referenceid" class="form-control"
+        >
+  </div>
+
+
+<!--contacttype-->
+
+  <div   class="col" ><label (click)="editfield = 'contacttype'; "  for="contacttype" class="control-label">Type</label>
+      <select  *ngIf="!showview"  id="contacttype"  (change)="contacttypeonChange($event.target)" formControlName="contacttype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of contacttypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='contacttype'"  (click)="editfield = 'contacttype';"  class="form-control labelview">{{f.contacttypedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'firstname'; "  for="firstname" class="control-label">First Name</label>
+      <input   *ngIf="!showview || editfield=='firstname'"  id="firstname"  formControlName="firstname" class="form-control"
+        >
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'lastname'; "  for="lastname" class="control-label">Last Name</label>
+      <input   *ngIf="!showview || editfield=='lastname'"  id="lastname"  formControlName="lastname" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'title'; "  for="title" class="control-label">Title</label>
+      <input   *ngIf="!showview || editfield=='title'"  id="title"  formControlName="title" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'activefromdate'; "  for="activefromdate" class="control-label">Active From Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='activefromdate'">
+<input #activefromdateformpicker="ngbDatepicker"      ngbDatepicker name="activefromdateformpicker" id="activefromdate"  formControlName="activefromdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='activefromdate'"  (click)="activefromdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='activefromdate'"  (click)="editfield = 'activefromdate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.activefromdate?.value)}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'activetodate'; "  for="activetodate" class="control-label">Active To Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='activetodate'">
+<input #activetodateformpicker="ngbDatepicker"      ngbDatepicker name="activetodateformpicker" id="activetodate"  formControlName="activetodate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='activetodate'"  (click)="activetodateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='activetodate'"  (click)="editfield = 'activetodate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.activetodate?.value)}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'department'; "  for="department" class="control-label">Department</label>
+      <input   *ngIf="!showview || editfield=='department'"  id="department"  formControlName="department" class="form-control"
+        >
+  </div>
+
+
+<!--category-->
+
+  <div   class="col" ><label (click)="editfield = 'category'; "  for="category" class="control-label">Category</label>
+      <select  *ngIf="!showview"  id="category"  (change)="categoryonChange($event.target)" formControlName="category"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of categoryList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='category'"  (click)="editfield = 'category';"  class="form-control labelview">{{f.categorydesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'phone'; "  for="phone" class="control-label">Phone</label>
+      <int-phone-prefix   *ngIf="!showview || editfield=='phone'"  id="phone"  formControlName="phone"  [locale]="'en'" [defaultCountry]="sessionService.getItem('countrycode')"  class="form-control telephone" 
+        >
+</int-phone-prefix>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'donotcall'; "  for="donotcall" class="control-label">Do Not Call</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='donotcall'"  id="donotcall"  formControlName="donotcall" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'email1'; "  for="email1" class="control-label">Email1</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview || editfield=='email1'"  id="email1"  formControlName="email1" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.email1.invalid && (f.email1.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'email2'; "  for="email2" class="control-label">Email2</label>
+      <input  type="email"  [email]="true"  *ngIf="!showview || editfield=='email2'"  id="email2"  formControlName="email2" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.email2.invalid && (f.email2.touched|| isSubmitted)" errorMsg="Enter valid email">
+      </app-field-error-display>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'assignedto'; "  for="assignedto" class="control-label">Assigned To</label>
+      <app-useraccess   *ngIf="!showview || editfield=='assignedto'"  id="assignedto"  formControlName="assignedto"  (change)="assignedtoonChange($event.target)" 
+        >
+</app-useraccess>
+  </div>
+</div>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.contactid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.contactid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

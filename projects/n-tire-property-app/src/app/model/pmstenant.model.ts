@@ -1,0 +1,9 @@
+export class pmstenant {
+public tenantiddesc :string;public tenantid :number;public firstname :string;public lastname :string;public iscompany :boolean;public companyname :string;public thumbnail :string;public propertyid :number;public propertyiddesc :string;public unitid :number;public unitiddesc :string;public datesigned :Date;public movein :Date;public moveout :Date;public memberscount :number;public identityno :string;public dateofbirth :Date;public age :number;public gender :string;public genderdesc :string;public emailid :string;public mobileno :string;public housecontactno :string;public officecontactno :string;public employer :string;public address1 :string;public address2 :string;public countryid :number;public countryiddesc :string;public stateid :number;public stateiddesc :string;public cityid :number;public cityiddesc :string;public bankname :string;public bankaccount :string;public iban :string;public petdetails :string;public vehicledetails :string;public firstname1 :string;public lastname1 :string;public identityno1 :string;public dateofbirth1 :Date;public age1 :number;public gender1 :string;public gender1desc :string;public emailid1 :string;public mobileno1 :string;public housecontactno1 :string;public officecontactno1 :string;public employer1 :string;public notes :string;public balancedue :number;public lastpaymentdate :Date;public status :string;public DeletedpmspropertyinsuranceIDs :string;public DeletedpmsdepositIDs :string;public DeletedpmschargeIDs :string;public DeletedpmsscheduleIDs :string;public DeletedpmspdcIDs :string;public DeletedpmskycdetailIDs :string;public DeletedpmsleaseIDs :string;public DeletedpmsworkorderIDs :string;public DeletedpmspropertyunitIDs :string;
+constructor() {}
+}
+export interface IpmstenantResponse {
+total: number;
+results: pmstenant[];
+}
+

@@ -1,0 +1,84 @@
+<form [formGroup]="pmemployeekpiForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Employee KPI' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="kpidetailid" class="control-label">{{'K P I Detail' | translate}}</label>
+        <input id="kpidetailid" formControlName="kpidetailid" class="form-control"
+          placeholder="{{'K P I Detail' | translate}}">
+      </div>
+      <div class="col">
+        <label for="departmentid" class="control-label">{{'Department' | translate}}</label>
+        <input id="departmentid" formControlName="departmentid" class="form-control"
+          placeholder="{{'Department' | translate}}">
+      </div>
+      <div class="col">
+        <label for="designationid" class="control-label">{{'Designation' | translate}}</label>
+        <input id="designationid" formControlName="designationid" class="form-control"
+          placeholder="{{'Designation' | translate}}">
+      </div>
+      <div class="col">
+        <label for="kpiid" class="control-label">{{'K P I' | translate}}</label>
+        <input id="kpiid" formControlName="kpiid" class="form-control" placeholder="{{'K P I' | translate}}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="weight" class="control-label">{{'Weight' | translate}}</label>
+        <input id="weight" formControlName="weight" class="form-control" placeholder="{{'Weight' | translate}}">
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="reviewquestions" class="control-label">{{'Review Questions' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="reviewquestions"
+          formControlName="reviewquestions" class="form-control" placeholder="{{'Review Questions' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="remarks" formControlName="remarks"
+          class="form-control" placeholder="{{'Remarks' | translate}}">
+</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+        <app-action *ngIf="f.employeekpiid!.value != null" [menuid]="pmenuid" [value]="f.employeekpiid!.value"
+          [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,64 @@
+<div *ngIf="loggedIn" style="position:relative"  [ngClass]="theme" > <!-- [ngClass]="{'layout-menu-active': isMenuVisible}"-->
+    <div class="layout-wrapper layout-menu-light layout-topbar-blue p-input-filled layout-menu-static" >
+
+        <div class="row">
+            <div class="col w3-sidebar w3-bar-block w3-xxlarge" style="max-width:70px">
+                <a href="#/home/boreportviewer/poe5x" class="w3-bar-item w3-button" title="Asset Masters"><i
+                        class="Bitter fa fa-th-large"></i></a>
+                <a href="#/home/boreportviewer/ynshc" class="w3-bar-item w3-button red" title="Asset Groups"><i
+                        class="Bitter fa fa-object-group"></i></a>
+                <a href="#/home/boreportviewer/yy5km" class="w3-bar-item w3-button" title="PM Masters"><i
+                        class="Bitter fa fa-list-alt"></i></a>
+                <a href="#/home/boreportviewer/iqnx7" class="w3-bar-item w3-button" title="pmschedules"><i
+                        class="Bitter fa fa-calendar-check-o"></i></a>
+                <a href="#/home/boreportviewer/aecva" class="w3-bar-item w3-button" title="Work Requests"><i
+                        class="Bitter fa fa-user-times"></i></a>
+                <a href="#/home/boreportviewer/nd6u7" class="w3-bar-item w3-button" title="Contract Orders"><i
+                        class="Bitter fa fa-newspaper-o"></i></a>
+                <a href="#/home/boreportviewer/o22tc" class="w3-bar-item w3-button" title="Work Orders"><i
+                        class="Bitter fa fa-first-order"></i></a>
+                <a href="#/home/calendar/odh5o" class="w3-bar-item w3-button" title="Maintenance Calendar"><i
+                        class="Bitter fa fa-calendar"></i></a>
+                <a href="#/home/boreportviewer/g3en5" class="w3-bar-item w3-button" title="Asset Transfers"><i
+                        class="Bitter fa fa-random"></i></a>
+                <a href="#/home/boreportviewer/g9icd" class="w3-bar-item w3-button" title="Asset Readings"><i
+                        class="Bitter fa fa-thermometer"></i></a>
+                <a href="#/home/boreportviewer/ofrfv" class="w3-bar-item w3-button" title="Asset Disposals"><i
+                        class="Bitter fa fa-share-square-o"></i></a>
+                <a href="#/home/boreportviewer/gdkyp" class="w3-bar-item w3-button" title="Asset Additions"><i
+                        class="Bitter fa fa-cart-plus"></i></a>
+                <a href="#/home/showdashboard/10" class="w3-bar-item w3-button" title=""><i
+                        class="Bitter fa fa-pie-chart"></i></a>
+            </div>
+            <div  id=contentidarea 
+                class="col">
+                <app-header (toggleMenubar)="toggleMenu()"></app-header>
+                <div id="content" style='height:1000px!important' class="ng-content">
+                    <div class="ui-fluid ng-main" [ngClass]="theme">
+                        <p-toast position="bottom-right"></p-toast>
+                        <!--<div [class.hidden]="!showLoader" class="np-loader">
+            <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+          </div>-->
+                        <!--overflow:auto;height:100%;-->
+                        <!--position:absolute;width:83%;-->
+                        <!--margin-left:16%;  height:80%;-->
+                        <!--height:550px;-->
+                        <div id="contentAreaLayout"
+                            
+                            class="main container3 full-height"  id="contentAreaLayout"  onscroll="scrollFunction1('scrollBtn2','contentArea')">
+                            <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+                            <router-outlet (activate)="topFunction1('contentArea')"></router-outlet>
+                            <!-- style="width:100%"-->
+                            <button onclick="topFunction1('contentArea')" id="scrollBtn1" title="Go to top"
+                                style="display:none">Top</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <app-footer></app-footer>
+    </div>
+</div>

@@ -1,0 +1,134 @@
+<div class="dialog">
+  <form [formGroup]="hrmsapplicanteducationForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
+    <div *ngIf="!(viewhtml != '' && showview)">
+      {{getHtml(viewhtml)}}
+    </div>
+    <div class="container1" *ngIf="!(viewhtml != '' && showview)">
+      <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+        <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+      </div>
+      <p-accordion [multiple]='true'>
+        <div class="form-group row">
+          <div class="col"><label for="education" class="control-label">Education</label>
+            <select *ngIf="!showview" id="education" (change)="educationonChange($event.target)"
+              formControlName="education" class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of educationList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+            <label *ngIf="showview" class="form-control labelview">{{f.educationdesc?.value}}</label>
+          </div>
+          <div class="col">
+            <label for="specialization" class="control-label">Specialization</label>
+            <input *ngIf="!showview" id="specialization" formControlName="specialization" class="form-control"
+              placeholder="{{'Specialization' | translate}}">
+          </div>
+          <div class="col">
+            <label for="fromyear" class="control-label">From Year</label>
+            <input *ngIf="!showview" id="fromyear" formControlName="fromyear" class="form-control"
+              placeholder="{{'From Year' | translate}}">
+            <app-field-error-display
+              [displayError]="f.fromyear.errors!=null && f.fromyear.errors.pattern!=null && f.fromyear.errors!=undefined && f.fromyear.errors.pattern!=undefined  && (f.fromyear.touched|| isSubmitted)"
+              errorMsg="Not a valid number">
+            </app-field-error-display>
+            <app-field-error-display
+              [displayError]="f.fromyear.errors!=null && f.fromyear.errors.min!=null && f.fromyear.errors!=undefined && f.fromyear.errors.min!=undefined  && (f.fromyear.touched|| isSubmitted)"
+              errorMsg="Minimum value have to be entered">
+            </app-field-error-display>
+            <app-field-error-display
+              [displayError]="f.fromyear.errors!=null && f.fromyear.errors.max!=null && f.fromyear.errors!=undefined && f.fromyear.errors.max!=undefined  && (f.fromyear.touched|| isSubmitted)"
+              errorMsg="Maximum value Exceeded">
+            </app-field-error-display>
+          </div>
+          <div class="col">
+            <label for="toyear" class="control-label">To Year</label>
+            <input *ngIf="!showview" id="toyear" formControlName="toyear" class="form-control"
+              placeholder="{{'To Year' | translate}}">
+            <app-field-error-display
+              [displayError]="f.toyear.errors!=null && f.toyear.errors.pattern!=null && f.toyear.errors!=undefined && f.toyear.errors.pattern!=undefined  && (f.toyear.touched|| isSubmitted)"
+              errorMsg="Not a valid number">
+            </app-field-error-display>
+            <app-field-error-display
+              [displayError]="f.toyear.errors!=null && f.toyear.errors.min!=null && f.toyear.errors!=undefined && f.toyear.errors.min!=undefined  && (f.toyear.touched|| isSubmitted)"
+              errorMsg="Minimum value have to be entered">
+            </app-field-error-display>
+            <app-field-error-display
+              [displayError]="f.toyear.errors!=null && f.toyear.errors.max!=null && f.toyear.errors!=undefined && f.toyear.errors.max!=undefined  && (f.toyear.touched|| isSubmitted)"
+              errorMsg="Maximum value Exceeded">
+            </app-field-error-display>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="institution" class="control-label">Institution</label>
+            <input *ngIf="!showview" id="institution" formControlName="institution" class="form-control"
+              placeholder="{{'Institution' | translate}}">
+          </div>
+          <div class="col">
+            <label for="percentage" class="control-label">Percentage</label>
+            <input *ngIf="!showview" id="percentage" formControlName="percentage" class="form-control"
+              placeholder="{{'Percentage' | translate}}">
+            <app-field-error-display
+              [displayError]="f.percentage.errors!=null && f.percentage.errors.pattern!=null && f.percentage.errors!=undefined && f.percentage.errors.pattern!=undefined  && (f.percentage.touched|| isSubmitted)"
+              errorMsg="Not a valid number">
+            </app-field-error-display>
+            <app-field-error-display
+              [displayError]="f.percentage.errors!=null && f.percentage.errors.min!=null && f.percentage.errors!=undefined && f.percentage.errors.min!=undefined  && (f.percentage.touched|| isSubmitted)"
+              errorMsg="Minimum value have to be entered">
+            </app-field-error-display>
+            <app-field-error-display
+              [displayError]="f.percentage.errors!=null && f.percentage.errors.max!=null && f.percentage.errors!=undefined && f.percentage.errors.max!=undefined  && (f.percentage.touched|| isSubmitted)"
+              errorMsg="Maximum value Exceeded">
+            </app-field-error-display>
+          </div>
+          <div class="col"><label for="grade" class="control-label">Grade</label>
+            <select *ngIf="!showview" id="grade" (change)="gradeonChange($event.target)" formControlName="grade"
+              class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of gradeList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+            <label *ngIf="showview" class="form-control labelview">{{f.gradedesc?.value}}</label>
+          </div>
+          <div class="col"></div>
+        </div>
+        <div class="form-group row">
+          <div class="col">
+            <label for="remarks" class="control-label">Remarks</label>
+            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="remarks"
+              formControlName="remarks" class="form-control" placeholder="{{'Remarks' | translate}}">
+</textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col"><label for="completionstatus" class="control-label">Completion Status</label>
+            <select *ngIf="!showview" id="completionstatus" (change)="completionstatusonChange($event.target)"
+              formControlName="completionstatus" class="form-control">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of completionstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+            </select>
+            <label *ngIf="showview" class="form-control labelview">{{f.completionstatusdesc?.value}}</label>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div *ngIf="attachmentvisible">
+          <p-accordionTab header='Attachment' [selected]='false'>
+            <app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+          </p-accordionTab>
+        </div>
+      </p-accordion>
+      <div class="form-group row" *ngIf="!showview">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+          <app-action *ngIf="f.haeid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+            [value]="f.haeid!.value" [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

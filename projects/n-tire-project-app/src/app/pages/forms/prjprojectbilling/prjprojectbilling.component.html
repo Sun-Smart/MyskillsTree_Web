@@ -1,0 +1,152 @@
+<form [formGroup]="prjprojectbillingForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+  <div class="row second" *ngIf="viewhtml == '' && !showview">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Project Billings' | translate}}</a></h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward"
+            aria-hidden="true"></i></button>
+        <app-popupselect *ngIf="!showview" [options]="pkList" [optionsEvent]="pkoptionsEvent" [form]="pkform"
+          (selectItem)="onSelectedpk($event)" [reportid]=31 [menuid]=31 formControlName="pk" id="pk" desc="">
+        </app-popupselect>
+        <button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"    *ngIf="!(viewhtml != '' && showview)">
+    <div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <div class="form-group row">
+              <div class="col">
+                <label for="billreference" class="control-label">Bill Reference</label>
+                <input *ngIf="!showview" id="billreference" formControlName="billreference" class="form-control"
+                  placeholder="{{'Bill Reference' | translate}}">
+              </div>
+              <div class="col">
+                <label for="projectid" class="control-label">Project</label>
+                <input *ngIf="!showview" id="projectid" formControlName="projectid" class="form-control"
+                  placeholder="{{'Project' | translate}}">
+              </div>
+              <div class="col">
+                <label for="totalworkinghrs" class="control-label">Total Working Hrs</label>
+                <input *ngIf="!showview" id="totalworkinghrs" formControlName="totalworkinghrs" class="form-control"
+                  placeholder="{{'Total Working Hrs' | translate}}">
+              </div>
+              <div class="col">
+                <label for="totalbillablehrs" class="control-label">Total Billable Hrs</label>
+                <input *ngIf="!showview" id="totalbillablehrs" formControlName="totalbillablehrs" class="form-control"
+                  placeholder="{{'Total Billable Hrs' | translate}}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <label for="totalbillableamount" class="control-label">Total Billable Amount</label>
+                <input *ngIf="!showview" id="totalbillableamount" formControlName="totalbillableamount"
+                  class="form-control" placeholder="{{'Total Billable Amount' | translate}}">
+              </div>
+              <div class="col">
+                <label for="totalcostingamount" class="control-label">Total Costing Amount</label>
+                <input *ngIf="!showview" id="totalcostingamount" formControlName="totalcostingamount"
+                  class="form-control" placeholder="{{'Total Costing Amount' | translate}}">
+              </div>
+              <div class="col"></div>
+              <div class="col"></div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <label for="notes" class="control-label">Notes</label>
+                <app-comment *ngIf="!showview" id="notes" formControlName="notes" [label]="'Notes'"
+                  placeholder="{{'Notes' | translate}}">
+                </app-comment>
+              </div>
+            </div>
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Project Billing Details</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table prjprojectbillingdetails-->
+            <div class="row"></div>
+            <div [ngClass]="IsprjprojectbillingdetailsVisible()">
+              <p></p>
+              <h4 class="form-group sticky1  columns left">{{'Project Billing Details' | translate}}
+                <select class='child' id="prjprojectbillingdetailsPagingdropdown"
+                  (change)="prjprojectbillingdetailsPaging($event.target!.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <div *ngIf='!showview' class="right" role="toolbar" aria-label="Toolbar with button groups">
+                  <!--btn-toolbar-->
+                  <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="dialogbtn"
+                      (click)="prjprojectbillingdetailsroute(null, 'create')"><i class="fa fa-plus"
+                        aria-hidden="true"></i></button>
+                    <button type="button" class="dialogbtn" (click)="showprjprojectbillingdetailsFilter()"><i
+                        class="fa fa-filter" aria-hidden="true"></i></button>
+                    <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                        aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </h4>
+                <div  class="table-container"> <ng2-smart-table    #tblprjprojectbillingdetailssource
+                (userRowSelect)="handleprjprojectbillingdetailsGridSelected($event)"
+                [settings]="prjprojectbillingdetailssettings" (custom)="onCustomprjprojectbillingdetailsAction($event)"
+                [source]="prjprojectbillingdetailssource" (delete)="prjprojectbillingdetailsroute($event,'delete')"
+                (deleteConfirm)="prjprojectbillingdetailsroute($event,'delete')"
+                (create)="prjprojectbillingdetailsroute($event,'create')"
+                (createConfirm)="prjprojectbillingdetailsbeforesave($event)"
+                (edit)="prjprojectbillingdetailsroute($event,'edit')"
+                (editConfirm)="prjprojectbillingdetailsbeforesave($event)">
+              </ng2-smart-table></div>
+            </div>
+            <!--End of child table prjprojectbillingdetails-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row" *ngIf="!showview">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-share-square"></i> Submit & Clear</button>
+        <app-action *ngIf="f.billid!.value != null" (afteraction)="afteraction($event)" [menuid]="pmenuid"
+          [value]="f.billid!.value" [status]="f.status.value"></app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

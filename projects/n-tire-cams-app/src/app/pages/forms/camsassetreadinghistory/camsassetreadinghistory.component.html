@@ -1,0 +1,168 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="camsassetreadinghistoryForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Asset Reading Histories' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editcamsassetreadinghistories()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='camsassetreadinghistorytoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.camsassetreadinghistoryshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.historyid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.historyid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('readingid') == -1"  class="col " >
+<label  for="readingid" class="control-label">Reading</label>
+      <label *ngIf="showview"     class="labelview">{{f.readingid?.value}}</label>
+      <input   *ngIf="!showview"  id="readingid"  formControlName="readingid" class="form-control"
+        >
+  </div>
+
+
+<!--assetid-->
+
+  <div   *ngIf="hidelist.indexOf('assetid') == -1 && maindata==undefined || maindata==null || maindata.ScreenType==null"  class="col" ><label  for="assetid" class="control-label" (click)="AddOrEditassetid(null)">Asset</label>
+<app-popupselect  *ngIf="!showview"  [options]="assetidList"  [optionsEvent]="assetidoptionsEvent" [form]="camsassetmaster" (selectItem)="onSelectedassetid($event)"  [reportid]= 'poe5x' [menuid]='poe5x' formControlName="assetid" id="assetid" desc="description" ></app-popupselect>
+<div class="input-group">
+</div>
+      <label *ngIf="showview"     class="labelview">{{f.assetid?.value}}</label>
+  </div>
+
+
+<!--readingpointcode-->
+
+  <div   *ngIf="hidelist.indexOf('readingpointcode') == -1"  class="col" ><label  for="readingpointcode" class="control-label">Reading Point Code</label>
+      <select  *ngIf="!showview"  id="readingpointcode"  (change)="readingpointcodeonChange($event.target)" formControlName="readingpointcode"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of readingpointcodeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.readingpointcode?.value}}</label>
+  </div>
+
+
+<!--readingtype-->
+
+  <div   *ngIf="hidelist.indexOf('readingtype') == -1"  class="col" ><label  for="readingtype" class="control-label">Reading Type</label>
+      <select  *ngIf="!showview"  id="readingtype"  (change)="readingtypeonChange($event.target)" formControlName="readingtype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of readingtypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.readingtype?.value}}</label>
+  </div>
+</div>
+
+
+<!--measurementmeter-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('measurementmeter') == -1"  class="col" ><label  for="measurementmeter" class="control-label">Measurement Meter</label>
+      <select  *ngIf="!showview"  id="measurementmeter"  (change)="measurementmeteronChange($event.target)" formControlName="measurementmeter"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of measurementmeterList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"     class="labelview">{{f.measurementmeter?.value}}</label>
+  </div>
+  <div   *ngIf="hidelist.indexOf('readingdate') == -1"  class="col " >
+<label  for="readingdate" class="control-label">Reading Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.readingdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #readingdateformpicker="ngbDatepicker"      ngbDatepicker name="readingdateformpicker" id="readingdate"  formControlName="readingdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="readingdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('reading') == -1"  class="col " >
+<label  for="reading" class="control-label">Reading</label>
+      <label *ngIf="showview"     class="labelview">{{f.reading?.value}}</label>
+      <input   *ngIf="!showview"  id="reading"  formControlName="reading" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('remarks') == -1"  class="col " >
+<label  for="remarks" class="control-label">Remarks</label>
+      <label *ngIf="showview"     class="labelview">{{f.remarks?.value}}</label>
+      <app-comment   *ngIf="!showview"  id="remarks"  formControlName="remarks" [label]="'Remarks'" 
+        >
+</app-comment>
+  </div>
+</div>
+<div  class='full-width'  *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='CustomField'  [selected]='false'>
+<div class="sticky" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))" >Custom Fields</div>
+<div  class="form-group row" *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+<dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+</div>
+</p-accordionTab>
+</p-accordion>
+</div>
+<div  class='full-width'  *ngIf="attachmentvisible">
+<p-accordion [multiple]='true'>
+<p-accordionTab header='Attachment'  [selected]='false'>
+<app-attachment #fileattachment  isAttachment=true  formControlName="attachment" [SessionData]="sessiondata"></app-attachment>
+</p-accordionTab>
+</p-accordion>
+</div>
+  </div>
+</form>

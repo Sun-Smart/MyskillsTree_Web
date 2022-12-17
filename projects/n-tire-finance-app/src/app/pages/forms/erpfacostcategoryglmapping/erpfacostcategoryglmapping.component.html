@@ -1,0 +1,33 @@
+<form [ngClass]="theme">
+  <div class="form-group row">
+  <div class="col">
+<div class="dialog">
+<p></p>
+<h1  class="form-group sticky1  columns left">{{'GL Mappings' | translate}}
+<select class='header'  id="erpfacostcategoryglmappingsPagingdropdown" (change)="erpfacostcategoryglmappingsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview' class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="btn indigo lighten-2" (click)="showerpfacostcategoryglmappingsCheckbox()"><i class="fa fa-check" aria-hidden="true"></i></button>
+      <button type="button" class="btn blue lighten-2" (click)="deleteerpfacostcategoryglmappingsAll()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+      <button type="button" class="btn light-blue lighten-2" (click)="showerpfacostcategoryglmappingsInActive()" ><i class="fa fa-ban" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="erpfacostcategoryglmappingsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showerpfacostcategoryglmappingsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h1>
+<ng2-smart-table  #tblerpfacostcategoryglmappingssource (userRowSelect)="handleerpfacostcategoryglmappingsGridSelected($event)" [settings]="erpfacostcategoryglmappingssettings" (custom)="onCustomerpfacostcategoryglmappingsAction($event)" [source]="erpfacostcategoryglmappingssource"  (delete)="erpfacostcategoryglmappingsroute($event,'delete')"  (deleteConfirm)="erpfacostcategoryglmappingsroute($event,'delete')" (create)="erpfacostcategoryglmappingsroute($event,'create')"   (createConfirm)="erpfacostcategoryglmappingsbeforesave($event)"  (edit)="erpfacostcategoryglmappingsroute($event,'edit')"  (editConfirm)="erpfacostcategoryglmappingsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  </div>
+  </div>
+  <div class="form-group row">
+  <div class="col">
+    <button class="btn btn-primary" (click)="onSubmit()" ><i class="fa fa-database"></i> Submit</button>
+  </div>
+  </div>
+</form>

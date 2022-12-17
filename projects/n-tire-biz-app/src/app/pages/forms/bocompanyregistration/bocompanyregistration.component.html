@@ -1,0 +1,116 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="bocompanyregistration_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"  style="margin-left: 70px !important;">{{'Registrations' | translate}}</h1>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <p-accordion [multiple]='true'>
+      <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+        <div
+          *ngIf="((hidelist.indexOf('companyname') == -1) && (companynamevisible==undefined || companynamevisible==true))"
+          style='' class="col-12 ">
+          <label for="companyname" class="control-label">Company Name</label>
+          <label *ngIf="showview" class="labelview">{{f.companyname?.value}}</label>
+          <input *ngIf="!showview" id="companyname" formControlName="companyname" class="form-control">
+        </div>
+      </div>
+
+      <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+        <div
+          *ngIf="((hidelist.indexOf('companytype') == -1) && (companytypevisible==undefined || companytypevisible==true))"
+          style='' class="col-12"><label for="companytype" class="control-label">Type</label>
+          <select *ngIf="!showview" id="companytype" (change)="companytype_onChange($event.target)"
+            formControlName="companytype" class="form-control">
+            <option [ngValue]="null" selected>-Select-</option>
+            <option *ngFor="let item of companytype_List" value="{{item.value}}">{{item.label}}</option>
+          </select>
+          <label *ngIf="showview" class="labelview">{{f.companytypedesc?.value}}</label>
+        </div>
+      </div>
+      <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+        <div *ngIf="((hidelist.indexOf('firstname') == -1) && (firstnamevisible==undefined || firstnamevisible==true))"
+          style='' class="col-12 ">
+          <label for="firstname" class="control-label">First Name</label>
+          <label *ngIf="showview" class="labelview">{{f.firstname?.value}}</label>
+          <input *ngIf="!showview" id="firstname" formControlName="firstname" class="form-control">
+        </div>
+      </div>
+      <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+        <div *ngIf="((hidelist.indexOf('lastname') == -1) && (lastnamevisible==undefined || lastnamevisible==true))"
+          style='' class="col-12 ">
+          <label for="lastname" class="control-label">Last Name</label>
+          <label *ngIf="showview" class="labelview">{{f.lastname?.value}}</label>
+          <input *ngIf="!showview" id="lastname" formControlName="lastname" class="form-control">
+        </div>
+      </div>
+
+      <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+        <div
+          *ngIf="((hidelist.indexOf('designation') == -1) && (designationvisible==undefined || designationvisible==true))"
+          style='' class="col-12"><label for="designation" class="control-label"
+            (click)="AddOrEdit_designation(null)">Designation</label>
+          <select *ngIf="!showview" id="designation" (change)="designation_onChange($event.target)"
+            formControlName="designation" class="form-control">
+            <option [ngValue]="null" selected>-Select-</option>
+            <option *ngFor="let item of designation_List" value="{{item.value}}">{{item.label}}</option>
+          </select>
+          <label *ngIf="showview" class="labelview">{{f.designationdesc?.value}}</label>
+        </div>
+      </div>
+      <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+        <div *ngIf="((hidelist.indexOf('emailid') == -1) && (emailidvisible==undefined || emailidvisible==true))"
+          style='' class="col-12 ">
+          <label for="emailid" class="control-label">Email</label>
+          <label *ngIf="showview" class="labelview">{{f.emailid?.value}}</label>
+          <input type="email" [email]="true" *ngIf="!showview" id="emailid" formControlName="emailid"
+            class="form-control">
+          <app-field-error-display [displayError]="f.emailid.errors!=null && f.emailid.errors?.email"
+            errorMsg="Enter valid email">
+          </app-field-error-display>
+        </div>
+      </div>
+      <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+        <div
+          *ngIf="((hidelist.indexOf('mobilenumber') == -1) && (mobilenumbervisible==undefined || mobilenumbervisible==true))"
+          style='' class="col-12 ">
+          <label for="mobilenumber" class="control-label">Mobile</label>
+          <label *ngIf="showview" class="labelview">{{f.mobilenumber?.value}}</label>
+          <int-phone-prefix *ngIf="!showview" id="mobilenumber" formControlName="mobilenumber" [locale]="'en'"
+             class="form-control telephone">
+          </int-phone-prefix>
+        </div>
+      </div>
+    </p-accordion>
+  </div>
+  <div class='row  sticky1' role='toolbar' aria-label='Toolbar with button groups'  style="padding: 10px;">
+
+    <div class='col'></div>
+    <div class='dropdown d-inline-block btn-dropdown show'  style="padding: 16px 30px 0px 34px;">
+
+      <ul class='nav nav-pills  input-group'>
+        <ng-container *ngFor="let action of bocompanyregistration_menuactions">
+          <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+        </ng-container>
+        <li class='nav-item actionheader' *ngIf="!showview">
+          <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i> Submit</a>
+          <app-action *ngIf="f.registrationid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+            [value]="f.registrationid.value" [status]="f.status.value"></app-action>
+        </li>
+        <li class='nav-item actionheader'
+          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+          <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</form>

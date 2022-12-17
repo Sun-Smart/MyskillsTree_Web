@@ -1,0 +1,291 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+<form [formGroup]="lmsproductmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Product Masters' | translate}}</a>
+    </h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_lmsproductmasters()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <ng-container *ngFor="let action of lmsproductmaster_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>
+          <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+              Submit</a>
+            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+            <app-action *ngIf="f.productid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.productid.value" [status]="f.status.value"></app-action>
+          </li>
+          <li class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+      </div>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+
+
+            <!--productgroup-->
+
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('productgroup') == -1) && (productgroupvisible==undefined || productgroupvisible==true))"
+                style='' class="col-3"><label for="productgroup" class="control-label">Product Group</label>
+                <select *ngIf="!showview" id="productgroup" (change)="productgroup_onChange($event.target)"
+                  formControlName="productgroup" class="form-control">
+                  <option [ngValue]="null" selected>-Select-</option>
+                  <option *ngFor="let item of productgroup_List" value="{{item.value}}">{{item.label}}</option>
+                </select>
+                <label *ngIf="showview" class="labelview">{{f.productgroupdesc?.value}}</label>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('productcode') == -1) && (productcodevisible==undefined || productcodevisible==true))"
+                style='' class="col-3 ">
+                <label for="productcode" class="control-label required">Product Code</label>
+                <label *ngIf="showview" class="labelview">{{f.productcode?.value}}</label>
+                <input *ngIf="!showview" id="productcode" required formControlName="productcode" class="form-control">
+                <app-field-error-display [displayError]="f.productcode.errors?.required"
+                  errorMsg="Enter {{'Product Code' | translate}}">
+                </app-field-error-display>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('productname') == -1) && (productnamevisible==undefined || productnamevisible==true))"
+                style='' class="col-3 ">
+                <label for="productname" class="control-label required">Product Name</label>
+                <label *ngIf="showview" class="labelview">{{f.productname?.value}}</label>
+                <input *ngIf="!showview" id="productname" required formControlName="productname" class="form-control">
+                <app-field-error-display [displayError]="f.productname.errors?.required"
+                  errorMsg="Enter {{'Product Name' | translate}}">
+                </app-field-error-display>
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('productimage') == -1) && (productimagevisible==undefined || productimagevisible==true))"
+                style='' class="col-3 ">
+                <label for="productimage" class="control-label">Product Image</label>
+                <label *ngIf="showview" class="labelview">{{f.productimage?.value}}</label>
+                <input *ngIf="!showview" id="productimage" formControlName="productimage" class="form-control">
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('description') == -1) && (descriptionvisible==undefined || descriptionvisible==true))"
+                style='' class="col-3 ">
+                <label for="description" class="control-label">Description</label>
+                <label *ngIf="showview" class="labelview">{{f.description?.value}}</label>
+                <input *ngIf="!showview" id="description" formControlName="description" class="form-control">
+              </div>
+              <div
+                *ngIf="((hidelist.indexOf('dimension') == -1) && (dimensionvisible==undefined || dimensionvisible==true))"
+                style='' class="col-3 ">
+                <label for="dimension" class="control-label">Dimension</label>
+                <label *ngIf="showview" class="labelview">{{f.dimension?.value}}</label>
+                <input *ngIf="!showview" id="dimension" formControlName="dimension" class="form-control">
+              </div>
+              <div class="col"></div>
+              <div class="col"></div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div *ngIf="((hidelist.indexOf('details') == -1) && (detailsvisible==undefined || detailsvisible==true))"
+                style='width:1500px' class="col-12 ">
+                <label for="details" class="control-label">Details</label>
+                <label *ngIf="showview" class="labelview">{{f.details?.value}}</label>
+                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="details"
+                  formControlName="details" class="form-control">
+</textarea>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('bundleproduct') == -1) && (bundleproductvisible==undefined || bundleproductvisible==true))"
+                style='' class="col-3 ">
+                <div class="columnchk">
+                  <label for="bundleproduct" class="control-label">Bundle Product</label>
+                  <label *ngIf="showview" class="labelview">{{f.bundleproduct?.value}}</label>
+                  <input type="checkbox" *ngIf="!showview" id="bundleproduct" formControlName="bundleproduct"
+                    class="form-control">
+                </div>
+              </div>
+              <div class="col"></div>
+              <div class="col"></div>
+              <div class="col"></div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('productowner') == -1) && (productownervisible==undefined || productownervisible==true))"
+                style='' class="col-3 ">
+                <label for="productowner" class="control-label">Product Owner</label>
+                <label *ngIf="showview" class="labelview">{{f.productowner?.value}}</label>
+                <app-useraccess *ngIf="!showview" id="productowner" formControlName="productowner"
+                  (change)="productowner_onChange($event.target)">
+                </app-useraccess>
+              </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+              <div
+                *ngIf="((hidelist.indexOf('validfrom') == -1) && (validfromvisible==undefined || validfromvisible==true))"
+                style='' class="col-3 ">
+                <label for="validfrom" class="control-label">Valid From</label>
+                <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.validfrom?.value)}}</label>
+                <div class="input-group" *ngIf="!showview">
+                  <input #validfromformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+                    [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="validfromformpicker" id="validfrom"
+                    formControlName="validfrom" class="form-control">
+                  <button class="input-group-addon" *ngIf="!showview" (click)="validfromformpicker.toggle()"
+                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                </div>
+              </div>
+              <div *ngIf="((hidelist.indexOf('validto') == -1) && (validtovisible==undefined || validtovisible==true))"
+                style='' class="col-3 ">
+                <label for="validto" class="control-label">Valid To</label>
+                <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.validto?.value)}}</label>
+                <div class="input-group" *ngIf="!showview">
+                  <input #validtoformpicker="ngbDatepicker" [minDate]='{year: 2022, month:3, day: 1}'
+                    [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker name="validtoformpicker" id="validto"
+                    formControlName="validto" class="form-control">
+                  <button class="input-group-addon" *ngIf="!showview" (click)="validtoformpicker.toggle()"
+                    type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                </div>
+              </div>
+              <div class="col"></div>
+              <div class="col"></div>
+            </div>
+          </p-accordion>
+          <div class='full-width'
+            *ngIf="customFieldVisible  && customFieldServiceList!=null && customFieldServiceList!=undefined  && customFieldServiceList.fields.length>0">
+            <p-accordion [multiple]='true'>
+              <p-accordionTab header='CustomField' [selected]='false'>
+                <div class="sticky"
+                  *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+                  Custom Fields</div>
+                <div class="form-group row"
+                  *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+                  <dynamic-form-builder [customfields]="customFieldServiceList" #customform></dynamic-form-builder>
+                </div>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+          <div class='full-width' *ngIf="attachmentVisible">
+            <p-accordion [multiple]='true'>
+              <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+                <app-attachment #fileattachment isAttachment=true formControlName="attachment"
+                  [SessionData]="sessionData"></app-attachment>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Bundled Products</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <p-accordion [multiple]='true'>
+            <!-- child table lmsbundledproducts-->
+            <div [ngClass]="Is_lmsbundledproducts_Visible()">
+              <!--End-->
+              <h4 class="form-group sticky1  columns left">{{'Bundled Products' | translate}}
+                <select class='child' id="lmsbundledproductsPagingdropdown"
+                  (change)="lmsbundledproducts_Paging($event.target.value)" [value]='20'>
+                  <option value='20'>20</option>
+                  <option value='50'>50</option>
+                  <option value='100'>100</option>
+                </select>
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li role="separator" class="divider">
+                        <hr>
+                      </li>
+                      <li><a class="dropdown-item" [routerLink]='' (click)="showlmsbundledproductsFilter()"><i
+                            class="fa fa-filter" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
+                      <li><a class="dropdown-item" [routerLink]=''><i class="fa fa-envelope"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </h4>
+              <ng2-smart-table #tbl_lmsbundledproducts (userRowSelect)="handle_lmsbundledproducts_GridSelected($event)"
+                [settings]="lmsbundledproducts_settings" (custom)="onCustom_lmsbundledproducts_Action($event)"
+                [source]="tbl_lmsbundledproducts?.source?.data">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table lmsbundledproducts-->
+          </p-accordion>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</form>

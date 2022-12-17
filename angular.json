@@ -1,0 +1,3408 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "b8dd0680-6380-41d5-b1de-462c944871a0"
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "nTireBOApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-bo-app",
+      "sourceRoot": "projects/n-tire-bo-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireBOApp",
+            "index": "projects/n-tire-bo-app/src/index.html",
+            "main": "projects/n-tire-bo-app/src/main.ts",
+            "polyfills": "projects/n-tire-bo-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-bo-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-bo-app/src/favicon.ico",
+              "projects/n-tire-bo-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/bostyle.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js",
+              "./node_modules/hammerjs/hammer.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-bo-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-bo-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireBOApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireBOApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireBOApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-bo-app/src/test.ts",
+            "polyfills": "projects/n-tire-bo-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-bo-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-bo-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-bo-app/src/favicon.ico",
+              "projects/n-tire-bo-app/src/assets",
+              {
+                "glob": "**/*",
+                "input": "dist/ngx-extended-pdf-viewer/assets/",
+                "output": "/assets/"
+              }
+            ],
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "project/n-tire-biz-app/src/assets/css/font-awesome.css",
+              "project/n-tire-biz-app/src/assets/css/smartwizard.css",
+              "project/n-tire-biz-app/src/assets/css/material-icon.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "../node_modules/ng2-image-viewer/imageviewer.scss",
+              "../node_modules/@videogular/ngx-videogular/fonts/videogular.css",
+              "projects/n-tire-bo-app/src/styles.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css"
+            ],
+            "scripts": [
+              "./node_modules/hammerjs/hammer.min.js",
+              "project/n-tire-biz-app/src/assets/bootstrap.min.js",
+              "project/n-tire-biz-app/src/assets/jquery.min.js",
+              "project/n-tire-biz-app/src/assets/popper.min.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-bo-app/tsconfig.app.json",
+              "projects/n-tire-bo-app/tsconfig.spec.json",
+              "projects/n-tire-bo-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-bo-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireBOApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireBOApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireCAMSApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-cams-app",
+      "sourceRoot": "projects/n-tire-cams-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireCAMSApp",
+            "index": "projects/n-tire-cams-app/src/index.html",
+            "main": "projects/n-tire-cams-app/src/main.ts",
+            "polyfills": "projects/n-tire-cams-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-cams-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-cams-app/src/favicon.ico",
+              "projects/n-tire-cams-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-cams-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-cams-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-cams-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireCAMSApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireCAMSApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireCAMSApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-cams-app/src/test.ts",
+            "polyfills": "projects/n-tire-cams-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-cams-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-cams-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-cams-app/src/favicon.ico",
+              "projects/n-tire-cams-app/src/assets",
+              {
+                "glob": "**/*",
+                "input": "dist/ngx-extended-pdf-viewer/assets/",
+                "output": "/assets/"
+              }
+            ],
+            "styles": [
+              "projects/n-tire-cams-app/src/styles.scss"
+            ],
+            "scripts": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "../node_modules/ng2-image-viewer/imageviewer.scss",
+              "../node_modules/@videogular/ngx-videogular/fonts/videogular.css",
+              "projects/n-tire-bo-app/src/styles.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-cams-app/tsconfig.app.json",
+              "projects/n-tire-cams-app/tsconfig.spec.json",
+              "projects/n-tire-cams-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-cams-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireCAMSApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireCAMSApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireCommerceApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-commerce-app",
+      "sourceRoot": "projects/n-tire-commerce-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireCommerceApp",
+            "index": "projects/n-tire-commerce-app/src/index.html",
+            "main": "projects/n-tire-commerce-app/src/main.ts",
+            "polyfills": "projects/n-tire-commerce-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-commerce-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-commerce-app/src/favicon.ico",
+              "projects/n-tire-commerce-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-commerce-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-commerce-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-commerce-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireCommerceApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireCommerceApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireCommerceApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-commerce-app/src/test.ts",
+            "polyfills": "projects/n-tire-commerce-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-commerce-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-commerce-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-commerce-app/src/favicon.ico",
+              "projects/n-tire-commerce-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-commerce-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-commerce-app/tsconfig.app.json",
+              "projects/n-tire-commerce-app/tsconfig.spec.json",
+              "projects/n-tire-commerce-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-commerce-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireCommerceApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireCommerceApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireDashboardsApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-dashboards-app",
+      "sourceRoot": "projects/n-tire-dashboards-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireDashboardsApp",
+            "index": "projects/n-tire-dashboards-app/src/index.html",
+            "main": "projects/n-tire-dashboards-app/src/main.ts",
+            "polyfills": "projects/n-tire-dashboards-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-dashboards-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-dashboards-app/src/favicon.ico",
+              "projects/n-tire-dashboards-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-dashboards-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-dashboards-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-dashboards-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireDashboardsApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireDashboardsApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireDashboardsApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-dashboards-app/src/test.ts",
+            "polyfills": "projects/n-tire-dashboards-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-dashboards-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-dashboards-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-dashboards-app/src/favicon.ico",
+              "projects/n-tire-dashboards-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-dashboards-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-dashboards-app/tsconfig.app.json",
+              "projects/n-tire-dashboards-app/tsconfig.spec.json",
+              "projects/n-tire-dashboards-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-dashboards-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireDashboardsApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireDashboardsApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireDMSApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-dms-app",
+      "sourceRoot": "projects/n-tire-dms-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireDMSApp",
+            "index": "projects/n-tire-dms-app/src/index.html",
+            "main": "projects/n-tire-dms-app/src/main.ts",
+            "polyfills": "projects/n-tire-dms-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-dms-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-dms-app/src/favicon.ico",
+              "projects/n-tire-dms-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-dms-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-dms-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-dms-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireDMSApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireDMSApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireDMSApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-dms-app/src/test.ts",
+            "polyfills": "projects/n-tire-dms-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-dms-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-dms-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-dms-app/src/favicon.ico",
+              "projects/n-tire-dms-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-dms-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-dms-app/tsconfig.app.json",
+              "projects/n-tire-dms-app/tsconfig.spec.json",
+              "projects/n-tire-dms-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-dms-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireDMSApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireDMSApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireProcurementApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-procurement-app",
+      "sourceRoot": "projects/n-tire-procurement-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireProcurementApp",
+            "index": "projects/n-tire-procurement-app/src/index.html",
+            "main": "projects/n-tire-procurement-app/src/main.ts",
+            "polyfills": "projects/n-tire-procurement-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-procurement-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-procurement-app/src/favicon.ico",
+              "projects/n-tire-procurement-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-procurement-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-procurement-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-procurement-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireProcurementApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireProcurementApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireProcurementApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-procurement-app/src/test.ts",
+            "polyfills": "projects/n-tire-procurement-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-procurement-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-procurement-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-procurement-app/src/favicon.ico",
+              "projects/n-tire-procurement-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-procurement-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-procurement-app/tsconfig.app.json",
+              "projects/n-tire-procurement-app/tsconfig.spec.json",
+              "projects/n-tire-procurement-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-procurement-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireProcurementApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireProcurementApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireVisitorApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-visitor-app",
+      "sourceRoot": "projects/n-tire-visitor-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireVisitorApp",
+            "index": "projects/n-tire-visitor-app/src/index.html",
+            "main": "projects/n-tire-visitor-app/src/main.ts",
+            "polyfills": "projects/n-tire-visitor-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-visitor-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-visitor-app/src/favicon.ico",
+              "projects/n-tire-visitor-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-visitor-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-visitor-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-visitor-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireVisitorApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireVisitorApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireVisitorApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-visitor-app/src/test.ts",
+            "polyfills": "projects/n-tire-visitor-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-visitor-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-visitor-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-visitor-app/src/favicon.ico",
+              "projects/n-tire-visitor-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-visitor-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-visitor-app/tsconfig.app.json",
+              "projects/n-tire-visitor-app/tsconfig.spec.json",
+              "projects/n-tire-visitor-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-visitor-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireVisitorApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireVisitorApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireBizApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-biz-app",
+      "sourceRoot": "projects/n-tire-biz-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireBizApp",
+            "index": "projects/n-tire-biz-app/src/index.html",
+            "main": "projects/n-tire-biz-app/src/main.ts",
+            "polyfills": "projects/n-tire-biz-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-biz-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-biz-app/src/favicon.ico",
+              "projects/n-tire-biz-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-biz-app/src/style.scss",
+              "projects/n-tire-biz-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-biz-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-biz-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-biz-app/src/stylebiz.scss",
+              "projects/n-tire-biz-app/src/css/bootstrap.min.css",
+              "projects/n-tire-biz-app/src/css/angular-calendar.css",
+              "projects/n-tire-biz-app/src/css/flatpickr.css"
+              
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-biz-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-biz-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireBizApp:build",
+            "disableHostCheck": true
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireBizApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireBizApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-biz-app/src/test.ts",
+            "polyfills": "projects/n-tire-biz-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-biz-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-biz-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-biz-app/src/favicon.ico",
+              "projects/n-tire-biz-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-biz-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-biz-app/tsconfig.app.json",
+              "projects/n-tire-biz-app/tsconfig.spec.json",
+              "projects/n-tire-biz-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-biz-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireBizApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireBizApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireContentApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-content-app",
+      "sourceRoot": "projects/n-tire-content-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireContentApp",
+            "index": "projects/n-tire-content-app/src/index.html",
+            "main": "projects/n-tire-content-app/src/main.ts",
+            "polyfills": "projects/n-tire-content-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-content-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-content-app/src/favicon.ico",
+              "projects/n-tire-content-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-content-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-content-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-content-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireContentApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireContentApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireContentApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-content-app/src/test.ts",
+            "polyfills": "projects/n-tire-content-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-content-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-content-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-content-app/src/favicon.ico",
+              "projects/n-tire-content-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-content-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-content-app/tsconfig.app.json",
+              "projects/n-tire-content-app/tsconfig.spec.json",
+              "projects/n-tire-content-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-content-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireContentApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireContentApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireCRMApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-crm-app",
+      "sourceRoot": "projects/n-tire-crm-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireCRMApp",
+            "index": "projects/n-tire-crm-app/src/index.html",
+            "main": "projects/n-tire-crm-app/src/main.ts",
+            "polyfills": "projects/n-tire-crm-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-crm-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-crm-app/src/favicon.ico",
+              "projects/n-tire-crm-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-crm-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-crm-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-crm-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireCRMApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireCRMApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireCRMApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-crm-app/src/test.ts",
+            "polyfills": "projects/n-tire-crm-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-crm-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-crm-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-crm-app/src/favicon.ico",
+              "projects/n-tire-crm-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-crm-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-crm-app/tsconfig.app.json",
+              "projects/n-tire-crm-app/tsconfig.spec.json",
+              "projects/n-tire-crm-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-crm-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireCRMApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireCRMApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireFinanceApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-finance-app",
+      "sourceRoot": "projects/n-tire-finance-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireFinanceApp",
+            "index": "projects/n-tire-finance-app/src/index.html",
+            "main": "projects/n-tire-finance-app/src/main.ts",
+            "polyfills": "projects/n-tire-finance-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-finance-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-finance-app/src/favicon.ico",
+              "projects/n-tire-finance-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-finance-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-finance-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-finance-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireFinanceApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireFinanceApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireFinanceApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-finance-app/src/test.ts",
+            "polyfills": "projects/n-tire-finance-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-finance-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-finance-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-finance-app/src/favicon.ico",
+              "projects/n-tire-finance-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-finance-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-finance-app/tsconfig.app.json",
+              "projects/n-tire-finance-app/tsconfig.spec.json",
+              "projects/n-tire-finance-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-finance-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireFinanceApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireFinanceApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireFleetApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-fleet-app",
+      "sourceRoot": "projects/n-tire-fleet-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireFleetApp",
+            "index": "projects/n-tire-fleet-app/src/index.html",
+            "main": "projects/n-tire-fleet-app/src/main.ts",
+            "polyfills": "projects/n-tire-fleet-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-fleet-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-fleet-app/src/favicon.ico",
+              "projects/n-tire-fleet-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-fleet-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-fleet-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-fleet-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireFleetApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireFleetApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireFleetApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-fleet-app/src/test.ts",
+            "polyfills": "projects/n-tire-fleet-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-fleet-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-fleet-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-fleet-app/src/favicon.ico",
+              "projects/n-tire-fleet-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-fleet-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-fleet-app/tsconfig.app.json",
+              "projects/n-tire-fleet-app/tsconfig.spec.json",
+              "projects/n-tire-fleet-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-fleet-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireFleetApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireFleetApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireHelpDeskApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-help-desk-app",
+      "sourceRoot": "projects/n-tire-help-desk-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireHelpDeskApp",
+            "index": "projects/n-tire-help-desk-app/src/index.html",
+            "main": "projects/n-tire-help-desk-app/src/main.ts",
+            "polyfills": "projects/n-tire-help-desk-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-help-desk-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-help-desk-app/src/favicon.ico",
+              "projects/n-tire-help-desk-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-help-desk-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-help-desk-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-help-desk-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireHelpDeskApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireHelpDeskApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireHelpDeskApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-help-desk-app/src/test.ts",
+            "polyfills": "projects/n-tire-help-desk-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-help-desk-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-help-desk-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-help-desk-app/src/favicon.ico",
+              "projects/n-tire-help-desk-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-help-desk-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-help-desk-app/tsconfig.app.json",
+              "projects/n-tire-help-desk-app/tsconfig.spec.json",
+              "projects/n-tire-help-desk-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-help-desk-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireHelpDeskApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireHelpDeskApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireHospitalApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-hospital-app",
+      "sourceRoot": "projects/n-tire-hospital-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireHospitalApp",
+            "index": "projects/n-tire-hospital-app/src/index.html",
+            "main": "projects/n-tire-hospital-app/src/main.ts",
+            "polyfills": "projects/n-tire-hospital-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-hospital-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-hospital-app/src/favicon.ico",
+              "projects/n-tire-hospital-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-hospital-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-hospital-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-hospital-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireHospitalApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireHospitalApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireHospitalApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-hospital-app/src/test.ts",
+            "polyfills": "projects/n-tire-hospital-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-hospital-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-hospital-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-hospital-app/src/favicon.ico",
+              "projects/n-tire-hospital-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-hospital-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-hospital-app/tsconfig.app.json",
+              "projects/n-tire-hospital-app/tsconfig.spec.json",
+              "projects/n-tire-hospital-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-hospital-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireHospitalApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireHospitalApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireHRMSApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-hrms-app",
+      "sourceRoot": "projects/n-tire-hrms-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireHRMSApp",
+            "index": "projects/n-tire-hrms-app/src/index.html",
+            "main": "projects/n-tire-hrms-app/src/main.ts",
+            "polyfills": "projects/n-tire-hrms-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-hrms-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-hrms-app/src/favicon.ico",
+              "projects/n-tire-hrms-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-hrms-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-hrms-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-hrms-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireHRMSApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireHRMSApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireHRMSApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-hrms-app/src/test.ts",
+            "polyfills": "projects/n-tire-hrms-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-hrms-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-hrms-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-hrms-app/src/favicon.ico",
+              "projects/n-tire-hrms-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-hrms-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-hrms-app/tsconfig.app.json",
+              "projects/n-tire-hrms-app/tsconfig.spec.json",
+              "projects/n-tire-hrms-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-hrms-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireHRMSApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireHRMSApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireITApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-it-app",
+      "sourceRoot": "projects/n-tire-it-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireITApp",
+            "index": "projects/n-tire-it-app/src/index.html",
+            "main": "projects/n-tire-it-app/src/main.ts",
+            "polyfills": "projects/n-tire-it-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-it-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-it-app/src/favicon.ico",
+              "projects/n-tire-it-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-it-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-it-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-it-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireITApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireITApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireITApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-it-app/src/test.ts",
+            "polyfills": "projects/n-tire-it-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-it-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-it-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-it-app/src/favicon.ico",
+              "projects/n-tire-it-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-it-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-it-app/tsconfig.app.json",
+              "projects/n-tire-it-app/tsconfig.spec.json",
+              "projects/n-tire-it-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-it-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireITApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireITApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireLearnApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-learn-app",
+      "sourceRoot": "projects/n-tire-learn-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireLearnApp",
+            "index": "projects/n-tire-learn-app/src/index.html",
+            "main": "projects/n-tire-learn-app/src/main.ts",
+            "polyfills": "projects/n-tire-learn-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-learn-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-learn-app/src/favicon.ico",
+              "projects/n-tire-learn-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-learn-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-learn-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-learn-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireLearnApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireLearnApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireLearnApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-learn-app/src/test.ts",
+            "polyfills": "projects/n-tire-learn-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-learn-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-learn-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-learn-app/src/favicon.ico",
+              "projects/n-tire-learn-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-learn-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-learn-app/tsconfig.app.json",
+              "projects/n-tire-learn-app/tsconfig.spec.json",
+              "projects/n-tire-learn-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-learn-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireLearnApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireLearnApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireLegalApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-legal-app",
+      "sourceRoot": "projects/n-tire-legal-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireLegalApp",
+            "index": "projects/n-tire-legal-app/src/index.html",
+            "main": "projects/n-tire-legal-app/src/main.ts",
+            "polyfills": "projects/n-tire-legal-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-legal-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-legal-app/src/favicon.ico",
+              "projects/n-tire-legal-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-legal-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-legal-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-legal-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireLegalApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireLegalApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireLegalApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-legal-app/src/test.ts",
+            "polyfills": "projects/n-tire-legal-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-legal-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-legal-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-legal-app/src/favicon.ico",
+              "projects/n-tire-legal-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-legal-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-legal-app/tsconfig.app.json",
+              "projects/n-tire-legal-app/tsconfig.spec.json",
+              "projects/n-tire-legal-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-legal-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireLegalApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireLegalApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireLoyaltyApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-loyalty-app",
+      "sourceRoot": "projects/n-tire-loyalty-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireLoyaltyApp",
+            "index": "projects/n-tire-loyalty-app/src/index.html",
+            "main": "projects/n-tire-loyalty-app/src/main.ts",
+            "polyfills": "projects/n-tire-loyalty-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-loyalty-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-loyalty-app/src/favicon.ico",
+              "projects/n-tire-loyalty-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-loyalty-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-loyalty-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-loyalty-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireLoyaltyApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireLoyaltyApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireLoyaltyApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-loyalty-app/src/test.ts",
+            "polyfills": "projects/n-tire-loyalty-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-loyalty-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-loyalty-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-loyalty-app/src/favicon.ico",
+              "projects/n-tire-loyalty-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-loyalty-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-loyalty-app/tsconfig.app.json",
+              "projects/n-tire-loyalty-app/tsconfig.spec.json",
+              "projects/n-tire-loyalty-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-loyalty-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireLoyaltyApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireLoyaltyApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTirePerformanceApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-performance-app",
+      "sourceRoot": "projects/n-tire-performance-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTirePerformanceApp",
+            "index": "projects/n-tire-performance-app/src/index.html",
+            "main": "projects/n-tire-performance-app/src/main.ts",
+            "polyfills": "projects/n-tire-performance-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-performance-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-performance-app/src/favicon.ico",
+              "projects/n-tire-performance-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-performance-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-performance-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-performance-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTirePerformanceApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTirePerformanceApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTirePerformanceApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-performance-app/src/test.ts",
+            "polyfills": "projects/n-tire-performance-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-performance-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-performance-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-performance-app/src/favicon.ico",
+              "projects/n-tire-performance-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-performance-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-performance-app/tsconfig.app.json",
+              "projects/n-tire-performance-app/tsconfig.spec.json",
+              "projects/n-tire-performance-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-performance-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTirePerformanceApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTirePerformanceApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireProjectApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-project-app",
+      "sourceRoot": "projects/n-tire-project-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireProjectApp",
+            "index": "projects/n-tire-project-app/src/index.html",
+            "main": "projects/n-tire-project-app/src/main.ts",
+            "polyfills": "projects/n-tire-project-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-project-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-project-app/src/favicon.ico",
+              "projects/n-tire-project-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-project-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-project-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-project-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireProjectApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireProjectApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireProjectApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-project-app/src/test.ts",
+            "polyfills": "projects/n-tire-project-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-project-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-project-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-project-app/src/favicon.ico",
+              "projects/n-tire-project-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-project-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-project-app/tsconfig.app.json",
+              "projects/n-tire-project-app/tsconfig.spec.json",
+              "projects/n-tire-project-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-project-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireProjectApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireProjectApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTirePropertyApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-property-app",
+      "sourceRoot": "projects/n-tire-property-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTirePropertyApp",
+            "index": "projects/n-tire-property-app/src/index.html",
+            "main": "projects/n-tire-property-app/src/main.ts",
+            "polyfills": "projects/n-tire-property-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-property-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-property-app/src/favicon.ico",
+              "projects/n-tire-property-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-property-app/src/style.scss",
+              "projects/n-tire-property-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-property-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-property-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTirePropertyApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTirePropertyApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTirePropertyApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-property-app/src/test.ts",
+            "polyfills": "projects/n-tire-property-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-property-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-property-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-property-app/src/favicon.ico",
+              "projects/n-tire-property-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-property-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-property-app/tsconfig.app.json",
+              "projects/n-tire-property-app/tsconfig.spec.json",
+              "projects/n-tire-property-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-property-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTirePropertyApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTirePropertyApp:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "nTireReportsApp": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/n-tire-reports-app",
+      "sourceRoot": "projects/n-tire-reports-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nTireReportsApp",
+            "index": "projects/n-tire-reports-app/src/index.html",
+            "main": "projects/n-tire-reports-app/src/main.ts",
+            "polyfills": "projects/n-tire-reports-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-reports-app/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/n-tire-reports-app/src/favicon.ico",
+              "projects/n-tire-reports-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-bo-app/src/style.scss",
+              "projects/n-tire-bo-app/src/layout-light.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/primeng/resources/primeng.min.css",
+              "projects/n-tire-bo-app/src/flags.css",
+              "./node_modules/nebular-icons/css/nebular-icons.css",
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/primeflex/primeflex.css",
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/quill/dist/quill.core.css",
+              "./node_modules/quill/dist/quill.snow.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "projects/n-tire-bo-app/src/assets/fonts/ssgicons.css",
+              "projects/n-tire-reports-app/src/style.scss"
+            ],
+            "scripts": [
+              "node_modules/mxgraph/javascript/mxClient.js",
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js",
+              "node_modules/image-compressor.js/dist/image-compressor.min.js",
+              "node_modules/mammoth/mammoth.browser.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/n-tire-reports-app/src/environments/environment.ts",
+                  "with": "projects/n-tire-reports-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nTireReportsApp:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nTireReportsApp:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nTireReportsApp:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/n-tire-reports-app/src/test.ts",
+            "polyfills": "projects/n-tire-reports-app/src/polyfills.ts",
+            "tsConfig": "projects/n-tire-reports-app/tsconfig.spec.json",
+            "karmaConfig": "projects/n-tire-reports-app/karma.conf.js",
+            "assets": [
+              "projects/n-tire-reports-app/src/favicon.ico",
+              "projects/n-tire-reports-app/src/assets"
+            ],
+            "styles": [
+              "projects/n-tire-reports-app/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/n-tire-reports-app/tsconfig.app.json",
+              "projects/n-tire-reports-app/tsconfig.spec.json",
+              "projects/n-tire-reports-app/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/n-tire-reports-app/e2e/protractor.conf.js",
+            "devServerTarget": "nTireReportsApp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nTireReportsApp:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "nTireBOApp"
+}

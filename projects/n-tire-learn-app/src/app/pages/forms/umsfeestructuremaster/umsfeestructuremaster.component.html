@@ -1,0 +1,153 @@
+<form [formGroup]="umsfeestructuremasterForm" (ngSubmit)="onSubmit()"
+  [ngClass]="sessionService.getItem('selected-theme')">
+  <div class="row second">
+    <h1 class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Fee Structure Master' | translate}}</a>
+    </h1>
+    <div class=" col " role="toolbar" aria-label="Toolbar with button groups">
+      <!--btn-toolbar-->
+      <div *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()"><i class="fa fa-save"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()"><i class="fa fa-copy"
+            aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
+  <div  class="container"     id="contentArea1"   >
+    <ngb-tabset class="tabset1" [destroyOnHide]="false">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(true)">Master</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <div class="form-group row">
+            <div class="col">
+              <label for="description" class="control-label">{{'Description' | translate}}</label>
+              <input id="description" formControlName="description" class="form-control"
+                placeholder="{{'Description' | translate}}">
+            </div>
+            <div class="col"><label for="courseid" class="control-label" (click)="AddOrEditcourseid(null)">{{'Course' |
+                translate}}</label>
+              <select id="courseid" (change)="courseidonChange($event.target)" formControlName="courseid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of courseidList" value="{{item.courseid}}">{{item.coursename}}</option>
+              </select>
+            </div>
+            <div class="col"><label for="semesterid" class="control-label"
+                (click)="AddOrEditsemesterid(null)">{{'Semester' | translate}}</label>
+              <select id="semesterid" (change)="semesteridonChange($event.target)" formControlName="semesterid"
+                class="form-control">
+                <option value="0">-Select-</option>
+                <option *ngFor="let item of semesteridList" value="{{item.semesterid}}">{{item.description}}</option>
+              </select>
+            </div>
+            <div class="col">
+              <label for="totalfee" class="control-label">{{'Total Fee' | translate}}</label>
+              <input id="totalfee" formControlName="totalfee" class="form-control"
+                placeholder="{{'Total Fee' | translate}}">
+              <app-field-error-display
+                [displayError]="f.totalfee.errors!=null && f.totalfee.errors.pattern!=null && f.totalfee.errors!=undefined && f.totalfee.errors.pattern!=undefined  && (f.totalfee.touched|| isSubmitted)"
+                errorMsg="Not a valid number">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.totalfee.errors!=null && f.totalfee.errors.min!=null && f.totalfee.errors!=undefined && f.totalfee.errors.min!=undefined  && (f.totalfee.touched|| isSubmitted)"
+                errorMsg="Minimum value have to be entered">
+              </app-field-error-display>
+              <app-field-error-display
+                [displayError]="f.totalfee.errors!=null && f.totalfee.errors.max!=null && f.totalfee.errors!=undefined && f.totalfee.errors.max!=undefined  && (f.totalfee.touched|| isSubmitted)"
+                errorMsg="Maximum value Exceeded">
+              </app-field-error-display>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <label for="startdate" class="control-label">{{'Start Date' | translate}}</label>
+              <div class="input-group">
+                <input #startdateformpicker="ngbDatepicker" ngbDatepicker name="startdateformpicker" id="startdate"
+                  formControlName="startdate" class="form-control" placeholder="Choose {{'Start Date' | translate}}">
+                <button class="input-group-addon" (click)="startdateformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col">
+              <label for="enddate" class="control-label">{{'End Date' | translate}}</label>
+              <div class="input-group">
+                <input #enddateformpicker="ngbDatepicker" ngbDatepicker name="enddateformpicker" id="enddate"
+                  formControlName="enddate" class="form-control" placeholder="Choose {{'End Date' | translate}}">
+                <button class="input-group-addon" (click)="enddateformpicker.toggle()" type="button"><i
+                    class="fa fa-calendar" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="col"></div>
+            <div class="col"></div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <div (click)="ToolBar(false)">Fee Structure Details</div>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <br style='line-height:5px' />
+          <!-- child table umsfeestructuredetails-->
+          <div class="row"></div>
+          <div [ngClass]="IsumsfeestructuredetailsVisible()">
+            <p></p>
+            <h4 class="form-group sticky1  columns left">{{'Fee Structure Details' | translate}}
+              <select class='child' id="umsfeestructuredetailsPagingdropdown"
+                (change)="umsfeestructuredetailsPaging($event.target!.value)" [value]='20'>
+                <option value='20'>20</option>
+                <option value='50'>50</option>
+                <option value='100'>100</option>
+              </select>
+              <div class="right tableheader" role="toolbar" aria-label="Toolbar with button groups">
+                <!--btn-toolbar-->
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                  <button type="button" class="dialogbtn"
+                    (click)="umsfeestructuredetailsroute(null, 'create')"><i class="fa fa-plus"
+                      aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn" (click)="showumsfeestructuredetailsFilter()"><i
+                      class="fa fa-filter" aria-hidden="true"></i></button>
+                  <button type="button" class="dialogbtn"><i class="fa fa-envelope"
+                      aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </h4>
+              <div  class="table-container"> <ng2-smart-table    #tblumsfeestructuredetailssource
+              (userRowSelect)="handleumsfeestructuredetailsGridSelected($event)"
+              [settings]="umsfeestructuredetailssettings" [source]="umsfeestructuredetailssource"
+              (delete)="umsfeestructuredetailsroute($event,'delete')"
+              (deleteConfirm)="umsfeestructuredetailsroute($event,'delete')"
+              (create)="umsfeestructuredetailsroute($event,'create')"
+              (createConfirm)="umsfeestructuredetailsbeforesave($event)"
+              (edit)="umsfeestructuredetailsroute($event,'edit')"
+              (editConfirm)="umsfeestructuredetailsbeforesave($event)">
+            </ng2-smart-table></div>
+          </div>
+          <!--End of child table umsfeestructuredetails-->
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="form-group row">
+      <div class="col">
+        <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>
+        <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+        <app-action *ngIf="f.feeid!.value != null" [menuid]="pmenuid" [value]="f.feeid!.value" [status]="f.status!.value">
+        </app-action>
+        <button type="button" (click)="onClose()"
+          *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="btn btn-info"><i
+            class="fa fa-close"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,122 @@
+<form  [formGroup]="boscheduleForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Schedules' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'procedurename'; "  for="procedurename" class="control-label">Procedure Name</label>
+      <input   *ngIf="!showview || editfield=='procedurename'"  id="procedurename"  formControlName="procedurename" class="form-control"
+        >
+  </div>
+
+
+<!--frequency-->
+
+  <div   class="col" ><label (click)="editfield = 'frequency'; "  for="frequency" class="control-label">Frequency</label>
+      <select  *ngIf="!showview"  id="frequency"  (change)="frequencyonChange($event.target)" formControlName="frequency"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of frequencyList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='frequency'"  (click)="editfield = 'frequency';"  class="form-control labelview">{{f.frequencydesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'notifiers'; "  for="notifiers" class="control-label">Notifiers</label>
+      <input   *ngIf="!showview || editfield=='notifiers'"  id="notifiers"  formControlName="notifiers" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'lastrundate'; "  for="lastrundate" class="control-label">Last Run Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='lastrundate'">
+<input #lastrundateformpicker="ngbDatepicker"      ngbDatepicker name="lastrundateformpicker" id="lastrundate"  formControlName="lastrundate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview || editfield=='lastrundate'"  (click)="lastrundateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='lastrundate'"  (click)="editfield = 'lastrundate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.lastrundate?.value)}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'successrate'; "  for="successrate" class="control-label">Success Rate</label>
+      <input   *ngIf="!showview || editfield=='successrate'"  id="successrate"  formControlName="successrate" class="form-control"
+        >
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'failurerate'; "  for="failurerate" class="control-label">Failure Rate</label>
+      <input   *ngIf="!showview || editfield=='failurerate'"  id="failurerate"  formControlName="failurerate" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div></p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">Schedule Runs</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table boscheduleruns-->
+<div class="row"></div><div [ngClass]="IsboschedulerunsVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'Schedule Runs' | translate}}
+<select class='child'  id="boschedulerunsPagingdropdown" (change)="boschedulerunsPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="boschedulerunsroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showboschedulerunsFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblboschedulerunssource (userRowSelect)="handleboschedulerunsGridSelected($event)" [settings]="boschedulerunssettings" (custom)="onCustomboschedulerunsAction($event)" [source]="boschedulerunssource"  (delete)="boschedulerunsroute($event,'delete')"  (deleteConfirm)="boschedulerunsroute($event,'delete')" (create)="boschedulerunsroute($event,'create')"   (createConfirm)="boschedulerunsbeforesave($event)"  (edit)="boschedulerunsroute($event,'edit')"  (editConfirm)="boschedulerunsbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table boscheduleruns-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.scheduleid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.scheduleid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

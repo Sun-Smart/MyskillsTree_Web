@@ -1,0 +1,64 @@
+<div class="dialog">
+  <form [formGroup]="hmsdoctornetworkForm" (ngSubmit)="onSubmit()" [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Doctor Networks' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="doctorname" class="control-label">{{'DoctorName' | translate}}</label>
+          <input id="doctorname" formControlName="doctorname" class="form-control"
+            placeholder="{{'DoctorName' | translate}}">
+        </div>
+        <div class="col"><label for="designation" class="control-label"
+            (click)="AddOrEditdesignation(null)">{{'Designation' | translate}}</label>
+          <select id="designation" (change)="designationonChange($event.target)" formControlName="designation"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of designationList" value="{{item.userroleid}}">{{item.userrole}}</option>
+          </select>
+        </div>
+        <div class="col"><label for="specialization" class="control-label" (click)="AddOrEditspecialization(null)"
+            (click)="AddOrEditspecialization(null)">{{'Specialization' | translate}}</label>
+          <select id="specialization" (change)="specializationonChange($event.target)" formControlName="specialization"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of specializationList" value="{{item.masterdataid}}">{{item.masterdatadescription}}
+            </option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="contactno" class="control-label">{{'Contact No' | translate}}</label>
+          <int-phone-prefix id="contactno" formControlName="contactno" [locale]="'en'" [defaultCountry]="'in'"
+            class="form-control telephone" placeholder="{{'Contact No' | translate}}">
+          </int-phone-prefix>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="email" class="control-label">{{'Email' | translate}}</label>
+          <input type="email" [email]="true" id="email" formControlName="email" class="form-control"
+            placeholder="{{'Email' | translate}}">
+          <app-field-error-display [displayError]="f.email.invalid && (f.email.touched|| isSubmitted)"
+            errorMsg="Enter valid email">
+          </app-field-error-display>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.doctorid!.value != null" [menuid]="pmenuid" [value]="f.doctorid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,73 @@
+<div class="dialog">
+<form  [formGroup]="erpfapaymentdetailForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="container1"   *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<p-accordion  [multiple]='true'>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'paymentdetails'; "  for="paymentdetails" class="control-label">Payment Details</label>
+      <input   *ngIf="!showview || editfield=='paymentdetails'"  id="paymentdetails"  formControlName="paymentdetails" class="form-control"
+        placeholder="{{'Payment Details' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'voucherid'; "  for="voucherid" class="control-label">Voucher</label>
+      <input   *ngIf="!showview || editfield=='voucherid'"  id="voucherid"  formControlName="voucherid" class="form-control"
+        placeholder="{{'Voucher' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'voucherreference'; "  for="voucherreference" class="control-label">Voucher Reference</label>
+      <input   *ngIf="!showview || editfield=='voucherreference'"  id="voucherreference"  formControlName="voucherreference" class="form-control"
+        placeholder="{{'Voucher Reference' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'voucherdate'; "  for="voucherdate" class="control-label">Voucher Date</label>
+<div class="input-group" *ngIf="!showview || editfield=='voucherdate'">
+<input #voucherdateformpicker="ngbDatepicker"      ngbDatepicker name="voucherdateformpicker" id="voucherdate"  formControlName="voucherdate"  class="form-control"   placeholder="Choose Voucher Date">
+<button class="input-group-addon"  *ngIf="!showview || editfield=='voucherdate'"  (click)="voucherdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+      <label *ngIf="showview && editfield!='voucherdate'"  (click)="editfield = 'voucherdate';"   class="form-control labelview">{{ngbDateParserFormatter.format(f.voucherdate?.value)}}</label>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'voucheramount'; "  for="voucheramount" class="control-label">Voucher Amount</label>
+      <input   *ngIf="!showview || editfield=='voucheramount'"  id="voucheramount"  formControlName="voucheramount" class="form-control"
+        placeholder="{{'Voucher Amount' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'paid'; "  for="paid" class="control-label">Pa</label>
+      <input   *ngIf="!showview || editfield=='paid'"  id="paid"  formControlName="paid" class="form-control"
+        placeholder="{{'Pa' | translate}}">
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'balance'; "  for="balance" class="control-label">Balance</label>
+      <input   *ngIf="!showview || editfield=='balance'"  id="balance"  formControlName="balance" class="form-control"
+        placeholder="{{'Balance' | translate}}">
+  </div>
+<div class="col"></div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<label (click)="editfield = 'narration'; "  for="narration" class="control-label">Narration</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview || editfield=='narration'"  id="narration"  formControlName="narration" class="form-control"
+        placeholder="{{'Narration' | translate}}">
+</textarea>
+  </div>
+</div>
+</p-accordion>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.paymentdetailid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.paymentdetailid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>
+</div>

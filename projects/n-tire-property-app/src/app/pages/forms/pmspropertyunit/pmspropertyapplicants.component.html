@@ -1,0 +1,347 @@
+<div class="dialog">
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="pmspropertyapplicantsForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="container1" >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<p-accordion  [multiple]='true'>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('propertyid') == -1"  class="col " >
+<label  for="propertyid" class="control-label">Property</label>
+      <label *ngIf="showview"     class="labelview">{{f.propertyid?.value}}</label>
+      <input   *ngIf="!showview"  id="propertyid"  formControlName="propertyid" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('firstname') == -1"  class="col " >
+<label  for="firstname" class="control-label">First Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.firstname?.value}}</label>
+      <input   *ngIf="!showview"  id="firstname"  formControlName="firstname" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('lastname') == -1"  class="col " >
+<label  for="lastname" class="control-label">Last Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.lastname?.value}}</label>
+      <input   *ngIf="!showview"  id="lastname"  formControlName="lastname" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('iscompany') == -1"  class="col " >
+<div class="columnchk">
+<label  for="iscompany" class="control-label">Is Company</label>
+      <label *ngIf="showview"     class="labelview">{{f.iscompany?.value}}</label>
+      <input  type="checkbox"   *ngIf="!showview"  id="iscompany"  formControlName="iscompany" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('companyname') == -1"  class="col " >
+<label  for="companyname" class="control-label">Company Name</label>
+      <label *ngIf="showview"     class="labelview">{{f.companyname?.value}}</label>
+      <input   *ngIf="!showview"  id="companyname"  formControlName="companyname" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('dateofbirth') == -1"  class="col " >
+<label  for="dateofbirth" class="control-label">Dateof Birth</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.dateofbirth?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #dateofbirthformpicker="ngbDatepicker"      ngbDatepicker name="dateofbirthformpicker" id="dateofbirth"  formControlName="dateofbirth"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="dateofbirthformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('identityno') == -1"  class="col " >
+<label  for="identityno" class="control-label">Identity No</label>
+      <label *ngIf="showview"     class="labelview">{{f.identityno?.value}}</label>
+      <input   *ngIf="!showview"  id="identityno"  formControlName="identityno" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('gender') == -1"  class="col " >
+<label  for="gender" class="control-label">Gender</label>
+      <label *ngIf="showview"     class="labelview">{{f.gender?.value}}</label>
+      <input   *ngIf="!showview"  id="gender"  formControlName="gender" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('email') == -1"  class="col " >
+<label  for="email" class="control-label">Email</label>
+      <label *ngIf="showview"     class="labelview">{{f.email?.value}}</label>
+      <input   *ngIf="!showview"  id="email"  formControlName="email" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('phone') == -1"  class="col " >
+<label  for="phone" class="control-label">Phone</label>
+      <label *ngIf="showview"     class="labelview">{{f.phone?.value}}</label>
+      <input   *ngIf="!showview"  id="phone"  formControlName="phone" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('license') == -1"  class="col " >
+<label  for="license" class="control-label">License</label>
+      <label *ngIf="showview"     class="labelview">{{f.license?.value}}</label>
+      <input   *ngIf="!showview"  id="license"  formControlName="license" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('occupants') == -1"  class="col " >
+<label  for="occupants" class="control-label">Occupants</label>
+      <label *ngIf="showview"     class="labelview">{{f.occupants?.value}}</label>
+      <input   *ngIf="!showview"  id="occupants"  formControlName="occupants" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('preferredmoveindate') == -1"  class="col " >
+<label  for="preferredmoveindate" class="control-label">Preferred Move In Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.preferredmoveindate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #preferredmoveindateformpicker="ngbDatepicker"      ngbDatepicker name="preferredmoveindateformpicker" id="preferredmoveindate"  formControlName="preferredmoveindate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="preferredmoveindateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('shortbio') == -1"  class="col " >
+<label  for="shortbio" class="control-label">Shortbio</label>
+      <label *ngIf="showview"     class="labelview">{{f.shortbio?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="shortbio"  formControlName="shortbio" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('vehicledetails') == -1"  class="col " >
+<label  for="vehicledetails" class="control-label">Vehicle Details</label>
+      <label *ngIf="showview"     class="labelview">{{f.vehicledetails?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="vehicledetails"  formControlName="vehicledetails" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('petdetails') == -1"  class="col " >
+<label  for="petdetails" class="control-label">Pet Details</label>
+      <label *ngIf="showview"     class="labelview">{{f.petdetails?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="petdetails"  formControlName="petdetails" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('currentpropertymoveindate') == -1"  class="col " >
+<label  for="currentpropertymoveindate" class="control-label">Current Property Move In Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.currentpropertymoveindate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #currentpropertymoveindateformpicker="ngbDatepicker"      ngbDatepicker name="currentpropertymoveindateformpicker" id="currentpropertymoveindate"  formControlName="currentpropertymoveindate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="currentpropertymoveindateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('currentpropertymoveoutdate') == -1"  class="col " >
+<label  for="currentpropertymoveoutdate" class="control-label">Current Property Move Out Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.currentpropertymoveoutdate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #currentpropertymoveoutdateformpicker="ngbDatepicker"      ngbDatepicker name="currentpropertymoveoutdateformpicker" id="currentpropertymoveoutdate"  formControlName="currentpropertymoveoutdate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="currentpropertymoveoutdateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('address') == -1"  class="col " >
+<label  for="address" class="control-label">Address</label>
+      <label *ngIf="showview"     class="labelview">{{f.address?.value}}</label>
+      <input   *ngIf="!showview"  id="address"  formControlName="address" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('landlordfirstname') == -1"  class="col " >
+<label  for="landlordfirstname" class="control-label">Land Lord Firstname</label>
+      <label *ngIf="showview"     class="labelview">{{f.landlordfirstname?.value}}</label>
+      <input   *ngIf="!showview"  id="landlordfirstname"  formControlName="landlordfirstname" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('landlordlastname') == -1"  class="col " >
+<label  for="landlordlastname" class="control-label">Land Lord Lastname</label>
+      <label *ngIf="showview"     class="labelview">{{f.landlordlastname?.value}}</label>
+      <input   *ngIf="!showview"  id="landlordlastname"  formControlName="landlordlastname" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('landlordemail') == -1"  class="col " >
+<label  for="landlordemail" class="control-label">Land Lord Email</label>
+      <label *ngIf="showview"     class="labelview">{{f.landlordemail?.value}}</label>
+      <input   *ngIf="!showview"  id="landlordemail"  formControlName="landlordemail" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('landlordphone') == -1"  class="col " >
+<label  for="landlordphone" class="control-label">Land Lord Phone</label>
+      <label *ngIf="showview"     class="labelview">{{f.landlordphone?.value}}</label>
+      <input   *ngIf="!showview"  id="landlordphone"  formControlName="landlordphone" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('employer') == -1"  class="col " >
+<label  for="employer" class="control-label">Employer</label>
+      <label *ngIf="showview"     class="labelview">{{f.employer?.value}}</label>
+      <input   *ngIf="!showview"  id="employer"  formControlName="employer" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('position') == -1"  class="col " >
+<label  for="position" class="control-label">Position</label>
+      <label *ngIf="showview"     class="labelview">{{f.position?.value}}</label>
+      <input   *ngIf="!showview"  id="position"  formControlName="position" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('joineddate') == -1"  class="col " >
+<label  for="joineddate" class="control-label">Joined Date</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.joineddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #joineddateformpicker="ngbDatepicker"      ngbDatepicker name="joineddateformpicker" id="joineddate"  formControlName="joineddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="joineddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('enddate') == -1"  class="col " >
+<label  for="enddate" class="control-label">Enddate</label>
+      <label *ngIf="showview"   class="labelview">{{ngbDateParserFormatter.format(f.enddate?.value)}}</label>
+<div class="input-group" *ngIf="!showview" >
+<input #enddateformpicker="ngbDatepicker"      ngbDatepicker name="enddateformpicker" id="enddate"  formControlName="enddate"  class="form-control"   >
+<button class="input-group-addon"  *ngIf="!showview"  (click)="enddateformpicker.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+  </div>
+  <div   *ngIf="hidelist.indexOf('workemail') == -1"  class="col " >
+<label  for="workemail" class="control-label">Workemail</label>
+      <label *ngIf="showview"     class="labelview">{{f.workemail?.value}}</label>
+      <input   *ngIf="!showview"  id="workemail"  formControlName="workemail" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('workphone') == -1"  class="col " >
+<label  for="workphone" class="control-label">Workphone</label>
+      <label *ngIf="showview"     class="labelview">{{f.workphone?.value}}</label>
+      <input   *ngIf="!showview"  id="workphone"  formControlName="workphone" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('officephone') == -1"  class="col " >
+<label  for="officephone" class="control-label">Office Phone</label>
+      <label *ngIf="showview"     class="labelview">{{f.officephone?.value}}</label>
+      <input   *ngIf="!showview"  id="officephone"  formControlName="officephone" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('officeaddress') == -1"  class="col " >
+<label  for="officeaddress" class="control-label">Office Address</label>
+      <label *ngIf="showview"     class="labelview">{{f.officeaddress?.value}}</label>
+      <input   *ngIf="!showview"  id="officeaddress"  formControlName="officeaddress" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('monthlyincome') == -1"  class="col " >
+<label  for="monthlyincome" class="control-label">Monthlyincome</label>
+      <label *ngIf="showview"     class="labelview">{{f.monthlyincome?.value}}</label>
+      <input   *ngIf="!showview"  id="monthlyincome"  formControlName="monthlyincome" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('supervisorfirstname') == -1"  class="col " >
+<label  for="supervisorfirstname" class="control-label">Supervisor Firstname</label>
+      <label *ngIf="showview"     class="labelview">{{f.supervisorfirstname?.value}}</label>
+      <input   *ngIf="!showview"  id="supervisorfirstname"  formControlName="supervisorfirstname" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('supervisorlastname') == -1"  class="col " >
+<label  for="supervisorlastname" class="control-label">Supervisor Lastname</label>
+      <label *ngIf="showview"     class="labelview">{{f.supervisorlastname?.value}}</label>
+      <input   *ngIf="!showview"  id="supervisorlastname"  formControlName="supervisorlastname" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('supervisoremail') == -1"  class="col " >
+<label  for="supervisoremail" class="control-label">Supervisor Email</label>
+      <label *ngIf="showview"     class="labelview">{{f.supervisoremail?.value}}</label>
+      <input   *ngIf="!showview"  id="supervisoremail"  formControlName="supervisoremail" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('supervisorphone') == -1"  class="col " >
+<label  for="supervisorphone" class="control-label">Supervisor Phone</label>
+      <label *ngIf="showview"     class="labelview">{{f.supervisorphone?.value}}</label>
+      <input   *ngIf="!showview"  id="supervisorphone"  formControlName="supervisorphone" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('additionalincome') == -1"  class="col " >
+<label  for="additionalincome" class="control-label">Additional Income</label>
+      <label *ngIf="showview"     class="labelview">{{f.additionalincome?.value}}</label>
+      <input   *ngIf="!showview"  id="additionalincome"  formControlName="additionalincome" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('ecfirstname') == -1"  class="col " >
+<label  for="ecfirstname" class="control-label">E C Firstname</label>
+      <label *ngIf="showview"     class="labelview">{{f.ecfirstname?.value}}</label>
+      <input   *ngIf="!showview"  id="ecfirstname"  formControlName="ecfirstname" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('eclastname') == -1"  class="col " >
+<label  for="eclastname" class="control-label">E C Lastname</label>
+      <label *ngIf="showview"     class="labelview">{{f.eclastname?.value}}</label>
+      <input   *ngIf="!showview"  id="eclastname"  formControlName="eclastname" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('ecemail') == -1"  class="col " >
+<label  for="ecemail" class="control-label">E C Email</label>
+      <label *ngIf="showview"     class="labelview">{{f.ecemail?.value}}</label>
+      <input   *ngIf="!showview"  id="ecemail"  formControlName="ecemail" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('ecphone') == -1"  class="col " >
+<label  for="ecphone" class="control-label">E C Phone</label>
+      <label *ngIf="showview"     class="labelview">{{f.ecphone?.value}}</label>
+      <input   *ngIf="!showview"  id="ecphone"  formControlName="ecphone" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('relationshipdetails') == -1"  class="col " >
+<label  for="relationshipdetails" class="control-label">Relationship Details</label>
+      <label *ngIf="showview"     class="labelview">{{f.relationshipdetails?.value}}</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="relationshipdetails"  formControlName="relationshipdetails" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('referencefirstname') == -1"  class="col " >
+<label  for="referencefirstname" class="control-label">Reference Firstname</label>
+      <label *ngIf="showview"     class="labelview">{{f.referencefirstname?.value}}</label>
+      <input   *ngIf="!showview"  id="referencefirstname"  formControlName="referencefirstname" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('referencelastname') == -1"  class="col " >
+<label  for="referencelastname" class="control-label">Reference Lastname</label>
+      <label *ngIf="showview"     class="labelview">{{f.referencelastname?.value}}</label>
+      <input   *ngIf="!showview"  id="referencelastname"  formControlName="referencelastname" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('referenceemail') == -1"  class="col " >
+<label  for="referenceemail" class="control-label">Reference Email</label>
+      <label *ngIf="showview"     class="labelview">{{f.referenceemail?.value}}</label>
+      <input   *ngIf="!showview"  id="referenceemail"  formControlName="referenceemail" class="form-control"
+        >
+  </div>
+  <div   *ngIf="hidelist.indexOf('referencephone') == -1"  class="col " >
+<label  for="referencephone" class="control-label">Reference Phone</label>
+      <label *ngIf="showview"     class="labelview">{{f.referencephone?.value}}</label>
+      <input   *ngIf="!showview"  id="referencephone"  formControlName="referencephone" class="form-control"
+        >
+  </div>
+</div>
+</p-accordion>
+  </div>
+</form>
+</div>

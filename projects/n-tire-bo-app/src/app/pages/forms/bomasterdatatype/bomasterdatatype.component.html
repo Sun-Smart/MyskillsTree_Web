@@ -1,0 +1,172 @@
+<form  [formGroup]="bomasterdatatypeForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+  <div  *ngIf="!(viewhtml != '' && showview)">
+    {{getHtml(viewhtml)}}
+  </div>
+<div class="row second"  *ngIf="viewhtml == '' && !showview">
+<h1  class="col columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Master DataTypes' | translate}}</a></h1>
+  <div class="col  sticky1 second" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+      <div  *ngIf="toolbarvisible" class="btn-group mr-2" role="group" aria-label="First group">
+<button type="button" class="btn indigo lighten-2" (click)="first()"><i class="fa fa-fast-backward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="prev()"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+<app-popupselect  *ngIf="!showview"  [options]="pkList"  [optionsEvent]="pkoptionsEvent" [form]="pkform" (selectItem)="onSelectedpk($event)"  [reportid]= 31 [menuid]=31 formControlName="pk" id="pk" desc="masterdataname" ></app-popupselect>
+<button type="button" class="btn indigo lighten-2" (click)="next()"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+<button type="button" class="btn indigo lighten-2" (click)="last()"><i class="fa fa-fast-forward" aria-hidden="true"></i></button>
+        <button type="button" class="btn indigo lighten-2" (click)="resetForm()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onSubmit()" ><i class="fa fa-save" aria-hidden="true"></i></button>
+        <button type="button" class="btn blue lighten-2" (click)="onDelete()" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <button type="button" class="btn light-blue lighten-2" (click)="onCopy()" ><i class="fa fa-copy" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-print" aria-hidden="true"></i></button>
+        <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"      *ngIf="!(viewhtml != '' && showview)">
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+<ngb-tabset class="tabset1"  [destroyOnHide]="false">
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(true)">Master</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+
+
+<!--code-->
+
+<div class="form-group row" >
+  <div   class="col" ><label (click)="editfield = 'code'; "  for="code" class="control-label">Code</label>
+      <select  *ngIf="!showview"  id="code"  (change)="codeonChange($event.target)" formControlName="code"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of codeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview  && editfield!='code'"  (click)="editfield = 'code';"  class="form-control labelview">{{f.codedesc?.value}}</label>
+  </div>
+  <div  class="col "  >
+<label (click)="editfield = 'masterdataname'; "  for="masterdataname" class="control-label required">Master Dataname</label>
+      <input   *ngIf="!showview || editfield=='masterdataname'"  id="masterdataname"  required formControlName="masterdataname" class="form-control"
+        >
+      <app-field-error-display [displayError]="f.masterdataname.invalid && (f.masterdataname.touched|| isSubmitted)" errorMsg="Enter {{'Master Dataname' | translate}}">
+      </app-field-error-display>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'hassubcategory'; "  for="hassubcategory" class="control-label">Has Subcategory</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='hassubcategory'"  id="hassubcategory"  formControlName="hassubcategory" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'canadd'; "  for="canadd" class="control-label">Can Add</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='canadd'"  id="canadd"  formControlName="canadd" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'canedit'; "  for="canedit" class="control-label">Can Edit</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='canedit'"  id="canedit"  formControlName="canedit" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'candelete'; "  for="candelete" class="control-label">Can Delete</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='candelete'"  id="candelete"  formControlName="candelete" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'erp'; "  for="erp" class="control-label">E R P</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='erp'"  id="erp"  formControlName="erp" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'cams'; "  for="cams" class="control-label">C A M S</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='cams'"  id="cams"  formControlName="cams" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+<div class="form-group row" >
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'crm'; "  for="crm" class="control-label">C R M</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='crm'"  id="crm"  formControlName="crm" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'procurement'; "  for="procurement" class="control-label">Procurement</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='procurement'"  id="procurement"  formControlName="procurement" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'legal'; "  for="legal" class="control-label">Legal</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='legal'"  id="legal"  formControlName="legal" class="form-control"
+        >
+  </div>
+  </div>
+  <div  class="col "  >
+<div class="columnchk">
+<label (click)="editfield = 'hrms'; "  for="hrms" class="control-label">H R M S</label>
+      <input  type="checkbox"   *ngIf="!showview || editfield=='hrms'"  id="hrms"  formControlName="hrms" class="form-control"
+        >
+  </div>
+  </div>
+</div>
+</p-accordion>
+</ng-template>
+</ngb-tab>
+<ngb-tab>
+<ng-template ngbTabTitle>
+<div (click)="ToolBar(false)">MasterData</div>
+</ng-template>
+<ng-template ngbTabContent>
+<p-accordion  [multiple]='true'>
+  <!-- child table bomasterdatas-->
+<div class="row"></div><div [ngClass]="IsbomasterdatasVisible()">
+<p></p>
+<h4  class="form-group sticky1  columns left">{{'MasterData' | translate}}
+<select class='child'  id="bomasterdatasPagingdropdown" (change)="bomasterdatasPaging($event.target.value)" [value]='20'>
+<option value='20'>20</option>
+<option value='50'>50</option>
+<option value='100'>100</option>
+</select>
+<div *ngIf='!showview'  class="right" role="toolbar" aria-label="Toolbar with button groups"> <!--btn-toolbar-->
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+      <button type="button" class="dialogbtn" (click)="bomasterdatasroute(null, 'create')" ><i class="fa fa-plus" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn" (click)="showbomasterdatasFilter()" ><i class="fa fa-filter" aria-hidden="true"></i></button>
+      <button type="button" class="dialogbtn"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</h4>
+<ng2-smart-table  #tblbomasterdatassource (userRowSelect)="handlebomasterdatasGridSelected($event)" [settings]="bomasterdatassettings" (custom)="onCustombomasterdatasAction($event)" [source]="bomasterdatassource"  (delete)="bomasterdatasroute($event,'delete')"  (deleteConfirm)="bomasterdatasroute($event,'delete')" (create)="bomasterdatasroute($event,'create')"   (createConfirm)="bomasterdatasbeforesave($event)"  (edit)="bomasterdatasroute($event,'edit')"  (editConfirm)="bomasterdatasbeforesave($event)"    >
+</ng2-smart-table>
+</div>
+  <!--End of child table bomasterdatas-->
+</p-accordion>
+</ng-template></ngb-tab>
+</ngb-tabset>
+<div class="form-group row" *ngIf="!showview">
+  <div class="col" >
+    <button class="btn btn-primary" (click)="onSubmitAndWait()"  type="button" ><i class="fa fa-database"></i> Submit</button>
+    <button class="btn btn-secondary" type="submit" ><i class="fa fa-share-square"></i> Submit & Clear</button>
+<app-action *ngIf="f.datatypeid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.datatypeid.value"  [status]="f.status.value"></app-action>
+    <button type="button"  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</button>
+  </div>
+  </div>
+  </div>
+</form>

@@ -1,0 +1,185 @@
+<div class="dialog">
+  <form [formGroup]="hmspatientdischargeForm" (ngSubmit)="onSubmit()"
+    [ngClass]="sessionService.getItem('selected-theme')">
+    <div class="row second">
+      <h1 class="sticky1">{{'Patient Discharges' | translate}}</h1>
+    </div>
+    <div  class="container"     id="contentArea1"   >
+      <div class="form-group row">
+        <div class="col">
+          <label for="dischargedate" class="control-label">{{'DischargeDate' | translate}}</label>
+          <div class="input-group">
+            <input #dischargedateformpicker="ngbDatepicker" ngbDatepicker name="dischargedateformpicker"
+              id="dischargedate" formControlName="dischargedate" class="form-control"
+              placeholder="Choose {{'DischargeDate' | translate}}">
+            <button class="input-group-addon" (click)="dischargedateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="dischargetime" class="control-label">{{'DischargeTime' | translate}}</label>
+          <ngb-timepicker class="form-control timepicker" formControlName="dischargetime"></ngb-timepicker>
+        </div>
+        <div class="col">
+          <label for="admitteddate" class="control-label">{{'AdmittedDate' | translate}}</label>
+          <div class="input-group">
+            <input #admitteddateformpicker="ngbDatepicker" ngbDatepicker name="admitteddateformpicker" id="admitteddate"
+              formControlName="admitteddate" class="form-control" placeholder="Choose {{'AdmittedDate' | translate}}">
+            <button class="input-group-addon" (click)="admitteddateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col">
+          <label for="staydays" class="control-label">{{'StayDays' | translate}}</label>
+          <input id="staydays" formControlName="staydays" class="form-control" placeholder="{{'StayDays' | translate}}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col"><label for="doctorid" class="control-label" (click)="AddOrEditdoctorid(null)">{{'Doctor' |
+            translate}}</label>
+          <div class="input-group">
+            <input id="doctorid" placeholder="" [ngbTypeahead]="doctorid_bousermastersoptions"
+              class="form-control autocomplete" (selectItem)="onSelecteddoctorid($event)" formControlName='doctorid'
+              [resultFormatter]="doctorid_bousermastersformatter">
+            <input readonly id="doctoriddesc" formControlName="doctoriddesc" class="form-control autocompletedesc"
+              placeholder="{{'Doctor' | translate}}">
+          </div>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="finaldiagnosis" class="control-label">{{'FinalDiagnosis' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="finaldiagnosis"
+            formControlName="finaldiagnosis" class="form-control" placeholder="{{'FinalDiagnosis' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="patientcondition" class="control-label">{{'PatientCondition' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="patientcondition"
+            formControlName="patientcondition" class="form-control" placeholder="{{'PatientCondition' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="hospitalcourse" class="control-label">{{'HospitalCourse' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="hospitalcourse"
+            formControlName="hospitalcourse" class="form-control" placeholder="{{'HospitalCourse' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="notes" class="control-label">{{'Notes' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="notes" formControlName="notes"
+            class="form-control" placeholder="{{'Notes' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="admissiondetails" class="control-label">{{'AdmissionDetails' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="admissiondetails"
+            formControlName="admissiondetails" class="form-control" placeholder="{{'AdmissionDetails' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="treatment" class="control-label">{{'Treatment' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="treatment" formControlName="treatment"
+            class="form-control" placeholder="{{'Treatment' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="labnotes" class="control-label">{{'LabNotes' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="labnotes" formControlName="labnotes"
+            class="form-control" placeholder="{{'LabNotes' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="instructions" class="control-label">{{'Instructions' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="instructions" formControlName="instructions"
+            class="form-control" placeholder="{{'Instructions' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="issuetoaddress" class="control-label">{{'IssueToAddress' | translate}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="issuetoaddress"
+            formControlName="issuetoaddress" class="form-control" placeholder="{{'IssueToAddress' | translate}}">
+</textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <label for="followup" class="control-label">{{'FollowUp' | translate}}</label>
+          <input id="followup" formControlName="followup" class="form-control" placeholder="{{'FollowUp' | translate}}">
+        </div>
+        <div class="col"><label for="followupunit" class="control-label">{{'Unit' | translate}}</label>
+          <select id="followupunit" (change)="followupunitonChange($event.target)" formControlName="followupunit"
+            class="form-control">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of followupunitList" value="{{item.configkey}}">{{item.configtext}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="followupstartdate" class="control-label">{{'FollowUpStartDate' | translate}}</label>
+          <div class="input-group">
+            <input #followupstartdateformpicker="ngbDatepicker" ngbDatepicker name="followupstartdateformpicker"
+              id="followupstartdate" formControlName="followupstartdate" class="form-control"
+              placeholder="Choose {{'FollowUpStartDate' | translate}}">
+            <button class="input-group-addon" (click)="followupstartdateformpicker.toggle()" type="button"><i
+                class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+      <div class="sticky"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        Custom Fields</div>
+      <div class="form-group row"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+      </div>
+      <div class="sticky">Attachments</div>
+      <div class="form-group row">
+        <ng-container *ngFor="let fld of attachmentfieldjson | keyvalue">
+          <a href="http://localhost:5001/MyResources/{{fld!.value!.value}}" target="_blank">{{fld!.value!.value}} |
+          </a>
+        </ng-container>
+        <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" mode="basic" url="{{URL}}"
+          (onSelect)="attachmentuploader($event)"></p-fileUpload>
+        <ng-container *ngFor="let fld of attachmentlist">
+          <div class="col">
+            <label class="control-label"></label>
+            <p-fileUpload #fileattachment class="form-control" type="file" name="FileUpload[]" url="{{URL}}"
+              mode="basic" (onSelect)="attachmentuploader($event)"></p-fileUpload>
+          </div>
+        </ng-container>
+      </div>
+      <div class="form-group row">
+        <div class="col">
+          <button class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+            Submit</button>
+          <button class="btn btn-info" type="submit"><i class="fa fa-database"></i> Submit & Clear</button>
+          <app-action *ngIf="f.dischargeid!.value != null" [menuid]="pmenuid" [value]="f.dischargeid!.value"
+            [status]="f.status.value"></app-action>
+          <button type="button" (click)="onClose()"
+            *ngIf="data!=undefined && data!=null && (data.ScreenType==1 || data.ScreenType==2)"
+            class="btn btn-info"><i class="fa fa-close"></i> Close</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,176 @@
+<i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
+<form  [formGroup]="bomenuactionForm" (ngSubmit)="onSubmit()" [ngClass]="theme" >
+<div class="row second"  >
+<h1  class="col-4 columns mainheader left"><a href='#/home/{{pcurrenturl}}'>{{'Menu Actions' | translate}}</a></h1>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+<li><a class='nav-link active' [routerLink]=''  *ngIf='showview'  (click)="editbomenuactions()"><i class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect  [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li  *ngIf='!showview' class='nav-item dropdown  actionheader'>
+            <a class='nav-link dropdown-toggle btn-success' (click)='bomenuactiontoggleOption()' data-toggle='dropdown'
+              [routerLink]='' role='button' aria-haspopup='true' aria-expanded='false'>Actions</a>
+
+            <div class='dropdown-menu' style='display:block' *ngIf='this.bomenuactionshowOption'>
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i class='fa fa-plus'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a>
+              <a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a>
+              <a class='dropdown-item'  [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a>
+
+              <div class='dropdown-divider'></div>
+
+              <a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a>
+              <a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a>
+              <a class='dropdown-item' [routerLink]='' ><i class='fa fa-envelope'
+                  aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a>
+
+
+            </div>
+          </li>
+<li class='nav-item actionheader'   *ngIf="!showview">
+    <a class="nav-link active" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
+    <a class="nav-link active"  [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a>
+<app-action *ngIf="f.actionid.value != null"  (afteraction)="afteraction($event)"   [menuid]="pmenuid" [value]="f.actionid.value"  [status]="f.status.value"></app-action>
+    <a class="nav-link"  [routerLink]=''  (click)="onClose()"  *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)" class="" ><i class="fa fa-close"></i> Close</a>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+</div>
+<div class="container"     id="contentArea1"    >
+<div class="w-5" *ngIf="showformtype=='1'" style="margin-top:10px!important">
+<div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+</div>
+  <div  *ngIf="(viewhtml != '' && showview)" innerHTML='{{getHtml(viewhtml)}}' >
+    
+  </div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('menuid') == -1"  class="col "  >
+<label  for="menuid" class="control-label">Menu</label>
+      <input   *ngIf="!showview"  id="menuid"  formControlName="menuid" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('description') == -1"  class="col "  >
+<label  for="description" class="control-label">Description</label>
+      <input   *ngIf="!showview"  id="description"  formControlName="description" class="form-control"
+        >
+  </div>
+
+
+<!--rowselecttype-->
+
+  <div   *ngIf="hidelist.indexOf('rowselecttype') == -1"  class="col" ><label  for="rowselecttype" class="control-label">Row Select Type</label>
+      <select  *ngIf="!showview"  id="rowselecttype"  (change)="rowselecttypeonChange($event.target)" formControlName="rowselecttype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of rowselecttypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.rowselecttypedesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('actionicon') == -1"  class="col "  >
+<label  for="actionicon" class="control-label">Action Icon</label>
+      <input   *ngIf="!showview"  id="actionicon"  formControlName="actionicon" class="form-control"
+        >
+  </div>
+</div>
+
+
+<!--actiontype-->
+
+<div   *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div   *ngIf="hidelist.indexOf('actiontype') == -1"  class="col" ><label  for="actiontype" class="control-label">Action Type</label>
+      <select  *ngIf="!showview"  id="actiontype"  (change)="actiontypeonChange($event.target)" formControlName="actiontype"  class="form-control"
+         >
+<option value="0">-Select-</option>
+ <option *ngFor="let item of actiontypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+    </select>
+      <label *ngIf="showview"      class="labelview">{{f.actiontypedesc?.value}}</label>
+  </div>
+  <div  *ngIf="hidelist.indexOf('servicename') == -1"  class="col "  >
+<label  for="servicename" class="control-label">Service Name</label>
+      <input   *ngIf="!showview"  id="servicename"  formControlName="servicename" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('actionname') == -1"  class="col "  >
+<label  for="actionname" class="control-label">Action Name</label>
+      <input   *ngIf="!showview"  id="actionname"  formControlName="actionname" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('actioncondition') == -1"  class="col "  >
+<label  for="actioncondition" class="control-label">Action Condition</label>
+      <input   *ngIf="!showview"  id="actioncondition"  formControlName="actioncondition" class="form-control"
+        >
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('actionhelp') == -1"  class="col "  >
+<label  for="actionhelp" class="control-label">Action Help</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="actionhelp"  formControlName="actionhelp" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('actionrequestorfield') == -1"  class="col "  >
+<label  for="actionrequestorfield" class="control-label">Action Requestor Field</label>
+      <input   *ngIf="!showview"  id="actionrequestorfield"  formControlName="actionrequestorfield" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('actionassigneduserfield') == -1"  class="col "  >
+<label  for="actionassigneduserfield" class="control-label">Action Assigned User Field</label>
+      <input   *ngIf="!showview"  id="actionassigneduserfield"  formControlName="actionassigneduserfield" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+<div class="col"></div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('notificationtext') == -1"  class="col "  >
+<label  for="notificationtext" class="control-label">Notification Text</label>
+      <textarea  autosize MinRows="10" MaxRows="15" onlyGrow="true"  *ngIf="!showview"  id="notificationtext"  formControlName="notificationtext" class="form-control"
+        >
+</textarea>
+  </div>
+</div>
+<div  *ngIf="(viewhtml == '' || !showview)" class="form-group row" >
+  <div  *ngIf="hidelist.indexOf('actionrequestoremailfield') == -1"  class="col "  >
+<label  for="actionrequestoremailfield" class="control-label">Action Requestor Email Field</label>
+      <input   *ngIf="!showview"  id="actionrequestoremailfield"  formControlName="actionrequestoremailfield" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('actionassigneduseremailfield') == -1"  class="col "  >
+<label  for="actionassigneduseremailfield" class="control-label">Action Assigned User Email Field</label>
+      <input   *ngIf="!showview"  id="actionassigneduseremailfield"  formControlName="actionassigneduseremailfield" class="form-control"
+        >
+  </div>
+  <div  *ngIf="hidelist.indexOf('actionstatus') == -1"  class="col "  >
+<label  for="actionstatus" class="control-label">Action Status</label>
+      <input   *ngIf="!showview"  id="actionstatus"  formControlName="actionstatus" class="form-control"
+        >
+  </div>
+<div class="col"></div>
+</div>  </div>
+</form>
