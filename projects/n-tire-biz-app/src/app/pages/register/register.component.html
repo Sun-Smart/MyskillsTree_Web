@@ -2,17 +2,23 @@
     <img class="navbar-brand logo" src="assets/companylogo.png" id="logo_custom" width="10%" alt="logo">
 </nav>
 <div class="container-fluid register">
-    <div class="row">
+    <div class="row" style="display: flex;justify-content:space-evenly;">
         <div class="col-md-6 register-left">
             <img src="assets/register.png" alt="MySkillTree" />
         </div>
         <div class="col-md-6 register-right">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h3 class="register-heading">Let's Get Started</h3><br /><br />
-                    <label class="custom_header">Already have an account? <a href="javascript:void(0);"
-                            (click)="gotoLogin()">Log in</a></label>
-                    <div class="row">
+                   <div style="margin: 10px;" >
+            
+                        <h3 class="register-heading">Let's Get Started</h3>
+              
+                <label class="custom_header">Already have an account? <a href="javascript:void(0);"
+                        (click)="gotoLogin()">Log in</a></label>
+        
+                   </div>
+
+                    <div class="row" style="line-height: 3;">
                         <div class="col-sm reduce_radio">
                             <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
                                 value="provider" checked> Skill Provider
@@ -24,6 +30,10 @@
                         <div class="col-sm reduce_radio">
                             <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
                                 value="enhancer"> Skill Enhancer
+                        </div>
+                        <div class="col-sm reduce_radio">
+                            <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
+                                value="enhancer"> Skill Certifier
                         </div>
                     </div>
                     <form [formGroup]="bouserregistration_Form" (ngSubmit)="onSubmit()">
@@ -61,13 +71,12 @@
                                 </div>
                             </div>
                         </div>
-                        <br />
-                        <div>
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <button class="btn btn-info btn-block register_btn"
                                 [disabled]="!bouserregistration_Form.valid">REGISTER</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

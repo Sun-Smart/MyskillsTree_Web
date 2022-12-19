@@ -49,6 +49,7 @@ import { mstapplicanteducationdetailService } from '../../../service/mstapplican
 import { mstapplicanteducationdetailComponent } from './mstapplicanteducationdetail.component';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -83,6 +84,8 @@ import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequ
                 color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
                 <button type="button" class="btn btn-outline-primary  popup-add-button"  [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"
                  title = "Add Details">Add</button>
+
+                 <button (click)="addSkills()" >Add 1</button>
                 <!-- </a> -->
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
@@ -91,11 +94,13 @@ import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequ
 </div>
 
 </div>
-              <!-- suneel12 -->
+              <!-- suneel12  & modifed by muthu dated 19/12/22-->
+
+            <form [formGroup]="mstapplicanteducationdetail_Form">
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
                 <thead>
                     <tr>
-                    <th style="width: 11%;">Action</th>
+                    
                     <th  style="width: 10%;">From Year</th>
                     <th style="width:14%;%">Institution Name</th>
                     <th style="width: 11%;">Course Name</th>
@@ -103,10 +108,50 @@ import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequ
                     <th style="width: 13%;">Referral Status</th>
                     <th style="width: 20%;">Remarks</th>
                     <th>To Year</th>
+                    <th style="width: 11%;">Action</th>
                     </tr>
                 </thead>
-                </table>
+                <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
+                <tr>
+                    <td>
+                    <label *ngIf="showview" class="labelview">{{f.fromyear?.value}}</label>
+                    <input *ngIf="!showview" id="fromyear" formControlName="fromyear" class="form-control">
+                    </td>
+                    <td>
+                    <select *ngIf="!showview" id="educationcategory" required (change)="educationcategory_onChange($event.target)"
+                        formControlName="educationcategory" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of educationcategory_List" value="{{item.value}}">{{item.label}}</option>
+                    </select>
+                    </td>
+                    <td>
+                    <select *ngIf="!showview" id="educationsubcategory" required
+                        (change)="educationsubcategory_onChange($event.target)" formControlName="educationsubcategory"
+                        class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of educationsubcategory_List" value="{{item.value}}">{{item.label}}</option>
+                    </select>
+                    </td>
+                    <td>
+                    <input *ngIf="!showview" id="percentage" formControlName="percentage" type="number" min="0"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        onKeyPress="if(this.value.length==3) return false;" class="form-control">
+                    <div *ngIf="showPercentError" style="color: red;">
+                    Percentage allow only 0-100
+                    </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td class="field-add-close-button">
+                    <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantskilldetail_Form)"></i>
 
+                    <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                    (click)="skillClose()"></i>
+                    </td>
+                </tr>
+                </tbody>
+                </table>
+            </form>
 
               <ng2-smart-table #tbl_mstapplicanteducationdetails
                 (userRowSelect)="handle_mstapplicanteducationdetails_GridSelected($event)"
@@ -123,6 +168,9 @@ import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequ
     `
 })
 export class mstapplicanteducationdetailgridComponent implements OnInit {
+
+    mstapplicanteducationdetail_Form: FormGroup;
+
     isadmin = false;
     bfilterPopulate_mstapplicanteducationdetails: boolean = false;
     mstapplicanteducationdetail_menuactions: any = []
@@ -133,6 +181,11 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     Deleted_mstapplicanteducationdetail_IDs: string = "";
     mstapplicanteducationdetails_ID: string = "9";
     mstapplicanteducationdetails_selectedindex: any;
+
+    educationcategory_List: DropDownValues[];
+    applicantid_List: DropDownValues[];
+    referenceacceptance_List: DropDownValues[];
+    educationsubcategory_List: DropDownValues[];
 
 
     ShowTableslist:any;
@@ -160,6 +213,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     r1: any;
     r2: any;
     r3: any;
+    showSkillDetails_input: boolean = false;
     constructor(
         private nav: Location,
         private translate: TranslateService,
@@ -175,6 +229,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         public dialog: DialogService,
         private sharedService: SharedService,
         private sessionService: SessionService,
+        private fb: FormBuilder,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
@@ -187,8 +242,34 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
             }
             this.pkcol=this.data.maindatapkcol;
             this.applicantid=this.data.applicantid
-            console.log( this.mstapplicanteducationdetail_menuactions)
-    }
+            console.log( this.mstapplicanteducationdetail_menuactions);
+
+            this.mstapplicanteducationdetail_Form = this.fb.group({
+                pk: [null],
+                ImageName: [null],
+                applicantid: localStorage.getItem('applicantid'),
+                applicantiddesc: [null],
+                educationid: [null],
+                educationcategory: [null, Validators.compose([Validators.required])],
+                educationcategorydesc: [null],
+                educationsubcategory: [null, Validators.compose([Validators.required])],
+                educationsubcategorydesc: [null],
+                coursename: [null, Validators.compose([Validators.required])],
+                institutionname: [null],
+                fromyear: [null],
+                toyear: [null],
+                percentage: [null],
+                requestid: [null],
+                referenceacceptance: [null],
+                referenceacceptancedesc: [null],
+                remarks: [null],
+                attachment: [null],
+                status: [null],
+                statusdesc: [null],
+              });
+    };
+
+    get f() { return this.mstapplicanteducationdetail_Form.controls; }
 
     ngOnInit() {
         this.Set_mstapplicanteducationdetails_TableConfig();
@@ -196,7 +277,41 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
         this.FillData();
-    }
+    };
+
+    addSkills() {
+        debugger
+        this.showSkillDetails_input = true;
+        // this.getData();
+        this.eduCategory();
+      };
+    eduCategory(){
+        this.mstapplicanteducationdetail_service.getDefaultData().then((res:any) => {
+            debugger
+            this.applicantid_List = res.list_applicantid.value;
+            this.educationcategory_List = res.list_educationcategory.value;
+            this.referenceacceptance_List = res.list_referenceacceptance.value;
+          }).catch((err) => { this.spinner.hide(); console.log(err); });
+    };
+    educationcategory_onChange(evt: any) {
+        debugger
+        let e = evt.value;
+        this.mstapplicanteducationdetail_Form.patchValue({ educationcategorydesc: evt.options[evt.options.selectedIndex].text });
+        setTimeout(() => {
+          if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then((res:any) => this.educationsubcategory_List = res as DropDownValues[]);
+        });
+      };
+      educationsubcategory_onChange(evt: any) {
+        let e = evt.value;
+        this.mstapplicanteducationdetail_Form.patchValue({ educationsubcategorydesc: evt.options[evt.options.selectedIndex].text });
+      };
+
+
+      onSubmitData(){};
+
+      skillClose(){
+        this.showSkillDetails_input = false;
+      };
 
     mstapplicanteducationdetailshtml() {
         let ret = "";

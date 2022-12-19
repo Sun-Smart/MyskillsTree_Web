@@ -83,18 +83,20 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-                    <span class="common_register_font">Login with Email</span>
+                    <span class="common_register_font" style="line-height:1.7;">Login with Email</span>
+                    <div>
                     <input type="text" name="email" [(ngModel)]="email" class="form-control input-sm"
                       placeholder="Email ID/Mobile Number" [email]="true" required formControlName='email'
                       (click)="test()">
                     <span *ngIf="emailvalidation" style="color:rgb(146, 43, 43)">Enter email</span>
                     <app-field-error-display [displayError]="f.email.errors!=null && f.email.errors?.email"
                       errorMsg="Enter valid email"></app-field-error-display>
+                    </div>
                   </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 1rem;">
                   <div class="form-group">
-                    <span  class="common_register_font">Login with Password</span>
+                    <span  class="common_register_font" style="line-height:1.7;">Login with Password</span>
                     <div class="input-group">
                       <input [type]="fieldTextType ? 'text' : 'password'" class="form-control" [(ngModel)]="password"
                         required formControlName='password' style="line-height: 2.5;border-radius: 0!important"
@@ -118,7 +120,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <br />
-                  <button class="btn btn-info btn-block register_btn">LOGIN</button>
+                  <button class="btn btn-info btn-block register_btn">Login</button>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <br />
@@ -133,8 +135,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <br />
-                  <button class="btn btn-info btn-block register_btn"  (click)="gotoVerify()">LOGIN WITH
-                    OTP</button>
+                  <button class="btn btn-info btn-block register_btn"  (click)="gotoVerify()">Login With
+                    Otp</button>
                 </div>
               </div>
             </div>

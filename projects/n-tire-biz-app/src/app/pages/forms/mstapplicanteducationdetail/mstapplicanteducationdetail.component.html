@@ -187,8 +187,6 @@
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
           formControlName="applicantid" id="value" desc="label"></app-popupselect>
-        <div class="input-group">
-        </div>
         <label *ngIf="showview" class="labelview">{{f.applicantiddesc?.value}}</label>
       </div>
       <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
