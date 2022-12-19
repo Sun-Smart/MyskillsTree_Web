@@ -30,11 +30,9 @@
 .register-right {
     background: #f8f9fa;
     border-radius: 4%;
-    height: 450px;
-    max-width: 37%;
-    position: relative;
-    left: 90px;
-    bottom: 30px;
+    height: auto;
+    width: 100%;
+    max-width: 40%;
     box-shadow: 0px 0px 1px #7d7d7d, 0px 0px 1px #7d7d7d;
 }
 
@@ -126,15 +124,15 @@
 
 .register-heading {
     text-align: left;
-    margin-top: 8%;
-    margin-bottom: -15%;
+    // margin-top: 8%;
+    // margin-bottom: -15%;
     font-weight: 900;
     font-size: 21px !important;
     color: #495057;
 }
 
 #myTabContent {
-    margin-top: -17px;
+    // margin-top: -17px;
 }
 
 .form-group {
@@ -146,11 +144,11 @@ input[type=checkbox] {
 }
 
 .custom_header {
-    margin-top: 14px;
+    // margin-top: 14px;
     // font-size: 16px;
 
     a {
-        color: #51c410;
+        color: #51c410 !important;
         font-weight: 600;
     }
 }

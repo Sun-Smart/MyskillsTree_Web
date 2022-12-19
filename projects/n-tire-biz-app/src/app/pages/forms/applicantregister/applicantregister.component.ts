@@ -615,6 +615,7 @@ export class ApplicantregisterComponent implements OnInit {
         } else if (value == "availer") {
             this.router.navigate(['applicantregister']);
         } else if (value == "enhancer") {
+        }    else if (value == "certifier") {
         }
     }
     gotoLogin(){

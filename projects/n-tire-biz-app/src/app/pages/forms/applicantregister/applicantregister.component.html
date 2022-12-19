@@ -2,16 +2,21 @@
     <img class="navbar-brand logo" src="assets/companylogo.png" id="logo_custom" width="10%" alt="logo">
 </nav>
 <div class="container-fluid register">
-    <div class="row">
+    <div class="row" style="display: flex;justify-content:space-evenly;">
         <div class="col-md-6 register-left">
             <img src="assets/register.png" alt="MySkillTree" />
         </div>
         <div class="col-md-6 register-right">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h3 class="register-heading">Let's Get Started</h3><br /><br />
-                    <label class="custom_header">Already have an account? <a href="javascript:void(0);"
-                            (click)="gotoLogin()">Log in</a></label>
+                    <div style="margin: 10px;">
+                        <h3 class="register-heading">Let's Get Started</h3>
+
+                        <label class="custom_header">Already have an account? <a href="javascript:void(0);"
+                                (click)="gotoLogin()">Log in</a></label>
+                    </div>
+
+
                     <div class="row">
                         <div class="col-sm reduce_radio">
                             <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
@@ -25,20 +30,24 @@
                             <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
                                 value="enhancer"> Skill Enhancer
                         </div>
+                        <div class="col-sm reduce_radio">
+                            <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
+                                value="certifier"> Skill Certifier
+                        </div>
                     </div>
                     <form [formGroup]="bocompanyregistration_Form" (ngSubmit)="onSubmit()">
                         <div class="register-form">
                             <div class="row">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <span for="loginPassword">Company Name</span>
+                                        <label for="loginPassword">Company Name</label>
                                         <input type="text" name="companyname" formControlName="companyname" required
                                             class="form-control input-sm" placeholder="Company Name">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <span for="loginPassword">Type</span>
+                                        <label for="loginPassword">Type</label>
                                         <select id="companytype" (change)="companytype_onChange($event.target)"
                                             formControlName="companytype" class="form-control">
                                             <option [ngValue]="null" selected>-Select-</option>
@@ -50,19 +59,19 @@
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <span for="loginPassword">First Name</span>
+                                        <label for="loginPassword">First Name</label>
                                         <input id="firstname" formControlName="firstname"  required class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <span for="loginPassword">Last Name</span>
+                                        <label for="loginPassword">Last Name</label>
                                         <input id="lastname" formControlName="lastname"  required class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <span for="designation" class="control-label">Designation</span>
+                                        <label for="designation">Designation</label>
                                         <select id="designation" (change)="designation_onChange($event.target)"
                                             formControlName="designation" class="form-control">
                                             <option [ngValue]="null" selected>-Select-</option>
@@ -74,7 +83,7 @@
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <span for="emailid" class="control-label">Email</span>
+                                        <label for="emailid">Email</label>
                                         <input type="email" [email]="true" id="emailid" formControlName="emailid" required
                                             class="form-control">
                                         <app-field-error-display
@@ -85,11 +94,23 @@
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <span for="loginPassword">Mobile</span>
+                                        <label for="loginPassword">Mobile</label>
                                         <input type="number" name="mobilenumber" formControlName="mobilenumber"  required onKeyPress="if(this.value.length==10) return false;" class="form-control input-sm"
                                             placeholder="Mobile Number">
                                     </div>
                                 </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="loginPassword">Category</label>
+                                        <select name="gender"  class="form-control">
+                                            <option [ngValue]="null" selected>-Select-</option>
+                                            <option  [ngValue]= "special">Special</option>
+                                            <option  [ngValue]= "general">General</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <!-- <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group" style="accent-color: #ed4141;margin-bottom: 0px;">
                                         <input type="checkbox" value="" id="flexCheckDefault" formControlName="agreement">
@@ -100,14 +121,15 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-sm reduce_radio">
                                 <input type="radio" name="gender" value="special"> Special Category
                             </div>
                             <div class="col-sm reduce_radio">
                                 <input type="radio" name="gender" value="stanard"> Standard Category
                             </div>
-                        </div><br />
+                            </div> -->
+                     
                         <div>
                             <button class="btn btn-info btn-block register_btn"
                                 (click)="onSubmitAndWait()" [disabled]="!bocompanyregistration_Form.valid">REGISTER</button>

@@ -160,7 +160,7 @@ import { msttermnewComponent } from '../forms/mstterm/msttermnew.component';
 }
 
 .custom_link {
-    color: #51c410;
+    color: #51c410 !important;
     font-weight: 600;
 }
 
