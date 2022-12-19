@@ -730,15 +730,16 @@ body .p-overlay-badge .p-badge {
   align-items: center;
   height: 100%;
   position: relative;
-  margin-top: 7px;
+  /* margin-top: 7px; */
 }
 .layout-topbar .layout-topbar-left .layout-topbar-logo {
-  width: 17rem;
+  /* width: 17rem; */
   height: 100%;
   padding-right: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 0 !important;
 
 }
 .layout-topbar .layout-topbar-left .layout-menu-button {
@@ -770,7 +771,7 @@ body .p-overlay-badge .p-badge {
   display: flex;
   flex-grow: 1;
   align-items: center;
-  justify-content: space-between;
+  justify-content: end;
   padding-left: 2rem;
   height: 100%;
 }

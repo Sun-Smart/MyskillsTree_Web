@@ -306,4 +306,8 @@ export class HeaderComponent implements OnInit {
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     })
   }
+  closePopup(){
+    this.showhideProfile = false;
+    this.showmenulist = false;
+  }
 }
