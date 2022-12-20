@@ -53,7 +53,7 @@ import { mstapplicantgeographypreference } from '../../../model/mstapplicantgeog
 @Component({
     selector: 'app-applicantgeographygrid',
     template: `
-    <div class= row   style="background: #f5f3e4; color: #000; padding: 5px; height: 45px;">
+    <div class= row   style="background: #ebf3fc; color: #000; padding: 5px; height: 45px;">
     <div class=col-4 style="margin: auto;">
     <h4 class="form-group sticky1  columns left">
         {{'Geography Preferences'}}

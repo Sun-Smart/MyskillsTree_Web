@@ -240,7 +240,7 @@ a[_ngcontent-uuu-c401] {
 .applicant-card {
   position: absolute;
   top: 50px;
-  left: 20%;
+  left: 10%;
   background-color: #fff !important;
   padding: 0;
   height: auto !important;
@@ -248,16 +248,17 @@ a[_ngcontent-uuu-c401] {
 .applicant-menu-icon {
   color: red;
   text-align: end;
-  i{
+  i {
     cursor: pointer;
     font-size: 17px;
     // padding: 0 8px;
   }
 }
-.applicant-menu{
-  text-align: center;
+.applicant-menu {
+  text-align: left;
+  padding: 0 0px 0 23px;
 }
-.applicant-menu:hover{
+.applicant-menu:hover {
   background-color: #ebf3fc !important;
-  text-align: center;
+  text-align: left;
 }

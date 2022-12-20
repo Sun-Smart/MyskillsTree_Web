@@ -11,7 +11,7 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading">Login with OTP</h3><br /><br />
                     <h4 class="custom_header">We have sent to the OTP on Registered Mobile Number and Email ID.</h4>
-                   <!-- <form [formGroup]="otpForm"> -->
+                    <form [formGroup]="validation_Form" (ngSubmit)="onSubmit()">
                     <div class="register-form">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                     </div>
-                   <!-- </form> -->
+                   </form>
                 </div>
             </div>
         </div>

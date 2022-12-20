@@ -111,8 +111,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
   //New code
   template: `
-<div class="row" style="background: #f5f3e4!important;
-    color: #000;padding: 5px; height:45px;border: 1px solid #ebf3fc;width: 100%;">
+<div class="row" style="background: #ebf3fc !important;
+    color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
 
   <div class="col-4" style="margin:auto;">
     <h4 class="form-group sticky1  columns left">{{'Skill Details'}}
@@ -490,6 +490,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
     debugger
     this.showSkillDetails_input = true;
+    this.getData();
     let add = false;
     if (event == null) add = true;
     let childsave = true;

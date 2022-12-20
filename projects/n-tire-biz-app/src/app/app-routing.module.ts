@@ -64,6 +64,7 @@ const routes: Routes = [
     { path: 'registernew', component: RegisterComponent, },
     { path: 'applicantregister', component: ApplicantregisterComponent, },
     { path: 'verify', component: VerifyscreenComponent, },
+    { path: 'verify/:id', component: VerifyscreenComponent, },
     // { path: 'mstapplicantreferencerequestsaccepted', component: MstapplicantreferenceacceptedComponent, },
     // { path: "mstapplicantreferencerequestsaccepted", pathMatch: 'prefix', loadChildren: () => import("./pages/mstapplicantreferenceaccepted/mstapplicantreferenceaccepted.module").then(m => m.mstapplicantreferenceacceptedModule) },
     { path: "mstapplicantreferencerequestsaccepted", pathMatch: 'prefix', loadChildren: () => import("./pages/mstapplicantreferenceaccepted/mstapplicantreferenceaccepted.module").then(m => m.mstapplicantreferencerequestModule) },
