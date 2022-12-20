@@ -456,6 +456,36 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   }
 
 
+  onSubmitAndWait() {
+    debugger
+    if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
+      this.onSubmitData(false);
+
+    }
+    else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+      // this.onSubmitDataDlg(false);
+
+      this.onSubmitData(false);
+    }
+    else {
+      this.onSubmitData(false);
+    }
+  }
+
+  onSubmit() {
+    if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
+      this.onSubmitData(true);
+    }
+    else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
+      // this.onSubmitDataDlg(true);
+      this.onSubmitData(true);
+    }
+    else {
+      this.onSubmitData(true);
+    }
+  }
+
+
 
   mstapplicantskilldetailshtml() {
     debugger

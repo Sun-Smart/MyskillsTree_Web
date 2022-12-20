@@ -50,6 +50,8 @@ import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.s
 import { mstapplicantachievementdetailService } from '../../../service/mstapplicantachievementdetail.service';
 import { mstapplicantachievementdetailComponent } from './mstapplicantachievementdetail.component';
 import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { mstapplicantachievementdetail } from '../../../model/mstapplicantachievementdetail.model';
 @Component({
     selector: 'app-applicantachivementgrid',
     template: `
@@ -81,6 +83,7 @@ import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequ
                 color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
                 <button type="button" class="btn btn-outline-primary  popup-add-button" [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"
                   title = "Add Details">Add</button>
+                     <!-- <button (click)="addSkills()" >Add 1</button> -->
                 <!-- </a> -->
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
@@ -89,6 +92,7 @@ import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequ
                 <!-- </ul> -->
 </div>
 </div>
+<form [formGroup]="mstapplicantachievementdetail_Form">
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
         <thead>
           <tr>
@@ -98,7 +102,39 @@ import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequ
             <th scope="col" style="width: 42%">Action</th>
           </tr>
         </thead>
+        <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
+            <tr>
+
+            <!--Master Data Type-->
+
+                <td>
+                    <select *ngIf="!showview" id="masterdataid" required (change)="masterdataid_onChange($event.target)"
+                    formControlName="masterdataid" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of masterdataid_List" value="{{item.value}}">{{item.label}}</option>
+                    </select>
+                </td>
+
+            <!-- Achievement details -->
+
+                <td>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="achievementdetails" required
+                    formControlName="achievementdetails" class="form-control">
+                    </textarea>
+                </td>
+
+            <!-- Submit & Close -->
+
+                <td class="field-add-close-button">
+                    <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+
+                    <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                    (click)="skillClose()"></i>
+                </td>
+            </tr>
+        </tbody>
 </table>
+</form>
               <ng2-smart-table #tbl_mstapplicantachievementdetails
                 (userRowSelect)="handle_mstapplicantachievementdetails_GridSelected($event)"
                 [settings]="mstapplicantachievementdetails_settings"
@@ -114,15 +150,21 @@ import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequ
     `
 })
 export class mstapplicantachivementgridComponent implements OnInit {
+
+    mstapplicantachievementdetail_Form: FormGroup;
+
+    formData: mstapplicantachievementdetail;
     isadmin = false;
     bfilterPopulate_mstapplicantachievementdetails: boolean = false;
     mstapplicantachievementdetail_menuactions: any = []
     @ViewChild('tbl_mstapplicantachievementdetails', { static: false }) tbl_mstapplicantachievementdetails: Ng2SmartTableComponent;
+    pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
     stapplicantachievementdetails_visiblelist: any;
     mstapplicantachievementdetails_hidelist: any;
     Deleted_mstapplicantachievementdetail_IDs: string = "";
     mstapplicantachievementdetails_ID: string = "7";
     mstapplicantachievementdetails_selectedindex: any;
+    pkList: any;//stores values - used in search, prev, next
 
     ShowTableslist: any;
     pkcol: any;
@@ -131,22 +173,38 @@ export class mstapplicantachivementgridComponent implements OnInit {
     IsAdmin: boolean;
     bSingleRecord: boolean;
 
+
+    applicantid_List: DropDownValues[];
+    masterdataid_List: DropDownValues[];
+    referenceacceptance_List: DropDownValues[];
+
     applicantid: any;
     data: any;
     checkstar: any = [];
+    objvalues: any = [];
+    hidelist: any = [];
     starres: any;
     onestar: string;
     showstar: string;
     mstapplicantachievementdetails_visiblelist: any;
+    showSkillDetails_input: boolean = false;
+    isSubmitted: boolean = false;
+    showview: boolean = false;
+
+    maindata: any;
+
+
     constructor(
         private nav: Location,
         private translate: TranslateService,
         private mstapplicantmaster_service: mstapplicantmasterService,
+        private mstapplicantachievementdetail_service: mstapplicantachievementdetailService,
         private router: Router,
         private themeService: ThemeService,
         private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
+        private fb: FormBuilder,
         public dialog: DialogService,
         private sharedService: SharedService,
         private sessionService: SessionService,
@@ -162,30 +220,167 @@ export class mstapplicantachivementgridComponent implements OnInit {
         }
         this.pkcol = this.data.maindatapkcol;
         this.applicantid = this.data.applicantid
+
+        this.mstapplicantachievementdetail_Form = this.fb.group({
+            pk: [null],
+            ImageName: [null],
+            applicantid: this.sessionService.getItem('applicantid'),
+            applicantiddesc: [null],
+            achievementid: [null],
+            masterdataid: [null, Validators.compose([Validators.required])],
+            masterdataiddesc: [null],
+            achievementdetails: [null, Validators.compose([Validators.required])],
+            selfrating: [null],
+            remarks: [null],
+            requestid: [null],
+            referenceacceptance: [null],
+            referenceacceptancedesc: [null],
+            attachment: [null],
+            status: [null],
+            statusdesc: [null],
+        });
     }
 
     ngOnInit() {
-      debugger
+        debugger
         this.Set_mstapplicantachievementdetails_TableConfig();
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
+
+        //autocomplete
+        this.mstapplicantachievementdetail_service.get_mstapplicantachievementdetails_List().then(res => {
+            debugger
+            this.pkList = res as mstapplicantachievementdetail[];
+            this.pkoptionsEvent.emit(this.pkList);
+        }
+        ).catch((err) => { this.spinner.hide(); console.log(err); });
+
         this.FillData();
     }
+    addSkills() {
+        debugger
+        this.showSkillDetails_input = true;
+        this.getdata();
+    };
+
+    getdata() {
+        this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
+            debugger
+            this.applicantid_List = res.list_applicantid.value;
+            this.masterdataid_List = res.list_masterdataid.value;
+            this.referenceacceptance_List = res.list_referenceacceptance.value;
+        }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }
+    skillClose() {
+        this.showSkillDetails_input = false;
+    };
+    masterdataid_onChange(evt: any) {
+        let e = evt.value;
+        this.mstapplicantachievementdetail_Form.patchValue({ masterdataiddesc: evt.options[evt.options.selectedIndex].text });
+    }
+
+    onSubmitAndWait() {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
+            this.onSubmitData(false);
+        }
+        else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+            // this.onSubmitDataDlg(false);
+            this.onSubmitData(false);
+        }
+        else {
+            this.onSubmitData(false);
+        }
+    };
+
+    async onSubmitData(bclear: any) {
+        debugger;
+        this.isSubmitted = true;
+        let strError = "";
+        this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
+        console.log(this.formData);
+
+        this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
+            async res => {
+                console.log("ressss", res);
+
+                this.toastr.addSingle("success", "", "Successfully saved");
+                this.objvalues.push((res as any).mstapplicantachievementdetail);
+                this.ngOnInit();
+                this.objvalues = [];
+                if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                    this.dialogRef.close(this.objvalues);
+                    return;
+                }
+                else {
+                    if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+                }
+
+                if (bclear) {
+                    this.resetForm();
+                }
+                else {
+                    if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                        this.objvalues.push((res as any).mstapplicantachievementdetail);
+                        this.dialogRef.close(this.objvalues);
+                    }
+                }
+            });
+    };
+
+    resetForm() {
+        if (this.mstapplicantachievementdetail_Form != null)
+            this.mstapplicantachievementdetail_Form.reset();
+        this.mstapplicantachievementdetail_Form.patchValue({
+        });
+        this.PopulateFromMainScreen(this.data, false);
+        this.PopulateFromMainScreen(this.dynamicconfig.data, true);
+    };
+
+    PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
+        if (mainscreendata != null) {
+            for (let key in mainscreendata) {
+                if (key != 'visiblelist' && key != 'hidelist' && key != 'event') {
+
+                    let jsonstring = "";
+                    let json = null;
+                    let ctrltype = typeof (mainscreendata[key]);
+                    if (false)
+                        json = "";
+                    else if (ctrltype == "string") {
+                        this.mstapplicantachievementdetail_Form.patchValue({ [key]: mainscreendata[key] });
+                    }
+                    else {
+                        this.mstapplicantachievementdetail_Form.patchValue({ [key]: mainscreendata[key] });
+                    }
+                    {
+                        {
+                            if (bdisable && this.mstapplicantachievementdetail_Form.controls[key] != undefined) {
+                                this.mstapplicantachievementdetail_Form.controls[key].disable({ onlySelf: true });
+                                this.hidelist.push(key);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     FillData() {
-      debugger
+        debugger
 
-    //   this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.applicantid).then(res => {
-    //     this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
-    //     this.Set_mstapplicantachievementdetails_TableConfig();
-    //     this.mstapplicantachievementdetails_LoadTable(res.mstapplicantskilldetails);
+        //   this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.applicantid).then(res => {
+        //     this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
+        //     this.Set_mstapplicantachievementdetails_TableConfig();
+        //     this.mstapplicantachievementdetails_LoadTable(res.mstapplicantskilldetails);
 
-    // });
+        // });
 
         this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {
-          debugger
-        //   this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
-          this.Set_mstapplicantachievementdetails_TableConfig();
-          this.mstapplicantachievementdetails_LoadTable(res.mstapplicantachievementdetail);
+            debugger
+            //   this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
+            this.Set_mstapplicantachievementdetails_TableConfig();
+            this.mstapplicantachievementdetails_LoadTable(res.mstapplicantachievementdetail);
         });
     }
     mstapplicantachievementdetailshtml() {
@@ -196,7 +391,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
           <tr>
             <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##masterdataiddesc##</th>
             <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##attachment##</th>-->
-            <th scope="row" class="card1 profile__section__item__sub col-2" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##achievementdetails##</th>
+            <th scope="row" class="card1 profile__section__item__sub col-2" style="white-space: break-spaces;word-break: break-word !important;" class="col-1">##achievementdetails##</th>
             <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##remarks##</th>
           </tr>
         </tbody>
@@ -205,35 +400,37 @@ export class mstapplicantachivementgridComponent implements OnInit {
         return ret;
     }
     AddOrEdit_mstapplicantachievementdetail(event: any, achievementid: any, applicantid: any) {
-      debugger
+        debugger
+        this.showSkillDetails_input = true;
+        this.getdata();
         let add = false;
         if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        this.dialog.open(mstapplicantachievementdetailComponent,
-            {
-                data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, achievementid, applicantid, visiblelist: this.mstapplicantachievementdetails_visiblelist, hidelist: this.mstapplicantachievementdetails_hidelist, ScreenType: 2 },
-            }
-        ).onClose.subscribe(res => {
-            if (res) {
-                if (add) {
-                    for (let i = 0; i < res.length; i++) {
-                        this.tbl_mstapplicantachievementdetails.source.add(res[i]);
-                    }
-                    this.tbl_mstapplicantachievementdetails.source.refresh();
-                }
-                else {
-                    this.tbl_mstapplicantachievementdetails.source.update(event.data, res[0]);
-                }
-            }
-        });
+        // this.dialog.open(mstapplicantachievementdetailComponent,
+        //     {
+        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, achievementid, applicantid, visiblelist: this.mstapplicantachievementdetails_visiblelist, hidelist: this.mstapplicantachievementdetails_hidelist, ScreenType: 2 },
+        //     }
+        // ).onClose.subscribe(res => {
+        //     if (res) {
+        //         if (add) {
+        //             for (let i = 0; i < res.length; i++) {
+        //                 this.tbl_mstapplicantachievementdetails.source.add(res[i]);
+        //             }
+        //             this.tbl_mstapplicantachievementdetails.source.refresh();
+        //         }
+        //         else {
+        //             this.tbl_mstapplicantachievementdetails.source.update(event.data, res[0]);
+        //         }
+        //     }
+        // });
     }
 
     onDelete_mstapplicantachievementdetail(event: any, childID: number, i: number) {
         if (confirm('Do you want to delete this record?')) {
             this.mstapplicantachivement_service.delete_mstapplicantachievementdetail(childID).then(res => {
                 this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {
-                   this.ngOnInit();
+                    this.ngOnInit();
                     this.mstapplicantachievementdetails_LoadTable(res.mstapplicantachievementdetail);
                 });
             })
@@ -245,248 +442,248 @@ export class mstapplicantachivementgridComponent implements OnInit {
         // this.tbl_mstapplicantachievementdetails.source.data.splice(i, 1);
         //this.updateGrandTotal();
     }
- //start of Grid Codes mstapplicantachievementdetails
- mstapplicantachievementdetails_settings: any;
+    //start of Grid Codes mstapplicantachievementdetails
+    mstapplicantachievementdetails_settings: any;
 
- show_mstapplicantachievementdetails_Checkbox() {
-     //debugger;;
-     if (this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'single';
-     else
-         this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'multi';
-     this.tbl_mstapplicantachievementdetails.source.initGrid();
- }
- delete_mstapplicantachievementdetails_All() {
-     this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'single';
- }
- show_mstapplicantachievementdetails_Filter() {
-     setTimeout(() => {
-         //  this.Set_mstapplicantachievementdetails_TableDropDownConfig();
-     });
-     if (this.tbl_mstapplicantachievementdetails.source.settings != null) this.tbl_mstapplicantachievementdetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantachievementdetails.source.settings['hideSubHeader'];
-     this.tbl_mstapplicantachievementdetails.source.initGrid();
- }
- show_mstapplicantachievementdetails_InActive() {
- }
- enable_mstapplicantachievementdetails_InActive() {
- }
- async Set_mstapplicantachievementdetails_TableDropDownConfig(res) {
-   debugger
-     if (!this.bfilterPopulate_mstapplicantachievementdetails) {
+    show_mstapplicantachievementdetails_Checkbox() {
+        //debugger;;
+        if (this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'single';
+        else
+            this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'multi';
+        this.tbl_mstapplicantachievementdetails.source.initGrid();
+    }
+    delete_mstapplicantachievementdetails_All() {
+        this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'single';
+    }
+    show_mstapplicantachievementdetails_Filter() {
+        setTimeout(() => {
+            //  this.Set_mstapplicantachievementdetails_TableDropDownConfig();
+        });
+        if (this.tbl_mstapplicantachievementdetails.source.settings != null) this.tbl_mstapplicantachievementdetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantachievementdetails.source.settings['hideSubHeader'];
+        this.tbl_mstapplicantachievementdetails.source.initGrid();
+    }
+    show_mstapplicantachievementdetails_InActive() {
+    }
+    enable_mstapplicantachievementdetails_InActive() {
+    }
+    async Set_mstapplicantachievementdetails_TableDropDownConfig(res) {
+        debugger
+        if (!this.bfilterPopulate_mstapplicantachievementdetails) {
 
-         var clone = this.sharedService.clone(this.tbl_mstapplicantachievementdetails.source.settings);
-         if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_applicantid.value)), }, };
-         if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_applicantid.value)), }, };
-         this.tbl_mstapplicantachievementdetails.source.settings = clone;
-         this.tbl_mstapplicantachievementdetails.source.initGrid();
+            var clone = this.sharedService.clone(this.tbl_mstapplicantachievementdetails.source.settings);
+            if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_applicantid.value)), }, };
+            if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_applicantid.value)), }, };
+            this.tbl_mstapplicantachievementdetails.source.settings = clone;
+            this.tbl_mstapplicantachievementdetails.source.initGrid();
 
-         var clone = this.sharedService.clone(this.tbl_mstapplicantachievementdetails.source.settings);
-         if (clone.columns['masterdataid'] != undefined) clone.columns['masterdataid'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_masterdataid.value)), }, };
-         if (clone.columns['masterdataid'] != undefined) clone.columns['masterdataid'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_masterdataid.value)), }, };
-         this.tbl_mstapplicantachievementdetails.source.settings = clone;
-         this.tbl_mstapplicantachievementdetails.source.initGrid();
+            var clone = this.sharedService.clone(this.tbl_mstapplicantachievementdetails.source.settings);
+            if (clone.columns['masterdataid'] != undefined) clone.columns['masterdataid'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_masterdataid.value)), }, };
+            if (clone.columns['masterdataid'] != undefined) clone.columns['masterdataid'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_masterdataid.value)), }, };
+            this.tbl_mstapplicantachievementdetails.source.settings = clone;
+            this.tbl_mstapplicantachievementdetails.source.initGrid();
 
-         var clone = this.sharedService.clone(this.tbl_mstapplicantachievementdetails.source.settings);
-         if (clone.columns['referenceacceptance'] != undefined) clone.columns['referenceacceptance'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_referenceacceptance.value)), }, };
-         if (clone.columns['referenceacceptance'] != undefined) clone.columns['referenceacceptance'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_referenceacceptance.value)), }, };
-         this.tbl_mstapplicantachievementdetails.source.settings = clone;
-         this.tbl_mstapplicantachievementdetails.source.initGrid();
-     }
-     this.bfilterPopulate_mstapplicantachievementdetails = true;
- }
- async mstapplicantachievementdetails_beforesave(event: any) {
-     event.confirm.resolve(event.newData);
-
-
-
- }
- Set_mstapplicantachievementdetails_TableConfig() {
-   debugger
-     this.mstapplicantachievementdetails_settings = {
-         hideSubHeader: true,
-         mode: 'external',
-         selectMode: 'single',
-         actions: {
-            columnTitle: '',
-            width: '300px',
-            edit: true, // true,
-            delete: (this.IsApplicant || this.IsAdmin),
-            position: 'right',
-            custom: this.mstapplicantachievementdetail_menuactions
-        },
-        //  actions: {
-        //      columnTitle: '',
-        //      width: '300px',
-        //      edit: true, // true,
-        //      delete: (this.IsApplicant || this.IsAdmin),
-        //      position: 'right',
-        //     //  custom: this.mstapplicantachievementdetail_menuactions
-        //     custom: [{ name: 'reference',
-        //     title: `<i class="icon-references" aria-hidden="true"></i>`,
-        //  }]
-        //  },
-         add: {
-             addButtonContent: '<i class="nb-plus"></i>',
-             createButtonContent: '<i class="nb-checkmark"></i>',
-             cancelButtonContent: '<i class="nb-close"></i>',
-             confirmCreate: true,
-         },
-         edit: {
-             editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
-             saveButtonContent: '<i class="nb-checkmark"></i>',
-             cancelButtonContent: '<i class="nb-close"></i>',
-             confirmSave: true,
-         },
-         delete: {
-             deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-             confirmDelete: true,
-         },
-         columns: {
-             colhtml:
-             {
-                 title: '',
-                 type: 'html',
-                 filter: true,
-                 editor:
-                 {
-                     type: 'textarea',
-                 },
-                 valuePrepareFunction: (cell, row) => {
-                     //debugger;;
-                     cell = this.mstapplicantachievementdetailshtml();
-                     var divrow = JSON.parse(JSON.stringify(row));
+            var clone = this.sharedService.clone(this.tbl_mstapplicantachievementdetails.source.settings);
+            if (clone.columns['referenceacceptance'] != undefined) clone.columns['referenceacceptance'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_referenceacceptance.value)), }, };
+            if (clone.columns['referenceacceptance'] != undefined) clone.columns['referenceacceptance'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantachievementdetails_referenceacceptance.value)), }, };
+            this.tbl_mstapplicantachievementdetails.source.settings = clone;
+            this.tbl_mstapplicantachievementdetails.source.initGrid();
+        }
+        this.bfilterPopulate_mstapplicantachievementdetails = true;
+    }
+    async mstapplicantachievementdetails_beforesave(event: any) {
+        event.confirm.resolve(event.newData);
 
 
-                     divrow["selfrating"] = "<div class='Stars' style='--rating:" + row['selfrating'] + "'></div>";
-                     return this.sharedService.HtmlValue(divrow, cell);
-                 },
-             },
-         },
-     };
- }
- mstapplicantachievementdetails_LoadTable(mstapplicantachievementdetails = new LocalDataSource()) {
-     if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantachievementdetails_ID) >= 0) {
-         if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source = new LocalDataSource();
-         if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source.load(mstapplicantachievementdetails as any as LocalDataSource);
-         if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source.setPaging(1, 20, true);
-     }
- }
 
- //external to inline
- /*
- mstapplicantachievementdetails_route(event:any,action:any) {
- switch ( action) {
- case 'create':
- if (this.mstapplicantmaster_service.mstapplicantachievementdetails.length == 0)
- {
-     this.tbl_mstapplicantachievementdetails.source.grid.createFormShown = true;
- }
- else
- {
-     let obj = new mstapplicantachievementdetail();
-     this.mstapplicantmaster_service.mstapplicantachievementdetails.push(obj);
-     this.tbl_mstapplicantachievementdetails.source.refresh();
-     if ((this.mstapplicantmaster_service.mstapplicantachievementdetails.length / this.tbl_mstapplicantachievementdetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantachievementdetails.source.getPaging().page)
-     {
-         this.tbl_mstapplicantachievementdetails.source.setPage((this.mstapplicantmaster_service.mstapplicantachievementdetails.length / this.tbl_mstapplicantachievementdetails.source.getPaging().perPage).toFixed(0) + 1);
-     }
-     setTimeout(() => {
-         this.tbl_mstapplicantachievementdetails.source.grid.edit(this.tbl_mstapplicantachievementdetails.source.grid.getLastRow());
-     });
- }
- break;
- case 'delete':
- let index = this.tbl_mstapplicantachievementdetails.source.data.indexOf(event.data);
- this.onDelete_mstapplicantachievementdetail(event,event.data.achievementid,((this.tbl_mstapplicantachievementdetails.source.getPaging().page-1) *this.tbl_mstapplicantachievementdetails.source.getPaging().perPage)+index);
- this.tbl_mstapplicantachievementdetails.source.refresh();
- break;
- }
- }
+    }
+    Set_mstapplicantachievementdetails_TableConfig() {
+        debugger
+        this.mstapplicantachievementdetails_settings = {
+            hideSubHeader: true,
+            mode: 'external',
+            selectMode: 'single',
+            actions: {
+                columnTitle: '',
+                width: '300px',
+                edit: true, // true,
+                delete: (this.IsApplicant || this.IsAdmin),
+                position: 'right',
+                custom: this.mstapplicantachievementdetail_menuactions
+            },
+            //  actions: {
+            //      columnTitle: '',
+            //      width: '300px',
+            //      edit: true, // true,
+            //      delete: (this.IsApplicant || this.IsAdmin),
+            //      position: 'right',
+            //     //  custom: this.mstapplicantachievementdetail_menuactions
+            //     custom: [{ name: 'reference',
+            //     title: `<i class="icon-references" aria-hidden="true"></i>`,
+            //  }]
+            //  },
+            add: {
+                addButtonContent: '<i class="nb-plus"></i>',
+                createButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+                confirmCreate: true,
+            },
+            edit: {
+                editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
+                saveButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+                confirmSave: true,
+            },
+            delete: {
+                deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
+                confirmDelete: true,
+            },
+            columns: {
+                colhtml:
+                {
+                    title: '',
+                    type: 'html',
+                    filter: true,
+                    editor:
+                    {
+                        type: 'textarea',
+                    },
+                    valuePrepareFunction: (cell, row) => {
+                        //debugger;;
+                        cell = this.mstapplicantachievementdetailshtml();
+                        var divrow = JSON.parse(JSON.stringify(row));
 
- */
- mstapplicantachievementdetails_route(event: any, action: any) {
-   debugger
-     var addparam = "";
-     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
-         addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
-     }
 
-     switch (action) {
-         case 'create':
-             this.AddOrEdit_mstapplicantachievementdetail(event, null, this.applicantid);
-             break;
-         case 'view':
-             break;
-         case 'edit':
-             this.AddOrEdit_mstapplicantachievementdetail(event, event.data.achievementid, this.applicantid);
-             break;
-         case 'delete':
-             this.onDelete_mstapplicantachievementdetail(event, event.data.achievementid, ((this.tbl_mstapplicantachievementdetails.source.getPaging().page - 1) * this.tbl_mstapplicantachievementdetails.source.getPaging().perPage) + event.index);
-             this.tbl_mstapplicantachievementdetails.source.refresh();
-             break;
-     }
- }
+                        divrow["selfrating"] = "<div class='Stars' style='--rating:" + row['selfrating'] + "'></div>";
+                        return this.sharedService.HtmlValue(divrow, cell);
+                    },
+                },
+            },
+        };
+    }
+    mstapplicantachievementdetails_LoadTable(mstapplicantachievementdetails = new LocalDataSource()) {
+        if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantachievementdetails_ID) >= 0) {
+            if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source = new LocalDataSource();
+            if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source.load(mstapplicantachievementdetails as any as LocalDataSource);
+            if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source.setPaging(1, 20, true);
+        }
+    }
+
+    //external to inline
+    /*
+    mstapplicantachievementdetails_route(event:any,action:any) {
+    switch ( action) {
+    case 'create':
+    if (this.mstapplicantmaster_service.mstapplicantachievementdetails.length == 0)
+    {
+        this.tbl_mstapplicantachievementdetails.source.grid.createFormShown = true;
+    }
+    else
+    {
+        let obj = new mstapplicantachievementdetail();
+        this.mstapplicantmaster_service.mstapplicantachievementdetails.push(obj);
+        this.tbl_mstapplicantachievementdetails.source.refresh();
+        if ((this.mstapplicantmaster_service.mstapplicantachievementdetails.length / this.tbl_mstapplicantachievementdetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantachievementdetails.source.getPaging().page)
+        {
+            this.tbl_mstapplicantachievementdetails.source.setPage((this.mstapplicantmaster_service.mstapplicantachievementdetails.length / this.tbl_mstapplicantachievementdetails.source.getPaging().perPage).toFixed(0) + 1);
+        }
+        setTimeout(() => {
+            this.tbl_mstapplicantachievementdetails.source.grid.edit(this.tbl_mstapplicantachievementdetails.source.grid.getLastRow());
+        });
+    }
+    break;
+    case 'delete':
+    let index = this.tbl_mstapplicantachievementdetails.source.data.indexOf(event.data);
+    this.onDelete_mstapplicantachievementdetail(event,event.data.achievementid,((this.tbl_mstapplicantachievementdetails.source.getPaging().page-1) *this.tbl_mstapplicantachievementdetails.source.getPaging().perPage)+index);
+    this.tbl_mstapplicantachievementdetails.source.refresh();
+    break;
+    }
+    }
+   
+    */
+    mstapplicantachievementdetails_route(event: any, action: any) {
+        debugger
+        var addparam = "";
+        if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
+            addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
+        }
+
+        switch (action) {
+            case 'create':
+                this.AddOrEdit_mstapplicantachievementdetail(event, null, this.applicantid);
+                break;
+            case 'view':
+                break;
+            case 'edit':
+                this.AddOrEdit_mstapplicantachievementdetail(event, event.data.achievementid, this.applicantid);
+                break;
+            case 'delete':
+                this.onDelete_mstapplicantachievementdetail(event, event.data.achievementid, ((this.tbl_mstapplicantachievementdetails.source.getPaging().page - 1) * this.tbl_mstapplicantachievementdetails.source.getPaging().perPage) + event.index);
+                this.tbl_mstapplicantachievementdetails.source.refresh();
+                break;
+        }
+    }
     formid(event: any, arg1: null, formid: any) {
         throw new Error('Method not implemented.');
     }
- mstapplicantachievementdetails_onDelete(obj) {
-     let achievementid = obj.data.achievementid;
-     if (confirm('Are you sure to delete this record ?')) {
-         this.mstapplicantachivement_service.delete_mstapplicantachievementdetail(achievementid).then(res =>
-             this.mstapplicantachievementdetails_LoadTable()
-         );
-     }
- }
- async onCustom_mstapplicantachievementdetails_Action(event: any) {
+    mstapplicantachievementdetails_onDelete(obj) {
+        let achievementid = obj.data.achievementid;
+        if (confirm('Are you sure to delete this record ?')) {
+            this.mstapplicantachivement_service.delete_mstapplicantachievementdetail(achievementid).then(res =>
+                this.mstapplicantachievementdetails_LoadTable()
+            );
+        }
+    }
+    async onCustom_mstapplicantachievementdetails_Action(event: any) {
 
-//   this.dialog.open(mstapplicantreferencegridComponent, {
-//     width: '100% !important',
-//     height: 'auto !important',
-//     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-//   })
+        //   this.dialog.open(mstapplicantreferencegridComponent, {
+        //     width: '100% !important',
+        //     height: 'auto !important',
+        //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+        //   })
 
-// let referencesourcedetails = 'Achievements: ' + event.data.masterdataiddesc + '<BR>' + 'Details: ' + event.data.achievementdetails;
+        // let referencesourcedetails = 'Achievements: ' + event.data.masterdataiddesc + '<BR>' + 'Details: ' + event.data.achievementdetails;
 
-let referencesourcedetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Achievements ' + event.data.masterdataiddesc + '</li>'
-        + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Details: ' + event.data.achievementdetails + '</li>'
-
-
-     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantachievementdetails");
-     let formname = (objbomenuaction as any).actionname;
-     if (formname == "mstapplicantreferencerequests") {
-         this.dialog.open(mstapplicantreferencerequestComponent,
-             {
-                data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 319, requestmasterid: event.data.achievementid, ScreenType: 2, save: true }
-                //  data: { applicantid: event.data.applicantid, requestmasterdatatypeid: 319, requestmasterid: event.data.achievementid, ScreenType: 2, save: true }
-             }
-         ).onClose.subscribe(res => {
-         });
-     }
+        let referencesourcedetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Achievements ' + event.data.masterdataiddesc + '</li>'
+            + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Details: ' + event.data.achievementdetails + '</li>'
 
 
+        let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantachievementdetails");
+        let formname = (objbomenuaction as any).actionname;
+        if (formname == "mstapplicantreferencerequests") {
+            this.dialog.open(mstapplicantreferencerequestComponent,
+                {
+                    data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 319, requestmasterid: event.data.achievementid, ScreenType: 2, save: true }
+                    //  data: { applicantid: event.data.applicantid, requestmasterdatatypeid: 319, requestmasterid: event.data.achievementid, ScreenType: 2, save: true }
+                }
+            ).onClose.subscribe(res => {
+            });
+        }
 
 
- }
- mstapplicantachievementdetails_Paging(val) {
-     //debugger;;
-     this.tbl_mstapplicantachievementdetails.source.setPaging(1, val, true);
- }
 
- handle_mstapplicantachievementdetails_GridSelected(event: any) {
-     this.mstapplicantachievementdetails_selectedindex = this.tbl_mstapplicantachievementdetails.source.findIndex(i => i.achievementid === event.data.achievementid);
- }
- Is_mstapplicantachievementdetails_Visible() {
-     if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantachievementdetails_ID) >= 0) {
-         return "tbl smart-table-container";
-     }
-     else {
-         return "hide";
-     }
- }
- //end of Grid Codes mstapplicantachievementdetails
- onClose() {
-    //    location.reload();
-    this.dialogRef.close();
-}
+
+    }
+    mstapplicantachievementdetails_Paging(val) {
+        //debugger;;
+        this.tbl_mstapplicantachievementdetails.source.setPaging(1, val, true);
+    }
+
+    handle_mstapplicantachievementdetails_GridSelected(event: any) {
+        this.mstapplicantachievementdetails_selectedindex = this.tbl_mstapplicantachievementdetails.source.findIndex(i => i.achievementid === event.data.achievementid);
+    }
+    Is_mstapplicantachievementdetails_Visible() {
+        if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantachievementdetails_ID) >= 0) {
+            return "tbl smart-table-container";
+        }
+        else {
+            return "hide";
+        }
+    }
+    //end of Grid Codes mstapplicantachievementdetails
+    onClose() {
+        //    location.reload();
+        this.dialogRef.close();
+    }
 
 
 

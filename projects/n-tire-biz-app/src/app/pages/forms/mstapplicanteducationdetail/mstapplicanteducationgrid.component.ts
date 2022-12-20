@@ -50,11 +50,12 @@ import { mstapplicanteducationdetailComponent } from './mstapplicanteducationdet
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { mstapplicanteducationdetail } from '../../../model/mstapplicanteducationdetail.model';
 
 
 @Component({
-    selector: 'app-applicanteducationgrid',
-    template: `
+  selector: 'app-applicanteducationgrid',
+  template: `
     <div class="row form-group sticky1" style=" background:#f5f3e4 !important;color: #000;padding: 5px;">
 
         <div class="col-4">
@@ -85,7 +86,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
                 <button type="button" class="btn btn-outline-primary  popup-add-button"  [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"
                  title = "Add Details">Add</button>
 
-                 <button (click)="addSkills()" >Add 1</button>
+                 <!-- <button (click)="addSkills()" >Add 1</button> -->
                 <!-- </a> -->
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
@@ -101,22 +102,28 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
                 <thead>
                     <tr>
                     
-                    <th  style="width: 10%;">From Year</th>
-                    <th style="width:14%;%">Institution Name</th>
+                    <th  style="width: 11%;">From Year</th>
+                    <th style="width: 11%;">Category</th>
+                    <th style="width: 11%;">Sub Category</th>
+                    <th style="width:11%;%">Institution Name</th>
                     <th style="width: 11%;">Course Name</th>
-                    <th style="width: 12%;">Percentage</th>
-                    <th style="width: 13%;">Referral Status</th>
-                    <th style="width: 20%;">Remarks</th>
-                    <th>To Year</th>
+                    <th style="width: 11%;">Percentage</th>
+                    <!-- <th style="width: 13%;">Referral Status</th> -->
+                    <th style="width: 11%;">Remarks</th>
+                    <th style="width: 11%;">To Year</th>
                     <th style="width: 11%;">Action</th>
                     </tr>
                 </thead>
                 <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
                 <tr>
+                  <!-- From Year -->
                     <td>
                     <label *ngIf="showview" class="labelview">{{f.fromyear?.value}}</label>
                     <input *ngIf="!showview" id="fromyear" formControlName="fromyear" class="form-control">
                     </td>
+
+                    <!-- Category -->
+
                     <td>
                     <select *ngIf="!showview" id="educationcategory" required (change)="educationcategory_onChange($event.target)"
                         formControlName="educationcategory" class="form-control">
@@ -124,6 +131,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
                     <option *ngFor="let item of educationcategory_List" value="{{item.value}}">{{item.label}}</option>
                     </select>
                     </td>
+
+                    <!-- Sub Category -->
+
                     <td>
                     <select *ngIf="!showview" id="educationsubcategory" required
                         (change)="educationsubcategory_onChange($event.target)" formControlName="educationsubcategory"
@@ -132,18 +142,58 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
                     <option *ngFor="let item of educationsubcategory_List" value="{{item.value}}">{{item.label}}</option>
                     </select>
                     </td>
+
+                    <!-- Institution Name -->
+
                     <td>
-                    <input *ngIf="!showview" id="percentage" formControlName="percentage" type="number" min="0"
-                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                        onKeyPress="if(this.value.length==3) return false;" class="form-control">
-                    <div *ngIf="showPercentError" style="color: red;">
-                    Percentage allow only 0-100
-                    </div>
+                    <input *ngIf="!showview" id="institutionname" formControlName="institutionname" class="form-control">
                     </td>
-                    <td></td>
-                    <td></td>
+
+                    <!-- Course Name -->
+
+                    <td>
+                    <input *ngIf="!showview" id="coursename" required formControlName="coursename" class="form-control">
+                    <app-field-error-display [displayError]="f.coursename.errors?.required"
+                      errorMsg="Enter {{'Course Name' | translate}}">
+                    </app-field-error-display>
+                    </td>
+
+                    <!-- Percentage -->
+
+                    <td>
+                      <input *ngIf="!showview" id="percentage" formControlName="percentage" type="number" min="0"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                      onKeyPress="if(this.value.length==3) return false;" class="form-control">
+                      <div *ngIf="showPercentError" style="color: red;">
+                        Percentage allow only 0-100
+                      </div>
+                    </td>
+
+                    <!-- Remarks -->
+
+                   <td>
+                    <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+                    <!-- <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor> -->
+                    </td>
+
+                    <!-- To Year -->
+
+                    <td>
+                    <input *ngIf="!showview" id="toyear" formControlName="toyear" class="form-control">
+                      <div *ngIf="showDateError" style="color: red;">
+                        To Year is greater than from year
+                      </div>
+                      <div *ngIf="showDateError1" style="color: red;">
+                        cannot accepted more than 15 years from year
+                      </div>
+                    </td>
+
+
+
+                    <!-- Submit & Close -->
+
                     <td class="field-add-close-button">
-                    <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantskilldetail_Form)"></i>
+                    <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
 
                     <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
                     (click)="skillClose()"></i>
@@ -169,163 +219,269 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class mstapplicanteducationdetailgridComponent implements OnInit {
 
-    mstapplicanteducationdetail_Form: FormGroup;
+  mstapplicanteducationdetail_Form: FormGroup;
 
-    isadmin = false;
-    bfilterPopulate_mstapplicanteducationdetails: boolean = false;
-    mstapplicanteducationdetail_menuactions: any = []
-    @ViewChild('tbl_mstapplicanteducationdetails', { static: false }) tbl_mstapplicanteducationdetails: Ng2SmartTableComponent;
+  isadmin = false;
+  formData: mstapplicanteducationdetail;
+  bfilterPopulate_mstapplicanteducationdetails: boolean = false;
+  mstapplicanteducationdetail_menuactions: any = []
+  @ViewChild('tbl_mstapplicanteducationdetails', { static: false }) tbl_mstapplicanteducationdetails: Ng2SmartTableComponent;
 
-    mstapplicanteducationdetails_visiblelist: any;
-    mstapplicanteducationdetails_hidelist: any;
-    Deleted_mstapplicanteducationdetail_IDs: string = "";
-    mstapplicanteducationdetails_ID: string = "9";
-    mstapplicanteducationdetails_selectedindex: any;
+  mstapplicanteducationdetails_visiblelist: any;
+  mstapplicanteducationdetails_hidelist: any;
+  Deleted_mstapplicanteducationdetail_IDs: string = "";
+  mstapplicanteducationdetails_ID: string = "9";
+  mstapplicanteducationdetails_selectedindex: any;
 
-    educationcategory_List: DropDownValues[];
-    applicantid_List: DropDownValues[];
-    referenceacceptance_List: DropDownValues[];
-    educationsubcategory_List: DropDownValues[];
+  educationcategory_List: DropDownValues[];
+  applicantid_List: DropDownValues[];
+  referenceacceptance_List: DropDownValues[];
+  educationsubcategory_List: DropDownValues[];
 
 
-    ShowTableslist:any;
-    pkcol:any;
+  ShowTableslist: any;
+  pkcol: any;
 
-    IsApplicant: boolean;
-    IsAdmin: boolean;
-    bSingleRecord: boolean;
+  IsApplicant: boolean;
+  IsAdmin: boolean;
+  bSingleRecord: boolean;
+  isSubmitted: boolean = false;
 
-    applicantid:any;
-    data:any;
-    formid: any;
-    mstapplicanteducationdetails_settings: {
-        hideSubHeader: boolean; mode: string; selectMode: string; actions: {
-            columnTitle: string; width: string; edit: boolean; // true,
-            delete: boolean; position: string; custom: any;
-        }; add: { addButtonContent: string; createButtonContent: string; cancelButtonContent: string; confirmCreate: boolean; }; edit: {
-            editButtonContent: string; saveButtonContent: string; cancelButtonContent: string; confirmSave: boolean //Custom error functions
-                ;
-        }; delete: { deleteButtonContent: string; confirmDelete: boolean; }; columns: { colhtml: { title: string; type: string; filter: boolean; editor: { type: string; }; valuePrepareFunction: (cell: any, row: any) => SafeHtml; }; };
-    };
-    referencecountres: any;
-    countarray: any = [];
-    acceptcount: string;
-    r1: any;
-    r2: any;
-    r3: any;
-    showSkillDetails_input: boolean = false;
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
+  applicantid: any;
+  data: any;
+  formid: any;
+  maindata: any;
+  mstapplicanteducationdetails_settings: {
+    hideSubHeader: boolean; mode: string; selectMode: string; actions: {
+      columnTitle: string; width: string; edit: boolean; // true,
+      delete: boolean; position: string; custom: any;
+    }; add: { addButtonContent: string; createButtonContent: string; cancelButtonContent: string; confirmCreate: boolean; }; edit: {
+      editButtonContent: string; saveButtonContent: string; cancelButtonContent: string; confirmSave: boolean //Custom error functions
+      ;
+    }; delete: { deleteButtonContent: string; confirmDelete: boolean; }; columns: { colhtml: { title: string; type: string; filter: boolean; editor: { type: string; }; valuePrepareFunction: (cell: any, row: any) => SafeHtml; }; };
+  };
+  referencecountres: any;
+  countarray: any = [];
+  objvalues: any = [];
+  hidelist: any = [];
+  acceptcount: string;
+  r1: any;
+  r2: any;
+  r3: any;
+  showSkillDetails_input: boolean = false;
+  constructor(
+    private nav: Location,
+    private translate: TranslateService,
 
-        //dhana
- private mstapplicantmaster_service: mstapplicantmasterService,
- //end
-        private router: Router,
-        private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
-        public dialogRef: DynamicDialogRef,
-        public dynamicconfig: DynamicDialogConfig,
-        public dialog: DialogService,
-        private sharedService: SharedService,
-        private sessionService: SessionService,
-        private fb: FormBuilder,
-        private toastr: ToastService,
-        private sanitizer: DomSanitizer,
-        private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
-        private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,
-        ) {
-            debugger;
-            this.data = dynamicconfig;
-            if (this.data != null && this.data.data != null) {
-                this.data = this.data.data;
+    //dhana
+    private mstapplicantmaster_service: mstapplicantmasterService,
+    //end
+    private router: Router,
+    private themeService: ThemeService,
+    private ngbDateParserFormatter: NgbDateParserFormatter,
+    public dialogRef: DynamicDialogRef,
+    public dynamicconfig: DynamicDialogConfig,
+    public dialog: DialogService,
+    private sharedService: SharedService,
+    private sessionService: SessionService,
+    private fb: FormBuilder,
+    private toastr: ToastService,
+    private sanitizer: DomSanitizer,
+    private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
+    private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,
+  ) {
+    debugger;
+    this.data = dynamicconfig;
+    if (this.data != null && this.data.data != null) {
+      this.data = this.data.data;
+    }
+    this.pkcol = this.data.maindatapkcol;
+    this.applicantid = this.data.applicantid
+    console.log(this.mstapplicanteducationdetail_menuactions);
+
+    this.mstapplicanteducationdetail_Form = this.fb.group({
+      pk: [null],
+      ImageName: [null],
+      applicantid: localStorage.getItem('applicantid'),
+      applicantiddesc: [null],
+      educationid: [null],
+      educationcategory: [null, Validators.compose([Validators.required])],
+      educationcategorydesc: [null],
+      educationsubcategory: [null, Validators.compose([Validators.required])],
+      educationsubcategorydesc: [null],
+      coursename: [null, Validators.compose([Validators.required])],
+      institutionname: [null],
+      fromyear: [null],
+      toyear: [null],
+      percentage: [null],
+      requestid: [null],
+      referenceacceptance: [null],
+      referenceacceptancedesc: [null],
+      remarks: [null],
+      attachment: [null],
+      status: [null],
+      statusdesc: [null],
+    });
+  };
+
+  get f() { return this.mstapplicanteducationdetail_Form.controls; }
+
+  ngOnInit() {
+    this.Set_mstapplicanteducationdetails_TableConfig();
+
+    if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
+    if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
+    this.FillData();
+  };
+
+  // addSkills() {
+  //   debugger
+  //   this.showSkillDetails_input = true;
+  //   // this.getData();
+  //   this.eduCategory();
+  // };
+  eduCategory() {
+    this.mstapplicanteducationdetail_service.getDefaultData().then((res: any) => {
+      debugger
+      this.applicantid_List = res.list_applicantid.value;
+      this.educationcategory_List = res.list_educationcategory.value;
+      this.referenceacceptance_List = res.list_referenceacceptance.value;
+    }).catch((err) => { this.spinner.hide(); console.log(err); });
+  };
+  educationcategory_onChange(evt: any) {
+    debugger
+    let e = evt.value;
+    this.mstapplicanteducationdetail_Form.patchValue({ educationcategorydesc: evt.options[evt.options.selectedIndex].text });
+    setTimeout(() => {
+      if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then((res: any) => this.educationsubcategory_List = res as DropDownValues[]);
+    });
+  };
+  educationsubcategory_onChange(evt: any) {
+    let e = evt.value;
+    this.mstapplicanteducationdetail_Form.patchValue({ educationsubcategorydesc: evt.options[evt.options.selectedIndex].text });
+  };
+
+  skillClose() {
+    this.showSkillDetails_input = false;
+  };
+
+  onSubmitAndWait() {
+    debugger
+    if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
+      this.onSubmitData(false);
+
+    }
+    else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+      // this.onSubmitDataDlg(false);
+
+      this.onSubmitData(false);
+    }
+    else {
+      this.onSubmitData(false);
+    }
+  };
+
+  onSubmit() {
+    if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
+      this.onSubmitData(true);
+    }
+    else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
+      // this.onSubmitDataDlg(true);
+      this.onSubmitData(true);
+    }
+    else {
+      this.onSubmitData(true);
+    }
+  };
+
+  onSubmitData(bclear: any) {
+    debugger;
+
+    this.isSubmitted = true;
+    let strError = "";
+    console.log(this.mstapplicanteducationdetail_Form);
+    this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
+
+    // this.spinner.show();
+    this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
+      async res => {
+        this.spinner.hide();
+        this.toastr.addSingle("success", "", "Successfully saved");
+        this.objvalues.push((res as any).mstapplicanteducationdetail);
+        this.ngOnInit();
+        if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+        if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+          this.dialogRef.close(this.objvalues);
+          return;
+        }
+        else {
+          if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+        }
+        if (bclear) {
+          this.resetForm();
+        }
+        else {
+          if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+            this.objvalues.push((res as any).mstapplicanteducationdetail);
+            this.dialogRef.close(this.objvalues);
+          }
+        }
+      });
+  }
+
+  resetForm() {
+    if (this.mstapplicanteducationdetail_Form != null)
+      this.mstapplicanteducationdetail_Form.reset();
+    this.mstapplicanteducationdetail_Form.patchValue({
+    });
+    this.PopulateFromMainScreen(this.data, false);
+    this.PopulateFromMainScreen(this.dynamicconfig.data, true);
+  }
+
+  PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
+    if (mainscreendata != null) {
+      for (let key in mainscreendata) {
+        if (key != 'visiblelist' && key != 'hidelist' && key != 'event') {
+
+          let jsonstring = "";
+          let json = null;
+          let ctrltype = typeof (mainscreendata[key]);
+          if (false)
+            json = "";
+          else if (ctrltype == "string") {
+            this.mstapplicanteducationdetail_Form.patchValue({ [key]: mainscreendata[key] });
+          }
+          else {
+            this.mstapplicanteducationdetail_Form.patchValue({ [key]: mainscreendata[key] });
+          }
+          {
+            {
+              if (bdisable && this.mstapplicanteducationdetail_Form.controls[key] != undefined) {
+                this.mstapplicanteducationdetail_Form.controls[key].disable({ onlySelf: true });
+                this.hidelist.push(key);
+              }
             }
-            this.pkcol=this.data.maindatapkcol;
-            this.applicantid=this.data.applicantid
-            console.log( this.mstapplicanteducationdetail_menuactions);
+          }
+        }
+      }
+    }
+  }
 
-            this.mstapplicanteducationdetail_Form = this.fb.group({
-                pk: [null],
-                ImageName: [null],
-                applicantid: localStorage.getItem('applicantid'),
-                applicantiddesc: [null],
-                educationid: [null],
-                educationcategory: [null, Validators.compose([Validators.required])],
-                educationcategorydesc: [null],
-                educationsubcategory: [null, Validators.compose([Validators.required])],
-                educationsubcategorydesc: [null],
-                coursename: [null, Validators.compose([Validators.required])],
-                institutionname: [null],
-                fromyear: [null],
-                toyear: [null],
-                percentage: [null],
-                requestid: [null],
-                referenceacceptance: [null],
-                referenceacceptancedesc: [null],
-                remarks: [null],
-                attachment: [null],
-                status: [null],
-                statusdesc: [null],
-              });
-    };
-
-    get f() { return this.mstapplicanteducationdetail_Form.controls; }
-
-    ngOnInit() {
-        this.Set_mstapplicanteducationdetails_TableConfig();
-
-        if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
-        if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
-        this.FillData();
-    };
-
-    addSkills() {
-        debugger
-        this.showSkillDetails_input = true;
-        // this.getData();
-        this.eduCategory();
-      };
-    eduCategory(){
-        this.mstapplicanteducationdetail_service.getDefaultData().then((res:any) => {
-            debugger
-            this.applicantid_List = res.list_applicantid.value;
-            this.educationcategory_List = res.list_educationcategory.value;
-            this.referenceacceptance_List = res.list_referenceacceptance.value;
-          }).catch((err) => { this.spinner.hide(); console.log(err); });
-    };
-    educationcategory_onChange(evt: any) {
-        debugger
-        let e = evt.value;
-        this.mstapplicanteducationdetail_Form.patchValue({ educationcategorydesc: evt.options[evt.options.selectedIndex].text });
-        setTimeout(() => {
-          if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then((res:any) => this.educationsubcategory_List = res as DropDownValues[]);
-        });
-      };
-      educationsubcategory_onChange(evt: any) {
-        let e = evt.value;
-        this.mstapplicanteducationdetail_Form.patchValue({ educationsubcategorydesc: evt.options[evt.options.selectedIndex].text });
-      };
-
-
-      onSubmitData(){};
-
-      skillClose(){
-        this.showSkillDetails_input = false;
-      };
-
-    mstapplicanteducationdetailshtml() {
-        let ret = "";
-        ret += `
+  mstapplicanteducationdetailshtml() {
+    let ret = "";
+    ret += `
         <div class='card1'>
         <table class="table table-hover educationdetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
-          <tr>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 12%;" class="col-2">##fromyear##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##institutionname##</th>
+          <tr class="tbody-res">
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 12%;" class="col-1">##fromyear##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 12%;" class="col-2">##educationcategorydesc##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 12%;" class="col-2">##educationsubcategorydesc##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-1">##institutionname##</th>
             <th style="white-space: break-spaces;word-break: break-word !important;" class="col-1">##coursename##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;text-align: -webkit-center;" class="col-2">##percentage##</th>
-            <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##referencecount##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##remarks##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;text-align: -webkit-center;" class="col-1">##percentage##</th>
+            <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##referencecount##</th>-->
+            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-1">##remarks##</th>
             <th style="white-space: break-spaces;word-break: break-word !important;text-align: -webkit-right;" class="col-2">##toyear##</th>
           </tr>
         </tbody>
@@ -346,18 +502,16 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 </div>
 </div>-->
 `;
-        return ret;
-    }
+    return ret;
+  }
 
-    FillData()
+  FillData() {
+    // this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.applicantid).then(res => {
+    //     this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
+    //     this.Set_mstapplicanteducationdetails_TableConfig();
+    //     this.mstapplicanteducationdetails_LoadTable(res.mstapplicanteducationdetails);
 
-    {
-        // this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.applicantid).then(res => {
-        //     this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
-        //     this.Set_mstapplicanteducationdetails_TableConfig();
-        //     this.mstapplicanteducationdetails_LoadTable(res.mstapplicanteducationdetails);
-
-        // });
+    // });
 
 
     //   this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.applicantid).then(res => {
@@ -366,396 +520,395 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     //     this.mstapplicanteducationdetails_LoadTable(res.mstapplicanteducationdetails);
     // });
 
-
-
-
-        this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
-            this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
-            this.Set_mstapplicanteducationdetails_TableConfig();
-            this.mstapplicanteducationdetails_LoadTable(res.mstapplicanteducationdetail);
-        });
-    }
-
-    AddOrEdit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
-      debugger
-        let add = false;
-        if (event == null) add = true;
-        let childsave = true;
-        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        this.dialog.open(mstapplicanteducationdetailComponent,
-            {
-                data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
-            }
-        ).onClose.subscribe(res => {
-            if (res) {
-                if (add) {
-                    for (let i = 0; i < res.length; i++) {
-                        this.tbl_mstapplicanteducationdetails.source.add(res[i]);
-                    }
-                    this.tbl_mstapplicanteducationdetails.source.refresh();
-                }
-                else {
-                    this.tbl_mstapplicanteducationdetails.source.update(event.data, res[0]);
-                }
-            }
-        });
-    }
-
-    handle_mstapplicanteducationdetails_GridSelected(event: any) {
-      this.mstapplicanteducationdetails_selectedindex = this.tbl_mstapplicanteducationdetails.source.findIndex(i => i.educationid === event.data.educationid);
+    this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
+      this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
+      this.Set_mstapplicanteducationdetails_TableConfig();
+      this.mstapplicanteducationdetails_LoadTable(res.mstapplicanteducationdetail);
+    });
   }
 
-    onDelete_mstapplicanteducationdetail(event: any, childID: number, i: number) {
-        console.log('event call');
-        if (confirm('Do you want to delete this record?')) {
-            this.mstapplicanteducationdetail_service.delete_mstapplicanteducationdetail(childID).then(res => {
-                this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
-                   this.ngOnInit();
-                    this.mstapplicanteducationdetails_LoadTable(res);
-                    });
-            })
-        } else {
-            return;
-        }
-        // if (childID != null)
-        //     this.Deleted_mstapplicanteducationdetail_IDs += childID + ",";
-        // this.tbl_mstapplicanteducationdetails.source.data.splice(i, 1);
-        //this.updateGrandTotal();
+  AddOrEdit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
+    debugger
+    this.showSkillDetails_input = true;
+    this.eduCategory();
+    let add = false;
+    if (event == null) add = true;
+    let childsave = true;
+    if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    // this.dialog.open(mstapplicanteducationdetailComponent,
+    //   {
+    //     data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
+    //   }
+    // ).onClose.subscribe(res => {
+    //   if (res) {
+    //     if (add) {
+    //       for (let i = 0; i < res.length; i++) {
+    //         this.tbl_mstapplicanteducationdetails.source.add(res[i]);
+    //       }
+    //       this.tbl_mstapplicanteducationdetails.source.refresh();
+    //     }
+    //     else {
+    //       this.tbl_mstapplicanteducationdetails.source.update(event.data, res[0]);
+    //     }
+    //   }
+    // });
+  }
+
+  handle_mstapplicanteducationdetails_GridSelected(event: any) {
+    this.mstapplicanteducationdetails_selectedindex = this.tbl_mstapplicanteducationdetails.source.findIndex(i => i.educationid === event.data.educationid);
+  }
+
+  onDelete_mstapplicanteducationdetail(event: any, childID: number, i: number) {
+    console.log('event call');
+    if (confirm('Do you want to delete this record?')) {
+      this.mstapplicanteducationdetail_service.delete_mstapplicanteducationdetail(childID).then(res => {
+        this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
+          this.ngOnInit();
+          this.mstapplicanteducationdetails_LoadTable(res);
+        });
+      })
+    } else {
+      return;
+    }
+    // if (childID != null)
+    //     this.Deleted_mstapplicanteducationdetail_IDs += childID + ",";
+    // this.tbl_mstapplicanteducationdetails.source.data.splice(i, 1);
+    //this.updateGrandTotal();
+  }
+
+  //start of Grid Codes mstapplicantskilldetails
+  // mstapplicanteducationdetails_settings: any;
+
+  show_mstapplicanteducationdetails_Checkbox() {
+    //debugger;;
+    if (this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'single';
+    else
+      this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'multi';
+    this.tbl_mstapplicanteducationdetails.source.initGrid();
+  }
+  delete_mstapplicanteducationdetails_All() {
+    this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'single';
+  }
+  show_mstapplicanteducationdetails_Filter() {
+    setTimeout(() => {
+      //  this.Set_mstapplicantskilldetails_TableDropDownConfig();
+    });
+    if (this.tbl_mstapplicanteducationdetails.source.settings != null) this.tbl_mstapplicanteducationdetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicanteducationdetails.source.settings['hideSubHeader'];
+    this.tbl_mstapplicanteducationdetails.source.initGrid();
+  }
+  show_mstapplicanteducationdetails_InActive() {
+  }
+  enable_mstapplicanteducationdetails_InActive() {
+  }
+  async Set_mstapplicanteducationdetails_TableDropDownConfig(res) {
+    if (!this.bfilterPopulate_mstapplicanteducationdetails) {
+
+      var clone = this.sharedService.clone(this.tbl_mstapplicanteducationdetails.source.settings);
+      if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_applicantid.value)), }, };
+      if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_applicantid.value)), }, };
+      this.tbl_mstapplicanteducationdetails.source.settings = clone;
+      this.tbl_mstapplicanteducationdetails.source.initGrid();
+
+      var clone = this.sharedService.clone(this.tbl_mstapplicanteducationdetails.source.settings);
+      if (clone.columns['skillcategory'] != undefined) clone.columns['skillcategory'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_educationcategory.value)), }, };
+      if (clone.columns['skillcategory'] != undefined) clone.columns['skillcategory'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_educationcategory.value)), }, };
+      this.tbl_mstapplicanteducationdetails.source.settings = clone;
+      this.tbl_mstapplicanteducationdetails.source.initGrid();
+
+      var clone = this.sharedService.clone(this.tbl_mstapplicanteducationdetails.source.settings);
+      if (clone.columns['referenceacceptance'] != undefined) clone.columns['referenceacceptance'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_referenceacceptance.value)), }, };
+      if (clone.columns['referenceacceptance'] != undefined) clone.columns['referenceacceptance'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_referenceacceptance.value)), }, };
+      this.tbl_mstapplicanteducationdetails.source.settings = clone;
+      this.tbl_mstapplicanteducationdetails.source.initGrid();
+    }
+    this.bfilterPopulate_mstapplicanteducationdetails = true;
+  }
+  async mstapplicanteducationdetails_beforesave(event: any) {
+    event.confirm.resolve(event.newData)
+
+  }
+  Set_mstapplicanteducationdetails_TableConfig() {
+    this.mstapplicanteducationdetails_settings = {
+      hideSubHeader: true,
+      mode: 'external',
+      selectMode: 'single',
+      actions: {
+        columnTitle: '',
+        width: '300px',
+        edit: true, // true,
+        delete: (this.IsApplicant || this.IsAdmin),
+        position: 'right',
+        // custom: this.mstapplicanteducationdetail_menuactions
+        custom: this.mstapplicanteducationdetail_menuactions
+      },
+      // actions: {
+      //     columnTitle: '',
+      //     width: '300px',
+      //     edit: true, // true,
+      //     delete: (this.IsApplicant || this.IsAdmin),
+      //     position: 'left',
+      //     // custom: this.mstapplicanteducationdetail_menuactions
+      //     custom: [{ name: 'reference',
+      //     title: `<i class="icon-references" aria-hidden="true"></i>`,
+      //     }],
+      // },
+      add: {
+        addButtonContent: '<i class="nb-plus"></i>',
+        createButtonContent: '<i class="nb-checkmark"></i>',
+        cancelButtonContent: '<i class="nb-close"></i>',
+        confirmCreate: true,
+      },
+      edit: {
+        editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
+        saveButtonContent: '<i class="nb-checkmark"></i>',
+        cancelButtonContent: '<i class="nb-close"></i>',
+        confirmSave: true,
+      },
+      delete: {
+        deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
+        confirmDelete: true,
+      },
+      columns: {
+        colhtml:
+        {
+          title: '',
+          type: 'html',
+          filter: true,
+          editor:
+          {
+            type: 'textarea',
+          },
+          valuePrepareFunction: (cell, row) => {
+            //debugger;;
+            cell = this.mstapplicanteducationdetailshtml();
+            var divrow = JSON.parse(JSON.stringify(row));
+            if (row.referencecount == 0 || row.referencecount == undefined) {
+              let abc = '-';
+              this.countarray.push(abc)
+              var xyzyzyz = this.countarray;
+            } else {
+              if (row.referencecount > 0 && row.referenceacceptedcount > 0 && row.referencerejactedcount > 0) {
+                this.r1 = row.referencecount - row.referenceacceptedcount - row.referencerejactedcount
+                for (let i = 0; i < this.r1; i++) {
+                  let abc = '★'
+                  this.countarray.push(abc.fontcolor('gray'))
+                  var xyzyzyz = this.countarray.join('')
+                }
+                for (let i = 0; i < row.referenceacceptedcount; i++) {
+                  let abc = '★'
+                  this.countarray.push(abc.fontcolor('green'))
+                  var xyzyzyz = this.countarray.join('')
+                }
+                for (let i = 0; i < row.referencerejactedcount; i++) {
+                  let abc = '★'
+                  this.countarray.push(abc.fontcolor('red'))
+                  var xyzyzyz = this.countarray.join('')
+                }
+              } else {
+                if (row.referencecount > 0 && row.referenceacceptedcount > 0 && row.referencerejactedcount == 0) {
+                  this.r1 = row.referencecount - row.referenceacceptedcount
+                  for (let i = 0; i < this.r1; i++) {
+                    let abc = '★'
+                    this.countarray.push(abc.fontcolor('gray'))
+                    var xyzyzyz = this.countarray.join('')
+                  }
+                  for (let i = 0; i < row.referenceacceptedcount; i++) {
+                    let abc = '★'
+                    this.countarray.push(abc.fontcolor('green'))
+                    var xyzyzyz = this.countarray.join('')
+                  }
+
+                }
+                else {
+                  if (row.referencecount > 0 && row.referenceacceptedcount == 0 && row.referencerejactedcount > 0) {
+                    this.r1 = row.referencecount - row.referencerejactedcount
+                    for (let i = 0; i < this.r1; i++) {
+                      let abc = '★'
+                      this.countarray.push(abc.fontcolor('gray'))
+                      var xyzyzyz = this.countarray.join('')
+                    }
+                    for (let i = 0; i < row.referencerejactedcount; i++) {
+                      let abc = '★'
+                      this.countarray.push(abc.fontcolor('red'))
+                      var xyzyzyz = this.countarray.join('')
+                    }
+                  } else {
+                    if (row.referencecount > 0 && row.referenceacceptedcount == 0 && row.referencerejactedcount == 0) {
+                      for (let i = 0; i < row.referencecount; i++) {
+                        let abc = '★'
+                        this.countarray.push(abc.fontcolor('gray'))
+                        var xyzyzyz = this.countarray.join('')
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            divrow['referencecount'] = "<div style='position: relative;left: 12%;font-size: 17px;'>" + xyzyzyz + "</div>";
+            this.countarray = [];
+
+            divrow["selfrating"] = "<div class='Stars' style='--rating:" + row['selfrating'] + "'></div>";
+            return this.sharedService.HtmlValue(divrow, cell);
+          },
+        },
+      },
+    };
+  }
+  mstapplicanteducationdetails_LoadTable(mstapplicanteducationdetails = new LocalDataSource()) {
+    if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicanteducationdetails_ID) >= 0) {
+      if (this.tbl_mstapplicanteducationdetails != undefined) this.tbl_mstapplicanteducationdetails.source = new LocalDataSource();
+      if (this.tbl_mstapplicanteducationdetails != undefined) this.tbl_mstapplicanteducationdetails.source.load(mstapplicanteducationdetails as any as LocalDataSource);
+      if (this.tbl_mstapplicanteducationdetails != undefined) this.tbl_mstapplicanteducationdetails.source.setPaging(1, 20, true);
+    }
+  }
+  mstapplicanteducationdetails_route(event: any, action: any) {
+    debugger
+    var addparam = "";
+    if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
+      addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
     }
 
-        //start of Grid Codes mstapplicantskilldetails
-        // mstapplicanteducationdetails_settings: any;
+    switch (action) {
 
-        show_mstapplicanteducationdetails_Checkbox() {
-            //debugger;;
-            if (this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'single';
-            else
-                this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'multi';
-            this.tbl_mstapplicanteducationdetails.source.initGrid();
+      case 'create':
+        this.AddOrEdit_mstapplicanteducationdetail(event, null, this.applicantid);
+        break;
+      case 'view':
+        break;
+      case 'edit':
+        this.AddOrEdit_mstapplicanteducationdetail(event, event.data.educationid, this.applicantid);
+        break;
+      // case 'delete':
+
+      //     this.onDelete_mstapplicanteducationdetail(event, event.data.skillid, ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
+      //     this.tbl_mstapplicanteducationdetails.source.refresh();
+      //     break;
+
+      case 'delete':
+        this.onDelete_mstapplicanteducationdetail(event, event.data.educationid, ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
+        this.tbl_mstapplicanteducationdetails.source.refresh();
+        break;
+    }
+  }
+
+
+  mstapplicanteducationdetails_onDelete(event: any, childID: number, i: number) {
+    if (confirm('Do you want to delete this record?')) {
+      this.mstapplicanteducationdetail_service.delete_mstapplicanteducationdetail(childID).then(res => {
+        this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
+          this.mstapplicanteducationdetails_LoadTable(res);
+        });
+      })
+    } else {
+      return;
+    }
+    // let educationid = obj.data.educationid;
+    // if (confirm('Are you sure to delete this record ?')) {
+    //     this.mstapplicantmaster_service.delete_mstapplicantmaster(educationid).then(res =>
+    //         this.mstapplicanteducationdetails_LoadTable(res)
+    //     );
+    // }
+  }
+
+
+
+
+  //for delete function not wokring
+
+  // mstapplicanteducationdetails_onDelete(obj) {
+  //     let educationid = obj.data.educationid;
+  //     if (confirm('Are you sure to delete this record ?')) {
+  //         this.mstapplicantmaster_service.delete_mstapplicantmaster(educationid).then(res =>
+  //             this.mstapplicanteducationdetails_LoadTable()
+  //         );
+  //     }
+  // }
+  async onCustom_mstapplicanteducationdetails_Action(event: any) {
+
+    //   this.dialog.open(mstapplicantreferencegridComponent, {
+    //     width: '100% !important',
+    //     height: 'auto !important',
+    //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+    //   })
+
+
+
+    // let referencesourcedetails = 'Category: ' + event.data.educationcategorydesc + '<BR>' + 'Sub Category: ' + event.data.educationsubcategory + '<BR>'
+    //     + 'Course: ' + event.data.coursename + '<BR>' + 'Institution: ' + event.data.institutionname + '<BR>' + 'From Year: ' + event.data.fromyear + '<BR>'
+    //     + 'To Year: ' + event.data.toyear + '<BR>' + 'Percentage: ' + event.data.percentage + '<BR>' + 'Remarks: ' + event.data.remarks;
+
+    let referencesourcedetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Category: ' + event.data.educationcategorydesc + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Sub Category: ' + event.data.educationsubcategorydesc + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Course: ' + event.data.coursename + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Institution: ' + event.data.institutionname + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> From Year: ' + event.data.fromyear + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> To Year: ' + event.data.toyear + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Percentage: ' + event.data.percentage + '</li>'
+      + '<li class="list-group-item remarks_p" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
+
+
+    // let referencesourcedetails = 'Sub Category: ' + event.data.subcategoryiddesc + '<BR>'
+    //  + 'Education Details: ' + event.data.skillcategorydesc + '<BR>'
+    //   + 'Self Rating: ' + event.data.selfrating + '<BR>'
+    //   + 'Remarks: ' + event.data.remarks;
+    let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicanteducationdetails");
+    let formname = (objbomenuaction as any).actionname;
+    if (formname == "mstapplicantreferencerequests") {
+      this.dialog.open(mstapplicantreferencerequestComponent,
+        {
+          data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 315, requestmasterid: event.data.educationid, ScreenType: 2, save: true }
+          // data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 3, save: true }
         }
-        delete_mstapplicanteducationdetails_All() {
-            this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'single';
-        }
-        show_mstapplicanteducationdetails_Filter() {
-            setTimeout(() => {
-                //  this.Set_mstapplicantskilldetails_TableDropDownConfig();
-            });
-            if (this.tbl_mstapplicanteducationdetails.source.settings != null) this.tbl_mstapplicanteducationdetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicanteducationdetails.source.settings['hideSubHeader'];
-            this.tbl_mstapplicanteducationdetails.source.initGrid();
-        }
-        show_mstapplicanteducationdetails_InActive() {
-        }
-        enable_mstapplicanteducationdetails_InActive() {
-        }
-        async Set_mstapplicanteducationdetails_TableDropDownConfig(res) {
-            if (!this.bfilterPopulate_mstapplicanteducationdetails) {
-
-                var clone = this.sharedService.clone(this.tbl_mstapplicanteducationdetails.source.settings);
-                if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_applicantid.value)), }, };
-                if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_applicantid.value)), }, };
-                this.tbl_mstapplicanteducationdetails.source.settings = clone;
-                this.tbl_mstapplicanteducationdetails.source.initGrid();
-
-                var clone = this.sharedService.clone(this.tbl_mstapplicanteducationdetails.source.settings);
-                if (clone.columns['skillcategory'] != undefined) clone.columns['skillcategory'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_educationcategory.value)), }, };
-                if (clone.columns['skillcategory'] != undefined) clone.columns['skillcategory'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_educationcategory.value)), }, };
-                this.tbl_mstapplicanteducationdetails.source.settings = clone;
-                this.tbl_mstapplicanteducationdetails.source.initGrid();
-
-                var clone = this.sharedService.clone(this.tbl_mstapplicanteducationdetails.source.settings);
-                if (clone.columns['referenceacceptance'] != undefined) clone.columns['referenceacceptance'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_referenceacceptance.value)), }, };
-                if (clone.columns['referenceacceptance'] != undefined) clone.columns['referenceacceptance'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicanteducationdetails_referenceacceptance.value)), }, };
-                this.tbl_mstapplicanteducationdetails.source.settings = clone;
-                this.tbl_mstapplicanteducationdetails.source.initGrid();
-            }
-            this.bfilterPopulate_mstapplicanteducationdetails = true;
-        }
-        async mstapplicanteducationdetails_beforesave(event: any) {
-            event.confirm.resolve(event.newData)
-
-        }
-        Set_mstapplicanteducationdetails_TableConfig() {
-            this.mstapplicanteducationdetails_settings = {
-                hideSubHeader: true,
-                mode: 'external',
-                selectMode: 'single',
-                actions: {
-                    columnTitle: '',
-                    width: '300px',
-                    edit: true, // true,
-                    delete: (this.IsApplicant || this.IsAdmin),
-                    position: 'left',
-                    // custom: this.mstapplicanteducationdetail_menuactions
-                    custom: this.mstapplicanteducationdetail_menuactions
-                },
-                // actions: {
-                //     columnTitle: '',
-                //     width: '300px',
-                //     edit: true, // true,
-                //     delete: (this.IsApplicant || this.IsAdmin),
-                //     position: 'left',
-                //     // custom: this.mstapplicanteducationdetail_menuactions
-                //     custom: [{ name: 'reference',
-                //     title: `<i class="icon-references" aria-hidden="true"></i>`,
-                //     }],
-                // },
-                add: {
-                    addButtonContent: '<i class="nb-plus"></i>',
-                    createButtonContent: '<i class="nb-checkmark"></i>',
-                    cancelButtonContent: '<i class="nb-close"></i>',
-                    confirmCreate: true,
-                },
-                edit: {
-                    editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
-                    saveButtonContent: '<i class="nb-checkmark"></i>',
-                    cancelButtonContent: '<i class="nb-close"></i>',
-                    confirmSave: true,
-                },
-                delete: {
-                    deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-                    confirmDelete: true,
-                },
-                columns: {
-                    colhtml:
-                    {
-                        title: '',
-                        type: 'html',
-                        filter: true,
-                        editor:
-                        {
-                            type: 'textarea',
-                        },
-                        valuePrepareFunction: (cell, row) => {
-                            //debugger;;
-                            cell = this.mstapplicanteducationdetailshtml();
-                            var divrow = JSON.parse(JSON.stringify(row));
-                            if (row.referencecount == 0 || row.referencecount == undefined) {
-                                let abc = '-';
-                                this.countarray.push(abc)
-                                var xyzyzyz = this.countarray;
-                              } else {
-                                if (row.referencecount > 0 && row.referenceacceptedcount > 0 && row.referencerejactedcount > 0) {
-                                  this.r1 = row.referencecount - row.referenceacceptedcount - row.referencerejactedcount
-                                  for (let i = 0; i < this.r1; i++) {
-                                    let abc = '★'
-                                    this.countarray.push(abc.fontcolor('gray'))
-                                    var xyzyzyz = this.countarray.join('')
-                                  }
-                                  for (let i = 0; i < row.referenceacceptedcount; i++) {
-                                    let abc = '★'
-                                    this.countarray.push(abc.fontcolor('green'))
-                                    var xyzyzyz = this.countarray.join('')
-                                  }
-                                  for (let i = 0; i < row.referencerejactedcount; i++) {
-                                    let abc = '★'
-                                    this.countarray.push(abc.fontcolor('red'))
-                                    var xyzyzyz = this.countarray.join('')
-                                  }
-                                } else {
-                                  if (row.referencecount > 0 && row.referenceacceptedcount > 0 && row.referencerejactedcount == 0) {
-                                    this.r1 = row.referencecount - row.referenceacceptedcount
-                                    for (let i = 0; i < this.r1; i++) {
-                                      let abc = '★'
-                                      this.countarray.push(abc.fontcolor('gray'))
-                                      var xyzyzyz = this.countarray.join('')
-                                    }
-                                    for (let i = 0; i < row.referenceacceptedcount; i++) {
-                                      let abc = '★'
-                                      this.countarray.push(abc.fontcolor('green'))
-                                      var xyzyzyz = this.countarray.join('')
-                                    }
-
-                                  }
-                                  else {
-                                    if (row.referencecount > 0 && row.referenceacceptedcount == 0 && row.referencerejactedcount > 0) {
-                                      this.r1 = row.referencecount - row.referencerejactedcount
-                                      for (let i = 0; i < this.r1; i++) {
-                                        let abc = '★'
-                                        this.countarray.push(abc.fontcolor('gray'))
-                                        var xyzyzyz = this.countarray.join('')
-                                      }
-                                      for (let i = 0; i < row.referencerejactedcount; i++) {
-                                        let abc = '★'
-                                        this.countarray.push(abc.fontcolor('red'))
-                                        var xyzyzyz = this.countarray.join('')
-                                      }
-                                    } else {
-                                      if (row.referencecount > 0 && row.referenceacceptedcount == 0 && row.referencerejactedcount == 0) {
-                                        for (let i = 0; i < row.referencecount; i++) {
-                                          let abc = '★'
-                                          this.countarray.push(abc.fontcolor('gray'))
-                                          var xyzyzyz = this.countarray.join('')
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                              divrow['referencecount'] = "<div style='position: relative;left: 12%;font-size: 17px;'>" + xyzyzyz + "</div>";
-                              this.countarray = [];
-
-                            divrow["selfrating"] = "<div class='Stars' style='--rating:" + row['selfrating'] + "'></div>";
-                            return this.sharedService.HtmlValue(divrow, cell);
-                        },
-                    },
-                },
-            };
-        }
-        mstapplicanteducationdetails_LoadTable(mstapplicanteducationdetails = new LocalDataSource()) {
-            if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicanteducationdetails_ID) >= 0) {
-                if (this.tbl_mstapplicanteducationdetails != undefined) this.tbl_mstapplicanteducationdetails.source = new LocalDataSource();
-                if (this.tbl_mstapplicanteducationdetails != undefined) this.tbl_mstapplicanteducationdetails.source.load(mstapplicanteducationdetails as any as LocalDataSource);
-                if (this.tbl_mstapplicanteducationdetails != undefined) this.tbl_mstapplicanteducationdetails.source.setPaging(1, 20, true);
-            }
-        }
-        mstapplicanteducationdetails_route(event: any, action: any) {
-          debugger
-            var addparam = "";
-            if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
-                addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
-            }
-
-            switch (action) {
-
-                case 'create':
-                    this.AddOrEdit_mstapplicanteducationdetail(event, null, this.applicantid);
-                    break;
-                case 'view':
-                    break;
-                case 'edit':
-                    this.AddOrEdit_mstapplicanteducationdetail(event, event.data.educationid, this.applicantid);
-                    break;
-                // case 'delete':
-
-                //     this.onDelete_mstapplicanteducationdetail(event, event.data.skillid, ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
-                //     this.tbl_mstapplicanteducationdetails.source.refresh();
-                //     break;
-
-                case 'delete':
-                              this.onDelete_mstapplicanteducationdetail(event, event.data.educationid, ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
-                              this.tbl_mstapplicanteducationdetails.source.refresh();
-                              break;
-            }
-        }
-
-
-        mstapplicanteducationdetails_onDelete(event: any, childID: number, i: number) {
-          if (confirm('Do you want to delete this record?')) {
-              this.mstapplicanteducationdetail_service.delete_mstapplicanteducationdetail(childID).then(res => {
-                  this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
-                      this.mstapplicanteducationdetails_LoadTable(res);
-                  });
-              })
-          } else {
-              return;
-          }
-          // let educationid = obj.data.educationid;
-          // if (confirm('Are you sure to delete this record ?')) {
-          //     this.mstapplicantmaster_service.delete_mstapplicantmaster(educationid).then(res =>
-          //         this.mstapplicanteducationdetails_LoadTable(res)
-          //     );
-          // }
-      }
+      ).onClose.subscribe(res => {
+      });
+    }
 
 
 
 
-   //for delete function not wokring
+  }
+  mstapplicanteducationdetails_Paging(val) {
+    //debugger;;
+    this.tbl_mstapplicanteducationdetails.source.setPaging(1, val, true);
+  }
 
-        // mstapplicanteducationdetails_onDelete(obj) {
-        //     let educationid = obj.data.educationid;
-        //     if (confirm('Are you sure to delete this record ?')) {
-        //         this.mstapplicantmaster_service.delete_mstapplicantmaster(educationid).then(res =>
-        //             this.mstapplicanteducationdetails_LoadTable()
-        //         );
-        //     }
-        // }
-        async onCustom_mstapplicanteducationdetails_Action(event: any) {
+  handle_mstapplicantskilldetails_GridSelected(event: any) {
+    this.mstapplicanteducationdetails_selectedindex = this.tbl_mstapplicanteducationdetails.source.findIndex(i => i.skillid === event.data.skillid);
+  }
+  Is_mstapplicanteducationdetails_Visible() {
+    if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicanteducationdetails_ID) >= 0) {
+      return "tbl smart-table-container";
+    }
+    else {
+      return "hide";
+    }
+  }
+  // mstapplicanteducationdetails_route(event: any, action: any) {
+  //   debugger
+  //     var addparam = "";
+  //     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
+  //         addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
+  //     }
 
-        //   this.dialog.open(mstapplicantreferencegridComponent, {
-        //     width: '100% !important',
-        //     height: 'auto !important',
-        //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-        //   })
-
-
-
-        // let referencesourcedetails = 'Category: ' + event.data.educationcategorydesc + '<BR>' + 'Sub Category: ' + event.data.educationsubcategory + '<BR>'
-        //     + 'Course: ' + event.data.coursename + '<BR>' + 'Institution: ' + event.data.institutionname + '<BR>' + 'From Year: ' + event.data.fromyear + '<BR>'
-        //     + 'To Year: ' + event.data.toyear + '<BR>' + 'Percentage: ' + event.data.percentage + '<BR>' + 'Remarks: ' + event.data.remarks;
-
-        let referencesourcedetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Category: ' + event.data.educationcategorydesc + '</li>'
-        + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Sub Category: ' + event.data.educationsubcategorydesc + '</li>'
-        + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Course: ' + event.data.coursename + '</li>'
-        + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Institution: ' + event.data.institutionname + '</li>'
-        + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> From Year: ' + event.data.fromyear + '</li>'
-        + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> To Year: ' + event.data.toyear + '</li>'
-        + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Percentage: ' + event.data.percentage + '</li>'
-        + '<li class="list-group-item remarks_p" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
-
-
-            // let referencesourcedetails = 'Sub Category: ' + event.data.subcategoryiddesc + '<BR>'
-            //  + 'Education Details: ' + event.data.skillcategorydesc + '<BR>'
-            //   + 'Self Rating: ' + event.data.selfrating + '<BR>'
-            //   + 'Remarks: ' + event.data.remarks;
-            let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicanteducationdetails");
-            let formname = (objbomenuaction as any).actionname;
-            if (formname == "mstapplicantreferencerequests") {
-                this.dialog.open(mstapplicantreferencerequestComponent,
-                    {
-                        data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 315, requestmasterid: event.data.educationid, ScreenType: 2, save: true }
-                        // data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 3, save: true }
-                    }
-                ).onClose.subscribe(res => {
-                });
-            }
-
-
-
-
-        }
-        mstapplicanteducationdetails_Paging(val) {
-            //debugger;;
-            this.tbl_mstapplicanteducationdetails.source.setPaging(1, val, true);
-        }
-
-        handle_mstapplicantskilldetails_GridSelected(event: any) {
-            this.mstapplicanteducationdetails_selectedindex = this.tbl_mstapplicanteducationdetails.source.findIndex(i => i.skillid === event.data.skillid);
-        }
-        Is_mstapplicanteducationdetails_Visible() {
-            if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicanteducationdetails_ID) >= 0) {
-                return "tbl smart-table-container";
-            }
-            else {
-                return "hide";
-            }
-        }
-        // mstapplicanteducationdetails_route(event: any, action: any) {
-        //   debugger
-        //     var addparam = "";
-        //     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
-        //         addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
-        //     }
-
-        //     switch (action) {
-        //         case 'create':
-        //             this.AddOrEdit_mstapplicanteducationdetail(event, null, this.formid);
-        //             break;
-        //         case 'view':
-        //             break;
-        //         case 'edit':
-        //             this.AddOrEdit_mstapplicanteducationdetail(event, event.data.educationid, this.formid);
-        //             break;
-        //         case 'delete':
-        //             this.onDelete_mstapplicanteducationdetail(event, event.data.educationid, ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
-        //             this.tbl_mstapplicanteducationdetails.source.refresh();
-        //             break;
-        //     }
-        // }
-        //end of Grid Codes mstapplicantskilldetails
-        onClose() {
-            // location.reload();
-            this.dialogRef.close();
-          }
+  //     switch (action) {
+  //         case 'create':
+  //             this.AddOrEdit_mstapplicanteducationdetail(event, null, this.formid);
+  //             break;
+  //         case 'view':
+  //             break;
+  //         case 'edit':
+  //             this.AddOrEdit_mstapplicanteducationdetail(event, event.data.educationid, this.formid);
+  //             break;
+  //         case 'delete':
+  //             this.onDelete_mstapplicanteducationdetail(event, event.data.educationid, ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
+  //             this.tbl_mstapplicanteducationdetails.source.refresh();
+  //             break;
+  //     }
+  // }
+  //end of Grid Codes mstapplicantskilldetails
+  onClose() {
+    // location.reload();
+    this.dialogRef.close();
+  }
 
 }

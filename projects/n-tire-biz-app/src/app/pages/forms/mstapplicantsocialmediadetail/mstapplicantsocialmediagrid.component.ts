@@ -49,6 +49,8 @@ import { mstapplicanteducationdetailService } from '../../../service/mstapplican
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 import { mstapplicantsocialmediadetailService } from '../../../service/mstapplicantsocialmediadetail.service';
 import { mstapplicantsocialmediadetailComponent } from './mstapplicantsocialmediadetail.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { mstapplicantsocialmediadetail } from '../../../model/mstapplicantsocialmediadetail.model';
 
 
 @Component({
@@ -89,6 +91,7 @@ import { mstapplicantsocialmediadetailComponent } from './mstapplicantsocialmedi
                 <button type="button" class="btn btn-outline-primary popup-add-button"
                 [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')" title = "Add Details">Add</button>
                 <!-- </a> -->
+                 <!-- <button (click)="addSkills()" >Add 1</button> -->
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
@@ -99,6 +102,7 @@ import { mstapplicantsocialmediadetailComponent } from './mstapplicantsocialmedi
 
 
 </div>
+<form [formGroup]="mstapplicantsocialmediadetail_Form">
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
   <thead>
     <tr>
@@ -109,7 +113,52 @@ import { mstapplicantsocialmediadetailComponent } from './mstapplicantsocialmedi
       <th>Action</th>
     </tr>
   </thead>
+  <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
+    <tr>
+        <!-- Social Media -->
+
+        <td>
+        <select *ngIf="!showview" id="socialmedianame" required (change)="socialmedianame_onChange($event.target)"
+          formControlName="socialmedianame" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of socialmedianame_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        </td>
+
+        <!-- Handle Name -->
+
+        <td>
+        <input *ngIf="!showview" id="handlename" formControlName="handlename" class="form-control">
+        </td>
+
+        <!-- URL -->
+
+        <td>
+        <input *ngIf="!showview" id="url" required formControlName="url" class="form-control">
+        <!-- <app-field-error-display [displayError]="f.url.errors?.required" errorMsg="Enter {{'U R L' | translate}}">
+        </app-field-error-display> -->
+        </td>
+
+        <!-- Remarks -->
+
+        <td>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="achievementdetails" required
+        formControlName="remarks" class="form-control">
+        </textarea>
+        </td>
+
+            <!-- Submit & Close -->
+
+            <td class="field-add-close-button">
+                <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+
+                <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                (click)="skillClose()"></i>
+            </td>
+    </tr>
+  </tbody>
 </table>
+</form>
   <ng2-smart-table #tbl_mstapplicantsocialmediadetails
     (userRowSelect)="handle_mstapplicantsocialmediadetails_GridSelected($event)"
     [settings]="mstapplicantsocialmediadetails_settings"
@@ -125,11 +174,17 @@ import { mstapplicantsocialmediadetailComponent } from './mstapplicantsocialmedi
     `
 })
 export class mstapplicantsocialmediagridComponent implements OnInit {
+
+    mstapplicantsocialmediadetail_Form: FormGroup;
+    
     isadmin = false;
+
+    formData: mstapplicantsocialmediadetail;
 
     bfilterPopulate_mstapplicantsocialmediadetails: boolean = false;
     mstapplicantsocialmediadetail_menuactions: any = []
     @ViewChild('tbl_mstapplicantsocialmediadetails', { static: false }) tbl_mstapplicantsocialmediadetails: Ng2SmartTableComponent;
+    pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
     mstapplicantsocialmediadetails_visiblelist: any;
     mstapplicantsocialmediadetails_hidelist: any;
     Deleted_mstapplicantsocialmediadetail_IDs: string = "";
@@ -137,13 +192,24 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     mstapplicantsocialmediadetails_selectedindex: any;
     ShowTableslist:any;
     pkcol:any;
+    pkList: any;//stores values - used in search, prev, next
+    socialmedianame_List: DropDownValues[];
+    applicantid_List: DropDownValues[];
 
+
+    hidelist: any = [];
+    objvalues: any = [];
     IsApplicant: boolean;
     IsAdmin: boolean;
     bSingleRecord: boolean;
+    showSkillDetails_input: boolean = false;
+    isSubmitted: boolean = false;
 
     applicantid:any;
     data:any;
+    maindata: any;
+
+
     constructor(
         private nav: Location,
         private translate: TranslateService,
@@ -155,6 +221,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private sharedService: SharedService,
+        private fb: FormBuilder,
         private sessionService: SessionService,
         private toastr: ToastService,
         private mstapplicantsocialmediadetail_service: mstapplicantsocialmediadetailService,
@@ -169,6 +236,23 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
             }
             this.pkcol=this.data.maindatapkcol;
             this.applicantid=this.data.applicantid
+
+            let app_id = localStorage.getItem('applicantid');
+            this.mstapplicantsocialmediadetail_Form = this.fb.group({
+                pk: [null],
+                ImageName: [null],
+                applicantid: app_id,
+                applicantiddesc: [null],
+                socialrefid: [null],
+                socialmedianame: [null, Validators.compose([Validators.required])],
+                socialmedianamedesc: [null],
+                handlename: [null],
+                url: [null, Validators.compose([Validators.required])],
+                remarks: [null],
+                attachment: [null],
+                status: [null],
+                statusdesc: [null],
+            });
     }
 
     ngOnInit() {
@@ -176,7 +260,72 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
         this.FillData();
+
+        //autocomplete
+        this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_List().then(res => {
+            this.pkList = res as mstapplicantsocialmediadetail[];
+            this.pkoptionsEvent.emit(this.pkList);
+        }
+        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        //setting the flag that the screen is not touched
+        this.mstapplicantsocialmediadetail_Form.markAsUntouched();
+        this.mstapplicantsocialmediadetail_Form.markAsPristine();
     }
+
+    // addSkills() {
+    //     debugger
+    //     this.showSkillDetails_input = true;
+    //     this.getdata();
+    // };
+    skillClose() {
+        this.showSkillDetails_input = false;
+      };
+
+    getdata(){
+
+        this.mstapplicantsocialmediadetail_service.getDefaultData().then(res => {
+            this.applicantid_List = res.list_applicantid.value;
+            this.socialmedianame_List = res.list_socialmedianame.value;
+        }).catch((err) => { this.spinner.hide(); console.log(err); });
+    };
+
+    socialmedianame_onChange(evt: any) {
+        let e = evt.value;
+        this.mstapplicantsocialmediadetail_Form.patchValue({ socialmedianamedesc: evt.options[evt.options.selectedIndex].text });
+    };
+
+    onSubmitAndWait() {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
+            this.onSubmitData(false);
+        }
+        else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+            // this.onSubmitDataDlg(false);
+            this.onSubmitData(false);
+        }
+        else {
+            this.onSubmitData(false);
+        }
+    }
+
+
+    async onSubmitData(bclear: any) {
+        debugger;
+        this.isSubmitted = true;
+        let strError = "";
+        this.formData = this.mstapplicantsocialmediadetail_Form.getRawValue();
+        console.log(this.formData);
+        this.spinner.show();
+        this.mstapplicantsocialmediadetail_service.saveOrUpdate_mstapplicantsocialmediadetails(this.formData).subscribe(
+            async res => {
+                this.spinner.hide();
+                this.toastr.addSingle("success", "", "Successfully saved");
+                this.ngOnInit();
+                this.sessionService.setItem("attachedsaved", "true");
+                this.objvalues.push((res as any).mstapplicantsocialmediadetail);
+            });
+
+    }
+
     mstapplicantsocialmediadetailshtml() {
         let ret = "";
         ret += `
@@ -319,27 +468,29 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
      AddOrEdit_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
        debugger
         let add = false;
-
+        debugger
+        this.showSkillDetails_input = true;
+        this.getdata();
         if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        this.dialog.open(mstapplicantsocialmediadetailComponent,
-            {
-                data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, socialrefid, applicantid, visiblelist: this.mstapplicantsocialmediadetails_visiblelist, hidelist: this.mstapplicantsocialmediadetails_hidelist, ScreenType: 2 },
-            }
-        ).onClose.subscribe(res => {
-            if (res) {
-                if (add) {
-                    for (let i = 0; i < res.length; i++) {
-                        this.tbl_mstapplicantsocialmediadetails.source.add(res[i]);
-                    }
-                    this.tbl_mstapplicantsocialmediadetails.source.refresh();
-                }
-                else {
-                    this.tbl_mstapplicantsocialmediadetails.source.update(event.data, res[0]);
-                }
-            }
-        });
+        // this.dialog.open(mstapplicantsocialmediadetailComponent,
+        //     {
+        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, socialrefid, applicantid, visiblelist: this.mstapplicantsocialmediadetails_visiblelist, hidelist: this.mstapplicantsocialmediadetails_hidelist, ScreenType: 2 },
+        //     }
+        // ).onClose.subscribe(res => {
+        //     if (res) {
+        //         if (add) {
+        //             for (let i = 0; i < res.length; i++) {
+        //                 this.tbl_mstapplicantsocialmediadetails.source.add(res[i]);
+        //             }
+        //             this.tbl_mstapplicantsocialmediadetails.source.refresh();
+        //         }
+        //         else {
+        //             this.tbl_mstapplicantsocialmediadetails.source.update(event.data, res[0]);
+        //         }
+        //     }
+        // });
     }
 
     onDelete_mstapplicantsocialmediadetail(event: any, childID: number, i: number) {

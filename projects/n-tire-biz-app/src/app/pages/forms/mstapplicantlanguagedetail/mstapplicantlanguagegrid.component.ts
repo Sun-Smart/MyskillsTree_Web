@@ -50,6 +50,8 @@ import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.s
 import { mstapplicantsocialmediadetailService } from '../../../service/mstapplicantsocialmediadetail.service';
 import { mstapplicantlanguagedetailService } from '../../../service/mstapplicantlanguagedetail.service';
 import { mstapplicantlanguagedetailComponent } from './mstapplicantlanguagedetail.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { mstapplicantlanguagedetail } from '../../../model/mstapplicantlanguagedetail.model';
 
 
 @Component({
@@ -87,6 +89,8 @@ import { mstapplicantlanguagedetailComponent } from './mstapplicantlanguagedetai
                 <button type="button" class="btn btn-outline-primary  popup-add-button"
                 [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
                  title = "Add Details">Add</button>
+
+                 <button (click)="addSkills()" >Add 1</button>
                 <!-- </a> -->
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
@@ -96,18 +100,80 @@ import { mstapplicantlanguagedetailComponent } from './mstapplicantlanguagedetai
                 <!-- </ul> -->
 </div>
 </div>
+<form [formGroup]="mstapplicantlanguagedetail_Form">
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
   <thead>
     <tr>
       <th style="width: 13.6%;">Language</th>
-      <th style="width: 10.6%;">Proficiency</th>
+      <th style="width: 10.6%;">Read Proficiency</th>
+      <th style="width: 10.6%;">Write Proficiency</th>
+      <th style="width: 10.6%;">Speak Proficiency</th>
       <th style="width: 29.6%;">Rating</th>
       <th style="width: 31.5%;">Remarks</th>
       <!--<th>Attachment</th>-->
       <th style="text-align: -webkit-center;">Action</th>
     </tr>
   </thead>
+  <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
+    <tr>
+        <!--language-->
+        <td>
+        <select *ngIf="!showview" id="language" required (change)="language_onChange($event.target)"
+          formControlName="language" class="form-control">
+          <option [ngValue]="null" selected>-Select-</option>
+          <option *ngFor="let item of language_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        </td>
+
+        <!--Read Proficiency -->
+
+        <td>
+        <p-rating *ngIf="!showview" id="readproficiency" formControlName="readproficiency" class="form-control">
+        </p-rating>
+        </td>
+
+       <!--Write Proficiency -->
+
+        <td>
+        <p-rating *ngIf="!showview" id="writeproficiency" formControlName="writeproficiency" class="form-control">
+        </p-rating>
+        </td>
+
+        <!--Speak Proficiency -->
+
+        <td>
+        <p-rating *ngIf="!showview" id="speakproficiency" formControlName="speakproficiency" class="form-control">
+        </p-rating>
+        </td>
+
+        <!-- Rating -->
+
+        <td>
+        <p-rating *ngIf="!showview" id="overallrating" formControlName="overallrating" class="form-control">
+        </p-rating>
+        </td>
+
+        <!-- Remarks -->
+
+        <td>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="achievementdetails" required
+        formControlName="remarks" class="form-control">
+        </textarea>
+        </td>
+
+        <!-- Submit & Close -->
+
+        <td class="field-add-close-button">
+            <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+
+            <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                (click)="skillClose()"></i>
+        </td>
+    </tr>
+
+  </tbody>
 </table>
+</form>
   <ng2-smart-table #tbl_mstapplicantlanguagedetails
     (userRowSelect)="handle_mstapplicantlanguagedetails_GridSelected($event)"
     [settings]="mstapplicantlanguagedetails_settings"
@@ -123,6 +189,10 @@ import { mstapplicantlanguagedetailComponent } from './mstapplicantlanguagedetai
     `
 })
 export class mstapplicantlanuagegridComponent implements OnInit {
+
+    mstapplicantlanguagedetail_Form: FormGroup;
+
+    formData: mstapplicantlanguagedetail;
     admin = false;
     bfilterPopulate_mstapplicantlanguagedetails: boolean = false;
     mstapplicantlanguagedetail_menuactions: any = []
@@ -135,12 +205,22 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     ShowTableslist: any;
     pkcol: any;
 
+ 
+    applicantid_List: DropDownValues[];
+    applicantid_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
+    language_List: DropDownValues[];
+
     IsApplicant: boolean;
     IsAdmin: boolean;
     bSingleRecord: boolean;
+    showSkillDetails_input: boolean = false;
+    isSubmitted: boolean = false;
 
     applicantid: any;
     data: any;
+    maindata: any;
+    hidelist: any = [];
+    objvalues: any = [];
 
     constructor(
         private nav: Location,
@@ -151,6 +231,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
+        private fb: FormBuilder,
         public dialog: DialogService,
         private sharedService: SharedService,
         private sessionService: SessionService,
@@ -166,14 +247,150 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             this.data = this.data.data;
         }
         this.pkcol = this.data.maindatapkcol;
-        this.applicantid = this.data.applicantid
+        this.applicantid = this.data.applicantid;
+
+        this.mstapplicantlanguagedetail_Form = this.fb.group({
+            pk: [null],
+            ImageName: [null],
+            applicantid: this.sessionService.getItem('applicantid'),
+            applicantiddesc: [null],
+            languageid: [null],
+            language: [null, Validators.compose([Validators.required])],
+            languagedesc: [null],
+            readproficiency: [null],
+            writeproficiency: [null],
+            speakproficiency: [null],
+            overallrating: [null],
+            remarks: [null],
+            attachment: [null],
+            status: [null],
+            statusdesc: [null],
+        });
     }
     ngOnInit() {
         this.Set_mstapplicantlanguagedetails_TableConfig();
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
         this.FillData();
+        
     }
+
+    //     addSkills() {
+    //     debugger
+    //     this.showSkillDetails_input = true;
+    //     this.getdata();
+    // };
+    skillClose() {
+        this.showSkillDetails_input = false;
+      };
+
+    getdata(){
+        this.mstapplicantlanguagedetail_service.getDefaultData().then(res => {
+            this.applicantid_List = res.list_applicantid.value;
+            this.language_List = res.list_language.value;
+        }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }
+    onSubmitAndWait() {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
+            this.onSubmitData(false);
+        }
+        else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+            this.onSubmitDataDlg(false);
+        }
+        else {
+            this.onSubmitData(false);
+        }
+    }
+    onSubmit() {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
+            this.onSubmitData(true);
+        }
+        else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
+            this.onSubmitDataDlg(true);
+        }
+        else {
+            this.onSubmitData(true);
+        }
+    };
+
+    async onSubmitDataDlg(bclear: any) {
+        this.isSubmitted = true;
+        if (!this.mstapplicantlanguagedetail_Form.valid) {
+            this.toastr.addSingle("error", "", "Enter the required fields");
+            return;
+        }
+        var obj = this.mstapplicantlanguagedetail_Form.getRawValue();
+        // if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+        // obj.fileAttachmentList = this.fileattachment.getAllFiles();
+        // console.log(obj);
+        // await this.sharedService.upload(this.fileAttachmentList);
+        // this.attachmentlist = [];
+        // if (this.fileattachment) this.fileattachment.clear();
+        // this.objvalues.push(obj);
+        // this.dialogRef.close(this.objvalues);
+        // setTimeout(() => {
+        //     //this.dialogRef.destroy();
+        // }, 200);
+    }
+    async onSubmitData(bclear: any) {
+        debugger
+        this.showSkillDetails_input = true;
+        this.getdata();
+        this.isSubmitted = true;
+        let strError = "";
+
+        this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
+        console.log(this.formData);
+        this.spinner.show();
+        this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe(
+            async res => {
+                this.spinner.hide();
+                this.toastr.addSingle("success", "", "Successfully saved");
+                this.sessionService.setItem("attachedsaved", "true")
+                this.objvalues.push((res as any).mstapplicantlanguagedetail);
+                this.resetForm();
+                this.ngOnInit();
+            });
+    }
+
+    resetForm() {
+        if (this.mstapplicantlanguagedetail_Form != null)
+            this.mstapplicantlanguagedetail_Form.reset();
+        this.mstapplicantlanguagedetail_Form.patchValue({
+        });
+        this.PopulateFromMainScreen(this.data, false);
+        this.PopulateFromMainScreen(this.dynamicconfig.data, true);
+    }
+
+    PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
+        if (mainscreendata != null) {
+            for (let key in mainscreendata) {
+                if (key != 'visiblelist' && key != 'hidelist' && key != 'event') {
+
+                    let jsonstring = "";
+                    let json = null;
+                    let ctrltype = typeof (mainscreendata[key]);
+                    if (false)
+                        json = "";
+                    else if (ctrltype == "string") {
+                        this.mstapplicantlanguagedetail_Form.patchValue({ [key]: mainscreendata[key] });
+                    }
+                    else {
+                        this.mstapplicantlanguagedetail_Form.patchValue({ [key]: mainscreendata[key] });
+                    }
+                    {
+                        {
+                            if (bdisable && this.mstapplicantlanguagedetail_Form.controls[key] != undefined) {
+                                this.mstapplicantlanguagedetail_Form.controls[key].disable({ onlySelf: true });
+                                this.hidelist.push(key);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     mstapplicantlanguagedetailshtml() {
         let ret = "";
         ret += `
@@ -181,8 +398,10 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         <tbody>
           <tr>
             <th style="width: 5.9%;white-space: break-spaces;word-break: break-word !important;" class="col-2">##languagedesc##</th>
-            <th style="width: 20%;">Read: ##readproficiency## <br/> Write: ##writeproficiency## <br/> Speak: ##speakproficiency##</th>
-            <!--<th style="width: 20%;">Read: <br/> Write: ##overallrating## <br/> Speak:</th>-->
+            <th style="width: 20%;" class="col-2">##readproficiency##</th>
+            <th style="width: 20%;" class="col-2">##writeproficiency##</th>
+            <th style="width: 20%;" class="col-2">##speakproficiency##</th>
+            <!--<th style="width: 20%;" class="col-2">Read: <br/> Write: ##overallrating## <br/> Speak:</th>-->
             <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##remarks##</th>
             <!--<th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##attachment##</th>-->
           </tr>
@@ -387,27 +606,31 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     }
 
     AddOrEdit_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
+
+        debugger
+        this.showSkillDetails_input = true;
+        this.getdata();
         let add = false;
         if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        this.dialog.open(mstapplicantlanguagedetailComponent,
-            {
-                data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, languageid, applicantid, visiblelist: this.mstapplicantlanguagedetails_visiblelist, hidelist: this.mstapplicantlanguagedetails_hidelist, ScreenType: 2 },
-            }
-        ).onClose.subscribe(res => {
-            if (res) {
-                if (add) {
-                    for (let i = 0; i < res.length; i++) {
-                        this.tbl_mstapplicantlanguagedetails.source.add(res[i]);
-                    }
-                    this.tbl_mstapplicantlanguagedetails.source.refresh();
-                }
-                else {
-                    this.tbl_mstapplicantlanguagedetails.source.update(event.data, res[0]);
-                }
-            }
-        });
+        // this.dialog.open(mstapplicantlanguagedetailComponent,
+        //     {
+        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, languageid, applicantid, visiblelist: this.mstapplicantlanguagedetails_visiblelist, hidelist: this.mstapplicantlanguagedetails_hidelist, ScreenType: 2 },
+        //     }
+        // ).onClose.subscribe(res => {
+        //     if (res) {
+        //         if (add) {
+        //             for (let i = 0; i < res.length; i++) {
+        //                 this.tbl_mstapplicantlanguagedetails.source.add(res[i]);
+        //             }
+        //             this.tbl_mstapplicantlanguagedetails.source.refresh();
+        //         }
+        //         else {
+        //             this.tbl_mstapplicantlanguagedetails.source.update(event.data, res[0]);
+        //         }
+        //     }
+        // });
     }
 
     onDelete_mstapplicantlanguagedetail(event: any, childID: number, i: number) {
