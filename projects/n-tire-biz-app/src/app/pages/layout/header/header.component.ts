@@ -221,7 +221,7 @@ export class HeaderComponent implements OnInit {
     let result1 = this.router.routerState.snapshot.url.match("newskillsearch");
     if (result1[0] == "newskillsearch") {
       this.hideCorporatePage = false;
-    }else{
+    } else {
       this.hideCorporatePage = true;
     }
   }
@@ -321,8 +321,13 @@ export class HeaderComponent implements OnInit {
       this.showhideProfile = false
       this.showmenulist = false;
     } else {
-      this.menuhide = false
+      this.menuhide = false;
+      this.showhideProfile = false;
+      this.showmenulist = false;
     }
+    //  else{
+    // this.menuhide=false
+    // }
   }
   openpopup() {
     debugger
