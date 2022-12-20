@@ -112,7 +112,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   //New code
   template: `
 <div class="row" style="background: #f5f3e4!important;
-    color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
+    color: #000;padding: 5px; height:45px;border: 1px solid #ebf3fc;width: 100%;">
 
   <div class="col-4" style="margin:auto;">
     <h4 class="form-group sticky1  columns left">{{'Skill Details'}}

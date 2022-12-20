@@ -25,6 +25,7 @@ import { mstapplicantmastermainComponent } from '../../forms/mstapplicantmaster/
 export class HeaderComponent implements OnInit {
   @Input() menuItems: any[];
   user: any;
+  menuhide:boolean = false;
   username: any;
   userrole: any;
   userData: any;
@@ -306,8 +307,18 @@ export class HeaderComponent implements OnInit {
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     })
   }
-  closePopup(){
-    this.showhideProfile = false;
-    this.showmenulist = false;
+  closePopup(data){
+    debugger
+    if(data=='p'){
+      this.showhideProfile=false
+      this.showmenulist = false;
+    }else{
+    this.menuhide=false
+    }
   }
+  openpopup(){
+    debugger
+    this.menuhide=true
+  }
+
 }
