@@ -64,7 +64,7 @@
 
       <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Experience</h6>
-        <label for="customRange1" class="form-label">Example range</label>
+        <!-- <label for="customRange1" class="form-label">Example range</label> -->
         <input type="range" class="form-range  exp-input">
       </div>
 
@@ -158,7 +158,7 @@
 
       <!-- List View -->
 
-      <div class="listView-content" *ngIf="showList" style="max-height: 400px !important;overflow-y: scroll;">
+      <div class="listView-content" *ngIf="showList" style="max-height: 350px !important;overflow-y: scroll;">
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
 
@@ -193,17 +193,14 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">NAME</th>
-                <th scope="col">DESIGNSTION</th>
+                <th scope="col">DESIGNATION</th>
                 <th scope="col">CITY</th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody *ngFor="let item of listView, index of i">
               <tr>
-                <th scope="row">
-                  <img src="assets/profile.jpeg" alt="" style="width: 7%;">
-                </th>
-
+                <td><img src="assets/profile.jpeg" alt="" style="width: 7%;"></td>
                 <td>{{item.name}}</td>
                 <td>{{item.designation}}</td>
                 <td>{{item.city}}</td>
