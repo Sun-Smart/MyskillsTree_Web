@@ -1,187 +1,216 @@
 .content {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-  }
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
 
-  .header {
-    background-color: #f5f3e4;
-    padding: 10px;
-    width: 100%;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f5f3e4;
-  }
+.header {
+  background-color: #f5f3e4;
+  padding: 10px;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f3e4;
+}
 
-  .container {
-    display: flex;
-    flex-grow: 1;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-  }
+.container {
+  display: flex;
+  flex-grow: 1;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-  // .container {
-  //   margin: 0;
-  //   padding: 0;
-  //   width: 100%;
-  //   max-width: 100%;
-  // }
+// .container {
+//   margin: 0;
+//   padding: 0;
+//   width: 100%;
+//   max-width: 100%;
+// }
 
-  .sidebar {
-    width: 20%;
-    height: 100%;
-    background-color: #f8f9fa;
-    // float: left;
-  }
+.sidebar {
+  width: 20%;
+  height: 100%;
+  background-color: #f8f9fa;
+  // float: left;
+}
 
-  .sidebar-content {
-    padding: 1rem;
-    .form-check {
-      font-size: 12px;
-      color: #9ba0a5;
-      line-height: 1.9;
-      padding-left: 2.25rem !important;
-    }
-  }
+.sidebar-content {
+  padding: 1rem;
 
-  .exp-input {
-    width: 100% !important;
+  .form-check {
+    font-size: 12px;
+    color: #9ba0a5;
+    line-height: 1.9;
+    padding-left: 2.25rem !important;
   }
+}
 
-  .main-content {
-    width: 1128px;
-    // margin-left: 20%;
-  }
-  .tab {
-    margin: 15px 0;
-    .tab-button {
-      margin: auto;
-      button {
-        background-color: #f5f3e4;
-        border: none;
-        margin: 1px;
-        font-size: 12px;
-        padding: 5px 20px;
-        font-weight: 600;
-      }
-    }
-  }
-  .dropdown-skillSet {
+.exp-input {
+  width: 100% !important;
+}
+
+.main-content {
+  width: 1128px;
+  // margin-left: 20%;
+}
+
+.tab {
+  margin: 15px 0;
+
+  .tab-button {
     margin: auto;
-    text-align: center;
+
     button {
-      border-radius: 30px;
+      background-color: #f5f3e4;
+      border: none;
+      margin: 1px;
       font-size: 12px;
-    }
-  }
-
-  .listView-content,
-  .gridView-content,
-  .cardView-content {
-    h5 {
-      font-size: 1rem;
+      padding: 5px 20px;
       font-weight: 600;
-      margin-left: 20px;
-      margin-bottom: 0 !important;
-    }
-    label {
-      margin-left: 20px;
-      color: #9ba0a5;
-      font-size: 0.8rem;
     }
   }
-  .listView-content {
-    img {
-      border-radius: 50%;
-      width: 5%;
-      height: fit-content;
-      display: flex;
-    }
+}
+
+.dropdown-skillSet {
+  margin: auto;
+  text-align: center;
+
+  button {
+    border-radius: 30px;
+    font-size: 12px;
   }
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 10px;
-    li {
-      color: #9ba0a5;
-      font-size: 12px;
-    }
-  }
-  .listView-card {
-    width: 97%;
-    height: 20%;
-    background-color: #e5f9f9;
-    margin: auto 15px;
-    border-radius: 10px;
-  }
-  .active {
-    width: 97%;
-    height: 20%;
-    background-color: #f3f5f5;
-    margin: auto 15px;
-    border-radius: 10px;
+}
+
+.listView-content,
+.gridView-content,
+.cardView-content {
+  h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 20px;
+    margin-bottom: 0 !important;
   }
 
-  .grid-container{
-    margin: 0 15px;
+  label {
+    margin-left: 20px;
+    color: #9ba0a5;
+    font-size: 0.8rem;
   }
-  .table {
-    thead {
-      background-color: #f5f3e4 !important;
-      font-size: 12px;
-      th,
-      td {
-        border: none !important;
-      }
-    }
+}
+
+.listView-content {
+  img {
+    border-radius: 50%;
+    width: 5%;
+    height: fit-content;
+    display: flex;
+  }
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 10px;
+
+  li {
+    color: #9ba0a5;
+    font-size: 12px;
+    line-height: 1.2rem;
+  }
+}
+
+.listView-card {
+  width: 97%;
+  height: 20%;
+  background-color: #e5f9f9;
+  margin: auto 15px;
+  border-radius: 10px;
+}
+
+.active {
+  width: 97%;
+  height: 20%;
+  background-color: #f3f5f5;
+  margin: auto 15px;
+  border-radius: 10px;
+}
+
+.grid-container {
+  margin: 0 15px;
+}
+
+.table {
+  thead {
+    background-color: #f5f3e4 !important;
+    font-size: 12px;
+
+    th,
     td {
       border: none !important;
     }
   }
 
-  .cardView-content {
-    .card-view {
-      display: flex;
-      flex-wrap: wrap;
-      text-align: center;
-      overflow-y: scroll;
-      width: auto;
-      height: 100vh;
-      justify-content: center;
-
-      div {
-        background-color: #f5f3e4;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 10px;
-        width: 17%;
-      }
-      img {
-        width: 40%;
-        border-radius: 30px;
-      }
-    }
+  td {
+    border: none !important;
   }
+}
 
-  .card-div {
-    // overflow-y: scroll;
+.cardView-content {
+  .card-view {
     display: flex;
-    margin: 2%;
-    flex-wrap: wrap-reverse;
-  }
+    flex-wrap: wrap;
+    text-align: center;
+    overflow-y: scroll;
+    width: auto;
+    height: 100vh;
+    justify-content: center;
 
-  @media screen and (max-width: 500px) {
-    .header a {
-      float: none;
-      display: block;
-      text-align: left;
+    div {
+      background-color: #f5f3e4;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 10px;
+      width: 17%;
     }
 
-    .header-right {
-      float: none;
+    img {
+      width: 40%;
+      border-radius: 30px;
     }
   }
+}
+
+.card-div {
+  // overflow-y: scroll;
+  display: flex;
+  margin: 2%;
+  flex-wrap: wrap-reverse;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .header-right {
+    float: none;
+  }
+}
+
+.search-icon {
+  position: relative;
+  left: 2rem;
+  color: #b1aaaa;
+}
+
+.microphone-icon {
+  position: relative;
+  right: 2rem;
+  color: #b1aaaa;
+}

@@ -25,7 +25,7 @@ import { mstapplicantmastermainComponent } from '../../forms/mstapplicantmaster/
 export class HeaderComponent implements OnInit {
   @Input() menuItems: any[];
   user: any;
-  menuhide:boolean = false;
+  menuhide: boolean = false;
   username: any;
   userrole: any;
   userData: any;
@@ -49,6 +49,7 @@ export class HeaderComponent implements OnInit {
   showApplicantmenu: boolean = false;
   showAdminMenuaccess: boolean = false;
   showCorporateMenuaccess: boolean = false;
+  hideCorporatePage: boolean = false;
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
@@ -123,17 +124,17 @@ export class HeaderComponent implements OnInit {
       this.showAdminMenuaccess = true;
       this.showApplicantmenu = false;
       this.showCorporateMenuaccess = false;
-  } else if (this.sessionService.getItem('role') == '2') {
+    } else if (this.sessionService.getItem('role') == '2') {
       this.userrole = 'Applicant';
       this.showApplicantmenu = true;
       this.showAdminMenuaccess = false;
       this.showCorporateMenuaccess = false;
-  } else if (this.sessionService.getItem('role') == '3') {
+    } else if (this.sessionService.getItem('role') == '3') {
       this.userrole = 'Corporate';
       this.showCorporateMenuaccess = true;
       this.showApplicantmenu = false;
       this.showAdminMenuaccess = false;
-  }
+    }
     if (this.sessionService.getItem('role') == '2') this.menuvisible = false;
     /*
     for (var i = 1; i <= 5; i++) {
@@ -215,6 +216,13 @@ export class HeaderComponent implements OnInit {
       this.showheader = false;
     } else {
       this.showheader = true;
+    }
+
+    let result1 = this.router.routerState.snapshot.url.match("newskillsearch");
+    if (result1[0] == "newskillsearch") {
+      this.hideCorporatePage = false;
+    }else{
+      this.hideCorporatePage = true;
     }
   }
   delteNotify(value) {
@@ -307,18 +315,20 @@ export class HeaderComponent implements OnInit {
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     })
   }
-  closePopup(data){
+  closePopup(data) {
     debugger
-    if(data=='p'){
-      this.showhideProfile=false
+    if (data == 'p') {
+      this.showhideProfile = false
       this.showmenulist = false;
-    }else{
-    this.menuhide=false
+    } else {
+      this.menuhide = false
     }
   }
-  openpopup(){
+  openpopup() {
     debugger
-    this.menuhide=true
+    this.menuhide = true
   }
-
+  gotoSkillSearch() {
+    this.router.navigate(['/home/newskillsearch']);
+  }
 }

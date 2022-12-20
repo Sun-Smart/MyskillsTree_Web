@@ -5,13 +5,14 @@
         <!-- <a pripple="" class="layout-topbar-mobile-button ng-tns-c186-0 p-ripple"><i
                 class="pi pi-ellipsis-v fs-large ng-tns-c186-0"></i><span class="p-ink"></span></a> -->
         <label style="left: 63px;position: fixed;font-size: 20px; color: #000;">MySkillsTree</label>
-            
+
     </div>
-    <div class="col-6" style="display:flex; justify-content:center; align-items:center;padding: 0 5rem;">
+    <div *ngIf="hideCorporatePage" class="col-6" style="display:flex; justify-content:center; align-items:center;padding: 0 5rem;">
         <i class="fa fa-search search-icon" aria-hidden="true"></i>
         <input type="text" class="form-control" placeholder="Search" style="border-radius:30px !important;">
         <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
     </div>
+    <div class="col-6" *ngIf="!hideCorporatePage"></div>
     <div class="col-3 layout-topbar-right ng-tns-c186-0" >
 
         <div class="layout-topbar-actions-right ng-tns-c186-0" >
@@ -29,7 +30,7 @@
                         (click)="showMenus()"></i>
                     <div class="card applicant-card" *ngIf="showmenulist"
                         style="position: absolute;top: 50px;left: 20%;background-color: #fff !important;">
-                 
+
                         <div class="row" *ngIf="!menuvisible"style="margin: 4px !important;">
                             <div class="col-12 applicant-menu-icon" style="color: red;text-align: end;padding:0 5px;"><i class="fa fa-times-circle" aria-hidden="true"></i></div>
                             <div class="col-6 applicant-menu" >
@@ -404,8 +405,7 @@
 
                                 <div class="col-4 card abc" style="text-align:center;">
                                     <li><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /><a
-                                            [routerLink]="['/home/boreportviewer/mstsr']"
-                                            routerLinkActive="router-link-active"> Skill search</a></li>
+                                            href="javascript:void(0);" (click)="gotoSkillSearch()"> Skill search</a></li>
                                 </div>
 
 
