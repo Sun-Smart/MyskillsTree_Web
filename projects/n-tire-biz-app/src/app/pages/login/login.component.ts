@@ -22,6 +22,8 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicDialog';
 import { NgxSpinnerService } from "ngx-spinner";
 import { msttermComponent } from '../forms/mstterm/mstterm.component';
 import { msttermnewComponent } from '../forms/mstterm/msttermnew.component';
+import { HttpClient, HttpErrorResponse, HttpHeaders  } from '@angular/common/http';
+import { AppConstants } from '../../shared/helper';
 
 @Component({
     selector: 'app-login',
@@ -60,7 +62,7 @@ import { msttermnewComponent } from '../forms/mstterm/msttermnew.component';
 .register-right {
     background: #f8f9fa;
     border-radius: 4%;
-    height: 470px;
+    height: auto;
     max-width: 30%;
     position: relative;
     left: 130px;
@@ -284,7 +286,7 @@ label{
     `]
 })
 export class LoginComponent implements OnInit {
-    username:any;
+    username: any;
     bologinForm: FormGroup;
     private readonly minlengthemail = 5;
     private readonly minlengthPassword = 10;
@@ -303,6 +305,10 @@ export class LoginComponent implements OnInit {
     validation: boolean = false;
     emailvalidation: boolean = false;
     passvalidation: boolean = false;
+    userData : any;
+    verifyMob_Otp:any;
+    otp_resp:any;
+    p12:any;
 
     constructor(private sharedService: SharedService, private translate: TranslateService,
         private fb: FormBuilder,
@@ -314,13 +320,14 @@ export class LoginComponent implements OnInit {
         private themeService: ThemeService,
         private userContextService: UserContextService,
         private router: Router, public dialogRef: DynamicDialogRef,
-        public dialog: DialogService, private spinner: NgxSpinnerService
+        public dialog: DialogService, private spinner: NgxSpinnerService,
+        private http: HttpClient,
     ) {
 
         this.bologinForm = this.fb.group({
             // email: [null],
             // password: [null],
-            username:[null],
+            username: [null],
             email: [null, [Validators.required]],
             password: [null, [Validators.required]],
             rememberMe: [null]
@@ -502,6 +509,9 @@ export class LoginComponent implements OnInit {
     //     }
 
     // }
+
+
+
     rememberme(Remember) {
         debugger
         console.log('Remember ', Remember)
@@ -594,7 +604,32 @@ export class LoginComponent implements OnInit {
     gotoRegister() {
         this.router.navigate(['registernew']);
     }
-    gotoVerify() {
-        this.router.navigate(['verify']);
+    gotoVerify(data: any) {
+        this.spinner.show();
+        debugger;
+        console.log("valueeeeee", data.value.email);
+
+        let verify_data = {
+            email : data.value.email,
+            password : null,
+        }
+        console.log(verify_data);
+        let options = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + verify_data.email+'&Password='+verify_data.password).subscribe((resp: any) => {
+
+            console.log("resp",resp);
+
+            this.otp_resp = resp;
+
+            this.verifyMob_Otp = this.otp_resp.outputstring;
+            this.spinner.hide();
+            
+          console.log("this.verifyMob_Otp", this.verifyMob_Otp);
+
+          if(this.verifyMob_Otp == "OTP has send to your registered mobile Number"){
+            this.p12="m1"
+            this.router.navigate(['verify', this.p12]);
+          };
+        })
     }
 }

@@ -63,7 +63,7 @@
     </div>
   </div>
 </div> -->
-
+<ngx-spinner></ngx-spinner>
 <nav class="navbar fixed-top navbar-expand-md custom-navbar navbar-dark">
   <img class="navbar-brand logo" src="assets/companylogo.png" id="logo_custom" width="10%" alt="logo">
 </nav>
@@ -83,7 +83,7 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
-                    <span class="common_register_font" style="line-height:1.7;">Login with Email</span>
+                    <span class="common_register_font" style="line-height:1.7;">Email / Mobile Number</span>
                     <div>
                     <input type="text" name="email" [(ngModel)]="email" class="form-control input-sm"
                       placeholder="Email ID/Mobile Number" [email]="true" required formControlName='email'
@@ -96,7 +96,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 1rem;">
                   <div class="form-group">
-                    <span  class="common_register_font" style="line-height:1.7;">Login with Password</span>
+                    <span  class="common_register_font" style="line-height:1.7;">Password</span>
                     <div class="input-group">
                       <input [type]="fieldTextType ? 'text' : 'password'" class="form-control" [(ngModel)]="password"
                         required formControlName='password' style="line-height: 2.5;border-radius: 0!important"
@@ -120,7 +120,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <br />
-                  <button class="btn btn-info btn-block register_btn">Login</button>
+                  <button class="btn btn-info btn-block register_btn" style="font-size:17px;">Login</button>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <br />
@@ -131,12 +131,12 @@
                   </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                  <h5>OR</h5>
+                  <h5>or</h5>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <br />
-                  <button class="btn btn-info btn-block register_btn"  (click)="gotoVerify()">Login With
-                    Otp</button>
+                  <button class="btn btn-info btn-block register_btn"  style="font-size:15px;" (click)="gotoVerify(bologinForm)">Login With
+                    OTP</button>
                 </div>
               </div>
             </div>
