@@ -22,6 +22,7 @@ import { FieldErrorDisplayComponent } from '../../../n-tire-biz-app/src/app/page
 
 import { CorporateDashboardComponent } from '../../../n-tire-biz-app/src/app/pages/forms/corporate.component';
 import { galleryComponent } from '../../../n-tire-biz-app/src/app/pages/forms/gallery.component';
+import { NewskillsearchComponent } from './pages/forms/newskillsearch/newskillsearch.component';
 
 
 export const ENTRY_COMPONENTS = [];
@@ -50,6 +51,7 @@ export const paths = [
                     // { path: 'bocities', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bocity/bocity.module').then(m => m.bocityModule) },
                     { path: 'showdashboard/:id', component: showdashboardComponent },
                     { path: 'bodashboardviewer/bodashboardviewer/:id', component: showdashboardComponent },
+                    { path: 'newskillsearch', component: NewskillsearchComponent },
                     { path: 'calendar/:id', component: CalendarFormComponent },
                     { path: 'corporatedashboard', component: CorporateDashboardComponent },
                     { path: 'gallery', component: galleryComponent },
@@ -115,7 +117,7 @@ export const paths = [
                     { path: 'applicantdashboard', pathMatch: 'prefix', loadChildren: () => import("../../../n-tire-biz-app/src/app/pages/forms/applicantdashboard/applicantdashboard.module").then(m => m.applicantdashboardModule) },
                     { path: 'hlpticketdetails', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/hlpticketdetail/hlpticketdetail.module').then(m => m.hlpticketdetailModule) },
                     //code added by dhana dec-15
-                    { path: 'newskillsearch',  loadChildren: () => import("../../../n-tire-biz-app/src/app/pages/forms/newskillsearch/newskillsearch.module").then(m => m.NewskillsearchModule) },
+                    // { path: 'newskillsearch',  loadChildren: () => import("../../../n-tire-biz-app/src/app/pages/forms/newskillsearch/newskillsearch.module").then(m => m.NewskillsearchModule) },
 
                     //added by dhana march-21
                     { path: "mstterms", pathMatch: 'prefix', loadChildren: () => import("../../../n-tire-biz-app/src/app/pages/forms/mstterm/mstterm.module").then(m => m.msttermModule) },
