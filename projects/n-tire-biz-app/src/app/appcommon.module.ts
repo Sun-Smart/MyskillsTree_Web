@@ -165,6 +165,7 @@ import { galleryComponent } from '../../../n-tire-biz-app/src/app/pages/forms/ga
 import { ChartModule } from 'primeng/chart';
 import { ChartsModule } from 'ng2-charts';
 import { TagInputModule } from 'ngx-chips';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -387,7 +388,7 @@ export function HttpLoaderFactory(http: HttpClient) {
             provide: DateAdapter,
             useFactory: adapterFactory
         }),
-
+        Ng2SearchPipeModule,
         SidebarModule,
         DynamicDialogModule,
         InputTextareaModule, PaginatorModule,

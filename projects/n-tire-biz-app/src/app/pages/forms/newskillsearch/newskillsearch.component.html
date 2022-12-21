@@ -11,7 +11,8 @@
       </div> -->
     <div class="col-8" style="display:flex; justify-content:center; align-items:center;padding: 1rem 5rem;">
       <i class="fa fa-search search-icon" aria-hidden="true"></i>
-      <input type="text" class="form-control" placeholder="Search" style="border-radius:30px !important;">
+      <input type="text" class="form-control" placeholder="Search" style="border-radius:30px !important;"
+        [(ngModel)]="term">
       <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
     </div>
     <!-- <div class="col-2 header-right">
@@ -162,45 +163,23 @@
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
 
-        <div *ngFor="let item of showData, index of i" [ngClass]="{ 'active' : 'listView-card'}" style="margin: 10px;">
+        <div *ngFor="let item of showData  | filter:term; index of i" [ngClass]="{ 'active' : 'listView-card'}"
+          style="margin: 10px;">
           <div style="display: flex;padding: 5px;margin: 0px 0px -7px 9px;">
             <img src="assets/profile.jpeg" alt="">
             <ul>
-              <li style="color: #000;font-weight: 600;">{{item.firstname}} {{item.lastname}}</li>
+              <li style="color: #000;font-weight: 600;font-size: 16px;
+              text-transform: capitalize;">{{item.firstname}} {{item.lastname}}</li>
               <li>{{item.emailid}}</li>
               <li>{{item.mobilenumber}}</li>
             </ul>
           </div>
           <div>
-            <p style="font-size: 12px;margin: 0px 70px;color: #9ba0a5;"><span
-                style="color:#000;font-weight: 600;">Skills
-                :
-              </span>{{item.skills}}</p>
+            <p style="font-size: 12px;margin: 0px 70px;color: #9ba0a5;"><span>Skills : </span><b
+                style="color:#000;font-weight: 600;">{{item.skills}}</b></p>
           </div>
         </div>
       </div>
-      <!-- <div class="listView-content" *ngIf="showList" style="max-height: 350px !important;overflow-y: scroll;">
-        <h5>Profiles Matching Search Criteria</h5>
-        <label for="">Matching profile</label>
-
-        <div *ngFor="let item of listView, index of i" [ngClass]="{ 'active' : 'listView-card'}" style="margin: 10px;">
-          <div style="display: flex;padding: 5px;margin: 0px 0px -7px 9px;">
-            <img src="assets/profile.jpeg" alt="">
-            <ul>
-              <li style="color: #000;font-weight: 600;">{{item.name}}</li>
-              <li>{{item.designation}}</li>
-              <li>{{item.city}}</li>
-            </ul>
-          </div>
-          <div>
-            <p style="font-size: 12px;margin: 0px 70px;color: #9ba0a5;"><span
-                style="color:#000;font-weight: 600;">Skills
-                :
-              </span>{{item.skills}}</p>
-          </div>
-        </div>
-      </div> -->
-
       <!-- Grid View -->
 
       <div class="gridView-content" *ngIf="showGrid">
@@ -219,9 +198,9 @@
                 <th scope="col">Skills</th>
               </tr>
             </thead>
-            <tbody *ngFor="let item of showData;">
+            <tbody *ngFor="let item of showData | filter:term">
               <tr>
-                <td><img src="assets/profile.jpeg" alt="" style="width: 7%;"></td>
+                <td><img src="assets/profile.jpeg" alt="" style="width: 20%;border-radius: 50% !important;"></td>
                 <td>{{item.firstname}} {{item.lastname}}</td>
                 <td>{{item.emailid}}</td>
                 <td>{{item.mobilenumber}}</td>
@@ -239,10 +218,11 @@
         <label for="">Matching profile</label>
 
         <div class="card-view">
-          <div *ngFor="let item of showData, index of i">
+          <div *ngFor="let item of showData | filter:term">
             <img src="assets/profile.jpeg" alt="">
             <ul>
-              <li style="color: #000;font-weight: 600;">{{item.firstname}} {{item.lastname}}</li>
+              <li style="color: #000;font-weight: 600;font-size: 16px;
+              text-transform: capitalize;">{{item.firstname}} {{item.lastname}}</li>
               <li>{{item.emailid}}</li>
               <li>{{item.mobilenumber}}</li>
               <li>{{item.skills}}</li>
