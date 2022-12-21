@@ -10,6 +10,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { MstapplicantreferenceacceptedComponent } from './mstapplicantreferenceaccepted/mstapplicantreferenceaccepted.component';
 // import { ApplicantregisterComponent } from './applicantregister/applicantregister.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 // import { RegisterComponent } from './register/register.component';
 // import { NewskillsearchComponent } from './forms/newskillsearch/newskillsearch.component';
 
@@ -36,6 +37,7 @@ const PAGES_COMPONENTS = [
     declarations: [
         ...PAGES_COMPONENTS,
         MstapplicantreferenceacceptedComponent,
+        ForgotpasswordComponent,
         // ApplicantregisterComponent,
         // RegisterComponent,
         // NewskillsearchComponent,

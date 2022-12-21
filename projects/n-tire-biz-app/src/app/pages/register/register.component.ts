@@ -18,29 +18,41 @@ export class RegisterComponent implements OnInit {
   mobilenumber: any;
   emailvalidation: boolean = false;
   objvalues: any = [];
+  type: string;
+  category: any;
   constructor(private router: Router, private toastr: ToastService, private http: HttpClient, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     this.bouserregistration_Form = this.formBuilder.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       emailid: ['', Validators.required],
-      mobilenumber: ['', Validators.required]
-    });
+      mobilenumber: ['', Validators.required],
+      category: ['', Validators.required]
+    })
   }
 
   ngOnInit(): void {
+  this.onItemChange('');
   }
   gotoLogin() {
     this.router.navigate(['login']);
   }
   onItemChange(value) {
     console.log(" Value is : ", value);
-    if (value == "provider") {
+    if (value == "provider" || value == "") {
       this.router.navigate(['registernew']);
+      this.type = "P";
+      this.category = this.category;
     } else if (value == "availer") {
       this.router.navigate(['applicantregister']);
     } else if (value == "enhancer") {
+      this.router.navigate(['registernew']);
+      this.type = "E";
+      this.category = this.category;
     }
     else if (value == "certifier") {
+      this.router.navigate(['registernew']);
+      this.type = "C";
+      this.category = this.category;
     }
   }
 
@@ -60,6 +72,9 @@ export class RegisterComponent implements OnInit {
         emailid: this.bouserregistration_Form.value.emailid,
         mobilenumber: this.bouserregistration_Form.value.mobilenumber,
         status: null,
+        usertype: this.type,
+        usercategory: this.bouserregistration_Form.value.category,
+        specialcategory: null,
         statusdesc: null
       }
       console.log(data);
@@ -85,6 +100,7 @@ export class RegisterComponent implements OnInit {
           this.bouserregistration_Form.value.lastname = null;
           this.bouserregistration_Form.value.emailid = null;
           this.bouserregistration_Form.value.mobilenumber = null;
+          this.bouserregistration_Form.value.category = null;
         }
         debugger
       }, (error: HttpErrorResponse) => {

@@ -366,15 +366,16 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
     }
     forgetPassword() {
-        this.dialog.open(ForgotPasswordComponent,
-            {
+      this.router.navigate(['forgotpassword']);
+        // this.dialog.open(ForgotPasswordComponent,
+        //     {
 
-                width: '27% !important',
-                height: 'auto !important',
-                data: { save: true, ScreenType: 1, formtemplate: 'login' },
-            }
-        )
-        return false;
+        //         width: '27% !important',
+        //         height: 'auto !important',
+        //         data: { save: true, ScreenType: 1, formtemplate: 'login' },
+        //     }
+        // )
+        // return false;
 
     }
 

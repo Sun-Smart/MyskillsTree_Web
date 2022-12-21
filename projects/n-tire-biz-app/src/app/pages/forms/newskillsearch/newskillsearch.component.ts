@@ -10,176 +10,10 @@ export class NewskillsearchComponent implements OnInit {
   showList: boolean = true;
   showGrid: boolean = false;
   showCard: boolean = false;
-  listView = [
-    {
-      "name": "Muthu",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-    },
-    {
-      "name": "Ram Mohan",
-      "designation": "Tester",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Dhanasekaran",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Suneel",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    }
-  ];
-  cardView = [
-    {
-      "name": "Muthu",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-    },
-    {
-      "name": "Ram Mohan",
-      "designation": "Tester",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Dhanasekaran",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Suneel",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Muthu",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-    },
-    {
-      "name": "Ram Mohan",
-      "designation": "Tester",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Dhanasekaran",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Suneel",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Muthu",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-    },
-    {
-      "name": "Ram Mohan",
-      "designation": "Tester",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Dhanasekaran",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Suneel",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Muthu",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-    },
-    {
-      "name": "Ram Mohan",
-      "designation": "Tester",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Dhanasekaran",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Suneel",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Muthu",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-    },
-    {
-      "name": "Ram Mohan",
-      "designation": "Tester",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Dhanasekaran",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    },
-    {
-      "name": "Suneel",
-      "designation": "Developer",
-      "city": "Chennai",
-      "skills": "Graphic Design, Adobe illustrator, Adobe photoshop, Web Designing, Mobile Interface, Banner design"
-
-    }
-  ]
   showData: any;
-
+  emailid = "";
+  raio: any;
   constructor(private http: HttpClient) {
-    // alert();
   }
 
   ngOnInit(): void {
@@ -218,5 +52,7 @@ export class NewskillsearchComponent implements OnInit {
     this.showList = false;
     this.showGrid = false;
   }
-
+  rangeChange(event) {
+    this.raio = event.target.value;
+ }
 }

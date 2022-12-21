@@ -1009,8 +1009,8 @@ h1,
 .actionheader a,
 ng2-smart-table-title a {
   /* background-color:var(--backcolor)!important;*/
-
-  color: var(--frontcolor) !important;
+color: gray !important;
+  // color: var(--frontcolor) !important;
 }
 
 table-cell-view-mode {
@@ -3176,6 +3176,7 @@ h1.col-4.columns.mainheader.left.common_popup_title {
 
 .row.second {
   max-height: 40px !important;
+  margin-top: 1px !important;
 }
 
 i.fa.fa-times-circle {
@@ -3569,4 +3570,15 @@ a {
 
 .tbody-res {
   padding: 0 !important;
+}
+.adminbgColor{
+  background-color: #cbf29f !important;
+  margin-top: -2px !important;
+}
+.applicantbgColor{
+  background-color: #ebf3fc !important;
+}
+.corporatebgColor{
+  background-color: #f5f3e4 !important;
+  margin-top: -2px !important;
 }
