@@ -362,15 +362,16 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
     }
     forgetPassword() {
-        this.dialog.open(ForgotPasswordComponent,
-            {
+      this.router.navigate(['forgotpassword']);
+        // this.dialog.open(ForgotPasswordComponent,
+        //     {
 
-                width: '27% !important',
-                height: 'auto !important',
-                data: { save: true, ScreenType: 1, formtemplate: 'login' },
-            }
-        )
-        return false;
+        //         width: '27% !important',
+        //         height: 'auto !important',
+        //         data: { save: true, ScreenType: 1, formtemplate: 'login' },
+        //     }
+        // )
+        // return false;
 
     }
 
@@ -625,7 +626,7 @@ export class LoginComponent implements OnInit {
 
             this.verifyMob_Otp = this.otp_resp.outputstring;
             this.spinner.hide();
-            
+
           console.log("this.verifyMob_Otp", this.verifyMob_Otp);
 
           if(this.verifyMob_Otp == "OTP has send to your registered mobile Number"){

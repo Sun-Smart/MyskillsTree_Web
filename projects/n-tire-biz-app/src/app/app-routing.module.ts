@@ -23,6 +23,7 @@ import { MstapplicantreferenceacceptedComponent } from './pages/mstapplicantrefe
 import { RegisterComponent } from './pages/register/register.component';
 import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
 import { ApplicantregisterComponent } from './pages/forms/applicantregister/applicantregister.component';
+import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.component';
 // import { mstapplicantreferencerequestsacceptedComponent } from './pages/mstapplicantreferencerequestsaccepted/mstapplicantreferencerequestsaccepted.component';
 
 enableProdMode();
@@ -54,7 +55,7 @@ const routes: Routes = [
       },  */
 
     { path: 'login', component: LoginComponent, },
-    { path: 'forgotpassword', component: ForgotPasswordComponent, },
+    { path: 'forgotpassword', component: ForgotpasswordComponent, },
     { path: 'resendemail', component: ResendEmailVerificationComponent, },
     { path: 'resetpassword', component: ResetPasswordComponent, },
     { path: 'emailverify', component: EmailVerificationComponent, },
