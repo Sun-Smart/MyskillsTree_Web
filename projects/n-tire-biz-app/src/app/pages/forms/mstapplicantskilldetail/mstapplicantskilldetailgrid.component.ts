@@ -431,15 +431,10 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     debugger
     this.spinner.show();
     this.mstapplicantskilldetail_service.saveOrUpdate_mstapplicantskilldetails(this.formData).subscribe(
+
     async (res:any) => {
       console.log(res);
       
-        debugger
-        await this.sharedService.upload(this.fileAttachmentList);
-        this.attachmentlist = [];
-        if (this.fileattachment) this.fileattachment.clear();
-        this.spinner.hide();
-
         this.toastr.addSingle("success", "", "Successfully saved");
         this.skillcategory_List = [];
         this.subcategoryid_List = [];
@@ -480,9 +475,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
         console.log(err);
-      }
-    
+      });
   }
+
 
   onSubmitAndWait() {
     debugger
