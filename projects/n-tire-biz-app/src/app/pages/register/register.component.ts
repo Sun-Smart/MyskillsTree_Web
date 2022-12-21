@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   mobilenumber: any;
   emailvalidation: boolean = false;
   objvalues: any = [];
+  type: string;
   constructor(private router: Router, private toastr: ToastService, private http: HttpClient, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     this.bouserregistration_Form = this.formBuilder.group({
       firstname: ['', Validators.required],
@@ -36,11 +37,16 @@ export class RegisterComponent implements OnInit {
     console.log(" Value is : ", value);
     if (value == "provider") {
       this.router.navigate(['registernew']);
+      this.type = "P";
     } else if (value == "availer") {
       this.router.navigate(['applicantregister']);
     } else if (value == "enhancer") {
+      this.router.navigate(['registernew']);
+      this.type = "E";
     }
     else if (value == "certifier") {
+      this.router.navigate(['registernew']);
+      this.type = "C";
     }
   }
 
@@ -60,6 +66,7 @@ export class RegisterComponent implements OnInit {
         emailid: this.bouserregistration_Form.value.emailid,
         mobilenumber: this.bouserregistration_Form.value.mobilenumber,
         status: null,
+        
         statusdesc: null
       }
       console.log(data);
