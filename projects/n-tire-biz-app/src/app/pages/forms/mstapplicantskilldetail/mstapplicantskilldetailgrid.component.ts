@@ -149,7 +149,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <th style="width: 14%">Skill Category</th>
         <th style="width: 16%">Sub Category</th>
         <th style="width: 13%">Self Rating</th>
-        <!-- <th style="width: 13%">Attachment</th> -->
+        <th style="width: 13%">Attachment</th>
         <th style="width: 21%">Remarks</th>
         <th style="width: 10.6%">Action</th>
       </tr>
@@ -194,12 +194,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <!-- Attachment -->
 
         <td>
-        <!-- <p-accordion [multiple]='true'>
+        <p-accordion [multiple]='true'>
         <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
           <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
           </app-attachment>
         </p-accordionTab>
-      </p-accordion> -->
+      </p-accordion>
         </td>
 
         <!-- Remarks -->
@@ -258,6 +258,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   mstapplicantskilldetails_selectedindex: any;
   ShowTableslist: any;
   pkcol: any;
+  sessionData: any;
+    SESSIONUSERID: any;//current user
 
   IsApplicant: boolean;
   IsAdmin: boolean;
@@ -269,6 +271,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   showSkillDetails_input: boolean = false;
   showview: boolean = false;
+  bmyrecord: boolean = false;
 
   Segmentcategory_list: DropDownValues[];
   skillcategory_List: DropDownValues[];
@@ -296,6 +299,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   objvalues: any = [];
   maindata: any;
   getapp:any;
+  formid: any;
+
+
   constructor(
     private nav: Location,
     private translate: TranslateService,
@@ -320,17 +326,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.data = this.data.data;
     }
     this.pkcol = this.data.maindatapkcol;
-    this.applicantid = this.data.applicantid
-  }
-
-  ngOnInit() {
-    this.getapp =localStorage.getItem('applicantid')
-    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.getapp);
-    this.Set_mstapplicantskilldetails_TableConfig();
-
-    if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
-    if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
-    this.FillData();
+    this.applicantid = this.data.applicantid;
 
     this.mstapplicantskilldetail_Form = this.fb.group({
       applicantid :[this.applicantid],
@@ -343,16 +339,31 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       selfrating : [''],
       remarks : [''],
     })
+  }
 
+  ngOnInit() {
+    this.getapp =localStorage.getItem('applicantid')
+    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.getapp);
+    this.Set_mstapplicantskilldetails_TableConfig();
+
+    if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
+    if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
+    this.FillData('');
+
+
+    this.sessionData = this.sessionService.getSession();
+    if (this.sessionData != null) {
+      this.SESSIONUSERID = this.sessionData.userid;
+    }
   };
 
   get f() { return this.mstapplicantskilldetail_Form.controls; }
 
-  addSkills() {
-    debugger
-    this.showSkillDetails_input = true;
-    this.getData();
-  };
+  // addSkills() {
+  //   debugger
+  //   this.showSkillDetails_input = true;
+  //   this.getData();
+  // };
 
   skillClose() {
     this.showSkillDetails_input = false;
@@ -407,31 +418,23 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     });
   }
 
-  async onSubmitData(f:any) {
+  async onSubmitData(bclear:any) {
     debugger
-
-    console.log("fffffffffff",f);
-
+    
     this.isSubmitted = true;
     let strError = "";
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
     debugger
-    // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-    // this.fileAttachmentList = this.fileattachment.getAllFiles();
-    // console.log(this.formData);
-    // debugger
-    // this.spinner.show();
+    if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+    this.fileAttachmentList = this.fileattachment.getAllFiles();
+    console.log(this.formData);
+    debugger
+    this.spinner.show();
     this.mstapplicantskilldetail_service.saveOrUpdate_mstapplicantskilldetails(this.formData).subscribe(
-    async (resp:any) => {
 
-      console.log(resp);
-
-        debugger
-        await this.sharedService.upload(this.fileAttachmentList);
-        this.attachmentlist = [];
-        if (this.fileattachment) this.fileattachment.clear();
-        this.spinner.hide();
-
+    async (res:any) => {
+      console.log(res);
+      
         this.toastr.addSingle("success", "", "Successfully saved");
         this.skillcategory_List = [];
         this.subcategoryid_List = [];
@@ -441,18 +444,38 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         this.ngOnInit();
         this.sessionService.setItem("attachedsaved", "true");
         // this.ngAfterViewInit();
-        this.objvalues.push((resp as any).mstapplicantskilldetail);
-
+        let getapp = parseInt(localStorage.getItem('applicantid'));
+        this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(getapp);
+        this.objvalues.push((res as any).mstapplicantskilldetail);
+        if (!bclear) this.showview = true;
+        if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+          this.dialogRef.close(this.objvalues);
           return;
-        });
-
+        }else {
+          if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+        }
+        if (bclear) {
+          this.resetForm();
+        }
+        else {
+          if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+            this.objvalues.push((res as any).mstapplicantskilldetail);
+            this.dialogRef.close(this.objvalues);
+          }
+          else {
+            this.FillData(res);
+          }
+        }
+  
+        this.mstapplicantskilldetail_Form.markAsUntouched();
+        this.mstapplicantskilldetail_Form.markAsPristine();
+      },
       err => {
         debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
         console.log(err);
-      }
-
+      });
   }
 
 
@@ -507,12 +530,97 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     return ret;
   }
 
-  FillData() {
+  FillData(res:any) {
+    debugger
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
       this.mstapplicantskilldetail_menuactions = res.mstapplicantskilldetail_menuactions;
       this.Set_mstapplicantskilldetails_TableConfig();
       this.mstapplicantskilldetails_LoadTable(res.mstapplicantskilldetail);
     });
+
+
+    this.formData = res.mstapplicantskilldetail;
+    this.formid = res.mstapplicantskilldetail.skillid;
+    this.pkcol = res.mstapplicantskilldetail.pkcol;
+    this.bmyrecord = false;
+    if ((res.mstapplicantskilldetail as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
+    console.log(res);
+    //console.log(res.order);
+    //console.log(res.orderDetails);
+    this.mstapplicantskilldetail_Form.patchValue({
+      applicantid: res.mstapplicantskilldetail.applicantid,
+      applicantiddesc: res.mstapplicantskilldetail.applicantiddesc,
+      skillid: res.mstapplicantskilldetail.skillid,
+      skillcategory: res.mstapplicantskilldetail.skillcategory,
+      skillcategorydesc: res.mstapplicantskilldetail.skillcategorydesc,
+      subcategoryid: res.mstapplicantskilldetail.subcategoryid,
+      subcategoryiddesc: res.mstapplicantskilldetail.subcategoryiddesc,
+
+      //suneel
+      segmentid: res.mstapplicantskilldetail.segmentid,
+      segmentcategorydesc: res.mstapplicantskilldetail.segmentdesc,
+
+
+      segmentcategoryothers: res.mstapplicantskilldetail.segmentcategoryothers,
+      skillcategoryothers: res.mstapplicantskilldetail.skillcategoryothers,
+      subcategoryidothers: res.mstapplicantskilldetail.subcategoryidothers,
+
+
+
+      selfrating: res.mstapplicantskilldetail.selfrating,
+      remarks: res.mstapplicantskilldetail.remarks,
+      requestid: res.mstapplicantskilldetail.requestid,
+      showorhide: res.mstapplicantskilldetail.showorhide,
+      referenceacceptance: res.mstapplicantskilldetail.referenceacceptance,
+      referenceacceptancedesc: res.mstapplicantskilldetail.referenceacceptancedesc,
+      attachment: JSON.parse(res.mstapplicantskilldetail.attachment),
+      status: res.mstapplicantskilldetail.status,
+      statusdesc: res.mstapplicantskilldetail.statusdesc,
+    });
+debugger
+    console.log(' this.mstapplicantskilldetail_Form', this.mstapplicantskilldetail_Form);
+
+    this.referenceacceptancevisible = false;
+    this.requestidvisible = false;
+    //hide list
+    if (res.visiblelist != undefined && res.visiblelist.indexOf("referenceacceptance") >= 0) this.referenceacceptancevisible = true;
+    if (res.hidelist != undefined && res.hidelist.indexOf("referenceacceptance") >= 0) this.referenceacceptancevisible = false;
+    if (res.visiblelist != undefined && res.visiblelist.indexOf("requestid") >= 0) this.requestidvisible = true;
+    if (res.hidelist != undefined && res.hidelist.indexOf("requestid") >= 0) this.requestidvisible = false;
+    this.mstapplicantskilldetail_menuactions = res.mstapplicantskilldetail_menuactions;
+    if (this.mstapplicantskilldetail_Form.get('attachment').value != null && this.mstapplicantskilldetail_Form.get('attachment').value != "" && this.fileattachment != null && this.fileattachment != undefined) this.fileattachment.setattachmentlist(this.mstapplicantskilldetail_Form.get('attachment').value);
+    setTimeout(() => {
+      if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null) this.mstapplicantskilldetail_service.getList_subcategoryid2(this.f.skillcategory.value).then(res => {
+        this.subcategoryid_List = res as DropDownValues[];
+      }).catch((err) => { console.log(err); });
+
+      if (this.f.segmentid.value == "166") {
+        this.showinput1 = true
+
+      }
+      if (this.f.skillcategory.value == "262") {
+        this.showinput2 = true
+
+      }
+      if (this.f.subcategoryid.value == "411") {
+        this.showinput3 = true
+
+      }
+
+
+
+      if (this.f.segmentid.value && this.f.segmentid.value != "" && this.f.segmentid.value != null) this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res => {
+        this.skillcategory_List = res as DropDownValues[];
+      }).catch((err) => { console.log(err); });
+
+    }
+
+
+
+
+
+
+    );
   };
 
   // Muthu Code 16/12/2022

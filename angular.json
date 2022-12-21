@@ -477,6 +477,7 @@
         }
       }
     },
+
     "nTireDashboardsApp": {
       "projectType": "application",
       "schematics": {

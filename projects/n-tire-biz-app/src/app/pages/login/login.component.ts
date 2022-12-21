@@ -605,17 +605,19 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['registernew']);
     }
     gotoVerify(data: any) {
+        this.router.navigate(['verify', this.p12]);
         this.spinner.show();
         debugger;
         console.log("valueeeeee", data.value.email);
 
         let verify_data = {
             email : data.value.email,
-            password : null,
+            otpm : null,
+            otpe : null,
         }
         console.log(verify_data);
         let options = new HttpHeaders().set('Content-Type', 'application/json');
-        return this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + verify_data.email+'&Password='+verify_data.password).subscribe((resp: any) => {
+        return this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + verify_data.email + '&otpm='+verify_data.otpm + '&otpe='+verify_data.otpe).subscribe((resp: any) => {
 
             console.log("resp",resp);
 
