@@ -4,7 +4,8 @@
     <ngx-spinner></ngx-spinner>
     <form [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
       <div class="row second">
-        <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+        <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'
+        [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
           <!--btn-toolbar-->
           <div class='col'></div>
           <div class='dropdown d-inline-block btn-dropdown show'>
