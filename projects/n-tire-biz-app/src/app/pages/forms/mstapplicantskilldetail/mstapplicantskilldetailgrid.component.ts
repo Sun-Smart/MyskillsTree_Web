@@ -141,7 +141,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </div>
 </div>
 <form [formGroup]="mstapplicantskilldetail_Form">
-  
+
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
       <tr>
@@ -155,8 +155,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       </tr>
     </thead>
     <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
-   
- 
+
+
       <tr>
         <!-- Segment Gategory -->
         <td>
@@ -369,7 +369,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     this.showSkillDetails_input = false;
   };
 
-  ngAfterViewInit() { 
+  ngAfterViewInit() {
   }
 
   getData() {
@@ -480,9 +480,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
         console.log(err);
-      });
+      }
+    
   }
-
 
   onSubmitAndWait() {
     debugger
@@ -643,7 +643,7 @@ debugger
   }
 
   // Old Code
-  
+
   // AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
   //   debugger
   //   let add = false;

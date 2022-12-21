@@ -364,7 +364,7 @@ h1 a {
   font-weight: 700;
 }
 
-a + a {
+a+a {
   margin-left: 10px;
 }
 
@@ -604,7 +604,7 @@ ng2-smart-table table > tbody > tr > td {
 }
 */
 /* headers grid color*/
-ng2-smart-table thead > tr > th {
+ng2-smart-table thead>tr>th {
   //border: 1px solid lightgrey!important ;
   text-align: center;
 }
@@ -680,7 +680,11 @@ ul.nav li.dropdown:hover ul.dropdown-menu {
 }
 
 div#header {
-  background-color: #0368b7 !important;
+  // background-color: #0368b7 !important;
+  background-color: #cbf29f !important;
+  margin-top: 1px !important;
+  color: gray !important;
+
 }
 
 /*
@@ -1022,8 +1026,8 @@ table-cell-view-mode {
   // margin: 1px;
 }
 
-.p-datatable .p-datatable-thead > tr > th,
-.p-datatable .p-datatable-tfoot > tr > td {
+.p-datatable .p-datatable-thead>tr>th,
+.p-datatable .p-datatable-tfoot>tr>td {
   font-weight: bold;
   font-size: medium;
 }
@@ -1166,11 +1170,13 @@ $half: round($loops / 2);
 
   .progress--circle.progress--#{$i * $step}:after {
     @if $i < $half {
-      $nextDeg: 90deg+ ($increment * $i);
+      $nextDeg: 90deg+($increment * $i);
       background-image: linear-gradient(90deg, $backColor 50%, transparent 50%, transparent),
         linear-gradient($nextDeg, $themeColor 50%, $backColor 50%, $backColor);
-    } @else {
-      $nextDeg: -90deg+ ($increment * ($i - $half));
+    }
+
+    @else {
+      $nextDeg: -90deg+($increment * ($i - $half));
       background-image: linear-gradient($nextDeg, $themeColor 50%, transparent 50%, transparent),
         linear-gradient(270deg, $themeColor 50%, $backColor 50%, $backColor);
     }
@@ -1948,7 +1954,7 @@ dynamic-form-builder {
   margin: 0px !important;
 }
 
-.telephone > .form-control {
+.telephone>.form-control {
   border: none !important;
 }
 
@@ -2194,8 +2200,7 @@ p-accordion {
 }
 
 .p-dialog-content,
-.p-dynamicdialog {
-}
+.p-dynamicdialog {}
 
 /*
 .layout-menu-static:not(.layout-menu-active)
@@ -2722,7 +2727,7 @@ p-dynamicdialog {
   top: 0 !important;
 }
 
-.menu-wrapper + div {
+.menu-wrapper+div {
   margin-top: 2% !important;
 }
 
@@ -2868,7 +2873,8 @@ iframe {
 }
 
 #contentArea1 //,#reportmaincontent
-{
+
+  {
   position: relative;
   height: 93% !important;
   width: 98% !important;
@@ -3410,13 +3416,16 @@ dynamic-form-builder {
 .common_titles_new {
   color: #000 !important;
 }
+
 ng2-smart-table table thead {
   background: #f0f0f0;
   -webkit-box-shadow: none !important;
 }
+
 .skill-detailstable {
   -webkit-box-shadow: none !important;
 }
+
 .p-accordion-tab {
   // width: 45% !important;
 }
@@ -3429,6 +3438,7 @@ ng2-smart-table table thead {
   margin-right: 15px !important;
   background: #a5a5a5 !important;
 }
+
 .popup-add-button:hover {
   color: #fff !important;
   border: none !important;
@@ -3437,6 +3447,7 @@ ng2-smart-table table thead {
   margin-right: 15px !important;
   background: #705858 !important;
 }
+
 .field-Add-button {
   font-size: 20px !important;
   color: #3a7ac5 !important;
@@ -3453,6 +3464,7 @@ ng2-smart-table table thead {
   justify-content: center;
   padding: 15px !important;
 }
+
 .field-autocomplete {
   .p-autocomplete {
     ul {
@@ -3469,6 +3481,7 @@ ng2-smart-table table thead {
   // border-bottom-left-radius: 30px;
   // border-top-left-radius: 30px;
 }
+
 .personal-info-btn-liftRadius:hover {
   background: #705858 !important;
   color: #fff !important;
@@ -3476,18 +3489,21 @@ ng2-smart-table table thead {
   // border-bottom-left-radius: 30px;
   // border-top-left-radius: 30px;
 }
+
 .personal-info-btn {
   background: #a5a5a5 !important;
   color: #000 !important;
   text-decoration: none !important;
   margin: 0;
 }
+
 .personal-info-btn:hover {
   background: #705858 !important;
   color: #fff !important;
   text-decoration: none !important;
   margin: 0;
 }
+
 .personal-info-btn-rightRadius {
   background: #a5a5a5 !important;
   color: #000 !important;
@@ -3497,6 +3513,7 @@ ng2-smart-table table thead {
   // border-bottom-right-radius: 30px;
   // border-top-right-radius: 30px;
 }
+
 .personal-info-btn-rightRadius:hover {
   background: #705858 !important;
   color: #fff !important;
@@ -3515,12 +3532,14 @@ a {
   background-color: transparent;
   color: black !important;
 }
-.p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
+
+.p-menubar-root-list>.p-menuitem-active>p-menubarsub>.p-submenu-list {
   display: grid !important;
   grid-template-columns: 165px 1fr 1fr !important;
   right: 0px !important;
   height: 270px !important;
 }
+
 .second {
   padding-top: 2px;
   background-color: #cbf29f !important;
@@ -3528,6 +3547,7 @@ a {
   // background-color: var(--backcolor) !important;
   color: var(--frontcolor) !important;
 }
+
 .card-header {
   background: #ebf3fc !important;
   color: #000;
@@ -3537,14 +3557,16 @@ a {
   margin: 0 !important;
   height: 40px !important;
 }
-.applicant-card{
+
+.applicant-card {
   position: absolute;
   top: 50px;
-  left: 20%; 
+  left: 20%;
   width: 100% !important;
   max-width: 65%;
   background-color: #fff !important;
 }
-.tbody-res{
+
+.tbody-res {
   padding: 0 !important;
 }

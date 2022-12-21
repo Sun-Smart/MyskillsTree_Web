@@ -162,6 +162,27 @@
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
 
+        <div *ngFor="let item of showData, index of i" [ngClass]="{ 'active' : 'listView-card'}" style="margin: 10px;">
+          <div style="display: flex;padding: 5px;margin: 0px 0px -7px 9px;">
+            <img src="assets/profile.jpeg" alt="">
+            <ul>
+              <li style="color: #000;font-weight: 600;">{{item.firstname}} {{item.lastname}}</li>
+              <li>{{item.emailid}}</li>
+              <li>{{item.mobilenumber}}</li>
+            </ul>
+          </div>
+          <div>
+            <p style="font-size: 12px;margin: 0px 70px;color: #9ba0a5;"><span
+                style="color:#000;font-weight: 600;">Skills
+                :
+              </span>{{item.skills}}</p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="listView-content" *ngIf="showList" style="max-height: 350px !important;overflow-y: scroll;">
+        <h5>Profiles Matching Search Criteria</h5>
+        <label for="">Matching profile</label>
+
         <div *ngFor="let item of listView, index of i" [ngClass]="{ 'active' : 'listView-card'}" style="margin: 10px;">
           <div style="display: flex;padding: 5px;margin: 0px 0px -7px 9px;">
             <img src="assets/profile.jpeg" alt="">
@@ -178,7 +199,7 @@
               </span>{{item.skills}}</p>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Grid View -->
 
@@ -191,19 +212,20 @@
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">#</th>
+                <th scope="col">Profile</th>
                 <th scope="col">NAME</th>
-                <th scope="col">DESIGNATION</th>
-                <th scope="col">CITY</th>
-                <th scope="col"></th>
+                <th scope="col">Email ID</th>
+                <th scope="col">Mobile Number</th>
+                <th scope="col">Skills</th>
               </tr>
             </thead>
-            <tbody *ngFor="let item of listView, index of i">
+            <tbody *ngFor="let item of showData;">
               <tr>
                 <td><img src="assets/profile.jpeg" alt="" style="width: 7%;"></td>
-                <td>{{item.name}}</td>
-                <td>{{item.designation}}</td>
-                <td>{{item.city}}</td>
+                <td>{{item.firstname}} {{item.lastname}}</td>
+                <td>{{item.emailid}}</td>
+                <td>{{item.mobilenumber}}</td>
+                <td>{{item.skills}}</td>
               </tr>
             </tbody>
           </table>
@@ -217,12 +239,13 @@
         <label for="">Matching profile</label>
 
         <div class="card-view">
-          <div *ngFor="let item of cardView, index of i">
+          <div *ngFor="let item of showData, index of i">
             <img src="assets/profile.jpeg" alt="">
             <ul>
-              <li style="color: #000;font-weight: 600;">{{item.name}}</li>
-              <li>{{item.designation}}</li>
-              <li>{{item.city}}</li>
+              <li style="color: #000;font-weight: 600;">{{item.firstname}} {{item.lastname}}</li>
+              <li>{{item.emailid}}</li>
+              <li>{{item.mobilenumber}}</li>
+              <li>{{item.skills}}</li>
             </ul>
           </div>
         </div>

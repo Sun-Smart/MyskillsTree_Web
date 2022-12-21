@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -175,13 +176,32 @@ export class NewskillsearchComponent implements OnInit {
 
     }
   ]
+  showData: any;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     // alert();
-   }
+  }
 
   ngOnInit(): void {
-    // alert('');
+    let data = {
+      id: "mstsr",
+      SessionUser: "ss",
+      parameters: null,
+      addparams: null,
+      status: "all",
+      fkname: "",
+      fk: "",
+      fkname1: "",
+      fk1: "",
+      modulename: "",
+      modulepkcol: "",
+      key: "",
+      pkvalue: 0
+    }
+    this.http.post('https://demo.herbie.ai/MySkillTreeapi/api/ReportViewer', data).subscribe((res: any) => {
+      this.showData = res.results.Rows;
+      console.log(this.showData);
+    })
   }
   onList() {
     this.showList = true;
