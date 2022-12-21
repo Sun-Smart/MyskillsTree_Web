@@ -1,4 +1,5 @@
-<div *ngIf="showheader" class="row layout-topbar ng-header p-shadow-4 ng-tns-c186-0 headerClass" [ngClass]="">
+<div *ngIf="showheader" class="row layout-topbar ng-header p-shadow-4 ng-tns-c186-0 headerClass"
+  [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
   <div class="col-3 layout-topbar-left ng-tns-c186-0" style="align-items: self-end;">
     <a routerlink="" class="layout-topbar-logo ng-tns-c186-0" href="javascript:void(0)"><img class="logo-2"
         src="assets/companylogo.png" /> </a>
@@ -107,338 +108,321 @@
               </li> -->
         <!-- <a href="http://localhost:4200/#/home/boreportviewer/aj5qt">Visit W3Schools</a> -->
 
-       <!-- master -->
-       <li *ngIf="showAdminMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
-       style="list-style: none; color:black;">
+        <!-- master -->
+        <li *ngIf="showAdminMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
+          style="list-style: none; color:black;">
 
 
-       <label class="dropdown">
+          <label class="dropdown">
 
-           <div>
-               <i class="fa fa-folder-open-o fa1
+            <div>
+              <i class="fa fa-folder-open-o fa1
                " aria-hidden="true" style="margin-left:10px; font-size: 24px !important; margin-top: 6px;"
-                   (click)="openpopup()"></i>
-               <span class="p-ink" style="height: 44px; width: 44px; "></span>
-           </div>
+                (click)="openpopup()"></i>
+              <span class="p-ink" style="height: 44px; width: 44px; "></span>
+            </div>
 
-           <input type="checkbox" class="dd-input" id="test">
+            <input type="checkbox" class="dd-input" id="test">
 
-           <ul class="dd-menu" *ngIf="menuhide" style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
-               <div style="display: flex;justify-content: center;" class="row">
+            <ul class="dd-menu" *ngIf="menuhide"
+              style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
+              <div style="display: flex;justify-content: center;" class="row">
 
-                   <div class="col-12">
-                       <button type="button" (click)="closePopup();"
-                           class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                           style="float: right; margin:0px;padding-left: 44rem; ">
-                           <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
-                               style="color: red !important; font-size: 20PX;"></span>
-                       </button>
-                   </div>
+                <div class="col-12">
+                  <button type="button" (click)="closePopup();"
+                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                    style="float: right; margin:0px;padding-left: 44rem; ">
+                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
+                      style="color: red !important; font-size: 20PX;"></span>
+                  </button>
+                </div>
 
-                   <!-- [routerLink]="['/home/boreportviewer/mcm']" routerLinkActive="router-link-active" -->
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/MAM']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2">
-                           <i class="fa fa-user-secret fa1" aria-hidden="true"></i><br />
-                            Applicant Masters</li></a>
-                   </div>
+                <!-- [routerLink]="['/home/boreportviewer/mcm']" routerLinkActive="router-link-active" -->
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/MAM']" routerLinkActive="router-link-active">
+                    <li class="li2">
+                      <i class="fa fa-user-secret fa1" aria-hidden="true"></i><br />
+                      Applicant Masters
+                    </li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                       [routerLink]="['/home/boreportviewer/mcm']"
-                       routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Corporate Masters</li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/mcm']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Corporate Masters</li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/arrA']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-retweet fa1" aria-hidden="true"></i><br /> References</li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/arrA']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-retweet fa1" aria-hidden="true"></i><br /> References</li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;"><a
-                       [routerLink]="['/home/boreportviewer/jobq']"
-                       routerLinkActive="router-link-active ">
-                       <li class="li2"><i class="fa fa-id-badge fa1" aria-hidden="true"></i><br /> Job Requirements</li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center;"><a [routerLink]="['/home/boreportviewer/jobq']"
+                    routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-id-badge fa1" aria-hidden="true"></i><br /> Job Requirements</li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;"><a
-                       [routerLink]="['/home/boreportviewer/aadl']"
-                       routerLinkActive="router-link-active ">
-                       <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Achievement Details</li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center;"><a [routerLink]="['/home/boreportviewer/aadl']"
+                    routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Achievement Details</li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;"><a
-                       [routerLink]="['/home/boreportviewer/acdl']"
-                       routerLinkActive="router-link-active ">
-                       <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Career Details</li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center;"><a [routerLink]="['/home/boreportviewer/acdl']"
+                    routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Career Details
+                    </li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/aed']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Education Details</li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/aed']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Education Details
+                    </li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc " style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/agp']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Geography Preferences</li></a>
-                   </div>
+                <div class="col-4 card abc " style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/agp']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Geography Preferences</li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/ald']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-language fa1" aria-hidden="true"></i><br /> Language Details</li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/ald']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-language fa1" aria-hidden="true"></i><br /> Language Details</li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/ASMD']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Social Media Details</li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/ASMD']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Social Media Details
+                    </li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/AWR']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-file-powerpoint-o fa1" aria-hidden="true"></i><br /> Projects</li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/AWR']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-file-powerpoint-o fa1" aria-hidden="true"></i><br /> Projects</li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/psd']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Profile Access Details
-                       </li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/psd']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Profile Access Details
+                    </li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/pcm']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-laptop fa1" aria-hidden="true"></i><br /> Profile Completion Masters
-                       </li></a>
-                   </div>
-               </div>
-           </ul>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/pcm']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-laptop fa1" aria-hidden="true"></i><br /> Profile Completion Masters
+                    </li>
+                  </a>
+                </div>
+              </div>
+            </ul>
 
-       </label>
-   </li>
-   <!-- end -->
-   <!-- report -->
-   <li *ngIf="showAdminMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
-       style="list-style: none; color:black;">
+          </label>
+        </li>
+        <!-- end -->
+        <!-- report -->
+        <li *ngIf="showAdminMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
+          style="list-style: none; color:black;">
 
 
-       <label class="dropdown">
+          <label class="dropdown">
 
-           <div class="">
+            <div class="">
 
-               <i class="fa fa-th fa1" aria-hidden="true"
-                   style="font-size:24px !important; margin-top: 10px !important; margin-left: 20px; "
-                   (click)="openpopup()"></i>
-               <span class="p-ink" style="height: 44px; width: 44px;"></span>
-           </div>
+              <i class="fa fa-th fa1" aria-hidden="true"
+                style="font-size:24px !important; margin-top: 10px !important; margin-left: 20px; "
+                (click)="openpopup()"></i>
+              <span class="p-ink" style="height: 44px; width: 44px;"></span>
+            </div>
 
-           <input type="checkbox" class="dd-input" id="test">
+            <input type="checkbox" class="dd-input" id="test">
 
-           <ul class="dd-menu" *ngIf="menuhide" style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
-               <div style="display: flex;justify-content: center;" class="row">
+            <ul class="dd-menu" *ngIf="menuhide"
+              style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
+              <div style="display: flex;justify-content: center;" class="row">
 
-                   <div class="col-12">
-                       <button type="button" (click)="closePopup();"
-                           class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                           style="float: right; margin:0px;padding-left: 44rem; ">
-                           <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
-                               style="color: red !important; font-size: 20PX;"></span>
-                       </button>
-                   </div>
+                <div class="col-12">
+                  <button type="button" (click)="closePopup();"
+                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                    style="float: right; margin:0px;padding-left: 44rem; ">
+                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
+                      style="color: red !important; font-size: 20PX;"></span>
+                  </button>
+                </div>
 
 
 
-                   <!-- <div class="col-4 card abc" style="text-align:center; ">
+                <!-- <div class="col-4 card abc" style="text-align:center; ">
                        <li><i class="fa fa-building fa1" aria-hidden="true"></i><br /><a
                                [routerLink]="['/home/boreportviewer/v2mgx']"
                                routerLinkActive="router-link-active"> Master Data Type</a></li>
                    </div> -->
-                   <div class="col-4 card abc" style="text-align:center; ">
-                       <a [routerLink]="['/home/boreportviewer/whwfe']"
-                               routerLinkActive="router-link-active"></a>
-                       <li class="li2"><i class="fa fa-building fa1" aria-hidden="true"></i>
-                           <br /> Company Masters
-                       </li>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center; ">
-                       <a
-                               [routerLink]="['/home/boreportviewer/v2mgx']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-database fa1" aria-hidden="true"></i><br /> Master Data Type</li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/aj5qt']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-table fa1" aria-hidden="true"></i><br /> Master Data</li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center; ">
+                  <a [routerLink]="['/home/boreportviewer/whwfe']" routerLinkActive="router-link-active"></a>
+                  <li class="li2"><i class="fa fa-building fa1" aria-hidden="true"></i>
+                    <br /> Company Masters
+                  </li>
+                </div>
+                <div class="col-4 card abc" style="text-align:center; ">
+                  <a [routerLink]="['/home/boreportviewer/v2mgx']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-database fa1" aria-hidden="true"></i><br /> Master Data Type</li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/aj5qt']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-table fa1" aria-hidden="true"></i><br /> Master Data</li>
+                  </a>
+                </div>
 
 
 
 
-                   <!-- <div class="row" style=" font-size: 1rem;border-style: 1px solid gray;"> -->
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a [routerLink]="['/home/boreportviewer/aj5q']"
-                               routerLinkActive="router-link-activet">
-                       <li class="li2"><i class="fa fa-check-square fa1" aria-hidden="true"></i>
-                           <br /> Config Values
-                       </li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/674']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-cc fa1" aria-hidden="true"></i><br /> Subcategory Masters</li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/wc9rn']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Countries</li></a>
-                   </div>
-                   <!-- </div> -->
+                <!-- <div class="row" style=" font-size: 1rem;border-style: 1px solid gray;"> -->
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/aj5q']" routerLinkActive="router-link-activet">
+                    <li class="li2"><i class="fa fa-check-square fa1" aria-hidden="true"></i>
+                      <br /> Config Values
+                    </li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/674']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-cc fa1" aria-hidden="true"></i><br /> Subcategory Masters</li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/wc9rn']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Countries</li>
+                  </a>
+                </div>
+                <!-- </div> -->
 
 
 
-                   <!-- <div class="row" style=" font-size: 1rem;"> -->
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/segmt']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-cc-mastercard fa1" aria-hidden="true"></i><br /> Segment Masters</li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/terms']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-trademark fa1" aria-hidden="true"></i><br /> Terms </li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/e99kq']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-user-secret fa1" aria-hidden="true"></i><br /> User Master</li></a>
-                   </div>
-                   <!-- </div> -->
+                <!-- <div class="row" style=" font-size: 1rem;"> -->
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/segmt']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-cc-mastercard fa1" aria-hidden="true"></i><br /> Segment Masters
+                    </li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/terms']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-trademark fa1" aria-hidden="true"></i><br /> Terms </li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/e99kq']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-user-secret fa1" aria-hidden="true"></i><br /> User Master</li>
+                  </a>
+                </div>
+                <!-- </div> -->
 
 
-                   <!-- <div class="row" style="font-size: 1rem;"> -->
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/tnf39']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> User Roles</li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/zkpxi']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-empire fa1" aria-hidden="true"></i><br /> Templates</li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/zzhpb']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-file fa1" aria-hidden="true"></i><br /> Reports</li></a>
-                   </div>
-                   <!-- </div> -->
+                <!-- <div class="row" style="font-size: 1rem;"> -->
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/tnf39']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> User Roles</li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/zkpxi']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-empire fa1" aria-hidden="true"></i><br /> Templates</li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/zzhpb']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-file fa1" aria-hidden="true"></i><br /> Reports</li>
+                  </a>
+                </div>
+                <!-- </div> -->
 
 
-                   <!-- <div class="row" style="font-size: 1rem;"> -->
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/ybg3p']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-tachometer fa1" aria-hidden="true"></i><br /> Dashboards</li></a>
-                   </div>
-                   <!-- </div> -->
+                <!-- <div class="row" style="font-size: 1rem;"> -->
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/ybg3p']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-tachometer fa1" aria-hidden="true"></i><br /> Dashboards</li>
+                  </a>
+                </div>
+                <!-- </div> -->
 
-               </div>
+              </div>
 
 
 
 
 
 
-           </ul>
+            </ul>
 
-       </label>
-   </li>
-   <!-- end -->
-   <!-- Corporate -->
-   <li *ngIf="showCorporateMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
-       style="list-style: none; color:black;">
+          </label>
+        </li>
+        <!-- end -->
+        <!-- Corporate -->
+        <li *ngIf="showCorporateMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
+          style="list-style: none; color:black;">
 
 
-       <label class="dropdown">
+          <label class="dropdown">
 
-           <div class="">
-               <i class="fa fa-copyright
+            <div class="">
+              <i class="fa fa-copyright
                " aria-hidden="true" style="margin-left:10px; font-size: 24px !important; margin-top: 6px;"
-                   (click)="openpopup()"></i>
-               <span class="p-ink" style="height: 44px; width: 44px; "></span>
-           </div>
+                (click)="openpopup()"></i>
+              <span class="p-ink" style="height: 44px; width: 44px; "></span>
+            </div>
 
-           <input type="checkbox" class="dd-input" id="test">
+            <input type="checkbox" class="dd-input" id="test">
 
-           <ul class="dd-menu" *ngIf="menuhide"
-           style="width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;">
-           <div style="display: flex;justify-content: center;" class="row">
-               <div class="col-12">
-                   <button type="button" pripple (click)="closePopup();"
-                       class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                       style="float: right; margin:0px; padding-left: 41rem;">
-                       <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5" aria-hidden="false"
-                           style="color: red !important; font-size: 24px;"></span>
-                   </button>
-               </div>
-
-
-
-
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/mcm']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Corporate Masters</li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/jobq']"
-                               routerLinkActive="router-link-active ">
-                       <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Job requirements</li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/arrA']"
-                               routerLinkActive="router-link-active ">
-                       <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Requested References</li></a>
-                   </div>
+            <ul class="dd-menu" *ngIf="menuhide"
+              style="width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;">
+              <div style="display: flex;justify-content: center;" class="row">
+                <div class="col-12">
+                  <button type="button" pripple (click)="closePopup();"
+                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                    style="float: right; margin:0px; padding-left: 41rem;">
+                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5" aria-hidden="false"
+                      style="color: red !important; font-size: 24px;"></span>
+                  </button>
+                </div>
 
 
 
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/newskillsearch']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Skill search</li></a>
-                   </div>
+
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/mcm']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Corporate Masters
+                    </li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/jobq']" routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Job requirements</li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/arrA']" routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Requested
+                      References</li>
+                  </a>
+                </div>
+
+
+
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/newskillsearch']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Skill search</li>
+                  </a>
+                </div>
 
 
 
@@ -447,92 +431,88 @@
 
 
 
-               </div>
-           </ul>
+              </div>
+            </ul>
 
-       </label>
-   </li>
-   <!-- reports -->
-   <li *ngIf="showCorporateMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
-       style="list-style: none; color:black;">
+          </label>
+        </li>
+        <!-- reports -->
+        <li *ngIf="showCorporateMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
+          style="list-style: none; color:black;">
 
 
-       <label class="dropdown">
+          <label class="dropdown">
 
-           <div class="">
-               <i class="fa fa-folder-open-o fa1
+            <div class="">
+              <i class="fa fa-folder-open-o fa1
                " aria-hidden="true" style="margin-left:10px; font-size: 24px !important; margin-top: 6px;"
-                   (click)="openpopup()"></i>
-               <span class="p-ink" style="height: 44px; width: 44px; "></span>
-           </div>
+                (click)="openpopup()"></i>
+              <span class="p-ink" style="height: 44px; width: 44px; "></span>
+            </div>
 
-           <input type="checkbox" class="dd-input" id="test">
+            <input type="checkbox" class="dd-input" id="test">
 
-           <ul class="dd-menu" *ngIf="menuhide"
-               style="width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;">
-               <div style="display: flex;justify-content: center;" class="row">
-                   <div class="col-12">
-                       <button type="button" pripple (click)="closePopup();"
-                           class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                           style="float: right; margin:0px; padding-left: 41rem;">
-                           <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5" aria-hidden="false"
-                               style="color: red !important; font-size: 24px;"></span>
-                       </button>
-                   </div>
-
-
-
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                       [routerLink]="['/home/boreportviewer/aed']"
-                       routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br />Education Details</li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/aadl']"
-                               routerLinkActive="router-link-active ">
-                       <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Achievement Details</li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/acdl']"
-                               routerLinkActive="router-link-active ">
-                       <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Career Details</li></a>
-                   </div>
+            <ul class="dd-menu" *ngIf="menuhide"
+              style="width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;">
+              <div style="display: flex;justify-content: center;" class="row">
+                <div class="col-12">
+                  <button type="button" pripple (click)="closePopup();"
+                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                    style="float: right; margin:0px; padding-left: 41rem;">
+                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5" aria-hidden="false"
+                      style="color: red !important; font-size: 24px;"></span>
+                  </button>
+                </div>
 
 
 
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/aed']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br />Education Details
+                    </li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/aadl']" routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Achievement Details</li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/acdl']" routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Career Details
+                    </li>
+                  </a>
+                </div>
 
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/ASMD']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Social Media Details</li></a>
-                   </div>
-                   <div class="col-4 card abc " style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/agp']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Geography Preferences</li></a>
-                   </div>
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/ald']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-language fa1" aria-hidden="true"></i><br /> Language Details</li></a>
-                   </div>
+
+
+
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/ASMD']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Social Media Details
+                    </li>
+                  </a>
+                </div>
+                <div class="col-4 card abc " style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/agp']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Geography Preferences</li>
+                  </a>
+                </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/ald']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-language fa1" aria-hidden="true"></i><br /> Language Details</li>
+                  </a>
+                </div>
 
 
 
 
 
-                   <div class="col-4 card abc" style="text-align:center;">
-                       <a
-                               [routerLink]="['/home/boreportviewer/AWR']"
-                               routerLinkActive="router-link-active">
-                       <li class="li2"><i class="fa fa-file-powerpoint-o fa1" aria-hidden="true"></i><br /> Projects</li></a>
-                   </div>
+                <div class="col-4 card abc" style="text-align:center;">
+                  <a [routerLink]="['/home/boreportviewer/AWR']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-file-powerpoint-o fa1" aria-hidden="true"></i><br /> Projects</li>
+                  </a>
+                </div>
 
 
 
@@ -540,13 +520,13 @@
 
 
 
-               </div>
-           </ul>
+              </div>
+            </ul>
 
-       </label>
-   </li>
+          </label>
+        </li>
 
-   <!-- end -->
+        <!-- end -->
 
         <li class="layout-topbar-item ng-tns-c186-0">
           <a pripple=""

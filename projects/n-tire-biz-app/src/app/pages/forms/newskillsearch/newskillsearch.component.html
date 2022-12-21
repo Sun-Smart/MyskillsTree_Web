@@ -9,10 +9,10 @@
                   aria-describedby="inputGroup-sizing-default" style="border-radius: 30px;margin: 1% 15%;">
           </div>
       </div> -->
-    <div class="col-8" style="display:flex; justify-content:center; align-items:center;padding: 1rem 5rem;">
+    <div class="col-8" style="display:flex; justify-content:center; align-items:center;padding: 1rem 10rem;">
       <i class="fa fa-search search-icon" aria-hidden="true"></i>
-      <input type="text" class="form-control" placeholder="Search" style="border-radius:30px !important;"
-        [(ngModel)]="term">
+      <input type="text" class="form-control" placeholder="Search"
+        style="border-radius:30px !important;padding: 0 40px;" [(ngModel)]="term">
       <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
     </div>
     <!-- <div class="col-2 header-right">
@@ -191,17 +191,17 @@
           <table class="table">
             <thead>
               <tr>
-                <th scope="col">Profile</th>
+                <!-- <th scope="col">Profile</th> -->
                 <th scope="col">NAME</th>
                 <th scope="col">Email ID</th>
                 <th scope="col">Mobile Number</th>
                 <th scope="col">Skills</th>
               </tr>
             </thead>
-            <tbody *ngFor="let item of showData | filter:term">
+            <tbody *ngFor="let item of showData | filter:term" style="line-height: 3rem;">
               <tr>
-                <td><img src="assets/profile.jpeg" alt="" style="width: 20%;border-radius: 50% !important;"></td>
-                <td>{{item.firstname}} {{item.lastname}}</td>
+                <td><img src="assets/profile.jpeg" alt=""
+                    style="width: 10%;border-radius: 50% !important;">&nbsp;{{item.firstname}} {{item.lastname}}</td>
                 <td>{{item.emailid}}</td>
                 <td>{{item.mobilenumber}}</td>
                 <td>{{item.skills}}</td>
