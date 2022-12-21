@@ -31,10 +31,10 @@
             (click)="showMenus()"></i>
           <div class="card applicant-card" *ngIf="showmenulist"
             style="position: absolute;top: 50px;left: 20%;background-color: #fff !important;">
-
+            <div *ngIf="appmenu">
             <div class="row" *ngIf="!menuvisible" style="margin: 4px !important;">
               <div class="col-12 applicant-menu-icon" style="color: red;text-align: end;padding:0 5px;">
-                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                <i class="fa fa-times-circle" aria-hidden="true" (click)="closeicon()"></i>
               </div>
               <div class="col-6 applicant-menu">
                 <a class="icon" [routerLink]='' (click)="openApplicant()">
@@ -60,7 +60,7 @@
               </div>
             </div>
 
-
+            </div>
 
             <!-- <ul *ngIf="!menuvisible" class="nav nav-pills input-group">
                           <li class="nav-item ">

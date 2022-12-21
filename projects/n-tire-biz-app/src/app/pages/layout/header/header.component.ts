@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
   showAdminMenuaccess: boolean = false;
   showCorporateMenuaccess: boolean = false;
   hideCorporatePage: boolean = false;
+  appmenu: boolean;
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
@@ -298,8 +299,13 @@ export class HeaderComponent implements OnInit {
             elem.href = 'node_modules/primeng/resources/themes/'+theme+'/theme.css';
            */
   }
+  closeicon(){
+    debugger
+    this.appmenu=false
+  }
   showMenus() {
     this.showmenulist = !this.showmenulist;
+    this.appmenu=true
     this.showhideProfile = false;
   }
   showProfileDetails() {
