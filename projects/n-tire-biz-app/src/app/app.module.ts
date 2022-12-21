@@ -98,6 +98,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { ApplicantregisterComponent } from './pages/forms/applicantregister/applicantregister.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -155,7 +156,7 @@ export function tokenGetter() {
         // Default values: `idle` is 600 (10 minutes), `timeout` is 300 (5 minutes)
         // and `ping` is 120 (2 minutes).
         UserIdleModule.forRoot({ idle: 6000, timeout: 3000, ping: 1200 }),
-
+        Ng2SearchPipeModule,
 
         //WebcamModule,
         JwtModule.forRoot({
