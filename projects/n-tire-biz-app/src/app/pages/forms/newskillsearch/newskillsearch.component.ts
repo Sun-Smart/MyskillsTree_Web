@@ -12,6 +12,7 @@ export class NewskillsearchComponent implements OnInit {
   showCard: boolean = false;
   showData: any;
   emailid = "";
+  raio: any;
   constructor(private http: HttpClient) {
   }
 
@@ -51,5 +52,7 @@ export class NewskillsearchComponent implements OnInit {
     this.showList = false;
     this.showGrid = false;
   }
-
+  rangeChange(event) {
+    this.raio = event.target.value;
+ }
 }
