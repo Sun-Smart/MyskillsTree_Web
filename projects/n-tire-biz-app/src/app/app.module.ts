@@ -98,6 +98,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { ApplicantregisterComponent } from './pages/forms/applicantregister/applicantregister.component';
+import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -117,7 +118,7 @@ export function tokenGetter() {
         ApplicantregisterComponent,
         mainComponent,
         RegisterComponent,
-        RegisterUserComponent,
+        RegisterUserComponent,VerifyscreenComponent,
         EmailVerificationComponent, ForgotPasswordComponent, ResendEmailVerificationComponent, ResetPasswordComponent,
 
         //bokbmasterComponent,

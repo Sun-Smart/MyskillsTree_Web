@@ -51,6 +51,7 @@ import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.s
 import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mstapplicanteducationdetail } from '../../../model/mstapplicanteducationdetail.model';
+import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 
 
 @Component({
@@ -111,6 +112,7 @@ import { mstapplicanteducationdetail } from '../../../model/mstapplicanteducatio
                     <!-- <th style="width: 13%;">Referral Status</th> -->
                     <th style="width: 11%;">Remarks</th>
                     <th style="width: 11%;">To Year</th>
+                    <th style="width: 11%;">Attachment</th>
                     <th style="width: 11%;">Action</th>
                     </tr>
                 </thead>
@@ -176,6 +178,16 @@ import { mstapplicanteducationdetail } from '../../../model/mstapplicanteducatio
                     <!-- <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor> -->
                     </td>
 
+                    <!-- Attachment -->
+
+                    <td>
+                    <p-accordion [multiple]='true'>
+                      <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+                        <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+                        </app-attachment>
+                      </p-accordionTab>
+                    </p-accordion>
+                    </td>
                     <!-- To Year -->
 
                     <td>
@@ -226,6 +238,9 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   bfilterPopulate_mstapplicanteducationdetails: boolean = false;
   mstapplicanteducationdetail_menuactions: any = []
   @ViewChild('tbl_mstapplicanteducationdetails', { static: false }) tbl_mstapplicanteducationdetails: Ng2SmartTableComponent;
+  readonly AttachmentURL = AppConstants.AttachmentURL;
+  readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
+  @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
 
   mstapplicanteducationdetails_visiblelist: any;
   mstapplicanteducationdetails_hidelist: any;
@@ -269,6 +284,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   r2: any;
   r3: any;
   showSkillDetails_input: boolean = false;
+  showview: boolean = false;
   constructor(
     private nav: Location,
     private translate: TranslateService,
@@ -402,13 +418,23 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     console.log(this.mstapplicanteducationdetail_Form);
     this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
 
-    // this.spinner.show();
-    this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
+      if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+      this.fileAttachmentList = this.fileattachment.getAllFiles();
+      console.log(this.formData);
+      this.spinner.show();
+      this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
       async res => {
+        await this.sharedService.upload(this.fileAttachmentList);
+        this.attachmentlist = [];
+        if (this.fileattachment) this.fileattachment.clear();
         this.spinner.hide();
+        debugger;
         this.toastr.addSingle("success", "", "Successfully saved");
+        this.sessionService.setItem("attachedsaved", "true")
         this.objvalues.push((res as any).mstapplicanteducationdetail);
         this.ngOnInit();
+        this.objvalues.push((res as any).mstapplicanteducationdetail);
+        if (!bclear) this.showview = true;
         if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
         if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
           this.dialogRef.close(this.objvalues);
@@ -424,6 +450,9 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
           if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
             this.objvalues.push((res as any).mstapplicanteducationdetail);
             this.dialogRef.close(this.objvalues);
+          }
+          else {
+            // this.FillData(res);
           }
         }
       });

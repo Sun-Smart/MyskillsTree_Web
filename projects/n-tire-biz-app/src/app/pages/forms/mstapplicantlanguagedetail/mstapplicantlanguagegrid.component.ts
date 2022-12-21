@@ -52,6 +52,7 @@ import { mstapplicantlanguagedetailService } from '../../../service/mstapplicant
 import { mstapplicantlanguagedetailComponent } from './mstapplicantlanguagedetail.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mstapplicantlanguagedetail } from '../../../model/mstapplicantlanguagedetail.model';
+import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 
 
 @Component({
@@ -90,7 +91,7 @@ import { mstapplicantlanguagedetail } from '../../../model/mstapplicantlanguaged
                 [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
                  title = "Add Details">Add</button>
 
-                 <button (click)="addSkills()" >Add 1</button>
+                 <!-- <button (click)="addSkills()" >Add 1</button> -->
                 <!-- </a> -->
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
@@ -110,6 +111,7 @@ import { mstapplicantlanguagedetail } from '../../../model/mstapplicantlanguaged
       <th style="width: 10.6%;">Speak Proficiency</th>
       <th style="width: 29.6%;">Rating</th>
       <th style="width: 31.5%;">Remarks</th>
+      <th style="width: 31.5%;">Attachment</th>
       <!--<th>Attachment</th>-->
       <th style="text-align: -webkit-center;">Action</th>
     </tr>
@@ -159,6 +161,17 @@ import { mstapplicantlanguagedetail } from '../../../model/mstapplicantlanguaged
         <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="achievementdetails" required
         formControlName="remarks" class="form-control">
         </textarea>
+        </td>
+
+        <!-- Attachment -->
+
+        <td>
+        <p-accordion [multiple]='true'>
+        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+          <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+          </app-attachment>
+        </p-accordionTab>
+      </p-accordion>
         </td>
 
         <!-- Submit & Close -->
@@ -215,12 +228,22 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     bSingleRecord: boolean;
     showSkillDetails_input: boolean = false;
     isSubmitted: boolean = false;
+    showview: boolean = false;//view or edit mode
 
     applicantid: any;
     data: any;
     maindata: any;
     hidelist: any = [];
     objvalues: any = [];
+    readonly AttachmentURL = AppConstants.AttachmentURL;
+    readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
+    @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
+    attachmentFieldJson: any[] = [];
+    attachmentVisible: boolean = true;
+    SESSIONUSERID: any;//current user
+
+    sessionData: any;
+    sourceKey: any;
 
     constructor(
         private nav: Location,
@@ -340,16 +363,44 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         let strError = "";
 
         this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
+        if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+        this.fileAttachmentList = this.fileattachment.getAllFiles();
         console.log(this.formData);
-        this.spinner.show();
+        this.spinner.show();;
         this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe(
             async res => {
+                await this.sharedService.upload(this.fileAttachmentList);
+                this.attachmentlist = [];
+                if (this.fileattachment) this.fileattachment.clear();
                 this.spinner.hide();
+                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.sessionService.setItem("attachedsaved", "true")
                 this.objvalues.push((res as any).mstapplicantlanguagedetail);
-                this.resetForm();
-                this.ngOnInit();
+                this.ngOnInit()
+                if (!bclear) this.showview = true;
+                if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+                if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                    this.dialogRef.close(this.objvalues);
+                    return;
+                }
+                else {
+                    if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+                }
+                if (bclear) {
+                    this.resetForm();
+                }
+                else {
+                    if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                        this.objvalues.push((res as any).mstapplicantlanguagedetail);
+                        this.dialogRef.close(this.objvalues);
+                    }
+                    else {
+                        // this.FillData(res);
+                    }
+                }
+                this.mstapplicantlanguagedetail_Form.markAsUntouched();
+                this.mstapplicantlanguagedetail_Form.markAsPristine();
             });
     }
 
@@ -424,6 +475,35 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByApplicantID(this.applicantid).then(res => {
             this.mstapplicantlanguagedetails_LoadTable(res);
         });
+
+        
+        // this.formData = res.mstapplicantlanguagedetail;
+        // this.formid = res.mstapplicantlanguagedetail.languageid;
+        // this.pkcol = res.mstapplicantlanguagedetail.pkcol;
+        // this.bmyrecord = false;
+        // if ((res.mstapplicantlanguagedetail as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
+        // console.log(res);
+        // //console.log(res.order);
+        // //console.log(res.orderDetails);
+        // this.mstapplicantlanguagedetail_Form.patchValue({
+        //     applicantid: res.mstapplicantlanguagedetail.applicantid,
+        //     applicantiddesc: res.mstapplicantlanguagedetail.applicantiddesc,
+        //     languageid: res.mstapplicantlanguagedetail.languageid,
+        //     language: res.mstapplicantlanguagedetail.language,
+        //     languagedesc: res.mstapplicantlanguagedetail.languagedesc,
+        //     readproficiency: res.mstapplicantlanguagedetail.readproficiency,
+        //     writeproficiency: res.mstapplicantlanguagedetail.writeproficiency,
+        //     speakproficiency: res.mstapplicantlanguagedetail.speakproficiency,
+        //     overallrating: res.mstapplicantlanguagedetail.overallrating,
+        //     remarks: res.mstapplicantlanguagedetail.remarks,
+        //     attachment: JSON.parse(res.mstapplicantlanguagedetail.attachment),
+        //     status: res.mstapplicantlanguagedetail.status,
+        //     statusdesc: res.mstapplicantlanguagedetail.statusdesc,
+        // });
+        // this.mstapplicantlanguagedetail_menuactions = res.mstapplicantlanguagedetail_menuactions;
+        // if (this.mstapplicantlanguagedetail_Form.get('attachment').value != null && this.mstapplicantlanguagedetail_Form.get('attachment').value != "" && this.fileattachment != null && this.fileattachment != undefined) this.fileattachment.setattachmentlist(this.mstapplicantlanguagedetail_Form.get('attachment').value);
+        // //Child Tables if any
+    
     }
     //start of Grid Codes mstapplicantlanguagedetails
     mstapplicantlanguagedetails_settings: any;

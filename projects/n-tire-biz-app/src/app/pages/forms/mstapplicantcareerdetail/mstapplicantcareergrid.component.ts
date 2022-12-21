@@ -77,11 +77,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
     <!-- <a  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"> -->
     <!-- <button type="button" style="border-color: #fff !important;
-    color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
-    <!-- <button type="button" class="btn btn-outline-primary"  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"
-    class="popup-add-button" title = "Add Details">Add</button> -->
+    color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button>  -->
+    <button type="button" class="btn btn-outline-primary"  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"
+    class="popup-add-button" title = "Add Details">Add</button>
 
-    <button type="button"  class="popup-add-button" (click)="addSkills()">Add</button>
+    <!-- <button type="button"  class="popup-add-button" (click)="addSkills()">Add</button> -->
     <!-- </a> -->
     <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
@@ -106,6 +106,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       <th style="width: 12.5%;">To Date</th>
       <th style="width: 12.5%;">Skills</th>
       <th style="width: 12.5%;">Remarks</th>
+      <th style="width: 12.5%;">Attachment</th>
       <th style="width: 12.5%;">Action</th>
     </tr>
   </thead>
@@ -182,6 +183,17 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <!-- <label for="remarks" class="control-label">Remarks</label> -->
        <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
        <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '20' }"></p-editor> -->
+     </td>
+
+     <!-- Attachment -->
+
+     <td>
+     <p-accordion [multiple]='true'>
+        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+          <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+          </app-attachment>
+        </p-accordionTab>
+      </p-accordion>
      </td>
 
     <!-- Submit -->
@@ -502,23 +514,46 @@ export class mstapplicantcareergridComponent implements OnInit {
         } else {
 
             if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
-            // if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.mstapplicantcareerdetail_Form.get('skills').value);
-            //   if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-            //   this.fileAttachmentList = this.fileattachment.getAllFiles();
+            if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.mstapplicantcareerdetail_Form.get('skills').value);
+              if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+              this.fileAttachmentList = this.fileattachment.getAllFiles();
             console.log(this.formData);
             this.spinner.show();
             this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
                 async res => {
-                    //   await this.sharedService.upload(this.fileAttachmentList);
-                    //   this.attachmentlist = [];
-                    //   if (this.fileattachment) this.fileattachment.clear();
+                      await this.sharedService.upload(this.fileAttachmentList);
+                      this.attachmentlist = [];
+                      if (this.fileattachment) this.fileattachment.clear();
                     this.spinner.hide();
                     debugger;
                     this.toastr.addSingle("success", "", "Successfully saved");
                     this.sessionService.setItem("attachedsaved", "true")
                     this.objvalues.push((res as any).mstapplicantcareerdetail);
-
                     this.ngOnInit();
+                    if (!bclear) this.showview = true;
+                    if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+                    if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                      this.dialogRef.close(this.objvalues);
+                      return;
+                    }
+                    else {
+                      if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+                    }
+                    
+                    if (bclear) {
+                      this.resetForm();
+                    }
+                    else {
+                      if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                        this.objvalues.push((res as any).mstapplicantcareerdetail);
+                        this.dialogRef.close(this.objvalues);
+                      }
+                      else {
+                        this.FillData(res);
+                      }
+                    }
+
+                   
                     this.mstapplicantcareerdetail_Form.markAsUntouched();
                     this.mstapplicantcareerdetail_Form.markAsPristine();
                 },
@@ -643,27 +678,29 @@ export class mstapplicantcareergridComponent implements OnInit {
 
 
     AddOrEdit_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
+        debugger;
+        this.showSkillDetails_input = true;
         let add = false;
         if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        this.dialog.open(mstapplicantcareerdetailComponent,
-            {
-                data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, careerid, applicantid, visiblelist: this.mstapplicantcareerdetails_visiblelist, hidelist: this.mstapplicantcareerdetails_hidelist, ScreenType: 2 },
-            }
-        ).onClose.subscribe(res => {
-            if (res) {
-                if (add) {
-                    for (let i = 0; i < res.length; i++) {
-                        this.tbl_mstapplicantcareerdetails.source.add(res[i]);
-                    }
-                    this.tbl_mstapplicantcareerdetails.source.refresh();
-                }
-                else {
-                    this.tbl_mstapplicantcareerdetails.source.update(event.data, res[0]);
-                }
-            }
-        });
+        // this.dialog.open(mstapplicantcareerdetailComponent,
+        //     {
+        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, careerid, applicantid, visiblelist: this.mstapplicantcareerdetails_visiblelist, hidelist: this.mstapplicantcareerdetails_hidelist, ScreenType: 2 },
+        //     }
+        // ).onClose.subscribe(res => {
+        //     if (res) {
+        //         if (add) {
+        //             for (let i = 0; i < res.length; i++) {
+        //                 this.tbl_mstapplicantcareerdetails.source.add(res[i]);
+        //             }
+        //             this.tbl_mstapplicantcareerdetails.source.refresh();
+        //         }
+        //         else {
+        //             this.tbl_mstapplicantcareerdetails.source.update(event.data, res[0]);
+        //         }
+        //     }
+        // });
     }
 
     onDelete_mstapplicantcareerdetail(event: any, childID: number, i: number) {

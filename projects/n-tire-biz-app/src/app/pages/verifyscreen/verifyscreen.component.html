@@ -11,21 +11,21 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading">Login with OTP</h3><br /><br />
                     <h4 class="custom_header">We have sent to the OTP on Registered Mobile Number and Email ID.</h4>
-                    <form [formGroup]="validation_Form" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="validation_Form" (ngSubmit)="onSubmit(validation_Form)">
                     <div class="register-form">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <span>Mobile OTP</span>
-                                    <input type="text" name="mobileotp" formControlName="mobileotp" [(ngModel)]="mobileotp" [ngModelOptions]="{standalone: true}" class="form-control input-sm"
-                                        placeholder="Mobile OTP">
+                                    <input type="number" name="mobileotp" formControlName="mobileotp" class="form-control input-sm"
+                                        placeholder="Mobile OTP" onKeyPress="if(this.value.length==6) return false;" required>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12" style="margin-bottom: 1rem;">
                                 <div class="form-group">
                                     <span>Email OTP</span>
-                                    <input type="text" name="emailotp" formControlName="emailotp"  [(ngModel)]="emailotp" [ngModelOptions]="{standalone: true}" class="form-control input-sm"
-                                        placeholder="Email OTP">
+                                    <input type="number" name="emailotp" formControlName="emailotp"  class="form-control input-sm"
+                                        placeholder="Email OTP" onKeyPress="if(this.value.length==6) return false;" required>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                <button class="btn btn-info btn-block register_btn" type="button" (click)="clickCOntinue()">CONTINUE</button>
+                                <button class="btn btn-info btn-block register_btn">CONTINUE</button>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <br/>
