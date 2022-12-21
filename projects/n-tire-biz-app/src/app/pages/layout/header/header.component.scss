@@ -118,11 +118,11 @@ a:hover {
   list-style-type: none;
 }
 
-.dd-input + .dd-menu {
+.dd-input+.dd-menu {
   display: none;
 }
 
-.dd-input:checked + .dd-menu {
+.dd-input:checked+.dd-menu {
   display: block;
 }
 
@@ -153,7 +153,7 @@ a:hover {
   border-color: #e0dfdf;
 }
 
-.p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
+.p-menubar-root-list>.p-menuitem-active>p-menubarsub>.p-submenu-list {
   display: block;
   display: flex;
   flex-wrap: wrap;
@@ -163,12 +163,13 @@ a:hover {
   right: 0px;
 }
 
-.p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
+.p-menubar-root-list>.p-menuitem-active>p-menubarsub>.p-submenu-list {
   display: grid !important;
   grid-template-columns: 165px 1fr 1fr !important;
   right: 0px !important;
   height: 270px !important;
 }
+
 .abc:hover {
   background-color: #d8ecc1 !important;
 }
@@ -197,6 +198,7 @@ i1 {
 .col-4 .card:hover {
   background-color: #d8ecc1 !important;
 }
+
 .bell {
   font-size: 30px !important;
 }
@@ -204,39 +206,49 @@ i1 {
 a[_ngcontent-uuu-c401] {
   color: gray !important;
 }
+
 .headerClass[_ngcontent-uuu-c401] ul[_ngcontent-uuu-c401] li[_ngcontent-uuu-c401] {
   color: gray !important;
 }
+
 .li1 {
   text-align: center;
 }
+
 .b1 {
   color: gray !important;
 }
+
 .abcrow {
   margin-right: 10px !important;
   margin-left: 10px !important;
 }
+
 .fa1 {
   color: gray !important;
   font-size: 24px !important;
 }
+
 .search-icon {
   position: relative;
   left: 2rem;
   color: #b1aaaa;
 }
+
 .microphone-icon {
   position: relative;
   right: 2rem;
   color: #b1aaaa;
 }
+
 .list-group-item {
   text-align: left;
 }
+
 .newfont_header {
   font-size: 12px;
 }
+
 .applicant-card {
   position: absolute;
   top: 50px;
@@ -245,31 +257,49 @@ a[_ngcontent-uuu-c401] {
   padding: 0;
   height: auto !important;
 }
+
 .applicant-menu-icon {
   color: red;
   text-align: end;
+
   i {
     cursor: pointer;
     font-size: 17px;
     // padding: 0 8px;
   }
 }
+
 .applicant-menu {
   text-align: left;
   padding: 0 0px 0 23px;
 }
+
 .applicant-menu:hover {
   background-color: #ebf3fc !important;
   text-align: left;
 }
+
 .row.second {
   max-height: 40px !important;
-  margin-top: 1px !important;
+  margin-top: 1px !important;
 }
-.li2{
+
+.li2 {
   color: gray !important;
 }
-.layout1
-{
-  background-color: #d8ecc1 !important;
+
+// .layout1 {
+//   background-color: #d8ecc1 !important;
+// }
+
+.adminbgColor {
+  background-color: #cbf29f !important;
+}
+
+.applicantbgColor {
+  background-color: #ebf3fc !important;
+}
+
+.corporatebgColor {
+  background-color: #f5f3e4 !important;
 }
