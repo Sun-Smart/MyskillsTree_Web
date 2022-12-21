@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { Auth, ErrorResponse } from '../../service/auth.service';
@@ -20,7 +21,7 @@ export class ForgotpasswordComponent implements OnInit {
   showError: boolean;
   successMsg: boolean;
   submitted = false;
-  constructor(private http: HttpClient, public auth: Auth, public dialogRef: DynamicDialogRef, private spinner: NgxSpinnerService, private builder: FormBuilder) {
+  constructor(private router: Router, private http: HttpClient, public auth: Auth, public dialogRef: DynamicDialogRef, private spinner: NgxSpinnerService, private builder: FormBuilder) {
     // this.sent = false;
     this.reactiveForm = this.builder.group({
       email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
@@ -63,5 +64,8 @@ export class ForgotpasswordComponent implements OnInit {
       this.spinner.hide();
     });
 
+  }
+  backLogin() {
+    this.router.navigate(['login']);
   }
 }
