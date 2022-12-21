@@ -142,7 +142,9 @@ ul {
 }
 
 .grid-container {
-  margin: 0 15px;
+  // margin: 0 15px;
+  height: 300px !important;
+  overflow-y: scroll;
 }
 
 .table {

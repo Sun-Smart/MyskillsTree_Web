@@ -141,7 +141,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </div>
 </div>
 <form [formGroup]="mstapplicantskilldetail_Form">
-  
+
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
       <tr>
@@ -155,8 +155,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       </tr>
     </thead>
     <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
-   
- 
+
+
       <tr>
         <!-- Segment Gategory -->
         <td>
@@ -358,7 +358,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     this.showSkillDetails_input = false;
   };
 
-  ngAfterViewInit() { 
+  ngAfterViewInit() {
   }
 
   getData() {
@@ -411,7 +411,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     debugger
 
     console.log("fffffffffff",f);
-    
+
     this.isSubmitted = true;
     let strError = "";
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
@@ -425,7 +425,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     async (resp:any) => {
 
       console.log(resp);
-      
+
         debugger
         await this.sharedService.upload(this.fileAttachmentList);
         this.attachmentlist = [];
@@ -442,17 +442,17 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         this.sessionService.setItem("attachedsaved", "true");
         // this.ngAfterViewInit();
         this.objvalues.push((resp as any).mstapplicantskilldetail);
-  
+
           return;
         });
-    
+
       err => {
         debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
         console.log(err);
       }
-    
+
   }
 
 
@@ -530,7 +530,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   }
 
   // Old Code
-  
+
   // AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
   //   debugger
   //   let add = false;

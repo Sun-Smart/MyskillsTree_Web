@@ -294,7 +294,7 @@ export class mstcorporatemasterComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -326,7 +326,7 @@ export class mstcorporatemasterComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.mstcorporatemaster_service.getDefaultData().then(res => {
         }).catch((err) => { this.spinner.hide(); console.log(err); });
@@ -337,7 +337,7 @@ export class mstcorporatemasterComponent implements OnInit {
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        //setting the flag that the screen is not touched
         this.mstcorporatemaster_Form.markAsUntouched();
         this.mstcorporatemaster_Form.markAsPristine();
     }
@@ -856,7 +856,7 @@ export class mstcorporatemasterComponent implements OnInit {
     Set_mstcorporatelocations_TableConfig() {
         this.mstcorporatelocations_settings = {
             hideSubHeader: true,
-            mode: 'external',
+            mode: 'internal',
             selectMode: 'single',
             actions: {
                 columnTitle: '',
@@ -983,7 +983,7 @@ export class mstcorporatemasterComponent implements OnInit {
     break;
     }
     }
-    
+
     */
     mstcorporatelocations_route(event: any, action: any) {
         var addparam = "";
@@ -1101,7 +1101,7 @@ export class mstcorporatemasterComponent implements OnInit {
     Set_mstjobrequirements_TableConfig() {
         this.mstjobrequirements_settings = {
             hideSubHeader: true,
-            mode: 'external',
+            mode: 'internal',
             selectMode: 'single',
             actions: {
                 columnTitle: '',
@@ -1278,7 +1278,7 @@ export class mstcorporatemasterComponent implements OnInit {
     break;
     }
     }
-    
+
     */
     mstjobrequirements_route(event: any, action: any) {
         var addparam = "";
@@ -1390,7 +1390,7 @@ export class mstcorporatemasterComponent implements OnInit {
     Set_mstjobstatuses_TableConfig() {
         this.mstjobstatuses_settings = {
             hideSubHeader: true,
-            mode: 'external',
+            mode: 'internal',
             selectMode: 'single',
             actions: {
                 columnTitle: '',
@@ -1541,7 +1541,7 @@ export class mstcorporatemasterComponent implements OnInit {
     break;
     }
     }
-    
+
     */
     mstjobstatuses_route(event: any, action: any) {
         var addparam = "";
