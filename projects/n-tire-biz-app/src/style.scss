@@ -1009,7 +1009,7 @@ h1,
 .actionheader a,
 ng2-smart-table-title a {
   /* background-color:var(--backcolor)!important;*/
-color: gray !important;
+  color: gray !important;
   // color: var(--frontcolor) !important;
 }
 
@@ -3571,14 +3571,33 @@ a {
 .tbody-res {
   padding: 0 !important;
 }
-.adminbgColor{
+
+.adminbgColor {
   background-color: #cbf29f !important;
   margin-top: -2px !important;
 }
-.applicantbgColor{
+
+.applicantbgColor {
   background-color: #ebf3fc !important;
 }
-.corporatebgColor{
+
+.corporatebgColor {
   background-color: #f5f3e4 !important;
   margin-top: -2px !important;
+}
+
+footer {
+  position: fixed !important;
+  height: 100px !important;
+  bottom: -60px !important;
+  width: 100% !important;
+  // text-align: center;
+  background: #fff;
+  font-weight: 600;
+}
+
+.all_rights {
+  float: right;
+  position: absolute;
+  right: 80px;
 }

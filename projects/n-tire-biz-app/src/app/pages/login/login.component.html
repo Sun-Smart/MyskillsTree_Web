@@ -85,18 +85,18 @@
                   <div class="form-group">
                     <span class="common_register_font" style="line-height:1.7;">Email / Mobile Number</span>
                     <div>
-                    <input type="text" name="email" [(ngModel)]="email" class="form-control input-sm"
-                      placeholder="Email ID/Mobile Number" [email]="true" required formControlName='email'
-                      (click)="test()">
-                    <span *ngIf="emailvalidation" style="color:rgb(146, 43, 43)">Enter email</span>
-                    <app-field-error-display [displayError]="f.email.errors!=null && f.email.errors?.email"
-                      errorMsg="Enter valid email"></app-field-error-display>
+                      <input type="text" name="email" [(ngModel)]="email" class="form-control input-sm"
+                        placeholder="Email ID/Mobile Number" [email]="true" required formControlName='email'
+                        (click)="test()">
+                      <span *ngIf="emailvalidation" style="color:rgb(146, 43, 43)">Enter email</span>
+                      <app-field-error-display [displayError]="f.email.errors!=null && f.email.errors?.email"
+                        errorMsg="Enter valid email"></app-field-error-display>
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 1rem;">
                   <div class="form-group">
-                    <span  class="common_register_font" style="line-height:1.7;">Password</span>
+                    <span class="common_register_font" style="line-height:1.7;">Password</span>
                     <div class="input-group">
                       <input [type]="fieldTextType ? 'text' : 'password'" class="form-control" [(ngModel)]="password"
                         required formControlName='password' style="line-height: 2.5;border-radius: 0!important"
@@ -115,7 +115,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group forgot_label">
-                    <a href="javascript:void(0);" (click)="forgetPassword()" style="float: right;text-decoration: none;">Forgot Password</a>
+                    <a href="javascript:void(0);" (click)="forgetPassword()"
+                      style="float: right;text-decoration: none;">Forgot Password</a>
                   </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -126,7 +127,8 @@
                   <br />
                   <div class="form-group">
                     <label class="form-check-label" for="flexCheckDefault">
-                      &nbsp;&nbsp;Don't have an account? <a href="javascript:void(0);" class="custom_link" (click)="gotoRegister()">Signup</a>
+                      &nbsp;&nbsp;Don't have an account? <a href="javascript:void(0);" class="custom_link"
+                        (click)="gotoRegister()">Signup</a>
                     </label>
                   </div>
                 </div>
@@ -135,7 +137,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                   <!-- <br /> -->
-                  <button class="btn btn-info btn-block register_btn"  style="font-size:15px;" (click)="gotoVerify(bologinForm)">Login With
+                  <button class="btn btn-info btn-block register_btn" style="font-size:15px;"
+                    (click)="gotoVerify(bologinForm)">Login With
                     OTP</button>
                 </div>
               </div>
@@ -144,5 +147,17 @@
         </div>
       </div>
     </div>
+    <footer>
+      <div class="container">
+        <p class="text-muted">Copyright © MySkillsTree Solutions Pvt Ltd.<label class="all_rights">All rights reserved.</label></p>
+      </div>
+    </footer>
   </div>
+  <!-- <footer>
+    Copyright © MySkillsTree Solutions Pvt Ltd.All rights reserved.
+  </footer> -->
+
 </div>
+
+
+
