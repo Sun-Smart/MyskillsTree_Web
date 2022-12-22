@@ -374,17 +374,13 @@ a+a {
 .alert-info,
 .alert-action,
 .btn-success {
-  /*padding-left:10px;*/
-  padding: 3px;
-  padding-right: 10px;
-  // background-color: var(--backcolor) !important;
-  background: linear-gradient(to bottom, #004fce 0%, #009c8e 80%) !important;
-  border-color: var(--frontcolor) !important;
-  border-width: 1px !important;
-  color: var(--frontcolor) !important;
-  border-style: solid !important;
-  /*prakash*/
-  border-radius: 0.3rem;
+  color: #000 !important;
+  border: none !important;
+  border-radius: 6px;
+  padding: 4px 14px !important;
+  margin-right: 15px !important;
+  background: #a5a5a5 !important;
+
 }
 
 .layout-topbar-logo {
@@ -1960,10 +1956,10 @@ dynamic-form-builder {
 
 .ql-toolbar.ql-snow {
   border: 1px solid #ccc !important;
-  display: flex;
-  height: 35px;
-  overflow: scroll;
-  padding: 0px;
+  // display: flex;
+  // height: 35px;
+  // overflow: scroll;
+  // padding: 0px;
 }
 
 .general,
@@ -2819,12 +2815,12 @@ p-dynamicdialog {
 
 }*/
 #contentAreaLayout {
-  position: absolute;
-  top: 49px;
+  // position: absolute;
+  // top: 49px;
   height: 100% !important;
   width: 100% !important;
   max-width: 100% !important;
-  margin: 0px !important;
+  margin: 4% 0 !important;
   /* bottom: 0px; */
   /* overflow-x: auto !important;
  overflow-y: auto !important;*/

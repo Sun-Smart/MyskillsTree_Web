@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
   objvalues: any = [];
   type: string;
   category: any;
+  drophide: boolean=false;
   constructor(private router: Router, private toastr: ToastService, private http: HttpClient, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     this.bouserregistration_Form = this.formBuilder.group({
       firstname: ['', Validators.required],
@@ -44,6 +45,7 @@ export class RegisterComponent implements OnInit {
       this.category = this.category;
     } else if (value == "availer") {
       this.router.navigate(['applicantregister']);
+      
     } else if (value == "enhancer") {
       this.router.navigate(['registernew']);
       this.type = "E";
@@ -109,6 +111,18 @@ export class RegisterComponent implements OnInit {
           alert('Email already exist');
         }
       });
+      
     }
+
+
+    
   }
+  
+  opendrop(){
+    debugger;
+    this.drophide=true;
+  }
+  // closedrop(){
+  //   this.drophide=false;
+  // }
 }

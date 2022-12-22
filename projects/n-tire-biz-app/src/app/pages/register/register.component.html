@@ -72,12 +72,32 @@
                                     <div class="form-group">
                                         <label for="loginPassword">Category</label>
                                         <select name="gender" formControlName="category" [(ngModel)]="category" class="form-control">
-                                            <option value="null" selected>-Select-</option>
-                                            <option  value="S">Special</option>
+                                            <!-- <option value="null" selected>-Select-</option> -->
+                                            <option  value="S" (onchange)="opendrop()">Special</option>
                                             <option  value="G">General</option>
                                         </select>
                                     </div>
                                 </div>
+                                <div *ngIf="drophide" class="row" style="margin: 10px !important;
+                                line-height: 2;">
+                                    <div class="col-6  reduce_radio">
+                                        <input type="radio" name="skills" 
+                                            value="provider"> Service Man
+                                    </div>
+                                    <div class="col-6  reduce_radio">
+                                        <input type="radio" name="skills" 
+                                            value="availer"> Ex Service Man
+                                    </div>
+                                    <div class="col-6  reduce_radio">
+                                        <input type="radio" name="skills" 
+                                            value="enhancer"> Widow
+                                    </div>
+                                    <div class="col-6  reduce_radio">
+                                        <input type="radio" name="skills" 
+                                            value="certifier"> physically challenged 
+                                    </div>
+                                </div>
+                              
                             </div>
                         </div>
 

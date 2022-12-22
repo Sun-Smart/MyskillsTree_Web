@@ -31,31 +31,31 @@
           <i class="fa fa-th" aria-hidden="true" style="font-size: 24px;margin-top: 13px;cursor: pointer;"
             (click)="showMenus()"></i>
           <div class="card applicant-card" *ngIf="showmenulist"
-            style="position: absolute;top: 50px;left: 20%;background-color: #fff !important;">
+            style="position: absolute;top: 50px;background-color: #fff !important;">
             <div *ngIf="appmenu">
-            <div class="row" *ngIf="!menuvisible" style="margin: 4px !important;">
+            <div class="row" *ngIf="!menuvisible" style="margin: 8px !important;">
               <div class="col-12 applicant-menu-icon" style="color: red;text-align: end;padding:0 5px;">
                 <i class="fa fa-times-circle" aria-hidden="true" (click)="closeicon()"></i>
               </div>
               <div class="col-6 applicant-menu">
                 <a class="icon" [routerLink]='' (click)="openApplicant()">
-                  <i style="font-size: 25px;" class="bi bi-person-lines-fill">&nbsp;&nbsp;</i><br /><span
+                  <i style="font-size: 25px;" class="bi bi-person-lines-fill"></i><br /><span
                     class="common_cls_font newfont_header" title="Applicant">Applicant</span></a>
               </div>
               <div class="col-6 applicant-menu">
                 <a class="icon" [routerLink]='' (click)="openReference()">
-                  <i class="bi bi-person-square" style="font-size: 25px;"></i>&nbsp;
+                  <i class="bi bi-person-square" style="font-size: 25px;"></i>
                   <span class="common_cls_font newfont_header" title="References">References</span></a>
               </div>
               <div class="col-6 applicant-menu">
                 <a class="icon" [routerLink]='' (click)="openJobs()">
-                  <i class="bi bi-briefcase-fill" style="font-size: 25px;"></i>&nbsp;<br />
+                  <i class="bi bi-briefcase-fill" style="font-size: 25px;"></i><br />
                   <span class="common_cls_font newfont_header" title="Jobs">Jobs</span>
                 </a>
               </div>
               <div class="col-6 applicant-menu">
                 <a class="icon" [routerLink]='' (click)="openGallery()">
-                  <i style="font-style: normal!important;font-size: 25px;" class="bi bi-image">&nbsp;&nbsp;</i><br />
+                  <i style="font-style: normal!important;font-size: 25px;" class="bi bi-image"></i><br />
                   <span class="common_cls_font newfont_header" title="Gallery">Gallery</span>
                 </a>
               </div>
@@ -116,7 +116,7 @@
           <label class="dropdown">
 
             <div>
-              <i class="fa fa-folder-open-o fa1
+              <i class="fa fa-folder-open-o fa1 
                " aria-hidden="true" style="margin-left:10px; font-size: 24px !important; margin-top: 6px;"
                 (click)="openpopup()"></i>
               <span class="p-ink" style="height: 44px; width: 44px; "></span>
@@ -267,10 +267,10 @@
                                routerLinkActive="router-link-active"> Master Data Type</a></li>
                    </div> -->
                 <div class="col-4 card abc" style="text-align:center; ">
-                  <a [routerLink]="['/home/boreportviewer/whwfe']" routerLinkActive="router-link-active"></a>
+                  <a [routerLink]="['/home/boreportviewer/whwfe']" routerLinkActive="router-link-active">
                   <li class="li2"><i class="fa fa-building fa1" aria-hidden="true"></i>
                     <br /> Company Masters
-                  </li>
+                  </li></a>
                 </div>
                 <div class="col-4 card abc" style="text-align:center; ">
                   <a [routerLink]="['/home/boreportviewer/v2mgx']" routerLinkActive="router-link-active">
@@ -579,6 +579,12 @@
       </ul>
     </div>
   </div>
+
+  <footer>
+    <div class="container">
+      <p class="text-muted foot">Copyright © MySkillsTree Solutions Pvt Ltd.<label class="all_rights rights">All rights reserved.</label></p>
+    </div>
+    </footer>
 </div>
 <p-overlayPanel #userdetails>
   <div><b>User Name: </b><i [innerHtml]="user.username"></i></div>
@@ -619,4 +625,5 @@
 
     </div>
   </ng-container>
+  
 </p-sidebar>

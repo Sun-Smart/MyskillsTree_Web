@@ -270,13 +270,13 @@ a[_ngcontent-uuu-c401] {
 }
 
 .applicant-menu {
-  text-align: left;
-  padding: 0 0px 0 23px;
+  text-align: center;
+
 }
 
 .applicant-menu:hover {
   background-color: #ebf3fc !important;
-  text-align: left;
+  text-align: center;
 }
 
 .row.second {
@@ -305,4 +305,10 @@ a[_ngcontent-uuu-c401] {
 }
 .seconds{
   background-color: #ccc;
+}
+.foot{
+  padding-left: 55px !important;
+}
+.rights{
+  right: 30px !important;
 }
