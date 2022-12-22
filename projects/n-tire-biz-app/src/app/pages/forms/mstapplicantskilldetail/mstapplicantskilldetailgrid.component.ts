@@ -241,7 +241,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 })
 export class mstapplicantskilldetailgridComponent implements OnInit {
 
-  mstapplicantskilldetail_Form : FormGroup;
+  mstapplicantskilldetail_Form: FormGroup;
 
   isadmin = false;
   bfilterPopulate_mstapplicantskilldetails: boolean = false;
@@ -295,12 +295,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   isSubmitted: boolean = false;
   referenceacceptancevisible: boolean = false;
   requestidvisible: boolean = false;
-  formData:any;
+  formData: any;
   objvalues: any = [];
   maindata: any;
-  getapp:any;
+  getapp: any;
   formid: any;
-  
+
 
 
   constructor(
@@ -331,7 +331,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getapp =localStorage.getItem('applicantid')
+    this.getapp = localStorage.getItem('applicantid')
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.getapp);
     this.Set_mstapplicantskilldetails_TableConfig();
 
@@ -341,15 +341,15 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
 
     this.mstapplicantskilldetail_Form = this.fb.group({
-      applicantid :[this.applicantid],
-      segmentid : [''],
-      segmentcategoryothers : [''],
-      skillcategory : [''],
-      skillcategoryothers : [''],
-      subcategoryid : [''],
-      subcategoryidothers : [''],
-      selfrating : [''],
-      remarks : [''],
+      applicantid: [this.applicantid],
+      segmentid: [''],
+      segmentcategoryothers: [''],
+      skillcategory: [''],
+      skillcategoryothers: [''],
+      subcategoryid: [''],
+      subcategoryidothers: [''],
+      selfrating: [''],
+      remarks: [''],
     })
 
   };
@@ -361,7 +361,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     this.showSkillDetails_input = false;
   };
 
-  ngAfterViewInit() { 
+  ngAfterViewInit() {
   }
 
   getData() {
@@ -410,9 +410,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     });
   }
 
-  async onSubmitData(bclear:any) {
+  async onSubmitData(bclear: any) {
     debugger
-    
+
     this.isSubmitted = true;
     let strError = "";
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
@@ -423,9 +423,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     debugger
     this.spinner.show();
     this.mstapplicantskilldetail_service.saveOrUpdate_mstapplicantskilldetails(this.formData).subscribe(
-    async (res:any) => {
-      console.log(res);
-      
+      async (res: any) => {
+        console.log(res);
+
         debugger
         await this.sharedService.upload(this.fileAttachmentList);
         this.attachmentlist = [];
@@ -439,6 +439,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         this.mstapplicantskilldetail_Form.markAsUntouched();
         this.mstapplicantskilldetail_Form.markAsPristine();
         this.ngOnInit();
+        this.showSkillDetails_input = false;
         this.sessionService.setItem("attachedsaved", "true");
         // this.ngAfterViewInit();
         let getapp = parseInt(localStorage.getItem('applicantid'));
@@ -448,7 +449,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
           this.dialogRef.close(this.objvalues);
           return;
-        }else {
+        } else {
           if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
         }
         if (bclear) {
@@ -463,7 +464,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
             this.FillData();
           }
         }
-  
+
         this.mstapplicantskilldetail_Form.markAsUntouched();
         this.mstapplicantskilldetail_Form.markAsPristine();
       },
@@ -549,18 +550,18 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         skillcategorydesc: res.mstapplicantskilldetail.skillcategorydesc,
         subcategoryid: res.mstapplicantskilldetail.subcategoryid,
         subcategoryiddesc: res.mstapplicantskilldetail.subcategoryiddesc,
-  
+
         //suneel
         segmentid: res.mstapplicantskilldetail.segmentid,
         segmentcategorydesc: res.mstapplicantskilldetail.segmentdesc,
-  
-  
+
+
         segmentcategoryothers: res.mstapplicantskilldetail.segmentcategoryothers,
         skillcategoryothers: res.mstapplicantskilldetail.skillcategoryothers,
         subcategoryidothers: res.mstapplicantskilldetail.subcategoryidothers,
-  
-  
-  
+
+
+
         selfrating: res.mstapplicantskilldetail.selfrating,
         remarks: res.mstapplicantskilldetail.remarks,
         requestid: res.mstapplicantskilldetail.requestid,
@@ -571,9 +572,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         status: res.mstapplicantskilldetail.status,
         statusdesc: res.mstapplicantskilldetail.statusdesc,
       });
-  
+
       console.log(' this.mstapplicantskilldetail_Form', this.mstapplicantskilldetail_Form);
-  
+
       this.referenceacceptancevisible = false;
       this.requestidvisible = false;
       //hide list
@@ -587,29 +588,29 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null) this.mstapplicantskilldetail_service.getList_subcategoryid2(this.f.skillcategory.value).then(res => {
           this.subcategoryid_List = res as DropDownValues[];
         }).catch((err) => { console.log(err); });
-  
+
         if (this.f.segmentid.value == "166") {
           this.showinput1 = true
-  
+
         }
         if (this.f.skillcategory.value == "262") {
           this.showinput2 = true
-  
+
         }
         if (this.f.subcategoryid.value == "411") {
           this.showinput3 = true
-  
+
         }
-  
-  
-  
+
+
+
         if (this.f.segmentid.value && this.f.segmentid.value != "" && this.f.segmentid.value != null) this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res => {
           this.skillcategory_List = res as DropDownValues[];
         }).catch((err) => { console.log(err); });
-  
+
       });
       //Child Tables if any
-    
+
     });
   };
 
@@ -628,7 +629,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   }
 
   // Old Code
-  
+
   // AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
   //   debugger
   //   let add = false;
