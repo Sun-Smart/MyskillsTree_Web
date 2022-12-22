@@ -90,10 +90,11 @@ import { mstapplicantgeographypreference } from '../../../model/mstapplicantgeog
   <thead>
     <tr>
 
-      <th scope="col" style="width: 19%;">Country Desc</th>
-      <th scope="col" style="width: 19%;">City Desc</th>
+      <th scope="col" style="width: 20%;">Country Desc</th>
+      <th scope="col" style="width: 20%;">City Desc</th>
       <th scope="col" style="width: 20%;">Remarks</th>
-      <th scope="col" style="width: 6.5%">Action</th>
+      <th scope="col" style="width: 20%;">Attachment</th>
+      <th scope="col" style="width: 20%">Action</th>
     </tr>
   </thead>
   <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
@@ -120,16 +121,16 @@ import { mstapplicantgeographypreference } from '../../../model/mstapplicantgeog
               <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
               </td>
 
-            <!-- <td>
-              <div class='full-width' *ngIf="attachmentVisible">
+              <!-- Attachment -->
+
+            <td>
                 <p-accordion [multiple]='true'>
                     <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
                     <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
                     </app-attachment>
                     </p-accordionTab>
                 </p-accordion>
-              </div>
-              </td> -->
+              </td>
 
               <!-- Submit & close -->
 
@@ -410,9 +411,10 @@ export class mstapplicantgeographygrid implements OnInit {
         <table class="table table-hover geographydetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
-            <th scope="row"  style="width: 26% !important;">##countrydesc##</th>
-            <th scope="row" style="width: 26% !important">##citydesc##</th>
-            <th scope="row"  style="width: 25% !important;">##remarks##</th>
+            <th scope="row"  style="width: 20% !important;">##countrydesc##</th>
+            <th scope="row" style="width: 20% !important">##citydesc##</th>
+            <th scope="row"  style="width: 20% !important;">##remarks##</th>
+            <th scope="row"  style="width: 20% !important;">-</th>
           </tr>
         </tbody>
       </table>

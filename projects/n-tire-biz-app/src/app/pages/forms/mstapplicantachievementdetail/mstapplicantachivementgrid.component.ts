@@ -52,6 +52,7 @@ import { mstapplicantachievementdetailComponent } from './mstapplicantachievemen
 import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mstapplicantachievementdetail } from '../../../model/mstapplicantachievementdetail.model';
+import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 @Component({
     selector: 'app-applicantachivementgrid',
     template: `
@@ -99,6 +100,7 @@ import { mstapplicantachievementdetail } from '../../../model/mstapplicantachiev
             <th scope="col" style="padding-left: 25px !important;width: 30%;">Master Data Type</th>
             <!--<th scope="col" style="width: 14%">Attachment</th>-->
             <th scope="col" style="width: 61%">Achievement Details</th>
+            <th scope="col" style="width: 61%">Attachment</th>
             <th scope="col" style="width: 42%">Action</th>
           </tr>
         </thead>
@@ -108,7 +110,7 @@ import { mstapplicantachievementdetail } from '../../../model/mstapplicantachiev
             <!--Master Data Type-->
 
                 <td>
-                    <select *ngIf="!showview" id="masterdataid" required (change)="masterdataid_onChange($event.target)"
+                    <select  id="masterdataid" required (change)="masterdataid_onChange($event.target)"
                     formControlName="masterdataid" class="form-control">
                     <option [ngValue]="null" selected>-Select-</option>
                     <option *ngFor="let item of masterdataid_List" value="{{item.value}}">{{item.label}}</option>
@@ -118,9 +120,20 @@ import { mstapplicantachievementdetail } from '../../../model/mstapplicantachiev
             <!-- Achievement details -->
 
                 <td>
-                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="achievementdetails" required
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true"  id="achievementdetails" required
                     formControlName="achievementdetails" class="form-control">
                     </textarea>
+                </td>
+
+                <!-- Attachment -->
+
+                <td>
+                <p-accordion [multiple]='true'>
+                    <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+                    <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+                    </app-attachment>
+                    </p-accordionTab>
+                </p-accordion>
                 </td>
 
             <!-- Submit & Close -->
@@ -192,7 +205,15 @@ export class mstapplicantachivementgridComponent implements OnInit {
     showview: boolean = false;
 
     maindata: any;
-
+    readonly AttachmentURL = AppConstants.AttachmentURL;
+    readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
+    @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
+    attachmentFieldJson: any[] = [];
+    attachmentVisible: boolean = true;
+    SESSIONUSERID: any;//current user
+  
+    sessionData: any;
+    sourceKey: any;
 
     constructor(
         private nav: Location,
@@ -299,31 +320,48 @@ export class mstapplicantachivementgridComponent implements OnInit {
         this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
         console.log(this.formData);
 
+        if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+        this.fileAttachmentList = this.fileattachment.getAllFiles();
+        console.log(this.formData);
+        this.spinner.show();
+
         this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
             async res => {
                 console.log("ressss", res);
-
+                await this.sharedService.upload(this.fileAttachmentList);
+                this.attachmentlist = [];
+                if (this.fileattachment) this.fileattachment.clear();
+                this.spinner.hide();
+                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
+                this.sessionService.setItem("attachedsaved", "true")
                 this.objvalues.push((res as any).mstapplicantachievementdetail);
                 this.ngOnInit();
-                this.objvalues = [];
+                if (!bclear) this.showview = true;
+                if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-                    this.dialogRef.close(this.objvalues);
-                    return;
+                  this.dialogRef.close(this.objvalues);
+                  return;
                 }
                 else {
-                    if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+                  if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 }
-
+                
                 if (bclear) {
-                    this.resetForm();
+                  this.resetForm();
                 }
                 else {
-                    if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-                        this.objvalues.push((res as any).mstapplicantachievementdetail);
-                        this.dialogRef.close(this.objvalues);
-                    }
+                  if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                    this.objvalues.push((res as any).mstapplicantachievementdetail);
+                    this.dialogRef.close(this.objvalues);
+                  }
+                  else {
+                    // this.FillData(res);
+                  }
                 }
+                this.mstapplicantachievementdetail_Form.markAsUntouched();
+                this.mstapplicantachievementdetail_Form.markAsPristine();
+        
             });
     };
 

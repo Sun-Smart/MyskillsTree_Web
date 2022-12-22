@@ -24,6 +24,7 @@ import { msttermComponent } from '../forms/mstterm/mstterm.component';
 import { msttermnewComponent } from '../forms/mstterm/msttermnew.component';
 import { HttpClient, HttpErrorResponse, HttpHeaders  } from '@angular/common/http';
 import { AppConstants } from '../../shared/helper';
+import { OtpvalidationService } from '../../service/otpvalidation.service';
 
 @Component({
     selector: 'app-login',
@@ -307,8 +308,10 @@ export class LoginComponent implements OnInit {
     passvalidation: boolean = false;
     userData : any;
     verifyMob_Otp:any;
-    otp_resp:any;
+    verifyEmail_Otp:any;
+    otp_resp:any = [];
     p12:any;
+    verify_outputstring: any;
 
     constructor(private sharedService: SharedService, private translate: TranslateService,
         private fb: FormBuilder,
@@ -316,6 +319,7 @@ export class LoginComponent implements OnInit {
         private toastService: ToastService,
         private routeStateService: RouteStateService,
         public sessionService: SessionService,
+        public otpService: OtpvalidationService,
         //public translate: TranslateService,
         private themeService: ThemeService,
         private userContextService: UserContextService,
@@ -362,15 +366,16 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
     }
     forgetPassword() {
-        this.dialog.open(ForgotPasswordComponent,
-            {
+      this.router.navigate(['forgotpassword']);
+        // this.dialog.open(ForgotPasswordComponent,
+        //     {
 
-                width: '27% !important',
-                height: 'auto !important',
-                data: { save: true, ScreenType: 1, formtemplate: 'login' },
-            }
-        )
-        return false;
+        //         width: '27% !important',
+        //         height: 'auto !important',
+        //         data: { save: true, ScreenType: 1, formtemplate: 'login' },
+        //     }
+        // )
+        // return false;
 
     }
 
@@ -605,31 +610,41 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['registernew']);
     }
     gotoVerify(data: any) {
-        this.router.navigate(['verify', this.p12]);
         this.spinner.show();
         debugger;
         console.log("valueeeeee", data.value.email);
 
         let verify_data = {
-            email : data.value.email,
+            email : this.bologinForm.value.email,
             otpm : null,
             otpe : null,
         }
         console.log(verify_data);
         let options = new HttpHeaders().set('Content-Type', 'application/json');
-        return this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + verify_data.email + '&otpm='+verify_data.otpm + '&otpe='+verify_data.otpe).subscribe((resp: any) => {
-
+        return this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + verify_data.email + '&otpm='+verify_data.otpm + '&otpe='+verify_data.otpe)
+        .subscribe((resp: any) => {
+         
             console.log("resp",resp);
 
             this.otp_resp = resp;
-
-            this.verifyMob_Otp = this.otp_resp.outputstring;
-            this.spinner.hide();
+            this.verifyMob_Otp = this.otp_resp.mobileotp;
+            this.verifyEmail_Otp = this.otp_resp.emailotp;
+            this.verify_outputstring = this.otp_resp.outputstring;
+            // this.spinner.hide();
             
           console.log("this.verifyMob_Otp", this.verifyMob_Otp);
+          console.log("this.verifyEmail_Otp", this.verifyEmail_Otp);
 
-          if(this.verifyMob_Otp == "OTP has send to your registered mobile Number"){
-            this.p12="m1"
+            this.router.navigate(['verify']);
+
+          if(this.verify_outputstring == "OTP has send to your registered mail id and Mobilenumber"){
+            debugger
+            // this.otp_resp.push({email:verify_data.email});
+            this.otpService.otparray.push(this.otp_resp);
+            this.otpService.otparray.push({email:verify_data.email});
+            console.log("kgjhdfmkughd", this.otpService.otparray.push(this.otp_resp));
+            
+            this.p12="otp"
             this.router.navigate(['verify', this.p12]);
           };
         })

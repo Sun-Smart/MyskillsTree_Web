@@ -51,6 +51,7 @@ import { mstapplicantsocialmediadetailService } from '../../../service/mstapplic
 import { mstapplicantsocialmediadetailComponent } from './mstapplicantsocialmediadetail.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mstapplicantsocialmediadetail } from '../../../model/mstapplicantsocialmediadetail.model';
+import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 
 
 @Component({
@@ -110,6 +111,7 @@ import { mstapplicantsocialmediadetail } from '../../../model/mstapplicantsocial
       <th style="width: 21.5%;">Handle Name</th>
       <th style="width: 21.5%;">Url</th>
       <th style="width: 25%;">Remarks</th>
+      <th style="width: 25%;">Attachment</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -145,6 +147,17 @@ import { mstapplicantsocialmediadetail } from '../../../model/mstapplicantsocial
         <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="achievementdetails" required
         formControlName="remarks" class="form-control">
         </textarea>
+        </td>
+
+        <!-- Attachment -->
+
+        <td>
+        <p-accordion [multiple]='true'>
+            <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+            <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+            </app-attachment>
+            </p-accordionTab>
+        </p-accordion>
         </td>
 
             <!-- Submit & Close -->
@@ -204,10 +217,21 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     bSingleRecord: boolean;
     showSkillDetails_input: boolean = false;
     isSubmitted: boolean = false;
+    showview: boolean = false;//view or edit mode
+    bmyrecord: boolean = false;
 
     applicantid:any;
     data:any;
     maindata: any;
+    readonly AttachmentURL = AppConstants.AttachmentURL;
+    readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
+    @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
+    attachmentFieldJson: any[] = [];
+    attachmentVisible: boolean = true;
+    SESSIONUSERID: any;//current user
+
+    sessionData: any;
+    sourceKey: any;
 
 
     constructor(
@@ -314,16 +338,84 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         let strError = "";
         this.formData = this.mstapplicantsocialmediadetail_Form.getRawValue();
         console.log(this.formData);
+        if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+        this.fileAttachmentList = this.fileattachment.getAllFiles();
+        console.log(this.formData);
         this.spinner.show();
         this.mstapplicantsocialmediadetail_service.saveOrUpdate_mstapplicantsocialmediadetails(this.formData).subscribe(
             async res => {
+                await this.sharedService.upload(this.fileAttachmentList);
+                this.attachmentlist = [];
+                if (this.fileattachment) this.fileattachment.clear();
                 this.spinner.hide();
+                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
-                this.ngOnInit();
-                this.sessionService.setItem("attachedsaved", "true");
+                this.sessionService.setItem("attachedsaved", "true")
                 this.objvalues.push((res as any).mstapplicantsocialmediadetail);
+                this.ngOnInit();
+                if (!bclear) this.showview = true;
+                if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+                if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                    this.dialogRef.close(this.objvalues);
+                    return;
+                }
+                else {
+                    if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+                }
+               
+                if (bclear) {
+                    this.resetForm();
+                }
+                else {
+                    if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                        this.objvalues.push((res as any).mstapplicantsocialmediadetail);
+                        this.dialogRef.close(this.objvalues);
+                    }
+                    else {
+                        // this.FillData(res);
+                    }
+                }
+                this.mstapplicantsocialmediadetail_Form.markAsUntouched();
+                this.mstapplicantsocialmediadetail_Form.markAsPristine();
             });
 
+    }
+    resetForm() {
+        if (this.mstapplicantsocialmediadetail_Form != null)
+            this.mstapplicantsocialmediadetail_Form.reset();
+        this.mstapplicantsocialmediadetail_Form.patchValue({
+        });
+        this.PopulateFromMainScreen(this.data, false);
+        this.PopulateFromMainScreen(this.dynamicconfig.data, true);
+    }
+
+    PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
+        if (mainscreendata != null) {
+            for (let key in mainscreendata) {
+                if (key != 'visiblelist' && key != 'hidelist' && key != 'event') {
+
+                    let jsonstring = "";
+                    let json = null;
+                    let ctrltype = typeof (mainscreendata[key]);
+                    if (false)
+                        json = "";
+                    else if (ctrltype == "string") {
+                        this.mstapplicantsocialmediadetail_Form.patchValue({ [key]: mainscreendata[key] });
+                    }
+                    else {
+                        this.mstapplicantsocialmediadetail_Form.patchValue({ [key]: mainscreendata[key] });
+                    }
+                    {
+                        {
+                            if (bdisable && this.mstapplicantsocialmediadetail_Form.controls[key] != undefined) {
+                                this.mstapplicantsocialmediadetail_Form.controls[key].disable({ onlySelf: true });
+                                this.hidelist.push(key);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     mstapplicantsocialmediadetailshtml() {
@@ -350,12 +442,39 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
 `;
         return ret;
     }
-    FillData()
-    {
+    FillData(){
         this.Set_mstapplicantsocialmediadetails_TableConfig();
         this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByApplicantID(this.applicantid).then(res => {
             this.mstapplicantsocialmediadetails_LoadTable(res);
             });
+
+            
+        // this.formData = res.mstapplicantsocialmediadetail;
+        // this.formid = res.mstapplicantsocialmediadetail.socialrefid;
+        // this.pkcol = res.mstapplicantsocialmediadetail.pkcol;
+        // this.bmyrecord = false;
+        // if ((res.mstapplicantsocialmediadetail as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
+        // console.log(res);
+        // //console.log(res.order);
+        // //console.log(res.orderDetails);
+        // this.mstapplicantsocialmediadetail_Form.patchValue({
+        //     applicantid: res.mstapplicantsocialmediadetail.applicantid,
+        //     applicantiddesc: res.mstapplicantsocialmediadetail.applicantiddesc,
+        //     socialrefid: res.mstapplicantsocialmediadetail.socialrefid,
+        //     socialmedianame: res.mstapplicantsocialmediadetail.socialmedianame,
+        //     socialmedianamedesc: res.mstapplicantsocialmediadetail.socialmedianamedesc,
+        //     handlename: res.mstapplicantsocialmediadetail.handlename,
+        //     url: res.mstapplicantsocialmediadetail.url,
+        //     // .replace(/<[^>]*>/g, '')
+        //     remarks: res.mstapplicantsocialmediadetail.remarks,
+        //     attachment: JSON.parse(res.mstapplicantsocialmediadetail.attachment),
+        //     status: res.mstapplicantsocialmediadetail.status,
+        //     statusdesc: res.mstapplicantsocialmediadetail.statusdesc,
+        // });
+        // this.mstapplicantsocialmediadetail_menuactions = res.mstapplicantsocialmediadetail_menuactions;
+        // if (this.mstapplicantsocialmediadetail_Form.get('attachment').value != null && this.mstapplicantsocialmediadetail_Form.get('attachment').value != "" && this.fileattachment != null && this.fileattachment != undefined) this.fileattachment.setattachmentlist(this.mstapplicantsocialmediadetail_Form.get('attachment').value);
+        // //Child Tables if any
+   
     }
      //start of Grid Codes mstapplicantsocialmediadetails
      mstapplicantsocialmediadetails_settings: any;

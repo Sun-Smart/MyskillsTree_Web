@@ -48,6 +48,10 @@ import { Subject } from 'rxjs/Subject';
 import { mstapplicantworkreferenceComponent } from './mstapplicantworkreference.component';
 import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
+import { mstapplicantworkreference } from '../../../model/mstapplicantworkreference.model';
+import { mstapplicantworkreferenceService } from '../../../service/mstapplicantworkreference.service';
 @Component({
     selector: 'app-applicantworkrefgrid',
     template: `
@@ -78,6 +82,8 @@ import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.s
                 color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
                 <button type="button" class="btn btn-outline-primary popup-add-button" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"
                 title = "Add Details">Add</button>
+
+                <!-- <button (click)="addSkills()">Add 1</button> -->
                 <!-- </a> -->
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
@@ -90,18 +96,79 @@ import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.s
                 </ul>-->
 </div>
 </div>
+<form [formGroup]="mstapplicantworkreference_Form">
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
                 <thead>
                     <tr>
-                    <th style="width: 10.6%;">Action</th>
-                    <th style="width: 17.3%;">Work Topic</th>
-                    <th style="width: 19%;">Reference Url</th>
-                    <th style="width: 15%;">Referral Status</th>
-                    <th style="width: 17.5%;">Work Description</th>
-                    <th>Remarks</th>
+      
+                    <th style="width: 14.2%;">Work Topic</th>
+                    <th style="width: 14.2%">Reference Url</th>
+                    <th style="width: 14.2%">Referral Status</th>
+                    <th style="width: 14.2%;">Work Description</th>
+                    <th style="width: 14.2%;">Remarks</th>
+                    <th style="width: 14.2%;">Attachment</th>
+                    <th style="width: 14.2%;">Action</th>
                     </tr>
                 </thead>
+                <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
+                <tr>
+
+                <!-- Work Topic -->
+
+                    <td>
+                        <input *ngIf="!showview" id="worktopic" required formControlName="worktopic" class="form-control">
+                    </td>
+
+                <!-- Reference URL -->
+
+                    <td>
+                    <input id="referenceurl" formControlName="referenceurl" class="form-control">
+                    </td>
+
+                <!-- Referal Status -->
+
+                    <td>
+
+                    </td>
+
+                <!-- Work Description -->
+
+                    <td>
+                    <textarea autosize rows="1" cols="10" onlyGrow="true"  id="workdescription" required
+                    formControlName="workdescription" class="form-control">
+                    </textarea>>
+                    </td>
+
+                <!-- Remarks -->
+
+                    <td>
+                    <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+                    </td>
+
+                <!-- Attachment -->
+
+                    <td>
+                    <p-accordion [multiple]='true'>
+                        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+                        <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+                        </app-attachment>
+                        </p-accordionTab>
+                    </p-accordion>
+                    </td>
+
+                <!-- Add & Close -->
+
+                    <td class="field-add-close-button" style="">
+                        <!-- Add -->
+                        <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantworkreference_Form)"></i>
+                        <!-- Close -->
+                        <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                        (click)="skillClose()"></i>
+                    </td>
+                </tr>
+            </tbody>
                 </table>
+</form>
               <ng2-smart-table #tbl_mstapplicantworkreferences
                 (userRowSelect)="handle_mstapplicantworkreferences_GridSelected($event)"
                 [settings]="mstapplicantworkreferences_settings"
@@ -117,11 +184,15 @@ import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.s
     `
 })
 export class mstapplicantworkrefgridComponent implements OnInit {
+    formData: mstapplicantworkreference;
+    mstapplicantworkreference_Form: FormGroup;
+
     isadmin = false;
     bfilterPopulate_mstapplicantworkreferences: boolean = false;
     mstapplicantworkreference_menuactions: any = []
     @ViewChild('tbl_mstapplicantworkreferences', { static: false }) tbl_mstapplicantworkreferences: Ng2SmartTableComponent;
-
+    @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
+    readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
     mstapplicantworkreferences_visiblelist: any;
     mstapplicantworkreferences_hidelist: any;
 
@@ -130,10 +201,18 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     mstapplicantworkreferences_selectedindex: any;
     ShowTableslist: any;
     pkcol: any;
+    bmyrecord: boolean = false;
+    hidelist: any = [];
+    objvalues: any = [];
+    viewHtml: any = '';//stores html view of the screen
+    applicantid_List: DropDownValues[];
 
     IsApplicant: boolean;
     IsAdmin: boolean;
     bSingleRecord: boolean;
+    showSkillDetails_input: boolean = false;
+    isSubmitted: boolean = false;
+    showview: boolean = false;//view or edit mode
 
     applicantid: any;
     data: any;
@@ -144,6 +223,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     r1: any;
     r2: any;
     r3: any;
+    maindata: any;
     constructor(
         private nav: Location,
         private translate: TranslateService,
@@ -153,10 +233,12 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         private router: Router,
         private themeService: ThemeService,
         private ngbDateParserFormatter: NgbDateParserFormatter,
+        private mstapplicantworkreference_service: mstapplicantworkreferenceService,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private sharedService: SharedService,
+        private fb: FormBuilder,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -169,13 +251,239 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             this.data = this.data.data;
         }
         this.pkcol = this.data.maindatapkcol;
-        this.applicantid = this.data.applicantid
+        this.applicantid = this.data.applicantid;
+
+        this.mstapplicantworkreference_Form = this.fb.group({
+            pk: [null],
+            ImageName: [null],
+            applicantid: this.sessionService.getItem('applicantid'),
+            applicantiddesc: [null],
+            workreferenceid: [null],
+            worktopic: [null, Validators.compose([Validators.required])],
+            workdescription: [null, Validators.compose([Validators.required])],
+            referenceurl: [null],
+            remarks: [null],
+            requestid: [null],
+            attachment: [null],
+            status: [null],
+            statusdesc: [null],
+        });
     }
-    ngOnInit() {
+    async ngOnInit() {
         this.Set_mstapplicantworkreferences_TableConfig();
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
         this.FillData();
+
+        let mstapplicantworkreferenceid = null;
+        //copy the data from previous dialog
+        this.viewHtml = ``;
+        this.PopulateFromMainScreen(this.data, false);
+        this.PopulateFromMainScreen(this.dynamicconfig.data, true);
+        if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
+            this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
+        }
+        this.formid = mstapplicantworkreferenceid;
+        //alert(mstapplicantworkreferenceid);
+
+        //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
+        if (this.pkcol == null) {
+            this.resetForm();
+        }
+        else {
+            if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
+            //get the record from api
+            //foreign keys
+        }
+        this.mstapplicantworkreference_service.getDefaultData().then(res => {
+            this.applicantid_List = res.list_applicantid.value;
+        }).catch((err) => { this.spinner.hide(); console.log(err); });
+
+    };
+
+
+    async PopulateScreen(pkcol: any) {
+        this.spinner.show();
+        this.mstapplicantworkreference_service.get_mstapplicantworkreferences_ByEID(pkcol).then(res => {
+            this.spinner.hide();
+
+            this.formData = res.mstapplicantworkreference;
+            let formproperty = res.mstapplicantworkreference.formproperty;
+            if (formproperty && formproperty.edit == false) this.showview = true;
+            this.pkcol = res.mstapplicantworkreference.pkcol;
+            this.formid = res.mstapplicantworkreference.workreferenceid;
+            //   this.FillData(res);
+        }).catch((err) => { console.log(err); });
+    }
+
+    addSkills() {
+        this.showSkillDetails_input = true;
+    };
+    skillClose() {
+        this.showSkillDetails_input = false;
+    };
+
+    onSubmitAndWait() {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
+            this.onSubmitData(false);
+        }
+        else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+            // this.onSubmitDataDlg(false);
+            this.onSubmitData(false);
+        }
+        else {
+            this.onSubmitData(false);
+        }
+    };
+
+    async onSubmitDataDlg(bclear: any) {
+        this.isSubmitted = true;
+        if (!this.mstapplicantworkreference_Form.valid) {
+            this.toastr.addSingle("error", "", "Enter the required fields");
+            return;
+        }
+        var obj = this.mstapplicantworkreference_Form.getRawValue();
+        if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+        obj.fileAttachmentList = this.fileattachment.getAllFiles();
+        console.log(obj);
+        await this.sharedService.upload(this.fileAttachmentList);
+        this.attachmentlist = [];
+        if (this.fileattachment) this.fileattachment.clear();
+        this.objvalues.push(obj);
+        this.dialogRef.close(this.objvalues);
+        setTimeout(() => {
+            //this.dialogRef.destroy();
+        }, 200);
+    }
+
+    onSubmit() {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
+            this.onSubmitData(true);
+        }
+        else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
+            this.onSubmitDataDlg(true);
+        }
+        else {
+            this.onSubmitData(true);
+        }
+    };
+
+    async onSubmitData(bclear: any) {
+        debugger;
+        this.isSubmitted = true;
+        let strError = "";
+        if (!this.mstapplicantworkreference_Form.valid) {
+            this.toastr.addSingle("error", "", "Enter the required fields");
+            return;
+        }
+        // Object.keys(this.mstapplicantworkreference_Form.controls).forEach(key => {
+        //   const controlErrors: ValidationErrors = this.mstapplicantworkreference_Form.get(key).errors;
+        //   if (controlErrors != null) {
+        //     Object.keys(controlErrors).forEach(keyError => {
+        //       strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
+        //     });
+        //   }
+        // });
+        if (strError != "") return this.sharedService.alert(strError);
+
+
+
+        if (!this.validate()) {
+            return;
+        }
+        this.formData = this.mstapplicantworkreference_Form.getRawValue();
+        if (this.dynamicconfig.data != null) {
+            for (let key in this.dynamicconfig.data) {
+                if (key != 'visiblelist' && key != 'hidelist') {
+                    if (this.mstapplicantworkreference_Form.controls[key] != null) {
+                        this.formData[key] = this.mstapplicantworkreference_Form.controls[key].value;
+                    }
+                }
+            }
+        }
+        if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+        this.fileAttachmentList = this.fileattachment.getAllFiles();
+        console.log(this.formData);
+        this.spinner.show();
+        this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(
+            async res => {
+                await this.sharedService.upload(this.fileAttachmentList);
+                this.attachmentlist = [];
+                if (this.fileattachment) this.fileattachment.clear();
+                this.spinner.hide();
+                debugger;
+                this.toastr.addSingle("success", "", "Successfully saved");
+                this.sessionService.setItem("attachedsaved", "true")
+                this.objvalues.push((res as any).mstapplicantworkreference);
+                if (!bclear) this.showview = true;
+                if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+                if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                    this.dialogRef.close(this.objvalues);
+                    return;
+                }
+                else {
+                    if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+                }
+                if (bclear) {
+                    this.resetForm();
+                }
+                else {
+                    if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                        this.objvalues.push((res as any).mstapplicantworkreference);
+                        this.dialogRef.close(this.objvalues);
+                    }
+                    else {
+                        // this.FillData(res);
+                    }
+                }
+                this.mstapplicantworkreference_Form.markAsUntouched();
+                this.mstapplicantworkreference_Form.markAsPristine();
+            },
+            err => {
+                debugger;
+                this.spinner.hide();
+                this.toastr.addSingle("error", "", err.error);
+                console.log(err);
+            }
+        )
+    }
+
+    resetForm() {
+        if (this.mstapplicantworkreference_Form != null)
+            this.mstapplicantworkreference_Form.reset();
+        this.mstapplicantworkreference_Form.patchValue({
+        });
+        this.PopulateFromMainScreen(this.data, false);
+        this.PopulateFromMainScreen(this.dynamicconfig.data, true);
+    }
+
+    PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
+        if (mainscreendata != null) {
+            for (let key in mainscreendata) {
+                if (key != 'visiblelist' && key != 'hidelist' && key != 'event') {
+
+                    let jsonstring = "";
+                    let json = null;
+                    let ctrltype = typeof (mainscreendata[key]);
+                    if (false)
+                        json = "";
+                    else if (ctrltype == "string") {
+                        this.mstapplicantworkreference_Form.patchValue({ [key]: mainscreendata[key] });
+                    }
+                    else {
+                        this.mstapplicantworkreference_Form.patchValue({ [key]: mainscreendata[key] });
+                    }
+                    {
+                        {
+                            if (bdisable && this.mstapplicantworkreference_Form.controls[key] != undefined) {
+                                this.mstapplicantworkreference_Form.controls[key].disable({ onlySelf: true });
+                                this.hidelist.push(key);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     mstapplicantworkreferenceshtml() {
@@ -216,29 +524,36 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             this.Set_mstapplicantworkreferences_TableConfig();
             this.mstapplicantworkreferences_LoadTable(res.mstapplicantworkreference);
         });
+    };
+    validate() {
+        let ret = true;
+        return ret;
     }
+
     AddOrEdit_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
+        debugger;
+        this.showSkillDetails_input = true;
         let add = false;
         if (event == null) add = true;
         let childsave = true;
-        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        this.dialog.open(mstapplicantworkreferenceComponent,
-            {
-                data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, workreferenceid, applicantid, visiblelist: this.mstapplicantworkreferences_visiblelist, hidelist: this.mstapplicantworkreferences_hidelist, ScreenType: 2 },
-            }
-        ).onClose.subscribe(res => {
-            if (res) {
-                if (add) {
-                    for (let i = 0; i < res.length; i++) {
-                        this.tbl_mstapplicantworkreferences.source.add(res[i]);
-                    }
-                    this.tbl_mstapplicantworkreferences.source.refresh();
-                }
-                else {
-                    this.tbl_mstapplicantworkreferences.source.update(event.data, res[0]);
-                }
-            }
-        });
+        // if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+        // this.dialog.open(mstapplicantworkreferenceComponent,
+        //     {
+        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, workreferenceid, applicantid, visiblelist: this.mstapplicantworkreferences_visiblelist, hidelist: this.mstapplicantworkreferences_hidelist, ScreenType: 2 },
+        //     }
+        // ).onClose.subscribe(res => {
+        //     if (res) {
+        //         if (add) {
+        //             for (let i = 0; i < res.length; i++) {
+        //                 this.tbl_mstapplicantworkreferences.source.add(res[i]);
+        //             }
+        //             this.tbl_mstapplicantworkreferences.source.refresh();
+        //         }
+        //         else {
+        //             this.tbl_mstapplicantworkreferences.source.update(event.data, res[0]);
+        //         }
+        //     }
+        // });
     }
 
     onDelete_mstapplicantworkreference(event: any, childID: number, i: number) {
@@ -308,7 +623,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
                 width: '300px',
                 edit: true, // true,
                 delete: (this.IsApplicant || this.IsAdmin),
-                position: 'left',
+                position: 'right',
                 // custom: this.mstapplicantworkreference_menuactions
                 custom: this.mstapplicantworkreference_menuactions
             },

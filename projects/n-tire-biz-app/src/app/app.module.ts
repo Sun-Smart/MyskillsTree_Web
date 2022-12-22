@@ -34,7 +34,7 @@ import { bouserregistrationComponent } from '../../../n-tire-biz-app/src/app/pag
 import { bocompanyregistrationComponent } from '../../../n-tire-biz-app/src/app/pages/forms/bocompanyregistration/bocompanyregistration.component';
 
 import { EmailVerificationComponent } from '../../../n-tire-biz-app/src/app/pages/email-verification/email-verification.component';
-import { ForgotPasswordComponent } from '../../../n-tire-biz-app/src/app/pages/forgot-password/forgot-password.component';
+import { ForgotpasswordComponent } from '../../../n-tire-biz-app/src/app/pages/forgotpassword/forgotpassword.component';
 import { ResendEmailVerificationComponent } from '../../../n-tire-biz-app/src/app/pages/resend-email-verification/resend-email-verification.component';
 import { ResetPasswordComponent } from '../../../n-tire-biz-app/src/app/pages/reset-password/reset-password.component';
 
@@ -119,7 +119,7 @@ export function tokenGetter() {
         mainComponent,
         RegisterComponent,
         RegisterUserComponent,
-        EmailVerificationComponent, ForgotPasswordComponent, ResendEmailVerificationComponent, ResetPasswordComponent,
+        EmailVerificationComponent, ForgotpasswordComponent, ResendEmailVerificationComponent, ResetPasswordComponent,
 
         //bokbmasterComponent,
         HeaderComponent, FooterComponent,

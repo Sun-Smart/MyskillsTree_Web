@@ -680,11 +680,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
       return;
     }
     this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
-
-
-
-
-
     debugger
     if (this.dynamicconfig.data != null) {
       for (let key in this.dynamicconfig.data) {
