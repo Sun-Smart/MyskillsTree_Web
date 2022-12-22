@@ -12,7 +12,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { NgbDate, NgbModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgbDateISOParserFormatter } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter';
 import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 import { NgxBarcodeModule } from 'ngx-barcode';
@@ -165,7 +165,7 @@ import { galleryComponent } from '../../../n-tire-biz-app/src/app/pages/forms/ga
 import { ChartModule } from 'primeng/chart';
 import { ChartsModule } from 'ng2-charts';
 import { TagInputModule } from 'ngx-chips';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+// import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -363,7 +363,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         PanelMenuModule,
         FileUploadModule,
         MenuModule,
-        TreeTableModule,
+        TreeTableModule,Ng2SearchPipeModule,
         RatingModule, SelectButtonModule,AutoCompleteModule,
         TreeModule, AccordionModule, ProgressBarModule, CheckboxModule,
         InputTextModule,
