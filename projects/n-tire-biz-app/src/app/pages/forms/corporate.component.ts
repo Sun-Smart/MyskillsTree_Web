@@ -8,7 +8,7 @@ import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core
 
     <ng-container *ngIf="isadmin">
    <div  id='contentAreanoscroll' style="overflow-y:">
-    <div class="second row">
+    <div class="second row seconds">
     <h1>Job Requirements</h1>
     </div>
     <div class="row">
@@ -17,7 +17,7 @@ import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core
     <p></p>
     <hr>
     <p></p>
-    <div class="second row">
+    <div class="second row seconds">
     <h1>Reference Requests</h1>
     </div>
     <div class="row">
@@ -27,7 +27,7 @@ import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core
     </ng-container>
     <ng-container *ngIf="!isadmin">
     <div  id='contentAreanoscroll'>
-    <div class="second row">
+    <div class="second row seconds" >
     <h1>Job Requirements</h1>
     </div>
     <div class="row">
@@ -36,7 +36,7 @@ import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core
     <p></p>
     <hr>
     <p></p>
-    <div class="second row">
+    <div class="second row" seconds>
     <h1>Reference Requests</h1>
     </div>
     <div class="row">
