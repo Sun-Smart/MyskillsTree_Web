@@ -168,6 +168,9 @@ input[type="file"] {
 
 .ng2-smart-row {
   height: 50px;
+   td {
+    padding: 0 !important;
+  }
 }
 
 ngb-datepicker {
@@ -364,7 +367,7 @@ h1 a {
   font-weight: 700;
 }
 
-a+a {
+a + a {
   margin-left: 10px;
 }
 
@@ -379,8 +382,7 @@ a+a {
   border-radius: 6px;
   padding: 4px 14px !important;
   margin-right: 15px !important;
-  background: #a5a5a5 !important;
-
+  background: #56a1d1 !important;
 }
 
 .layout-topbar-logo {
@@ -600,7 +602,7 @@ ng2-smart-table table > tbody > tr > td {
 }
 */
 /* headers grid color*/
-ng2-smart-table thead>tr>th {
+ng2-smart-table thead > tr > th {
   //border: 1px solid lightgrey!important ;
   text-align: center;
 }
@@ -680,7 +682,6 @@ div#header {
   background-color: #cbf29f !important;
   margin-top: 1px !important;
   color: gray !important;
-
 }
 
 /*
@@ -1022,8 +1023,8 @@ table-cell-view-mode {
   // margin: 1px;
 }
 
-.p-datatable .p-datatable-thead>tr>th,
-.p-datatable .p-datatable-tfoot>tr>td {
+.p-datatable .p-datatable-thead > tr > th,
+.p-datatable .p-datatable-tfoot > tr > td {
   font-weight: bold;
   font-size: medium;
 }
@@ -1166,13 +1167,11 @@ $half: round($loops / 2);
 
   .progress--circle.progress--#{$i * $step}:after {
     @if $i < $half {
-      $nextDeg: 90deg+($increment * $i);
+      $nextDeg: 90deg+ ($increment * $i);
       background-image: linear-gradient(90deg, $backColor 50%, transparent 50%, transparent),
         linear-gradient($nextDeg, $themeColor 50%, $backColor 50%, $backColor);
-    }
-
-    @else {
-      $nextDeg: -90deg+($increment * ($i - $half));
+    } @else {
+      $nextDeg: -90deg+ ($increment * ($i - $half));
       background-image: linear-gradient($nextDeg, $themeColor 50%, transparent 50%, transparent),
         linear-gradient(270deg, $themeColor 50%, $backColor 50%, $backColor);
     }
@@ -1950,7 +1949,7 @@ dynamic-form-builder {
   margin: 0px !important;
 }
 
-.telephone>.form-control {
+.telephone > .form-control {
   border: none !important;
 }
 
@@ -2196,7 +2195,8 @@ p-accordion {
 }
 
 .p-dialog-content,
-.p-dynamicdialog {}
+.p-dynamicdialog {
+}
 
 /*
 .layout-menu-static:not(.layout-menu-active)
@@ -2723,7 +2723,7 @@ p-dynamicdialog {
   top: 0 !important;
 }
 
-.menu-wrapper+div {
+.menu-wrapper + div {
   margin-top: 2% !important;
 }
 
@@ -2869,8 +2869,7 @@ iframe {
 }
 
 #contentArea1 //,#reportmaincontent
-
-  {
+{
   position: relative;
   height: 93% !important;
   width: 98% !important;
@@ -3433,7 +3432,7 @@ ng2-smart-table table thead {
   border-radius: 6px;
   padding: 4px 14px !important;
   margin-right: 15px !important;
-  background: #705858 !important;
+  background: #186ba0 !important;
 }
 
 .popup-add-button:hover {
@@ -3442,7 +3441,7 @@ ng2-smart-table table thead {
   border-radius: 6px;
   padding: 4px 14px !important;
   margin-right: 15px !important;
-  background: #a5a5a5 !important;
+  background: #56a1d1 !important;
 }
 
 .field-Add-button {
@@ -3472,7 +3471,7 @@ ng2-smart-table table thead {
 }
 
 .personal-info-btn-liftRadius {
-  background: #705858 !important;
+  background: #186ba0 !important;
   color: #fff !important;
   text-decoration: none !important;
   // border-bottom-left-radius: 30px;
@@ -3480,7 +3479,7 @@ ng2-smart-table table thead {
 }
 
 .personal-info-btn-liftRadius:hover {
-  background: #a5a5a5 !important;
+  background: #56a1d1 !important;
   color: #fff !important;
   text-decoration: none !important;
   // border-bottom-left-radius: 30px;
@@ -3488,21 +3487,21 @@ ng2-smart-table table thead {
 }
 
 .personal-info-btn {
-  background: #705858!important;
+  background: #186ba0 !important;
   color: #fff !important;
   text-decoration: none !important;
   margin: 0;
 }
 
 .personal-info-btn:hover {
-  background: #a5a5a5 !important;
+  background: #56a1d1 !important;
   color: #fff !important;
   text-decoration: none !important;
   margin: 0;
 }
 
 .personal-info-btn-rightRadius {
-  background: #705858!important;
+  background: #186ba0 !important;
   color: #fff !important;
   text-decoration: none !important;
   border: none !important;
@@ -3512,7 +3511,7 @@ ng2-smart-table table thead {
 }
 
 .personal-info-btn-rightRadius:hover {
-  background: #a5a5a5 !important;
+  background: #56a1d1 !important;
   color: #fff !important;
   text-decoration: none !important;
   border: none !important;
@@ -3530,7 +3529,7 @@ a {
   color: black !important;
 }
 
-.p-menubar-root-list>.p-menuitem-active>p-menubarsub>.p-submenu-list {
+.p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
   display: grid !important;
   grid-template-columns: 165px 1fr 1fr !important;
   right: 0px !important;
@@ -3597,6 +3596,11 @@ footer {
   position: absolute;
   right: 80px;
 }
-.second2{
+.second2 {
   background-color: #ebf3fc !important;
+}
+.applicant-menu {
+  i {
+    color: #186ba0 !important;
+  }
 }

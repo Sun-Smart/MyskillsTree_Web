@@ -542,14 +542,15 @@
         <ul class="list-group" *ngIf="showhideProfile"
           style="position: absolute;top: 50px;left: 10%; height: 10px !important; width: 80% !important;">
           <li class="list-group-item">
-            <div>
+            
               <button type="button" pripple (click)="closePopup();"
                 class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
                 style="float: right; margin:0px; ">
                 <i class="fa fa-times-circle" aria-hidden="true" style="color: red !important; font-size: 20px;"
                   (click)="closePopup();"></i>
               </button>
-            </div>
+            </li>
+            <li class="list-group-item">
             <center><img *ngIf="userphoto" src="https://prod.herbie.ai/attachment/{{userphoto}}" alt="avatar" style="width: 100px;
                   height: 100px;
                   border-radius: 50px;" class="ng-tns-c186-0 img_content" title="Profile">
