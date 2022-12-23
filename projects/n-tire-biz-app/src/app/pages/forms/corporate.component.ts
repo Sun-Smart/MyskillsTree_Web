@@ -8,7 +8,8 @@ import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core
 
     <ng-container *ngIf="isadmin">
    <div  id='contentAreanoscroll' style="overflow-y:">
-    <div class="second row seconds">
+    <div class="second row seconds" 
+    [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
     <h1>Job Requirements</h1>
     </div>
     <div class="row">
@@ -36,7 +37,7 @@ import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core
     <p></p>
     <hr>
     <p></p>
-    <div class="second row" seconds>
+    <div class="second row seconds">
     <h1>Reference Requests</h1>
     </div>
     <div class="row">
@@ -47,15 +48,38 @@ import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core
     `
 })
 export class CorporateDashboardComponent implements OnInit {
+    username: any;
     isadmin = false;
+    userrole:any;
+    showApplicantmenu: boolean = false;
+    showAdminMenuaccess: boolean = false;
+    showCorporateMenuaccess: boolean = false;
+    menuvisible: boolean = true;
+
     constructor(private sessionService: SessionService) {
 
     }
 
     ngOnInit() {
-        if (this.sessionService.getItem("role") == '1') {
-            this.isadmin = true;
-        }
-    }
 
+        this.username = this.sessionService.getItem('username');
+        if (this.sessionService.getItem('role') == '1') {
+          this.userrole = 'Admin';
+          this.showAdminMenuaccess = true;
+          this.showApplicantmenu = false;
+          this.showCorporateMenuaccess = false;
+        } else if (this.sessionService.getItem('role') == '2') {
+          this.userrole = 'Applicant';
+          this.showApplicantmenu = true;
+          this.showAdminMenuaccess = false;
+          this.showCorporateMenuaccess = false;
+        } else if (this.sessionService.getItem('role') == '3') {
+          this.userrole = 'Corporate';
+          this.showCorporateMenuaccess = true;
+          this.showApplicantmenu = false;
+          this.showAdminMenuaccess = false;
+        }
+        if (this.sessionService.getItem('role') == '2') this.menuvisible = false;
+    }
+    
 }
