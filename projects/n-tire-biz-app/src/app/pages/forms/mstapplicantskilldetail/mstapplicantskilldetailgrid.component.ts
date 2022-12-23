@@ -145,13 +145,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
       <tr>
-        <th style="width: 14%">Segments</th>
-        <th style="width: 14%">Skill Category</th>
-        <th style="width: 16%">Sub Category</th>
-        <th style="width: 13%">Self Rating</th>
-        <th style="width: 13%">Attachment</th>
-        <th style="width: 21%">Remarks</th>
-        <th style="width: 10.6%">Action</th>
+        <th  style="width:152px;">Segments</th>
+        <th  style="width:191px;">Skill Category</th>
+        <th  style="width:193px;">Sub Category</th>
+        <th  style="width:155px;">Self Rating</th>
+        <th  style="width:194px;">Referal Status</th>
+        <th  style="width:133px;">Remarks</th>
+        <th>Attachment</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
@@ -191,6 +192,17 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         </p-rating>
         </td>
 
+        <!-- Referal Status -->
+
+        <td></td>
+
+        <!-- Remarks -->
+
+        <td>
+          <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+          <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '20' }"></p-editor> -->
+        </td>
+
         <!-- Attachment -->
 
         <td>
@@ -199,15 +211,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
           <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
           </app-attachment>
         </p-accordionTab>
-      </p-accordion>
+        </p-accordion>
         </td>
 
-        <!-- Remarks -->
-
-        <td>
-          <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
-          <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '20' }"></p-editor> -->
-        </td>
 
       <!-- Add & Close -->
 
@@ -515,12 +521,14 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     <table class="table table-hover skilldetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
     <tbody>
       <tr>
-      <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##segmentdesc##&nbsp##segmentcategoryothers##</th>
-        <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
-        <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
-        <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##selfrating##</th>
-        <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##referencecount##</th>
-        <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##remarks##</th>
+        <th scope="row" style="width:152px;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
+        <th scope="row" style="width:191px;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
+        <th scope="row" style="width:193px;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
+        <th scope="row" style="width:155px;">##selfrating##</th>
+        <th scope="row" style="width:194px;">##referencecount##</th>
+        <th scope="row" style="width:133px;">##remarks##</th>
+        <th scope="row" >##attachment##</th>
+      
       </tr>
     </tbody>
   </table>

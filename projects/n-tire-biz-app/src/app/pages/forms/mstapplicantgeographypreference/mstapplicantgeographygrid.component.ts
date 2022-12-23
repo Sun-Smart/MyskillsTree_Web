@@ -90,11 +90,11 @@ import { mstapplicantgeographypreference } from '../../../model/mstapplicantgeog
   <thead>
     <tr>
 
-      <th scope="col" style="width: 20%;">Country Desc</th>
-      <th scope="col" style="width: 20%;">City Desc</th>
-      <th scope="col" style="width: 20%;">Remarks</th>
-      <th scope="col" style="width: 20%;">Attachment</th>
-      <th scope="col" style="width: 20%">Action</th>
+      <th scope="col" >Country Desc</th>
+      <th scope="col" >City Desc</th>
+      <th scope="col" >Remarks</th>
+      <th scope="col" >Attachment</th>
+      <th scope="col" style="text-align:center;">Action</th>
     </tr>
   </thead>
   <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
@@ -411,10 +411,10 @@ export class mstapplicantgeographygrid implements OnInit {
         <table class="table table-hover geographydetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
-            <th scope="row"  style="width: 20% !important;">##countrydesc##</th>
-            <th scope="row" style="width: 20% !important">##citydesc##</th>
-            <th scope="row"  style="width: 20% !important;">##remarks##</th>
-            <th scope="row"  style="width: 20% !important;">-</th>
+            <th scope="row"  style="width:310px !important">##countrydesc##</th>
+            <th scope="row"  style="width:228px !important">##citydesc##</th>
+            <th scope="row"  style="width:207px !important">##remarks##</th>
+            <th scope="row"  style="width:321px !important">##attachment##</th>
           </tr>
         </tbody>
       </table>
