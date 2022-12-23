@@ -33,7 +33,7 @@
           <div class="card applicant-card" *ngIf="showmenulist"
             style="position: absolute;top: 50px;background-color: #fff !important;">
             <div *ngIf="appmenu">
-            <div class="row" *ngIf="!menuvisible" style="margin: 8px !important;">
+            <div class="row" *ngIf="!menuvisible" style="margin: 8px !important; height: 15rem;">
               <div class="col-12 applicant-menu-icon" style="color: red;text-align: end;padding:0 5px;">
                 <i class="fa fa-times-circle" aria-hidden="true" (click)="closeicon()"></i>
               </div>
@@ -116,7 +116,7 @@
           <label class="dropdown">
 
             <div>
-              <i class="fa fa-folder-open-o fa1 
+              <i class="fa fa-folder-open-o fa1 fa2
                " aria-hidden="true" style="margin-left:10px; font-size: 24px !important; margin-top: 6px;"
                 (click)="openpopup()"></i>
               <span class="p-ink" style="height: 44px; width: 44px; "></span>
@@ -126,7 +126,7 @@
 
             <ul class="dd-menu" *ngIf="menuhide"
               style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
-              <div style="display: flex;justify-content: center;" class="row">
+              <div style="display: flex;justify-content:  space-between;" class="row">
 
                 <div class="col-12">
                   <button type="button" (click)="closePopup();"
@@ -155,7 +155,7 @@
 
                 <div class="col-4 card abc" style="text-align:center;">
                   <a [routerLink]="['/home/boreportviewer/arrA']" routerLinkActive="router-link-active">
-                    <li class="li2"><i class="fa fa-retweet fa1" aria-hidden="true"></i><br /> References</li>
+                    <li class="li2"><i class="fa fa-retweet fa1" aria-hidden="true"></i><br /> Reference</li>
                   </a>
                 </div>
 
@@ -238,7 +238,7 @@
 
             <div class="">
 
-              <i class="fa fa-th fa1" aria-hidden="true"
+              <i class="fa fa-th fa1 fa2" aria-hidden="true"
                 style="font-size:24px !important; margin-top: 10px !important; margin-left: 20px; "
                 (click)="openpopup()"></i>
               <span class="p-ink" style="height: 44px; width: 44px;"></span>
@@ -248,7 +248,7 @@
 
             <ul class="dd-menu" *ngIf="menuhide"
               style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
-              <div style="display: flex;justify-content: center;" class="row">
+              <div style="display: flex;justify-content: space-between;" class="row">
 
                 <div class="col-12">
                   <button type="button" (click)="closePopup();"
@@ -375,7 +375,7 @@
           <label class="dropdown">
 
             <div class="">
-              <i class="fa fa-copyright
+              <i class="fa fa-copyright fa2
                " aria-hidden="true" style="margin-left:10px; font-size: 24px !important; margin-top: 6px;"
                 (click)="openpopup()"></i>
               <span class="p-ink" style="height: 44px; width: 44px; "></span>
@@ -385,7 +385,7 @@
 
             <ul class="dd-menu" *ngIf="menuhide"
               style="width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;">
-              <div style="display: flex;justify-content: center;" class="row">
+              <div style="display: flex;justify-content: space-between;" class="row">
                 <div class="col-12">
                   <button type="button" pripple (click)="closePopup();"
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
@@ -398,18 +398,18 @@
 
 
 
-                <div class="col-4 card abc" style="text-align:center;">
+                <div class="col-6 card abc" style="text-align:center;">
                   <a [routerLink]="['/home/boreportviewer/mcm']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Corporate Masters
                     </li>
                   </a>
                 </div>
-                <div class="col-4 card abc" style="text-align:center;">
+                <div class="col-6 card abc" style="text-align:center;">
                   <a [routerLink]="['/home/boreportviewer/jobq']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Job requirements</li>
                   </a>
                 </div>
-                <div class="col-4 card abc" style="text-align:center;">
+                <div class="col-6 card abc" style="text-align:center;">
                   <a [routerLink]="['/home/boreportviewer/arrA']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Requested
                       References</li>
@@ -418,7 +418,7 @@
 
 
 
-                <div class="col-4 card abc" style="text-align:center;">
+                <div class="col-6 card abc" style="text-align:center;">
                   <a [routerLink]="['/home/newskillsearch']" routerLinkActive="router-link-active">
                     <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Skill search</li>
                   </a>
@@ -444,7 +444,7 @@
           <label class="dropdown">
 
             <div class="">
-              <i class="fa fa-folder-open-o fa1
+              <i class="fa fa-folder-open-o fa1 fa2
                " aria-hidden="true" style="margin-left:10px; font-size: 24px !important; margin-top: 6px;"
                 (click)="openpopup()"></i>
               <span class="p-ink" style="height: 44px; width: 44px; "></span>
@@ -454,7 +454,7 @@
 
             <ul class="dd-menu" *ngIf="menuhide"
               style="width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;">
-              <div style="display: flex;justify-content: center;" class="row">
+              <div style="display: flex;justify-content: space-between;" class="row">
                 <div class="col-12">
                   <button type="button" pripple (click)="closePopup();"
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"

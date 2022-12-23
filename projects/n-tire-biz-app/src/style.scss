@@ -448,6 +448,12 @@ p-toastitem {
   background-color: var(--backcolor) !important;
   color: var(--frontcolor) !important;
   font-size: large !important;
+  width: 50% ;
+  text-align: center !important;
+  // float: right !important;
+  margin: auto !important;
+   margin-bottom: 34rem !important;
+   background-color:  #ebf3fc !important;
 }
 
 .p-toast-detail span::before {
@@ -3432,7 +3438,7 @@ ng2-smart-table table thead {
   border-radius: 6px;
   padding: 4px 14px !important;
   margin-right: 15px !important;
-  background: #186ba0 !important;
+  background:gray !important;
 }
 
 .popup-add-button:hover {
