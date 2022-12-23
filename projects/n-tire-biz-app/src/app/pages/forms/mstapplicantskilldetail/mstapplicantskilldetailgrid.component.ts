@@ -207,7 +207,12 @@ import { sk } from 'date-fns/locale';
         <!-- Attachment -->
 
         <td>
-
+        <p-accordion [multiple]='true'>
+        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+          <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+          </app-attachment>
+        </p-accordionTab>
+        </p-accordion>
         </td>
 
 
