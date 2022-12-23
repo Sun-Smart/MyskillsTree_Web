@@ -746,7 +746,7 @@ p-table {
 
 .second {
   padding-top: 2px;
-  background: #f5f3e4 !important;
+  // background: #f5f3e4 !important;
   // background: linear-gradient(to bottom, #004fce 0%, #009c8e 80%) !important;
   // background-color: var(--backcolor) !important;
   // color: var(--frontcolor) !important;
@@ -2826,7 +2826,7 @@ p-dynamicdialog {
   height: 100% !important;
   width: 100% !important;
   max-width: 100% !important;
-  margin: 4% 0 !important;
+  margin: 47px 0 !important;
   /* bottom: 0px; */
   /* overflow-x: auto !important;
  overflow-y: auto !important;*/
@@ -3544,7 +3544,7 @@ a {
 
 .second {
   padding-top: 2px;
-  background-color: #cbf29f !important;
+  // background-color: #cbf29f !important;
   // background: linear-gradient(to bottom, #004fce 0%, #009c8e 80%) !important;
   // background-color: var(--backcolor) !important;
   color: var(--frontcolor) !important;
@@ -3609,4 +3609,7 @@ footer {
   i {
     color: #186ba0 !important;
   }
+}
+.corprate-dashboard{
+  background-color: #f5f3e4 !important;
 }
