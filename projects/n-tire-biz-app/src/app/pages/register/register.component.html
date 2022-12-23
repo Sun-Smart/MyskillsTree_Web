@@ -71,15 +71,16 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <label for="loginPassword">Category</label>
-                                        <select name="gender" formControlName="category" [(ngModel)]="category" class="form-control">
+                                        <select name="gender" formControlName="category" [(ngModel)]="category" (change)="opendrop(category)"class="form-control">
                                             <!-- <option value="null" selected>-Select-</option> -->
-                                            <option  value="S" (onchange)="opendrop()">Special</option>
-                                            <option  value="G">General</option>
+                                            <option  value="G" selected>General</option>
+                                            <option  value="S" >Special</option>
+                                            
                                         </select>
                                     </div>
                                 </div>
-                                <div *ngIf="drophide" class="row" style="margin: 10px !important;
-                                line-height: 2;">
+                                <div class="row" *ngIf="submenus" style="margin: 10px !important;
+                                line-height: 2;" (change)="closedrop()">
                                     <div class="col-6  reduce_radio">
                                         <input type="radio" name="skills" 
                                             value="provider"> Service Man

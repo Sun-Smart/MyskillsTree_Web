@@ -137,12 +137,12 @@
                     -->
           <ng-container *ngFor="let action of menuactions">
             <button *ngIf="action.actionbutton==true && action.actionbuttonlocation!='B'" type="button"
-              class="btn-success border" (click)="onChangeAction(action.actionid)" style="color: #dee2e6!important;"><i
+              class=" border" (click)="onChangeAction(action.actionid)" style="color: #dee2e6!important;"><i
                 class="fa fa-new"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</button>
           </ng-container>
 
           <button type="button" style="margin: 6px 0;font-size: 10px; border-bottom-left-radius: 30px;
-                    border-top-left-radius: 30px;" class="nav-link btn-success border personal-info-btn-liftRadius"
+                    border-top-left-radius: 30px;" class="nav-link  border personal-info-btn-liftRadius"
             (click)="ExecuteAction()"><i class="fa fa-caret-right "></i></button>
           <select [(ngModel)]="filtertype" class="border personal-info-btn-rightRadius"
             (change)="onChangeFilterType($event.target.value)" style="margin: 6px 0;font-size: 10px;  border-bottom-right-radius: 30px;

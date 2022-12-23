@@ -21,6 +21,8 @@ export class RegisterComponent implements OnInit {
   type: string;
   category: any;
   drophide: boolean=false;
+  submenus:boolean = false;
+
   constructor(private router: Router, private toastr: ToastService, private http: HttpClient, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     this.bouserregistration_Form = this.formBuilder.group({
       firstname: ['', Validators.required],
@@ -118,10 +120,22 @@ export class RegisterComponent implements OnInit {
     
   }
   
-  opendrop(){
+  opendrop(ev:any){
     debugger;
-    this.drophide=true;
+    console.log(ev)
+    if(ev == 'S'){
+      this.submenus=true;
+    }else{
+      this.submenus=false;
+    }
+    
+    //this.userRoleID = ev;
   }
+closedrop(data:any){
+  debugger
+  console.log(data)
+  
+  }
   // closedrop(){
   //   this.drophide=false;
   // }
