@@ -142,7 +142,7 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
   </div>
 </div>
 <form [formGroup]="mstapplicantskilldetail_Form">
-  
+
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
       <tr>
@@ -156,8 +156,8 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
       </tr>
     </thead>
     <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
-   
- 
+
+
       <tr>
         <!-- Segment Gategory -->
         <td>
@@ -712,28 +712,14 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   // AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
   //   debugger
+  //   this.showSkillDetails_input = true;
+  //   this.getData();
   //   let add = false;
   //   if (event == null) add = true;
   //   let childsave = true;
   //   if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
-  //   this.dialog.open(mstapplicantskilldetailComponent,
-  //     {
-  //       data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, skillid, applicantid, visiblelist: this.mstapplicantskilldetails_visiblelist, hidelist: this.mstapplicantskilldetails_hidelist, ScreenType: 2 },
-  //     }
-  //   ).onClose.subscribe(res => {
-  //     if (res) {
-  //       if (add) {
-  //         for (let i = 0; i < res.length; i++) {
-  //           this.tbl_mstapplicantskilldetails.source.add(res[i]);
-  //         }
-  //         this.tbl_mstapplicantskilldetails.source.refresh();
-  //       }
-  //       else {
-  //         this.tbl_mstapplicantskilldetails.source.update(event.data, res[0]);
-  //       }
-  //     }
-  //   });
+
   // }
 
   // AddOrEditskillcategory(masterdataid) {

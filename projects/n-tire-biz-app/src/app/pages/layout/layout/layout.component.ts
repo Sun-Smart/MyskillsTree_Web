@@ -924,15 +924,23 @@ export class LayoutComponent implements AfterViewInit, OnInit {
         this.menuloaded = true;
         //debugger;
 
-//code added by dhana mar-17
+        //code added by dhana mar-17
         if (this.router.url == "/home") {
-            if (this.sessionService.getItem("role") == '3' || this.sessionService.getItem("role") == '1'){
+            if (this.sessionService.getItem("role") == '3' || this.sessionService.getItem("role") == '1') {
                 this.router.navigate(['/home/corporatedashboard']);
-            }else if (this.sessionService.getItem("role") == '2') {
-                let pkcol = localStorage.getItem('pkcol');
+            } else if (this.sessionService.getItem("role") == '2') {
+                if (localStorage.getItem('user_type') != 'C') {
+                    let pkcol = localStorage.getItem('pkcol');
+                    this.router.navigate(['/home/bodashboardviewer/' + pkcol]);
+                } else {
+                    this.router.navigate(['home/boreportviewer/arrA']);
+                }
                 // this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("applicantid")]);
-                this.router.navigate(['/home/bodashboardviewer/' + pkcol]);
+
             }
+            //  else if (localStorage.getItem('user_type') == 'C') {
+            //     this.router.navigate(['home/boreportviewer/arrA']);
+            // }
             else if (this.sessionService.getItem("role") == '1') {
                 let pkcol = localStorage.getItem('pkcol');
                 // this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("applicantid")]);

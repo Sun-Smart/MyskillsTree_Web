@@ -27,7 +27,7 @@
                 title="Notifications">{{notifications.length}}</span></span><span class="p-ink"
               style="height: 44px; width: 44px;"></span></a>
         </li>
-        <li *ngIf="showApplicantmenu">
+        <li *ngIf="showApplicantmenu && !showCertifiermenu">
           <i class="fa fa-th" aria-hidden="true" style="font-size: 24px;margin-top: 13px;cursor: pointer;"
             (click)="showMenus()"></i>
           <div class="card applicant-card" *ngIf="showmenulist"
@@ -228,7 +228,7 @@
           </label>
         </li>
         <!-- end -->
-        
+
         <!-- report -->
         <li *ngIf="showAdminMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
           style="list-style: none; color:black;">
@@ -240,18 +240,18 @@
 
               <i class="fa fa-th fa1 fa2" aria-hidden="true"
                 style="font-size:24px !important; margin-top: 10px !important; margin-left: 20px; "
-                (click)="openpopup()"></i>
+                (click)="openpopups()"></i>
               <span class="p-ink" style="height: 44px; width: 44px;"></span>
             </div>
 
             <input type="checkbox" class="dd-input" id="test">
 
-            <ul class="dd-menu" *ngIf="menuhide"
+            <ul class="dd-menu" *ngIf="menuhides"
               style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
               <div style="display: flex;justify-content: space-between;" class="row">
 
                 <div class="col-12">
-                  <button type="button" (click)="closePopup();"
+                  <button type="button" (click)="closePopups();"
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
                     style="float: right; margin:0px;padding-left: 44rem; ">
                     <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
@@ -369,8 +369,8 @@
 
             <input type="checkbox" class="dd-input" id="test">
 
-              <div *ngIf="menuhide" style="display: flex;justify-content: space-between;
-              width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;" class="row dd-menu">
+              <div *ngIf="menuhide" style="display: flex;justify-content: center;
+              width:18rem; background-color:white; margin-top: 12px !important; border-radius: 12px;" class="row dd-menu">
                 <div class="col-12">
                   <button type="button" pripple (click)="closePopup();"
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
@@ -380,32 +380,50 @@
                   </button>
                 </div>
 
-                <div class="col-6 card abc" style="text-align:center;">
+                <div class="col-6 card abc abc1" style="text-align:center;">
                   <a [routerLink]="['/home/boreportviewer/mcm']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Corporate Masters
                     </li>
                   </a>
                 </div>
-                <div class="col-6 card abc" style="text-align:center;">
+                <div class="col-6 card abc abc1" style="text-align:center;">
                   <a [routerLink]="['/home/boreportviewer/jobq']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Job requirements</li>
                   </a>
                 </div>
 
-                <div class="col-6 card abc" style="text-align:center;">
+                <div class="col-6 card abc abc1" style="text-align:center;">
                   <a [routerLink]="['/home/boreportviewer/arrA']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Requested
                       References</li>
                   </a>
                 </div>
 
-                <div class="col-6 card abc" style="text-align:center;">
+                <div class="col-6 card abc abc1" style="text-align:center;">
                   <a [routerLink]="['/home/newskillsearch']" routerLinkActive="router-link-active">
                     <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Skill search</li>
                   </a>
                 </div>
               </div>
 
+
+              <!-- Show Certifier Menu -->
+              <div *ngIf="showCertifiermenu" style="display: flex;justify-content: center;
+              width:18rem; background-color:white; margin-top: 12px !important; border-radius: 12px;" class="row dd-menu">
+                <div class="col-12">
+                  <button type="button" pripple (click)="closePopup();"
+                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                    style="float: right; margin:0px; padding-left: 41rem;">
+                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5" aria-hidden="false"
+                      style="color: red !important; font-size: 24px;"></span>
+                  </button>
+                </div>
+                <div class="col-6 applicant-menu">
+                  <a class="icon" [routerLink]='' (click)="openReference()">
+                    <i class="bi bi-person-square" style="font-size: 25px;"></i>
+                    <span class="common_cls_font newfont_header" title="References">References</span></a>
+                </div>
+              </div>
           </label>
         </li>
         <!-- reports -->
@@ -418,17 +436,17 @@
             <div class="">
               <i class="fa fa-folder-open-o fa1 fa2
                " aria-hidden="true" style="margin-left:10px; font-size: 24px !important; margin-top: 6px;"
-                (click)="openpopup()"></i>
+                (click)="openpopups()"></i>
               <span class="p-ink" style="height: 44px; width: 44px; "></span>
             </div>
 
             <input type="checkbox" class="dd-input" id="test">
 
-            <ul class="dd-menu" *ngIf="menuhide"
+            <ul class="dd-menu" *ngIf="menuhides"
               style="width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;">
               <div style="display: flex;justify-content: space-between;" class="row">
                 <div class="col-12">
-                  <button type="button" pripple (click)="closePopup();"
+                  <button type="button" pripple (click)="closePopups();"
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
                     style="float: right; margin:0px; padding-left: 41rem;">
                     <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5" aria-hidden="false"
@@ -498,7 +516,7 @@
         <ul class="list-group" *ngIf="showhideProfile"
           style="position: absolute;top: 50px;left: 10%; height: 10px !important; width: 80% !important;">
           <li class="list-group-item">
-            
+
               <button type="button" pripple (click)="closePopup();"
                 class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
                 style="float: right; margin:0px; ">
@@ -582,5 +600,5 @@
 
     </div>
   </ng-container>
-  
+
 </p-sidebar>
