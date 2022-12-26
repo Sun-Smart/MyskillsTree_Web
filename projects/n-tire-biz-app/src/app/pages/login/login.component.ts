@@ -405,6 +405,8 @@ export class LoginComponent implements OnInit {
 
         debugger;
         let loginuser = this.sessionService.getSession();
+        console.log('loginuser ',loginuser);
+        
         this.sessionService.setItem("userid", loginuser.userid);
         this.sessionService.setItem("username", loginuser.username);
         this.sessionService.setItem("role", loginuser.role);
@@ -414,10 +416,12 @@ export class LoginComponent implements OnInit {
         this.sessionService.setItem("selected-theme", this.theme);
         this.sessionService.setItem("selected-layout", loginuser.layoutpage);
         this.sessionService.setItem("applicantid", loginuser.key);
+        this.sessionService.setItem("user_type", loginuser.user_type);
         // localStorage.setItem("termid", user.terms.termid);
 
         //this.themeService.selectTheme(this.theme);
 
+        
         if (loginuser.nextloginchangepassword == 'True') {
             this.router.navigate(['/resetpassword']);
             return;
