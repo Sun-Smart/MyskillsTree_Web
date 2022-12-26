@@ -52,6 +52,7 @@ export class HeaderComponent implements OnInit {
   hideCorporatePage: boolean = false;
   appmenu: boolean;
   menuhides: boolean;
+  showCertifiermenu: boolean = false;
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
@@ -131,6 +132,10 @@ export class HeaderComponent implements OnInit {
       this.showApplicantmenu = true;
       this.showAdminMenuaccess = false;
       this.showCorporateMenuaccess = false;
+
+      if (localStorage.getItem('user_type') == "C") {
+        this.showCertifiermenu = true;
+      }
     } else if (this.sessionService.getItem('role') == '3') {
       this.userrole = 'Corporate';
       this.showCorporateMenuaccess = true;
@@ -300,7 +305,7 @@ export class HeaderComponent implements OnInit {
             elem.href = 'node_modules/primeng/resources/themes/'+theme+'/theme.css';
            */
   }
-  closeicon(){
+  closeicon() {
     debugger
     // this.appmenu=false
     this.showmenulist = false;
@@ -308,8 +313,13 @@ export class HeaderComponent implements OnInit {
   }
   showMenus() {
     this.showmenulist = !this.showmenulist;
-    this.appmenu=true;
+    this.appmenu = true;
     this.showhideProfile = false;
+    if (localStorage.getItem('user_type') == "C") {
+      this.showCertifiermenu = true;
+    }else {
+      this.showCertifiermenu = false;
+    }
   }
   showProfileDetails() {
     this.showhideProfile = !this.showhideProfile;
@@ -342,16 +352,16 @@ export class HeaderComponent implements OnInit {
     debugger
     this.menuhide = true
   }
-  
-  openpopups(){
-this.menuhides=true
+
+  openpopups() {
+    this.menuhides = true
   }
-  closePopups(){
-this.menuhides = false;
+  closePopups() {
+    this.menuhides = false;
   }
 
   gotoSkillSearch() {
     this.router.navigate(['/home/newskillsearch']);
   }
-  
+
 }

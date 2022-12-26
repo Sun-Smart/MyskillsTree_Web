@@ -27,7 +27,7 @@
                 title="Notifications">{{notifications.length}}</span></span><span class="p-ink"
               style="height: 44px; width: 44px;"></span></a>
         </li>
-        <li *ngIf="showApplicantmenu">
+        <li *ngIf="showApplicantmenu && !showCertifiermenu">
           <i class="fa fa-th" aria-hidden="true" style="font-size: 24px;margin-top: 13px;cursor: pointer;"
             (click)="showMenus()"></i>
           <div class="card applicant-card" *ngIf="showmenulist"
@@ -406,6 +406,24 @@
                 </div>
               </div>
 
+
+              <!-- Show Certifier Menu -->
+              <div *ngIf="showCertifiermenu" style="display: flex;justify-content: center;
+              width:18rem; background-color:white; margin-top: 12px !important; border-radius: 12px;" class="row dd-menu">
+                <div class="col-12">
+                  <button type="button" pripple (click)="closePopup();"
+                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                    style="float: right; margin:0px; padding-left: 41rem;">
+                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5" aria-hidden="false"
+                      style="color: red !important; font-size: 24px;"></span>
+                  </button>
+                </div>
+                <div class="col-6 applicant-menu">
+                  <a class="icon" [routerLink]='' (click)="openReference()">
+                    <i class="bi bi-person-square" style="font-size: 25px;"></i>
+                    <span class="common_cls_font newfont_header" title="References">References</span></a>
+                </div>
+              </div>
           </label>
         </li>
         <!-- reports -->

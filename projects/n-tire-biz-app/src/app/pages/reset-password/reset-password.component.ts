@@ -213,8 +213,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
     top: 50% !important;
     left: 50% !important;
     z-index: 999 !important;
+    height:540px;
     text-align: center !important;
-    padding: 85px 28px !important;
+    padding: 25px 28px !important;
     width: 378px !important;
     transform: translate(-50%,-50%) !important;
     background: rgba(255,255,255,0.04) !important;
@@ -223,10 +224,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
      ">
       <ngx-spinner></ngx-spinner>
         <form class="form-horizontal" *ngIf="verified && !reset" (ngSubmit)="onSubmit()" autocomplete="off"  [formGroup]="reactiveForm">
-        <div class="row">
+        <div class="row" style="margin: 30px !important;">
           <div class="col">
-            <h1><a routerlink="/" class="layout-topbar-logo ng-tns-c186-0" href="#/"><img src="assets/logo/myskilltree.png"
-                  style=" width: 300px;" /></a></h1>
+            <h1><a routerlink="/" class="layout-topbar-logo ng-tns-c186-0" href="#/"><img src="assets/companylogo.png"
+                  style="max-width: 100px;" /></a></h1>
             <!-- <h1 class="font-weight-600 mb-4 center" style="color: #007bff !important;padding:10px!important;">Reset Password</h1> -->
             <h1 class="font-weight-600 mb-4 center" style="color: #007bff !important;padding:10px!important;">Set New Password</h1>
 <div class="row">
@@ -240,7 +241,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 </div>
 <!-- test -->
             <div class="form-group">
-        <label for="spUsername" class="col-xs-12 control-label"  style="margin-left: -205px;  ">New Password</label>
+        <label for="spUsername" class="col-xs-12 control-label"  style="margin-right: 130px;">New Password</label>
         <div class="col-xs-12 input-group">
           <input class="form-control" name="password"  id="password" [(ngModel)]="formModel.password"
                  placeholder="New Password"  formControlName="password"  [type]="pwdfieldTextType ? 'text' : 'password'"  [disabled]="posting">
@@ -256,7 +257,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
       </div>
       <span *ngIf="donotMatch" style="color: red;">Password do not match.</span>
       <div class="form-group">
-        <label for="spPassword" class="col-xs-12 control-label"  style="margin-left: -149px;">Confirm New Password</label>
+        <label for="spPassword" class="col-xs-12 control-label"  style="margin-left: -70px;">Confirm New Password</label>
         <div class="col-xs-12 input-group">
           <input class="form-control" name="confirmPassword" id="confirmPassword"   formControlName="confirmPassword" [(ngModel)]="formModel.confirmPassword"
                  placeholder="Confirm New Password"  [type]="pwdconfirmfieldTextType ? 'text' : 'password'"  [disabled]="posting">
