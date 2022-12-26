@@ -67,12 +67,13 @@
     margin: auto;
 
     button {
-      background-color: #f5f3e4;
+      background-color: #737c84;
       border: none;
       margin: 1px;
       font-size: 12px;
-      padding: 5px 20px;
-      font-weight: 600;
+      padding: 8px 20px;
+      // font-weight: 600;
+      color: #fff !important;
     }
   }
 }
@@ -220,4 +221,11 @@ ul {
 }
 input[type=checkbox]{
   margin-left: -22px !important;
+}
+.tab{
+  box-shadow: none !important;
+  margin-top: 20px !important;
+}
+.header{
+display: none !important;
 }
