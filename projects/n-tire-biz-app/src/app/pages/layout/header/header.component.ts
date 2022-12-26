@@ -301,11 +301,13 @@ export class HeaderComponent implements OnInit {
   }
   closeicon(){
     debugger
-    this.appmenu=false
+    // this.appmenu=false
+    this.showmenulist = false;
+    // this.showApplicantmenu = false;
   }
   showMenus() {
     this.showmenulist = !this.showmenulist;
-    this.appmenu=true
+    this.appmenu=true;
     this.showhideProfile = false;
   }
   showProfileDetails() {
