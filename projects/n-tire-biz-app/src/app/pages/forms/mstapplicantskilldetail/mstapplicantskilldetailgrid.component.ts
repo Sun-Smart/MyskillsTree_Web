@@ -49,7 +49,6 @@ import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequ
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
-import { sk } from 'date-fns/locale';
 
 
 @Component({
@@ -625,44 +624,45 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   // Muthu Code 16/12/2022
 
-  Add_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
+  AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
     debugger
     this.showSkillDetails_input = true;
-    this.mstapplicantskilldetail_Form = this.fb.group({skillid,applicantid})
     this.getData();
     let add = false;
     if (event == null) add = true;
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+
+
   }
 
   // Old Code
 
-  Edit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
-    debugger
-    let add = false;
-    if (event == null) add = true;
-    let childsave = true;
-    if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+  // AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
+  //   debugger
+  //   let add = false;
+  //   if (event == null) add = true;
+  //   let childsave = true;
+  //   if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
-    this.dialog.open(mstapplicantskilldetailComponent,
-      {
-        data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, skillid, applicantid, visiblelist: this.mstapplicantskilldetails_visiblelist, hidelist: this.mstapplicantskilldetails_hidelist, ScreenType: 2 },
-      }
-    ).onClose.subscribe(res => {
-      if (res) {
-        if (add) {
-          for (let i = 0; i < res.length; i++) {
-            this.tbl_mstapplicantskilldetails.source.add(res[i]);
-          }
-          this.tbl_mstapplicantskilldetails.source.refresh();
-        }
-        else {
-          this.tbl_mstapplicantskilldetails.source.update(event.data, res[0]);
-        }
-      }
-    });
-  }
+  //   this.dialog.open(mstapplicantskilldetailComponent,
+  //     {
+  //       data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, skillid, applicantid, visiblelist: this.mstapplicantskilldetails_visiblelist, hidelist: this.mstapplicantskilldetails_hidelist, ScreenType: 2 },
+  //     }
+  //   ).onClose.subscribe(res => {
+  //     if (res) {
+  //       if (add) {
+  //         for (let i = 0; i < res.length; i++) {
+  //           this.tbl_mstapplicantskilldetails.source.add(res[i]);
+  //         }
+  //         this.tbl_mstapplicantskilldetails.source.refresh();
+  //       }
+  //       else {
+  //         this.tbl_mstapplicantskilldetails.source.update(event.data, res[0]);
+  //       }
+  //     }
+  //   });
+  // }
 
 
   onDelete_mstapplicantskilldetail(event: any, childID: number, i: number) {
@@ -902,12 +902,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
     switch (action) {
       case 'create':
-        this.Add_mstapplicantskilldetail(event, null, this.applicantid);
+        this.AddOrEdit_mstapplicantskilldetail(event, null, this.applicantid);
         break;
       case 'view':
         break;
       case 'edit':
-        this.Edit_mstapplicantskilldetail(event, event.data.skillid, this.applicantid);
+        this.AddOrEdit_mstapplicantskilldetail(event, event.data.skillid, this.applicantid);
         break;
       case 'delete':
         this.onDelete_mstapplicantskilldetail(event, event.data.skillid, ((this.tbl_mstapplicantskilldetails.source.getPaging().page - 1) * this.tbl_mstapplicantskilldetails.source.getPaging().perPage) + event.index);
