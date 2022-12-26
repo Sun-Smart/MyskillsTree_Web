@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AppConstants } from '../../../shared/helper';
 
 @Component({
   selector: 'app-newskillsearch',
@@ -32,7 +33,7 @@ export class NewskillsearchComponent implements OnInit {
       key: "",
       pkvalue: 0
     }
-    this.http.post('https://demo.herbie.ai/MySkillTreeapi/api/ReportViewer', data).subscribe((res: any) => {
+    this.http.post(AppConstants.ntireboURL + '/ReportViewer', data).subscribe((res: any) => {
       this.showData = res.results.Rows;
       console.log(this.showData);
     })
@@ -52,7 +53,7 @@ export class NewskillsearchComponent implements OnInit {
     this.showList = false;
     this.showGrid = false;
   }
-  rangeChange(event) {
-    this.raio = event.target.value;
- }
+  valueChanged(e) {
+    console.log('e', e);
+  }
 }
