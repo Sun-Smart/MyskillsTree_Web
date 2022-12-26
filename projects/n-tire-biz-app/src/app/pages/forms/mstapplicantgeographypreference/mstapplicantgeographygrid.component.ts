@@ -93,7 +93,7 @@ import { mstapplicantgeographypreference } from '../../../model/mstapplicantgeog
       <th scope="col" >Country Desc</th>
       <th scope="col" >City Desc</th>
       <th scope="col" >Remarks</th>
-      <th scope="col" >Attachment</th>
+      <!-- <th scope="col" >Attachment</th> -->
       <th scope="col" style="text-align:center;">Action</th>
     </tr>
   </thead>
@@ -123,14 +123,14 @@ import { mstapplicantgeographypreference } from '../../../model/mstapplicantgeog
 
               <!-- Attachment -->
 
-            <td>
+            <!-- <td>
                 <p-accordion [multiple]='true'>
                     <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
                     <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
                     </app-attachment>
                     </p-accordionTab>
                 </p-accordion>
-              </td>
+              </td> -->
 
               <!-- Submit & close -->
 
@@ -414,7 +414,7 @@ export class mstapplicantgeographygrid implements OnInit {
             <th scope="row"  style="width:310px !important">##countrydesc##</th>
             <th scope="row"  style="width:228px !important">##citydesc##</th>
             <th scope="row"  style="width:207px !important">##remarks##</th>
-            <th scope="row"  style="width:321px !important">##attachment##</th>
+            // <th scope="row"  style="width:321px !important">##attachment##</th>
           </tr>
         </tbody>
       </table>

@@ -100,7 +100,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <th scope="col" style="padding-left: 25px !important;width: 30%;">Master Data Type</th>
             <!--<th scope="col" style="width: 14%">Attachment</th>-->
             <th scope="col" style="width: 61%">Achievement Details</th>
-            <th scope="col" style="width: 61%">Attachment</th>
+            <!-- <th scope="col" style="width: 61%">Attachment</th> -->
             <th scope="col" style="width: 42%">Action</th>
           </tr>
         </thead>
@@ -127,14 +127,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                 <!-- Attachment -->
 
-                <td>
+                <!-- <td>
                 <p-accordion [multiple]='true'>
                     <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
                     <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
                     </app-attachment>
                     </p-accordionTab>
                 </p-accordion>
-                </td>
+                </td> -->
 
             <!-- Submit & Close -->
 

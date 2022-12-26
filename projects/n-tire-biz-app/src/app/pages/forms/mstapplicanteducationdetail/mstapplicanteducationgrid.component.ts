@@ -112,7 +112,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- <th style="width: 13%;">Referral Status</th> -->
                     <th style="width: 11%;">Remarks</th>
                     <th style="width: 11%;">To Year</th>
-                    <th style="width: 11%;">Attachment</th>
+                    <!-- <th style="width: 11%;">Attachment</th> -->
                     <th style="width: 11%;">Action</th>
                     </tr>
                 </thead>
@@ -180,14 +180,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                     <!-- Attachment -->
 
-                    <td>
+                    <!-- <td>
                     <p-accordion [multiple]='true'>
                       <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
                         <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
                         </app-attachment>
                       </p-accordionTab>
                     </p-accordion>
-                    </td>
+                    </td> -->
                     <!-- To Year -->
 
                     <td>

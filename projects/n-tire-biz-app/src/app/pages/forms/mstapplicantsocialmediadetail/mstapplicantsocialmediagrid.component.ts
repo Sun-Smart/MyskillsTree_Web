@@ -111,7 +111,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       <th style="width: 21.5%;">Handle Name</th>
       <th style="width: 21.5%;">Url</th>
       <th style="width: 25%;">Remarks</th>
-      <th style="width: 25%;">Attachment</th>
+      <!-- <th style="width: 25%;">Attachment</th> -->
       <th>Action</th>
     </tr>
   </thead>
@@ -151,14 +151,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
         <!-- Attachment -->
 
-        <td>
+        <!-- <td>
         <p-accordion [multiple]='true'>
             <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
             <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
             </app-attachment>
             </p-accordionTab>
         </p-accordion>
-        </td>
+        </td> -->
 
             <!-- Submit & Close -->
 

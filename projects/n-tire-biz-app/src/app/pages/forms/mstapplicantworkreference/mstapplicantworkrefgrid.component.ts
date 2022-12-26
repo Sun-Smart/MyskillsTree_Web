@@ -106,7 +106,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                     <th style="width: 14.2%">Referral Status</th>
                     <th style="width: 14.2%;">Work Description</th>
                     <th style="width: 14.2%;">Remarks</th>
-                    <th style="width: 14.2%;">Attachment</th>
+                    <!-- <th style="width: 14.2%;">Attachment</th> -->
                     <th style="width: 14.2%;">Action</th>
                     </tr>
                 </thead>
@@ -147,14 +147,14 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 
                 <!-- Attachment -->
 
-                    <td>
+                    <!-- <td>
                     <p-accordion [multiple]='true'>
                         <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
                         <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
                         </app-attachment>
                         </p-accordionTab>
                     </p-accordion>
-                    </td>
+                    </td> -->
 
                 <!-- Add & Close -->
 

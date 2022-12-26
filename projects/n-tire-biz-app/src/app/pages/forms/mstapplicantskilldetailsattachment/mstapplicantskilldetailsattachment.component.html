@@ -1,0 +1,20 @@
+<ngx-spinner></ngx-spinner>
+<form [formGroup]=" " (ngSubmit)="onSubmit()" [ngClass]="theme">
+
+    <div class="row second second2 common_title_style">
+        <div class="col-4">Applicant Skill Set Attachment</div>
+        
+        <div class="col-4"></div>
+
+        <div class="col-4 nav-item actionheader common_title_style" *ngIf="!showview">
+            <button type="button" class="btn btn-outline-primary  popup-add-button"  (click)="onSubmitAndWait()">Submit</button>&nbsp;
+            <app-action *ngIf="f.requestid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+            [value]="f.requestid.value" [status]="f.status.value"></app-action>
+
+            <i class='nav-item actionheader common_title_style'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
+            class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
+        </div>
+    </div>
+
+</form>
