@@ -16,7 +16,7 @@ export class ToastService {
      * @param detail Detail text of the message.
      */
     addSingle(severity: string, summary: string, detail: string) {
-        this.messageService.add({ severity: severity, summary: summary, detail: detail, life: 2500 });
+        this.messageService.add({ severity: severity, summary: summary, detail: detail, life: 1000 });
         // alert(detail);
 
     }

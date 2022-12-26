@@ -51,6 +51,7 @@ export class HeaderComponent implements OnInit {
   showCorporateMenuaccess: boolean = false;
   hideCorporatePage: boolean = false;
   appmenu: boolean;
+  menuhides: boolean;
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
@@ -341,7 +342,16 @@ export class HeaderComponent implements OnInit {
     debugger
     this.menuhide = true
   }
+  
+  openpopups(){
+this.menuhides=true
+  }
+  closePopups(){
+this.menuhides = false;
+  }
+
   gotoSkillSearch() {
     this.router.navigate(['/home/newskillsearch']);
   }
+  
 }
