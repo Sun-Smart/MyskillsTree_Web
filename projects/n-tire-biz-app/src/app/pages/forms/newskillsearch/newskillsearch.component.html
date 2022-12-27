@@ -1,6 +1,7 @@
 <div class="content">
   <div class="header row">
-    <div class="col-8" style="display:flex; justify-content:center; align-items:center;padding: 1rem 10rem;">
+    <div class="col-8"
+      style="display: flex;justify-content: center;align-items: center;padding: 1rem 10rem;position: absolute;top: -7px;z-index: 9999;">
       <i class="fa fa-search search-icon" aria-hidden="true"></i>
       <input type="text" class="form-control" placeholder="Search"
         style="border-radius:30px !important;padding: 0 40px;" [(ngModel)]="term">
@@ -11,49 +12,33 @@
     <div class="sidebar">
       <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Skills Set</h6>
-        <!-- <select id="segmentid" required (change)="segmentcategory_onChange($event.target)"
-          formControlName="segmentid" class="form-control">
-          <option [ngValue]="null" [disabled]="true">-Select-</option>
-          <option *ngFor="let item of Segmentcategory_list" value="{{item.value}}">{{item.label}}</option>
-        </select> -->
-
-        <!-- <select id="skillcategory" required (change)="skillcategory_onChange($event.target)"
-          formControlName="skillcategory" class="form-control">
-          <option [ngValue]="null" [disabled]="true">-Select-</option>
-          <option *ngFor="let item of skillcategory_List" value="{{item.categoryid}}">{{item.name}}</option>
-        </select> -->
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label">
-            Graphic Designer
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label">
-            Mobile Designer
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label">
-            Web Designer
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label">
-            UI UX Designer
-          </label>
-        </div>
+        <ng-multiselect-dropdown [placeholder]="'Select Segment'" [settings]="dropdownSettings"
+          [data]="Segmentcategory_list" [(ngModel)]="segmentid" (onSelect)="segmentcategory_onChange($event)"
+          (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown><br />
+        <ng-multiselect-dropdown [placeholder]="'Select Category'" [settings]="categorySettings"
+          [data]="skillcategory_List" [(ngModel)]="skillcategory" (onSelect)="skillcategory_onChange($event)"
+          (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown><br />
+        <ng-multiselect-dropdown [placeholder]="'Select Subcategory'" [settings]="subCategorySettings"
+          [data]="subcategoryid_List" [(ngModel)]="subcategoryid" (onSelect)="subcategoryid_onChange($event)"
+          (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
       </div>
-      <div class="sidebar-content">
+      <div class="sidebar-content" style="width: 200px;height: 62px;">
         <h6 style="font-weight: 600;"> Experience</h6>
-        <input type="range" class="form-range  exp-input" min="100" max="2000" step="100" (input)="valueChanged($event.target.value)">
+        <input type="range" class="form-control" min="0" max="10" value="{{rangevalue}}" title="{{rangevalue}}" (input)="valueChanged($event)"><label style="position: relative;bottom: 21px;font-weight: 700;left: 110%;">{{rangevalue}}</label>
       </div>
       <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Country</h6>
-        <div class="form-check">
+        <app-popupselect [options]="country_List" [optionsEvent]="country_optionsEvent" [form]="bocountry"
+          (selectItem)="onSelected_country($event)" [reportid]='wc9rn' [menuid]='wc9rn' formControlName="country"
+          id="value" desc="label"></app-popupselect>
+        <h6 style="font-weight: 600;"> Location</h6>
+        <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
+          (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value"
+          desc="label"></app-popupselect>
+        <!-- <div class="form-check">
           <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
           <label class="form-check-label">
             India
@@ -76,7 +61,7 @@
           <label class="form-check-label">
             China
           </label>
-        </div>
+        </div> -->
       </div>
       <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Job Type</h6>
@@ -122,7 +107,7 @@
           </ul> -->
         </div>
       </div>
-      <div class="listView-content" *ngIf="showList" style="max-height: 400px !important;overflow-y: scroll;">
+      <div class="listView-content" *ngIf="showList" style="max-height: 450px !important;overflow-y: scroll;">
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
         <div *ngFor="let item of showData  | filter:term; index of i" [ngClass]="{ 'active' : 'listView-card'}"

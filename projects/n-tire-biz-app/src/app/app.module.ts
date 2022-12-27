@@ -101,6 +101,7 @@ import { ApplicantregisterComponent } from './pages/forms/applicantregister/appl
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SkillenhancerComponent } from './pages/skillenhancer/skillenhancer.component';
 import { CertifierComponent } from './pages/certifier/certifier.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -150,6 +151,7 @@ export function tokenGetter() {
         //NgxIntlTelInputModule,BsDropdownModule.forRoot(),
         //InternationalPhoneModule ,
         //NgPrimeModule,
+        NgMultiSelectDropDownModule.forRoot(),
         NgbDatepickerModule,
         OverlayPanelModule,
         HttpClientModule,
