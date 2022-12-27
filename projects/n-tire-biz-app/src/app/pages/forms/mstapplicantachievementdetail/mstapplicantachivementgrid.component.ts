@@ -120,7 +120,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <!-- Achievement details -->
 
                 <td>
-                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true"  id="achievementdetails" required
+                    <textarea autosize rows="1" cols="10" onlyGrow="true"  id="achievementdetails" required
                     formControlName="achievementdetails" class="form-control">
                     </textarea>
                 </td>
@@ -321,11 +321,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
         this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
         console.log(this.formData);
 
-        if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-        this.fileAttachmentList = this.fileattachment.getAllFiles();
+        // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+        // this.fileAttachmentList = this.fileattachment.getAllFiles();
         console.log(this.formData);
         this.spinner.show();
-
         this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
             async res => {
                 console.log("ressss", res);
@@ -338,7 +337,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
                 this.sessionService.setItem("attachedsaved", "true")
                 this.objvalues.push((res as any).mstapplicantachievementdetail);
                 this.ngOnInit();
-                if (!bclear) this.showview = true;
+                // if (!bclear) this.showview = true;
                 if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
                   this.dialogRef.close(this.objvalues);
@@ -417,7 +416,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
         this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {
             debugger
-            //   this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
+              this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
             this.Set_mstapplicantachievementdetails_TableConfig();
             this.mstapplicantachievementdetails_LoadTable(res.mstapplicantachievementdetail);
         });
@@ -713,7 +712,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantachievementdetails");
         let formname = (objbomenuaction as any).actionname;
-        if (formname == "mstapplicantreferencerequests") {
+        if (formname == "mstapplicantachievementdetails") {
             let add = false;
                 if (event == null) add = true;
                 let childsave = true;

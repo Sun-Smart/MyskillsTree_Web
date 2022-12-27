@@ -215,6 +215,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     (userRowSelect)="handle_mstapplicantcareerdetails_GridSelected($event)"
     [settings]="mstapplicantcareerdetails_settings"
     (custom)="onCustom_mstapplicantcareerdetails_Action($event)"
+    (custom)="onCustom_mstapplicantcareerdetailsAttachment_Action($event)"
     [source]="tbl_mstapplicantcareerdetails?.source?.data"
     (delete)="mstapplicantcareerdetails_route($event,'delete')"
     (deleteConfirm)="mstapplicantcareerdetails_route($event,'delete')"
@@ -323,13 +324,6 @@ export class mstapplicantcareergridComponent implements OnInit {
             month: current.getMonth() + 1,
             day: current.getDate()
         };
-    }
-    async ngOnInit() {
-        this.Set_mstapplicantcareerdetails_TableConfig();
-        if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
-        if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
-
-
         this.mstapplicantcareerdetail_Form = this.fb.group({
             pk: [null],
             ImageName: [null],
@@ -352,7 +346,15 @@ export class mstapplicantcareergridComponent implements OnInit {
             statusdesc: [null],
             attachment: [null],
         });
-        this.FillData('');
+    }
+    async ngOnInit() {
+        this.Set_mstapplicantcareerdetails_TableConfig();
+        if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
+        if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
+
+
+
+        this.FillData();
         //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         // if (this.pkcol == null) {
         //     this.resetForm();
@@ -469,6 +471,7 @@ export class mstapplicantcareergridComponent implements OnInit {
         debugger;
         this.isSubmitted = true;
         let strError = "";
+        this.getData()
 
         this.formData = this.mstapplicantcareerdetail_Form.getRawValue();
         if (this.dynamicconfig.data != null) {
@@ -503,9 +506,9 @@ export class mstapplicantcareergridComponent implements OnInit {
             this.spinner.show();
             this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
                 async res => {
-                      await this.sharedService.upload(this.fileAttachmentList);
-                      this.attachmentlist = [];
-                      if (this.fileattachment) this.fileattachment.clear();
+                    await this.sharedService.upload(this.fileAttachmentList);
+                    this.attachmentlist = [];
+                    if (this.fileattachment) this.fileattachment.clear();
                     this.spinner.hide();
                     debugger;
                     this.toastr.addSingle("success", "", "Successfully saved");
@@ -515,27 +518,27 @@ export class mstapplicantcareergridComponent implements OnInit {
                     if (!bclear) this.showview = true;
                     if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                     if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-                      this.dialogRef.close(this.objvalues);
-                      return;
-                    }
-                    else {
-                      if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-                    }
-                    
-                    if (bclear) {
-                      this.resetForm();
-                    }
-                    else {
-                      if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-                        this.objvalues.push((res as any).mstapplicantcareerdetail);
                         this.dialogRef.close(this.objvalues);
-                      }
-                      else {
-                        this.FillData(res);
-                      }
+                        return;
+                    }
+                    else {
+                        if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                     }
 
-                   
+                    if (bclear) {
+                        this.resetForm();
+                    }
+                    else {
+                        if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                            this.objvalues.push((res as any).mstapplicantcareerdetail);
+                            this.dialogRef.close(this.objvalues);
+                        }
+                        else {
+                            // this.FillData(res);
+                        }
+                    }
+
+
                     this.mstapplicantcareerdetail_Form.markAsUntouched();
                     this.mstapplicantcareerdetail_Form.markAsPristine();
                 },
@@ -601,11 +604,11 @@ export class mstapplicantcareergridComponent implements OnInit {
             if (formproperty && formproperty.edit == false) this.showview = true;
             this.pkcol = res.mstapplicantcareerdetail.pkcol;
             this.formid = res.mstapplicantcareerdetail.careerid;
-            this.FillData(res);
+            this.FillData();
         }).catch((err) => { console.log(err); });
     }
 
-    FillData(res: any) {
+    FillData() {
 
         // this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.applicantid).then(res => {
         //     this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
@@ -613,53 +616,15 @@ export class mstapplicantcareergridComponent implements OnInit {
         //     this.mstapplicantcareerdetails_LoadTable(res.mstapplicantcareerdetails);
         // });
 
-
-
         this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
             this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
             this.Set_mstapplicantcareerdetails_TableConfig();
             this.mstapplicantcareerdetails_LoadTable(res.mstapplicantcareerdetail);
         });
-
-        this.formData = res.mstapplicantcareerdetail;
-        this.formid = res.mstapplicantcareerdetail.careerid;
-        this.pkcol = res.mstapplicantcareerdetail.pkcol;
-        this.bmyrecord = false;
-        if ((res.mstapplicantcareerdetail as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
-
-        if (res.mstapplicantcareerdetail.currentlyworking == true) {
-            this.isdisabled = true
-        } else {
-            this.isdisabled = false
-        }
-
-        this.mstapplicantcareerdetail_Form.patchValue({
-            applicantid: res.mstapplicantcareerdetail.applicantid,
-            applicantiddesc: res.mstapplicantcareerdetail.applicantiddesc,
-            careerid: res.mstapplicantcareerdetail.careerid,
-            category: res.mstapplicantcareerdetail.category,
-            categorydesc: res.mstapplicantcareerdetail.categorydesc,
-            companyname: res.mstapplicantcareerdetail.companyname,
-            designation: res.mstapplicantcareerdetail.designation,
-            keyproject: res.mstapplicantcareerdetail.keyproject,
-            fromdate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.fromdate),
-            todate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.todate),
-            currentlyworking: res.mstapplicantcareerdetail.currentlyworking,
-            requestid: res.mstapplicantcareerdetail.requestid,
-            skills: res.mstapplicantcareerdetail.skills,
-            remarks: res.mstapplicantcareerdetail.remarks,
-            status: res.mstapplicantcareerdetail.status,
-            statusdesc: res.mstapplicantcareerdetail.statusdesc,
-            attachment: JSON.parse(res.mstapplicantcareerdetail.attachment),
-        });
-
     };
 
 
-    AddOrEdit_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
+    Add_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
         debugger;
         this.showSkillDetails_input = true;
         this.getData();
@@ -667,24 +632,70 @@ export class mstapplicantcareergridComponent implements OnInit {
         if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        // this.dialog.open(mstapplicantcareerdetailComponent,
-        //     {
-        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, careerid, applicantid, visiblelist: this.mstapplicantcareerdetails_visiblelist, hidelist: this.mstapplicantcareerdetails_hidelist, ScreenType: 2 },
-        //     }
-        // ).onClose.subscribe(res => {
-        //     if (res) {
-        //         if (add) {
-        //             for (let i = 0; i < res.length; i++) {
-        //                 this.tbl_mstapplicantcareerdetails.source.add(res[i]);
-        //             }
-        //             this.tbl_mstapplicantcareerdetails.source.refresh();
-        //         }
-        //         else {
-        //             this.tbl_mstapplicantcareerdetails.source.update(event.data, res[0]);
-        //         }
-        //     }
-        // });
+
     }
+
+    Edit_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
+        debugger;
+        this.showSkillDetails_input = true;
+        this.getData();
+        let add = false;
+        if (event == null) add = true;
+        let childsave = true;
+        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+        console.log(event, event.data.careerid, event.data.applicantid);
+        this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByEID(event.data.pkcol).then((res: any) => {
+           debugger
+            console.log(res);
+            this.mstapplicantcareerdetail_Form.patchValue({
+                applicantid: res.mstapplicantcareerdetail.applicantid,
+                applicantiddesc: res.mstapplicantcareerdetail.applicantiddesc,
+                careerid: res.mstapplicantcareerdetail.careerid,
+                category: res.mstapplicantcareerdetail.category,
+                categorydesc: res.mstapplicantcareerdetail.categorydesc,
+                companyname: res.mstapplicantcareerdetail.companyname,
+                designation: res.mstapplicantcareerdetail.designation,
+                keyproject: res.mstapplicantcareerdetail.keyproject,
+                fromdate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.fromdate),
+                todate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.todate),
+                currentlyworking: res.mstapplicantcareerdetail.currentlyworking,
+                requestid: res.mstapplicantcareerdetail.requestid,
+                skills: res.mstapplicantcareerdetail.skills,
+                remarks: res.mstapplicantcareerdetail.remarks,
+                status: res.mstapplicantcareerdetail.status,
+                statusdesc: res.mstapplicantcareerdetail.statusdesc,
+                attachment: JSON.parse(res.mstapplicantcareerdetail.attachment),
+            });
+        })
+    }
+
+    // Old Code
+
+    // AddOrEdit_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
+    //     debugger;
+    //     this.getData();
+    //     let add = false;
+    //     if (event == null) add = true;
+    //     let childsave = true;
+    //     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    //     this.dialog.open(mstapplicantcareerdetailComponent,
+    //         {
+    //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, careerid, applicantid, visiblelist: this.mstapplicantcareerdetails_visiblelist, hidelist: this.mstapplicantcareerdetails_hidelist, ScreenType: 2 },
+    //         }
+    //     ).onClose.subscribe(res => {
+    //         if (res) {
+    //             if (add) {
+    //                 for (let i = 0; i < res.length; i++) {
+    //                     this.tbl_mstapplicantcareerdetails.source.add(res[i]);
+    //                 }
+    //                 this.tbl_mstapplicantcareerdetails.source.refresh();
+    //             }
+    //             else {
+    //                 this.tbl_mstapplicantcareerdetails.source.update(event.data, res[0]);
+    //             }
+    //         }
+    //     });
+    // }
 
     onDelete_mstapplicantcareerdetail(event: any, childID: number, i: number) {
         if (confirm('Do you want to delete this record?')) {
@@ -943,12 +954,12 @@ export class mstapplicantcareergridComponent implements OnInit {
 
         switch (action) {
             case 'create':
-                this.AddOrEdit_mstapplicantcareerdetail(event, null, this.applicantid);
+                this.Add_mstapplicantcareerdetail(event, null, this.applicantid);
                 break;
             case 'view':
                 break;
             case 'edit':
-                this.AddOrEdit_mstapplicantcareerdetail(event, event.data.careerid, this.applicantid);
+                this.Edit_mstapplicantcareerdetail(event, event.data.careerid, this.applicantid);
                 break;
             case 'delete':
                 this.onDelete_mstapplicantcareerdetail(event, event.data.careerid, ((this.tbl_mstapplicantcareerdetails.source.getPaging().page - 1) * this.tbl_mstapplicantcareerdetails.source.getPaging().perPage) + event.index);
@@ -994,11 +1005,37 @@ export class mstapplicantcareergridComponent implements OnInit {
             ).onClose.subscribe(res => {
             });
         }
+    };
 
+    async onCustom_mstapplicantcareerdetailsAttachment_Action(event: any, careerid: any, applicantid: any) {
+        let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantcareerdetails");
+        let formname = (objbomenuaction as any).actionname;
+        if (formname == "mstapplicantreferencerequests") {
+            let add = false;
+            if (event == null) add = true;
+            let childsave = true;
+            if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+            this.dialog.open(mstapplicantcareerdetailComponent,
+                {
+                    data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, careerid, applicantid, visiblelist: this.mstapplicantcareerdetails_visiblelist, hidelist: this.mstapplicantcareerdetails_hidelist, ScreenType: 2 },
+                }
+            ).onClose.subscribe(res => {
+                if (res) {
+                    if (add) {
+                        for (let i = 0; i < res.length; i++) {
+                            this.tbl_mstapplicantcareerdetails.source.add(res[i]);
+                        }
+                        this.tbl_mstapplicantcareerdetails.source.refresh();
+                    }
+                    else {
+                        this.tbl_mstapplicantcareerdetails.source.update(event.data, res[0]);
+                    }
+                }
+            });
 
-
-
+        }
     }
+
     mstapplicantcareerdetails_Paging(val) {
         //debugger;;
         this.tbl_mstapplicantcareerdetails.source.setPaging(1, val, true);

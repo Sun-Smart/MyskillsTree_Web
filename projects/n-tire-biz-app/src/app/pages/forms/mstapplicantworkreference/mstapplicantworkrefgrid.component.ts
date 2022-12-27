@@ -101,13 +101,13 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 <thead>
                     <tr>
       
-                    <th style="width: 14.2%;">Work Topic</th>
-                    <th style="width: 14.2%">Reference Url</th>
-                    <th style="width: 14.2%">Referral Status</th>
-                    <th style="width: 14.2%;">Work Description</th>
-                    <th style="width: 14.2%;">Remarks</th>
-                    <!-- <th style="width: 14.2%;">Attachment</th> -->
-                    <th style="width: 14.2%;">Action</th>
+                    <th style="width: 22.5%;">Work Topic</th>
+                    <th style="width: 22.5%">Reference Url</th>
+                    <!-- <th style="width: 20%">Referral Status</th> -->
+                    <th style="width: 22.5%;">Work Description</th>
+                    <th style="width: 22.5%;">Remarks</th>
+                    <!-- <th style="width: 20%;">Attachment</th> -->
+                    <th style="width: 10%;text-align: center;">Action</th>
                     </tr>
                 </thead>
                 <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
@@ -126,17 +126,17 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                     </td>
 
                 <!-- Referal Status -->
-
+                <!-- 
                     <td>
 
-                    </td>
+                    </td> -->
 
                 <!-- Work Description -->
 
                     <td>
                     <textarea autosize rows="1" cols="10" onlyGrow="true"  id="workdescription" required
                     formControlName="workdescription" class="form-control">
-                    </textarea>>
+                    </textarea>
                     </td>
 
                 <!-- Remarks -->
@@ -402,19 +402,20 @@ export class mstapplicantworkrefgridComponent implements OnInit {
                 }
             }
         }
-        if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-        this.fileAttachmentList = this.fileattachment.getAllFiles();
+        // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+        // this.fileAttachmentList = this.fileattachment.getAllFiles();
         console.log(this.formData);
         this.spinner.show();
         this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(
             async res => {
-                await this.sharedService.upload(this.fileAttachmentList);
-                this.attachmentlist = [];
-                if (this.fileattachment) this.fileattachment.clear();
+                // await this.sharedService.upload(this.fileAttachmentList);
+                // this.attachmentlist = [];
+                // if (this.fileattachment) this.fileattachment.clear();
                 this.spinner.hide();
                 debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.sessionService.setItem("attachedsaved", "true")
+                this.ngOnInit();
                 this.objvalues.push((res as any).mstapplicantworkreference);
                 if (!bclear) this.showview = true;
                 if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
@@ -493,11 +494,11 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         <table class="table table-hover workdetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##worktopic##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
-            <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##referencecount##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##workdescription##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##remarks##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width:20%;">##worktopic##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width:20%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
+            <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;width:20%;">##referencecount##</th>-->
+            <th style="white-space: break-spaces;word-break: break-word !important;width:20%;">##workdescription##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width:20%;">##remarks##</th>
           </tr>
         </tbody>
       </table>
@@ -531,12 +532,43 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         return ret;
     }
 
-    AddOrEdit_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
+    Add_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
         debugger;
         this.showSkillDetails_input = true;
         let add = false;
         if (event == null) add = true;
         let childsave = true;
+        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    }
+
+    Edit_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
+        debugger;
+        this.showSkillDetails_input = true;
+        let add = false;
+        if (event == null) add = true;
+        let childsave = true;
+        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+
+        console.log(event, event.data.workreferenceid, event.data.applicantid);
+        this.mstapplicantworkreference_service.get_mstapplicantworkreferences_ByEID(event.data.pkcol).then((res: any) => {
+            debugger;
+            console.log(res);
+
+            this.mstapplicantworkreference_Form.patchValue({
+                applicantid: res.mstapplicantworkreference.applicantid,
+                applicantiddesc: res.mstapplicantworkreference.applicantiddesc,
+                workreferenceid: res.mstapplicantworkreference.workreferenceid,
+                worktopic: res.mstapplicantworkreference.worktopic,
+                workdescription: res.mstapplicantworkreference.workdescription,
+                referenceurl: res.mstapplicantworkreference.referenceurl,
+                remarks: res.mstapplicantworkreference.remarks,
+                requestid: res.mstapplicantworkreference.requestid,
+                attachment: "[]",
+                status: res.mstapplicantworkreference.status,
+                statusdesc: res.mstapplicantworkreference.statusdesc,
+            });
+            debugger;
+        });
     }
 
     // Old Code
@@ -766,12 +798,12 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
         switch (action) {
             case 'create':
-                this.AddOrEdit_mstapplicantworkreference(event, null, this.applicantid);
+                this.Add_mstapplicantworkreference(event, null, this.applicantid);
                 break;
             case 'view':
                 break;
             case 'edit':
-                this.AddOrEdit_mstapplicantworkreference(event, event.data.workreferenceid, this.applicantid);
+                this.Edit_mstapplicantworkreference(event, event.data.workreferenceid, this.applicantid);
                 break;
             case 'delete':
                 this.onDelete_mstapplicantworkreference(event, event.data.workreferenceid, ((this.tbl_mstapplicantworkreferences.source.getPaging().page - 1) * this.tbl_mstapplicantworkreferences.source.getPaging().perPage) + event.index);
@@ -819,31 +851,31 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
     }
     async onCustom_mstapplicantskilldetailsAttachment_Action(event: any, workreferenceid: any, applicantid: any) {
-       
+
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantworkreferences");
         let formname = (objbomenuaction as any).actionname;
         if (formname == "mstapplicantworkreferences") {
-        let add = false;
-        if (event == null) add = true;
-        let childsave = true;
-        this.dialog.open(mstapplicantworkreferenceComponent,
-                    {
-                        width: '75% !important',
-                        data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, workreferenceid, applicantid, visiblelist: this.mstapplicantworkreferences_visiblelist, hidelist: this.mstapplicantworkreferences_hidelist, ScreenType: 2 },
+            let add = false;
+            if (event == null) add = true;
+            let childsave = true;
+            this.dialog.open(mstapplicantworkreferenceComponent,
+                {
+                    width: '75% !important',
+                    data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, workreferenceid, applicantid, visiblelist: this.mstapplicantworkreferences_visiblelist, hidelist: this.mstapplicantworkreferences_hidelist, ScreenType: 2 },
+                }
+            ).onClose.subscribe(res => {
+                if (res) {
+                    if (add) {
+                        for (let i = 0; i < res.length; i++) {
+                            this.tbl_mstapplicantworkreferences.source.add(res[i]);
+                        }
+                        this.tbl_mstapplicantworkreferences.source.refresh();
                     }
-                ).onClose.subscribe(res => {
-                    if (res) {
-                                    if (add) {
-                                        for (let i = 0; i < res.length; i++) {
-                                            this.tbl_mstapplicantworkreferences.source.add(res[i]);
-                                        }
-                                        this.tbl_mstapplicantworkreferences.source.refresh();
-                                    }
-                                    else {
-                                        this.tbl_mstapplicantworkreferences.source.update(event.data, res[0]);
-                                    }
-                                }
-                });
+                    else {
+                        this.tbl_mstapplicantworkreferences.source.update(event.data, res[0]);
+                    }
+                }
+            });
         }
     }
     mstapplicantworkreferences_Paging(val) {

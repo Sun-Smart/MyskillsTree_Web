@@ -144,7 +144,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <!-- Remarks -->
 
         <td>
-        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="achievementdetails" required
+        <textarea autosize rows="1" cols="10" onlyGrow="true" *ngIf="!showview" id="achievementdetails" required
         formControlName="remarks" class="form-control">
         </textarea>
         </td>

@@ -150,6 +150,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     (userRowSelect)="handle_mstapplicantgeographypreferences_GridSelected($event)"
     [settings]="mstapplicantgeographypreferences_settings"
     (custom)="onCustom_mstapplicantgeographypreferences_Action($event)"
+    (custom)="onCustom_mstapplicantgeographypreferencesAttachment_Action($event)"
     [source]="tbl_mstapplicantgeographypreferences?.source?.data"
     (delete)="mstapplicantgeographypreferences_route($event,'delete')"
     (deleteConfirm)="mstapplicantgeographypreferences_route($event,'delete')"
@@ -606,8 +607,8 @@ export class mstapplicantgeographygrid implements OnInit {
         debugger;;
         if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantgeographypreferences_ID) >= 0) {
             if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source = new LocalDataSource();
-            if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source?.load(mstapplicantgeographypreferences as any as LocalDataSource);
-            if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source?.setPaging(1, 20, true);
+            if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source.load(mstapplicantgeographypreferences as any as LocalDataSource);
+            if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source.setPaging(1, 20, true);
         }
     }
     mstapplicantgeographypreferences_route(event: any, action: any) {
@@ -643,11 +644,36 @@ export class mstapplicantgeographygrid implements OnInit {
     async onCustom_mstapplicantgeographypreferences_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantgeographypreferences");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
+
+    async onCustom_mstapplicantgeographypreferencesAttachment_Action(event: any, geographypreferenceid: any, applicantid: any){
+        let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantgeographypreferences");
+        let formname = (objbomenuaction as any).actionname;
+        if (formname == "mstapplicantgeographypreferences") {
+            let add = false;
+                if (event == null) add = true;
+                let childsave = true;
+                if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+                this.dialog.open(mstapplicantgeographypreferenceComponent,
+                    {
+                        data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, geographypreferenceid, applicantid, visiblelist: this.mstapplicantgeographypreferences_visiblelist, hidelist: this.mstapplicantgeographypreferences_hidelist, ScreenType: 2 },
+                    }
+                ).onClose.subscribe(res => {
+                    if (res) {
+                        if (add) {
+                            for (let i = 0; i < res.length; i++) {
+                                this.tbl_mstapplicantgeographypreferences.source.add(res[i]);
+                            }
+                            this.tbl_mstapplicantgeographypreferences.source.refresh();
+                        }
+                        else {
+                            this.tbl_mstapplicantgeographypreferences.source.update(event.data, res[0]);
+                        }
+                    }
+                });
+        }
+    }
+
     mstapplicantgeographypreferences_Paging(val) {
         //debugger;;
         this.tbl_mstapplicantgeographypreferences.source.setPaging(1, val, true);
