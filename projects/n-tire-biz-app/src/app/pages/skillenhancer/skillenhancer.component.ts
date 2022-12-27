@@ -5,12 +5,13 @@ import { AppConstants } from '../../shared/helper';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../core/services/toast.service';
+
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-skillenhancer',
+  templateUrl: './skillenhancer.component.html',
+  styleUrls: ['./skillenhancer.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class SkillenhancerComponent implements OnInit {
   bouserregistration_Form: FormGroup;
   firstname: any;
   lastname: any;
@@ -22,7 +23,6 @@ export class RegisterComponent implements OnInit {
   category: any;
   drophide: boolean=false;
   submenus:boolean = false;
-
   constructor(private router: Router, private toastr: ToastService, private http: HttpClient, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     this.bouserregistration_Form = this.formBuilder.group({
       firstname: ['', Validators.required],
@@ -34,7 +34,6 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  this.onItemChange('');
   }
   gotoLogin() {
     this.router.navigate(['login']);
@@ -49,7 +48,7 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['applicantregister']);
 
     } else if (value == "enhancer") {
-      this.router.navigate(['enhancer']);
+      this.router.navigate(['registernew']);
       this.type = "E";
       this.category = this.category;
     }
@@ -59,7 +58,6 @@ export class RegisterComponent implements OnInit {
       this.category = this.category;
     }
   }
-
   onSubmit() {
     debugger
     this.spinner.show();
@@ -76,7 +74,7 @@ export class RegisterComponent implements OnInit {
         emailid: this.bouserregistration_Form.value.emailid,
         mobilenumber: this.bouserregistration_Form.value.mobilenumber,
         status: null,
-        usertype: this.type,
+        usertype: "E",
         usercategory: this.bouserregistration_Form.value.category,
         specialcategory: null,
         statusdesc: null
@@ -115,11 +113,7 @@ export class RegisterComponent implements OnInit {
       });
 
     }
-
-
-
   }
-
   opendrop(ev:any){
     debugger;
     console.log(ev)
@@ -136,7 +130,4 @@ closedrop(data:any){
   console.log(data)
 
   }
-  // closedrop(){
-  //   this.drophide=false;
-  // }
 }

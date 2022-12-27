@@ -5,12 +5,13 @@ import { AppConstants } from '../../shared/helper';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../core/services/toast.service';
+
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-certifier',
+  templateUrl: './certifier.component.html',
+  styleUrls: ['./certifier.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class CertifierComponent implements OnInit {
   bouserregistration_Form: FormGroup;
   firstname: any;
   lastname: any;
@@ -20,8 +21,8 @@ export class RegisterComponent implements OnInit {
   objvalues: any = [];
   type: string;
   category: any;
-  drophide: boolean=false;
-  submenus:boolean = false;
+  drophide: boolean = false;
+  submenus: boolean = false;
 
   constructor(private router: Router, private toastr: ToastService, private http: HttpClient, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     this.bouserregistration_Form = this.formBuilder.group({
@@ -34,7 +35,6 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  this.onItemChange('');
   }
   gotoLogin() {
     this.router.navigate(['login']);
@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
         emailid: this.bouserregistration_Form.value.emailid,
         mobilenumber: this.bouserregistration_Form.value.mobilenumber,
         status: null,
-        usertype: this.type,
+        usertype: "C",
         usercategory: this.bouserregistration_Form.value.category,
         specialcategory: null,
         statusdesc: null
@@ -120,23 +120,20 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  opendrop(ev:any){
+  opendrop(ev: any) {
     debugger;
     console.log(ev)
-    if(ev == 'S'){
-      this.submenus=true;
-    }else{
-      this.submenus=false;
+    if (ev == 'S') {
+      this.submenus = true;
+    } else {
+      this.submenus = false;
     }
 
     //this.userRoleID = ev;
   }
-closedrop(data:any){
-  debugger
-  console.log(data)
+  closedrop(data: any) {
+    debugger
+    console.log(data)
 
-  }
-  // closedrop(){
-  //   this.drophide=false;
-  // }
+  }
 }
