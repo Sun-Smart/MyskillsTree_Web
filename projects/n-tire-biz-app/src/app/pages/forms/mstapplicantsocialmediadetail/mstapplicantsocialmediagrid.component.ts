@@ -336,24 +336,38 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         debugger;
         this.isSubmitted = true;
         let strError = "";
+        if (!this.mstapplicantsocialmediadetail_Form.valid) {
+            this.toastr.addSingle("error", "", "Enter the required fields");
+            return;
+        };
+        if (strError != "") return this.sharedService.alert(strError);
+        
+        if (!this.validate()) {
+            return;
+        };
+
         this.formData = this.mstapplicantsocialmediadetail_Form.getRawValue();
-        console.log(this.formData);
-        if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-        this.fileAttachmentList = this.fileattachment.getAllFiles();
+        if (this.dynamicconfig.data != null) {
+            for (let key in this.dynamicconfig.data) {
+                if (key != 'visiblelist' && key != 'hidelist') {
+                    if (this.mstapplicantsocialmediadetail_Form.controls[key] != null) {
+                        this.formData[key] = this.mstapplicantsocialmediadetail_Form.controls[key].value;
+                    }
+                }
+            }
+        };
         console.log(this.formData);
         this.spinner.show();
+
         this.mstapplicantsocialmediadetail_service.saveOrUpdate_mstapplicantsocialmediadetails(this.formData).subscribe(
             async res => {
                 await this.sharedService.upload(this.fileAttachmentList);
                 this.attachmentlist = [];
                 if (this.fileattachment) this.fileattachment.clear();
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.sessionService.setItem("attachedsaved", "true")
                 this.objvalues.push((res as any).mstapplicantsocialmediadetail);
-                this.ngOnInit();
-                if (!bclear) this.showview = true;
                 if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
                     this.dialogRef.close(this.objvalues);
@@ -362,7 +376,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
                 else {
                     if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 }
-               
                 if (bclear) {
                     this.resetForm();
                 }
@@ -377,8 +390,20 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
                 }
                 this.mstapplicantsocialmediadetail_Form.markAsUntouched();
                 this.mstapplicantsocialmediadetail_Form.markAsPristine();
+            },
+            err => {
+                debugger;
+                this.spinner.hide();
+                this.toastr.addSingle("error", "", err.error);
+                console.log(err);
             });
 
+
+     };
+
+     validate() {
+        let ret = true;
+        return ret;
     }
     resetForm() {
         if (this.mstapplicantsocialmediadetail_Form != null)

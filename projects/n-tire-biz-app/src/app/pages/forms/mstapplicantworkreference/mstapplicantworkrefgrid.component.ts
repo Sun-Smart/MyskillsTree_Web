@@ -173,6 +173,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 (userRowSelect)="handle_mstapplicantworkreferences_GridSelected($event)"
                 [settings]="mstapplicantworkreferences_settings"
                 (custom)="onCustom_mstapplicantworkreferences_Action($event)"
+                (custom)="onCustom_mstapplicantskilldetailsAttachment_Action($event)"
                 [source]="tbl_mstapplicantworkreferences?.source?.data"
                 (delete)="mstapplicantworkreferences_route($event,'delete')"
                 (deleteConfirm)="mstapplicantworkreferences_route($event,'delete')"
@@ -536,25 +537,34 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         let add = false;
         if (event == null) add = true;
         let childsave = true;
-        // if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        // this.dialog.open(mstapplicantworkreferenceComponent,
-        //     {
-        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, workreferenceid, applicantid, visiblelist: this.mstapplicantworkreferences_visiblelist, hidelist: this.mstapplicantworkreferences_hidelist, ScreenType: 2 },
-        //     }
-        // ).onClose.subscribe(res => {
-        //     if (res) {
-        //         if (add) {
-        //             for (let i = 0; i < res.length; i++) {
-        //                 this.tbl_mstapplicantworkreferences.source.add(res[i]);
-        //             }
-        //             this.tbl_mstapplicantworkreferences.source.refresh();
-        //         }
-        //         else {
-        //             this.tbl_mstapplicantworkreferences.source.update(event.data, res[0]);
-        //         }
-        //     }
-        // });
     }
+
+    // Old Code
+
+    // AddOrEdit_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
+    //     debugger;
+    //     let add = false;
+    //     if (event == null) add = true;
+    //     let childsave = true;
+    //     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    //     this.dialog.open(mstapplicantworkreferenceComponent,
+    //         {
+    //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, workreferenceid, applicantid, visiblelist: this.mstapplicantworkreferences_visiblelist, hidelist: this.mstapplicantworkreferences_hidelist, ScreenType: 2 },
+    //         }
+    //     ).onClose.subscribe(res => {
+    //         if (res) {
+    //             if (add) {
+    //                 for (let i = 0; i < res.length; i++) {
+    //                     this.tbl_mstapplicantworkreferences.source.add(res[i]);
+    //                 }
+    //                 this.tbl_mstapplicantworkreferences.source.refresh();
+    //             }
+    //             else {
+    //                 this.tbl_mstapplicantworkreferences.source.update(event.data, res[0]);
+    //             }
+    //         }
+    //     });
+    // }
 
     onDelete_mstapplicantworkreference(event: any, childID: number, i: number) {
         if (confirm('Do you want to delete this record?')) {
@@ -807,6 +817,34 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             });
         }
 
+    }
+    async onCustom_mstapplicantskilldetailsAttachment_Action(event: any, workreferenceid: any, applicantid: any) {
+       
+        let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantworkreferences");
+        let formname = (objbomenuaction as any).actionname;
+        if (formname == "mstapplicantworkreferences") {
+        let add = false;
+        if (event == null) add = true;
+        let childsave = true;
+        this.dialog.open(mstapplicantworkreferenceComponent,
+                    {
+                        width: '75% !important',
+                        data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, workreferenceid, applicantid, visiblelist: this.mstapplicantworkreferences_visiblelist, hidelist: this.mstapplicantworkreferences_hidelist, ScreenType: 2 },
+                    }
+                ).onClose.subscribe(res => {
+                    if (res) {
+                                    if (add) {
+                                        for (let i = 0; i < res.length; i++) {
+                                            this.tbl_mstapplicantworkreferences.source.add(res[i]);
+                                        }
+                                        this.tbl_mstapplicantworkreferences.source.refresh();
+                                    }
+                                    else {
+                                        this.tbl_mstapplicantworkreferences.source.update(event.data, res[0]);
+                                    }
+                                }
+                });
+        }
     }
     mstapplicantworkreferences_Paging(val) {
         //debugger;;

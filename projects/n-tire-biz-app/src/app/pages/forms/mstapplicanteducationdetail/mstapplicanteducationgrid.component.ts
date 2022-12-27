@@ -219,6 +219,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 (userRowSelect)="handle_mstapplicanteducationdetails_GridSelected($event)"
                 [settings]="mstapplicanteducationdetails_settings"
                 (custom)="onCustom_mstapplicanteducationdetails_Action($event)"
+                (custom)="onCustom_mstapplicantskilldetailsAttachment_Action($event)"
                 [source]="tbl_mstapplicanteducationdetails?.source?.data"
                 (delete)="mstapplicanteducationdetails_route($event,'delete')"
                 (deleteConfirm)="mstapplicanteducationdetails_route($event,'delete')"
@@ -564,24 +565,36 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     if (event == null) add = true;
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-    // this.dialog.open(mstapplicanteducationdetailComponent,
-    //   {
-    //     data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
-    //   }
-    // ).onClose.subscribe(res => {
-    //   if (res) {
-    //     if (add) {
-    //       for (let i = 0; i < res.length; i++) {
-    //         this.tbl_mstapplicanteducationdetails.source.add(res[i]);
-    //       }
-    //       this.tbl_mstapplicanteducationdetails.source.refresh();
-    //     }
-    //     else {
-    //       this.tbl_mstapplicanteducationdetails.source.update(event.data, res[0]);
-    //     }
-    //   }
-    // });
+
   }
+
+  // Old Code
+
+  // AddOrEdit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
+  //   debugger
+  //   this.eduCategory();
+  //   let add = false;
+  //   if (event == null) add = true;
+  //   let childsave = true;
+  //   if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+  //   this.dialog.open(mstapplicanteducationdetailComponent,
+  //     {
+  //       data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
+  //     }
+  //   ).onClose.subscribe(res => {
+  //     if (res) {
+  //       if (add) {
+  //         for (let i = 0; i < res.length; i++) {
+  //           this.tbl_mstapplicanteducationdetails.source.add(res[i]);
+  //         }
+  //         this.tbl_mstapplicanteducationdetails.source.refresh();
+  //       }
+  //       else {
+  //         this.tbl_mstapplicanteducationdetails.source.update(event.data, res[0]);
+  //       }
+  //     }
+  //   });
+  // }
 
   handle_mstapplicanteducationdetails_GridSelected(event: any) {
     this.mstapplicanteducationdetails_selectedindex = this.tbl_mstapplicanteducationdetails.source.findIndex(i => i.educationid === event.data.educationid);
@@ -891,10 +904,35 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       ).onClose.subscribe(res => {
       });
     }
+  };
 
-
-
-
+  async onCustom_mstapplicantskilldetailsAttachment_Action(event: any, educationid: any, applicantid: any){
+   
+    let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicanteducationdetails");
+    let formname = (objbomenuaction as any).actionname;
+    if (formname == "mstapplicanteducationdetails") {
+    let add = false;
+    if (event == null) add = true;
+    let childsave = true;
+    if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    this.dialog.open(mstapplicanteducationdetailComponent,
+      {
+        data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
+      }
+    ).onClose.subscribe(res => {
+      if (res) {
+              if (add) {
+                for (let i = 0; i < res.length; i++) {
+                  this.tbl_mstapplicanteducationdetails.source.add(res[i]);
+                }
+                this.tbl_mstapplicanteducationdetails.source.refresh();
+              }
+              else {
+                this.tbl_mstapplicanteducationdetails.source.update(event.data, res[0]);
+              }
+            }
+    });
+    }
   }
   mstapplicanteducationdetails_Paging(val) {
     //debugger;;

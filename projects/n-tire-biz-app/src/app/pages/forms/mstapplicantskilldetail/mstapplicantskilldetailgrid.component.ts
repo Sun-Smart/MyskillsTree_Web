@@ -611,18 +611,18 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   // Muthu Code 16/12/2022
 
-  // Add_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
-  //   debugger
-  //   this.showSkillDetails_input = true;
-  //   this.getData();
-  //   let add = false;
-  //   if (event == null) add = true;
-  //   let childsave = true;
-  //   if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+  Add_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
+    debugger
+    this.showSkillDetails_input = true;
+    this.getData();
+    let add = false;
+    if (event == null) add = true;
+    let childsave = true;
+    if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
-  //   console.log();
+    console.log();
 
-  // }
+  }
 
   Edit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
     debugger
@@ -710,16 +710,31 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   // Old Code
 
+
   // AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
   //   debugger
-  //   this.showSkillDetails_input = true;
-  //   this.getData();
   //   let add = false;
   //   if (event == null) add = true;
   //   let childsave = true;
   //   if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
-
+  //   this.dialog.open(mstapplicantskilldetailComponent,
+  //     {
+  //       data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, skillid, applicantid, visiblelist: this.mstapplicantskilldetails_visiblelist, hidelist: this.mstapplicantskilldetails_hidelist, ScreenType: 2 },
+  //     }
+  //   ).onClose.subscribe(res => {
+  //     if (res) {
+  //       if (add) {
+  //         for (let i = 0; i < res.length; i++) {
+  //           this.tbl_mstapplicantskilldetails.source.add(res[i]);
+  //         }
+  //         this.tbl_mstapplicantskilldetails.source.refresh();
+  //       }
+  //       else {
+  //         this.tbl_mstapplicantskilldetails.source.update(event.data, res[0]);
+  //       }
+  //     }
+  //   });
   // }
 
   // AddOrEditskillcategory(masterdataid) {
@@ -1019,7 +1034,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
     switch (action) {
       case 'create':
-        // this.Add_mstapplicantskilldetail(event, null, this.applicantid);
+        this.Add_mstapplicantskilldetail(event, null, this.applicantid);
         break;
       case 'view':
         break;
@@ -1112,25 +1127,33 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     // }
   };
 
-  async onCustom_mstapplicantskilldetailsAttachment_Action(event: any) {
+  async onCustom_mstapplicantskilldetailsAttachment_Action(event: any, skillid: any, applicantid: any) {
     debugger
-    let skillsdetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;">Segment Category: ' + event.data.segmentdesc + '</li>'
-      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Skill Category: ' + event.data.skillcategorydesc + '</li>'
-      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Sub Category: ' + event.data.subcategoryiddesc + '</li>'
-      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Self Rating: ' + event.data.selfrating + '</li>'
-      + '<li class="list-group-item remarks_p" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantskilldetails");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantskilldetails") {
+
+      let add = false;
+      if (event == null) add = true;
+      let childsave = true;
+      if (this.pkcol != undefined && this.pkcol != null) childsave = true;
       this.dialog.open(mstapplicantskilldetailComponent,
         {
-          'width': '75% !important',
-          'height': 'auto',
-          data: { referencesourcedetails: skillsdetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
-          // data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 318, requestmasterid: event.data.referenceid, contactemailid: event.data.email, requestedcontact: event.data.referencename, ScreenType: 2, save: true }
-          // data: { skillsdetails:skillsdetails,applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
+          width: '75% !important',
+          data: { showAttachmentView: true, save: childsave, maindatapkcol: this.pkcol, event, skillid, applicantid, visiblelist: this.mstapplicantskilldetails_visiblelist, hidelist: this.mstapplicantskilldetails_hidelist, ScreenType: 2 },
         }
       ).onClose.subscribe(res => {
+        if (res) {
+          if (add) {
+            for (let i = 0; i < res.length; i++) {
+              this.tbl_mstapplicantskilldetails.source.add(res[i]);
+            }
+            this.tbl_mstapplicantskilldetails.source.refresh();
+          }
+          else {
+            this.tbl_mstapplicantskilldetails.source.update(event.data, res[0]);
+          }
+        }
       });
     };
   }

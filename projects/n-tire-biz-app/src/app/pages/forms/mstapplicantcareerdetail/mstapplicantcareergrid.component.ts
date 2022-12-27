@@ -375,12 +375,12 @@ export class mstapplicantcareergridComponent implements OnInit {
         }
     }
 
-    addSkills() {
-        debugger
-        this.showSkillDetails_input = true;
-        this.getData();
+    // addSkills() {
+    //     debugger
+    //     this.showSkillDetails_input = true;
+    //     this.getData();
+    // };
 
-    };
     getData() {
         this.mstapplicantcareerdetail_service.getDefaultData().then(res => {
             this.applicantid_List = res.list_applicantid.value;
@@ -470,24 +470,6 @@ export class mstapplicantcareergridComponent implements OnInit {
         this.isSubmitted = true;
         let strError = "";
 
-        // Object.keys(this.mstapplicantcareerdetail_Form.controls).forEach(key => {
-        //   const controlErrors: ValidationErrors = this.mstapplicantcareerdetail_Form.get(key).errors;
-        //   if (controlErrors != null) {
-        //     Object.keys(controlErrors).forEach(keyError => {
-        //       strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //     });
-        //   }
-        // });
-        // if (strError != "") return this.sharedService.alert(strError);
-
-        // if (!this.mstapplicantcareerdetail_Form.valid) {
-        //   this.toastr.addSingle("error", "", "Enter the required fields");
-        //   return;
-        // }
-
-        // if (!this.validate()) {
-        //   return;
-        // }
         this.formData = this.mstapplicantcareerdetail_Form.getRawValue();
         if (this.dynamicconfig.data != null) {
             for (let key in this.dynamicconfig.data) {
@@ -515,8 +497,8 @@ export class mstapplicantcareergridComponent implements OnInit {
 
             if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
             if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.mstapplicantcareerdetail_Form.get('skills').value);
-              if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-              this.fileAttachmentList = this.fileattachment.getAllFiles();
+            //   if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+            //   this.fileAttachmentList = this.fileattachment.getAllFiles();
             console.log(this.formData);
             this.spinner.show();
             this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
@@ -680,6 +662,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     AddOrEdit_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
         debugger;
         this.showSkillDetails_input = true;
+        this.getData();
         let add = false;
         if (event == null) add = true;
         let childsave = true;

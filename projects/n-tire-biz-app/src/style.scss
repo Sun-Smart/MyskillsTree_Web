@@ -3181,8 +3181,8 @@ h1.col-4.columns.mainheader.left.common_popup_title {
 }
 
 i.fa.fa-times-circle {
-  position: relative;
-  top: 4px;
+  // position: relative;
+  // top: 4px;
 }
 
 .notification_icon {
@@ -3612,4 +3612,11 @@ footer {
 }
 .corprate-dashboard{
   background-color: #f5f3e4 !important;
+}
+.applicant-popup-header{
+  background-color: #ebf3fc !important;
+}
+.Skill-attachment {
+  width: 95% !important;
+  margin: 10px auto !important;
 }
