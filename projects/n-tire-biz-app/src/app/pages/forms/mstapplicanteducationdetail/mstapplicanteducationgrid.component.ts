@@ -385,6 +385,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   };
 
   skillClose() {
+    this.mstapplicanteducationdetail_Form.reset();
     this.showSkillDetails_input = false;
   };
 
@@ -610,11 +611,12 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       debugger;
       this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
 
-      setTimeout(() => {
-        if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then(res => {
+      // setTimeout(() => {
+        // if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) 
+        this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then(res => {
           this.educationsubcategory_List = res as DropDownValues[];
         }).catch((err) => { console.log(err); });
-      });
+      // });
     });
     debugger
   }

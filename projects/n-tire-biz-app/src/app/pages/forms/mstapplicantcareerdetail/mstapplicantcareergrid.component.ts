@@ -141,7 +141,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <!-- <label for="fromdate" class="control-label required">From Date</label> -->
      <!-- <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.fromdate?.value)}}</label> -->
      
-     <div  style="display: flex;width: 60%;">
+     <div  style="display: flex;width: 80%;">
      <input #f="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
           [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
             formControlName="fromdate" class="form-control" style="margin-right: 5px;">
@@ -158,7 +158,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <!-- <input  id="designation" required formControlName="designation" class="form-control"> -->
      <!-- <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.todate?.value)}}</label> -->
      
-    <div style="display: flex;width: 60%;">
+    <div style="display: flex;width: 80%;">
      <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
           [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate" class="form-control"
           style="margin-right: 5px;">
@@ -398,6 +398,7 @@ export class mstapplicantcareergridComponent implements OnInit {
         ).catch((err) => { this.spinner.hide(); console.log(err); });
     }
     skillClose() {
+        this.mstapplicantcareerdetail_Form.reset();
         this.showSkillDetails_input = false;
     };
 

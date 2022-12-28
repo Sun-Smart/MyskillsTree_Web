@@ -613,13 +613,15 @@ export class LoginComponent implements OnInit {
     gotoRegister() {
         this.router.navigate(['registernew']);
     }
-    gotoVerify(data: any) {
+    gotoVerify(data:any) {
+        this.password = "";
         this.spinner.show();
         debugger;
-        console.log("valueeeeee", data.value.email);
+        
+        console.log("valueeeeee", data.value.password);
 
-        let verify_data = {
-            email : this.bologinForm.value.email,
+            let verify_data = {
+            email : data.value.email,
             otpm : null,
             otpe : null,
         }
@@ -627,15 +629,15 @@ export class LoginComponent implements OnInit {
         let options = new HttpHeaders().set('Content-Type', 'application/json');
         return this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + verify_data.email + '&otpm='+verify_data.otpm + '&otpe='+verify_data.otpe)
         .subscribe((resp: any) => {
-         
+         this.spinner.hide();
             console.log("resp",resp);
 
-            this.otp_resp = resp;
+            this.otp_resp = resp;   
             this.verifyMob_Otp = this.otp_resp.mobileotp;
             this.verifyEmail_Otp = this.otp_resp.emailotp;
             this.verify_outputstring = this.otp_resp.outputstring;
             // this.spinner.hide();
-            
+            this.toastService.addSingle("success", "", "OTP has send to your registered mail id and Mobilenumber.");
           console.log("this.verifyMob_Otp", this.verifyMob_Otp);
           console.log("this.verifyEmail_Otp", this.verifyEmail_Otp);
 
@@ -652,5 +654,9 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['verify', this.p12]);
           };
         })
+
+        
+
+        
     }
 }
