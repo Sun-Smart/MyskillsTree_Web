@@ -1,10 +1,17 @@
 <div class="content">
   <div class="header row">
+    <div class="col-8" hidden
+      style="display: flex;justify-content: center;align-items: center;padding: 1rem 10rem;position: absolute;top: -7px;z-index: 9999;">
+      <i class="fa fa-search search-icon" aria-hidden="true"></i>
+      <input type="text" class="form-control" placeholder="Search"
+        style="border-radius:30px !important;padding: 0 40px;" [(ngModel)]="skillcategory" multiple>
+      <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
+    </div>
     <div class="col-8"
       style="display: flex;justify-content: center;align-items: center;padding: 1rem 10rem;position: absolute;top: -7px;z-index: 9999;">
       <i class="fa fa-search search-icon" aria-hidden="true"></i>
       <input type="text" class="form-control" placeholder="Search"
-        style="border-radius:30px !important;padding: 0 40px;" [(ngModel)]="term">
+        style="border-radius:30px !important;padding: 0 40px;">
       <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
     </div>
   </div>
@@ -27,62 +34,20 @@
       </div>
       <div class="sidebar-content" style="width: 200px;height: 62px;">
         <h6 style="font-weight: 600;"> Experience</h6>
-        <input type="range" class="form-control" min="0" max="10" value="{{rangevalue}}" title="{{rangevalue}}" (input)="valueChanged($event)"><label style="position: relative;bottom: 21px;font-weight: 700;left: 110%;">{{rangevalue}}</label>
+        <input type="range" class="form-control" min="0" max="10" value="{{rangevalue}}" title="{{rangevalue}}"
+          (input)="valueChanged($event)"><label
+          style="position: relative;bottom: 21px;font-weight: 700;left: 110%;">{{rangevalue}}</label>
       </div>
       <div class="sidebar-content">
-        <h6 style="font-weight: 600;"> Country</h6>
+        <!-- <h6 style="font-weight: 600;"> Country</h6>
         <app-popupselect [options]="country_List" [optionsEvent]="country_optionsEvent" [form]="bocountry"
           (selectItem)="onSelected_country($event)" [reportid]='wc9rn' [menuid]='wc9rn' formControlName="country"
-          id="value" desc="label"></app-popupselect>
+          id="value" desc="label"></app-popupselect> -->
         <h6 style="font-weight: 600;"> Location</h6>
-        <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
+        <!-- <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
           (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value"
-          desc="label"></app-popupselect>
-        <!-- <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label">
-            India
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label">
-            Dubai
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label">
-            France
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label">
-            China
-          </label>
-        </div> -->
-      </div>
-      <div class="sidebar-content">
-        <h6 style="font-weight: 600;"> Job Type</h6>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label">
-            Full Time
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label">
-            Part Time
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1">
-          <label class="form-check-label">
-            Hourly
-          </label>
-        </div>
+          desc="label"></app-popupselect> -->
+        <input class="form-control" [(ngModel)]="location" (keyup)="valueChanged1($event)">
       </div>
     </div>
     <div class="main-content">
@@ -96,35 +61,29 @@
         </div>
         <div class="col-4"></div>
         <div class="col-3 dropdown-skillSet">
-          <!-- <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton1"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Sort By: Validate
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul> -->
         </div>
       </div>
       <div class="listView-content" *ngIf="showList" style="max-height: 450px !important;overflow-y: scroll;">
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
-        <div *ngFor="let item of showData  | filter:term; index of i" [ngClass]="{ 'active' : 'listView-card'}"
+        <div *ngFor="let item of showData  | filter:skillcategory; index of i" [ngClass]="{ 'active' : 'listView-card'}"
           style="margin: 10px;">
           <div style="display: flex;padding: 5px;margin: 0px 0px -7px 9px;">
             <img src="assets/profile.jpeg" alt="">
             <ul>
               <li style="color: #000;font-weight: 600;font-size: 16px;
               text-transform: capitalize;">{{item.firstname}} {{item.lastname}}</li>
-              <li>{{item.emailid}}</li>
-              <li>{{item.mobilenumber}}</li>
-              <li>{{item.location}}</li>
+              <li>Email : {{item.emailid}}</li>
+              <li>Mobile No : {{item.mobilenumber}}</li>
+              <li>Location : {{item.location}}</li>
+              <li>Experience : {{item.experience}}</li>
+              <li>Category : <b style="color:#000;font-weight: 600;">{{item.segment}},{{item.category}},{{item.subcategory}}</b></li>
             </ul>
           </div>
           <div>
             <p style="font-size: 12px;margin: 0px 70px;color: #9ba0a5;"><span>Skills : </span><b
                 style="color:#000;font-weight: 600;">{{item.skills}}</b></p>
+
           </div>
         </div>
       </div>
@@ -137,9 +96,11 @@
               <tr>
                 <th scope="col">NAME</th>
                 <th scope="col">Email ID</th>
-                <th scope="col">Mobile Number</th>
+                <th scope="col">Mobile No</th>
                 <th scope="col">Location</th>
+                <th scope="col">Experience</th>
                 <th scope="col">Skills</th>
+                <th scope="col">Category</th>
               </tr>
             </thead>
             <tbody *ngFor="let item of showData | filter:term" style="line-height: 3rem;">
@@ -149,7 +110,9 @@
                 <td>{{item.emailid}}</td>
                 <td>{{item.mobilenumber}}</td>
                 <td>{{item.location}}</td>
+                <td>{{item.experience}}</td>
                 <td>{{item.skills}}</td>
+                <td>{{item.segment}},{{category}},{{subcategory}}</td>
               </tr>
             </tbody>
           </table>
@@ -164,10 +127,12 @@
             <ul>
               <li style="color: #000;font-weight: 600;font-size: 16px;
               text-transform: capitalize;">{{item.firstname}} {{item.lastname}}</li>
-              <li>{{item.emailid}}</li>
-              <li>{{item.mobilenumber}}</li>
-              <li>{{item.location}}</li>
-              <li>{{item.skills}}</li>
+              <li>Email : {{item.emailid}}</li>
+              <li>Mobile No : {{item.mobilenumber}}</li>
+              <li>Location : {{item.location}}</li>
+              <li>Experience : {{item.experience}}</li>
+              <li>Skills : {{item.skills}}</li>
+              <li>Category : {{item.segment}},{{category}},{{subcategory}}</li>
             </ul>
           </div>
         </div>
