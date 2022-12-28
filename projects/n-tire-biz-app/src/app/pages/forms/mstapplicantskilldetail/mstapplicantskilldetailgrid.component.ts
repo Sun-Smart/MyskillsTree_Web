@@ -926,6 +926,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
         confirmDelete: true,
       },
+      
 
       columns: {
         colhtml:
