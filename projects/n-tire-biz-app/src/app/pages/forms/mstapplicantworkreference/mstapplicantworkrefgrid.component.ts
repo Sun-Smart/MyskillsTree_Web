@@ -534,6 +534,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
     Add_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
         debugger;
+        this.ngOnInit();
         this.showSkillDetails_input = true;
         let add = false;
         if (event == null) add = true;

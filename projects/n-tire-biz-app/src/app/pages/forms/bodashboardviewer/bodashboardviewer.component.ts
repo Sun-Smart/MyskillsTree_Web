@@ -498,7 +498,7 @@ export class BODashboardViewerComponent implements OnInit {
     this.dialog.open(mstapplicantgeographygrid,
       {
         width: '100% !important',
-        height: 'auto !important',
+        height: '20rem !important',
         data: { ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {

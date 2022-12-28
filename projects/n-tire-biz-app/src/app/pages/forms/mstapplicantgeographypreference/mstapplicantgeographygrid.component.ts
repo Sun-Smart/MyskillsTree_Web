@@ -103,7 +103,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <!--country-->
 
               <td>
-              <app-popupselect *ngIf="!showview" [options]="country_List" [optionsEvent]="country_optionsEvent"
+              <app-popupselect [options]="country_List" [optionsEvent]="country_optionsEvent"
                 [form]="bocountry" (selectItem)="onSelected_country($event)" [reportid]='wc9rn' [menuid]='wc9rn'
                 formControlName="country" id="value" desc="label"></app-popupselect>
               </td>
@@ -111,7 +111,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <!--city-->
 
               <td>
-              <app-popupselect *ngIf="!showview" [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
+              <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
                 (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value"
                 desc="label"></app-popupselect>
               </td>
@@ -207,7 +207,7 @@ export class mstapplicantgeographygrid implements OnInit {
         private router: Router,
         public dialog: DialogService, private fb: FormBuilder,
         private sharedService: SharedService, private currentRoute: ActivatedRoute,
-        private spinner: NgxSpinnerService,private toastr: ToastService,
+        private spinner: NgxSpinnerService, private toastr: ToastService,
         private sessionService: SessionService, private mstapplicantgeographypreference_service: mstapplicantgeographypreferenceService,) {
         this.data = dynamicconfig;
         if (this.data != null && this.data.data != null) {
@@ -265,6 +265,7 @@ export class mstapplicantgeographygrid implements OnInit {
 
     get f() { return this.mstapplicantgeographypreference_Form.controls; }
 
+
     resetForm() {
         if (this.mstapplicantgeographypreference_Form != null)
             this.mstapplicantgeographypreference_Form.reset();
@@ -276,14 +277,14 @@ export class mstapplicantgeographygrid implements OnInit {
 
     skillClose() {
         this.showSkillDetails_input = false;
-      };
-      addSkills() {
-        debugger
-        this.showSkillDetails_input = true;
-        // this.getData();
-      };
+    };
+    // addSkills() {
+    //     debugger
+    //     this.showSkillDetails_input = true;
+    //     // this.getData();
+    // };
 
-      PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
+    PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
         if (mainscreendata != null) {
             for (let key in mainscreendata) {
                 if (key != 'visiblelist' && key != 'hidelist' && key != 'event') {
@@ -312,7 +313,7 @@ export class mstapplicantgeographygrid implements OnInit {
         }
     }
 
-      onSubmitAndWait() {
+    onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
             this.onSubmitData(false);
         }
@@ -336,42 +337,40 @@ export class mstapplicantgeographygrid implements OnInit {
         // this.fileAttachmentList = this.fileattachment.getAllFiles();
         console.log(this.formData);
         this.spinner.show();
-        this.mstapplicantgeographypreference_service.saveOrUpdate_mstapplicantgeographypreferences(this.formData).subscribe(
-            async res => {
-                await this.sharedService.upload(this.fileAttachmentList);
-                this.attachmentlist = [];
-                if (this.fileattachment) this.fileattachment.clear();
-                this.spinner.hide();
-                debugger;
-                this.toastr.addSingle("success", "", "Successfully saved");
-                this.sessionService.setItem("attachedsaved", "true")
-                this.objvalues.push((res as any).mstapplicantgeographypreference);
-                this.ngOnInit();
-                if (!bclear) this.showview = true;
+        this.mstapplicantgeographypreference_service.saveOrUpdate_mstapplicantgeographypreferences(this.formData).subscribe((res: any) => {
+            console.log("Reference Log", res);
+            
+            this.spinner.hide();
+            debugger;
+            this.toastr.addSingle("success", "", "Successfully saved");
+            this.sessionService.setItem("attachedsaved", "true")
+            this.objvalues.push((res as any).mstapplicantgeographypreference);
+            this.ngOnInit();
+            if (!bclear) this.showview = true;
+            if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+            if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                this.dialogRef.close(this.objvalues);
+                return;
+            }
+            else {
                 if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-                if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-                    this.dialogRef.close(this.objvalues);
-                    return;
-                }
-                else {
-                    if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-                }
+            }
 
-                if (bclear) {
-                    this.resetForm();
+            if (bclear) {
+                this.resetForm();
+            }
+            else {
+                if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+                    this.objvalues.push((res as any).mstapplicantgeographypreference);
+                    this.dialogRef.close(this.objvalues);
                 }
                 else {
-                    if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-                        this.objvalues.push((res as any).mstapplicantgeographypreference);
-                        this.dialogRef.close(this.objvalues);
-                    }
-                    else {
-                        // this.FillData(res);
-                    }
+                    // this.FillData(res);
                 }
-                this.mstapplicantgeographypreference_Form.markAsUntouched();
-                this.mstapplicantgeographypreference_Form.markAsPristine();
-            },
+            }
+            this.mstapplicantgeographypreference_Form.markAsUntouched();
+            this.mstapplicantgeographypreference_Form.markAsPristine();
+        },
             err => {
                 debugger;
                 this.spinner.hide();
@@ -420,7 +419,7 @@ export class mstapplicantgeographygrid implements OnInit {
                 countrydesc: countryDetail.label,
 
             });
-            this.mstapplicantgeographypreference_service.getList_city(countryDetail.value).then((res:any) => {
+            this.mstapplicantgeographypreference_service.getList_city(countryDetail.value).then((res: any) => {
 
                 // this.country_List = res as DropDownValues[]
                 this.city_List = res as DropDownValues[]
@@ -439,7 +438,7 @@ export class mstapplicantgeographygrid implements OnInit {
 
             });
 
-            this.mstapplicantgeographypreference_service.getList(cityDetail.cityid).then((res:any) => {
+            this.mstapplicantgeographypreference_service.getList(cityDetail.cityid).then((res: any) => {
                 console.log(res)
 
                 this.city_List = res as DropDownValues[]
@@ -450,8 +449,18 @@ export class mstapplicantgeographygrid implements OnInit {
         }
     }
 
-    
-    AddOrEdit_mstapplicantgeographypreference(event: any, geographypreferenceid: any, applicantid: any) {
+
+    Add_mstapplicantgeographypreference(event: any, geographypreferenceid: any, applicantid: any) {
+        debugger;
+        this.ngOnInit();
+        this.showSkillDetails_input = true;
+        let add = false;
+        if (event == null) add = true;
+        let childsave = true;
+        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    }
+
+    Edit_mstapplicantgeographypreference(event: any, geographypreferenceid: any, applicantid: any) {
         debugger;
 
         this.showSkillDetails_input = true;
@@ -459,6 +468,23 @@ export class mstapplicantgeographygrid implements OnInit {
         if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+        console.log(event, geographypreferenceid, applicantid);
+
+        this.mstapplicantgeographypreference_service.get_mstapplicantgeographypreferences_ByEID(event.data.pkcol).then(res => {
+            this.mstapplicantgeographypreference_Form.patchValue({
+                applicantid: res.mstapplicantgeographypreference.applicantid,
+                applicantiddesc: res.mstapplicantgeographypreference.applicantiddesc,
+                geographypreferenceid: res.mstapplicantgeographypreference.geographypreferenceid,
+                country: res.mstapplicantgeographypreference.country,
+                countrydesc: res.mstapplicantgeographypreference.countrydesc,
+                city: res.mstapplicantgeographypreference.city,
+                citydesc: res.mstapplicantgeographypreference.citydesc,
+                remarks: res.mstapplicantgeographypreference.remarks,
+                status: res.mstapplicantgeographypreference.status,
+                statusdesc: res.mstapplicantgeographypreference.statusdesc,
+                attachment: JSON.parse(res.mstapplicantgeographypreference.attachment),
+            });
+        });
     }
 
     // Old Code
@@ -620,12 +646,14 @@ export class mstapplicantgeographygrid implements OnInit {
 
         switch (action) {
             case 'create':
-                this.AddOrEdit_mstapplicantgeographypreference(event, null, this.applicantid);
+                // this.AddOrEdit_mstapplicantgeographypreference(event, null, this.applicantid);
+                this.Add_mstapplicantgeographypreference(event, null, this.applicantid);
                 break;
             case 'view':
                 break;
             case 'edit':
-                this.AddOrEdit_mstapplicantgeographypreference(event, event.data.geographypreferenceid, this.applicantid);
+                this.Edit_mstapplicantgeographypreference(event, event.data.geographypreferenceid, this.applicantid);
+                this.Edit_mstapplicantgeographypreference(event, event.data.geographypreferenceid, this.applicantid);
                 break;
             case 'delete':
                 this.onDelete_mstapplicantgeographypreference(event, event.data.geographypreferenceid, ((this.tbl_mstapplicantgeographypreferences.source.getPaging().page - 1) * this.tbl_mstapplicantgeographypreferences.source.getPaging().perPage) + event.index);
@@ -646,31 +674,31 @@ export class mstapplicantgeographygrid implements OnInit {
         let formname = (objbomenuaction as any).actionname;
     }
 
-    async onCustom_mstapplicantgeographypreferencesAttachment_Action(event: any, geographypreferenceid: any, applicantid: any){
+    async onCustom_mstapplicantgeographypreferencesAttachment_Action(event: any, geographypreferenceid: any, applicantid: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantgeographypreferences");
         let formname = (objbomenuaction as any).actionname;
         if (formname == "mstapplicantgeographypreferences") {
             let add = false;
-                if (event == null) add = true;
-                let childsave = true;
-                if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-                this.dialog.open(mstapplicantgeographypreferenceComponent,
-                    {
-                        data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, geographypreferenceid, applicantid, visiblelist: this.mstapplicantgeographypreferences_visiblelist, hidelist: this.mstapplicantgeographypreferences_hidelist, ScreenType: 2 },
-                    }
-                ).onClose.subscribe(res => {
-                    if (res) {
-                        if (add) {
-                            for (let i = 0; i < res.length; i++) {
-                                this.tbl_mstapplicantgeographypreferences.source.add(res[i]);
-                            }
-                            this.tbl_mstapplicantgeographypreferences.source.refresh();
+            if (event == null) add = true;
+            let childsave = true;
+            if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+            this.dialog.open(mstapplicantgeographypreferenceComponent,
+                {
+                    data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, geographypreferenceid, applicantid, visiblelist: this.mstapplicantgeographypreferences_visiblelist, hidelist: this.mstapplicantgeographypreferences_hidelist, ScreenType: 2 },
+                }
+            ).onClose.subscribe(res => {
+                if (res) {
+                    if (add) {
+                        for (let i = 0; i < res.length; i++) {
+                            this.tbl_mstapplicantgeographypreferences.source.add(res[i]);
                         }
-                        else {
-                            this.tbl_mstapplicantgeographypreferences.source.update(event.data, res[0]);
-                        }
+                        this.tbl_mstapplicantgeographypreferences.source.refresh();
                     }
-                });
+                    else {
+                        this.tbl_mstapplicantgeographypreferences.source.update(event.data, res[0]);
+                    }
+                }
+            });
         }
     }
 

@@ -176,6 +176,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     (userRowSelect)="handle_mstapplicantsocialmediadetails_GridSelected($event)"
     [settings]="mstapplicantsocialmediadetails_settings"
     (custom)="onCustom_mstapplicantsocialmediadetails_Action($event)"
+    (custom)="onCustom_mstapplicantsocialmediadetailsAttachment_Action($event)"
     [source]="tbl_mstapplicantsocialmediadetails?.source?.data"
     (delete)="mstapplicantsocialmediadetails_route($event,'delete')"
     (deleteConfirm)="mstapplicantsocialmediadetails_route($event,'delete')"
@@ -189,7 +190,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 export class mstapplicantsocialmediagridComponent implements OnInit {
 
     mstapplicantsocialmediadetail_Form: FormGroup;
-    
+
     isadmin = false;
 
     formData: mstapplicantsocialmediadetail;
@@ -203,8 +204,8 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     Deleted_mstapplicantsocialmediadetail_IDs: string = "";
     mstapplicantsocialmediadetails_ID: string = "6";
     mstapplicantsocialmediadetails_selectedindex: any;
-    ShowTableslist:any;
-    pkcol:any;
+    ShowTableslist: any;
+    pkcol: any;
     pkList: any;//stores values - used in search, prev, next
     socialmedianame_List: DropDownValues[];
     applicantid_List: DropDownValues[];
@@ -220,8 +221,8 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     showview: boolean = false;//view or edit mode
     bmyrecord: boolean = false;
 
-    applicantid:any;
-    data:any;
+    applicantid: any;
+    data: any;
     maindata: any;
     readonly AttachmentURL = AppConstants.AttachmentURL;
     readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
@@ -232,6 +233,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
 
     sessionData: any;
     sourceKey: any;
+    viewHtml: any = '';//stores html view of the screen
 
 
     constructor(
@@ -252,38 +254,58 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
         // private mstapplicantskilldetail_service: mstapplicantskilldetailService,
-        ) {
-            debugger;
-            this.data = dynamicconfig;
-            if (this.data != null && this.data.data != null) {
-                this.data = this.data.data;
-            }
-            this.pkcol=this.data.maindatapkcol;
-            this.applicantid=this.data.applicantid
+    ) {
+        debugger;
+        this.data = dynamicconfig;
+        if (this.data != null && this.data.data != null) {
+            this.data = this.data.data;
+        }
+        this.pkcol = this.data.maindatapkcol;
+        this.applicantid = this.data.applicantid
 
-            let app_id = localStorage.getItem('applicantid');
-            this.mstapplicantsocialmediadetail_Form = this.fb.group({
-                pk: [null],
-                ImageName: [null],
-                applicantid: app_id,
-                applicantiddesc: [null],
-                socialrefid: [null],
-                socialmedianame: [null, Validators.compose([Validators.required])],
-                socialmedianamedesc: [null],
-                handlename: [null],
-                url: [null, Validators.compose([Validators.required])],
-                remarks: [null],
-                attachment: [null],
-                status: [null],
-                statusdesc: [null],
-            });
+        let app_id = localStorage.getItem('applicantid');
+        this.mstapplicantsocialmediadetail_Form = this.fb.group({
+            pk: [null],
+            ImageName: [null],
+            applicantid: app_id,
+            applicantiddesc: [null],
+            socialrefid: [null],
+            socialmedianame: [null, Validators.compose([Validators.required])],
+            socialmedianamedesc: [null],
+            handlename: [null],
+            url: [null, Validators.compose([Validators.required])],
+            remarks: [null],
+            attachment: [null],
+            status: [null],
+            statusdesc: [null],
+        });
     }
 
     ngOnInit() {
         this.Set_mstapplicantsocialmediadetails_TableConfig();
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
-        this.FillData();
+
+        this.sessionData = this.sessionService.getSession();
+        if (this.sessionData != null) {
+            this.SESSIONUSERID = this.sessionData.userid;
+        }
+
+        debugger;
+        //getting data - from list page, from other screen through dialog
+        if (this.data != null && this.data.data != null) {
+            this.data = this.data.data;
+            this.maindata = this.data;
+        }
+        if (this.maindata != null && this.maindata.showview != undefined && this.maindata.showview != null) this.showview = this.maindata.showview;
+        if (this.maindata != null && this.maindata.ScreenType != undefined && this.maindata.ScreenType != null) {
+            this.viewHtml = '';
+        }
+        if (this.data != null && this.data.event != null && this.data.event.data != null) this.data = this.data.event.data;
+        if (this.currentRoute.snapshot.paramMap.get('sourceKey') != null) {
+            this.sourceKey = this.currentRoute.snapshot.paramMap.get('sourceKey');
+        }
+        let mstapplicantsocialmediadetailid = null;
 
         //autocomplete
         this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_List().then(res => {
@@ -294,6 +316,8 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         //setting the flag that the screen is not touched
         this.mstapplicantsocialmediadetail_Form.markAsUntouched();
         this.mstapplicantsocialmediadetail_Form.markAsPristine();
+
+        this.FillData();
     }
 
     // addSkills() {
@@ -303,9 +327,9 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     // };
     skillClose() {
         this.showSkillDetails_input = false;
-      };
+    };
 
-    getdata(){
+    getdata() {
 
         this.mstapplicantsocialmediadetail_service.getDefaultData().then(res => {
             this.applicantid_List = res.list_applicantid.value;
@@ -341,7 +365,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
             return;
         };
         if (strError != "") return this.sharedService.alert(strError);
-        
+
         if (!this.validate()) {
             return;
         };
@@ -399,9 +423,9 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
             });
 
 
-     };
+    };
 
-     validate() {
+    validate() {
         let ret = true;
         return ret;
     }
@@ -467,13 +491,13 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
 `;
         return ret;
     }
-    FillData(){
+    FillData() {
         this.Set_mstapplicantsocialmediadetails_TableConfig();
         this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByApplicantID(this.applicantid).then(res => {
             this.mstapplicantsocialmediadetails_LoadTable(res);
-            });
+        });
 
-            
+
         // this.formData = res.mstapplicantsocialmediadetail;
         // this.formid = res.mstapplicantsocialmediadetail.socialrefid;
         // this.pkcol = res.mstapplicantsocialmediadetail.pkcol;
@@ -499,118 +523,120 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         // this.mstapplicantsocialmediadetail_menuactions = res.mstapplicantsocialmediadetail_menuactions;
         // if (this.mstapplicantsocialmediadetail_Form.get('attachment').value != null && this.mstapplicantsocialmediadetail_Form.get('attachment').value != "" && this.fileattachment != null && this.fileattachment != undefined) this.fileattachment.setattachmentlist(this.mstapplicantsocialmediadetail_Form.get('attachment').value);
         // //Child Tables if any
-   
+
     }
-     //start of Grid Codes mstapplicantsocialmediadetails
-     mstapplicantsocialmediadetails_settings: any;
+    //start of Grid Codes mstapplicantsocialmediadetails
+    mstapplicantsocialmediadetails_settings: any;
 
-     show_mstapplicantsocialmediadetails_Checkbox() {
-         //debugger;;
-         if (this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'single';
-         else
-             this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'multi';
-         this.tbl_mstapplicantsocialmediadetails.source.initGrid();
-     }
-     delete_mstapplicantsocialmediadetails_All() {
-         this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'single';
-     }
-     show_mstapplicantsocialmediadetails_Filter() {
-         setTimeout(() => {
-             //  this.Set_mstapplicantsocialmediadetails_TableDropDownConfig();
-         });
-         if (this.tbl_mstapplicantsocialmediadetails.source.settings != null) this.tbl_mstapplicantsocialmediadetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantsocialmediadetails.source.settings['hideSubHeader'];
-         this.tbl_mstapplicantsocialmediadetails.source.initGrid();
-     }
-     show_mstapplicantsocialmediadetails_InActive() {
-     }
-     enable_mstapplicantsocialmediadetails_InActive() {
-     }
-     async Set_mstapplicantsocialmediadetails_TableDropDownConfig(res) {
-         if (!this.bfilterPopulate_mstapplicantsocialmediadetails) {
+    show_mstapplicantsocialmediadetails_Checkbox() {
+        //debugger;;
+        if (this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'single';
+        else
+            this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'multi';
+        this.tbl_mstapplicantsocialmediadetails.source.initGrid();
+    }
+    delete_mstapplicantsocialmediadetails_All() {
+        this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'single';
+    }
+    show_mstapplicantsocialmediadetails_Filter() {
+        setTimeout(() => {
+            //  this.Set_mstapplicantsocialmediadetails_TableDropDownConfig();
+        });
+        if (this.tbl_mstapplicantsocialmediadetails.source.settings != null) this.tbl_mstapplicantsocialmediadetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantsocialmediadetails.source.settings['hideSubHeader'];
+        this.tbl_mstapplicantsocialmediadetails.source.initGrid();
+    }
+    show_mstapplicantsocialmediadetails_InActive() {
+    }
+    enable_mstapplicantsocialmediadetails_InActive() {
+    }
+    async Set_mstapplicantsocialmediadetails_TableDropDownConfig(res) {
+        if (!this.bfilterPopulate_mstapplicantsocialmediadetails) {
 
-             var clone = this.sharedService.clone(this.tbl_mstapplicantsocialmediadetails.source.settings);
-             if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantsocialmediadetails_applicantid.value)), }, };
-             if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantsocialmediadetails_applicantid.value)), }, };
-             this.tbl_mstapplicantsocialmediadetails.source.settings = clone;
-             this.tbl_mstapplicantsocialmediadetails.source.initGrid();
+            var clone = this.sharedService.clone(this.tbl_mstapplicantsocialmediadetails.source.settings);
+            if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantsocialmediadetails_applicantid.value)), }, };
+            if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantsocialmediadetails_applicantid.value)), }, };
+            this.tbl_mstapplicantsocialmediadetails.source.settings = clone;
+            this.tbl_mstapplicantsocialmediadetails.source.initGrid();
 
-             var clone = this.sharedService.clone(this.tbl_mstapplicantsocialmediadetails.source.settings);
-             if (clone.columns['socialmedianame'] != undefined) clone.columns['socialmedianame'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantsocialmediadetails_socialmedianame.value)), }, };
-             if (clone.columns['socialmedianame'] != undefined) clone.columns['socialmedianame'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantsocialmediadetails_socialmedianame.value)), }, };
-             this.tbl_mstapplicantsocialmediadetails.source.settings = clone;
-             this.tbl_mstapplicantsocialmediadetails.source.initGrid();
-         }
-         this.bfilterPopulate_mstapplicantsocialmediadetails = true;
-     }
-     async mstapplicantsocialmediadetails_beforesave(event: any) {
-         event.confirm.resolve(event.newData);
+            var clone = this.sharedService.clone(this.tbl_mstapplicantsocialmediadetails.source.settings);
+            if (clone.columns['socialmedianame'] != undefined) clone.columns['socialmedianame'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantsocialmediadetails_socialmedianame.value)), }, };
+            if (clone.columns['socialmedianame'] != undefined) clone.columns['socialmedianame'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantsocialmediadetails_socialmedianame.value)), }, };
+            this.tbl_mstapplicantsocialmediadetails.source.settings = clone;
+            this.tbl_mstapplicantsocialmediadetails.source.initGrid();
+        }
+        this.bfilterPopulate_mstapplicantsocialmediadetails = true;
+    }
+    async mstapplicantsocialmediadetails_beforesave(event: any) {
+        event.confirm.resolve(event.newData);
 
 
 
-     }
-     Set_mstapplicantsocialmediadetails_TableConfig() {
-         this.mstapplicantsocialmediadetails_settings = {
-             hideSubHeader: true,
-             mode: 'external',
-             selectMode: 'single',
-             actions: {
-                 columnTitle: '',
-                 width: '300px',
-                 edit: true, // true,
-                 delete: (this.IsApplicant || this.IsAdmin),
-                 position: 'right',
+    }
+    Set_mstapplicantsocialmediadetails_TableConfig() {
+        this.mstapplicantsocialmediadetails_settings = {
+            hideSubHeader: true,
+            mode: 'external',
+            selectMode: 'single',
+            actions: {
+                columnTitle: '',
+                width: '300px',
+                edit: true, // true,
+                delete: (this.IsApplicant || this.IsAdmin),
+                position: 'right',
                 //  custom: this.mstapplicantsocialmediadetail_menuactions
                 // custom: [{ name: 'reference',
                 // title: `<i class="icon-references" aria-hidden="true"></i>`,
                 // }],
-             },
-             add: {
-                 addButtonContent: '<i class="nb-plus"></i>',
-                 createButtonContent: '<i class="nb-checkmark"></i>',
-                 cancelButtonContent: '<i class="nb-close"></i>',
-                 confirmCreate: true,
-             },
-             edit: {
-                 editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
-                 saveButtonContent: '<i class="nb-checkmark"></i>',
-                 cancelButtonContent: '<i class="nb-close"></i>',
-                 confirmSave: true,
-             },
-             delete: {
-                 deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-                 confirmDelete: true,
-             },
-             columns: {
-                 colhtml:
-                 {
-                     title: '',
-                     type: 'html',
-                     filter: true,
-                     editor:
-                     {
-                         type: 'textarea',
-                     },
-                     valuePrepareFunction: (cell, row) => {
-                         //debugger;;
-                         cell = this.mstapplicantsocialmediadetailshtml();
-                         var divrow = JSON.parse(JSON.stringify(row));
+            },
+            add: {
+                addButtonContent: '<i class="nb-plus"></i>',
+                createButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+                confirmCreate: true,
+            },
+            edit: {
+                editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
+                saveButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+                confirmSave: true,
+            },
+            delete: {
+                deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
+                confirmDelete: true,
+            },
+            columns: {
+                colhtml:
+                {
+                    title: '',
+                    type: 'html',
+                    filter: true,
+                    editor:
+                    {
+                        type: 'textarea',
+                    },
+                    valuePrepareFunction: (cell, row) => {
+                        //debugger;;
+                        cell = this.mstapplicantsocialmediadetailshtml();
+                        var divrow = JSON.parse(JSON.stringify(row));
 
 
-                         return this.sharedService.HtmlValue(divrow, cell);
-                     },
-                 },
-             },
-         };
-     }
-     mstapplicantsocialmediadetails_LoadTable(mstapplicantsocialmediadetails = new LocalDataSource()) {
-         if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantsocialmediadetails_ID) >= 0) {
-             if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source = new LocalDataSource();
-             if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source.load(mstapplicantsocialmediadetails as any as LocalDataSource);
-             if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source.setPaging(1, 20, true);
-         }
-     }
-     AddOrEdit_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
-       debugger
+                        return this.sharedService.HtmlValue(divrow, cell);
+                    },
+                },
+            },
+        };
+    }
+    mstapplicantsocialmediadetails_LoadTable(mstapplicantsocialmediadetails = new LocalDataSource()) {
+        if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantsocialmediadetails_ID) >= 0) {
+            if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source = new LocalDataSource();
+            if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source.load(mstapplicantsocialmediadetails as any as LocalDataSource);
+            if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source.setPaging(1, 20, true);
+        }
+    }
+
+    Add_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
+        debugger
+        this.ngOnInit();
         let add = false;
         debugger
         this.showSkillDetails_input = true;
@@ -618,24 +644,69 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        // this.dialog.open(mstapplicantsocialmediadetailComponent,
-        //     {
-        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, socialrefid, applicantid, visiblelist: this.mstapplicantsocialmediadetails_visiblelist, hidelist: this.mstapplicantsocialmediadetails_hidelist, ScreenType: 2 },
-        //     }
-        // ).onClose.subscribe(res => {
-        //     if (res) {
-        //         if (add) {
-        //             for (let i = 0; i < res.length; i++) {
-        //                 this.tbl_mstapplicantsocialmediadetails.source.add(res[i]);
-        //             }
-        //             this.tbl_mstapplicantsocialmediadetails.source.refresh();
-        //         }
-        //         else {
-        //             this.tbl_mstapplicantsocialmediadetails.source.update(event.data, res[0]);
-        //         }
-        //     }
-        // });
     }
+
+    Edit_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
+        debugger
+        //  let add = false;
+        //  debugger
+        this.showSkillDetails_input = true;
+
+        //  if (event == null) add = true;
+        let childsave = true;
+        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+        this.getdata();
+        this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByEID(event.data.pkcol).then(res => {
+            console.log(res);
+
+            this.mstapplicantsocialmediadetail_Form.patchValue({
+                applicantid: res.mstapplicantsocialmediadetail.applicantid,
+                applicantiddesc: res.mstapplicantsocialmediadetail.applicantiddesc,
+                socialrefid: res.mstapplicantsocialmediadetail.socialrefid,
+                socialmedianame: res.mstapplicantsocialmediadetail.socialmedianame,
+                socialmedianamedesc: res.mstapplicantsocialmediadetail.socialmedianamedesc,
+                handlename: res.mstapplicantsocialmediadetail.handlename,
+                url: res.mstapplicantsocialmediadetail.url,
+                // .replace(/<[^>]*>/g, '')
+                remarks: res.mstapplicantsocialmediadetail.remarks,
+                attachment: JSON.parse(res.mstapplicantsocialmediadetail.attachment),
+                status: res.mstapplicantsocialmediadetail.status,
+                statusdesc: res.mstapplicantsocialmediadetail.statusdesc,
+            });
+        });
+
+
+    }
+
+    //  Old Code
+
+    //  AddOrEdit_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
+    //    debugger
+    //     let add = false;
+    //     debugger
+    //     this.showSkillDetails_input = true;
+    //     this.getdata();
+    //     if (event == null) add = true;
+    //     let childsave = true;
+    //     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    //     this.dialog.open(mstapplicantsocialmediadetailComponent,
+    //         {
+    //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, socialrefid, applicantid, visiblelist: this.mstapplicantsocialmediadetails_visiblelist, hidelist: this.mstapplicantsocialmediadetails_hidelist, ScreenType: 2 },
+    //         }
+    //     ).onClose.subscribe(res => {
+    //         if (res) {
+    //             if (add) {
+    //                 for (let i = 0; i < res.length; i++) {
+    //                     this.tbl_mstapplicantsocialmediadetails.source.add(res[i]);
+    //                 }
+    //                 this.tbl_mstapplicantsocialmediadetails.source.refresh();
+    //             }
+    //             else {
+    //                 this.tbl_mstapplicantsocialmediadetails.source.update(event.data, res[0]);
+    //             }
+    //         }
+    //     });
+    // }
 
     onDelete_mstapplicantsocialmediadetail(event: any, childID: number, i: number) {
         if (confirm('Do you want to delete this record?')) {
@@ -643,7 +714,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
                 this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByApplicantID(this.applicantid).then(res => {
                     this.ngOnInit();
                     this.mstapplicantsocialmediadetails_LoadTable(res);
-                    });
+                });
             })
         } else {
             return;
@@ -653,61 +724,93 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         // this.tbl_mstapplicantsocialmediadetails.source.data.splice(i, 1);
         //this.updateGrandTotal();
     }
-     mstapplicantsocialmediadetails_route(event: any, action: any) {
-         var addparam = "";
-         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
-             addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
-         }
-         switch (action) {
-             case 'create':
-                 this.AddOrEdit_mstapplicantsocialmediadetail(event, null, this.applicantid);
-                 break;
-             case 'view':
-                 break;
-             case 'edit':
-                 this.AddOrEdit_mstapplicantsocialmediadetail(event, event.data.socialrefid, this.applicantid);
-                 break;
-             case 'delete':
-                 this.onDelete_mstapplicantsocialmediadetail(event, event.data.socialrefid, ((this.tbl_mstapplicantsocialmediadetails.source.getPaging().page - 1) * this.tbl_mstapplicantsocialmediadetails.source.getPaging().perPage) + event.index);
-                 this.tbl_mstapplicantsocialmediadetails.source.refresh();
-                 break;
-         }
-     }
+    mstapplicantsocialmediadetails_route(event: any, action: any) {
+        var addparam = "";
+        if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
+            addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
+        }
+        switch (action) {
+            case 'create':
+                this.Add_mstapplicantsocialmediadetail(event, null, this.applicantid);
+                break;
+            case 'view':
+                break;
+            case 'edit':
+                this.Edit_mstapplicantsocialmediadetail(event, event.data.socialrefid, this.applicantid);
+                break;
+            case 'delete':
+                this.onDelete_mstapplicantsocialmediadetail(event, event.data.socialrefid, ((this.tbl_mstapplicantsocialmediadetails.source.getPaging().page - 1) * this.tbl_mstapplicantsocialmediadetails.source.getPaging().perPage) + event.index);
+                this.tbl_mstapplicantsocialmediadetails.source.refresh();
+                break;
+        }
+    }
     formid(event: any, arg1: null, formid: any) {
         throw new Error('Method not implemented.');
     }
-     mstapplicantsocialmediadetails_onDelete(obj) {
-         let socialrefid = obj.data.socialrefid;
-         if (confirm('Are you sure to delete this record ?')) {
-             this.mstapplicantsocialmediadetail_service.delete_mstapplicantsocialmediadetail(socialrefid).then(res =>
-                 this.mstapplicantsocialmediadetails_LoadTable(res)
-             );
-         }
-     }
-     async onCustom_mstapplicantsocialmediadetails_Action(event: any) {
-         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
-         let formname = (objbomenuaction as any).actionname;
+    mstapplicantsocialmediadetails_onDelete(obj) {
+        let socialrefid = obj.data.socialrefid;
+        if (confirm('Are you sure to delete this record ?')) {
+            this.mstapplicantsocialmediadetail_service.delete_mstapplicantsocialmediadetail(socialrefid).then(res =>
+                this.mstapplicantsocialmediadetails_LoadTable(res)
+            );
+        }
+    }
+    async onCustom_mstapplicantsocialmediadetails_Action(event: any) {
+        let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
+        let formname = (objbomenuaction as any).actionname;
+    }
+    async onCustom_mstapplicantsocialmediadetailsAttachment_Action(event: any, socialrefid: any, applicantid: any) {
+        let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
+        let formname = (objbomenuaction as any).actionname;
+        if (formname == "mstapplicantskilldetails") {
+            debugger
+            let add = false;
+            debugger
+            this.showSkillDetails_input = true;
+            this.getdata();
+            if (event == null) add = true;
+            let childsave = true;
+            if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
-     }
-     mstapplicantsocialmediadetails_Paging(val) {
-         //debugger;;
-         this.tbl_mstapplicantsocialmediadetails.source.setPaging(1, val, true);
-     }
+            this.dialog.open(mstapplicantsocialmediadetailComponent,
+                {
+                    data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, socialrefid, applicantid, visiblelist: this.mstapplicantsocialmediadetails_visiblelist, hidelist: this.mstapplicantsocialmediadetails_hidelist, ScreenType: 2 },
+                }
+            ).onClose.subscribe(res => {
+                if (res) {
+                    if (add) {
+                        for (let i = 0; i < res.length; i++) {
+                            this.tbl_mstapplicantsocialmediadetails.source.add(res[i]);
+                        }
+                        this.tbl_mstapplicantsocialmediadetails.source.refresh();
+                    }
+                    else {
+                        this.tbl_mstapplicantsocialmediadetails.source.update(event.data, res[0]);
+                    }
+                }
+            });
+        }
+    }
 
-     handle_mstapplicantsocialmediadetails_GridSelected(event: any) {
-         this.mstapplicantsocialmediadetails_selectedindex = this.tbl_mstapplicantsocialmediadetails.source.findIndex(i => i.socialrefid === event.data.socialrefid);
-     }
-     Is_mstapplicantsocialmediadetails_Visible() {
-         if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantsocialmediadetails_ID) >= 0) {
-             return "tbl smart-table-container";
-         }
-         else {
-             return "hide";
-         }
-     }
-     onClose() {
+    mstapplicantsocialmediadetails_Paging(val) {
+        //debugger;;
+        this.tbl_mstapplicantsocialmediadetails.source.setPaging(1, val, true);
+    }
+
+    handle_mstapplicantsocialmediadetails_GridSelected(event: any) {
+        this.mstapplicantsocialmediadetails_selectedindex = this.tbl_mstapplicantsocialmediadetails.source.findIndex(i => i.socialrefid === event.data.socialrefid);
+    }
+    Is_mstapplicantsocialmediadetails_Visible() {
+        if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantsocialmediadetails_ID) >= 0) {
+            return "tbl smart-table-container";
+        }
+        else {
+            return "hide";
+        }
+    }
+    onClose() {
         // location.reload();
         this.dialogRef.close();
-      }
-     //end of Grid Codes mstapplicantsocialmediadetails
+    }
+    //end of Grid Codes mstapplicantsocialmediadetails
 }

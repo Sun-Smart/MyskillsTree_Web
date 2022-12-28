@@ -120,14 +120,13 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <tr>
                   <!-- From Year -->
                     <td>
-                    <label *ngIf="showview" class="labelview">{{f.fromyear?.value}}</label>
-                    <input *ngIf="!showview" id="fromyear" formControlName="fromyear" class="form-control">
+                    <input  id="fromyear" formControlName="fromyear" class="form-control">
                     </td>
 
                     <!-- Category -->
 
                     <td>
-                    <select *ngIf="!showview" id="educationcategory" required (change)="educationcategory_onChange($event.target)"
+                    <select  id="educationcategory" required (change)="educationcategory_onChange($event.target)"
                         formControlName="educationcategory" class="form-control">
                     <option [ngValue]="null" selected>-Select-</option>
                     <option *ngFor="let item of educationcategory_List" value="{{item.value}}">{{item.label}}</option>
@@ -137,7 +136,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- Sub Category -->
 
                     <td>
-                    <select *ngIf="!showview" id="educationsubcategory" required
+                    <select  id="educationsubcategory" required
                         (change)="educationsubcategory_onChange($event.target)" formControlName="educationsubcategory"
                         class="form-control">
                     <option [ngValue]="null" selected>-Select-</option>
@@ -148,23 +147,22 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- Institution Name -->
 
                     <td>
-                    <input *ngIf="!showview" id="institutionname" formControlName="institutionname" class="form-control">
+                    <input  id="institutionname" formControlName="institutionname" class="form-control">
                     </td>
 
                     <!-- Course Name -->
 
                     <td>
-                    <input *ngIf="!showview" id="coursename" required formControlName="coursename" class="form-control">
-                    <app-field-error-display [displayError]="f.coursename.errors?.required"
+                    <input  id="coursename" required formControlName="coursename" class="form-control">
+                    <!-- <app-field-error-display [displayError]="f.coursename.errors?.required"
                       errorMsg="Enter {{'Course Name' | translate}}">
-                    </app-field-error-display>
+                    </app-field-error-display> -->
                     </td>
 
                     <!-- Percentage -->
 
                     <td>
-                      <input *ngIf="!showview" id="percentage" formControlName="percentage" type="number" min="0"
-                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                      <input  id="percentage" formControlName="percentage" type="number" 
                       onKeyPress="if(this.value.length==3) return false;" class="form-control">
                       <div *ngIf="showPercentError" style="color: red;">
                         Percentage allow only 0-100
@@ -175,7 +173,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                    <td>
                     <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
-                    <!-- <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor> -->
+                    <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor> -->
                     </td>
 
                     <!-- Attachment -->
@@ -191,7 +189,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- To Year -->
 
                     <td>
-                    <input *ngIf="!showview" id="toyear" formControlName="toyear" class="form-control">
+                    <input  id="toyear" formControlName="toyear" class="form-control">
                       <div *ngIf="showDateError" style="color: red;">
                         To Year is greater than from year
                       </div>
@@ -286,6 +284,14 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   r3: any;
   showSkillDetails_input: boolean = false;
   showview: boolean = false;
+  fromyear: any[];
+  toyear: any[];
+  percentage: any[];
+  educationcategorydesc: any[];
+  educationsubcategorydesc: any[];
+  institutionname: any[];
+  coursename: any[];
+  remarks: any[];
   constructor(
     private nav: Location,
     private translate: TranslateService,
@@ -419,11 +425,11 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     console.log(this.mstapplicanteducationdetail_Form);
     this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
 
-      // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-      // this.fileAttachmentList = this.fileattachment.getAllFiles();
-      console.log(this.formData);
-      this.spinner.show();
-      this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
+    // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+    // this.fileAttachmentList = this.fileattachment.getAllFiles();
+    console.log(this.formData);
+    this.spinner.show();
+    this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
       async res => {
         // await this.sharedService.upload(this.fileAttachmentList);
         // this.attachmentlist = [];
@@ -434,7 +440,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         this.sessionService.setItem("attachedsaved", "true")
         this.objvalues.push((res as any).mstapplicanteducationdetail);
         this.ngOnInit();
-        this.objvalues.push((res as any).mstapplicanteducationdetail);
+        this.mstapplicanteducationdetail_Form.reset();
         if (!bclear) this.showview = true;
         if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
         if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
@@ -504,15 +510,15 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         <table class="table table-hover educationdetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr class="tbody-res">
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;" >##fromyear##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##educationcategorydesc##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##educationsubcategorydesc##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;" >##institutionname##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;" >##coursename##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 12.5%;" >##fromyear##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 13%;">##educationcategorydesc##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 12.5%;">##educationsubcategorydesc##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 13%;" >##institutionname##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 13%;" >##coursename##</th>
             <th style="white-space: break-spaces;word-break: break-word !important;twidth: 11.5%;" >##percentage##</th>
             <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##referencecount##</th>-->
             <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;" >##remarks##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##toyear##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11%;">##toyear##</th>
           </tr>
         </tbody>
       </table>
@@ -557,8 +563,9 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     });
   }
 
-  AddOrEdit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
-    debugger
+  Add_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
+    debugger;
+    this.ngOnInit();
     this.showSkillDetails_input = true;
     this.eduCategory();
     let add = false;
@@ -566,6 +573,50 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
+  }
+  Edit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
+    debugger
+    this.showSkillDetails_input = true;
+    let add = false;
+    if (event == null) add = true;
+    let childsave = true;
+    if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    this.eduCategory();
+    console.log(event, educationid, applicantid);
+    this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByEID(event.data.pkcol).then(res => {
+      console.log(res);
+      debugger
+      this.mstapplicanteducationdetail_Form.patchValue({
+        applicantid: res.mstapplicanteducationdetail.applicantid,
+        applicantiddesc: res.mstapplicanteducationdetail.applicantiddesc,
+        educationid: res.mstapplicanteducationdetail.educationid,
+        educationcategory: res.mstapplicanteducationdetail.educationcategory,
+        educationcategorydesc: res.mstapplicanteducationdetail.educationcategorydesc,
+        educationsubcategory: res.mstapplicanteducationdetail.educationsubcategory,
+        educationsubcategorydesc: res.mstapplicanteducationdetail.educationsubcategorydesc,
+        coursename: res.mstapplicanteducationdetail.coursename,
+        institutionname: res.mstapplicanteducationdetail.institutionname,
+        fromyear: res.mstapplicanteducationdetail.fromyear,
+        toyear: res.mstapplicanteducationdetail.toyear,
+        percentage: res.mstapplicanteducationdetail.percentage,
+        requestid: res.mstapplicanteducationdetail.requestid,
+        referenceacceptance: res.mstapplicanteducationdetail.referenceacceptance,
+        referenceacceptancedesc: res.mstapplicanteducationdetail.referenceacceptancedesc,
+        remarks: res.mstapplicanteducationdetail.remarks,
+        attachment: JSON.parse(res.mstapplicanteducationdetail.attachment),
+        status: res.mstapplicanteducationdetail.status,
+        statusdesc: res.mstapplicanteducationdetail.statusdesc,
+      });
+      debugger;
+      this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
+
+      setTimeout(() => {
+        if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then(res => {
+          this.educationsubcategory_List = res as DropDownValues[];
+        }).catch((err) => { console.log(err); });
+      });
+    });
+    debugger
   }
 
   // Old Code
@@ -813,12 +864,12 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     switch (action) {
 
       case 'create':
-        this.AddOrEdit_mstapplicanteducationdetail(event, null, this.applicantid);
+        this.Add_mstapplicanteducationdetail(event, null, this.applicantid);
         break;
       case 'view':
         break;
       case 'edit':
-        this.AddOrEdit_mstapplicanteducationdetail(event, event.data.educationid, this.applicantid);
+        this.Edit_mstapplicanteducationdetail(event, event.data.educationid, this.applicantid);
         break;
       // case 'delete':
 
@@ -906,32 +957,32 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     }
   };
 
-  async onCustom_mstapplicantskilldetailsAttachment_Action(event: any, educationid: any, applicantid: any){
-   
+  async onCustom_mstapplicantskilldetailsAttachment_Action(event: any, educationid: any, applicantid: any) {
+
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicanteducationdetails");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicanteducationdetails") {
-    let add = false;
-    if (event == null) add = true;
-    let childsave = true;
-    if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-    this.dialog.open(mstapplicanteducationdetailComponent,
-      {
-        data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
-      }
-    ).onClose.subscribe(res => {
-      if (res) {
-              if (add) {
-                for (let i = 0; i < res.length; i++) {
-                  this.tbl_mstapplicanteducationdetails.source.add(res[i]);
-                }
-                this.tbl_mstapplicanteducationdetails.source.refresh();
-              }
-              else {
-                this.tbl_mstapplicanteducationdetails.source.update(event.data, res[0]);
-              }
+      let add = false;
+      if (event == null) add = true;
+      let childsave = true;
+      if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+      this.dialog.open(mstapplicanteducationdetailComponent,
+        {
+          data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
+        }
+      ).onClose.subscribe(res => {
+        if (res) {
+          if (add) {
+            for (let i = 0; i < res.length; i++) {
+              this.tbl_mstapplicanteducationdetails.source.add(res[i]);
             }
-    });
+            this.tbl_mstapplicanteducationdetails.source.refresh();
+          }
+          else {
+            this.tbl_mstapplicanteducationdetails.source.update(event.data, res[0]);
+          }
+        }
+      });
     }
   }
   mstapplicanteducationdetails_Paging(val) {

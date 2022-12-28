@@ -120,7 +120,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <tr>
         <!--language-->
         <td>
-        <select *ngIf="!showview" id="language" required (change)="language_onChange($event.target)"
+        <select id="language" required (change)="language_onChange($event.target)"
           formControlName="language" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
           <option *ngFor="let item of language_List" value="{{item.value}}">{{item.label}}</option>
@@ -130,36 +130,36 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <!--Read Proficiency -->
 
         <td>
-        <p-rating *ngIf="!showview" id="readproficiency" formControlName="readproficiency" class="form-control">
+        <p-rating id="readproficiency" formControlName="readproficiency" class="form-control">
         </p-rating>
         </td>
 
        <!--Write Proficiency -->
 
         <td>
-        <p-rating *ngIf="!showview" id="writeproficiency" formControlName="writeproficiency" class="form-control">
+        <p-rating id="writeproficiency" formControlName="writeproficiency" class="form-control">
         </p-rating>
         </td>
 
         <!--Speak Proficiency -->
 
         <td>
-        <p-rating *ngIf="!showview" id="speakproficiency" formControlName="speakproficiency" class="form-control">
+        <p-rating id="speakproficiency" formControlName="speakproficiency" class="form-control">
         </p-rating>
         </td>
 
         <!-- Rating -->
 
         <td>
-        <p-rating *ngIf="!showview" id="overallrating" formControlName="overallrating" class="form-control">
+        <p-rating id="overallrating" formControlName="overallrating" class="form-control">
         </p-rating>
         </td>
 
         <!-- Remarks -->
 
         <td>
-        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="achievementdetails" required
-        formControlName="remarks" class="form-control">
+        <textarea autosize rows="1" cols="10" class="form-control"  id="achievementdetails"
+        formControlName="remarks">
         </textarea>
         </td>
 
@@ -308,6 +308,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
       };
 
     getdata(){
+        debugger;
         this.mstapplicantlanguagedetail_service.getDefaultData().then(res => {
             this.applicantid_List = res.list_applicantid.value;
             this.language_List = res.list_language.value;
@@ -363,21 +364,24 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         let strError = "";
 
         this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
-        if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-        this.fileAttachmentList = this.fileattachment.getAllFiles();
+        // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+        // this.fileAttachmentList = this.fileattachment.getAllFiles();
         console.log(this.formData);
         this.spinner.show();;
-        this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe(
-            async res => {
-                await this.sharedService.upload(this.fileAttachmentList);
-                this.attachmentlist = [];
-                if (this.fileattachment) this.fileattachment.clear();
+        this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe((res:any) => {
+            debugger;
+            console.log(res);
+            
+            // await this.sharedService.upload(this.fileAttachmentList);
+                // this.attachmentlist = [];
+                // if (this.fileattachment) this.fileattachment.clear();
                 this.spinner.hide();
-                debugger;
+                
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.sessionService.setItem("attachedsaved", "true")
                 this.objvalues.push((res as any).mstapplicantlanguagedetail);
-                this.ngOnInit()
+                this.ngOnInit();
+                this.mstapplicantlanguagedetail_Form.reset();
                 if (!bclear) this.showview = true;
                 if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
@@ -686,7 +690,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     }
 
     AddOrEdit_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
-
+        this.ngOnInit();
         debugger
         this.showSkillDetails_input = true;
         this.getdata();

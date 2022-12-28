@@ -99,15 +99,15 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <thead >
     <tr>
     
-      <th style="width: 12.5%;">Category</th>
-      <th style="width: 12.5%;">Company Name</th>
-      <th style="width: 12.5%;">Designation</th>
-      <th style="width: 12.5%;">From Date</th>
-      <th style="width: 12.5%;">To Date</th>
-      <th style="width: 12.5%;">Skills</th>
-      <th style="width: 12.5%;">Remarks</th>
-      <!-- <th style="width: 12.5%;">Attachment</th> -->
-      <th style="width: 12.5%;">Action</th>
+      <th style="width: 11.5%;">Category</th>
+      <th style="width: 11.5%;">Company Name</th>
+      <th style="width: 11.5%;">Designation</th>
+      <th style="width: 11.5%;">From Date</th>
+      <th style="width: 11.5%;">To Date</th>
+      <th style="width: 11.5%;">Skills</th>
+      <th style="width: 11.5%;">Remarks</th>
+      <!-- <th style="width: 11.5%;">Attachment</th> -->
+      <th style="width: 8%;">Action</th>
     </tr>
   </thead>
 
@@ -133,7 +133,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <!-- Designation-->
      <td>
      <!-- <label for="designation" class="control-label required">Designation</label> -->
-     <input *ngIf="!showview" id="designation" required formControlName="designation" class="form-control">
+     <input  id="designation" required formControlName="designation" class="form-control">
      </td>
 
      <!-- From Date -->
@@ -146,7 +146,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
           [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
             formControlName="fromdate" class="form-control" style="margin-right: 5px;">
             
-            <button class="input-group-addon" *ngIf="!showview" (click)="f.toggle()" type="button"><i
+            <button class="input-group-addon"  (click)="f.toggle()" type="button"><i
               class="fa fa-calendar" aria-hidden="true"></i></button>
      </div>
      </td>
@@ -155,7 +155,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
      <td>
      <!-- <label for="todate" class="control-label">To Date</label> -->
-     <!-- <input *ngIf="!showview" id="designation" required formControlName="designation" class="form-control"> -->
+     <!-- <input  id="designation" required formControlName="designation" class="form-control"> -->
      <!-- <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.todate?.value)}}</label> -->
      
     <div style="display: flex;width: 60%;">
@@ -163,7 +163,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
           [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate" class="form-control"
           style="margin-right: 5px;">
 
-          <button class="input-group-addon" *ngIf="!showview" (click)="t.toggle()" type="button"><i
+          <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
               class="fa fa-calendar" aria-hidden="true"></i></button>
     </div>
      </td>
@@ -172,8 +172,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
      <td>
      <!-- <label for="skills" class="control-label">Skills &nbsp;&nbsp;</label><br> -->
-     <!-- <input *ngIf="!showview" id="designation" required formControlName="skills" class="form-control"> -->
-     <p-autoComplete formControlName="skills"  *ngIf="!showview" field="label" [multiple]="true" [suggestions]="skills_results"
+     <!-- <input  id="designation" required formControlName="skills" class="form-control"> -->
+     <p-autoComplete formControlName="skills"   field="label" [multiple]="true" [suggestions]="skills_results"
           (completeMethod)="search_skills($event)" class="field-autocomplete"></p-autoComplete>
           <label *ngIf="showview" class="labelview">{{f.skills?.label}}</label>
      </td>
@@ -474,17 +474,17 @@ export class mstapplicantcareergridComponent implements OnInit {
         this.getData()
 
         this.formData = this.mstapplicantcareerdetail_Form.getRawValue();
-        if (this.dynamicconfig.data != null) {
-            for (let key in this.dynamicconfig.data) {
-                if (key != 'visiblelist' && key != 'hidelist') {
-                    if (this.mstapplicantcareerdetail_Form.controls[key] != null) {
-                        this.formData[key] = this.mstapplicantcareerdetail_Form.controls[key].value;
-                    }
-                }
-            }
-        }
+        // if (this.dynamicconfig.data != null) {
+        //     for (let key in this.dynamicconfig.data) {
+        //         if (key != 'visiblelist' && key != 'hidelist') {
+        //             if (this.mstapplicantcareerdetail_Form.controls[key] != null) {
+        //                 this.formData[key] = this.mstapplicantcareerdetail_Form.controls[key].value;
+        //             }
+        //         }
+        //     }
+        // }
         this.formData.fromdate = new Date(this.mstapplicantcareerdetail_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('fromdate').value) + '  UTC' : null);
-        // this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('todate').value) + '  UTC' : null);
+
         if (this.mstapplicantcareerdetail_Form.value.currentlyworking == true) {
             this.formData.todate = new Date()
             console.log(this.formData.todate);
@@ -499,22 +499,20 @@ export class mstapplicantcareergridComponent implements OnInit {
         } else {
 
             if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
-            if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.mstapplicantcareerdetail_Form.get('skills').value);
+            // if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.mstapplicantcareerdetail_Form.get('skills').value);
             //   if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
             //   this.fileAttachmentList = this.fileattachment.getAllFiles();
             console.log(this.formData);
             this.spinner.show();
             this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
                 async res => {
-                    await this.sharedService.upload(this.fileAttachmentList);
-                    this.attachmentlist = [];
-                    if (this.fileattachment) this.fileattachment.clear();
                     this.spinner.hide();
                     debugger;
                     this.toastr.addSingle("success", "", "Successfully saved");
                     this.sessionService.setItem("attachedsaved", "true")
                     this.objvalues.push((res as any).mstapplicantcareerdetail);
                     this.ngOnInit();
+                    this.mstapplicantcareerdetail_Form.reset();
                     if (!bclear) this.showview = true;
                     if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                     if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
@@ -570,11 +568,14 @@ export class mstapplicantcareergridComponent implements OnInit {
         <table class="table table-hover" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##companyname##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##designation##</th>
-            <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##referencecount##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;text-align: -webkit-center;" class="col-2">##fromdate##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;text-align: -webkit-center;" class="col-2">##todate##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##categorydesc##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##companyname##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##designation##</th>
+            <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;">##referencecount##</th>-->
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##fromdate##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##todate##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##skillsstring##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##remarks##</th>
           </tr>
         </tbody>
       </table>
@@ -625,6 +626,7 @@ export class mstapplicantcareergridComponent implements OnInit {
 
 
     Add_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
+        this.ngOnInit();
         debugger;
         this.showSkillDetails_input = true;
         this.getData();
@@ -1010,7 +1012,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     async onCustom_mstapplicantcareerdetailsAttachment_Action(event: any, careerid: any, applicantid: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantcareerdetails");
         let formname = (objbomenuaction as any).actionname;
-        if (formname == "mstapplicantreferencerequests") {
+        if (formname == "mstapplicantcareerdetails") {
             let add = false;
             if (event == null) add = true;
             let childsave = true;

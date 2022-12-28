@@ -305,12 +305,8 @@ export class mstapplicantsocialmediadetailComponent implements OnInit {
                 applicantiddesc: applicantidDetail.label,
 
             });
-
         }
     }
-
-
-
 
     resetForm() {
         if (this.mstapplicantsocialmediadetail_Form != null)

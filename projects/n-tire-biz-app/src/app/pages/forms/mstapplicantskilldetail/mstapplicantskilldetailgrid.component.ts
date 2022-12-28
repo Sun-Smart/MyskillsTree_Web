@@ -50,7 +50,6 @@ import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.s
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskilldetailsattachment/mstapplicantskilldetailsattachment.component';
-import { mstcategoryComponent } from '../mstcategory/mstcategory.component';
 
 
 @Component({
@@ -188,8 +187,8 @@ import { mstcategoryComponent } from '../mstcategory/mstcategory.component';
         <!-- Self Rating -->
 
         <td>
-        <label *ngIf="showview" class="labelview">{{f.selfrating?.value}}</label>
-        <p-rating *ngIf="!showview" id="selfrating" formControlName="selfrating" class="form-control">
+        <!-- <label *ngIf="showview" class="labelview">{{f.selfrating?.value}}</label> -->
+        <p-rating  id="selfrating" formControlName="selfrating" class="form-control">
         </p-rating>
         </td>
 
@@ -299,8 +298,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   formid: any;
   segment_ID_Code: any;
   skillsubcategory_Code: any;
-  segmentIDCode1: any;
-  getdata2: any;
+  seg_id: any;
 
 
 
@@ -412,17 +410,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     });
 
   };
-  subcategoryid_onChange(evt: any) {
-    debugger
-    let e = evt.value;
-    this.getdata2 = e
-    if (this.getdata2 == "411") {
-      this.showinput3 = true
-    } else {
-      this.showinput3 = false
-    }
-    this.mstapplicantskilldetail_Form.patchValue({ subcategoryiddesc: evt.options[evt.options.selectedIndex].text, categoryid: this.getdata2 });
-  }
 
   validate() {
     let ret = true;
@@ -436,7 +423,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     });
   };
 
-  
+
 
   async onSubmitData(bclear: any) {
     debugger
@@ -593,7 +580,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         showorhide: res.mstapplicantskilldetail.showorhide,
         referenceacceptance: res.mstapplicantskilldetail.referenceacceptance,
         referenceacceptancedesc: res.mstapplicantskilldetail.referenceacceptancedesc,
-        attachment: "[]",
+        attachment: JSON.parse(res.mstapplicantskilldetail.attachment),
         status: res.mstapplicantskilldetail.status,
         statusdesc: res.mstapplicantskilldetail.statusdesc,
       });
@@ -643,6 +630,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   Add_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
     debugger
+    this.ngOnInit();
     this.showSkillDetails_input = true;
     this.getData();
     let add = false;
@@ -658,15 +646,15 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     debugger
     this.showSkillDetails_input = true;
 
-    let add = true;
-    if (event == null) add = true;
+    // let add = true;
+    // if (event == null) add = true;
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-    console.log(event, event.data.skillid, event.data.segmentidvalue);
+    console.log(event, event.data.skillid, event.data.applicantid);
     this.getData();
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByEID(event.data.pkcol).then(res => {
       console.log(res);
-      this.segmentIDCode1 = event.data.segmentidvalue;
+      this.seg_id = event.data.segmentidvalue;
       this.mstapplicantskilldetail_Form.patchValue({
 
         applicantid: res.mstapplicantskilldetail.applicantid,
@@ -678,7 +666,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         subcategoryiddesc: res.mstapplicantskilldetail.subcategoryiddesc,
 
         //suneel
-        segmentid: this.segmentIDCode1,
+        // segmentid: res.mstapplicantskilldetail.segmentid,
+        segmentid: this.seg_id,
         segmentcategorydesc: res.mstapplicantskilldetail.segmentdesc,
 
         segmentcategoryothers: res.mstapplicantskilldetail.segmentcategoryothers,
@@ -696,7 +685,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         statusdesc: res.mstapplicantskilldetail.statusdesc,
       });
       // this.segment_ID_Code = res.mstapplicantskilldetail.segmentid;
-      this.segment_ID_Code = this.segmentIDCode1;
+      this.segment_ID_Code = this.seg_id;
       this.skillsubcategory_Code = res.mstapplicantskilldetail.skillcategory;
       this.mstapplicantskilldetail_service.getList_skillcategory2(this.segment_ID_Code).then(res => {
         debugger
@@ -768,42 +757,42 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   //   });
   // }
 
-  AddOrEditskillcategory(masterdataid) {
-    debugger
-    var segmentid = this.getidd
-    let ScreenType = '2';
-    this.dialog.open(mstcategoryComponent,
-      {
-        data: { segmentid: this.mstapplicantskilldetail_Form.get('segmentid').value, save: true, masterdatatypeid: 76, ScreenType: 2 }
-        // data: { categoryid: this.mstapplicantskilldetail_Form.get('skillcategory').value, save: true, masterdatatypeid: 76, ScreenType: 2,segmentid:segmentid }
-      }
-    ).onClose.subscribe(res => {
-      if (this.f.segmentid.value && this.f.segmentid.value != "" && this.f.segmentid.value != null)
-        this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res => {
-          debugger
-          this.skillcategory_List = res as DropDownValues[];
-          //suneel
-          if (this.formData && this.formData.skillcategory) {
-            debugger
-            this.mstapplicantskilldetail_Form.patchValue({
-              skillcategory: this.formData.skillcategory,
-              skillcategorydesc: this.formData.skillcategorydesc,
-            });
-          }
-          //to null subcategory
-          setTimeout(() => {
-            if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
-              this.mstapplicantskilldetail_service.getList_subcategoryid2(this.f.segmentid.value).then(res =>
-                this.subcategoryid_List = res as DropDownValues[]);
-          });
+  // AddOrEditskillcategory(masterdataid) {
+  //   debugger
+  //   var segmentid = this.getidd
+  //   let ScreenType = '2';
+  //   this.dialog.open(mstcategoryComponent,
+  //     {
+  //       data: { segmentid: this.mstapplicantskilldetail_Form.get('segmentid').value, save: true, masterdatatypeid: 76, ScreenType: 2 }
+  //       // data: { categoryid: this.mstapplicantskilldetail_Form.get('skillcategory').value, save: true, masterdatatypeid: 76, ScreenType: 2,segmentid:segmentid }
+  //     }
+  //   ).onClose.subscribe(res => {
+  //     if (this.f.segmentid.value && this.f.segmentid.value != "" && this.f.segmentid.value != null)
+  //       this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res => {
+  //         debugger
+  //         this.skillcategory_List = res as DropDownValues[];
+  //         //suneel
+  //         if (this.formData && this.formData.skillcategory) {
+  //           debugger
+  //           this.mstapplicantskilldetail_Form.patchValue({
+  //             skillcategory: this.formData.skillcategory,
+  //             skillcategorydesc: this.formData.skillcategorydesc,
+  //           });
+  //         }
+  //         //to null subcategory
+  //         setTimeout(() => {
+  //           if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
+  //             this.mstapplicantskilldetail_service.getList_subcategoryid2(this.f.segmentid.value).then(res =>
+  //               this.subcategoryid_List = res as DropDownValues[]);
+  //         });
 
-          //end
+  //         //end
 
-        }).catch((err) => {
-          //console.log(err);
-        });
-    });
-  }
+  //       }).catch((err) => {
+  //         //console.log(err);
+  //       });
+  //   });
+  // }
 
   AddOrEditsegmentcategory(masterdataid) {
 

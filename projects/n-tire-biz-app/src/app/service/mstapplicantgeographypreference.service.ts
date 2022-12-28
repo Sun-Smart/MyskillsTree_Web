@@ -80,10 +80,12 @@ export class mstapplicantgeographypreferenceService {
   }
 
   getList_country(): any {
+    debugger
     return this.http.get(AppConstants.ntirecrmURL + '/mstapplicantgeographypreference/getList_country').toPromise();
   }
 
   getList_city(countryid): any {
+    debugger
     return this.http.get(AppConstants.ntirecrmURL + '/mstapplicantgeographypreference/getList_city1/' + countryid).toPromise();
   }
   //  getList_city(): any {
