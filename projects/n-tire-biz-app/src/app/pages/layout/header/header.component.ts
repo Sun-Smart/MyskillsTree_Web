@@ -16,6 +16,15 @@ import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/
 import { bousermasterService } from './../../../service/bousermaster.service';
 import { ToastService } from '../../core/services/toast.service';
 import { mstapplicantmastermainComponent } from '../../forms/mstapplicantmaster/mstapplicantmastermain.component';
+import { mstapplicantskilldetailgridComponent } from '../../forms/mstapplicantskilldetail/mstapplicantskilldetailgrid.component';
+import { mstapplicantgeographygrid } from '../../forms/mstapplicantgeographypreference/mstapplicantgeographygrid.component';
+import { mstresumeapplicantComponent } from '../../forms/mstapplicantmaster/mstresumeapplicant.component';
+import { mstapplicantcareergridComponent } from '../../forms/mstapplicantcareerdetail/mstapplicantcareergrid.component';
+import { mstapplicantworkrefgridComponent } from '../../forms/mstapplicantworkreference/mstapplicantworkrefgrid.component';
+import { mstapplicanteducationdetailgridComponent } from '../../forms/mstapplicanteducationdetail/mstapplicanteducationgrid.component';
+import { mstapplicantachivementgridComponent } from '../../forms/mstapplicantachievementdetail/mstapplicantachivementgrid.component';
+import { mstapplicantsocialmediagridComponent } from '../../forms/mstapplicantsocialmediadetail/mstapplicantsocialmediagrid.component';
+import { mstapplicantlanuagegridComponent } from '../../forms/mstapplicantlanguagedetail/mstapplicantlanguagegrid.component';
 
 @Component({
   selector: 'app-header',
@@ -64,13 +73,15 @@ export class HeaderComponent implements OnInit {
     public dialog: DialogService,
     private sharedService: SharedService,
     private bousermasterservice: bousermasterService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private pageroute: Router,
   ) {
     //debugger;
 
     this.displayNotifications = false;
     this.userid = this.sessionService.getItem('userid');
     this.theme = this.sessionService.getItem("selected-theme");
+    this.applicantid = this.sessionService.getItem("applicantid");
     //this.theme ='cruze';
     if (this.theme) {
       this.selectTheme(this.theme);
@@ -364,4 +375,101 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/home/newskillsearch']);
   }
 
+
+  //  sowmiya dropdown menu routing
+  showSkills() {
+    this.dialog.open(mstapplicantskilldetailgridComponent,
+      {
+        width: '100% !important',
+        height: 'auto !important',
+        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      }
+    ).onClose.subscribe(res => {
+      this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+    })
+  }
+  showGeography() {
+    this.dialog.open(mstapplicantgeographygrid,
+      {
+        width: '100% !important',
+        height: 'auto !important',
+        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      }
+    ).onClose.subscribe(res => {
+      this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+    })
+  }
+   uploadmethod() {
+    debugger
+    this.dialog.open(mstresumeapplicantComponent,
+      {
+        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      }
+    ).onClose.subscribe(res => {
+      this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+    })}
+    showcareer() {
+      this.dialog.open(mstapplicantcareergridComponent, {
+        width: '100% !important',
+        height: 'auto !important',
+        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      }).onClose.subscribe(res => {
+        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+      })
+    }
+    showWorkRef() {
+      this.dialog.open(mstapplicantworkrefgridComponent, {
+        width: '100% !important',
+        height: 'auto !important',
+        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      }).onClose.subscribe(res => {
+        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+      })
+    }
+    showEducation() {
+      this.dialog.open(mstapplicanteducationdetailgridComponent, {
+        width: '100% !important',
+        height: 'auto !important',
+        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      }).onClose.subscribe(res => {
+        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+      })
+    }
+    showAchievement() {
+      this.dialog.open(mstapplicantachivementgridComponent, {
+        width: '100% !important',
+        height: 'auto !important',
+        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      }).onClose.subscribe(res => {
+        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+      })
+  
+    }
+    showSocial() {
+      this.dialog.open(mstapplicantsocialmediagridComponent, {
+        width: '100% !important',
+        height: 'auto !important',
+        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      }).onClose.subscribe(res => {
+        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+      })
+    }
+    edit_fullpagemstapplicantmasters() {
+      debugger
+      this.dialog.open(mstapplicantmastermainComponent,
+        {
+          data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+        }
+      ).onClose.subscribe(res => {
+        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+      })}
+      showLanguage() {
+        this.dialog.open(mstapplicantlanuagegridComponent, {
+          width: '100% !important',
+          height: 'auto !important',
+          data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+        }).onClose.subscribe(res => {
+          this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+        })
+      }
 }
