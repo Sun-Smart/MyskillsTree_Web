@@ -34,6 +34,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.category ="G";
   this.onItemChange('');
   }
   gotoLogin() {
