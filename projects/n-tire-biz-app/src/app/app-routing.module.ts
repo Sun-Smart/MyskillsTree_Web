@@ -24,6 +24,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
 import { ApplicantregisterComponent } from './pages/forms/applicantregister/applicantregister.component';
 import { ForgotpasswordComponent } from './pages/forgotpassword/forgotpassword.component';
+import { SkillenhancerComponent } from './pages/skillenhancer/skillenhancer.component';
+import { CertifierComponent } from './pages/certifier/certifier.component';
 // import { mstapplicantreferencerequestsacceptedComponent } from './pages/mstapplicantreferencerequestsaccepted/mstapplicantreferencerequestsaccepted.component';
 
 enableProdMode();
@@ -63,6 +65,8 @@ const routes: Routes = [
     //    { path: 'dashboards', component: DashboardComponent, },
     { path: 'register', component: RegisterUserComponent, },
     { path: 'registernew', component: RegisterComponent, },
+    { path: 'enhancer', component: SkillenhancerComponent, },
+    { path: 'certifier', component: CertifierComponent, },
     { path: 'applicantregister', component: ApplicantregisterComponent, },
     { path: 'verify', component: VerifyscreenComponent, },
     { path: 'verify/:id', component: VerifyscreenComponent, },

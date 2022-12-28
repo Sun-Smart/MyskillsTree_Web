@@ -48,14 +48,14 @@ export class RegisterComponent implements OnInit {
       this.category = this.category;
     } else if (value == "availer") {
       this.router.navigate(['applicantregister']);
-      
+
     } else if (value == "enhancer") {
-      this.router.navigate(['registernew']);
+      this.router.navigate(['enhancer']);
       this.type = "E";
       this.category = this.category;
     }
     else if (value == "certifier") {
-      this.router.navigate(['registernew']);
+      this.router.navigate(['certifier']);
       this.type = "C";
       this.category = this.category;
     }
@@ -114,13 +114,13 @@ export class RegisterComponent implements OnInit {
           alert('Email already exist');
         }
       });
-      
+
     }
 
 
-    
+
   }
-  
+
   opendrop(ev:any){
     debugger;
     console.log(ev)
@@ -129,13 +129,13 @@ export class RegisterComponent implements OnInit {
     }else{
       this.submenus=false;
     }
-    
+
     //this.userRoleID = ev;
   }
 closedrop(data:any){
   debugger
   console.log(data)
-  
+
   }
   // closedrop(){
   //   this.drophide=false;

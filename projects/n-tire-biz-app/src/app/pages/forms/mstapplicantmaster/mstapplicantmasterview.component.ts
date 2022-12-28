@@ -1869,9 +1869,9 @@ return false;
       actions: {
         columnTitle: '',
         width: '300px',
-        edit: true, // true,
-        delete: (this.IsApplicant || this.IsAdmin),
-        // delete: false,
+        edit: false, // true,
+        // delete: (this.IsApplicant || this.IsAdmin),
+        delete: false,
         position: 'right',
         // custom: this.mstapplicantgeographypreference_menuactions
         custom: ""
@@ -1880,17 +1880,17 @@ return false;
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmCreate: true,
+        confirmCreate: false,
       },
       edit: {
         editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmSave: true,
+        confirmSave: false,
       },
       delete: {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-        confirmDelete: true,
+        confirmDelete: false,
       },
       columns: {
         colhtml:
@@ -2071,28 +2071,28 @@ return false;
       actions: {
         columnTitle: '',
         width: '300px',
-        edit: true, // true,
-        delete: (this.IsApplicant || this.IsAdmin),
-        // delete: true,
+        edit: false, // true,
+        // delete: (this.IsApplicant || this.IsAdmin),
+        delete: false,
         position: 'right',
-        custom: this.mstapplicantcareerdetail_menuactions
-        // custom: ""
+        // custom: this.mstapplicantcareerdetail_menuactions
+        custom: ""
       },
       add: {
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmCreate: true,
+        confirmCreate: false,
       },
       edit: {
         editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmSave: true,
+        confirmSave: false,
       },
       delete: {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-        confirmDelete: true,
+        confirmDelete: false,
       },
       columns: {
         colhtml:
@@ -2286,9 +2286,9 @@ return false;
       actions: {
         columnTitle: '',
         width: '300px',
-        edit: true, // true,
-        delete: (this.IsApplicant || this.IsAdmin),
-        // delete: false,
+        edit: false, // true,
+        // delete: (this.IsApplicant || this.IsAdmin),
+        delete: false,
         position: 'right',
         // custom: this.mstapplicantreferencedetail_menuactions
         custom: ""
@@ -2297,17 +2297,17 @@ return false;
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmCreate: true,
+        confirmCreate: false,
       },
       edit: {
         editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmSave: true,
+        confirmSave: false,
       },
       delete: {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-        confirmDelete: true,
+        confirmDelete: false,
       },
       columns: {
         colhtml:
@@ -2500,28 +2500,28 @@ return false;
       actions: {
         columnTitle: '',
         width: '300px',
-        edit: true, // true,
-        delete: (this.IsApplicant || this.IsAdmin),
-        // delete: true,
+        edit: false, // true,
+        // delete: (this.IsApplicant || this.IsAdmin),
+        delete: false,
         position: 'right',
-        custom: this.mstapplicantskilldetail_menuactions
-        // custom: ""
+        // custom: this.mstapplicantskilldetail_menuactions
+        custom: ""
       },
       add: {
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmCreate: true,
+        confirmCreate: false,
       },
       edit: {
         editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmSave: true,
+        confirmSave: false,
       },
       delete: {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-        confirmDelete: true,
+        confirmDelete: false,
       },
       columns: {
         colhtml:
@@ -2705,10 +2705,12 @@ return false;
       actions: {
         columnTitle: '',
         width: '300px',
-        edit: true, // true,
-        delete: (this.IsApplicant || this.IsAdmin),
+        edit: false, // true,
+        delete: false,
+        // delete: (this.IsApplicant || this.IsAdmin),
         position: 'right',
-        custom: this.mstapplicantworkreference_menuactions
+        // custom: this.mstapplicantworkreference_menuactions
+        custom:""
         // custom: [{
         //     name: 'reference',
         //     title: `<i class="icon-references" aria-hidden="true"></i>`,
@@ -2728,17 +2730,17 @@ return false;
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmCreate: true,
+        confirmCreate: false,
       },
       edit: {
         editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmSave: true,
+        confirmSave: false,
       },
       delete: {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-        confirmDelete: true,
+        confirmDelete: false,
       },
       columns: {
         colhtml:
@@ -2928,9 +2930,9 @@ return false;
       actions: {
         columnTitle: '',
         width: '300px',
-        edit: true, // true,
-        delete: (this.IsApplicant || this.IsAdmin),
-        // delete: false,
+        edit: false, // true,
+        // delete: (this.IsApplicant || this.IsAdmin),
+        delete: false,
         position: 'right',
         // custom: this.mstapplicantsocialmediadetail_menuactions
         custom: ""
@@ -2939,17 +2941,17 @@ return false;
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmCreate: true,
+        confirmCreate: false,
       },
       edit: {
         editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmSave: true,
+        confirmSave: false,
       },
       delete: {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-        confirmDelete: true,
+        confirmDelete: false,
       },
       columns: {
         colhtml:
@@ -3128,9 +3130,9 @@ return false;
       actions: {
         columnTitle: '',
         width: '300px',
-        edit: true, // true,
-        delete: (this.IsApplicant || this.IsAdmin),
-        // delete: false,
+        edit: false, // true,
+        // delete: (this.IsApplicant || this.IsAdmin),
+        delete: false,
         position: 'right',
         // custom: this.mstapplicantachievementdetail_menuactions
         custom: ""
@@ -3139,17 +3141,17 @@ return false;
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmCreate: true,
+        confirmCreate: false,
       },
       edit: {
         editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmSave: true,
+        confirmSave: false,
       },
       delete: {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-        confirmDelete: true,
+        confirmDelete: false,
       },
       columns: {
         colhtml:
@@ -3335,9 +3337,9 @@ return false;
       actions: {
         columnTitle: '',
         width: '300px',
-        edit: true, // true,
-        delete: (this.IsApplicant || this.IsAdmin),
-        // delete: true,
+        edit: false, // true,
+        // delete: (this.IsApplicant || this.IsAdmin),
+        delete: false,
         position: 'right',
         // custom: this.mstapplicantlanguagedetail_menuactions
         custom: ""
@@ -3346,17 +3348,17 @@ return false;
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmCreate: true,
+        confirmCreate: false,
       },
       edit: {
         editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmSave: true,
+        confirmSave: false,
       },
       delete: {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-        confirmDelete: true,
+        confirmDelete: false,
       },
       columns: {
         colhtml:
@@ -3539,28 +3541,28 @@ return false;
       actions: {
         columnTitle: '',
         width: '300px',
-        edit: true, // true,
-        delete: (this.IsApplicant || this.IsAdmin),
-        // delete: true,
+        edit: false, // true,
+        // delete: (this.IsApplicant || this.IsAdmin),
+        delete: false,
         position: 'right',
-        custom: this.mstapplicanteducationdetail_menuactions
-        // custom: ""
+        // custom: this.mstapplicanteducationdetail_menuactions
+        custom: ""
       },
       add: {
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmCreate: true,
+        confirmCreate: false,
       },
       edit: {
         editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmSave: true,
+        confirmSave: false,
       },
       delete: {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-        confirmDelete: true,
+        confirmDelete: false,
       },
       columns: {
         colhtml:
@@ -3768,17 +3770,17 @@ return false;
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmCreate: true,
+        confirmCreate: false,
       },
       edit: {
         editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmSave: true,
+        confirmSave: false,
       },
       delete: {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-        confirmDelete: true,
+        confirmDelete: false,
       },
       columns: {
         colhtml:
@@ -3958,9 +3960,9 @@ return false;
       actions: {
         columnTitle: '',
         width: '300px',
-        edit: true, // true,
-        delete: (this.IsApplicant || this.IsAdmin),
-        // delete: false,
+        edit: false, // true,
+        // delete: (this.IsApplicant || this.IsAdmin),
+        delete: false,
         position: 'right',
         // custom: this.mstapplicantreferencerequest_menuactions
         custom: ""
@@ -3969,17 +3971,17 @@ return false;
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmCreate: true,
+        confirmCreate: false,
       },
       edit: {
         editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
-        confirmSave: true,
+        confirmSave: false,
       },
       delete: {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
-        confirmDelete: true,
+        confirmDelete: false,
       },
       columns: {
         colhtml:

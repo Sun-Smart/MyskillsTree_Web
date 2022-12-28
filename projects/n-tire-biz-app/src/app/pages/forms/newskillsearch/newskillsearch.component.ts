@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { AppConstants } from '../../../shared/helper';
-
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { mstapplicantskilldetail } from '../../../model/mstapplicantskilldetail.model';
+import { mstapplicantskilldetailService } from '../../../service/mstapplicantskilldetail.service';
+import { AppConstants, DropDownValues } from '../../../shared/helper';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { mstapplicantgeographypreferenceService } from './../../../service/mstapplicantgeographypreference.service';
 @Component({
   selector: 'app-newskillsearch',
   templateUrl: './newskillsearch.component.html',
@@ -14,10 +18,60 @@ export class NewskillsearchComponent implements OnInit {
   showData: any;
   emailid = "";
   raio: any;
-  constructor(private http: HttpClient) {
+  mstapplicantskilldetail_Form: FormGroup;
+  Segmentcategory_list: DropDownValues[];
+  getidd: any;
+  showinput1: boolean;
+  showinput2: boolean;
+  showinput3: boolean;
+  skillcategory_List: DropDownValues[];
+  subcategoryid_List: DropDownValues[];
+  referenceacceptance_List: any;
+  applicantid_List: any;
+  pkList: mstapplicantskilldetail[];
+  pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();
+  getidd1: any;
+  selectOptions: DropDownValues[];
+  selectedOptions: any;
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings: IDropdownSettings;
+  categorySettings: IDropdownSettings;
+  subCategorySettings: IDropdownSettings;
+  mstapplicantgeographypreference_Form: FormGroup;
+  country_List: DropDownValues[];
+  country_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
+  city_List: DropDownValues[];
+  city_optionsEvent: EventEmitter<any> = new EventEmitter<any>();
+  rangevalue = 0;
+  constructor(private http: HttpClient, private mstapplicantskilldetail_service: mstapplicantskilldetailService, private mstapplicantgeographypreference_service: mstapplicantgeographypreferenceService, private fb: FormBuilder) {
+    this.mstapplicantgeographypreference_Form = this.fb.group({
+      country: [null],
+      countrydesc: [null],
+      city: [null],
+      citydesc: [null],
+    });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'value',
+      textField: 'label',
+      allowSearchFilter: false
+    };
+    this.categorySettings = {
+      singleSelection: false,
+      idField: 'categoryid',
+      textField: 'code',
+      allowSearchFilter: false
+    }
+    this.subCategorySettings = {
+      singleSelection: false,
+      idField: 'subcategoryid',
+      textField: 'code',
+      allowSearchFilter: false
+    }
     let data = {
       id: "mstsr",
       SessionUser: "ss",
@@ -37,6 +91,43 @@ export class NewskillsearchComponent implements OnInit {
       this.showData = res.results.Rows;
       console.log(this.showData);
     })
+
+    this.mstapplicantskilldetail_service.getList_segmentcategory().then(res => {
+
+
+      //  this.applicantid_List = res.list_applicantid.value;
+      this.Segmentcategory_list = res;
+      console.log('res ', res);
+
+      // this.referenceacceptance_List = res.list_referenceacceptance.value;
+    }).catch((err) => { console.log(err); });
+
+    this.mstapplicantskilldetail_service.getDefaultData().then(res => {
+
+      console.log(res)
+
+      this.applicantid_List = res.list_applicantid.value;
+
+      // this.skillcategory_List = res.list_skillcategory.value;
+      this.referenceacceptance_List = res.list_referenceacceptance.value;
+    }).catch((err) => { console.log(err); });
+
+    //autocomplete
+    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_List().then(res => {
+      this.pkList = res as mstapplicantskilldetail[];
+      this.pkoptionsEvent.emit(this.pkList);
+    }
+    ).catch((err) => { console.log(err); });
+
+    this.mstapplicantgeographypreference_service.getDefaultData().then(res => {
+      debugger
+      this.applicantid_List = res.list_applicantid.value;
+      this.country_List = res.list_country.value;
+      console.log('this.applicantid_List ', this.applicantid_List);
+      console.log('this.country_List ', this.country_List);
+
+
+    }).catch((err) => { });
   }
   onList() {
     this.showList = true;
@@ -55,5 +146,90 @@ export class NewskillsearchComponent implements OnInit {
   }
   valueChanged(e) {
     console.log('e', e);
+    this.rangevalue = e.target.value;
+  }
+  get f() { return this.mstapplicantskilldetail_Form.controls; }
+  segmentcategory_onChange(evt: any) {
+    debugger
+    let e = evt.value;
+    this.getidd = e
+
+    if (this.getidd == "166") {
+      this.showinput1 = true
+    } else {
+      this.showinput2 = false
+      this.showinput3 = false
+      this.showinput1 = false
+    }
+    // this.mstapplicantskilldetail_Form.patchValue({ segmentcategorydesc: evt.options[evt.options.selectedIndex].text, segmentid: e });
+    setTimeout(() => {
+      // if (this.f.segmentid.value && this.f.segmentid.value != "" && this.f.segmentid.value != null)
+      this.mstapplicantskilldetail_service.getList_skillcategory2(e).then((res: any) => {
+        debugger
+
+        this.skillcategory_List = res as DropDownValues[];
+      })
+
+    }
+    );
+
+    setTimeout(() => {
+      // if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
+      this.mstapplicantskilldetail_service.getList_subcategoryid2(e).then(res =>
+        this.subcategoryid_List = res as DropDownValues[]);
+    });
+
+
+  }
+
+  skillcategory_onChange(evt: any) {
+    debugger
+    let e = evt.categoryid;
+    this.getidd1 = e
+    if (this.getidd1 == "262") {
+      this.showinput2 = true
+    } else {
+      this.showinput2 = false
+    }
+    // setTimeout(() => {
+    debugger
+    this.mstapplicantskilldetail_service.getList_subcategoryid2(e).then((res: any) => {
+      this.subcategoryid_List = res as DropDownValues[]
+    });
+    // });
+  }
+  onSelected_country(countryDetail: any) {
+    debugger
+    if (countryDetail.value && countryDetail) {
+      this.mstapplicantgeographypreference_Form.patchValue({
+        country: countryDetail.value,
+        countrydesc: countryDetail.label,
+
+      });
+      this.mstapplicantgeographypreference_service.getList_city(countryDetail.value).then(res => {
+
+        // this.country_List = res as DropDownValues[]
+        this.city_List = res as DropDownValues[]
+
+      }).catch((err) => { });
+
+    }
+  }
+  onSelected_city(cityDetail: any) {
+
+    if (cityDetail.cityid && cityDetail) {
+      this.mstapplicantgeographypreference_Form.patchValue({
+        city: cityDetail.cityid,
+        citydesc: cityDetail.name,
+
+      });
+
+      this.mstapplicantgeographypreference_service.getList(cityDetail.cityid).then(res => {
+        console.log(res)
+
+        this.city_List = res as DropDownValues[]
+      }).catch((err) => {
+      });
+    }
   }
 }

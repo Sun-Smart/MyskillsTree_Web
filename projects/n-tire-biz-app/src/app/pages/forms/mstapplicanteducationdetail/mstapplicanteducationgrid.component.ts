@@ -103,17 +103,17 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <thead>
                     <tr>
                     
-                    <th  style="width: 11%;">From Year</th>
-                    <th style="width: 11%;">Category</th>
-                    <th style="width: 11%;">Sub Category</th>
-                    <th style="width:11%;%">Institution Name</th>
-                    <th style="width: 11%;">Course Name</th>
-                    <th style="width: 11%;">Percentage</th>
+                    <th  style="width: 11.5%;">From Year</th>
+                    <th style="width: 11.5%;">Category</th>
+                    <th style="width: 11.5%;">Sub Category</th>
+                    <th style="width:11.5%;%">Institution Name</th>
+                    <th style="width: 11.5%;">Course Name</th>
+                    <th style="width: 11.5%;">Percentage</th>
                     <!-- <th style="width: 13%;">Referral Status</th> -->
-                    <th style="width: 11%;">Remarks</th>
-                    <th style="width: 11%;">To Year</th>
-                    <th style="width: 11%;">Attachment</th>
-                    <th style="width: 11%;">Action</th>
+                    <th style="width: 11.5%;">Remarks</th>
+                    <th style="width: 11.5%;">To Year</th>
+                    <!-- <th style="width: 11.5%;">Attachment</th> -->
+                    <th style="width: 8%;">Action</th>
                     </tr>
                 </thead>
                 <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
@@ -180,14 +180,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                     <!-- Attachment -->
 
-                    <td>
+                    <!-- <td>
                     <p-accordion [multiple]='true'>
                       <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
                         <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
                         </app-attachment>
                       </p-accordionTab>
                     </p-accordion>
-                    </td>
+                    </td> -->
                     <!-- To Year -->
 
                     <td>
@@ -219,6 +219,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 (userRowSelect)="handle_mstapplicanteducationdetails_GridSelected($event)"
                 [settings]="mstapplicanteducationdetails_settings"
                 (custom)="onCustom_mstapplicanteducationdetails_Action($event)"
+                (custom)="onCustom_mstapplicantskilldetailsAttachment_Action($event)"
                 [source]="tbl_mstapplicanteducationdetails?.source?.data"
                 (delete)="mstapplicanteducationdetails_route($event,'delete')"
                 (deleteConfirm)="mstapplicanteducationdetails_route($event,'delete')"
@@ -418,15 +419,15 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     console.log(this.mstapplicanteducationdetail_Form);
     this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
 
-      if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-      this.fileAttachmentList = this.fileattachment.getAllFiles();
+      // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+      // this.fileAttachmentList = this.fileattachment.getAllFiles();
       console.log(this.formData);
       this.spinner.show();
       this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
       async res => {
-        await this.sharedService.upload(this.fileAttachmentList);
-        this.attachmentlist = [];
-        if (this.fileattachment) this.fileattachment.clear();
+        // await this.sharedService.upload(this.fileAttachmentList);
+        // this.attachmentlist = [];
+        // if (this.fileattachment) this.fileattachment.clear();
         this.spinner.hide();
         debugger;
         this.toastr.addSingle("success", "", "Successfully saved");
@@ -503,15 +504,15 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         <table class="table table-hover educationdetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr class="tbody-res">
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 12%;" class="col-1">##fromyear##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 12%;" class="col-2">##educationcategorydesc##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 12%;" class="col-2">##educationsubcategorydesc##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-1">##institutionname##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-1">##coursename##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;text-align: -webkit-center;" class="col-1">##percentage##</th>
-            <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##referencecount##</th>-->
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-1">##remarks##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;text-align: -webkit-right;" class="col-2">##toyear##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;" >##fromyear##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##educationcategorydesc##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##educationsubcategorydesc##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;" >##institutionname##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;" >##coursename##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;twidth: 11.5%;" >##percentage##</th>
+            <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##referencecount##</th>-->
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;" >##remarks##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##toyear##</th>
           </tr>
         </tbody>
       </table>
@@ -564,24 +565,36 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     if (event == null) add = true;
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-    // this.dialog.open(mstapplicanteducationdetailComponent,
-    //   {
-    //     data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
-    //   }
-    // ).onClose.subscribe(res => {
-    //   if (res) {
-    //     if (add) {
-    //       for (let i = 0; i < res.length; i++) {
-    //         this.tbl_mstapplicanteducationdetails.source.add(res[i]);
-    //       }
-    //       this.tbl_mstapplicanteducationdetails.source.refresh();
-    //     }
-    //     else {
-    //       this.tbl_mstapplicanteducationdetails.source.update(event.data, res[0]);
-    //     }
-    //   }
-    // });
+
   }
+
+  // Old Code
+
+  // AddOrEdit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
+  //   debugger
+  //   this.eduCategory();
+  //   let add = false;
+  //   if (event == null) add = true;
+  //   let childsave = true;
+  //   if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+  //   this.dialog.open(mstapplicanteducationdetailComponent,
+  //     {
+  //       data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
+  //     }
+  //   ).onClose.subscribe(res => {
+  //     if (res) {
+  //       if (add) {
+  //         for (let i = 0; i < res.length; i++) {
+  //           this.tbl_mstapplicanteducationdetails.source.add(res[i]);
+  //         }
+  //         this.tbl_mstapplicanteducationdetails.source.refresh();
+  //       }
+  //       else {
+  //         this.tbl_mstapplicanteducationdetails.source.update(event.data, res[0]);
+  //       }
+  //     }
+  //   });
+  // }
 
   handle_mstapplicanteducationdetails_GridSelected(event: any) {
     this.mstapplicanteducationdetails_selectedindex = this.tbl_mstapplicanteducationdetails.source.findIndex(i => i.educationid === event.data.educationid);
@@ -891,10 +904,35 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       ).onClose.subscribe(res => {
       });
     }
+  };
 
-
-
-
+  async onCustom_mstapplicantskilldetailsAttachment_Action(event: any, educationid: any, applicantid: any){
+   
+    let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicanteducationdetails");
+    let formname = (objbomenuaction as any).actionname;
+    if (formname == "mstapplicanteducationdetails") {
+    let add = false;
+    if (event == null) add = true;
+    let childsave = true;
+    if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    this.dialog.open(mstapplicanteducationdetailComponent,
+      {
+        data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
+      }
+    ).onClose.subscribe(res => {
+      if (res) {
+              if (add) {
+                for (let i = 0; i < res.length; i++) {
+                  this.tbl_mstapplicanteducationdetails.source.add(res[i]);
+                }
+                this.tbl_mstapplicanteducationdetails.source.refresh();
+              }
+              else {
+                this.tbl_mstapplicanteducationdetails.source.update(event.data, res[0]);
+              }
+            }
+    });
+    }
   }
   mstapplicanteducationdetails_Paging(val) {
     //debugger;;

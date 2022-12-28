@@ -1,0 +1,237 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<ngx-spinner></ngx-spinner>
+
+<form [formGroup]="mstapplicantskilldetail_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <div class="row second common_title_style">
+    <h1 class="col-4 columns mainheader left common_titles_new">{{'Skill Details'}}</h1>
+    <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
+      <!--btn-toolbar-->
+      <div class='col'></div>
+      <div class='dropdown d-inline-block btn-dropdown show'>
+
+        <ul class='nav nav-pills  input-group'>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_mstapplicantskilldetails()"><i
+                class="nb-edit"></i>Edit</a></li>
+          <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
+            <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
+                aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
+                class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
+            <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
+              (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
+            </app-popupselect>
+
+            <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
+              [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
+
+          </li>
+          <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
+            <ul class="nav navbar-nav1">
+              <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
+                <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                  aria-expanded='false'> <span class='caret'></span>Actions</a>
+                <ul class="dropdown-menu">
+                  <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
+                        class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
+                  <li role="separator" class="divider">
+                    <hr>
+                  </li>
+
+                  <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
+                  <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
+                        aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
+
+
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!-- <ng-container *ngFor="let action of mstapplicantskilldetail_menuactions">
+            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+          </ng-container>-->
+          <li class='nav-item actionheader common_title_style' *ngIf="!showview">
+            <!-- <a class="alert-success" [routerLink]=''>  -->
+            <button type="button" class="btn btn-outline-primary" style="border-color: #000 !important;margin: 5px;
+              padding: 3px;
+              color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
+            <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
+            <button type="button" class="btn btn-outline-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+              style="border-color: #000 !important;
+              color: #000;margin: 5px;
+                 padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
+            <app-action *ngIf="f.skillid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+              [value]="f.skillid.value" [status]="f.status.value"></app-action>
+          </li>
+          <i class='nav-item actionheader common_title_style'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
+            class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container"
+    id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+    <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+      <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+    </div>
+    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+    </div>
+
+
+    <!--applicantid-->
+
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <!-- <div
+        *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
+        style='' class="col-3"><label for="applicantid" class="control-label"
+          (click)="AddOrEdit_applicantid(null)">Applicant</label>
+        <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
+          [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
+          formControlName="applicantid" id="value" desc="label"></app-popupselect>
+        <div class="input-group">
+        </div>
+        <label *ngIf="showview" class="labelview">{{f.applicantiddesc?.value}}</label>
+      </div> -->
+
+      <!--Segmentcategory-->
+
+
+      <div
+        *ngIf="((hidelist.indexOf('segmentid') == -1) && (segmentcategoryvisible==undefined || segmentcategoryvisible==true))"
+        style='' class="col-4"><label for="segmentid" class="control-label required">Segments
+          </label>&nbsp;&nbsp;
+        <!-- <a [routerLink]='' (click)="AddOrEditsegmentcategory(null)"> Add segment Category</a> -->
+        <select *ngIf="!showview" id="segmentid" required (change)="segmentcategory_onChange($event.target)"
+          formControlName="segmentid" class="form-control">
+          <!-- <option [ngValue]="null" disabled selected>-Select-</option> -->
+          <option [ngValue]="null" [disabled]="true">-Select-</option>
+          <option *ngFor="let item of Segmentcategory_list" value="{{item.value}}">{{item.label}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.segmentcategorydesc?.value}}</label>
+        <input *ngIf="showinput1" class="form-control" id="segmentid" formControlName="segmentcategoryothers"
+          type="text">
+        <app-field-error-display [displayError]="f.segmentid.errors?.required" errorMsg="Enter {{'segment Category'}}">
+        </app-field-error-display>
+      </div>
+
+
+
+
+      <!--skillcategory-->
+
+
+      <div
+        *ngIf="((hidelist.indexOf('skillcategory') == -1) && (skillcategoryvisible==undefined || skillcategoryvisible==true))"
+        style='' class="col-4"><label for="skillcategory" class="control-label required">Skill
+          Category</label>&nbsp;&nbsp;
+        <!-- <a [routerLink]='' (click)="AddOrEditskillcategory(null)"> Add Skill Category</a> -->
+        <select *ngIf="!showview" id="skillcategory" required (change)="skillcategory_onChange($event.target)"
+          formControlName="skillcategory" class="form-control">
+          <!-- <option [ngValue]="null" disabled selected>-Select-</option> -->
+          <option [ngValue]="null" [disabled]="true">-Select-</option>
+          <option *ngFor="let item of skillcategory_List" value="{{item.categoryid}}">{{item.name}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.skillcategorydesc?.value}}</label>
+        <input *ngIf="showinput2" class="form-control" id="skillcategory" formControlName="skillcategoryothers"
+          type="text">
+        <app-field-error-display [displayError]="f.skillcategory.errors?.required"
+          errorMsg="Enter {{'Skill Category'}}">
+        </app-field-error-display>
+      </div>
+
+
+      <!--subcategoryid-->
+
+      <div
+        *ngIf="((hidelist.indexOf('subcategoryid') == -1) && (subcategoryidvisible==undefined || subcategoryidvisible==true))"
+        style='' class="col-4"><label for="subcategoryid" class="control-label required">Sub
+          Category</label>&nbsp;&nbsp;
+        <!-- <a [routerLink]='' (click)="AddOrEditskillsubcategory(null)"> Add Sub Category</a> -->
+        <select *ngIf="!showview" id="subcategoryid" required (change)="subcategoryid_onChange($event.target)"
+          formControlName="subcategoryid" class="form-control">
+          <!-- <option [ngValue]="null" disabled selected>-Select-</option> -->
+          <option [ngValue]="null" [disabled]="true">-Select-</option>
+          <option *ngFor="let item of subcategoryid_List" value="{{item.subcategoryid}}">{{item.name}}</option>
+        </select>
+        <label *ngIf="showview" class="labelview">{{f.subcategoryiddesc?.value}}</label>
+        <input *ngIf="showinput3" id="subcategoryid" class="form-control" formControlName="subcategoryidothers"
+          type="text">
+        <app-field-error-display [displayError]="f.subcategoryid.errors?.required"
+          errorMsg="Enter {{'Sub Category' | translate}}">
+        </app-field-error-display>
+      </div>
+
+
+
+      <div *ngIf="((hidelist.indexOf('selfrating') == -1) && (selfratingvisible==undefined || selfratingvisible==true))"
+        style='' class="col-4 ">
+        <label for="selfrating" class="control-label">Self Rating</label>
+        <label *ngIf="showview" class="labelview">{{f.selfrating?.value}}</label>
+        <p-rating *ngIf="!showview" id="selfrating" formControlName="selfrating" class="form-control">
+        </p-rating>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('showorhide') == -1) && (showorhidevisible==undefined || showorhidevisible==true))"
+        style='' class="col-3">
+        <div class="columnchk">
+          <br />
+          <label for="showorhide" class="control-label">Hide &nbsp;&nbsp;<br />
+            <input type="checkbox" *ngIf="!showview" id="showorhide" formControlName="showorhide"
+              class="form-control"></label>
+          <label *ngIf="showview" class="labelview">{{f.showorhide?.value}}</label>
+          <!-- <p-inputSwitch formControlName="showorhide" *ngIf="!showview" id="showorhide"></p-inputSwitch> -->
+
+        </div>
+      </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="((hidelist.indexOf('remarks') == -1) && (remarksvisible==undefined || remarksvisible==true))"
+        style='width:1500px' class="col-12 ">
+        <label for="remarks" class="control-label">Remarks</label>
+        <label *ngIf="showview" class="labelview">{{f.remarks?.value}}</label>
+        <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>
+      </div>
+    </div>
+    <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div *ngIf="hidelist.indexOf('requestid') == -1 && f.requestid.value !=null" class="col-3 ">
+        <button class="btn btn-link" (click)="viewrequestid()" type="button"><i class="fa fa-external-link"></i>
+          View Request</button>
+        <label *ngIf="showview" class="labelview">{{f.requestid?.value}}</label>
+      </div>
+    </div> -->
+
+
+    <!--referenceacceptance-->
+
+    <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      <div
+        *ngIf="((hidelist.indexOf('referenceacceptance') == -1) && (referenceacceptancevisible==undefined || referenceacceptancevisible==true)) || f.requestid.value !=null"
+        style='' class="col-3"><label for="referenceacceptance" class="control-label">Reference Acceptance</label>
+        <input readonly id="referenceacceptancedesc" formControlName="referenceacceptancedesc" class="form-control">
+        <label *ngIf="showview" class="labelview">{{f.referenceacceptancedesc?.value}}</label>
+      </div>
+    </div> -->
+    <div class='full-width' *ngIf="attachmentVisible">
+      <p-accordion [multiple]='true'>
+        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+          <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+          </app-attachment>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+</form>
+
+<p-toast position="bottom-center"></p-toast>

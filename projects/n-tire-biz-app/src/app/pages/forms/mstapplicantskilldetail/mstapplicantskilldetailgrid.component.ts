@@ -47,8 +47,10 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
 import { Subject } from 'rxjs/Subject';
 import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
+import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskilldetailsattachment/mstapplicantskilldetailsattachment.component';
+import { mstcategoryComponent } from '../mstcategory/mstcategory.component';
 
 
 @Component({
@@ -141,23 +143,22 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </div>
 </div>
 <form [formGroup]="mstapplicantskilldetail_Form">
-  
+
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
       <tr>
-        <th  style="width:152px;">Segments</th>
-        <th  style="width:191px;">Skill Category</th>
-        <th  style="width:193px;">Sub Category</th>
-        <th  style="width:155px;">Self Rating</th>
-        <th  style="width:194px;">Referal Status</th>
-        <th  style="width:133px;">Remarks</th>
-        <th>Attachment</th>
-        <th>Action</th>
+        <th  style="width:185px;">Segments</th>
+        <th  style="width:185px;">Skill Category</th>
+        <th  style="width:185px;text-align: center;">Sub Category</th>
+        <th  style="width:185px;text-align: center;">Self Rating</th>
+        <th  style="width:185px;text-align: center;">Referal Status</th>
+        <th  style="width:185px;text-align: center;">Remarks</th>
+        <th style="width:185px;text-align: center;">Action</th>
       </tr>
     </thead>
     <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
-   
- 
+
+
       <tr>
         <!-- Segment Gategory -->
         <td>
@@ -170,7 +171,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <!-- Skill Category -->
         <td>
           <select class="form-control" formControlName="skillcategory" (change)="skillcategory_onChange($event.target)">
-            <option value = null [disabled]="true">-Select-</option>
+            <option value=null [disabled]="true">-Select-</option>
             <option *ngFor="let item of skillcategory_List" value="{{item.categoryid}}">{{item.name}}</option>
           </select>
         </td>
@@ -179,7 +180,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
         <td>
           <select class="form-control" formControlName="subcategoryid" (change)="subcategoryid_onChange($event.target)">
-            <option value = null [disabled]="true">-Select-</option>
+            <option value=null [disabled]="true">-Select-</option>
             <option *ngFor="let item of subcategoryid_List" value="{{item.subcategoryid}}">{{item.name}}</option>
           </select>
         </td>
@@ -203,23 +204,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
           <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '20' }"></p-editor> -->
         </td>
 
-        <!-- Attachment -->
-
-        <td>
-        <p-accordion [multiple]='true'>
-        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
-          <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
-          </app-attachment>
-        </p-accordionTab>
-        </p-accordion>
-        </td>
-
 
       <!-- Add & Close -->
 
         <td class="field-add-close-button" style="">
 
-        <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantskilldetail_Form)"></i>
+        <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait(mstapplicantskilldetail_Form)"></i>
           <!-- <button type="button" class="btn btn-outline-primary"  (click)="onSubmitData(mstapplicantskilldetail_Form)"
           style="background: green;color: antiquewhite;padding: 5px;border: none;box-shadow: 1px 1px 1px 0px black;">Submit</button> -->
 
@@ -236,6 +226,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </form>
 <ng2-smart-table #tbl_mstapplicantskilldetails (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
   [settings]="mstapplicantskilldetails_settings" (custom)="onCustom_mstapplicantskilldetails_Action($event)"
+  (custom)="onCustom_mstapplicantskilldetailsAttachment_Action($event)"
   [source]="tbl_mstapplicantskilldetails?.source?.data" (delete)="mstapplicantskilldetails_route($event,'delete')"
   (deleteConfirm)="mstapplicantskilldetails_route($event,'delete')"
   (create)="mstapplicantskilldetails_route($event,'create')"
@@ -306,6 +297,10 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   maindata: any;
   getapp: any;
   formid: any;
+  segment_ID_Code: any;
+  skillsubcategory_Code: any;
+  segmentIDCode1: any;
+  getdata2: any;
 
 
 
@@ -344,18 +339,32 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
     this.FillData();
-
+    // this.getData()
 
     this.mstapplicantskilldetail_Form = this.fb.group({
+      pk: [null],
+      ImageName: [null],
       applicantid: [this.applicantid],
-      segmentid: [''],
-      segmentcategoryothers: [''],
-      skillcategory: [''],
-      skillcategoryothers: [''],
-      subcategoryid: [''],
-      subcategoryidothers: [''],
-      selfrating: [''],
-      remarks: [''],
+      applicantiddesc: [null],
+      skillid: [null],
+      skillcategory: [null, Validators.compose([Validators.required])],
+      skillcategorydesc: [null, Validators.compose([Validators.required])],
+      subcategoryid: [null, Validators.compose([Validators.required])],
+      subcategoryiddesc: [null, Validators.compose([Validators.required])],
+      segmentid: [null, Validators.compose([Validators.required])],
+      segmentcategorydesc: [null, Validators.compose([Validators.required])],
+      selfrating: [null],
+      remarks: [null],
+      requestid: [null],
+      referenceacceptance: [null],
+      referenceacceptancedesc: [null],
+      showorhide: [Boolean],
+      attachment: [null],
+      status: [null],
+      statusdesc: [null],
+      segmentcategoryothers: [null],
+      skillcategoryothers: [null],
+      subcategoryidothers: [null]
     })
 
   };
@@ -403,6 +412,17 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     });
 
   };
+  subcategoryid_onChange(evt: any) {
+    debugger
+    let e = evt.value;
+    this.getdata2 = e
+    if (this.getdata2 == "411") {
+      this.showinput3 = true
+    } else {
+      this.showinput3 = false
+    }
+    this.mstapplicantskilldetail_Form.patchValue({ subcategoryiddesc: evt.options[evt.options.selectedIndex].text, categoryid: this.getdata2 });
+  }
 
   validate() {
     let ret = true;
@@ -414,7 +434,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.mstapplicantskilldetail_Form.reset();
     this.mstapplicantskilldetail_Form.patchValue({
     });
-  }
+  };
+
+  
 
   async onSubmitData(bclear: any) {
     debugger
@@ -423,8 +445,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     let strError = "";
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
     debugger
-    if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-    this.fileAttachmentList = this.fileattachment.getAllFiles();
+    // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+    // this.fileAttachmentList = this.fileattachment.getAllFiles();
     console.log(this.formData);
     debugger
     this.spinner.show();
@@ -521,14 +543,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     <table class="table table-hover skilldetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
     <tbody>
       <tr>
-        <th scope="row" style="width:152px;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
-        <th scope="row" style="width:191px;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
-        <th scope="row" style="width:193px;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
-        <th scope="row" style="width:155px;">##selfrating##</th>
-        <th scope="row" style="width:194px;">##referencecount##</th>
-        <th scope="row" style="width:133px;">##remarks##</th>
-        <th scope="row" >##attachment##</th>
-      
+        <th scope="row" style="width:185px;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
+        <th scope="row" style="width:185px;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
+        <th scope="row" style="width:185px;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
+        <th scope="row" style="width:185px;">##selfrating##</th>
+        <th scope="row" style="width:185px;">##referencecount##</th>
+        <th scope="row" style="width:185px;">##remarks##</th>
       </tr>
     </tbody>
   </table>
@@ -563,12 +583,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         segmentid: res.mstapplicantskilldetail.segmentid,
         segmentcategorydesc: res.mstapplicantskilldetail.segmentdesc,
 
-
         segmentcategoryothers: res.mstapplicantskilldetail.segmentcategoryothers,
         skillcategoryothers: res.mstapplicantskilldetail.skillcategoryothers,
         subcategoryidothers: res.mstapplicantskilldetail.subcategoryidothers,
-
-
 
         selfrating: res.mstapplicantskilldetail.selfrating,
         remarks: res.mstapplicantskilldetail.remarks,
@@ -576,7 +593,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         showorhide: res.mstapplicantskilldetail.showorhide,
         referenceacceptance: res.mstapplicantskilldetail.referenceacceptance,
         referenceacceptancedesc: res.mstapplicantskilldetail.referenceacceptancedesc,
-        attachment: JSON.parse(res.mstapplicantskilldetail.attachment),
+        attachment: "[]",
         status: res.mstapplicantskilldetail.status,
         statusdesc: res.mstapplicantskilldetail.statusdesc,
       });
@@ -624,7 +641,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   // Muthu Code 16/12/2022
 
-  AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
+  Add_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
     debugger
     this.showSkillDetails_input = true;
     this.getData();
@@ -633,10 +650,97 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
+    console.log();
+
+  }
+
+  Edit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
+    debugger
+    this.showSkillDetails_input = true;
+
+    let add = true;
+    if (event == null) add = true;
+    let childsave = true;
+    if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    console.log(event, event.data.skillid, event.data.segmentidvalue);
+    this.getData();
+    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByEID(event.data.pkcol).then(res => {
+      console.log(res);
+      this.segmentIDCode1 = event.data.segmentidvalue;
+      this.mstapplicantskilldetail_Form.patchValue({
+
+        applicantid: res.mstapplicantskilldetail.applicantid,
+        applicantiddesc: res.mstapplicantskilldetail.applicantiddesc,
+        skillid: res.mstapplicantskilldetail.skillid,
+        skillcategory: res.mstapplicantskilldetail.skillcategory,
+        skillcategorydesc: res.mstapplicantskilldetail.skillcategorydesc,
+        subcategoryid: res.mstapplicantskilldetail.subcategoryid,
+        subcategoryiddesc: res.mstapplicantskilldetail.subcategoryiddesc,
+
+        //suneel
+        segmentid: this.segmentIDCode1,
+        segmentcategorydesc: res.mstapplicantskilldetail.segmentdesc,
+
+        segmentcategoryothers: res.mstapplicantskilldetail.segmentcategoryothers,
+        skillcategoryothers: res.mstapplicantskilldetail.skillcategoryothers,
+        subcategoryidothers: res.mstapplicantskilldetail.subcategoryidothers,
+
+        selfrating: res.mstapplicantskilldetail.selfrating,
+        remarks: res.mstapplicantskilldetail.remarks,
+        requestid: res.mstapplicantskilldetail.requestid,
+        showorhide: res.mstapplicantskilldetail.showorhide,
+        referenceacceptance: res.mstapplicantskilldetail.referenceacceptance,
+        referenceacceptancedesc: res.mstapplicantskilldetail.referenceacceptancedesc,
+        attachment: "[]",
+        status: res.mstapplicantskilldetail.status,
+        statusdesc: res.mstapplicantskilldetail.statusdesc,
+      });
+      // this.segment_ID_Code = res.mstapplicantskilldetail.segmentid;
+      this.segment_ID_Code = this.segmentIDCode1;
+      this.skillsubcategory_Code = res.mstapplicantskilldetail.skillcategory;
+      this.mstapplicantskilldetail_service.getList_skillcategory2(this.segment_ID_Code).then(res => {
+        debugger
+        this.skillcategory_List = res as DropDownValues[];
+        //suneel
+        if (this.formData && this.formData.skillcategory) {
+          debugger
+          this.mstapplicantskilldetail_Form.patchValue({
+            skillcategory: this.formData.skillcategory,
+            skillcategorydesc: this.formData.skillcategorydesc,
+          });
+        }
+        //to null subcategory
+        setTimeout(() => {
+          if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
+            this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res =>
+              this.subcategoryid_List = res as DropDownValues[]);
+        });
+
+        setTimeout(() => {
+          this.mstapplicantskilldetail_service.getList_subcategoryid2(this.skillsubcategory_Code).then(res => {
+            debugger
+            this.subcategoryid_List = res as DropDownValues[];
+            debugger
+            if (this.formData && this.formData.subcategoryid) {
+              this.mstapplicantskilldetail_Form.patchValue({
+                subcategoryid: this.formData.subcategoryid,
+                subcategoryiddesc: this.formData.subcategoryiddesc,
+              });
+            }
+          }
+          );
+        })
+      }).catch((err) => {
+        //console.log(err);
+      });
+
+
+    });
 
   }
 
   // Old Code
+
 
   // AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
   //   debugger
@@ -664,6 +768,65 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   //   });
   // }
 
+  AddOrEditskillcategory(masterdataid) {
+    debugger
+    var segmentid = this.getidd
+    let ScreenType = '2';
+    this.dialog.open(mstcategoryComponent,
+      {
+        data: { segmentid: this.mstapplicantskilldetail_Form.get('segmentid').value, save: true, masterdatatypeid: 76, ScreenType: 2 }
+        // data: { categoryid: this.mstapplicantskilldetail_Form.get('skillcategory').value, save: true, masterdatatypeid: 76, ScreenType: 2,segmentid:segmentid }
+      }
+    ).onClose.subscribe(res => {
+      if (this.f.segmentid.value && this.f.segmentid.value != "" && this.f.segmentid.value != null)
+        this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res => {
+          debugger
+          this.skillcategory_List = res as DropDownValues[];
+          //suneel
+          if (this.formData && this.formData.skillcategory) {
+            debugger
+            this.mstapplicantskilldetail_Form.patchValue({
+              skillcategory: this.formData.skillcategory,
+              skillcategorydesc: this.formData.skillcategorydesc,
+            });
+          }
+          //to null subcategory
+          setTimeout(() => {
+            if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
+              this.mstapplicantskilldetail_service.getList_subcategoryid2(this.f.segmentid.value).then(res =>
+                this.subcategoryid_List = res as DropDownValues[]);
+          });
+
+          //end
+
+        }).catch((err) => {
+          //console.log(err);
+        });
+    });
+  }
+
+  AddOrEditsegmentcategory(masterdataid) {
+
+    this.mstapplicantskilldetail_Form.get('segmentid').value,
+
+      this.mstapplicantskilldetail_service.getList_segmentcategory().then(res => {
+        this.Segmentcategory_list = res as DropDownValues[];
+        //to null category and subcategory
+        setTimeout(() => {
+          if (this.f.segmentid.value && this.f.segmentid.value != "" && this.f.segmentid.value != null)
+            this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res =>
+              this.skillcategory_List = res as DropDownValues[]);
+        });
+        setTimeout(() => {
+          if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
+            this.mstapplicantskilldetail_service.getList_subcategoryid2(this.f.segmentid.value).then(res =>
+              this.subcategoryid_List = res as DropDownValues[]);
+        });
+        //end
+      }).catch((err) => {
+        //console.log(err);
+      });
+  }
 
   onDelete_mstapplicantskilldetail(event: any, childID: number, i: number) {
     if (confirm('Do you want to delete this record?')) {
@@ -902,12 +1065,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
     switch (action) {
       case 'create':
-        this.AddOrEdit_mstapplicantskilldetail(event, null, this.applicantid);
+        this.Add_mstapplicantskilldetail(event, null, this.applicantid);
         break;
       case 'view':
         break;
       case 'edit':
-        this.AddOrEdit_mstapplicantskilldetail(event, event.data.skillid, this.applicantid);
+        this.Edit_mstapplicantskilldetail(event, event.data.skillid, this.applicantid);
         break;
       case 'delete':
         this.onDelete_mstapplicantskilldetail(event, event.data.skillid, ((this.tbl_mstapplicantskilldetails.source.getPaging().page - 1) * this.tbl_mstapplicantskilldetails.source.getPaging().perPage) + event.index);
@@ -945,15 +1108,18 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantskilldetails");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantreferencerequests") {
-      this.dialog.open(mstapplicantreferencerequestComponent,
-        {
-          data: { referencesourcedetails: skillsdetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
-          // data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 318, requestmasterid: event.data.referenceid, contactemailid: event.data.email, requestedcontact: event.data.referencename, ScreenType: 2, save: true }
-          // data: { skillsdetails:skillsdetails,applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
-        }
-      ).onClose.subscribe(res => {
-      });
-    }
+      this.FillData();
+      // this.AddOrEdit_mstapplicantskilldetail(event, event.data.skillid, this.applicantid)
+      // this.dialog.open(mstapplicantreferencerequestComponent,
+      //   {
+      //     data: { referencesourcedetails: skillsdetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
+      //     // data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 318, requestmasterid: event.data.referenceid, contactemailid: event.data.email, requestedcontact: event.data.referencename, ScreenType: 2, save: true }
+      //     // data: { skillsdetails:skillsdetails,applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
+      //   }
+      // ).onClose.subscribe(res => {
+      // });
+    };
+
 
 
     // let skillsdetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Sub Category: ' + event.data.subcategoryiddesc + '</li>'
@@ -990,7 +1156,39 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     //     ).onClose.subscribe(res => {
     //     });
     // }
+  };
+
+  async onCustom_mstapplicantskilldetailsAttachment_Action(event: any, skillid: any, applicantid: any) {
+    debugger
+    let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantskilldetails");
+    let formname = (objbomenuaction as any).actionname;
+    if (formname == "mstapplicantskilldetails") {
+
+      let add = false;
+      if (event == null) add = true;
+      let childsave = true;
+      if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+      this.dialog.open(mstapplicantskilldetailComponent,
+        {
+          width: '75% !important',
+          data: { showAttachmentView: true, save: childsave, maindatapkcol: this.pkcol, event, skillid, applicantid, visiblelist: this.mstapplicantskilldetails_visiblelist, hidelist: this.mstapplicantskilldetails_hidelist, ScreenType: 2 },
+        }
+      ).onClose.subscribe(res => {
+        if (res) {
+          if (add) {
+            for (let i = 0; i < res.length; i++) {
+              this.tbl_mstapplicantskilldetails.source.add(res[i]);
+            }
+            this.tbl_mstapplicantskilldetails.source.refresh();
+          }
+          else {
+            this.tbl_mstapplicantskilldetails.source.update(event.data, res[0]);
+          }
+        }
+      });
+    };
   }
+
   mstapplicantskilldetails_Paging(val) {
     //debugger;;
     this.tbl_mstapplicantskilldetails.source.setPaging(1, val, true);

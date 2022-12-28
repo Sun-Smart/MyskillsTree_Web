@@ -100,7 +100,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <th scope="col" style="padding-left: 25px !important;width: 30%;">Master Data Type</th>
             <!--<th scope="col" style="width: 14%">Attachment</th>-->
             <th scope="col" style="width: 61%">Achievement Details</th>
-            <th scope="col" style="width: 61%">Attachment</th>
+            <!-- <th scope="col" style="width: 61%">Attachment</th> -->
             <th scope="col" style="width: 42%">Action</th>
           </tr>
         </thead>
@@ -120,21 +120,21 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <!-- Achievement details -->
 
                 <td>
-                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true"  id="achievementdetails" required
+                    <textarea autosize rows="1" cols="10" onlyGrow="true"  id="achievementdetails" required
                     formControlName="achievementdetails" class="form-control">
                     </textarea>
                 </td>
 
                 <!-- Attachment -->
 
-                <td>
+                <!-- <td>
                 <p-accordion [multiple]='true'>
                     <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
                     <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
                     </app-attachment>
                     </p-accordionTab>
                 </p-accordion>
-                </td>
+                </td> -->
 
             <!-- Submit & Close -->
 
@@ -152,6 +152,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 (userRowSelect)="handle_mstapplicantachievementdetails_GridSelected($event)"
                 [settings]="mstapplicantachievementdetails_settings"
                 (custom)="onCustom_mstapplicantachievementdetails_Action($event)"
+                (custom)="onCustom_mstapplicantskilldetailsAttachment_Action($event)"
                 [source]="tbl_mstapplicantachievementdetails?.source?.data"
                 (delete)="mstapplicantachievementdetails_route($event,'delete')"
                 (deleteConfirm)="mstapplicantachievementdetails_route($event,'delete')"
@@ -320,11 +321,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
         this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
         console.log(this.formData);
 
-        if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-        this.fileAttachmentList = this.fileattachment.getAllFiles();
+        // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+        // this.fileAttachmentList = this.fileattachment.getAllFiles();
         console.log(this.formData);
         this.spinner.show();
-
         this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
             async res => {
                 console.log("ressss", res);
@@ -337,7 +337,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
                 this.sessionService.setItem("attachedsaved", "true")
                 this.objvalues.push((res as any).mstapplicantachievementdetail);
                 this.ngOnInit();
-                if (!bclear) this.showview = true;
+                // if (!bclear) this.showview = true;
                 if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
                   this.dialogRef.close(this.objvalues);
@@ -416,7 +416,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
         this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {
             debugger
-            //   this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
+              this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
             this.Set_mstapplicantachievementdetails_TableConfig();
             this.mstapplicantachievementdetails_LoadTable(res.mstapplicantachievementdetail);
         });
@@ -445,24 +445,33 @@ export class mstapplicantachivementgridComponent implements OnInit {
         if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        // this.dialog.open(mstapplicantachievementdetailComponent,
-        //     {
-        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, achievementid, applicantid, visiblelist: this.mstapplicantachievementdetails_visiblelist, hidelist: this.mstapplicantachievementdetails_hidelist, ScreenType: 2 },
-        //     }
-        // ).onClose.subscribe(res => {
-        //     if (res) {
-        //         if (add) {
-        //             for (let i = 0; i < res.length; i++) {
-        //                 this.tbl_mstapplicantachievementdetails.source.add(res[i]);
-        //             }
-        //             this.tbl_mstapplicantachievementdetails.source.refresh();
-        //         }
-        //         else {
-        //             this.tbl_mstapplicantachievementdetails.source.update(event.data, res[0]);
-        //         }
-        //     }
-        // });
     }
+
+    // AddOrEdit_mstapplicantachievementdetail(event: any, achievementid: any, applicantid: any) {
+    //     debugger
+    //     this.getdata();
+    //     let add = false;
+    //     if (event == null) add = true;
+    //     let childsave = true;
+    //     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    //     this.dialog.open(mstapplicantachievementdetailComponent,
+    //         {
+    //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, achievementid, applicantid, visiblelist: this.mstapplicantachievementdetails_visiblelist, hidelist: this.mstapplicantachievementdetails_hidelist, ScreenType: 2 },
+    //         }
+    //     ).onClose.subscribe(res => {
+    //         if (res) {
+    //             if (add) {
+    //                 for (let i = 0; i < res.length; i++) {
+    //                     this.tbl_mstapplicantachievementdetails.source.add(res[i]);
+    //                 }
+    //                 this.tbl_mstapplicantachievementdetails.source.refresh();
+    //             }
+    //             else {
+    //                 this.tbl_mstapplicantachievementdetails.source.update(event.data, res[0]);
+    //             }
+    //         }
+    //     });
+    // }
 
     onDelete_mstapplicantachievementdetail(event: any, childID: number, i: number) {
         if (confirm('Do you want to delete this record?')) {
@@ -638,6 +647,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
     }
    
     */
+    
     mstapplicantachievementdetails_route(event: any, action: any) {
         debugger
         var addparam = "";
@@ -696,11 +706,39 @@ export class mstapplicantachivementgridComponent implements OnInit {
             ).onClose.subscribe(res => {
             });
         }
+    };
 
+    async onCustom_mstapplicantskilldetailsAttachment_Action(event: any, achievementid: any, applicantid: any) {
 
+        let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantachievementdetails");
+        let formname = (objbomenuaction as any).actionname;
+        if (formname == "mstapplicantachievementdetails") {
+            let add = false;
+                if (event == null) add = true;
+                let childsave = true;
+                if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+                this.dialog.open(mstapplicantachievementdetailComponent,
+                    {
+                        data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, achievementid, applicantid, visiblelist: this.mstapplicantachievementdetails_visiblelist, hidelist: this.mstapplicantachievementdetails_hidelist, ScreenType: 2 },
+                    }
+                ).onClose.subscribe(res => {
+                    if (res) {
+                        if (add) {
+                            for (let i = 0; i < res.length; i++) {
+                                this.tbl_mstapplicantachievementdetails.source.add(res[i]);
+                            }
+                            this.tbl_mstapplicantachievementdetails.source.refresh();
+                        }
+                        else {
+                            this.tbl_mstapplicantachievementdetails.source.update(event.data, res[0]);
+                        }
+                    }
+                });
 
+        }
 
     }
+
     mstapplicantachievementdetails_Paging(val) {
         //debugger;;
         this.tbl_mstapplicantachievementdetails.source.setPaging(1, val, true);

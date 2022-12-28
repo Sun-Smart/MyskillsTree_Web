@@ -72,6 +72,7 @@ export class mstapplicantreferencerequestService {
   }
 
 get_mstapplicantworkreference_ByApplicantID(id: number): any {
+  debugger
     if (this.valid()) {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference'  + '/applicantid/' + id).toPromise();
     }
@@ -84,6 +85,7 @@ get_mstapplicantworkreference_ByApplicantID(id: number): any {
   }
 
   getList_applicantid(): any {
+    debugger
     return this.http.get(AppConstants.ntirecrmURL + '/mstapplicantreferencerequest' + '/getList_applicantid').toPromise();
   }
 

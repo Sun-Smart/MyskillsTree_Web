@@ -71,6 +71,7 @@ export class mstapplicantskilldetailComponent implements OnInit {
   formData: mstapplicantskilldetail;
   list: mstapplicantskilldetail[];
 
+  showAttachmentView :boolean = false;
   bmyrecord: boolean = false;
   hidelist: any = [];
   objvalues: any = [];

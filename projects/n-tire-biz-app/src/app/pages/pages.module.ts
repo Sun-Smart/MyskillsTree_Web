@@ -11,6 +11,8 @@ import { MstapplicantreferenceacceptedComponent } from './mstapplicantreferencea
 // import { ApplicantregisterComponent } from './applicantregister/applicantregister.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { MstapplicantskilldetailsattachmentComponent } from './forms/mstapplicantskilldetailsattachment/mstapplicantskilldetailsattachment.component';
+import { CertifierComponent } from './certifier/certifier.component';
 // import { RegisterComponent } from './register/register.component';
 // import { NewskillsearchComponent } from './forms/newskillsearch/newskillsearch.component';
 
@@ -38,6 +40,8 @@ const PAGES_COMPONENTS = [
         ...PAGES_COMPONENTS,
         MstapplicantreferenceacceptedComponent,
         ForgotpasswordComponent,
+        MstapplicantskilldetailsattachmentComponent,
+        CertifierComponent,
         // ApplicantregisterComponent,
         // RegisterComponent,
         // NewskillsearchComponent,

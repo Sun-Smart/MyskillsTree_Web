@@ -166,6 +166,7 @@ import { ChartModule } from 'primeng/chart';
 import { ChartsModule } from 'ng2-charts';
 import { TagInputModule } from 'ngx-chips';
 // import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -356,6 +357,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         FormsModule, ReactiveFormsModule,
         MultiSelectModule,
         NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+        NgMultiSelectDropDownModule.forRoot(),
         //NgxIntlTelInputModule,
         InternationalPhoneModule,
         CommonModule,
