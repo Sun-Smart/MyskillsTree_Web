@@ -167,6 +167,11 @@ import { ChartsModule } from 'ng2-charts';
 import { TagInputModule } from 'ngx-chips';
 // import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { RegisterComponent } from './pages/register/register.component';
+import { SkillenhancerComponent } from './pages/skillenhancer/skillenhancer.component';
+import { CertifierComponent } from './pages/certifier/certifier.component';
+import { RegisterUserComponent } from './pages/register-user/register-user.component';
+import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -307,6 +312,11 @@ export function HttpLoaderFactory(http: HttpClient) {
         showdashboardComponent,
         BODashboardViewerComponent,
         NewskillsearchComponent,
+        RegisterComponent,
+        SkillenhancerComponent,
+        CertifierComponent,
+        RegisterUserComponent,
+        VerifyscreenComponent,
         ReportViewerCtrlComponent,
         PopupSelectComponent,
 

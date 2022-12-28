@@ -102,6 +102,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SkillenhancerComponent } from './pages/skillenhancer/skillenhancer.component';
 import { CertifierComponent } from './pages/certifier/certifier.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -124,6 +125,7 @@ export function tokenGetter() {
         SkillenhancerComponent,
         CertifierComponent,
         RegisterUserComponent,
+        VerifyscreenComponent,
         EmailVerificationComponent, ForgotpasswordComponent, ResendEmailVerificationComponent, ResetPasswordComponent,
 
         //bokbmasterComponent,
