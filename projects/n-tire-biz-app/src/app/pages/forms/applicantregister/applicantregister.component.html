@@ -103,11 +103,32 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label for="loginPassword">Category</label>
-                                        <select name="gender"  class="form-control">
-                                            <option [ngValue]="null" selected></option>
-                                            <option  [ngValue]= "special">Special</option>
-                                            <option  [ngValue]= "general" selected>General</option>
+                                        <select name="gender" formControlName="category" [(ngModel)]="category"  class="form-control" (change)="opendrop(category)">
+                                            <!-- <option [ngValue]="null" selected></option> -->
+                                            <option  [Value]="G" [selected]="true">General</option>
+                                            <option  [Value]="S">Special</option>
                                         </select>
+                                       
+                                    </div>
+                                  
+                                </div>
+                                <div class="row" *ngIf="submenus1" style="margin: 10px !important;
+                                line-height: 2;" (change)="closedrop()">
+                                    <div class="col-6  reduce_radio">
+                                        <input type="radio" name="skills" 
+                                            value="provider"> Service Man
+                                    </div>
+                                    <div class="col-6  reduce_radio">
+                                        <input type="radio" name="skills" 
+                                            value="availer"> Ex Service Man
+                                    </div>
+                                    <div class="col-6  reduce_radio">
+                                        <input type="radio" name="skills" 
+                                            value="enhancer"> Widow
+                                    </div>
+                                    <div class="col-6  reduce_radio">
+                                        <input type="radio" name="skills" 
+                                            value="certifier"> physically challenged 
                                     </div>
                                 </div>
 
@@ -132,7 +153,7 @@
 
                         <div>
                             <button class="btn btn-info btn-block register_btn"
-                                (click)="onSubmitAndWait()" [disabled]="!bocompanyregistration_Form.valid">REGISTER</button>
+                                (click)="onSubmitAndWait()" [disabled]="!bocompanyregistration_Form.valid">Register</button>
                         </div>
                     </form>
 
