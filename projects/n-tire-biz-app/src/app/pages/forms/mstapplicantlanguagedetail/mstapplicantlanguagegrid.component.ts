@@ -191,6 +191,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     (userRowSelect)="handle_mstapplicantlanguagedetails_GridSelected($event)"
     [settings]="mstapplicantlanguagedetails_settings"
     (custom)="onCustom_mstapplicantlanguagedetails_Action($event)"
+    (custom)="onCustom_mstapplicantlanguagedetailsAttachment_Action($event)"
     [source]="tbl_mstapplicantlanguagedetails?.source?.data"
     (delete)="mstapplicantlanguagedetails_route($event,'delete')"
     (deleteConfirm)="mstapplicantlanguagedetails_route($event,'delete')"
@@ -689,8 +690,8 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         }
     }
 
-    AddOrEdit_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
-        this.ngOnInit();
+    
+    Add_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
         debugger
         this.showSkillDetails_input = true;
         this.getdata();
@@ -698,24 +699,66 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        // this.dialog.open(mstapplicantlanguagedetailComponent,
-        //     {
-        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, languageid, applicantid, visiblelist: this.mstapplicantlanguagedetails_visiblelist, hidelist: this.mstapplicantlanguagedetails_hidelist, ScreenType: 2 },
-        //     }
-        // ).onClose.subscribe(res => {
-        //     if (res) {
-        //         if (add) {
-        //             for (let i = 0; i < res.length; i++) {
-        //                 this.tbl_mstapplicantlanguagedetails.source.add(res[i]);
-        //             }
-        //             this.tbl_mstapplicantlanguagedetails.source.refresh();
-        //         }
-        //         else {
-        //             this.tbl_mstapplicantlanguagedetails.source.update(event.data, res[0]);
-        //         }
-        //     }
-        // });
     }
+
+    
+    Edit_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
+        debugger
+        this.showSkillDetails_input = true;
+        this.getdata();
+        let add = false;
+        if (event == null) add = true;
+        let childsave = true;
+        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+        console.log(event, languageid, applicantid);
+        
+        this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByEID(event.data.pkcol).then(res => {
+            console.log(res);
+            
+            this.mstapplicantlanguagedetail_Form.patchValue({
+                applicantid: res.mstapplicantlanguagedetail.applicantid,
+                applicantiddesc: res.mstapplicantlanguagedetail.applicantiddesc,
+                languageid: res.mstapplicantlanguagedetail.languageid,
+                language: res.mstapplicantlanguagedetail.language,
+                languagedesc: res.mstapplicantlanguagedetail.languagedesc,
+                readproficiency: res.mstapplicantlanguagedetail.readproficiency,
+                writeproficiency: res.mstapplicantlanguagedetail.writeproficiency,
+                speakproficiency: res.mstapplicantlanguagedetail.speakproficiency,
+                overallrating: res.mstapplicantlanguagedetail.overallrating,
+                remarks: res.mstapplicantlanguagedetail.remarks,
+                attachment: JSON.parse(res.mstapplicantlanguagedetail.attachment),
+                status: res.mstapplicantlanguagedetail.status,
+                statusdesc: res.mstapplicantlanguagedetail.statusdesc,
+            });
+        })
+    }
+
+    // AddOrEdit_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
+    //     debugger
+
+    //     this.getdata();
+    //     let add = false;
+    //     if (event == null) add = true;
+    //     let childsave = true;
+    //     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+    //     this.dialog.open(mstapplicantlanguagedetailComponent,
+    //         {
+    //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, languageid, applicantid, visiblelist: this.mstapplicantlanguagedetails_visiblelist, hidelist: this.mstapplicantlanguagedetails_hidelist, ScreenType: 2 },
+    //         }
+    //     ).onClose.subscribe(res => {
+    //         if (res) {
+    //             if (add) {
+    //                 for (let i = 0; i < res.length; i++) {
+    //                     this.tbl_mstapplicantlanguagedetails.source.add(res[i]);
+    //                 }
+    //                 this.tbl_mstapplicantlanguagedetails.source.refresh();
+    //             }
+    //             else {
+    //                 this.tbl_mstapplicantlanguagedetails.source.update(event.data, res[0]);
+    //             }
+    //         }
+    //     });
+    // }
 
     onDelete_mstapplicantlanguagedetail(event: any, childID: number, i: number) {
         if (confirm('Do you want to delete this record?')) {
@@ -741,12 +784,12 @@ export class mstapplicantlanuagegridComponent implements OnInit {
 
         switch (action) {
             case 'create':
-                this.AddOrEdit_mstapplicantlanguagedetail(event, null, this.applicantid);
+                this.Add_mstapplicantlanguagedetail(event, null, this.applicantid);
                 break;
             case 'view':
                 break;
             case 'edit':
-                this.AddOrEdit_mstapplicantlanguagedetail(event, event.data.languageid, this.applicantid);
+                this.Edit_mstapplicantlanguagedetail(event, event.data.languageid, this.applicantid);
                 break;
             case 'delete':
                 this.onDelete_mstapplicantlanguagedetail(event, event.data.languageid, ((this.tbl_mstapplicantlanguagedetails.source.getPaging().page - 1) * this.tbl_mstapplicantlanguagedetails.source.getPaging().perPage) + event.index);
@@ -768,10 +811,39 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     async onCustom_mstapplicantlanguagedetails_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantlanguagedetails");
         let formname = (objbomenuaction as any).actionname;
+        if (formname == "mstapplicantlanguagedetails") {
+            
+        }
 
+    };
 
-
-
+    async onCustom_mstapplicantlanguagedetailsAttachment_Action(event: any, languageid: any, applicantid: any){
+        let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantlanguagedetails");
+        let formname = (objbomenuaction as any).actionname;
+        if (formname == "mstapplicantlanguagedetails") {
+            this.getdata();
+                let add = false;
+                if (event == null) add = true;
+                let childsave = true;
+                if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+                this.dialog.open(mstapplicantlanguagedetailComponent,
+                    {
+                        data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, languageid, applicantid, visiblelist: this.mstapplicantlanguagedetails_visiblelist, hidelist: this.mstapplicantlanguagedetails_hidelist, ScreenType: 2 },
+                    }
+                ).onClose.subscribe(res => {
+                    if (res) {
+                        if (add) {
+                            for (let i = 0; i < res.length; i++) {
+                                this.tbl_mstapplicantlanguagedetails.source.add(res[i]);
+                            }
+                            this.tbl_mstapplicantlanguagedetails.source.refresh();
+                        }
+                        else {
+                            this.tbl_mstapplicantlanguagedetails.source.update(event.data, res[0]);
+                        }
+                    }
+                });
+        }
     }
     mstapplicantlanguagedetails_Paging(val) {
         //debugger;;

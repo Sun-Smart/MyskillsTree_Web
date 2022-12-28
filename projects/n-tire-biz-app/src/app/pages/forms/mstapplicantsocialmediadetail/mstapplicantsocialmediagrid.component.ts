@@ -326,6 +326,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     //     this.getdata();
     // };
     skillClose() {
+        this.mstapplicantsocialmediadetail_Form.reset();
         this.showSkillDetails_input = false;
     };
 
@@ -636,7 +637,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
 
     Add_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
         debugger
-        this.ngOnInit();
+        
         let add = false;
         debugger
         this.showSkillDetails_input = true;

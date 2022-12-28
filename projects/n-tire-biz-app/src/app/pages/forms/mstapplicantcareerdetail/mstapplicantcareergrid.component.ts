@@ -627,7 +627,7 @@ export class mstapplicantcareergridComponent implements OnInit {
 
 
     Add_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
-        this.ngOnInit();
+       
         debugger;
         this.showSkillDetails_input = true;
         this.getData();

@@ -463,6 +463,11 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
             // this.FillData(res);
           }
         }
+      },err => {
+        debugger;
+        this.spinner.hide();
+        this.toastr.addSingle("error", "", err.error);
+        console.log(err);
       });
   }
 

@@ -276,6 +276,7 @@ export class mstapplicantgeographygrid implements OnInit {
     }
 
     skillClose() {
+        this.mstapplicantgeographypreference_Form.reset();
         this.showSkillDetails_input = false;
     };
     // addSkills() {
@@ -452,7 +453,7 @@ export class mstapplicantgeographygrid implements OnInit {
 
     Add_mstapplicantgeographypreference(event: any, geographypreferenceid: any, applicantid: any) {
         debugger;
-        this.ngOnInit();
+       
         this.showSkillDetails_input = true;
         let add = false;
         if (event == null) add = true;

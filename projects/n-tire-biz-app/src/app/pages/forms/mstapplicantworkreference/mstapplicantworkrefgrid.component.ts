@@ -321,6 +321,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         this.showSkillDetails_input = true;
     };
     skillClose() {
+        this.mstapplicantworkreference_Form.reset();
         this.showSkillDetails_input = false;
     };
 
@@ -385,23 +386,23 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         //     });
         //   }
         // });
-        if (strError != "") return this.sharedService.alert(strError);
+        // if (strError != "") return this.sharedService.alert(strError);
 
 
 
-        if (!this.validate()) {
-            return;
-        }
-        this.formData = this.mstapplicantworkreference_Form.getRawValue();
-        if (this.dynamicconfig.data != null) {
-            for (let key in this.dynamicconfig.data) {
-                if (key != 'visiblelist' && key != 'hidelist') {
-                    if (this.mstapplicantworkreference_Form.controls[key] != null) {
-                        this.formData[key] = this.mstapplicantworkreference_Form.controls[key].value;
-                    }
-                }
-            }
-        }
+        // if (!this.validate()) {
+        //     return;
+        // }
+        // this.formData = this.mstapplicantworkreference_Form.getRawValue();
+        // if (this.dynamicconfig.data != null) {
+        //     for (let key in this.dynamicconfig.data) {
+        //         if (key != 'visiblelist' && key != 'hidelist') {
+        //             if (this.mstapplicantworkreference_Form.controls[key] != null) {
+        //                 this.formData[key] = this.mstapplicantworkreference_Form.controls[key].value;
+        //             }
+        //         }
+        //     }
+        // }
         // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
         // this.fileAttachmentList = this.fileattachment.getAllFiles();
         console.log(this.formData);
@@ -534,7 +535,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
     Add_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
         debugger;
-        this.ngOnInit();
         this.showSkillDetails_input = true;
         let add = false;
         if (event == null) add = true;

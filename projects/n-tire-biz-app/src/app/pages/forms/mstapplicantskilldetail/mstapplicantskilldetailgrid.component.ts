@@ -371,6 +371,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
 
   skillClose() {
+    this.mstapplicantskilldetail_Form.reset();
     this.showSkillDetails_input = false;
   };
 
@@ -630,7 +631,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   Add_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
     debugger
-    this.ngOnInit();
+    
     this.showSkillDetails_input = true;
     this.getData();
     let add = false;
