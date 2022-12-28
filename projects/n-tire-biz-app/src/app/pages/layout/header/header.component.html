@@ -34,7 +34,7 @@
           <label class="dropdown">
 
             <div>
-              <i class="fa fa-folder-open-o fa1 fa2" aria-hidden="true" style="margin-left:10px; font-size: 24px !important; margin-top: 6px;"
+              <i class="fa fa-th fa1 fa2" aria-hidden="true" style="margin-left:10px; font-size: 24px !important; margin-top: 6px;"
                 (click)="openpopup()"></i>
               <span class="p-ink" style="height: 44px; width: 44px; "></span>
             </div>
@@ -45,10 +45,11 @@
               style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
               <div style="display: flex;margin: 8px !important;" class="row">
 
-                <div class="col-12">
+                <div class="col-12" style="text-align: end;
+                padding: 0 0px;">
                   <button type="button" (click)="closePopup();"
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                    style="float: right; margin:0px;padding-left: 44rem; ">
+                    style=" margin:8px;">
                     <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
                       style="color: red !important; font-size: 20PX;"></span>
                   </button>
@@ -64,7 +65,7 @@
                 <div class="col-3 applicant-menu card applicantdrop" style="text-align:center;">
 
                   <a [routerLink]=''(click)="showGeography()">
-                    <li class="li2"><i class="fa fa-map-marker fa1" aria-hidden="true"></i><br /> Locational</li>
+                    <li class="li2"><i class="fa fa-map-marker fa1" aria-hidden="true"></i><br /> Location</li>
                   </a>
                   
                 </div>
@@ -75,7 +76,7 @@
                 </div>
                 <div class="col-3 applicant-menu card applicantdrop" style="text-align:center;">
                   <a [routerLink]=''(click)="showcareer()">
-                    <li class="li2"><i class="fa fa-level-up fa1" aria-hidden="true"></i><br /> Experince</li>
+                    <li class="li2"><i class="fa fa-level-up fa1" aria-hidden="true"></i><br /> Experience</li>
                   </a>
                 </div>
                 <div class="col-3 applicant-menu card applicantdrop" style="text-align:center;">
@@ -90,7 +91,7 @@
                 </div>
                 <div class="col-3 applicant-menu card applicantdrop" style="text-align:center;">
                   <a [routerLink]=''(click)="showAchievement()">
-                    <li class="li2"><i class="fa fa-certificate fa1" aria-hidden="true"></i><br /> certification</li>
+                    <li class="li2"><i class="fa fa-certificate fa1" aria-hidden="true"></i><br /> Certification</li>
                   </a>
                 </div>
                 <div class="col-3 applicant-menu card applicantdrop" style="text-align:center;">
@@ -179,12 +180,13 @@
               style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
               <div style="display: flex;justify-content:  space-between;" class="row">
 
-                <div class="col-12">
+                <div class="col-12" style="text-align: end;
+                padding: 0 0px;">
                   <button type="button" (click)="closePopup();"
-                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                    style="float: right; margin:0px;padding-left: 44rem; ">
-                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
-                      style="color: red !important; font-size: 20PX;"></span>
+                  class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                  style=" margin:8px;">
+                  <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
+                    style="color: red !important; font-size: 20PX;"></span>
                   </button>
                 </div>
 
@@ -302,10 +304,11 @@
               style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
               <div style="display: flex;justify-content: space-between;" class="row">
 
-                <div class="col-12">
+                <div class="col-12" style="text-align: end;
+                padding: 0 0px;">
                   <button type="button" (click)="closePopups();"
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                    style="float: right; margin:0px;padding-left: 44rem; ">
+                    style=" margin:8px; ">
                     <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
                       style="color: red !important; font-size: 20PX;"></span>
                   </button>
@@ -423,12 +426,13 @@
 
               <div *ngIf="menuhide" style="display: flex;justify-content: center;
               width:18rem; background-color:white; margin-top: 12px !important; border-radius: 12px;" class="row dd-menu">
-                <div class="col-12">
+                <div class="col-12" style=" text-align: end;
+                padding: 0 0px;">
                   <button type="button" pripple (click)="closePopup();"
-                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                    style="float: right; margin:0px; padding-left: 41rem;">
-                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5" aria-hidden="false"
-                      style="color: red !important; font-size: 24px;"></span>
+                  class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                  style=" margin:8px; ">
+                  <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
+                    style="color: red !important; font-size: 20PX;"></span>
                   </button>
                 </div>
 
@@ -497,12 +501,13 @@
             <ul class="dd-menu" *ngIf="menuhides"
               style="width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;">
               <div style="display: flex;justify-content: space-between;" class="row">
-                <div class="col-12">
+                <div class="col-12" style="text-align: end;
+                padding: 0 0px;">
                   <button type="button" pripple (click)="closePopups();"
-                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                    style="float: right; margin:0px; padding-left: 41rem;">
-                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5" aria-hidden="false"
-                      style="color: red !important; font-size: 24px;"></span>
+                  class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                  style=" margin:8px; ">
+                  <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
+                    style="color: red !important; font-size: 20PX;"></span>
                   </button>
                 </div>
 

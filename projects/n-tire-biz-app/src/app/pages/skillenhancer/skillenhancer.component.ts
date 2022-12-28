@@ -34,6 +34,7 @@ export class SkillenhancerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.category ="G";
   }
   gotoLogin() {
     this.router.navigate(['login']);

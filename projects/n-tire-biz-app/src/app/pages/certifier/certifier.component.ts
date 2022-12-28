@@ -35,6 +35,7 @@ export class CertifierComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.category ="G";
   }
   gotoLogin() {
     this.router.navigate(['login']);

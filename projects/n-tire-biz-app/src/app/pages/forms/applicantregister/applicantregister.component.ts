@@ -77,7 +77,7 @@ export class ApplicantregisterComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    category: any;
     bfilterPopulate_bocompanyregistrations: boolean = false;
     bocompanyregistration_menuactions: any = []
 
@@ -94,7 +94,7 @@ export class ApplicantregisterComponent implements OnInit {
 
     sessionData: any;
     sourceKey: any;
-
+    submenus1: boolean = false;
 
 
 
@@ -151,6 +151,7 @@ export class ApplicantregisterComponent implements OnInit {
             mobilenumber: ['', Validators.required],
             // agreement: ['', Validators.required],
             // mobilenumber: ['', Validators.required],
+            category: ['', Validators.required],
             status: [null],
             statusdesc: [null],
         });
@@ -206,14 +207,16 @@ export class ApplicantregisterComponent implements OnInit {
             this.PopulateScreen(pkDetail.pkcol);
         }
     }
+    
 
     // initialize
     async ngOnInit() {
         //session & theme
+        
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
         });
-
+     
         this.sessionData = this.sessionService.getSession();
         if (this.sessionData != null) {
             this.SESSIONUSERID = this.sessionData.userid;
@@ -287,6 +290,8 @@ export class ApplicantregisterComponent implements OnInit {
         //setting the flag that the screen is not touched
         this.bocompanyregistration_Form.markAsUntouched();
         this.bocompanyregistration_Form.markAsPristine();
+
+        
     }
 
 
@@ -515,6 +520,7 @@ export class ApplicantregisterComponent implements OnInit {
                 designationdesc: this.bocompanyregistration_Form.value.designationdesc,
                 emailid: this.bocompanyregistration_Form.value.emailid,
                 mobilenumber: this.bocompanyregistration_Form.value.mobilenumber,
+                usercategory: this.bocompanyregistration_Form.value.category,
                 status: null,
                 statusdesc: null,
             }
@@ -614,13 +620,37 @@ export class ApplicantregisterComponent implements OnInit {
             this.router.navigate(['registernew']);
         } else if (value == "availer") {
             this.router.navigate(['applicantregister']);
+            this.category = this.category;
         } else if (value == "enhancer") {
-          this.router.navigate(['enhancer']);
-        }    else if (value == "certifier") {
+            this.router.navigate(['enhancer']);
+        } else if (value == "certifier") {
+            this.router.navigate(['certifier']);
         }
+        
     }
-    gotoLogin(){
+    gotoLogin() {
         this.router.navigate(['login']);
     }
+    opendrop(ev: any) {
+        debugger;
+        console.log(ev)
+        if (ev == 'Special') {
+            this.submenus1 = true;
+        } else {
+            this.submenus1 = false;
+        }
+
+        //this.userRoleID = ev;
+    }
+    closedrop(data: any) {
+        debugger
+        console.log(data)
+
+    }
+    // closedrop(){
+    //   this.drophide=false;
+    // }
+
+    
 }
 
