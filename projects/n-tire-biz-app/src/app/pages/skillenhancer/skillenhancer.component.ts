@@ -21,8 +21,8 @@ export class SkillenhancerComponent implements OnInit {
   objvalues: any = [];
   type: string;
   category: any;
-  drophide: boolean=false;
-  submenus:boolean = false;
+  drophide: boolean = false;
+  submenus: boolean = false;
   constructor(private router: Router, private toastr: ToastService, private http: HttpClient, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     this.bouserregistration_Form = this.formBuilder.group({
       firstname: ['', Validators.required],
@@ -34,7 +34,7 @@ export class SkillenhancerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.category ="G";
+    this.category = "G";
   }
   gotoLogin() {
     this.router.navigate(['login']);
@@ -92,6 +92,9 @@ export class SkillenhancerComponent implements OnInit {
           // this.toastr.addSingle("error", "", "Email already exist");
           alert("Email already exist");
           return;
+        } else if (res == 'Mobilenumber already exist') {
+          alert('Mobilenumber already exist');
+          return;
         } else {
           // this.toastr.addSingle("success", "", "Successfully Registered.Check your mail for the login credentials");
           alert("Successfully Registered.Check your mail for the login credentials");
@@ -110,25 +113,29 @@ export class SkillenhancerComponent implements OnInit {
         console.log(error.error);
         if (error.error == "Email already exist") {
           alert('Email already exist');
+          return;
+        } else if (error.error == 'Mobilenumber already exist') {
+          alert('Mobilenumber already exist');
+          return;
         }
       });
 
     }
   }
-  opendrop(ev:any){
+  opendrop(ev: any) {
     debugger;
     console.log(ev)
-    if(ev == 'S'){
-      this.submenus=true;
-    }else{
-      this.submenus=false;
+    if (ev == 'S') {
+      this.submenus = true;
+    } else {
+      this.submenus = false;
     }
 
     //this.userRoleID = ev;
   }
-closedrop(data:any){
-  debugger
-  console.log(data)
+  closedrop(data: any) {
+    debugger
+    console.log(data)
 
-  }
+  }
 }
