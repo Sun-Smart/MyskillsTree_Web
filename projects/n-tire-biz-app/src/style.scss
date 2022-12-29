@@ -3179,6 +3179,7 @@ h1.col-4.columns.mainheader.left.common_popup_title {
   max-height: 40px !important;
   margin-top: 1px !important;
   color: gray !important;
+  background-color: #ebf3fc;
 }
 
 i.fa.fa-times-circle {
@@ -3626,4 +3627,8 @@ footer {
 .Skill-attachment {
   width: 95% !important;
   margin: 10px auto !important;
+}
+.omega .p-datatable .p-datatable-thead > tr > th, .omega .p-datatable .p-datatable-tfoot > tr > td {
+  background-color: #6B431D !important;
+  border-color: #d9d9d9 !important;
 }
