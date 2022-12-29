@@ -16,8 +16,6 @@ export class NewskillsearchComponent implements OnInit {
   showGrid: boolean = false;
   showCard: boolean = false;
   showData: any;
-  emailid = "";
-  raio: any;
   mstapplicantskilldetail_Form: FormGroup;
   Segmentcategory_list: DropDownValues[];
   getidd: any;
@@ -46,7 +44,7 @@ export class NewskillsearchComponent implements OnInit {
   rangevalue = 0;
   skillcategory: any;
   label: any;
-  skillcategoryarry: any[] = []
+  skillcategoryarry: any = []
   skillcategory1: any;
   skillsegment1: any;
   getdata2: any;
@@ -54,6 +52,14 @@ export class NewskillsearchComponent implements OnInit {
   skillcategory3: any;
   rangevalue1: any;
   skillcategory4: any;
+  Zone: any[] = ["0"];
+  districtLists: any = [];
+  stateLists: any = [];
+  check: any;
+  skillcategory2: any;
+  skillcategory1arry: any = [];
+  skillcategory2arry: any = [];
+  locationValue: any;
   constructor(private http: HttpClient, private mstapplicantskilldetail_service: mstapplicantskilldetailService, private mstapplicantgeographypreference_service: mstapplicantgeographypreferenceService, private fb: FormBuilder) {
     this.mstapplicantgeographypreference_Form = this.fb.group({
       country: [null],
@@ -154,20 +160,24 @@ export class NewskillsearchComponent implements OnInit {
     this.showList = false;
     this.showGrid = false;
   }
-  valueChanged(e) {
-    console.log('e', e);
-    this.rangevalue = e.target.value;
-  }
+
   get f() { return this.mstapplicantskilldetail_Form.controls; }
   segmentcategory_onChange(evt: any) {
     debugger
     let e = evt.value;
-    this.skillcategoryarry.push({ segment: evt.label })
+
+    this.skillcategoryarry.push({ segment: e })
+    // console.log('eee', e);
+    this.skillcategory1 = 0;
     for (let i = 0; i < this.skillcategoryarry.length; i++) {
-      this.skillcategory1 = this.skillcategoryarry[i].segment
-      this.skillcategory = this.skillcategory1
+      this.skillcategory1 = this.skillcategory1 + ',' + this.skillcategoryarry[i].segment;
     }
-    this.skillcategory = evt.label
+    console.log(this.skillcategory1);
+
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, null, null, null, null, null, null).then((res: any) => {
+      console.log('res ', res);
+      this.showData = res;
+    });
     this.getidd = e
 
     if (this.getidd == "166") {
@@ -177,12 +187,10 @@ export class NewskillsearchComponent implements OnInit {
       this.showinput3 = false
       this.showinput1 = false
     }
-    // this.mstapplicantskilldetail_Form.patchValue({ segmentcategorydesc: evt.options[evt.options.selectedIndex].text, segmentid: e });
     setTimeout(() => {
-      // if (this.f.segmentid.value && this.f.segmentid.value != "" && this.f.segmentid.value != null)
-      this.mstapplicantskilldetail_service.getList_skillcategory2(e).then((res: any) => {
+      //New code
+      this.mstapplicantskilldetail_service.getMultipleCheckSegmentID(this.skillcategory1).then((res: any) => {
         debugger
-
         this.skillcategory_List = res as DropDownValues[];
       })
 
@@ -201,13 +209,19 @@ export class NewskillsearchComponent implements OnInit {
   skillcategory_onChange(evt: any) {
     debugger
     let e = evt.categoryid;
-    this.skillcategoryarry.push({ category: evt.code })
-    for (let i = 0; i < this.skillcategoryarry.length; i++) {
-      this.skillsegment1 = this.skillcategoryarry[i].category
-      this.skillcategory = this.skillcategory1 + ',' + this.skillsegment1
-    }
-    // console.log('eeeeee',e);
+    console.log('evt.categoryid ', e);
 
+
+    this.skillcategory1arry.push({ category: e })
+    // console.log('eee', e);
+    this.skillcategory2 = 0;
+    for (let i = 0; i < this.skillcategory1arry.length; i++) {
+      this.skillcategory2 = this.skillcategory2 + ',' + this.skillcategory1arry[i].category;
+    }
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, null, null, null, null, null).then((res: any) => {
+      console.log('res ', res);
+      this.showData = res;
+    });
     this.getidd1 = e
     if (this.getidd1 == "262") {
       this.showinput2 = true
@@ -216,7 +230,8 @@ export class NewskillsearchComponent implements OnInit {
     }
     // setTimeout(() => {
     debugger
-    this.mstapplicantskilldetail_service.getList_subcategoryid2(this.getidd1).then((res: any) => {
+    //New Code
+    this.mstapplicantskilldetail_service.getMultipleChecksubcategoryID(this.skillcategory2).then((res: any) => {
       this.subcategoryid_List = res as DropDownValues[]
     });
     // });
@@ -224,12 +239,15 @@ export class NewskillsearchComponent implements OnInit {
   subcategoryid_onChange(evt: any) {
     debugger
     let e = evt.subcategoryid;
-    this.skillcategoryarry.push({ subcate: evt.code })
-
-    for (let i = 0; i < this.skillcategoryarry.length; i++) {
-      this.skillsegment2 = this.skillcategoryarry[i].subcate
-      this.skillcategory = this.skillcategory1 + ',' + this.skillsegment1 + ',' + this.skillsegment2
+    this.skillcategory2arry.push({ subcate: e })
+    this.skillcategory3 = 0;
+    for (let i = 0; i < this.skillcategory2arry.length; i++) {
+      this.skillcategory3 = this.skillcategory3 + ',' + this.skillcategory2arry[i].subcate;
     }
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.skillcategory3 ? this.skillcategory3 : null, null, null, null, null).then((res: any) => {
+      console.log('res ', res);
+      this.showData = res;
+    });
     console.log('eeeeee', e);
 
     this.getdata2 = e
@@ -238,7 +256,6 @@ export class NewskillsearchComponent implements OnInit {
     } else {
       this.showinput3 = false
     }
-    // this.mstapplicantskilldetail_Form.patchValue({ subcategoryiddesc: evt.options[evt.options.selectedIndex].text, categoryid: this.getdata2 });
   }
   onSelected_country(countryDetail: any) {
     debugger
@@ -249,29 +266,38 @@ export class NewskillsearchComponent implements OnInit {
 
       });
       this.mstapplicantgeographypreference_service.getList_city(countryDetail.value).then(res => {
-
-        // this.country_List = res as DropDownValues[]
-        this.city_List = res as DropDownValues[]
-
+        this.city_List = res as DropDownValues[];
       }).catch((err) => { });
-
     }
   }
-  onSelected_city(cityDetail: any) {
-
-    if (cityDetail.cityid && cityDetail) {
-      this.mstapplicantgeographypreference_Form.patchValue({
-        city: cityDetail.cityid,
-        citydesc: cityDetail.name,
-
-      });
-
-      this.mstapplicantgeographypreference_service.getList(cityDetail.cityid).then(res => {
-        console.log(res)
-
-        this.city_List = res as DropDownValues[]
-      }).catch((err) => {
-      });
-    }
+  valueChanged(e) {
+    console.log('e', e);
+    this.rangevalue = e.target.value;
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.skillcategory3 ? this.skillcategory3 : null, this.rangevalue ? this.rangevalue : null, null, null, null).then((res: any) => {
+      console.log('res ', res);
+      this.showData = res;
+    });
   }
+  valueChanged1(e: any) {
+    debugger;
+    console.log('e', e);
+    this.locationValue = e.target.value;
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.skillcategory3 ? this.skillcategory3 : null, this.rangevalue ? this.rangevalue : null, this.locationValue ? this.locationValue : null, null, null).then((res: any) => {
+      console.log('res ', res);
+      this.showData = res;
+    });
+  }
+  // onItemDeSelect(item: any) {
+  //   debugger;
+  //   console.log(item);
+  //   this.districtLists = [];
+  //   this.stateLists = [];
+
+  //   // console.log(this.AdminDropdown_Form.getRawValue());
+  //   const index: number = this.Zone.indexOf(item.ZoneId);
+  //   console.log(index);
+  //   if (index !== -1) {
+  //     this.Zone.splice(index, 1);
+  //   }
+  // }
 }
