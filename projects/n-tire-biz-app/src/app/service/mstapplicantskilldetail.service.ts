@@ -101,23 +101,35 @@ export class mstapplicantskilldetailService {
     return this.http.get(AppConstants.ntirecrmURL + '/mstapplicantskilldetail' + '/getList_referenceacceptance/').toPromise();
   }
 
-// new
+  // new
   getList_segmentcategory(): any {
     return this.http.get(AppConstants.ntirebizURL + '/mstsegment').toPromise();
   }
 
-  getList_skillcategory2(id:any): any {
+  getList_skillcategory2(id: any): any {
 
     debugger
     return this.http.get(AppConstants.ntirebizURL + '/mstcategory' + '/segmentid/' + id).toPromise();
+  }
 
-   }
+  //New API for multiple check with ID passing segment ID
+  getMultipleCheckSegmentID(id: any): any {
+    return this.http.get(AppConstants.ntirebizURL + '/mstcategory' + '/GetListBy_segmentid1?segmentid=' + id).toPromise();
+  }
 
   getList_subcategoryid2(categoryid): any {
     debugger
     return this.http.get(AppConstants.ntirebizURL + '/mstsubcategory' + '/categoryid/' + categoryid).toPromise();
   }
 
+  //New API for multiple check with get subcategoryID
+  getMultipleChecksubcategoryID(categoryid: any): any {
+    return this.http.get(AppConstants.ntirebizURL + '/mstsubcategory' + '/GetListBy_categoryid1?categoryid=' + categoryid).toPromise();
+  }
 
+  //New API for multiple skill search
+  getMultipleSkillSearch(segment: any, category: any, subcategory: any, experience: any, location: any, language: any, firstname: any): any {
+    return this.http.get(AppConstants.ntirebizURL + '/mstapplicantskillsearch' + '/' + 'get_skillsearch1?skillsegment=' + segment + '&skillcategory=' + category + '&skillsubcategory=' + subcategory + '&experience=' + experience + '&location=' + location + '&language=' + language + '&firstname=' + firstname).toPromise();
+  }
 }
 

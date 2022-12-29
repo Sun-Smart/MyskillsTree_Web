@@ -94,6 +94,9 @@ export class RegisterComponent implements OnInit {
           // this.toastr.addSingle("error", "", "Email already exist");
           alert("Email already exist");
           return;
+        } else if (res == 'Mobilenumber already exist') {
+          alert('Mobilenumber already exist');
+          return;
         } else {
           // this.toastr.addSingle("success", "", "Successfully Registered.Check your mail for the login credentials");
           alert("Successfully Registered.Check your mail for the login credentials");
@@ -112,6 +115,9 @@ export class RegisterComponent implements OnInit {
         console.log(error.error);
         if (error.error == "Email already exist") {
           alert('Email already exist');
+        }else if (error.error == 'Mobilenumber already exist') {
+          alert('Mobilenumber already exist');
+          return;
         }
       });
 

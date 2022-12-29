@@ -8,8 +8,8 @@ import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core
 
     <ng-container *ngIf="isadmin">
    <div  id='contentAreanoscroll' style="overflow-y:">
-    <div class="second row seconds" 
-    [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
+    <div class="second row" 
+    [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <h1>Job Requirements</h1>
     </div>
     <div class="row">
@@ -18,7 +18,8 @@ import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core
     <p></p>
     <hr>
     <p></p>
-    <div class="second row seconds">
+    <div class="second row"
+    [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <h1>Reference Requests</h1>
     </div>
     <div class="row">
@@ -28,7 +29,8 @@ import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core
     </ng-container>
     <ng-container *ngIf="!isadmin">
     <div  id='contentAreanoscroll'>
-    <div class="second row seconds" >
+    <div class="second row" 
+    [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <h1>Job Requirements</h1>
     </div>
     <div class="row">
@@ -37,7 +39,8 @@ import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core
     <p></p>
     <hr>
     <p></p>
-    <div class="second row seconds">
+    <div class="second row"
+    [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <h1>Reference Requests</h1>
     </div>
     <div class="row">

@@ -854,10 +854,10 @@ h1 a {
 }
 
 .table thead tr {
-  background-color: #2fb8ef !important;
+  background-color:#6B431D !important;
   // background-color: var(--backcolor) !important;
   color: var(--frontcolor) !important;
-  border: #2fb8ef !important;
+  border: #6B431D !important;
 }
 
 .table td,
@@ -3179,6 +3179,8 @@ h1.col-4.columns.mainheader.left.common_popup_title {
 .row.second {
   max-height: 40px !important;
   margin-top: 1px !important;
+  color: gray !important;
+  background-color: #ebf3fc;
 }
 
 i.fa.fa-times-circle {
@@ -3430,6 +3432,7 @@ ng2-smart-table table thead {
 
 .skill-detailstable {
   -webkit-box-shadow: none !important;
+  
 }
 
 .p-accordion-tab {
@@ -3590,8 +3593,19 @@ a {
 }
 
 .corporatebgColor {
-  background-color: #f5f3e4 !important;
+  background-color: #f5f3e4  !important;
   margin-top: -2px !important;
+}
+
+
+.report-coporate-bgColor{
+  background-color: #cbf29f  !important;
+}
+.report-admin-bgColor{
+  background-color: #f5f3e4!important;
+}
+.report-applicant-bgColor{
+  background-color: #ebf3fc  !important;
 }
 
 footer {
@@ -3634,4 +3648,8 @@ footer {
   font-weight: 600 !important;
   height: auto !important;
   line-height: 2;
+}
+.omega .p-datatable .p-datatable-thead > tr > th, .omega .p-datatable .p-datatable-tfoot > tr > td {
+  background-color: #6B431D !important;
+  border-color: #d9d9d9 !important;
 }
