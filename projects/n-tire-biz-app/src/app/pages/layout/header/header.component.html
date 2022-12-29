@@ -564,10 +564,14 @@
   <li class="layout-topbar-item ng-tns-c186-0">
     <a pripple=""
       class="layout-topbar-action p-d-flex p-dir-row p-jc-center p-ai-center p-px-2 rounded-circle ng-tns-c186-0 p-ripple"
-      (click)="showProfileDetails()"><img *ngIf="userphoto" src="https://demo.herbie.ai/attachment/{{userphoto}}"
-        alt="avatar" style="width: 35px;
+      (click)="showProfileDetails()">
+      <img *ngIf="userphoto" src="https://demo.herbie.ai/attachment/{{userphoto}}" alt="avatar" style="width: 35px;
                       height: 35px;
-                      border-radius: 15px;" class="ng-tns-c186-0 img_content" title="Profile"><span class="p-ink">
+                      border-radius: 15px;" class="ng-tns-c186-0 img_content" title="Profile">
+      <img *ngIf="!userphoto" src="assets/profile.jpeg" alt="avatar" style="width: 35px;
+                      height: 35px;
+                      border-radius: 15px;" class="ng-tns-c186-0 img_content" title="Profile">
+      <span class="p-ink">
       </span></a>
   </li>
 
@@ -584,9 +588,15 @@
       </button>
     </li>
     <li class="list-group-item">
-      <center><img *ngIf="userphoto" src="https://demo.herbie.ai/attachment/{{userphoto}}" alt="avatar" style="width: 100px;
+      <center>
+        <img *ngIf="userphoto" src="https://demo.herbie.ai/attachment/{{userphoto}}" alt="avatar" style="width: 100px;
                   height: 100px;
-                  border-radius: 50px;" class="ng-tns-c186-0 img_content" title="Profile">
+                  border-radius: 50px;" class="img_content" title="Profile">
+      </center>
+      <center>
+        <img *ngIf="!userphoto" src="assets/profile.jpeg" alt="avatar" style="width: 100px;
+                  height: 100px;
+                  border-radius: 50px;" class="img_content" title="Profile">
       </center>
     </li>
     <li class="list-group-item">
