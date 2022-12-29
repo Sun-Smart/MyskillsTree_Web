@@ -483,9 +483,9 @@ export class mstapplicantmasterviewComponent implements OnInit {
     // </div>
     // `;
     //New code
-    this.viewHtml = `<div class="" style="background-image:url('assets/images/E.png')!important;background-repeat: repeat !important;border-radius: 5px !important;">
+    this.viewHtml = `<div class="" style="background-image:url('assets/images/E.png')!important;background-repeat: no-repeat !important;border-radius: 5px !important;">
 <div class="designrow">
-    <div class="row designrow main-box" style="background-image:url('assets/images/##applicanttype##.png')!important;background-repeat: repeat !important;border-radius: 5px !important;">
+    <div class="row designrow main-box" style="background-image:url('assets/images/##applicanttype##.png')!important;background-repeat: no-repeat !important;border-radius: 5px !important;">
         <div class="designrow main-content">
             <div class="row designrow">
               <!--  <div class="dp-container col-2"><img class="dp" src="##profilephoto##"></div> -->

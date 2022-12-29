@@ -94,7 +94,7 @@
           <div class='row designrow'>
             <!---->
             <div class="col-12" *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'
-              [ngClass]="{'limitTextHeight': isReadMore}">
+              [ngClass]="{'limitTextHeight': isReadMore}" style="padding: 0;margin: 0;">
 
             </div>
             <a href="javascript:void(0);" id="showReadBtn" *ngIf="this.readMoreBtn" class="readMoreBtn"
@@ -115,7 +115,7 @@
             <!-- child table mstapplicantgeographypreferences-->
             <div [ngClass]="Is_mstapplicantgeographypreferences_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Geography Preferences' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Geography Preferences' | translate}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -150,7 +150,7 @@
             <!-- child table mstapplicanteducationdetails-->
             <div [ngClass]="Is_mstapplicanteducationdetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Education Details' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Education Details' | translate}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -185,7 +185,7 @@
             <!-- child table mstapplicantachievementdetails-->
             <div [ngClass]="Is_mstapplicantachievementdetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Achievement Details' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Achievement Details' | translate}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -221,7 +221,7 @@
             <!-- child table mstapplicantlanguagedetails-->
             <div [ngClass]="Is_mstapplicantlanguagedetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Language Details' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Language Details' | translate}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -261,7 +261,7 @@
               <!-- child table mstapplicantskilldetails-->
               <div [ngClass]="Is_mstapplicantskilldetails_Visible()">
                 <!--End-->
-                <h4 class="form-group sticky1  columns left">{{'Skill Details' | translate}}
+                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Skill Details' | translate}}
                   <ul class="nav navbar-nav1" style='display:none'>
                     <li class="dropdown">
                       <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
@@ -303,7 +303,7 @@
               <!-- child table mstapplicantcareerdetails-->
               <div [ngClass]="Is_mstapplicantcareerdetails_Visible()">
                 <!--End-->
-                <h4 class="form-group sticky1  columns left">{{'Career Details' | translate}}
+                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Career Details' | translate}}
                   <ul class="nav navbar-nav1" style='display:none'>
                     <li class="dropdown">
                       <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
@@ -338,7 +338,7 @@
               <!-- child table mstapplicantworkreferences-->
               <div [ngClass]="Is_mstapplicantworkreferences_Visible()">
                 <!--End-->
-                <h4 class="form-group sticky1  columns left">{{'Projects' | translate}}
+                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Projects' | translate}}
                   <ul class="nav navbar-nav1" style='display:none'>
                     <li class="dropdown">
                       <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
@@ -373,7 +373,7 @@
               <!-- child table mstapplicantsocialmediadetails-->
               <div [ngClass]="Is_mstapplicantsocialmediadetails_Visible()">
                 <!--End-->
-                <h4 class="form-group sticky1  columns left">{{'SocialMedia Details' | translate}}
+                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'SocialMedia Details' | translate}}
                   <ul class="nav navbar-nav1" style='display:none'>
                     <li class="dropdown">
                       <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
@@ -408,7 +408,7 @@
               <!-- child table mstapplicantreferencedetails-->
               <div [ngClass]="Is_mstapplicantreferencedetails_Visible()">
                 <!--End-->
-                <h4 class="form-group sticky1  columns left">{{'Reference Details' | translate}}
+                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Reference Details' | translate}}
                   <ul class="nav navbar-nav1" style='display:none'>
                     <li class="dropdown">
                       <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
@@ -443,7 +443,7 @@
               <!-- child table mstapplicantreferencerequests-->
               <div [ngClass]="Is_mstapplicantreferencerequests_Visible()">
                 <!--End-->
-                <h4 class="form-group sticky1  columns left">{{'Reference Requests' | translate}}
+                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Reference Requests' | translate}}
                   <ul class="nav navbar-nav1" style='display:none'>
                     <li class="dropdown">
                       <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
@@ -478,7 +478,7 @@
               <!-- child table mstjobstatuses-->
               <div [ngClass]="Is_mstjobstatuses_Visible()">
                 <!--End-->
-                <h4 class="form-group sticky1  columns left">{{'Job Statuses' | translate}}
+                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Job Statuses' | translate}}
                   <ul class="nav navbar-nav1" style='display:none'>
                     <li class="dropdown">
                       <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'

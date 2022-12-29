@@ -91,11 +91,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <thead>
     <tr>
 
-      <th scope="col" >Country Desc</th>
-      <th scope="col" >City Desc</th>
-      <th scope="col" >Remarks</th>
+      <th scope="col" style="width:25%;">Country Desc</th>
+      <th scope="col" style="width:25%;">City Desc</th>
+      <th scope="col" style="width:40%;">Remarks</th>
       <!-- <th scope="col" >Attachment</th> -->
-      <th scope="col" style="text-align:center;">Action</th>
+      <th scope="col" style="width:10%; text-align:center;">Action</th>
     </tr>
   </thead>
   <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
@@ -209,6 +209,7 @@ export class mstapplicantgeographygrid implements OnInit {
         private sharedService: SharedService, private currentRoute: ActivatedRoute,
         private spinner: NgxSpinnerService, private toastr: ToastService,
         private sessionService: SessionService, private mstapplicantgeographypreference_service: mstapplicantgeographypreferenceService,) {
+        debugger
         this.data = dynamicconfig;
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -340,7 +341,7 @@ export class mstapplicantgeographygrid implements OnInit {
         this.spinner.show();
         this.mstapplicantgeographypreference_service.saveOrUpdate_mstapplicantgeographypreferences(this.formData).subscribe((res: any) => {
             console.log("Reference Log", res);
-            
+
             this.spinner.hide();
             debugger;
             this.toastr.addSingle("success", "", "Successfully saved");
@@ -389,10 +390,10 @@ export class mstapplicantgeographygrid implements OnInit {
         <table class="table table-hover geographydetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
-            <th scope="row"  style="width:310px !important">##countrydesc##</th>
-            <th scope="row"  style="width:228px !important">##citydesc##</th>
-            <th scope="row"  style="width:207px !important">##remarks##</th>
-            // <th scope="row"  style="width:321px !important">##attachment##</th>
+            <th scope="row"  style="width:25% !important">##countrydesc##</th>
+            <th scope="row"  style="width:25% !important">##citydesc##</th>
+            <th scope="row"  style="width:40% !important">##remarks##</th>
+            <!--<th scope="row"  style="width:321px !important">##attachment##</th>-->
           </tr>
         </tbody>
       </table>
@@ -405,10 +406,10 @@ export class mstapplicantgeographygrid implements OnInit {
         return ret;
     }
     FillData() {
-        // this.Set_mstapplicantgeographypreferences_TableConfig();
+        this.Set_mstapplicantgeographypreferences_TableConfig();
         this.mstapplicantgeographypreference_service.get_mstapplicantgeographypreferences_ByApplicantID(this.applicantid).then(res => {
             this.Set_mstapplicantgeographypreferences_TableConfig();
-            this.mstapplicantgeographypreferences_LoadTable(res);
+            this.mstapplicantgeographypreferences_LoadTable(res.mstapplicantgeographypreference);
         });
     };
 
@@ -453,7 +454,7 @@ export class mstapplicantgeographygrid implements OnInit {
 
     Add_mstapplicantgeographypreference(event: any, geographypreferenceid: any, applicantid: any) {
         debugger;
-       
+
         this.showSkillDetails_input = true;
         let add = false;
         if (event == null) add = true;
@@ -630,11 +631,11 @@ export class mstapplicantgeographygrid implements OnInit {
             },
         };
     }
-    mstapplicantgeographypreferences_LoadTable(mstapplicantgeographypreferences = new LocalDataSource()) {
+    mstapplicantgeographypreferences_LoadTable(mstapplicantgeographypreference = new LocalDataSource()) {
         debugger;;
         if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantgeographypreferences_ID) >= 0) {
             if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source = new LocalDataSource();
-            if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source.load(mstapplicantgeographypreferences as any as LocalDataSource);
+            if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source.load(mstapplicantgeographypreference as any as LocalDataSource);
             if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source.setPaging(1, 20, true);
         }
     }

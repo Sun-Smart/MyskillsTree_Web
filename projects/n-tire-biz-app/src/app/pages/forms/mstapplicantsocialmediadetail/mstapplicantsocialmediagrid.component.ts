@@ -285,12 +285,13 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         this.Set_mstapplicantsocialmediadetails_TableConfig();
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
+        this.FillData();
 
         this.sessionData = this.sessionService.getSession();
         if (this.sessionData != null) {
             this.SESSIONUSERID = this.sessionData.userid;
         }
-
+        
         debugger;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
@@ -317,7 +318,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         this.mstapplicantsocialmediadetail_Form.markAsUntouched();
         this.mstapplicantsocialmediadetail_Form.markAsPristine();
 
-        this.FillData();
+   
     }
 
     // addSkills() {
@@ -354,6 +355,27 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         else {
             this.onSubmitData(false);
         }
+    };
+
+
+    async onSubmitDataDlg(bclear: any) {
+        this.isSubmitted = true;
+        if (!this.mstapplicantsocialmediadetail_Form.valid) {
+            this.toastr.addSingle("error", "", "Enter the required fields");
+            return;
+        }
+        var obj = this.mstapplicantsocialmediadetail_Form.getRawValue();
+        if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+        obj.fileAttachmentList = this.fileattachment.getAllFiles();
+        console.log(obj);
+        await this.sharedService.upload(this.fileAttachmentList);
+        this.attachmentlist = [];
+        if (this.fileattachment) this.fileattachment.clear();
+        this.objvalues.push(obj);
+        this.dialogRef.close(this.objvalues);
+        setTimeout(() => {
+            //this.dialogRef.destroy();
+        }, 200);
     }
 
 
@@ -372,15 +394,15 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         };
 
         this.formData = this.mstapplicantsocialmediadetail_Form.getRawValue();
-        if (this.dynamicconfig.data != null) {
-            for (let key in this.dynamicconfig.data) {
-                if (key != 'visiblelist' && key != 'hidelist') {
-                    if (this.mstapplicantsocialmediadetail_Form.controls[key] != null) {
-                        this.formData[key] = this.mstapplicantsocialmediadetail_Form.controls[key].value;
-                    }
-                }
-            }
-        };
+        // if (this.dynamicconfig.data != null) {
+        //     for (let key in this.dynamicconfig.data) {
+        //         if (key != 'visiblelist' && key != 'hidelist') {
+        //             if (this.mstapplicantsocialmediadetail_Form.controls[key] != null) {
+        //                 this.formData[key] = this.mstapplicantsocialmediadetail_Form.controls[key].value;
+        //             }
+        //         }
+        //     }
+        // };
         console.log(this.formData);
         this.spinner.show();
 
@@ -491,39 +513,15 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
 </div>-->
 `;
         return ret;
-    }
+    };
+
     FillData() {
+        debugger
         this.Set_mstapplicantsocialmediadetails_TableConfig();
-        this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByApplicantID(this.applicantid).then(res => {
-            this.mstapplicantsocialmediadetails_LoadTable(res);
+
+        this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByApplicantID(this.applicantid).then((res:any) => {
+            this.mstapplicantsocialmediadetails_LoadTable(res.mstapplicantsocialmediadetail);
         });
-
-
-        // this.formData = res.mstapplicantsocialmediadetail;
-        // this.formid = res.mstapplicantsocialmediadetail.socialrefid;
-        // this.pkcol = res.mstapplicantsocialmediadetail.pkcol;
-        // this.bmyrecord = false;
-        // if ((res.mstapplicantsocialmediadetail as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        // console.log(res);
-        // //console.log(res.order);
-        // //console.log(res.orderDetails);
-        // this.mstapplicantsocialmediadetail_Form.patchValue({
-        //     applicantid: res.mstapplicantsocialmediadetail.applicantid,
-        //     applicantiddesc: res.mstapplicantsocialmediadetail.applicantiddesc,
-        //     socialrefid: res.mstapplicantsocialmediadetail.socialrefid,
-        //     socialmedianame: res.mstapplicantsocialmediadetail.socialmedianame,
-        //     socialmedianamedesc: res.mstapplicantsocialmediadetail.socialmedianamedesc,
-        //     handlename: res.mstapplicantsocialmediadetail.handlename,
-        //     url: res.mstapplicantsocialmediadetail.url,
-        //     // .replace(/<[^>]*>/g, '')
-        //     remarks: res.mstapplicantsocialmediadetail.remarks,
-        //     attachment: JSON.parse(res.mstapplicantsocialmediadetail.attachment),
-        //     status: res.mstapplicantsocialmediadetail.status,
-        //     statusdesc: res.mstapplicantsocialmediadetail.statusdesc,
-        // });
-        // this.mstapplicantsocialmediadetail_menuactions = res.mstapplicantsocialmediadetail_menuactions;
-        // if (this.mstapplicantsocialmediadetail_Form.get('attachment').value != null && this.mstapplicantsocialmediadetail_Form.get('attachment').value != "" && this.fileattachment != null && this.fileattachment != undefined) this.fileattachment.setattachmentlist(this.mstapplicantsocialmediadetail_Form.get('attachment').value);
-        // //Child Tables if any
 
     }
     //start of Grid Codes mstapplicantsocialmediadetails
@@ -627,10 +625,11 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
             },
         };
     }
-    mstapplicantsocialmediadetails_LoadTable(mstapplicantsocialmediadetails = new LocalDataSource()) {
+    mstapplicantsocialmediadetails_LoadTable(mstapplicantsocialmediadetail= new LocalDataSource()) {
+        debugger
         if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantsocialmediadetails_ID) >= 0) {
             if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source = new LocalDataSource();
-            if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source.load(mstapplicantsocialmediadetails as any as LocalDataSource);
+            if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source.load(mstapplicantsocialmediadetail as any as LocalDataSource);
             if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source.setPaging(1, 20, true);
         }
     }

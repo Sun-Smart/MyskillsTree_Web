@@ -393,7 +393,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         // if (!this.validate()) {
         //     return;
         // }
-        // this.formData = this.mstapplicantworkreference_Form.getRawValue();
+        this.formData = this.mstapplicantworkreference_Form.getRawValue();
         // if (this.dynamicconfig.data != null) {
         //     for (let key in this.dynamicconfig.data) {
         //         if (key != 'visiblelist' && key != 'hidelist') {

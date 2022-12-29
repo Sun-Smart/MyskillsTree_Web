@@ -268,16 +268,15 @@ export class mstapplicantachivementgridComponent implements OnInit {
         this.Set_mstapplicantachievementdetails_TableConfig();
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
+        this.FillData();
 
         //autocomplete
-        this.mstapplicantachievementdetail_service.get_mstapplicantachievementdetails_List().then(res => {
+        this.mstapplicantachievementdetail_service.get_mstapplicantachievementdetails_List().then((res:any) => {
             debugger
             this.pkList = res as mstapplicantachievementdetail[];
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
-
-        this.FillData();
     }
     addSkills() {
         debugger
@@ -328,16 +327,15 @@ export class mstapplicantachivementgridComponent implements OnInit {
         this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
             async res => {
                 console.log("ressss", res);
-                await this.sharedService.upload(this.fileAttachmentList);
-                this.attachmentlist = [];
-                if (this.fileattachment) this.fileattachment.clear();
+                // await this.sharedService.upload(this.fileAttachmentList);
+                // this.attachmentlist = [];
+                // if (this.fileattachment) this.fileattachment.clear();
                 this.spinner.hide();
                 debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.sessionService.setItem("attachedsaved", "true")
                 this.objvalues.push((res as any).mstapplicantachievementdetail);
                 this.ngOnInit();
-                // if (!bclear) this.showview = true;
                 if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
                     this.dialogRef.close(this.objvalues);
@@ -414,7 +412,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
         // });
 
-        this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByEID(this.applicantid).then(res => {
+        this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {
             debugger
             this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
             this.Set_mstapplicantachievementdetails_TableConfig();
@@ -640,10 +638,11 @@ export class mstapplicantachivementgridComponent implements OnInit {
             },
         };
     }
-    mstapplicantachievementdetails_LoadTable(mstapplicantachievementdetails = new LocalDataSource()) {
+    mstapplicantachievementdetails_LoadTable(mstapplicantachievementdetail = new LocalDataSource()) {
+        debugger
         if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantachievementdetails_ID) >= 0) {
             if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source = new LocalDataSource();
-            if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source.load(mstapplicantachievementdetails as any as LocalDataSource);
+            if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source.load(mstapplicantachievementdetail as any as LocalDataSource);
             if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source.setPaging(1, 20, true);
         }
     }

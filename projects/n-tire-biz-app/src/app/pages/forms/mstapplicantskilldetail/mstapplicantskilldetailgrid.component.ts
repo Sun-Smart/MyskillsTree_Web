@@ -330,6 +330,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
     this.getapp = localStorage.getItem('applicantid')
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.getapp);
     this.Set_mstapplicantskilldetails_TableConfig();

@@ -277,7 +277,8 @@ p-multiselect {
 }
 
 .designrow .smart-table-container {
-  border: var(--backcolor) !important;
+
+  border-color: #4e2727 !important;
   border-style: solid !important;
   border-width: thin !important;
 }
@@ -287,7 +288,7 @@ ng2-smart-table table {
 }
 
 .designrow .smart-table-container .sticky1 {
-  background: #f5f3e4 !important;
+  // background: #f5f3e4 !important;
   color: #000 !important;
   // background-color: var(--backcolor) !important;
   // background: linear-gradient(to bottom, #004fce 0%, #009c8e 80%) !important;
@@ -311,7 +312,7 @@ ng2-smart-table table {
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
   */
-  border-bottom-color: var(--backcolor) !important;
+  border-bottom-color: #4e2727 !important;
   border-bottom-style: solid;
   border-bottom-width: thin !important;
 }
@@ -446,7 +447,7 @@ p-toastitem {
 .p-toast-message {
   overflow: visible !important;
   background-color: var(--backcolor) !important;
-  color: gray !important;
+  color: #484545 !important;
   font-size: large !important;
   width: 50% ;
   text-align: center !important;
@@ -3625,4 +3626,12 @@ footer {
 .Skill-attachment {
   width: 95% !important;
   margin: 10px auto !important;
+}
+.show-Pfl-Hdr-Lbl {
+  color: #958a8a !important;
+  font-size: 16px !important;
+  background-color: #ebf3fc !important;
+  font-weight: 600 !important;
+  height: auto !important;
+  line-height: 2;
 }

@@ -910,6 +910,7 @@ export class mstapplicantcareergridComponent implements OnInit {
         };
     }
     mstapplicantcareerdetails_LoadTable(mstapplicantcareerdetails = new LocalDataSource()) {
+        debugger
         if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantcareerdetails_ID) >= 0) {
             if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source = new LocalDataSource();
             if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source.load(mstapplicantcareerdetails as any as LocalDataSource);
