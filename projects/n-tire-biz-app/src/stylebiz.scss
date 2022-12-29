@@ -413,8 +413,8 @@ input,select,textarea
 }
 thead
 {
-
--webkit-box-shadow: 0 5px 30px 0 #68C3D6!important;
+  background-image: linear-gradient(45deg, #6B431D, #f2f2ff) !important;
+// -webkit-box-shadow: 0 5px 30px 0 #68C3D6!important;
 }
 
   ::placeholder,:-ms-input-placeholder,::-ms-input-placeholder,.form-control

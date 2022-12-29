@@ -853,10 +853,10 @@ h1 a {
 }
 
 .table thead tr {
-  background-color: #2fb8ef !important;
+  background-color:#6B431D !important;
   // background-color: var(--backcolor) !important;
   color: var(--frontcolor) !important;
-  border: #2fb8ef !important;
+  border: #6B431D !important;
 }
 
 .table td,
@@ -3431,6 +3431,7 @@ ng2-smart-table table thead {
 
 .skill-detailstable {
   -webkit-box-shadow: none !important;
+  
 }
 
 .p-accordion-tab {
@@ -3591,8 +3592,19 @@ a {
 }
 
 .corporatebgColor {
-  background-color: #f5f3e4 !important;
+  background-color: #f5f3e4  !important;
   margin-top: -2px !important;
+}
+
+
+.report-coporate-bgColor{
+  background-color: #cbf29f  !important;
+}
+.report-admin-bgColor{
+  background-color: #f5f3e4!important;
+}
+.report-applicant-bgColor{
+  background-color: #ebf3fc  !important;
 }
 
 footer {
