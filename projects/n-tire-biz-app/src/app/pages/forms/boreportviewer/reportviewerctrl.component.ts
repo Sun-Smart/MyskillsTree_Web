@@ -638,10 +638,10 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         /*
                 // create the component factory
                 const componentFactory = this.componentFactoryResolver.resolveComponentFactory(crmtatconfigurationComponent);
-        
+
                 // add the component to the view
                 this.componentRef = this.container.createComponent(componentFactory);
-        
+
                 // pass some data to the component
                 this.componentRef.instance.parameterid = null;
         */
@@ -688,9 +688,9 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         /*
         const s = this.document.createElement('script');
         s.type = 'text/javascript';
-       
-        const __this = this; //to store the current instance to call 
-                             //afterScriptAdded function on onload event of 
+
+        const __this = this; //to store the current instance to call
+                             //afterScriptAdded function on onload event of
                              //script.
                              s.innerHTML="console.log('done');";
                              */
@@ -701,7 +701,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
             let element;
             if (document.getElementsByTagName("p-tree")[0]) element = document.getElementsByTagName("p-tree")[0].getElementsByClassName("ui-tree-toggler fa fa-fw fa-caret-right")[0];
 
-            //"click" the toggler using the angular2 renderer 
+            //"click" the toggler using the angular2 renderer
             if (element) {
                 let event = new MouseEvent('click', { bubbles: true });
                 //this.renderer.invokeElementMethod(element, 'dispatchEvent', [event]);
@@ -757,7 +757,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
          let s='';
          Object.keys(rowData).forEach(key => s+=','+key);
          this.sharedService.alert(s);
- 
+
          this.sharedService.alert(rowData.isfooter);*/
 
 
@@ -1601,14 +1601,14 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         this.selecteditems = [];
         //////////debugger;
 
-        //code added by dhana July 01 
+        //code added by dhana July 01
         if (initalizeid == 'MAM') {
             this.showhideaddapplicant = false;
         } else {
             this.showhideaddapplicant = true;
         }
 
-     
+
 
 
         if (this.sharedService.menuid == undefined && this.currentRoute.snapshot.paramMap.get('id')) {
@@ -1685,7 +1685,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                             rowselecttypedesc: "Multiple",
                             servicename: ""
                         };
-            
+
                         this.menuactions.push(objmenuaction);
             */
             debugger;
@@ -1815,9 +1815,12 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
             if (localStorage.getItem('role') == '1') {
                 this.canedit = true;
                 this.candelete = true;
-            } else {
-                this.canedit = false;
+            } else if(localStorage.getItem('role') == '3'){
+                this.canedit = true;
                 this.candelete = false;
+            }else{
+              this.canedit = false;
+              this.candelete = false;
             }
 
             console.log('check for selected rejected', this.menuactions.description)
@@ -1893,7 +1896,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                             rowselecttypedesc: "Multiple",
                             servicename: ""
                         };
-            
+
                         this.menuactions.push(objmenuaction);
             */
             debugger;
@@ -2024,10 +2027,10 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
             if (this.groupfield != "") {
                 //////////debugger;
                 let totalrecord = 0;
-                
+
                 let arr=Object.keys(this.rowgroupmetadata);
                 for (let p=0;p<arr.length;p++) {
-        
+
                     this.currentp++;
                     totalrecord = totalrecord + this.rowgroupmetadata[arr[p]].size;
                     if (totalrecord >= this.rowsdisplay) {
@@ -2046,7 +2049,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
             if (this.groupfield != "" || (this.configdata.parentid != "" && this.configdata.parentid != null))
                 this.treeview = true;
-            ////////debugger;   
+            ////////debugger;
             //   this.treeview=false;
             if (this.treeview) {
                 ////////debugger;
@@ -2306,7 +2309,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         {
             //if(this.dt.filters[field])delete this.dt.filters[field];
             this.dt.filters[field] = { value: 50000, matchMode: 'equals' };
-            
+
            // this.dt.filter(0, field, 'gt');
             // this.filters[field] = { value: value, matchMode: matchMode }
             //this.dt.reset();
@@ -2570,7 +2573,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
     GetColData(col, rowData) {
         //,rowData1,rowgroupmetadata[rowData1[groupfield]+'p'+page]
-        //, rowData, 
+        //, rowData,
         let groupdata = this.rowgroupmetadata[rowData[this.groupfield] + 'p' + this.page1];
         ////////////debugger;
         let ret = "";
@@ -2615,9 +2618,9 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                         let thead = divth.getElementsByTagName('p-table')[0].getElementsByTagName('thead')[0];
                         let theaderCollection = thead.children[thead.children.length - 2].childNodes;
                         this.thCollection = thead.children[thead.children.length - 1].childNodes;
-            
+
                         let j = 0;
-            
+
                         let filtercols = this.configdata.sidefilters.split(",").map(function(item) {
                             return item.toLowerCase().trim();
                           });
@@ -2630,13 +2633,13 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                                 if (found != undefined && title!="") {
                                     selectedfilters.push(j);
                                     //(theaderCollection[i] as any).id="fh"+j;
-            
+
                                     let theader = theaderCollection[i];
                                     //let th=this.thCollection[i];
                                     var div = document.createElement("div");
-            
+
                                     div.classList.add("row1");
-            
+
                                     let newdiv = rowfilter.appendChild(div);
                                     newdiv.id = "th" + j;
                                     var theader1 = document.createElement("div");
@@ -2644,14 +2647,14 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                                     theader1.innerHTML = (theader as HTMLElement).innerHTML;
                                     console.log(theader1.innerHTML);
                                     console.log(theader);
-            
+
                                     //th1.innerHTML=(th as HTMLElement).innerHTML;
                                     newdiv.appendChild(theader1);
                                     //newdiv.appendChild(th);
                                 }
                             }
                         }
-            
+
                         j = 0;
                         for (let i = 0; i < this.thCollection.length; i++) {
                             if (this.thCollection[i].nodeName == "TH") {
@@ -2670,7 +2673,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                                             (thead.children[thead.children.length - 1].childNodes[i].childNodes[c] as any).id="fh"+ "_" + i+"_" +c;
                                            // (thead.children[thead.children.length - 1].childNodes[i].childNodes[c] as any).change="validation("+"fh"+ "_" + i+"_" +c+")";
                                         }
-                                        
+
                                         var th1=document.createElement("div");
                                         //th1.innerHTML=(this.thCollection[i] as HTMLElement).innerHTML;
                                         //th1.onchange =  "document.";
@@ -2680,7 +2683,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                                         //console.log(this.thCollection[i]);
                                     }
                                 }
-            
+
                             }
                         }
             */
@@ -2844,7 +2847,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         return false;
         //"<div class='moredrop'><ul><li><i class='material-icons'>edit</i><span class='label'>Edit</span></li><li><i class='material-icons'>delete</i><span class='label'>Delete</span></li></ul></div>"
         /*
-  
+
         */
     }
     bgclick(rowIndex) {
@@ -2865,7 +2868,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         ////debugger;
         // return 'background-color:'+itemcol.bgcolor+';color:'+itemcol.forecolor;
         //&& (itemcol.forecolor==null ? {'color': ''} : {'color': itemcol.forecolor})
-        //(itemcol.bgcolor==null? {'background-color': ''} : {'background-color': itemcol.bgcolor}) 
+        //(itemcol.bgcolor==null? {'background-color': ''} : {'background-color': itemcol.bgcolor})
         //debugger;
         if (itemcol.conditionstyle != null) {
             let ret = eval(itemcol.conditionstyle);
