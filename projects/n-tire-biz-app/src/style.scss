@@ -378,13 +378,35 @@ a + a {
 .alert-info,
 .alert-action,
 .btn-success {
-  color: #000 !important;
+  color: #fff !important;
   border: none !important;
   border-radius: 6px;
   padding: 4px 14px !important;
   margin-right: 15px !important;
-  background: #584040 !important;
+  background:#584040!important;
 }
+.alert-success,
+.alert-danger,
+.alert-primary,
+.alert-info,
+.alert-action,
+.btn-success :hover{
+ color: #fff !important;
+ border: none !important;
+ border-radius: 6px;
+ padding: 4px 14px !important;
+ margin-right: 15px !important;
+ background: #8d6f6f !important;
+}
+.alert-primary:hover{
+  color: #fff !important;
+ border: none !important;
+ border-radius: 6px;
+ padding: 4px 14px !important;
+ margin-right: 15px !important;
+ background: #8d6f6f !important;
+}
+
 
 .layout-topbar-logo {
   margin-top: 20px;
@@ -2846,7 +2868,7 @@ p-dynamicdialog,
 
 .p-accordion .p-accordion-header:not(.p-disabled).p-highlight:hover .p-accordion-header-link {
   border-color: transparent;
-  background: #186ba0 !important;
+  background: #6B431D !important;
   color: #fff !important;
 }
 
@@ -3097,7 +3119,8 @@ textarea#briefintroduction {
 // }
 .p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
   /*background: #0BA4E1 !important;*/
-  background: #2fb8ef !important;
+  // background: #2fb8ef !important;
+  background-color: #6B431D !important;
 }
 
 ng2-smart-table-pager {
@@ -3542,7 +3565,7 @@ a {
   color: #007bff;
   text-decoration: none;
   background-color: transparent;
-  color: black !important;
+  // color: black !important;
 }
 
 .p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
@@ -3652,4 +3675,8 @@ footer {
 .omega .p-datatable .p-datatable-thead > tr > th, .omega .p-datatable .p-datatable-tfoot > tr > td {
   background-color: #6B431D !important;
   border-color: #d9d9d9 !important;
+}
+.p-datatable .p-sortable-column .p-sortable-column-icon {
+  
+  margin-left: 0.5rem;
 }
