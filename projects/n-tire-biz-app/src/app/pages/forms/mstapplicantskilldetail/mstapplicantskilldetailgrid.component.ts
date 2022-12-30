@@ -223,10 +223,13 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
     </tbody>
   </table>
 </form>
-<ng2-smart-table #tbl_mstapplicantskilldetails (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
-  [settings]="mstapplicantskilldetails_settings" (custom)="onCustom_mstapplicantskilldetails_Action($event)"
+<ng2-smart-table #tbl_mstapplicantskilldetails 
+  (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
+  [settings]="mstapplicantskilldetails_settings" 
+  (custom)="onCustom_mstapplicantskilldetails_Action($event)"
   (custom)="onCustom_mstapplicantskilldetailsAttachment_Action($event)"
-  [source]="tbl_mstapplicantskilldetails?.source?.data" (delete)="mstapplicantskilldetails_route($event,'delete')"
+  [source]="tbl_mstapplicantskilldetails?.source?.data" 
+  (delete)="mstapplicantskilldetails_route($event,'delete')"
   (deleteConfirm)="mstapplicantskilldetails_route($event,'delete')"
   (create)="mstapplicantskilldetails_route($event,'create')"
   (createConfirm)="mstapplicantskilldetails_beforesave($event)" (edit)="mstapplicantskilldetails_route($event,'edit')"
@@ -582,7 +585,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         showorhide: res.mstapplicantskilldetail.showorhide,
         referenceacceptance: res.mstapplicantskilldetail.referenceacceptance,
         referenceacceptancedesc: res.mstapplicantskilldetail.referenceacceptancedesc,
-        attachment: JSON.parse(res.mstapplicantskilldetail.attachment),
+        attachment: "[]",
         status: res.mstapplicantskilldetail.status,
         statusdesc: res.mstapplicantskilldetail.statusdesc,
       });
@@ -1092,62 +1095,24 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   // }
   async onCustom_mstapplicantskilldetails_Action(event: any) {
     debugger
-    let skillsdetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;">Segment Category: ' + event.data.segmentdesc + '</li>'
-      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Skill Category: ' + event.data.skillcategorydesc + '</li>'
-      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Sub Category: ' + event.data.subcategoryiddesc + '</li>'
-      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Self Rating: ' + event.data.selfrating + '</li>'
-      + '<li class="list-group-item remarks_p" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
+
+    let skillsdetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Sub Category: ' + event.data.subcategoryiddesc + '</li>'
+        + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Skill Category: ' + event.data.skillcategorydesc + '</li>'
+        + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Self Rating: ' + event.data.selfrating + '</li>'
+        + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantskilldetails");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantreferencerequests") {
-      this.FillData();
-      // this.AddOrEdit_mstapplicantskilldetail(event, event.data.skillid, this.applicantid)
-      // this.dialog.open(mstapplicantreferencerequestComponent,
-      //   {
-      //     data: { referencesourcedetails: skillsdetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
-      //     // data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 318, requestmasterid: event.data.referenceid, contactemailid: event.data.email, requestedcontact: event.data.referencename, ScreenType: 2, save: true }
-      //     // data: { skillsdetails:skillsdetails,applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
-      //   }
-      // ).onClose.subscribe(res => {
-      // });
-    };
+        this.dialog.open(mstapplicantreferencerequestComponent,
+            {
+                data: { referencesourcedetails: skillsdetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
+                // data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 318, requestmasterid: event.data.referenceid, contactemailid: event.data.email, requestedcontact: event.data.referencename, ScreenType: 2, save: true }
+                // data: { skillsdetails:skillsdetails,applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
+            }
+        ).onClose.subscribe(res => {
+        });
+    }
 
-
-
-    // let skillsdetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Sub Category: ' + event.data.subcategoryiddesc + '</li>'
-    //     + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Skill Category: ' + event.data.skillcategorydesc + '</li>'
-    //     + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Self Rating: ' + event.data.selfrating + '</li>'
-    //     + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
-    // let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantskilldetails");
-    // let formname = (objbomenuaction as any).actionname;
-    // if (formname == "mstapplicantreferencerequests") {
-    //     this.dialog.open(mstapplicantreferencerequestComponent,
-    //         {
-    //             data: { referencesourcedetails: skillsdetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
-    //             // data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 318, requestmasterid: event.data.referenceid, contactemailid: event.data.email, requestedcontact: event.data.referencename, ScreenType: 2, save: true }
-    //             // data: { skillsdetails:skillsdetails,applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
-    //         }
-    //     ).onClose.subscribe(res => {
-    //     });
-    // }
-    // this.dialog.open(mstapplicantreferencegridComponent, {
-    //     width: '100% !important',
-    //     height: 'auto !important',
-    //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-    // })
-
-    // let referencesourcedetails = 'Sub Category: ' + event.data.subcategoryiddesc + '<BR>' + 'Skill Category: ' + event.data.skillcategorydesc + '<BR>' + 'Self Rating: ' + event.data.selfrating + '<BR>' + 'Remarks: ' + event.data.remarks;
-    // let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantskilldetails");
-    // let formname = (objbomenuaction as any).actionname;
-    // if (formname == "mstapplicantreferencerequests") {
-
-    //     this.dialog.open(mstapplicantreferencerequestComponent,
-    //         {
-    //             data: { referencesourcedetails: referencesourcedetails, applicantid: this.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
-    //         }
-    //     ).onClose.subscribe(res => {
-    //     });
-    // }
   };
 
   async onCustom_mstapplicantskilldetailsAttachment_Action(event: any, skillid: any, applicantid: any) {

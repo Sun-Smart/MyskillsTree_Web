@@ -415,6 +415,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.sessionService.setItem("attachedsaved", "true")
                 this.objvalues.push((res as any).mstapplicantsocialmediadetail);
+                this.ngOnInit();
                 if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
                     this.dialogRef.close(this.objvalues);
