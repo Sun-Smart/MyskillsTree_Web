@@ -9,12 +9,12 @@ import { DynamicDialogRef } from 'primeng/dynamicDialog';
     selector: 'openfile-App',
     template: `  
     <div class="row">
-    <div class="col-12">
-        <button>
-        <a class="nav-link active right" style="margin-left: 86%;" [routerLink]=''  (click)="onClose()"   ><i class="fa fa-close"></i> Close</a>
+    <div class="col-12" style="display:flex; justify-content:end;">
+        <button class="popup-add-button">
+        <a class="nav-link active right" [routerLink]='' style="color:#fff !important;" (click)="onClose()"   ><i class="fa fa-close"></i> Close</a>
         </button>
     </div>
-    <div>
+    <div class="col-12">
     <iframe [src]="url" frameBorder="0" width="700px!important" height="750px!important">
     </iframe>
     </div>
