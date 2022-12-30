@@ -147,9 +147,9 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="requestreferencedatevisible==undefined || requestreferencedatevisible==true" style='' class="col-3 ">
         <label for="requestreferencedate" class="control-label required">Date</label>
-        <label *ngIf="(showview || bapplicantentry)"
+        <label *ngIf="showview"
           class="labelview">{{ngbDateParserFormatter.format(f.requestreferencedate?.value)}}</label>
-        <div class="input-group" *ngIf="!(showview || bapplicantentry)">
+        <div class="input-group" *ngIf="!showview">
           <input #requestreferencedateformpicker="ngbDatepicker" [minDate]='{year: 1950, month:1, day: 1}'
             [maxDate]='{year: 2030, month:12, day: 31}' ngbDatepicker name="requestreferencedateformpicker"
             id="requestreferencedate" required formControlName="requestreferencedate" class="form-control">
@@ -163,8 +163,8 @@
       </div>
       <div *ngIf="requestedcontactvisible==undefined || requestedcontactvisible==true" style='' class="col-3 ">
         <label for="requestedcontact" class="control-label required">Contact Person</label>
-        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.requestedcontact?.value}}</label>
-        <input *ngIf="!(showview || bapplicantentry)" id="requestedcontact" required formControlName="requestedcontact"
+        <label *ngIf="showview" class="labelview">{{f.requestedcontact?.value}}</label>
+        <input *ngIf="!showview" id="requestedcontact" required formControlName="requestedcontact"
           class="form-control">
         <app-field-error-display [displayError]="f.requestedcontact.errors?.required"
           errorMsg="Enter {{'Contact' | translate}}">
@@ -175,8 +175,8 @@
       </div>
       <div *ngIf="contactdesignationvisible==undefined || contactdesignationvisible==true" style='' class="col-3 ">
         <label for="contactdesignation" class="control-label">Designation</label>
-        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.contactdesignation?.value}}</label>
-        <input *ngIf="!(showview || bapplicantentry)" id="contactdesignation" formControlName="contactdesignation"
+        <label *ngIf="showview" class="labelview">{{f.contactdesignation?.value}}</label>
+        <input *ngIf="!showview" id="contactdesignation" formControlName="contactdesignation"
           class="form-control">
         <!-- <app-field-error-display [displayError]="f.contactdesignation.errors?.required"
           errorMsg="Enter {{'Designation' | translate}}">
@@ -184,8 +184,8 @@
       </div>
       <div *ngIf="contactemailidvisible==undefined || contactemailidvisible==true" style='' class="col-3 ">
         <label for="contactemailid" class="control-label required">Email</label>
-        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.contactemailid?.value}}</label>
-        <input type="email" [email]="true" *ngIf="!(showview || bapplicantentry)" id="contactemailid"
+        <label *ngIf="showview" class="labelview">{{f.contactemailid?.value}}</label>
+        <input type="email" [email]="true" *ngIf="!showview" id="contactemailid"
           formControlName="contactemailid" class="form-control" required>
         <app-field-error-display [displayError]="f.contactemailid.errors?.required"
           errorMsg="Enter {{'email' | translate}}">
@@ -198,8 +198,8 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="contactmobilevisible==undefined || contactmobilevisible==true" style='' class="col-3 ">
         <label for="contactmobile" class="control-label">Mobile</label>
-        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.contactmobile?.value}}</label>
-        <int-phone-prefix *ngIf="!(showview || bapplicantentry)" id="contactmobile" formControlName="contactmobile"
+        <label *ngIf="showview" class="labelview">{{f.contactmobile?.value}}</label>
+        <int-phone-prefix *ngIf="!showview" id="contactmobile" formControlName="contactmobile"
           [locale]="'en'" class="form-control telephone">
         </int-phone-prefix>
       </div>
@@ -216,8 +216,8 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="requestremarksvisible==undefined || requestremarksvisible==true" style='width:1500px' class="col-12 ">
         <label for="requestremarks" class="control-label">Request Remarks</label>
-        <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.requestremarks?.value}}</label>
-        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!(showview || bapplicantentry)"
+        <label *ngIf="showview" class="labelview">{{f.requestremarks?.value}}</label>
+        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
           id="requestremarks" formControlName="requestremarks" class="form-control">
 </textarea>
       </div>
