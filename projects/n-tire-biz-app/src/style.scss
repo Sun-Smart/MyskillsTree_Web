@@ -516,9 +516,9 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 0.7em !important;
+  width: 3px !important;
   height: 0.7em !important;
-  background-color: var(--backcolor) !important;
+  background-color: rgb(71, 33, 33) !important;
 }
 
 ::-webkit-scrollbar-track {
@@ -527,7 +527,7 @@ html {
 
 ::-webkit-scrollbar-thumb {
   outline: 1px solid var(--backcolor) !important;
-  background-color: var(--frontcolor) !important;
+  background-color: rgb(71, 33, 33) !important;
 }
 
 .center {
@@ -3468,7 +3468,8 @@ ng2-smart-table table thead {
   border-radius: 6px;
   padding: 4px 14px !important;
   margin-right: 15px !important;
-  background:#584040!important;
+  // background:#584040!important;
+  background-color: #6B431D !important;
 }
 
 .popup-add-button:hover {
@@ -3675,8 +3676,4 @@ footer {
 .omega .p-datatable .p-datatable-thead > tr > th, .omega .p-datatable .p-datatable-tfoot > tr > td {
   background-color: #6B431D !important;
   border-color: #d9d9d9 !important;
-}
-.p-datatable .p-sortable-column .p-sortable-column-icon {
-  
-  margin-left: 0.5rem;
 }

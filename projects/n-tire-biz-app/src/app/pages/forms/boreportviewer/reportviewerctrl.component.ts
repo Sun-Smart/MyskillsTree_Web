@@ -1815,14 +1815,19 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
             if (localStorage.getItem('role') == '1') {
                 this.canedit = true;
                 this.candelete = true;
-            } else if(localStorage.getItem('role') == '3'){
+            } else if (localStorage.getItem('role') == '3') {
                 this.canedit = true;
                 this.candelete = false;
-            }else{
-              this.canedit = false;
-              this.candelete = false;
+            } else if (localStorage.getItem('role') == '2' && localStorage.getItem('user_type') == 'C') {
+                // if(){
+                this.canedit = true;
+                this.candelete = false;
+                // }
             }
-
+            //  else {
+            //     this.canedit = false;
+            //     this.candelete = false;
+            // }
             console.log('check for selected rejected', this.menuactions.description)
             var objmenuaction = {
                 actionicon: "fa fa-eye",
@@ -1849,6 +1854,8 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                 rowselecttypedesc: "Single",
                 servicename: ""
             };
+
+            // this.menuactions.push(objmenuaction);
 
             if (this.canedit) this.menuactions.push(objmenuaction);
 

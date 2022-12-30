@@ -157,6 +157,44 @@
 
           </label>
         </li>
+
+        <!-- certified -->
+
+        <li *ngIf="showCertifiermenu" class="layout-topbar-item ng-tns-c186-0 "
+          style="list-style: none; color:black;">
+          <label class="dropdown">
+            <div>
+              <i class="fa fa-th fa1 fa2" aria-hidden="true"
+                style="margin-left:10px; font-size: 24px !important; margin-top: 6px;cursor: pointer !important;" (click)="openpopup()"></i>
+              <span class="p-ink" style="height: 44px; width: 44px; "></span>
+            </div>
+            <input type="checkbox" class="dd-input" id="test">
+
+            <ul class="dd-menu" *ngIf="menuhide"
+              style="  margin-top: 12px !important; border-radius: 12px;">
+              <div style="display: flex;    margin: 8px 8px 0 8px !important;" class="row">
+
+                <div class="col-12" style="text-align: end;
+                padding: 0 0px;">
+                  <button type="button" (click)="closePopup();"
+                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                    style=" margin:8px;">
+                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
+                      style="color: red !important; font-size: 20PX;"></span>
+                  </button>
+                </div>
+              <div class="row" style="margin: 8px 8px 0 8px !important;">
+                <div class="col-12 card certi" style="text-align:center;margin: 0px 0px 26px 0px !important">
+                  <a [routerLink]='' (click)="openReference()">
+                    <li class="li2"><i class="bi bi-person-square fa1" aria-hidden="true"></i><br /> References</li>
+                  </a>
+                </div>   
+              </div>
+              </div>
+              
+            </ul>
+          </label>
+        </li>
         <!-- <li class="layout-topbar-item app ng-tns-c186-0"><a pripple="" (click)="themeChooser.toggle($event)"
                       class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple"><i
                           class="pi pi-table fs-large ng-tns-c186-0"></i><span class="p-ink"
