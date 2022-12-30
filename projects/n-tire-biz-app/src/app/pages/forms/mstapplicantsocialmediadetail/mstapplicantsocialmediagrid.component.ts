@@ -415,6 +415,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.sessionService.setItem("attachedsaved", "true")
                 this.objvalues.push((res as any).mstapplicantsocialmediadetail);
+                this.mstapplicantsocialmediadetail_Form.reset();
                 this.ngOnInit();
                 if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
@@ -521,6 +522,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         this.Set_mstapplicantsocialmediadetails_TableConfig();
 
         this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByApplicantID(this.applicantid).then((res:any) => {
+           this.mstapplicantsocialmediadetail_menuactions = res.mstapplicantsocialmediadetail_menuactions;
             this.mstapplicantsocialmediadetails_LoadTable(res.mstapplicantsocialmediadetail);
         });
 
@@ -583,7 +585,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
                 edit: true, // true,
                 delete: (this.IsApplicant || this.IsAdmin),
                 position: 'right',
-                //  custom: this.mstapplicantsocialmediadetail_menuactions
+                 custom: this.mstapplicantsocialmediadetail_menuactions
                 // custom: [{ name: 'reference',
                 // title: `<i class="icon-references" aria-hidden="true"></i>`,
                 // }],
@@ -763,7 +765,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     async onCustom_mstapplicantsocialmediadetailsAttachment_Action(event: any, socialrefid: any, applicantid: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
         let formname = (objbomenuaction as any).actionname;
-        if (formname == "mstapplicantskilldetails") {
+        if (formname == "mstapplicantsocialmediadetails") {
             debugger
             let add = false;
             debugger
