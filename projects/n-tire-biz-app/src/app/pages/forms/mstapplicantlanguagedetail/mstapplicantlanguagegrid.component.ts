@@ -105,11 +105,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
   <thead>
     <tr>
-      <th style="width: 15%;">Language</th>
+      <th style="width: 20%;">Language</th>
       <th style="width: 15%;">Read Proficiency</th>
       <th style="width: 15%;">Write Proficiency</th>
       <th style="width: 15%;">Speak Proficiency</th>
-      <th style="width: 15%;">Rating</th>
+      <th style="width: 10%;">Rating</th>
       <th style="width: 15%;">Remarks</th>
       <!-- <th style="width: 31.5%;">Attachment</th> -->
       <!--<th>Attachment</th>-->
@@ -453,13 +453,13 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         <table class="table table-hover languagedetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
-            <th style="width: 5%;white-space: break-spaces;word-break: break-word !important;" >##languagedesc##</th>
-            <th style="width: 12%;white-space: break-spaces;word-break: break-word !important;" >##readproficiency##</th>
-            <th style="width: 12%;white-space: break-spaces;word-break: break-word !important;" >##writeproficiency##</th>
-            <th style="width: 12%;white-space: break-spaces;word-break: break-word !important;" >##speakproficiency##</th>
-            <th style="width: 12%;white-space: break-spaces;word-break: break-word !important;" >Read: <br/> Write: ##overallrating## <br/> Speak:</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 12%;" >##remarks##</th>
-            <!--<th style="white-space: break-spaces;word-break: break-word !important;" >##attachment##</th>-->
+            <th style="width: 20%;" >##languagedesc##</th>
+            <th style="width: 15%;" >##readproficiency##</th>
+            <th style="width: 15%;" >##writeproficiency##</th>
+            <th style="width: 15%;" >##speakproficiency##</th>
+            <th style="width: 10%;" >##overallrating##</th>
+            <th style="width: 15%;" >##remarks##</th>
+            <!--<th style="" >##attachment##</th>-->
           </tr>
         </tbody>
       </table>

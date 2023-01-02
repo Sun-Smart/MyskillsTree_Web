@@ -173,7 +173,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <td>
      <!-- <label for="skills" class="control-label">Skills &nbsp;&nbsp;</label><br> -->
      <!-- <input  id="designation" required formControlName="skills" class="form-control"> -->
-     <p-autoComplete formControlName="skills"   field="label" [multiple]="true" [suggestions]="skills_results"
+     <p-autoComplete formControlName="skills"  *ngIf="!showview" field="label" [multiple]="true" [suggestions]="skills_results"
           (completeMethod)="search_skills($event)"></p-autoComplete>
           <label *ngIf="showview" class="labelview">{{f.skills?.label}}</label>
      </td>
@@ -501,6 +501,8 @@ export class mstapplicantcareergridComponent implements OnInit {
 
             if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
             // if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.mstapplicantcareerdetail_Form.get('skills').value);
+            //   if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+            //   this.fileAttachmentList = this.fileattachment.getAllFiles();
             console.log(this.formData);
             this.spinner.show();
             this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
