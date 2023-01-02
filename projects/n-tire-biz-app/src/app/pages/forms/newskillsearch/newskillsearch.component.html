@@ -63,6 +63,9 @@
         <div class="col-3 dropdown-skillSet">
         </div>
       </div>
+
+      <!-- List View -->
+
       <div class="listView-content" *ngIf="showList" style="max-height: 450px !important;overflow-y: scroll;">
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
@@ -92,6 +95,9 @@
           </div> -->
         </div>
       </div>
+
+      <!-- Grid View -->
+
       <div class="gridView-content" *ngIf="showGrid">
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
@@ -114,8 +120,9 @@
                   <!-- <img src="assets/profile.jpeg" alt=""
                     style="width: 10%;border-radius: 50% !important;">&nbsp; -->
                   <img *ngIf="item.useprofilephoto" src="https://demo.herbie.ai/attachment/{{item.useprofilephoto}}"
-                    alt="" style="width: 10%;border-radius: 50% !important;">&nbsp;&nbsp;
-                  <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="" style="width: 10%;border-radius: 50% !important;">&nbsp;&nbsp;
+                     class="grid-image">
+                  <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt=""
+                  class="grid-image">
                   {{item.firstname}} {{item.lastname}}
                 </td>
                 <td>{{item.emailid}}</td>
@@ -139,8 +146,8 @@
           <div *ngFor="let item of showData | filter:term">
             <!-- <img src="assets/profile.jpeg" alt=""> -->
             <img *ngIf="item.useprofilephoto" src="https://demo.herbie.ai/attachment/{{item.useprofilephoto}}"
-                    alt="">&nbsp;&nbsp;
-                  <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="">&nbsp;&nbsp;
+              alt="">&nbsp;&nbsp;
+            <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="">&nbsp;&nbsp;
             <ul>
               <li style="color: #000;font-weight: 600;font-size: 16px;
               text-transform: capitalize;">{{item.firstname}} {{item.lastname}}</li>
