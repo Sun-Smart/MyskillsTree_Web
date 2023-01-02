@@ -63,14 +63,16 @@
         <div class="col-3 dropdown-skillSet">
         </div>
       </div>
-      <div class="listView-content" *ngIf="showList">
+      <div class="listView-content" *ngIf="showList" style="max-height: 450px !important;overflow-y: scroll;">
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
-        <div class="list-container">
         <div *ngFor="let item of showData | filter:term; index of i" [ngClass]="{ 'active' : 'listView-card'}"
           style="margin: 10px;">
           <div style="display: flex;padding: 5px;margin: 0px 0px -7px 9px;">
-            <img src="assets/profile.jpeg" alt="">
+            <!-- <img src="assets/profile.jpeg" alt=""> -->
+            <img *ngIf="item.useprofilephoto" src="https://demo.herbie.ai/attachment/{{item.useprofilephoto}}"
+              alt="">&nbsp;&nbsp;
+            <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="">&nbsp;&nbsp;
             <ul>
               <li style="color: #000;font-weight: 600;font-size: 16px;
               text-transform: capitalize;">{{item.firstname}} {{item.lastname}}</li>
@@ -80,18 +82,16 @@
               <li>Experience : {{item.experience}}</li>
               <li>Category : <b
                   style="color:#000;font-weight: 600;">{{item.segment}},{{item.category}},{{item.subcategory}}</b></li>
+              <li>Skills : <b style="color:#000;font-weight: 600;">{{item.skills}}</b></li>
             </ul>
           </div>
-          <div>
+          <!-- <div>
             <p style="font-size: 12px;margin: 0px 70px;color: #9ba0a5;"><span>Skills : </span><b
                 style="color:#000;font-weight: 600;">{{item.skills}}</b></p>
 
-          </div>
+          </div> -->
         </div>
-        </div>
-        
       </div>
-      
       <div class="gridView-content" *ngIf="showGrid">
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
@@ -110,14 +110,20 @@
             </thead>
             <tbody *ngFor="let item of showData | filter:term" style="line-height: 3rem;">
               <tr>
-                <td><img src="assets/profile.jpeg" alt=""
-                    style="width: 10%;border-radius: 50% !important;">&nbsp;{{item.firstname}} {{item.lastname}}</td>
+                <td>
+                  <!-- <img src="assets/profile.jpeg" alt=""
+                    style="width: 10%;border-radius: 50% !important;">&nbsp; -->
+                  <img *ngIf="item.useprofilephoto" src="https://demo.herbie.ai/attachment/{{item.useprofilephoto}}"
+                    alt="" style="width: 10%;border-radius: 50% !important;">&nbsp;&nbsp;
+                  <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="" style="width: 10%;border-radius: 50% !important;">&nbsp;&nbsp;
+                  {{item.firstname}} {{item.lastname}}
+                </td>
                 <td>{{item.emailid}}</td>
                 <td>{{item.mobilenumber}}</td>
                 <td>{{item.location}}</td>
                 <td>{{item.experience}}</td>
                 <td>{{item.skills}}</td>
-                <td>{{item.segment}},{{category}},{{subcategory}}</td>
+                <td>{{item.segment}},{{item.category}},{{item.subcategory}}</td>
               </tr>
             </tbody>
           </table>
@@ -131,7 +137,10 @@
         <label for="">Matching profile</label>
         <div class="card-view">
           <div *ngFor="let item of showData | filter:term">
-            <img src="assets/profile.jpeg" alt="">
+            <!-- <img src="assets/profile.jpeg" alt=""> -->
+            <img *ngIf="item.useprofilephoto" src="https://demo.herbie.ai/attachment/{{item.useprofilephoto}}"
+                    alt="">&nbsp;&nbsp;
+                  <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="">&nbsp;&nbsp;
             <ul>
               <li style="color: #000;font-weight: 600;font-size: 16px;
               text-transform: capitalize;">{{item.firstname}} {{item.lastname}}</li>
@@ -140,7 +149,7 @@
               <li>Location : {{item.location}}</li>
               <li>Experience : {{item.experience}}</li>
               <li>Skills : {{item.skills}}</li>
-              <li>Category : {{item.segment}},{{category}},{{subcategory}}</li>
+              <li>Category : {{item.segment}},{{item.category}},{{item.subcategory}}</li>
             </ul>
           </div>
         </div>

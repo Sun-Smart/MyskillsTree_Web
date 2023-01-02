@@ -22,7 +22,6 @@ export class RegisterComponent implements OnInit {
   category: any;
   drophide: boolean=false;
   submenus:boolean = false;
-  showSpinner: boolean = false;
 
   constructor(private router: Router, private toastr: ToastService, private http: HttpClient, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     this.bouserregistration_Form = this.formBuilder.group({
@@ -65,8 +64,6 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     debugger
     this.spinner.show();
-    this.showSpinner = true;
-    return;
     if (!this.bouserregistration_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the fields");
       return;
