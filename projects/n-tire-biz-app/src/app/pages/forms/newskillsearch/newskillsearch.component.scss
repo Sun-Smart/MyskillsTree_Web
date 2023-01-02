@@ -108,10 +108,16 @@
 
 .listView-content {
   img {
+    // border-radius: 50%;
+    // width: 15%;
+    // // height: fit-content;
+    // display: flex;
     border-radius: 50%;
-    width: 5%;
-    height: fit-content;
+    width: 10%;
+    position: relative;
+    height: 80px;
     display: flex;
+    top: 20px;
   }
 }
 

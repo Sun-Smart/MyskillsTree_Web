@@ -223,12 +223,12 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
     </tbody>
   </table>
 </form>
-<ng2-smart-table #tbl_mstapplicantskilldetails 
+<ng2-smart-table #tbl_mstapplicantskilldetails
   (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
-  [settings]="mstapplicantskilldetails_settings" 
+  [settings]="mstapplicantskilldetails_settings"
   (custom)="onCustom_mstapplicantskilldetails_Action($event)"
   (custom)="onCustom_mstapplicantskilldetailsAttachment_Action($event)"
-  [source]="tbl_mstapplicantskilldetails?.source?.data" 
+  [source]="tbl_mstapplicantskilldetails?.source?.data"
   (delete)="mstapplicantskilldetails_route($event,'delete')"
   (deleteConfirm)="mstapplicantskilldetails_route($event,'delete')"
   (create)="mstapplicantskilldetails_route($event,'create')"
@@ -635,7 +635,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   Add_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
     debugger
-    
+
     this.showSkillDetails_input = true;
     this.getData();
     let add = false;
@@ -931,7 +931,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
         confirmDelete: true,
       },
-      
+
 
       columns: {
         colhtml:
