@@ -28,11 +28,11 @@ export class VerifyscreenComponent implements OnInit {
   mobile: any;
   email: any;
   theme: string;
-
+  showSpinner:boolean = false;
   constructor(private router: Router, private fb: FormBuilder,
-    private route: ActivatedRoute, private http: HttpClient, 
+    private route: ActivatedRoute, private http: HttpClient,
     private sharedService: SharedService,
-    private toastService: ToastService, 
+    private toastService: ToastService,
     private userContextService: UserContextService,
     public sessionService: SessionService,
     public otpService: OtpvalidationService,) {
@@ -70,8 +70,9 @@ export class VerifyscreenComponent implements OnInit {
 
   onSubmit(data:any) {
     debugger
- 
+
     this.submitted = true;
+    this.showSpinner = true;
 
     this.mobile = this.validation_Form.value.mobileotp;
     this.email = this.validation_Form.value.emailotp;
@@ -81,6 +82,7 @@ export class VerifyscreenComponent implements OnInit {
       this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + this.verifyEmail_data + '&otpm=' + this.verifyMob_Otp + '&otpe=' + this.verifyEmail_Otp)
         .subscribe((resp: any) => {
           debugger
+          this.showSpinner = false;
           this.confirmation_otp = resp;
 
           // this.toastService.addSingle("success", "", "Otp Validated Successfully.");

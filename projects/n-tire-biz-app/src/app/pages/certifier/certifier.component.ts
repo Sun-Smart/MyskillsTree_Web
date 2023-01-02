@@ -23,7 +23,7 @@ export class CertifierComponent implements OnInit {
   category: any;
   drophide: boolean = false;
   submenus: boolean = false;
-
+  showSpinner:boolean = false;
   constructor(private router: Router, private toastr: ToastService, private http: HttpClient, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     this.bouserregistration_Form = this.formBuilder.group({
       firstname: ['', Validators.required],
@@ -63,7 +63,8 @@ export class CertifierComponent implements OnInit {
 
   onSubmit() {
     debugger
-    this.spinner.show();
+    // this.spinner.show();
+    this.showSpinner = true;
     if (!this.bouserregistration_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the fields");
       return;
@@ -88,16 +89,20 @@ export class CertifierComponent implements OnInit {
         headers: options, responseType: 'text'
       }).subscribe((res: any) => {
         console.log(res);
-        this.spinner.hide();
+        // this.spinner.hide();
+        this.showSpinner = false;
         debugger;
         if (res == 'Email already exist') {
+          this.showSpinner = false;
           // this.toastr.addSingle("error", "", "Email already exist");
           alert("Email already exist");
           return;
         } else if (res == 'Mobilenumber already exist') {
+          this.showSpinner = false;
           alert('Mobilenumber already exist');
           return;
         } else {
+          this.showSpinner = false;
           // this.toastr.addSingle("success", "", "Successfully Registered.Check your mail for the login credentials");
           alert("Successfully Registered.Check your mail for the login credentials");
           this.objvalues.push((res as any).bouserregistration)
@@ -114,9 +119,11 @@ export class CertifierComponent implements OnInit {
       }, (error: HttpErrorResponse) => {
         console.log(error.error);
         if (error.error == "Email already exist") {
+          this.showSpinner = false;
           alert('Email already exist');
           return;
         } else if (error.error == "Mobilenumber already exist") {
+          this.showSpinner = false;
           alert('Mobilenumber already exist');
           return;
         }

@@ -259,3 +259,11 @@ label {
 .form-group {
     margin-bottom: 1rem !important;
 }
+.spinnerShow {
+  max-width: 100% !important;
+  background-color: #212121c4;
+  height: fit-content;
+  position: absolute;
+  z-index: 1;
+  bottom: -50px;
+}
