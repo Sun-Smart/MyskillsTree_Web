@@ -140,6 +140,8 @@ ul {
   background-color: #e5f9f9;
   margin: auto 15px;
   border-radius: 10px;
+  max-height: 450px !important;
+  overflow-y: scroll;
 }
 
 .active {
