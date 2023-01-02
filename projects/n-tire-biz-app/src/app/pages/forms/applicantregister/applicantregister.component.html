@@ -1,3 +1,4 @@
+<img src="assets/spinner.gif" *ngIf="showSpinner" class="spinnerShow" />
 <nav class="navbar fixed-top navbar-expand-md custom-navbar navbar-dark">
     <img class="navbar-brand logo" src="assets/companylogo.png" id="logo_custom" width="10%" alt="logo">
 </nav>
@@ -108,27 +109,27 @@
                                             <option  [Value]="G" [selected]="true">General</option>
                                             <option  [Value]="S">Special</option>
                                         </select>
-                                       
+
                                     </div>
-                                  
+
                                 </div>
                                 <div class="row" *ngIf="submenus1" style="margin: 10px !important;
                                 line-height: 2;" (change)="closedrop()">
                                     <div class="col-6  reduce_radio">
-                                        <input type="radio" name="skills" 
+                                        <input type="radio" name="skills"
                                             value="provider"> Service Man
                                     </div>
                                     <div class="col-6  reduce_radio">
-                                        <input type="radio" name="skills" 
+                                        <input type="radio" name="skills"
                                             value="availer"> Ex Service Man
                                     </div>
                                     <div class="col-6  reduce_radio">
-                                        <input type="radio" name="skills" 
+                                        <input type="radio" name="skills"
                                             value="enhancer"> Widow
                                     </div>
                                     <div class="col-6  reduce_radio">
-                                        <input type="radio" name="skills" 
-                                            value="certifier"> physically challenged 
+                                        <input type="radio" name="skills"
+                                            value="certifier"> physically challenged
                                     </div>
                                 </div>
 

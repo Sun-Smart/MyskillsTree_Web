@@ -238,3 +238,11 @@ label {
   font-size: 14px;
   font-weight: 700;
 }
+.spinnerShow {
+  max-width: 100% !important;
+  background-color: #212121c4;
+  height: fit-content;
+  position: absolute;
+  z-index: 1;
+  bottom: -50px;
+}

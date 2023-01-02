@@ -20,8 +20,9 @@ export class RegisterComponent implements OnInit {
   objvalues: any = [];
   type: string;
   category: any;
-  drophide: boolean=false;
-  submenus:boolean = false;
+  drophide: boolean = false;
+  submenus: boolean = false;
+  showSpinner: boolean = false;
 
   constructor(private router: Router, private toastr: ToastService, private http: HttpClient, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
     this.bouserregistration_Form = this.formBuilder.group({
@@ -34,8 +35,8 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.category ="G";
-  this.onItemChange('');
+    this.category = "G";
+    this.onItemChange('');
   }
   gotoLogin() {
     this.router.navigate(['login']);
@@ -64,6 +65,8 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     debugger
     this.spinner.show();
+
+    this.showSpinner = true;
     if (!this.bouserregistration_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the fields");
       return;
@@ -88,16 +91,20 @@ export class RegisterComponent implements OnInit {
         headers: options, responseType: 'text'
       }).subscribe((res: any) => {
         console.log(res);
-        this.spinner.hide();
+        // this.spinner.hide();
+        this.showSpinner = false;
         debugger;
         if (res == 'Email already exist') {
+          this.showSpinner = false;
           // this.toastr.addSingle("error", "", "Email already exist");
           alert("Email already exist");
           return;
         } else if (res == 'Mobilenumber already exist') {
+          this.showSpinner = false;
           alert('Mobilenumber already exist');
           return;
         } else {
+          this.showSpinner = false;
           // this.toastr.addSingle("success", "", "Successfully Registered.Check your mail for the login credentials");
           alert("Successfully Registered.Check your mail for the login credentials");
           this.objvalues.push((res as any).bouserregistration)
@@ -114,8 +121,11 @@ export class RegisterComponent implements OnInit {
       }, (error: HttpErrorResponse) => {
         console.log(error.error);
         if (error.error == "Email already exist") {
+          this.showSpinner = false;
           alert('Email already exist');
-        }else if (error.error == 'Mobilenumber already exist') {
+          return;
+        } else if (error.error == 'Mobilenumber already exist') {
+          this.showSpinner = false;
           alert('Mobilenumber already exist');
           return;
         }
@@ -127,22 +137,22 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  opendrop(ev:any){
+  opendrop(ev: any) {
     debugger;
     console.log(ev)
-    if(ev == 'S'){
-      this.submenus=true;
-    }else{
-      this.submenus=false;
+    if (ev == 'S') {
+      this.submenus = true;
+    } else {
+      this.submenus = false;
     }
 
     //this.userRoleID = ev;
   }
-closedrop(data:any){
-  debugger
-  console.log(data)
+  closedrop(data: any) {
+    debugger
+    console.log(data)
 
-  }
+  }
   // closedrop(){
   //   this.drophide=false;
   // }

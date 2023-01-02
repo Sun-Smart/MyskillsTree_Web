@@ -21,6 +21,7 @@ export class ForgotpasswordComponent implements OnInit {
   showError: boolean;
   successMsg: boolean;
   submitted = false;
+  showSpinner: boolean = false;
   constructor(private router: Router, private http: HttpClient, public auth: Auth, public dialogRef: DynamicDialogRef, private spinner: NgxSpinnerService, private builder: FormBuilder) {
     // this.sent = false;
     this.reactiveForm = this.builder.group({
@@ -35,7 +36,8 @@ export class ForgotpasswordComponent implements OnInit {
   onSubmit() {
     this.showError = false;
     this.submitted = true;
-    this.spinner.show();
+    // this.spinner.show();
+    this.showSpinner = true;
     console.log(this.reactiveForm.value.email);
     if (this.reactiveForm.invalid) {
       return;
@@ -45,12 +47,15 @@ export class ForgotpasswordComponent implements OnInit {
       headers: options, responseType: 'text'
     }).subscribe((res: any) => {
       console.log(res);
+      this.showSpinner = false;
       if (res == "Not an Registred user") {
         this.showError = true;
         this.successMsg = false;
+        this.showSpinner = false;
         return;
       } else {
         if (res == "Password send to mail") {
+          this.showSpinner = false;
           this.successMsg = true;
           this.showError = false;
           this.reactiveForm.reset(this.reactiveForm.value);
@@ -62,6 +67,7 @@ export class ForgotpasswordComponent implements OnInit {
     }, (error: ErrorResponse) => {
       this.error = error.message;
       this.spinner.hide();
+      this.showSpinner = false;
     });
 
   }
