@@ -63,10 +63,10 @@
         <div class="col-3 dropdown-skillSet">
         </div>
       </div>
-      <div class="listView-content" *ngIf="showList" style="max-height: 450px !important;overflow-y: scroll;">
+      <div class="listView-content" *ngIf="showList">
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
-
+        <div class="list-container">
         <div *ngFor="let item of showData | filter:term; index of i" [ngClass]="{ 'active' : 'listView-card'}"
           style="margin: 10px;">
           <div style="display: flex;padding: 5px;margin: 0px 0px -7px 9px;">
@@ -88,10 +88,10 @@
 
           </div>
         </div>
+        </div>
+        
       </div>
-
-      <!-- Grid View -->
-
+      
       <div class="gridView-content" *ngIf="showGrid">
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>

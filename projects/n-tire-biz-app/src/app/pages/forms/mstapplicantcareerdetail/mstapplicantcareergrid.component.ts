@@ -98,7 +98,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
   <thead >
     <tr>
-    
+
       <th style="width: 11.5%;">Category</th>
       <th style="width: 11.5%;">Company Name</th>
       <th style="width: 11.5%;">Designation</th>
@@ -112,7 +112,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </thead>
 
   <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
-   
+
    <tr>
      <!-- Gategory -->
      <td>
@@ -140,12 +140,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <td>
      <!-- <label for="fromdate" class="control-label required">From Date</label> -->
      <!-- <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.fromdate?.value)}}</label> -->
-     
+
      <div  style="display: flex;width: 80%;">
      <input #f="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
           [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
             formControlName="fromdate" class="form-control" style="margin-right: 5px;">
-            
+
             <button class="input-group-addon"  (click)="f.toggle()" type="button"><i
               class="fa fa-calendar" aria-hidden="true"></i></button>
      </div>
@@ -157,7 +157,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <!-- <label for="todate" class="control-label">To Date</label> -->
      <!-- <input  id="designation" required formControlName="designation" class="form-control"> -->
      <!-- <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.todate?.value)}}</label> -->
-     
+
     <div style="display: flex;width: 80%;">
      <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
           [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate" class="form-control"
@@ -627,7 +627,7 @@ export class mstapplicantcareergridComponent implements OnInit {
 
 
     Add_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
-       
+
         debugger;
         this.showSkillDetails_input = true;
         this.getData();

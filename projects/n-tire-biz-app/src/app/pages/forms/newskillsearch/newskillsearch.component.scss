@@ -108,17 +108,24 @@
 
 .listView-content {
   img {
+    // border-radius: 50%;
+    // width: 15%;
+    // // height: fit-content;
+    // display: flex;
     border-radius: 50%;
-    width: 5%;
-    height: fit-content;
+    width: 10%;
+    position: relative;
+    height: 80px;
     display: flex;
+    top: 20px;
   }
 }
 
 ul {
   list-style: none;
   padding: 0;
-  margin: 0 10px;
+  margin: 0 10px 10px 0;
+  text-align: left;
 
   li {
     color: #9ba0a5;
@@ -144,7 +151,10 @@ ul {
   margin: auto 15px;
   border-radius: 10px;
 }
-
+.list-container{
+  max-height: 750px !important;
+  overflow-y: scroll;
+}
 .grid-container {
   // margin: 0 15px;
   height: 300px !important;
@@ -174,7 +184,7 @@ ul {
     text-align: center;
     overflow-y: scroll;
     width: auto;
-    height: 100vh;
+    height: 400px !important;
     justify-content: center;
 
     div {

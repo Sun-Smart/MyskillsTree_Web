@@ -2,7 +2,8 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstcorporatemaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second common_title_style">
-    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Corporate Masters' | translate}}</a>
+    <h1 class="col-4  mainheader left common_header_clr" style="margin: 0px; color: gray !important;">
+      <a href='#/home/{{p_currenturl}}'>{{'Corporate Masters' | translate}}</a>
     </h1>
     <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->

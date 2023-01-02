@@ -177,6 +177,13 @@ export class NewskillsearchComponent implements OnInit {
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, null, null, null, null, null, null).then((res: any) => {
       console.log('res ', res);
       this.showData = res;
+      for (let z = 0; res.length > 0; z++) {
+        let check = res[z].useprofilephoto.split("\"")[1];
+        console.log(check);
+      }
+
+      console.log('split image', this.showData);
+
     });
     this.getidd = e
 

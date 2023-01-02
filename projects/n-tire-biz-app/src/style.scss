@@ -383,7 +383,7 @@ a + a {
   border-radius: 6px;
   padding: 4px 14px !important;
   margin-right: 15px !important;
-  background:#584040!important;
+  background:#6B431D!important;
 }
 .alert-success,
 .alert-danger,
@@ -518,6 +518,10 @@ html {
 ::-webkit-scrollbar {
   width: 3px !important;
   height: 0.7em !important;
+  color: rgb(71, 33, 33) !important;
+}
+::-webkit-scrollbar-thumb{
+  
   background-color: rgb(71, 33, 33) !important;
 }
 
@@ -865,7 +869,8 @@ p-table {
 }
 
 h1 a {
-  color: var(--frontcolor);
+  // color: var(--frontcolor);
+  color: gray !important;
 }
 
 .tag-wrapper {
@@ -3203,7 +3208,7 @@ h1.col-4.columns.mainheader.left.common_popup_title {
   max-height: 40px !important;
   margin-top: 1px !important;
   color: gray !important;
-  background-color: #ebf3fc;
+  // background-color: #ebf3fc;
 }
 
 i.fa.fa-times-circle {
