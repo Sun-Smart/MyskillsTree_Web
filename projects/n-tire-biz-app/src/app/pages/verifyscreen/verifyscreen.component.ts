@@ -85,7 +85,7 @@ export class VerifyscreenComponent implements OnInit {
           this.showSpinner = false;
           this.confirmation_otp = resp;
 
-          // this.toastService.addSingle("success", "", "Otp Validated Successfully.");
+          this.toastService.addSingle("success", "", "Otp Validated Successfully.");
           let user: any = resp;
             localStorage.setItem('login', 'true')
             localStorage.removeItem('token');
@@ -94,6 +94,7 @@ export class VerifyscreenComponent implements OnInit {
         })
     } else{
       this.toastService.addSingle("success", "", "Email and Mobile OTP mismatch.");
+      this.showSpinner = false;
     }
   };
 

@@ -64,9 +64,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     debugger
-    this.spinner.show();
 
-    this.showSpinner = true;
     if (!this.bouserregistration_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the fields");
       return;
@@ -87,6 +85,9 @@ export class RegisterComponent implements OnInit {
       }
       console.log(data);
       let options = new HttpHeaders().set('Content-Type', 'application/json');
+      this.spinner.show();
+
+      this.showSpinner = true;
       return this.http.post(AppConstants.ntirebizURL + '/bouserregistration', data, {
         headers: options, responseType: 'text'
       }).subscribe((res: any) => {

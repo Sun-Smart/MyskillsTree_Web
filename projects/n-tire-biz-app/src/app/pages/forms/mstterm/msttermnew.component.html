@@ -47,7 +47,37 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstterm_Form" (ngSubmit)="onSubmit()" [ngClass]="theme" id="mstterms">
-<div class="row second" style="height: 70px !important;">
+<!-- 
+  <div class="row" style="height: 70px !important;">
+    <div class="col-12">
+      <h1>{{'TERMS AND CONDITIONS'}}</h1>
+    </div>
+    <br/>
+    <div class="col-12">
+      {{termsContent}}
+    </div>
+
+    <br/>
+
+    <div class="col-12">
+      <div>
+        <input type='checkbox' formControlName="termsaccept"  (change)="changeEvent($event)" required/> <label style="color: black;">&nbsp; I agree to the terms &
+          conditions</label> 
+      </div>
+      <div>
+        <button class="alert-success success-button" (click)="onSubmit()" id="checkbutton">
+          OK
+        </button>
+      </div>
+      <div>
+        <button class="alert-danger cancel-button" type="button" (click)="onClose()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div> -->
+
+<div class="row second" style="height: 70px !important; ">
     <h1 class="col-10 columns mainheader" id="msttext" style="text-align: center;margin: auto;">{{'TERMS AND CONDITIONS'}}</h1>
 
   </div>
@@ -55,7 +85,7 @@
 
   <!-- <input type="text" *ngIf="!showview" id="termsid" formControlName="termsid" class="form-control"> -->
 
-  <div class="form-group row">
+  <div class="form-group row" >
     <!-- <label for="staticEmail" class="col-sm-2 col-form-label">Version:</label> -->
     <div class="container">
 
@@ -66,7 +96,7 @@
       </div>
     </div>
   </div>
-  <div class="form-group row test">
+  <div class="form-group row test" >
     <div class="col-10" style="font-weight: bolder;margin: auto;" id="mstaccept" >
       <input type='checkbox' formControlName="termsaccept"  (change)="changeEvent($event)" required/> <label style="color: black;">&nbsp; I agree to the terms &
         conditions</label> 
