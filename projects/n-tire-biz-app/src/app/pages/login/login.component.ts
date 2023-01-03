@@ -617,13 +617,10 @@ export class LoginComponent implements OnInit {
 
         console.log("valueeeeee", data.value.password);
 
-        if ((this.email == "" && this.password == "") && (this.email == null && this.password == null)
-        && (this.email == undefined && this.password == undefined)) {
-
-            this.toastService.addSingle("success", " ", "Must Enter Email or Mobile Number.");
-
+        if (data.value.email == null) {
+            this.toastService.addSingle("success", " ", "Please Enter Email or Mobile Number.");
+            this.spinner.hide();
         } else {
-
             let verify_data = {
                 email: data.value.email,
                 otpm: null,
