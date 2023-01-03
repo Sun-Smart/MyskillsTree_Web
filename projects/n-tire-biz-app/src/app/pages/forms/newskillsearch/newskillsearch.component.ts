@@ -328,6 +328,12 @@ export class NewskillsearchComponent implements OnInit {
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.skillcategory3 ? this.skillcategory3 : null, this.rangevalue ? this.rangevalue : null, null, null, null).then((res: any) => {
       console.log('res ', res);
       this.showData = res;
+
+      for (let z = 0; this.showData.length > 0; z++) {
+        this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
+        console.log(this.showData[z].useprofilephoto);
+      }
+      this.showData = res;
     });
   }
   valueChanged1(e: any) {
@@ -336,6 +342,11 @@ export class NewskillsearchComponent implements OnInit {
     this.locationValue = e.target.value;
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.skillcategory3 ? this.skillcategory3 : null, this.rangevalue ? this.rangevalue : null, this.locationValue ? this.locationValue : null, null, null).then((res: any) => {
       console.log('res ', res);
+      this.showData = res;
+      for (let z = 0; this.showData.length > 0; z++) {
+        this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
+        console.log(this.showData[z].useprofilephoto);
+      }
       this.showData = res;
     });
   }
