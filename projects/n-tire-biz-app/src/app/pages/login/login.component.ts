@@ -22,7 +22,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicDialog';
 import { NgxSpinnerService } from "ngx-spinner";
 import { msttermComponent } from '../forms/mstterm/mstterm.component';
 import { msttermnewComponent } from '../forms/mstterm/msttermnew.component';
-import { HttpClient, HttpErrorResponse, HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { AppConstants } from '../../shared/helper';
 import { OtpvalidationService } from '../../service/otpvalidation.service';
 
@@ -306,11 +306,11 @@ export class LoginComponent implements OnInit {
     validation: boolean = false;
     emailvalidation: boolean = false;
     passvalidation: boolean = false;
-    userData : any;
-    verifyMob_Otp:any;
-    verifyEmail_Otp:any;
-    otp_resp:any = [];
-    p12:any;
+    userData: any;
+    verifyMob_Otp: any;
+    verifyEmail_Otp: any;
+    otp_resp: any = [];
+    p12: any;
     verify_outputstring: any;
 
     constructor(private sharedService: SharedService, private translate: TranslateService,
@@ -332,7 +332,7 @@ export class LoginComponent implements OnInit {
             // email: [null],
             // password: [null],
             username: [null],
-            email: [null, [Validators.required]],
+            email: [null, [Validators.required, Validators.pattern(/^(\d{10}|\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}))$/)]],
             password: [null, [Validators.required]],
             rememberMe: [null]
         });
@@ -366,7 +366,7 @@ export class LoginComponent implements OnInit {
         this.spinner.hide();
     }
     forgetPassword() {
-      this.router.navigate(['forgotpassword']);
+        this.router.navigate(['forgotpassword']);
         // this.dialog.open(ForgotPasswordComponent,
         //     {
 
@@ -405,8 +405,8 @@ export class LoginComponent implements OnInit {
 
         debugger;
         let loginuser = this.sessionService.getSession();
-        console.log('loginuser ',loginuser);
-        
+        console.log('loginuser ', loginuser);
+
         this.sessionService.setItem("userid", loginuser.userid);
         this.sessionService.setItem("username", loginuser.username);
         this.sessionService.setItem("role", loginuser.role);
@@ -421,7 +421,7 @@ export class LoginComponent implements OnInit {
 
         //this.themeService.selectTheme(this.theme);
 
-        
+
         if (loginuser.nextloginchangepassword == 'True') {
             this.router.navigate(['/resetpassword']);
             return;
@@ -478,13 +478,10 @@ export class LoginComponent implements OnInit {
                     localStorage.setItem('terms', user.terms.terms);
                     this.dialog.open(msttermnewComponent,
                         {
-                            // width: '100% !important',
-                            // height: 'auto !important',
-                            // data: { ScreenType: 2, save: true }
-                            width: '60% !important',
+                            width: '100% !important',
                             height: 'auto !important',
+                            data: { ScreenType: 2, save: true },
                             contentStyle: { "padding": "0px" },
-                            data: { ScreenType: 2, save: true }
                         }
                     ).onClose.subscribe(res => {
                         debugger
@@ -613,50 +610,51 @@ export class LoginComponent implements OnInit {
     gotoRegister() {
         this.router.navigate(['registernew']);
     }
-    gotoVerify(data:any) {
+    loginOtp(data: any) {
         this.password = "";
         this.spinner.show();
         debugger;
-        
+
         console.log("valueeeeee", data.value.password);
 
+        if (data.value.email == null) {
+            this.toastService.addSingle("success", " ", "Please Enter Email or Mobile Number.");
+            this.spinner.hide();
+        } else {
             let verify_data = {
-            email : data.value.email,
-            otpm : null,
-            otpe : null,
-        }
-        console.log(verify_data);
-        let options = new HttpHeaders().set('Content-Type', 'application/json');
-        return this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + verify_data.email + '&otpm='+verify_data.otpm + '&otpe='+verify_data.otpe)
-        .subscribe((resp: any) => {
-         this.spinner.hide();
-            console.log("resp",resp);
+                email: data.value.email,
+                otpm: null,
+                otpe: null,
+            }
+            console.log(verify_data);
+            let options = new HttpHeaders().set('Content-Type', 'application/json');
+            return this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + verify_data.email + '&otpm=' + verify_data.otpm + '&otpe=' + verify_data.otpe)
+                .subscribe((resp: any) => {
+                    this.spinner.hide();
+                    console.log("resp", resp);
 
-            this.otp_resp = resp;   
-            this.verifyMob_Otp = this.otp_resp.mobileotp;
-            this.verifyEmail_Otp = this.otp_resp.emailotp;
-            this.verify_outputstring = this.otp_resp.outputstring;
-            // this.spinner.hide();
-            this.toastService.addSingle("success", "", "OTP has send to your registered mail id and Mobilenumber.");
-          console.log("this.verifyMob_Otp", this.verifyMob_Otp);
-          console.log("this.verifyEmail_Otp", this.verifyEmail_Otp);
+                    this.otp_resp = resp;
+                    this.verifyMob_Otp = this.otp_resp.mobileotp;
+                    this.verifyEmail_Otp = this.otp_resp.emailotp;
+                    this.verify_outputstring = this.otp_resp.outputstring;
+                    // this.spinner.hide();
+                    this.toastService.addSingle("success", "", "OTP has send to your registered mail id and Mobilenumber.");
+                    console.log("this.verifyMob_Otp", this.verifyMob_Otp);
+                    console.log("this.verifyEmail_Otp", this.verifyEmail_Otp);
 
-            this.router.navigate(['verify']);
+                    this.router.navigate(['verify']);
 
-          if(this.verify_outputstring == "OTP has send to your registered mail id and Mobilenumber"){
-            debugger
-            // this.otp_resp.push({email:verify_data.email});
-            this.otpService.otparray.push(this.otp_resp);
-            this.otpService.otparray.push({email:verify_data.email});
-            console.log("kgjhdfmkughd", this.otpService.otparray.push(this.otp_resp));
-            
-            this.p12="otp"
-            this.router.navigate(['verify', this.p12]);
-          };
-        })
+                    if (this.verify_outputstring == "OTP has send to your registered mail id and Mobilenumber") {
+                        debugger
+                        // this.otp_resp.push({email:verify_data.email});
+                        this.otpService.otparray.push(this.otp_resp);
+                        this.otpService.otparray.push({ email: verify_data.email });
+                        console.log("kgjhdfmkughd", this.otpService.otparray.push(this.otp_resp));
 
-        
-
-        
+                        this.p12 = "otp"
+                        this.router.navigate(['verify', this.p12]);
+                    };
+                })
+        };
     }
 }

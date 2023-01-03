@@ -1,5 +1,7 @@
 .error-msg {
   color: #a94442;
+  font-size: smaller;
+  line-height: 3;
 }
 .fix-error-icon {
   top: 27px;
