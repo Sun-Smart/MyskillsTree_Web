@@ -173,9 +173,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <td>
      <!-- <label for="skills" class="control-label">Skills &nbsp;&nbsp;</label><br> -->
      <!-- <input  id="designation" required formControlName="skills" class="form-control"> -->
-     <p-autoComplete formControlName="skills"  *ngIf="!showview" field="label" [multiple]="true" [suggestions]="skills_results"
+     <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
           (completeMethod)="search_skills($event)"></p-autoComplete>
-          <label *ngIf="showview" class="labelview">{{f.skills?.label}}</label>
      </td>
 
      <!-- Remarks -->
@@ -327,7 +326,8 @@ export class mstapplicantcareergridComponent implements OnInit {
         this.mstapplicantcareerdetail_Form = this.fb.group({
             pk: [null],
             ImageName: [null],
-            applicantid: [this.applicantid],
+            // applicantid: [this.applicantid],
+            applicantid: this.sessionService.getItem('applicantid'),
             applicantiddesc: [null],
             careerid: [null],
             category: [null],
@@ -533,7 +533,7 @@ export class mstapplicantcareergridComponent implements OnInit {
                             this.dialogRef.close(this.objvalues);
                         }
                         else {
-                            // this.FillData(res);
+                            this.FillData();
                         }
                     }
 
@@ -559,6 +559,11 @@ export class mstapplicantcareergridComponent implements OnInit {
         for (let i = 0; i < skills_List.length; i++) {
             skills.push((skills_List[i] as any).value.toString());
         }
+
+        // for (let i = 0; i < skills_List.length; i++) {
+        //     skills.push({skills_value :skills_List[i].value.toString(),
+        //         skills_label : skills_List[i].label.toString()});
+        // }
         return skills;
     }
 
@@ -575,7 +580,7 @@ export class mstapplicantcareergridComponent implements OnInit {
             <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;">##referencecount##</th>-->
             <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##fromdate##</th>
             <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##todate##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##skillsstring##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##skills##</th>
             <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##remarks##</th>
           </tr>
         </tbody>
@@ -623,7 +628,59 @@ export class mstapplicantcareergridComponent implements OnInit {
             this.Set_mstapplicantcareerdetails_TableConfig();
             this.mstapplicantcareerdetails_LoadTable(res.mstapplicantcareerdetail);
         });
+
+        // this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
+        //     async res => {
+        //         this.formData = res.mstapplicantcareerdetail;
+        //         this.formid = res.mstapplicantcareerdetail.careerid;
+        //         this.pkcol = res.mstapplicantcareerdetail.pkcol;
+        //         this.bmyrecord = false;
+        //         if ((res.mstapplicantcareerdetail as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
+        //         console.log(res);
+        //         //console.log(res.order);
+        //         //console.log(res.orderDetails);
+            
+        //         if(res.mstapplicantcareerdetail.currentlyworking==true){
+        //           this.isdisabled=true
+        //         }else{
+        //           this.isdisabled=false
+        //         }
+            
+        //         this.mstapplicantcareerdetail_Form.patchValue({
+        //           applicantid: res.mstapplicantcareerdetail.applicantid,
+        //           applicantiddesc: res.mstapplicantcareerdetail.applicantiddesc,
+        //           careerid: res.mstapplicantcareerdetail.careerid,
+        //           category: res.mstapplicantcareerdetail.category,
+        //           categorydesc: res.mstapplicantcareerdetail.categorydesc,
+        //           companyname: res.mstapplicantcareerdetail.companyname,
+        //           designation: res.mstapplicantcareerdetail.designation,
+        //           keyproject: res.mstapplicantcareerdetail.keyproject,
+        //           fromdate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.fromdate),
+        //           todate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.todate),
+        //           currentlyworking: res.mstapplicantcareerdetail.currentlyworking,
+        //           requestid: res.mstapplicantcareerdetail.requestid,
+        //           skills: res.mstapplicantcareerdetail.skills,
+        //           remarks: res.mstapplicantcareerdetail.remarks,
+        //           status: res.mstapplicantcareerdetail.status,
+        //           statusdesc: res.mstapplicantcareerdetail.statusdesc,
+        //           attachment: "[]",
+        //         });
+        //     });
     };
+
+    getSkillsDescription() {
+        debugger;
+        let skillsdescription: any[] = [];
+        for (let i = 0; i < this.skills_List.length; i++) {
+          for (let j = 0; j < this.mstapplicantcareerdetail_Form.get('skills').value.length; j++) {
+            if ((this.skills_List[i] as any).value.toString() == this.mstapplicantcareerdetail_Form.get('skills').value[j].toString()) {
+    
+              skillsdescription.push((this.skills_List[i] as any));
+            }
+          }
+        }
+        this.mstapplicantcareerdetail_Form.patchValue({ skills: skillsdescription });
+      }
 
 
     Add_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
@@ -648,7 +705,7 @@ export class mstapplicantcareergridComponent implements OnInit {
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         console.log(event, event.data.careerid, event.data.applicantid);
         this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByEID(event.data.pkcol).then((res: any) => {
-           debugger
+            debugger
             console.log(res);
             this.mstapplicantcareerdetail_Form.patchValue({
                 applicantid: res.mstapplicantcareerdetail.applicantid,
