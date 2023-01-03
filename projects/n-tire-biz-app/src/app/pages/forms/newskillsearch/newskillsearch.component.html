@@ -44,9 +44,6 @@
           (selectItem)="onSelected_country($event)" [reportid]='wc9rn' [menuid]='wc9rn' formControlName="country"
           id="value" desc="label"></app-popupselect> -->
         <h6 style="font-weight: 600;"> Location</h6>
-        <!-- <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
-          (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value"
-          desc="label"></app-popupselect> -->
         <input class="form-control" [(ngModel)]="location" (keyup)="valueChanged1($event)">
       </div>
     </div>
@@ -69,30 +66,47 @@
       <div class="listView-content" *ngIf="showList" style="max-height: 450px !important;overflow-y: scroll;">
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
+        <!-- <p-table responsive-scrolling [style]="{width:'100%'}"
+              class="tbllayout" #dt cellpadding="10px" (onEditInit)="onEditInit($event, rowIndex)"
+              (onEditComplete)="onEditComplete($event)" (onEditCancel)="onEditCancel($event, rowIndex)"
+              [columns]="cols" [first]="first" class="fit ptable" [value]="data" [selectionMode]="selectionMode"
+              [(selection)]="selecteddata" dataKey="{{masterkey}}" [paginator]="true" [alwaysShowPaginator]="false"
+              [pageLinks]="5" [rows]="rowsdisplay" (onRowDblclick)="onRowDblClick($event)"
+              [rowsPerPageOptions]="[5,10,15,20,50,100,200,500,1000]" (onPage)="paginate($event)"
+              (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+              <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                <ng-container>
+                  <div>
+                    <div style='width:fit-content;' [innerHTML]="getHtml(rowData)"></div>
+                    <div class="row">
+                      <div class="col-3">
+                        <i class="fa fa-eye" style="font-size: 1.3rem;" (click)='opendialog1(null,rowData)'></i>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-template>
+            </p-table> -->
         <div *ngFor="let item of showData | filter:term; index of i" [ngClass]="{ 'active' : 'listView-card'}"
           style="margin: 10px;">
           <div style="display: flex;padding: 5px;margin: 0px 0px -7px 9px;">
-            <!-- <img src="assets/profile.jpeg" alt=""> -->
             <img *ngIf="item.useprofilephoto" src="https://demo.herbie.ai/attachment/{{item.useprofilephoto}}"
               alt="">&nbsp;&nbsp;
             <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="">&nbsp;&nbsp;
             <ul>
               <li style="color: #000;font-weight: 600;font-size: 16px;
               text-transform: capitalize;">{{item.firstname}} {{item.lastname}}</li>
-              <li>Email : {{item.emailid}}</li>
-              <li>Mobile No : {{item.mobilenumber}}</li>
-              <li>Location : {{item.location}}</li>
-              <li>Experience : {{item.experience}}</li>
-              <li>Category : <b
-                  style="color:#000;font-weight: 600;">{{item.segment}},{{item.category}},{{item.subcategory}}</b></li>
+              <li>Email : {{item.emailid ? item.emailid : '-'}}</li>
+              <li>Mobile No : {{item.mobilenumber ? item.mobilenumber : '-'}}</li>
+              <li>Location : {{item.location ? item.location : '-'}}</li>
+              <li>Experience : {{item.experience ? item.experience : '-'}}</li>
+              <li>Category : <b style="color:#000;font-weight: 600;">{{item.segment}} - {{item.category}} -
+                  {{item.subcategory}}</b>
+              </li>
               <li>Skills : <b style="color:#000;font-weight: 600;">{{item.skills}}</b></li>
+
             </ul>
           </div>
-          <!-- <div>
-            <p style="font-size: 12px;margin: 0px 70px;color: #9ba0a5;"><span>Skills : </span><b
-                style="color:#000;font-weight: 600;">{{item.skills}}</b></p>
-
-          </div> -->
         </div>
       </div>
 
@@ -117,20 +131,17 @@
             <tbody *ngFor="let item of showData | filter:term" style="line-height: 3rem;">
               <tr>
                 <td>
-                  <!-- <img src="assets/profile.jpeg" alt=""
-                    style="width: 10%;border-radius: 50% !important;">&nbsp; -->
                   <img *ngIf="item.useprofilephoto" src="https://demo.herbie.ai/attachment/{{item.useprofilephoto}}"
-                     class="grid-image">
-                  <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt=""
-                  class="grid-image">
+                    class="grid-image">
+                  <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="" class="grid-image">
                   {{item.firstname}} {{item.lastname}}
                 </td>
-                <td>{{item.emailid}}</td>
-                <td>{{item.mobilenumber}}</td>
-                <td>{{item.location}}</td>
-                <td>{{item.experience}}</td>
-                <td>{{item.skills}}</td>
-                <td>{{item.segment}},{{item.category}},{{item.subcategory}}</td>
+                <td>{{item.emailid ? item.emailid : '-'}}</td>
+                <td>{{item.mobilenumber ? item.mobilenumber : '-'}}</td>
+                <td>{{item.location ? item.location : '-'}}</td>
+                <td>{{item.experience ? item.experience : '-'}}</td>
+                <td>{{item.skills ? item.skills : '-'}}</td>
+                <td>{{item.segment}} - {{item.category}} - {{item.subcategory}}</td>
               </tr>
             </tbody>
           </table>
@@ -151,12 +162,12 @@
             <ul>
               <li style="color: #000;font-weight: 600;font-size: 16px;
               text-transform: capitalize;">{{item.firstname}} {{item.lastname}}</li>
-              <li>Email : {{item.emailid}}</li>
-              <li>Mobile No : {{item.mobilenumber}}</li>
-              <li>Location : {{item.location}}</li>
-              <li>Experience : {{item.experience}}</li>
-              <li>Skills : {{item.skills}}</li>
-              <li>Category : {{item.segment}},{{item.category}},{{item.subcategory}}</li>
+              <li>Email : {{item.emailid ? item.emailid : '-'}}</li>
+              <li>Mobile No : {{item.mobilenumber ? item.mobilenumber : '-'}}</li>
+              <li>Location : {{item.location ? item.location : '-'}}</li>
+              <li>Experience : {{item.experience ? item.experience : '-'}}</li>
+              <li>Skills : {{item.skills ? item.skills : '-'}}</li>
+              <li>Category : {{item.segment}} - {{item.category}} - {{item.subcategory}}</li>
             </ul>
           </div>
         </div>
