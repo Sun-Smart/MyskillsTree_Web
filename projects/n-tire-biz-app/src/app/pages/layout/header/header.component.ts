@@ -328,7 +328,7 @@ export class HeaderComponent implements OnInit {
     this.showhideProfile = false;
     if (localStorage.getItem('user_type') == "C") {
       this.showCertifiermenu = true;
-    }else {
+    } else {
       this.showCertifiermenu = false;
     }
   }
@@ -399,7 +399,7 @@ export class HeaderComponent implements OnInit {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
   }
-   uploadmethod() {
+  uploadmethod() {
     debugger
     this.dialog.open(mstresumeapplicantComponent,
       {
@@ -407,69 +407,74 @@ export class HeaderComponent implements OnInit {
       }
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
-    })}
-    showcareer() {
-      this.dialog.open(mstapplicantcareergridComponent, {
-        width: '100% !important',
-        height: 'auto !important',
+    })
+  }
+  showcareer() {
+    this.dialog.open(mstapplicantcareergridComponent, {
+      width: '100% !important',
+      height: 'auto !important',
+      data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+    }).onClose.subscribe(res => {
+      this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+    })
+  }
+  showWorkRef() {
+    this.dialog.open(mstapplicantworkrefgridComponent, {
+      width: '100% !important',
+      height: 'auto !important',
+      data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+    }).onClose.subscribe(res => {
+      this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+    })
+  }
+  showEducation() {
+    this.dialog.open(mstapplicanteducationdetailgridComponent, {
+      width: '100% !important',
+      height: 'auto !important',
+      data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+    }).onClose.subscribe(res => {
+      this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+    })
+  }
+  showAchievement() {
+    this.dialog.open(mstapplicantachivementgridComponent, {
+      width: '100% !important',
+      height: 'auto !important',
+      data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+    }).onClose.subscribe(res => {
+      this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+    })
+
+  }
+  showSocial() {
+    this.dialog.open(mstapplicantsocialmediagridComponent, {
+      width: '100% !important',
+      height: 'auto !important',
+      data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+    }).onClose.subscribe(res => {
+      this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+    })
+  }
+  edit_fullpagemstapplicantmasters() {
+    debugger
+    this.dialog.open(mstapplicantmastermainComponent,
+      {
         data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-      }).onClose.subscribe(res => {
-        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
-      })
-    }
-    showWorkRef() {
-      this.dialog.open(mstapplicantworkrefgridComponent, {
-        width: '100% !important',
-        height: 'auto !important',
-        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-      }).onClose.subscribe(res => {
-        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
-      })
-    }
-    showEducation() {
-      this.dialog.open(mstapplicanteducationdetailgridComponent, {
-        width: '100% !important',
-        height: 'auto !important',
-        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-      }).onClose.subscribe(res => {
-        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
-      })
-    }
-    showAchievement() {
-      this.dialog.open(mstapplicantachivementgridComponent, {
-        width: '100% !important',
-        height: 'auto !important',
-        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-      }).onClose.subscribe(res => {
-        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
-      })
-  
-    }
-    showSocial() {
-      this.dialog.open(mstapplicantsocialmediagridComponent, {
-        width: '100% !important',
-        height: 'auto !important',
-        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-      }).onClose.subscribe(res => {
-        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
-      })
-    }
-    edit_fullpagemstapplicantmasters() {
-      debugger
-      this.dialog.open(mstapplicantmastermainComponent,
-        {
-          data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-        }
-      ).onClose.subscribe(res => {
-        this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
-      })}
-      showLanguage() {
-        this.dialog.open(mstapplicantlanuagegridComponent, {
-          width: '100% !important',
-          height: 'auto !important',
-          data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-        }).onClose.subscribe(res => {
-          this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
-        })
       }
+    ).onClose.subscribe(res => {
+      this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+    })
+  }
+  showLanguage() {
+    this.dialog.open(mstapplicantlanuagegridComponent, {
+      width: '100% !important',
+      height: 'auto !important',
+      data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+    }).onClose.subscribe(res => {
+      this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+    })
+  }
+  closeNotify() {
+    this.showNotify = false;
+  }
 }

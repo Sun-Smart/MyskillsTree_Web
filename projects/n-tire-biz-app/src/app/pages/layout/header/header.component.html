@@ -626,7 +626,7 @@
   <b>Notifications</b>
   <i class="pi pi-caret-up fs-large ng-tns-c186-0"></i>
   <button type="button" pripple class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-    style="float: right; margin:0px;">
+    style="float: right; margin:0px;" (click)="closeNotify()">
     <span class="p-sidebar-close-icon pi pi-times ng-tns-c258-5"></span>
   </button>
   <ng-container *ngIf="displayNotifications">
@@ -640,7 +640,8 @@
       <div class="card bg-light mt-3 col-12 notification" style="color: #000 !important;"
         (click)="ShowTask(notification)">
         <a class="" [routerLink]='' title="Delete" (click)="delteNotify(notificationDelete[i])"><i
-            class="fa fa-times-circle" style="position: absolute;right: 0;top: -5%;font-size: 18px;color: red;"></i></a>
+            class="fa fa-times-circle" style="position: absolute;right: 0;top: 2%;
+                padding: 5px;font-size: 18px;color: red;"></i></a>
         <b style="color: #000 !important;font-family: arial !important;"
           [innerHtml]="notification.assigneddate | date:'YYYY-MM-dd'"></b>
         <span style="font-family: arial !important; color: #000 !important;">

@@ -173,9 +173,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <td>
      <!-- <label for="skills" class="control-label">Skills &nbsp;&nbsp;</label><br> -->
      <!-- <input  id="designation" required formControlName="skills" class="form-control"> -->
-     <p-autoComplete formControlName="skills"  *ngIf="!showview" field="label" [multiple]="true" [suggestions]="skills_results"
+     <p-autoComplete formControlName="skills"  field="label" [multiple]="true" [suggestions]="skills_results"
           (completeMethod)="search_skills($event)"></p-autoComplete>
-          <label *ngIf="showview" class="labelview">{{f.skills?.label}}</label>
+        //   <label *ngIf="showview" class="labelview">{{f.skills?.label}}</label>
      </td>
 
      <!-- Remarks -->

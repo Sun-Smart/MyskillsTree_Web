@@ -1282,6 +1282,7 @@ button.btn.btn-primary.btn-sm.readMoreBtn {
   z-index: 1;
   border-radius: 20px;
   color: #fff !important;
+  // display: none;
 }
 
 .p-sidebar-header .p-sidebar-close {
@@ -1290,6 +1291,9 @@ button.btn.btn-primary.btn-sm.readMoreBtn {
   left: 38px;
   color: #fff;
   z-index: 1;
+  background-color: red;
+  border-radius: 50px;
+  display: none;
 }
 
 // span.p-sidebar-close-icon.pi.pi-times {
