@@ -148,7 +148,7 @@ import { OtpvalidationService } from '../../service/otpvalidation.service';
 
 .register-heading {
     text-align: left;
-    margin-top: 8%;
+    margin-top: 8% !important;
     margin-bottom: -15%;
     font-weight: 900;
     color: #495057;
@@ -156,7 +156,7 @@ import { OtpvalidationService } from '../../service/otpvalidation.service';
 }
 
 .custom_header {
-    margin-top: 10px;
+    margin-top: -26px;
     font-size: 20px;
     color: #14638f;
     font-weight: 600;
