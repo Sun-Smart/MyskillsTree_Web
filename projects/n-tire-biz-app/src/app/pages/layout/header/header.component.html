@@ -560,7 +560,7 @@
 
 
         <ul class="list-group" *ngIf="showhideProfile"
-          style="position: absolute;top: 50px;left: 10%; height: 10px !important; width: 80% !important;">
+          style="position: absolute;top: 50px;left: 10%; height: 10px !important; width: 81% !important;">
           <li class="list-group-item">
 
             <button type="button" pripple (click)="closePopup();"
@@ -582,10 +582,32 @@
                   border-radius: 50px;" class="img_content" title="Profile">
             </center>
           </li>
-          <li class="list-group-item">
+          <li class="list-group-item" *ngIf="applicanticon"> 
+            <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
             <span>{{username}} ({{userrole}})</span>
           </li>
+          <li class="list-group-item"  *ngIf="adminicon">
+            <i class="fa fa-user-secret" aria-hidden="true"></i>&nbsp;
+            <span>{{username}} ({{userrole}})</span>
+          </li>
+          <li class="list-group-item" *ngIf="corporateicon">
+            <i class="fa fa-building-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
+            <span>{{username}} ({{userrole}})</span>
+          </li>
+
           <li class="list-group-item li1" style="cursor: pointer;" (click)="showProfile()">
+            <i class="fa fa-mobile" aria-hidden="true" style="font-size: 23px;
+            font-weight: bold;"></i>&nbsp;
+            <span>Mobile Number</span>
+          </li>
+          <li class="list-group-item li1" style="cursor: pointer;" (click)="showProfile()">
+            <i class="fa fa-envelope-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
+            <span>{{email}}</span>
+          </li>
+
+
+          <li class="list-group-item li1" style="cursor: pointer;" (click)="showProfile()">
+            <i class="fa fa-cog" aria-hidden="true" style="font-size: 16px;"></i>&nbsp;
             <span>Manage your account</span>
           </li>
           <li class="list-group-item li1" (click)="logout()" style="cursor: pointer; background-color: red;">

@@ -62,6 +62,11 @@ export class HeaderComponent implements OnInit {
   appmenu: boolean;
   menuhides: boolean;
   showCertifiermenu: boolean = false;
+  applicanticon: boolean =false;
+  corporateicon: boolean =false;
+  adminicon: boolean =false;
+  
+  email: any;
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
@@ -132,17 +137,28 @@ export class HeaderComponent implements OnInit {
       this.theme = val;
     });
 
+    this.email = this.sessionService.getItem('email');
+    
     this.username = this.sessionService.getItem('username');
     if (this.sessionService.getItem('role') == '1') {
       this.userrole = 'Admin';
       this.showAdminMenuaccess = true;
       this.showApplicantmenu = false;
       this.showCorporateMenuaccess = false;
+
+      this.applicanticon=false;
+      this.adminicon=true;
+      this.corporateicon=false;
+
     } else if (this.sessionService.getItem('role') == '2') {
       this.userrole = 'Applicant';
       this.showApplicantmenu = true;
       this.showAdminMenuaccess = false;
       this.showCorporateMenuaccess = false;
+
+      this.applicanticon=true;
+      this.adminicon=false;
+      this.corporateicon=false;
 
       if (localStorage.getItem('user_type') == "C") {
         this.showCertifiermenu = true;
@@ -152,6 +168,9 @@ export class HeaderComponent implements OnInit {
       this.showCorporateMenuaccess = true;
       this.showApplicantmenu = false;
       this.showAdminMenuaccess = false;
+      this.applicanticon=false;
+      this.adminicon=false;
+      this.corporateicon=true;
     }
     if (this.sessionService.getItem('role') == '2') this.menuvisible = false;
     /*
