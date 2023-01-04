@@ -155,7 +155,7 @@ import { OtpvalidationService } from '../../service/otpvalidation.service';
 
 .register-heading {
     text-align: left;
-    margin-top: 8%;
+    margin-top: 8% !important;
     margin-bottom: -15%;
     font-weight: 900;
     color: #495057;
@@ -163,7 +163,7 @@ import { OtpvalidationService } from '../../service/otpvalidation.service';
 }
 
 .custom_header {
-    margin-top: 10px;
+    margin-top: -26px;
     font-size: 20px;
     color: #14638f;
     font-weight: 600;
@@ -423,6 +423,8 @@ export class LoginComponent implements OnInit {
         this.sessionService.setItem("selected-layout", loginuser.layoutpage);
         this.sessionService.setItem("applicantid", loginuser.key);
         this.sessionService.setItem("user_type", loginuser.user_type);
+        this.sessionService.setItem("email", loginuser.email);
+        this.sessionService.setItem("mobilenumber", loginuser.mobilenumber);
         // localStorage.setItem("termid", user.terms.termid);
 
         //this.themeService.selectTheme(this.theme);

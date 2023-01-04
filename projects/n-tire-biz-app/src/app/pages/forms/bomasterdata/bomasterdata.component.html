@@ -60,12 +60,12 @@
           </ng-container>
           <li class='nav-item actionheader common_title_style' *ngIf="!showview">
             <!-- <a class="alert-success" [routerLink]=''>  -->
-            <button type="button" class="btn btn-outline-primary" style="border-color: #fff !important;margin: 5px;
+            <button type="button" class="btn btn-outline-primary popup-add-button " style="border-color: #fff !important;margin: 5px;
               padding: 3px;
               color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
             <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-            <button type="button" class="btn btn-outline-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            <button type="button" class="btn btn-outline-primary popup-add-button " *ngIf='data.pkcol==null || maindata.ScreenType==null'
               style="border-color: #fff !important;
               color: #fff;margin: 5px;
     padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
@@ -119,8 +119,8 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('masterdatatypeid') == -1) && (masterdatatypeidvisible==undefined || masterdatatypeidvisible==true))"
-                style='' class="col-3"><label for="masterdatatypeid" class="control-label"
-                  (click)="AddOrEdit_masterdatatypeid(null)">Master Datatype</label>
+                style='margin-right: 17rem !important;' class="col-3"><label for="masterdatatypeid" class="control-label"
+                  (click)="AddOrEdit_masterdatatypeid(null)" style="margin-right: 17rem !important;">Master Datatype</label>
                 <select *ngIf="!showview" id="masterdatatypeid" (change)="masterdatatypeid_onChange($event.target)"
                   formControlName="masterdatatypeid" class="form-control">
                   <option [ngValue]="null" selected>-Select-</option>

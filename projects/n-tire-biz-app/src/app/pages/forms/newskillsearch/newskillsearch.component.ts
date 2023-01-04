@@ -34,6 +34,7 @@ export class NewskillsearchComponent implements OnInit {
   showinput3: boolean;
   skillcategory_List: DropDownValues[];
   subcategoryid_List: DropDownValues[];
+  location_List: DropDownValues[];
   referenceacceptance_List: any;
   applicantid_List: any;
   pkList: mstapplicantskilldetail[];
@@ -46,6 +47,7 @@ export class NewskillsearchComponent implements OnInit {
   dropdownSettings: IDropdownSettings;
   categorySettings: IDropdownSettings;
   subCategorySettings: IDropdownSettings;
+  locationSettings: IDropdownSettings;
   mstapplicantgeographypreference_Form: FormGroup;
   country_List: DropDownValues[];
   country_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
@@ -84,6 +86,8 @@ export class NewskillsearchComponent implements OnInit {
   fkname1: string;
   paramid: any;
   term: string;
+  location_arry: any = [];
+  location_field: any;
   constructor(private http: HttpClient, public dialog: DialogService, private bomenumasterservice: bomenumasterService, public sessionService: SessionService, public dialogRef: DynamicDialogRef, private sharedService: SharedService, private router: Router, private boreportviewerservice: BOReportViewerService, private mstapplicantskilldetail_service: mstapplicantskilldetailService, private mstapplicantgeographypreference_service: mstapplicantgeographypreferenceService, private fb: FormBuilder) {
     this.mstapplicantgeographypreference_Form = this.fb.group({
       country: [null],
@@ -99,6 +103,7 @@ export class NewskillsearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checktest();
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'value',
@@ -115,6 +120,12 @@ export class NewskillsearchComponent implements OnInit {
       singleSelection: false,
       idField: 'subcategoryid',
       textField: 'code',
+      allowSearchFilter: false
+    }
+    this.locationSettings = {
+      singleSelection: false,
+      idField: 'value',
+      textField: 'label',
       allowSearchFilter: false
     }
     let data = {
@@ -138,6 +149,10 @@ export class NewskillsearchComponent implements OnInit {
     })
     this.http.get(AppConstants.ntirebizURL + '/boreport/reportcode/mstsr').subscribe((res: any) => {
       console.log(res);
+    })
+    this.http.get(AppConstants.ntirebizURL + '/mstapplicantgeographypreference/getList_city').subscribe((res: any) => {
+      console.log('location check', res);
+      this.location_List = res;
     })
     this.mstapplicantskilldetail_service.getList_segmentcategory().then(res => {
 
@@ -309,6 +324,7 @@ export class NewskillsearchComponent implements OnInit {
       this.showinput3 = false
     }
   }
+
   onSelected_country(countryDetail: any) {
     debugger
     if (countryDetail.value && countryDetail) {
@@ -336,11 +352,21 @@ export class NewskillsearchComponent implements OnInit {
       this.showData = res;
     });
   }
-  valueChanged1(e: any) {
+  location_onChange(e: any) {
     debugger;
     console.log('e', e);
-    this.locationValue = e.target.value;
-    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.skillcategory3 ? this.skillcategory3 : null, this.rangevalue ? this.rangevalue : null, this.locationValue ? this.locationValue : null, null, null).then((res: any) => {
+    this.locationValue = e.label;
+    this.location_arry.push({ loca: this.locationValue })
+    // console.log('substring', this.locationValue.substring(0, this.locationValue.length - 1));
+
+    this.location_field = "";
+    for (let i = 0; i < this.location_arry.length; i++) {
+      this.showData=[];
+      this.location_field = this.location_field + this.location_arry[i].loca + ',';
+    }
+    this.location_field = this.location_field.slice(0, -1);
+
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.skillcategory3 ? this.skillcategory3 : null, this.rangevalue ? this.rangevalue : null, this.location_field ? this.location_field : null, null, null).then((res: any) => {
       console.log('res ', res);
       this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
@@ -354,9 +380,9 @@ export class NewskillsearchComponent implements OnInit {
   opendialog1(action, rowData) {
     debugger;
     let stredit = 'edit';
-    if (rowData["noneditable"] == '1')
-      stredit = 'view';
-    stredit = 'view';
+    // if (rowData["noneditable"] == '1')
+    //   stredit = 'view';
+    // stredit = 'view';
     //let url = "/#/workflow/" + rowData["modulename"] + "/" + rowData["modulename"] + "/"+stredit+"/" + encodeURIComponent(rowData["pkvalue"]);
     let url = "#/workflow/" + rowData["modulename"] + "/" + rowData["modulename"] + "/" + stredit + "/" + encodeURIComponent(rowData["pkvalue"]);
     // this.sharedService.alert(url);
@@ -606,5 +632,18 @@ export class NewskillsearchComponent implements OnInit {
     // if (index !== -1) {
     //   this.Zone.splice(index, 1);
     // }
+  }
+  checktest() {
+    const slideValue = document.querySelector("span");
+    const inputSlider = document.querySelector("input");
+    inputSlider.oninput = (() => {
+      let value = inputSlider.value;
+      slideValue.textContent = value;
+      slideValue.style.left = (value) + "%";
+      slideValue.classList.add("show");
+    });
+    inputSlider.onblur = (() => {
+      slideValue.classList.remove("show");
+    });
   }
 }

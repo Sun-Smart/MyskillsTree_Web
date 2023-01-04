@@ -8,14 +8,14 @@
     <label style="left: 63px;position: fixed;font-size: 20px; color:#6B431D;">MySkillsTree</label>
 
   </div>
-  <div *ngIf="hideCorporatePage" class="col-6"
+  <div class="col-6"
     style="display:flex; justify-content:center; align-items:center;padding: 0 5rem;">
     <i class="fa fa-search search-icon" aria-hidden="true"></i>
     <input type="text" class="form-control" placeholder="Search"
-      style="border-radius:30px !important; padding: 0 38px;">
+      style="border-radius:30px !important; padding: 0 30px;height: 31px;">
     <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
   </div>
-  <div class="col-6" *ngIf="!hideCorporatePage"></div>
+  <!-- <div class="col-6" *ngIf="!hideCorporatePage"></div> -->
   <div class="col-3 layout-topbar-right ng-tns-c186-0">
 
     <div class="layout-topbar-actions-right ng-tns-c186-0">
@@ -242,7 +242,7 @@
                    </div> -->
 
                 <!-- Reports -->
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/MAM']" routerLinkActive="router-link-active">
                     <li class="li2">
                       <i class="fa fa-user-secret fa1" aria-hidden="true"></i><br />
@@ -251,77 +251,77 @@
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/mcm']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Corporate Masters</li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/arrA']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-retweet fa1" aria-hidden="true"></i><br /> Reference</li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;"><a
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()"><a
                     [routerLink]="['/home/boreportviewer/jobq']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-id-badge fa1" aria-hidden="true"></i><br /> Job Requirements</li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;"><a
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()"><a
                     [routerLink]="['/home/boreportviewer/aadl']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Achievement Details</li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;"><a
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()"><a
                     [routerLink]="['/home/boreportviewer/acdl']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Career Details
                     </li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/aed']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Education Details
                     </li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop " style="text-align:center;">
+                <div class="col-3 card admindrop " style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/agp']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Geography Preferences</li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/ald']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-language fa1" aria-hidden="true"></i><br /> Language Details</li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/ASMD']" routerLinkActive="router-link-active">
                     <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Social Media Details
                     </li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/AWR']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-file-powerpoint-o fa1" aria-hidden="true"></i><br /> Projects</li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/psd']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Profile Access Details
                     </li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/pcm']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-laptop fa1" aria-hidden="true"></i><br /> Profile Completion Masters
                     </li>
@@ -331,7 +331,7 @@
 
               <div style="display: flex;">
                 <hr style="margin-top: 10px !important;width: 41% !important;"> &nbsp;&nbsp;
-                <label style="color: #80808082;font: menu; font-style: italic;">Reports</label>&nbsp;&nbsp;
+                <label style="color: #80808082;font: menu; font-style: italic;">Masters</label>&nbsp;&nbsp;
                 <hr style="margin-top: 10px !important;width: 42% !important;">
               </div>
 
@@ -339,38 +339,38 @@
 
 
               <div class="row" style="margin: 8px 8px 0 8px !important; justify-content: space-between;">
-                <div class="col-3 card admindrop" style="text-align:center; ">
+                <div class="col-3 card admindrop" style="text-align:center; " (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/whwfe']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-building fa1" aria-hidden="true"></i>
                       <br /> Company Masters
                     </li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center; ">
+                <div class="col-3 card admindrop" style="text-align:center; "(click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/v2mgx']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-database fa1" aria-hidden="true"></i><br /> Master Data Type</li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/aj5qt']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-table fa1" aria-hidden="true"></i><br /> Master Data</li>
                   </a>
                 </div>
 
                 <!-- <div class="row" style=" font-size: 1rem;border-style: 1px solid gray;"> -->
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/aj5q']" routerLinkActive="router-link-activet">
                     <li class="li2"><i class="fa fa-check-square fa1" aria-hidden="true"></i>
                       <br /> Config Values
                     </li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/674']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-cc fa1" aria-hidden="true"></i><br /> Subcategory Masters</li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" >
                   <a [routerLink]="['/home/boreportviewer/wc9rn']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Countries</li>
                   </a>
@@ -378,18 +378,18 @@
                 <!-- </div> -->
 
                 <!-- <div class="row" style=" font-size: 1rem;"> -->
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/segmt']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-cc-mastercard fa1" aria-hidden="true"></i><br /> Segment Masters
                     </li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;"(click)="closePopups()"> 
                   <a [routerLink]="['/home/boreportviewer/terms']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-trademark fa1" aria-hidden="true"></i><br /> Terms </li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/e99kq']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-user-secret fa1" aria-hidden="true"></i><br /> User Master</li>
                   </a>
@@ -398,17 +398,17 @@
 
 
                 <!-- <div class="row" style="font-size: 1rem;"> -->
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/tnf39']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> User Roles</li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/zkpxi']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-empire fa1" aria-hidden="true"></i><br /> Templates</li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/zzhpb']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-file fa1" aria-hidden="true"></i><br /> Reports</li>
                   </a>
@@ -417,7 +417,7 @@
 
 
                 <!-- <div class="row" style="font-size: 1rem;"> -->
-                <div class="col-3 card admindrop" style="text-align:center;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/ybg3p']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-tachometer fa1" aria-hidden="true"></i><br /> Dashboards</li>
                   </a>
@@ -461,26 +461,26 @@
                 </div>
                 <!-- Corporate -->
 
-                <div class="col-4 card  Corporatedrop" style="text-align:center;">
+                <div class="col-4 card  Corporatedrop" style="text-align:center; " (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/mcm']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Corporate Masters
                     </li>
                   </a>
                 </div>
-                <div class="col-4 card  Corporatedrop" style="text-align:center;">
+                <div class="col-4 card  Corporatedrop" style="text-align:center;"(click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/jobq']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Job requirements</li>
                   </a>
                 </div>
 
-                <div class="col-4 card  Corporatedrop" style="text-align:center;">
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/arrA']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Requested
                       References</li>
                   </a>
                 </div>
 
-                <div class="col-4 card  Corporatedrop" style="text-align:center;">
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/newskillsearch']" routerLinkActive="router-link-active">
                     <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Skill search</li>
                   </a>
@@ -495,43 +495,43 @@
 
               <div class="row" style="margin: 8px 8px 0 8px !important; justify-content: space-between;">
 
-                <div class="col-4 card  Corporatedrop" style="text-align:center;">
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/aed']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br />Education Details
                     </li>
                   </a>
                 </div>
-                <div class="col-4 card  Corporatedrop" style="text-align:center;">
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/aadl']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Achievement Details</li>
                   </a>
                 </div>
-                <div class="col-4 card  Corporatedrop" style="text-align:center;">
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/acdl']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Career Details
                     </li>
                   </a>
                 </div>
 
-                <div class="col-4 card  Corporatedrop" style="text-align:center;">
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/ASMD']" routerLinkActive="router-link-active">
                     <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Social Media Details
                     </li>
                   </a>
                 </div>
-                <div class="col-4 card  Corporatedrop" style="text-align:center;">
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/agp']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Geography Preferences
                     </li>
                   </a>
                 </div>
-                <div class="col-4 card  Corporatedrop" style="text-align:center;">
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/ald']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-language fa1" aria-hidden="true"></i><br /> Language Details</li>
                   </a>
                 </div>
 
-                <div class="col-4 card  Corporatedrop" style="text-align:center;">
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/AWR']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-file-powerpoint-o fa1" aria-hidden="true"></i><br /> Projects</li>
                   </a>
@@ -560,7 +560,7 @@
 
 
         <ul class="list-group" *ngIf="showhideProfile"
-          style="position: absolute;top: 50px;left: 10%; height: 10px !important; width: 80% !important;">
+          style="position: absolute;top: 50px;left: 10%; height: 10px !important; width: 81% !important;">
           <li class="list-group-item">
 
             <button type="button" pripple (click)="closePopup();"
@@ -582,10 +582,32 @@
                   border-radius: 50px;" class="img_content" title="Profile">
             </center>
           </li>
-          <li class="list-group-item">
+          <li class="list-group-item" *ngIf="applicanticon"> 
+            <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
             <span>{{username}} ({{userrole}})</span>
           </li>
+          <li class="list-group-item"  *ngIf="adminicon">
+            <i class="fa fa-user-secret" aria-hidden="true"></i>&nbsp;
+            <span>{{username}} ({{userrole}})</span>
+          </li>
+          <li class="list-group-item" *ngIf="corporateicon">
+            <i class="fa fa-building-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
+            <span>{{username}} ({{userrole}})</span>
+          </li>
+
           <li class="list-group-item li1" style="cursor: pointer;" (click)="showProfile()">
+            <i class="fa fa-mobile" aria-hidden="true" style="font-size: 23px;
+            font-weight: bold;"></i>&nbsp;
+            <span>{{mobilenumber}}</span>
+          </li>
+          <li class="list-group-item li1" style="cursor: pointer;" (click)="showProfile()">
+            <i class="fa fa-envelope-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
+            <span>{{email}}</span>
+          </li>
+
+
+          <li class="list-group-item li1" style="cursor: pointer;" (click)="showProfile()">
+            <i class="fa fa-cog" aria-hidden="true" style="font-size: 16px;"></i>&nbsp;
             <span>Manage your account</span>
           </li>
           <li class="list-group-item li1" (click)="logout()" style="cursor: pointer; background-color: red;">
