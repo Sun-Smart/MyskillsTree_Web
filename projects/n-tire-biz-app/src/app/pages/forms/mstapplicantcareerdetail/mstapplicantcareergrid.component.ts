@@ -313,6 +313,13 @@ export class mstapplicantcareergridComponent implements OnInit {
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
         }
+     
+    }
+    async ngOnInit() {
+        this.Set_mstapplicantcareerdetails_TableConfig();
+        if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
+        if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
+
         this.pkcol = this.data.maindatapkcol;
         this.applicantid = this.data.applicantid
 
@@ -323,11 +330,12 @@ export class mstapplicantcareergridComponent implements OnInit {
             month: current.getMonth() + 1,
             day: current.getDate()
         };
+
         this.mstapplicantcareerdetail_Form = this.fb.group({
             pk: [null],
             ImageName: [null],
-            // applicantid: [this.applicantid],
-            applicantid: this.sessionService.getItem('applicantid'),
+            applicantid: [this.applicantid],
+            // applicantid: this.sessionService.getItem('applicantid'),
             applicantiddesc: [null],
             careerid: [null],
             category: [null],
@@ -346,14 +354,6 @@ export class mstapplicantcareergridComponent implements OnInit {
             statusdesc: [null],
             attachment: [null],
         });
-    }
-    async ngOnInit() {
-        this.Set_mstapplicantcareerdetails_TableConfig();
-        if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
-        if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
-
-
-
         this.FillData();
         //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         // if (this.pkcol == null) {
@@ -687,11 +687,12 @@ export class mstapplicantcareergridComponent implements OnInit {
 
         debugger;
         this.showSkillDetails_input = true;
+        this.ngOnInit();
         this.getData();
         let add = false;
         if (event == null) add = true;
-        let childsave = true;
-        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+        // let childsave = true;
+        // if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
     }
 

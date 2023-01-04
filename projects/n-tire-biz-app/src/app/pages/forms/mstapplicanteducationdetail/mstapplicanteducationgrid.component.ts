@@ -318,14 +318,25 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
     }
-    this.pkcol = this.data.maindatapkcol;
-    this.applicantid = this.data.applicantid
     console.log(this.mstapplicanteducationdetail_menuactions);
+  };
+
+  get f() { return this.mstapplicanteducationdetail_Form.controls; }
+
+  ngOnInit() {
+    this.Set_mstapplicanteducationdetails_TableConfig();
+
+    if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
+    if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
+
+    this.pkcol = this.data.maindatapkcol;
+    this.applicantid = this.data.applicantid;
 
     this.mstapplicanteducationdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: localStorage.getItem('applicantid'),
+      // applicantid: localStorage.getItem('applicantid'),
+      applicantid: [this.applicantid],
       applicantiddesc: [null],
       educationid: [null],
       educationcategory: [null, Validators.compose([Validators.required])],
@@ -345,15 +356,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       status: [null],
       statusdesc: [null],
     });
-  };
 
-  get f() { return this.mstapplicanteducationdetail_Form.controls; }
-
-  ngOnInit() {
-    this.Set_mstapplicanteducationdetails_TableConfig();
-
-    if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
-    if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
     this.FillData();
   };
 
@@ -571,13 +574,11 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
   Add_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
     debugger;
-    this.ngOnInit();
     this.showSkillDetails_input = true;
+    this.ngOnInit();
     this.eduCategory();
     let add = false;
     if (event == null) add = true;
-    let childsave = true;
-    if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
   }
   Edit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {

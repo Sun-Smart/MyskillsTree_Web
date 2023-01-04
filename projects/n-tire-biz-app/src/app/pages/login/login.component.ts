@@ -47,6 +47,13 @@ import { OtpvalidationService } from '../../service/otpvalidation.service';
     margin-top: 4%;
 }
 
+.validation{
+    width: 100%;
+     margin-top: 0.25rem;
+     font-size: 80%;
+     color: #dc3545;
+ }
+
 .register-left input {
     border: none;
     border-radius: 1.5rem;
@@ -303,7 +310,7 @@ export class LoginComponent implements OnInit {
     email2: string;
     remem: any;
     applicantid: any;
-    validation: boolean = false;
+    login_validation: boolean = false;
     emailvalidation: boolean = false;
     passvalidation: boolean = false;
     userData: any;
@@ -340,7 +347,6 @@ export class LoginComponent implements OnInit {
         this.theme = "omega";
         this.sessionService.setItem("selected-theme", this.theme);
     }
-
     ngOnInit() {
         debugger
         this.spinner.show();
@@ -387,7 +393,7 @@ export class LoginComponent implements OnInit {
         }
         else {
 
-            this.toastService.addSingle("error", "", "User not found");
+            this.toastService.addSingle("error", "", "Invalid Login Credentials");
             return;
         }
 
@@ -460,6 +466,8 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
         debugger
+        this.login_validation = true;
+
         this.rememberme(this.bologinForm.get('rememberMe').value);
         if (this.bologinForm.invalid) {
             this.emailvalidation = !this.emailvalidation;
