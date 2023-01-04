@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
   applicanticon: boolean =false;
   corporateicon: boolean =false;
   adminicon: boolean =false;
-  
+  mobilenumber:any;
   email: any;
   constructor(
     private router: Router,
@@ -136,9 +136,9 @@ export class HeaderComponent implements OnInit {
       //debugger;
       this.theme = val;
     });
-
+    this.mobilenumber = this.sessionService.getItem('mobilenumber');
     this.email = this.sessionService.getItem('email');
-    
+
     this.username = this.sessionService.getItem('username');
     if (this.sessionService.getItem('role') == '1') {
       this.userrole = 'Admin';

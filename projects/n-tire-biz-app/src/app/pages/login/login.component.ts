@@ -418,6 +418,7 @@ export class LoginComponent implements OnInit {
         this.sessionService.setItem("applicantid", loginuser.key);
         this.sessionService.setItem("user_type", loginuser.user_type);
         this.sessionService.setItem("email", loginuser.email);
+        this.sessionService.setItem("mobilenumber", loginuser.mobilenumber);
         // localStorage.setItem("termid", user.terms.termid);
 
         //this.themeService.selectTheme(this.theme);

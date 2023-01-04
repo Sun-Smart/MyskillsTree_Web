@@ -30,15 +30,16 @@
         <div class="reportheader col-5  nomargin nowrap">
           <h1 style="color:gray !important;">{{reportheader}}</h1>
         </div>
-        <div class="col-2 input-group nomargin nowrap">
+        <!-- <div class="col-2 input-group nomargin nowrap">
           <i class="fa fa-search search"></i><input type="text" class="border form-control"
             placeholder="    Global Filter"
             (input)="treeview?dt1.filterGlobal($event.target.value, 'contains'):dt.filterGlobal($event.target.value, 'contains')">
 
-        </div>
+        </div> -->
         <div class="col-1" style="" *ngIf="showAddJobs">
           <a [routerLink]='' (click)="onChangeAction('Add')" *ngIf="showhideaddapplicant"><i class="fa fa-plus-circle"
-              style="color:var(--frontcolor)!important;vertical-align: middle;"></i></a>
+              style="color:var(--frontcolor)!important;vertical-align: middle;margin-top: 8px;
+              font-size: 18px;"></i></a>
         </div>
         <div class="col-3  input-group  nomargin nowrap">
 

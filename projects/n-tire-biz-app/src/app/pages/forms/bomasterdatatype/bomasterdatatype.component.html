@@ -1,15 +1,15 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
-<form [formGroup]="bomasterdatatype_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+<form [formGroup]="bomasterdatatype_Form" (ngSubmit)="onSubmit()" [ngClass]="theme" style="background-color: #f5f3e4;">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Master DataTypes' | translate}}</a>
-    </h1>
-    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
-      <!--btn-toolbar-->
-      <div class='col'></div>
-      <div class='dropdown d-inline-block btn-dropdown show'>
 
-        <ul class='nav nav-pills  input-group'>
+    <div class="col-4 columns mainheader left">
+      <h1 class=" "><a href='#/home/{{p_currenturl}}'>{{'Master DataTypes' | translate}}</a></h1>
+    </div>
+
+    <div class="col-4 sticky1 second' role='toolbar' aria-label='Toolbar with button groups'">
+      <div class='dropdown d-inline-block btn-dropdown show'>
+        <ul class='nav nav-pills  input-group '>
           <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bomasterdatatypes()"><i
                 class="nb-edit"></i>Edit</a></li>
           <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
@@ -55,25 +55,32 @@
               </li>
             </ul>
           </li>
+
           <ng-container *ngFor="let action of bomasterdatatype_menuactions">
             <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
-          <li class='nav-item actionheader' *ngIf="!showview">
-            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
-              Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
-            <app-action *ngIf="f.datatypeid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
-              [value]="f.datatypeid.value" [status]="f.status.value"></app-action>
-          </li>
-          <li class='nav-item actionheader'
-            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-          </li>
-
         </ul>
       </div>
+    </div>
+
+    <div class="col-4 ">
+      <ul>
+        <li class='nav-item actionheader' *ngIf="!showview">
+          <a class="alert-success popup-add-button " [routerLink]='' (click)="onSubmitAndWait()"><i
+              class="fa fa-database"></i>
+            Submit</a>
+          <a class="alert-primary popup-add-button " *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            [routerLink]='' (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+          <app-action *ngIf="f.datatypeid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+            [value]="f.datatypeid.value" [status]="f.status.value"></app-action>
+        </li>
+        <li class='nav-item actionheader'
+          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+          <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+        </li>
+
+      </ul>
     </div>
   </div>
   <div class="container"
@@ -88,7 +95,7 @@
       <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
 
       </div>
-      <ngb-tab>
+      <ngb-tab class="myClass">
         <ng-template ngbTabTitle>
           <div (click)="ToolBar(true)">Master</div>
         </ng-template>
@@ -101,7 +108,7 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('code') == -1) && (codevisible==undefined || codevisible==true))" style=''
                 class="col-3"><label for="code" class="control-label">Code</label>
-                <input type="number" id="code" formControlName="code" class="form-control" *ngIf="!showview"/>
+                <input type="number" id="code" formControlName="code" class="form-control" *ngIf="!showview" />
                 <!-- <select *ngIf="!showview" id="code" (change)="code_onChange($event.target)" formControlName="code"
                   class="form-control">
                   <option value="0">-Select-</option>
@@ -112,7 +119,7 @@
               <div
                 *ngIf="((hidelist.indexOf('masterdataname') == -1) && (masterdatanamevisible==undefined || masterdatanamevisible==true))"
                 style='' class="col-3 ">
-                <label for="masterdataname" class="control-label required">Master Dataname</label>
+                <label for="masterdataname" class="control-label required">Master Data Name</label>
                 <label *ngIf="showview" class="labelview">{{f.masterdataname?.value}}</label>
                 <input *ngIf="!showview" id="masterdataname" required formControlName="masterdataname"
                   class="form-control">
