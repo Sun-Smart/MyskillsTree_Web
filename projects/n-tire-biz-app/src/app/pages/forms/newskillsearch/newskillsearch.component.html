@@ -32,11 +32,23 @@
           (onSelectAll)="onSelectAll($event)">
         </ng-multiselect-dropdown>
       </div>
-      <div class="sidebar-content" style="width: 200px;height: 62px;">
+      <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Experience</h6>
-        <input type="range" class="form-control" min="0" max="10" value="{{rangevalue}}" title="{{rangevalue}}"
-          (input)="valueChanged($event)"><label
-          style="position: relative;bottom: 21px;font-weight: 700;left: 110%;">{{rangevalue}}</label>
+        <div class="range">
+          <div class="sliderValue">
+            <span>0</span>
+          </div>
+          <div class="field">
+            <div class="value left">
+              0</div>
+            <input type="range" min="0" max="30" value="{{rangevalue}}" steps="1" (input)="valueChanged($event)">
+            <div class="value right">
+              30</div>
+          </div>
+        </div>
+        <!-- <input type="range" class="form-control" min="0" max="10" value="{{rangevalue}}" data-tooltip="{{rangevalue}}"
+          (input)="valueChanged($event)">
+          <label style="position: relative;bottom: 21px;font-weight: 700;left: 110%;">{{rangevalue}}</label> -->
       </div>
       <div class="sidebar-content">
         <!-- <h6 style="font-weight: 600;"> Country</h6>
@@ -44,7 +56,10 @@
           (selectItem)="onSelected_country($event)" [reportid]='wc9rn' [menuid]='wc9rn' formControlName="country"
           id="value" desc="label"></app-popupselect> -->
         <h6 style="font-weight: 600;"> Location</h6>
-        <input class="form-control" [(ngModel)]="location" (keyup)="valueChanged1($event)">
+        <ng-multiselect-dropdown [placeholder]="'Select Location'" [settings]="locationSettings" [data]="location_List"
+          [(ngModel)]="value" (onSelect)="location_onChange($event,val)" (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+        <!-- <input class="form-control" [(ngModel)]="location" (keyup)="valueChanged1($event)"> -->
       </div>
     </div>
     <div class="main-content">
@@ -175,3 +190,6 @@
     </div>
   </div>
 </div>
+<script>
+
+</script>
