@@ -722,9 +722,10 @@ export class mstapplicantreferencerequestComponent implements OnInit {
         if (this.fileattachment) this.fileattachment.clear();
         this.spinner.hide();
         debugger;
-        this.toastr.addSingle("success", "", "Successfully saved");
+        this.toastr.addSingle("success", "", "Reference Request Successfully");
         this.sessionService.setItem("attachedsaved", "true")
         this.objvalues.push((res as any).mstapplicantreferencerequest);
+        this.ngOnInit();
         if (!bclear) this.showview = true;
         if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
         if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {

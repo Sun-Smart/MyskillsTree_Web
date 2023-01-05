@@ -260,6 +260,13 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
         }
+    }
+
+    ngOnInit() {
+        this.Set_mstapplicantsocialmediadetails_TableConfig();
+        if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
+        if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
+
         this.pkcol = this.data.maindatapkcol;
         this.applicantid = this.data.applicantid
 
@@ -279,12 +286,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
             status: [null],
             statusdesc: [null],
         });
-    }
 
-    ngOnInit() {
-        this.Set_mstapplicantsocialmediadetails_TableConfig();
-        if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
-        if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
         this.FillData();
 
         this.sessionData = this.sessionService.getSession();
@@ -640,13 +642,14 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     Add_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
         debugger
         
-        let add = false;
         debugger
         this.showSkillDetails_input = true;
+        this.ngOnInit();
         this.getdata();
+        let add = false;
         if (event == null) add = true;
-        let childsave = true;
-        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+        // let childsave = true;
+        // if (this.pkcol != undefined && this.pkcol != null) childsave = true;
     }
 
     Edit_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {

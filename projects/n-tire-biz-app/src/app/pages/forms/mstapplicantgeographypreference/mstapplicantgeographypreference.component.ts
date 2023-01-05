@@ -536,8 +536,6 @@ export class mstapplicantgeographypreferenceComponent implements OnInit {
             if (this.f.country.value && this.f.country.value != "" && this.f.country.value != null) this.mstapplicantgeographypreference_service.getList_city(this.f.country.value).then(res => {
 
                 // if (this.f.country.value && this.f.country.value != "" && this.f.country.value != null) this.mstapplicantgeographypreference_service.getList_city().then(res => {
-
-
                 this.city_List = res as DropDownValues[];
             }).catch((err) => { console.log(err); });
         });

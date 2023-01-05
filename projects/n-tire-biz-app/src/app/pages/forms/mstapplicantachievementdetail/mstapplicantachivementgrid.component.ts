@@ -215,6 +215,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
     sessionData: any;
     sourceKey: any;
+    formid: any;
 
     constructor(
         private nav: Location,
@@ -240,6 +241,14 @@ export class mstapplicantachivementgridComponent implements OnInit {
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
         }
+    }
+
+    ngOnInit() {
+        debugger
+        this.Set_mstapplicantachievementdetails_TableConfig();
+        if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
+        if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
+
         this.pkcol = this.data.maindatapkcol;
         this.applicantid = this.data.applicantid
 
@@ -261,13 +270,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
             status: [null],
             statusdesc: [null],
         });
-    }
 
-    ngOnInit() {
-        debugger
-        this.Set_mstapplicantachievementdetails_TableConfig();
-        if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
-        if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
         this.FillData();
 
         //autocomplete
@@ -438,25 +441,29 @@ export class mstapplicantachivementgridComponent implements OnInit {
     Add_mstapplicantachievementdetail(event: any, achievementid: any, applicantid: any) {
         debugger
         this.showSkillDetails_input = true;
+        this.ngOnInit();
         this.getdata();
         let add = false;
         if (event == null) add = true;
-        let childsave = true;
-        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
     }
 
     Edit_mstapplicantachievementdetail(event: any, achievementid: any, applicantid: any) {
         debugger
         this.showSkillDetails_input = true;
-        let add = false;
-        if (event == null) add = true;
+        // let add = false;
+        // if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.getdata();
         console.log(event, achievementid,applicantid);
         
-        this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(event.data.pkcol).then((res:any) => {
+        this.mstapplicantachievementdetail_service.get_mstapplicantachievementdetails_ByEID(event.data.pkcol).then(res => {
             console.log(res);
+
+            this.formData = res.mstapplicantachievementdetail;
+            // this.formid = res.mstapplicantachievementdetail.achievementid;
+            this.pkcol = res.mstapplicantachievementdetail.pkcol;
+            
             debugger
             this.mstapplicantachievementdetail_Form.patchValue({
                 applicantid: res.mstapplicantachievementdetail.applicantid,
@@ -702,9 +709,9 @@ export class mstapplicantachivementgridComponent implements OnInit {
                 break;
         }
     }
-    formid(event: any, arg1: null, formid: any) {
-        throw new Error('Method not implemented.');
-    }
+    // formid(event: any, arg1: null, formid: any) {
+    //     throw new Error('Method not implemented.');
+    // }
     mstapplicantachievementdetails_onDelete(obj) {
         let achievementid = obj.data.achievementid;
         if (confirm('Are you sure to delete this record ?')) {

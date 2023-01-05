@@ -270,6 +270,13 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
         }
+ 
+    }
+    ngOnInit() {
+        this.Set_mstapplicantlanguagedetails_TableConfig();
+        if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
+        if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
+
         this.pkcol = this.data.maindatapkcol;
         this.applicantid = this.data.applicantid;
 
@@ -277,6 +284,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             pk: [null],
             ImageName: [null],
             applicantid: this.sessionService.getItem('applicantid'),
+            // applicantid: [this.applicantid],
             applicantiddesc: [null],
             languageid: [null],
             language: [null, Validators.compose([Validators.required])],
@@ -290,14 +298,12 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             status: [null],
             statusdesc: [null],
         });
-    }
-    ngOnInit() {
-        this.Set_mstapplicantlanguagedetails_TableConfig();
-        if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
-        if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
         this.FillData();
         
     }
+
+    get f() { return this.mstapplicantlanguagedetail_Form.controls; }
+
 
     //     addSkills() {
     //     debugger
@@ -359,7 +365,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     }
     async onSubmitData(bclear: any) {
         debugger
-        this.showSkillDetails_input = true;
+        this.showSkillDetails_input = false;
         this.getdata();
         this.isSubmitted = true;
         let strError = "";
@@ -446,7 +452,10 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             }
         }
     }
-
+    language_onChange(evt: any) {
+        let e = this.f.language.value as any;
+        this.mstapplicantlanguagedetail_Form.patchValue({ languagedesc: evt.options[evt.options.selectedIndex].text });
+    }
     mstapplicantlanguagedetailshtml() {
         let ret = "";
         ret += `
@@ -476,8 +485,9 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         return ret;
     }
     FillData() {
-        this.Set_mstapplicantlanguagedetails_TableConfig();
+    
         this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByApplicantID(this.applicantid).then(res => {
+            this.Set_mstapplicantlanguagedetails_TableConfig();
             this.mstapplicantlanguagedetails_LoadTable(res.mstapplicantlanguagedetail);
         });
 
@@ -694,27 +704,31 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     Add_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
         debugger
         this.showSkillDetails_input = true;
+        this.ngOnInit();
         this.getdata();
         let add = false;
         if (event == null) add = true;
-        let childsave = true;
-        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+        // let childsave = true;
+        // if (this.pkcol != undefined && this.pkcol != null) childsave = true;
     }
 
     
     Edit_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
         debugger
         this.showSkillDetails_input = true;
-        this.getdata();
-        let add = false;
-        if (event == null) add = true;
+        
+        // let add = false;
+        // if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+        this.getdata();
         console.log(event, languageid, applicantid);
         
         this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByEID(event.data.pkcol).then(res => {
             console.log(res);
-            
+            this.formData = res.mstapplicantlanguagedetail;
+            // this.formid = res.mstapplicantachievementdetail.achievementid;
+            this.pkcol = res.mstapplicantlanguagedetail.pkcol;
             this.mstapplicantlanguagedetail_Form.patchValue({
                 applicantid: res.mstapplicantlanguagedetail.applicantid,
                 applicantiddesc: res.mstapplicantlanguagedetail.applicantiddesc,
@@ -726,7 +740,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
                 speakproficiency: res.mstapplicantlanguagedetail.speakproficiency,
                 overallrating: res.mstapplicantlanguagedetail.overallrating,
                 remarks: res.mstapplicantlanguagedetail.remarks,
-                attachment: JSON.parse(res.mstapplicantlanguagedetail.attachment),
+                attachment: "[]",
                 status: res.mstapplicantlanguagedetail.status,
                 statusdesc: res.mstapplicantlanguagedetail.statusdesc,
             });
