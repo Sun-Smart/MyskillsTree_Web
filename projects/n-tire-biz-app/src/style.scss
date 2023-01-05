@@ -396,12 +396,12 @@ a + a {
 .alert-info,
 .alert-action,
 .btn-success :hover{
- color: #fff !important;
- border: none !important;
- border-radius: 6px;
- padding: 4px 14px !important;
- margin-right: 15px !important;
- background: #8d6f6f !important;
+//  color: #fff !important;
+//  border: none !important;
+//  border-radius: 6px;
+//  padding: 4px 14px !important;
+//  margin-right: 15px !important;
+//  background: #8d6f6f !important;
 }
 .alert-primary:hover{
   color: #fff !important;
@@ -2435,7 +2435,9 @@ td {
     color:var(--frontcolor)!important;
   }
 */
-.comments,
+
+
+// .comments,
 .card {
   color: var(--frontcolor) !important;
   background-color: var(--backcolor) !important;

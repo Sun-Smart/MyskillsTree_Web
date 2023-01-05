@@ -1457,7 +1457,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
 
-        if (localStorage.getItem("role") == '1') {
+        if ((localStorage.getItem("role") == '1') &&(localStorage.getItem("role") == '3')) {
             this.showAddJobs = true;
         } else {
             this.showAddJobs = false;

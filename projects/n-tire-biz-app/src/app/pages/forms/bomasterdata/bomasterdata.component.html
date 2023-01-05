@@ -119,8 +119,8 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('masterdatatypeid') == -1) && (masterdatatypeidvisible==undefined || masterdatatypeidvisible==true))"
-                style='margin-right: 17rem !important;' class="col-3"><label for="masterdatatypeid" class="control-label"
-                  (click)="AddOrEdit_masterdatatypeid(null)" style="margin-right: 17rem !important;">Master Datatype</label>
+                style='' class="col-3"><label for="masterdatatypeid" class="control-label"
+                  (click)="AddOrEdit_masterdatatypeid(null)">Master Datatype</label>
                 <select *ngIf="!showview" id="masterdatatypeid" (change)="masterdatatypeid_onChange($event.target)"
                   formControlName="masterdatatypeid" class="form-control">
                   <option [ngValue]="null" selected>-Select-</option>
