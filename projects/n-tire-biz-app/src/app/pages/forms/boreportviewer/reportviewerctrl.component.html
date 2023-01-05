@@ -36,9 +36,9 @@
             (input)="treeview?dt1.filterGlobal($event.target.value, 'contains'):dt.filterGlobal($event.target.value, 'contains')">
 
         </div> -->
-        <div class="col-1" style="" *ngIf="showAddJobs">
+        <div class="col-4" style="" *ngIf="showAddJobs">
           <a [routerLink]='' (click)="onChangeAction('Add')" *ngIf="showhideaddapplicant"><i class="fa fa-plus-circle"
-              style="color:var(--frontcolor)!important;vertical-align: middle;margin-top: 8px;
+              style="color:#6B431D!important;vertical-align: middle;margin-top: 8px;
               font-size: 18px;"></i></a>
         </div>
         <div class="col-3  input-group  nomargin nowrap">
@@ -751,11 +751,12 @@
                 <div
                   *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.dropdownItems==null && (itemcol.datatype=='date'))">
 
-
-                  <p-calendar [(ngModel)]="dateFilters" appendTo="body" selectionMode="range" [readonlyInput]="false"
-                    dateFormat="dd.mm.yy" (onSelect)="onDateSelect($event,itemcol.field)">
-
+                  
+                  <p-calendar style="width:5px !important;" [(ngModel)]="dateFilters" appendTo="body" selectionMode="range" [readonlyInput]="false"
+                    dateFormat="dd.mm.yy" (onSelect)="onDateSelect($event,itemcol.field)" >
+                    <!-- <i class="fa fa-calendar" aria-hidden="true"></i> -->
                   </p-calendar>
+                   
                 </div>
                 <!--<p-dropdown appendTo="body"
                                         *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.datatype=='dp')"

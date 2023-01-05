@@ -61,9 +61,9 @@
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
           <li class='nav-item actionheader' *ngIf="!showview">
-            <a class="alert-success common_title_style popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+            <a class="alert-success  popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary common_title_style popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary  popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.corporateid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.corporateid.value" [status]="f.status.value"></app-action>

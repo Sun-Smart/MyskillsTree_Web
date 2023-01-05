@@ -8,9 +8,9 @@
             <img src="assets/register.png" alt="MySkillTree" />
         </div>
         <div class="col-md-6 register-right">
-            <div class="tab-content" id="myTabContent">
+            <div class="tab-content" id="myTabContent" style=" margin: 10px;">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <h3 class="register-heading">Login with OTP</h3><br /><br />
+                    <h3 class="register-heading">Login with OTP</h3>
                     <h4 class="custom_header">We have sent to the OTP on Registered Mobile Number and Email ID.</h4>
                     <form [formGroup]="validation_Form" (ngSubmit)="onSubmit(validation_Form)">
                     <div class="register-form">
