@@ -241,24 +241,23 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('referenceavailability') == -1) && (referenceavailabilityvisible==undefined || referenceavailabilityvisible==true))"
-                style='' class="col-3 ">
-                <div class="columnchk">
+                class="col-3 " style="display: flex; text-align: center; justify-content: center;" >
                   <label for="referenceavailability" class="control-label">Reference Availability</label>
                   <label *ngIf="showview" class="labelview">{{f.referenceavailability?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="referenceavailability"
-                    formControlName="referenceavailability" class="form-control">
+                    formControlName="referenceavailability" >
                 </div>
               </div>
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('referencevalidation') == -1) && (referencevalidationvisible==undefined || referencevalidationvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 " style="display: flex; justify-content: center;text-align: center;">
                 <div class="columnchk">
                   <label for="referencevalidation" class="control-label">Reference Validation</label>
                   <label *ngIf="showview" class="labelview">{{f.referencevalidation?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="referencevalidation"
-                    formControlName="referencevalidation" class="form-control">
+                    formControlName="referencevalidation">
                 </div>
               </div>
               <div class="col"></div>
