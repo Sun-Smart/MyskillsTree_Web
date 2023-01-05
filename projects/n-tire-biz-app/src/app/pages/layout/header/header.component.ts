@@ -304,6 +304,9 @@ export class HeaderComponent implements OnInit {
   showNotificationSidebar() {
     this.displayNotifications = true;
     this.showNotify = true;
+    this.menuhides = false;
+    this.menuhide = false;
+    this.showhideProfile = false;
   }
   ShowTask(notification: any) {
 
@@ -352,8 +355,12 @@ export class HeaderComponent implements OnInit {
     }
   }
   showProfileDetails() {
+    debugger
     this.showhideProfile = !this.showhideProfile;
     this.showmenulist = false;
+    this.menuhides = false;
+    this.menuhide = false;
+    this.displayNotifications = false;
   }
   showProfile() {
     this.dialog.open(mstapplicantmastermainComponent,
@@ -373,6 +380,7 @@ export class HeaderComponent implements OnInit {
       this.menuhide = false;
       this.showhideProfile = false;
       this.showmenulist = false;
+      
     }
     //  else{
     // this.menuhide=false
@@ -380,14 +388,21 @@ export class HeaderComponent implements OnInit {
   }
   openpopup() {
     debugger
-    this.menuhide = true
+    this.menuhide = true;
+    this.displayNotifications = false;
+    this.showNotify = false;
+    this.showhideProfile = false;
   }
 
   openpopups() {
-    this.menuhides = true
+    debugger
+    this.menuhides = true;
+    this.showhideProfile = false;
+    
   }
   closePopups() {
     this.menuhides = false;
+    this.showhideProfile = false;
   }
 
   gotoSkillSearch() {

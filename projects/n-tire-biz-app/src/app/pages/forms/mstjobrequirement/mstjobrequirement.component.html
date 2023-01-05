@@ -2,8 +2,10 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstjobrequirement_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second common_title_style">
-    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Job Requirements' | translate}}</a>
-    </h1>
+    <div class="col-4">
+    <h1 class=" columns mainheader left"><a href='#/home/{{p_currenturl}}' style="margin: auto;">{{'Job Requirements' | translate}}</a>
+    </h1></div>
+
     <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -241,7 +243,8 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('referenceavailability') == -1) && (referenceavailabilityvisible==undefined || referenceavailabilityvisible==true))"
-                class="col-3 " style="display: flex; text-align: center; justify-content: center;" >
+                style='' class="col-3 " style="display: flex; justify-content: center; text-align: center;">
+                <div class="columnchk">
                   <label for="referenceavailability" class="control-label">Reference Availability</label>
                   <label *ngIf="showview" class="labelview">{{f.referenceavailability?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="referenceavailability"
@@ -252,12 +255,12 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('referencevalidation') == -1) && (referencevalidationvisible==undefined || referencevalidationvisible==true))"
-                style='' class="col-3 " style="display: flex; justify-content: center;text-align: center;">
+                style='' class="col-3 " style="display: flex; justify-content: center; text-align: center;">
                 <div class="columnchk">
                   <label for="referencevalidation" class="control-label">Reference Validation</label>
                   <label *ngIf="showview" class="labelview">{{f.referencevalidation?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="referencevalidation"
-                    formControlName="referencevalidation">
+                    formControlName="referencevalidation" >
                 </div>
               </div>
               <div class="col"></div>
