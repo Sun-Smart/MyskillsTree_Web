@@ -398,7 +398,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
     if (this.sessionService.getItem("role") == '1') {
       this.userrole = 'Admin';
       this.isadmin = true;
-    }else if (localStorage.getItem("role") == '3') {
+    } else if (localStorage.getItem("role") == '3') {
       this.userrole = 'Corporate';
       this.iseditbuttonshow = false;
     } else if (localStorage.getItem("role") == '2') {
@@ -660,19 +660,27 @@ export class mstapplicantmasterviewComponent implements OnInit {
   }
   mstapplicantgeographypreferenceshtml() {
     let ret = "";
-    ret += `<div class='card1'>
-<h3 class='profile__section__item__sub'>##countrydesc## - ##citydesc##</h3>
-<p>##remarks##</p>
+    ret += `<div class='geo-card1'>
+    <label style="color:gray;font-weight:300;">Country</label> : <label style="color:#000;font-weight:bold;">##countrydesc##</label><br/>
+    <label style="color:gray;font-weight:300;">City</label> : <label style="color:#000;font-weight:bold;">##citydesc##</label><br/>
+<!--<h3 class='profile__section__item__sub'>##countrydesc## - ##citydesc##</h3>-->
+<label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label>
 </div>
 `;
     return ret;
   }
   mstapplicantcareerdetailshtml() {
     let ret = "";
-    ret += `<div class='card1'>
-<h2>##companyname## - ##designation##</h2>
+    ret += `<div class='career-card1'>
+    <label style="color:gray;font-weight:300;">Company Name</label> : <label style="color:#000;font-weight:bold;">##companyname##</label><br/>
+    <label style="color:gray;font-weight:300;">Designation</label> : <label style="color:#000;font-weight:bold;">##designation##</label><br/>
+    <label style="color:gray;font-weight:300;">From Date</label> : <label style="color:#000;font-weight:bold;">##fromdate##</label> - 
+    <label style="color:gray;font-weight:300;">To Date</label> : <label style="color:#000;font-weight:bold;">##todate##</label><br/>
+    <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label><br/>
+
+<!--<h2>##companyname## - ##designation##</h2>
 <h3 class='profile__section__item__sub'>##fromdate## - ##todate##</h3>
-<p>##remarks##</p>
+<p>##remarks##</p>-->
 </div>
 `;
     return ret;
@@ -690,20 +698,31 @@ export class mstapplicantmasterviewComponent implements OnInit {
   }
   mstapplicantskilldetailshtml() {
     let ret = "";
-    ret += `<div class='card1'>
-<h2>##skillcategorydesc## ##subcategoryiddesc##</h2>
+    ret += `<div class='skill-card1'>
+    <lebal style="color:gray;font-weight:300;">Skill Category</label> : <lebal style="color:#000;font-weight:bold;">##skillcategorydesc##</label><br/>
+    <lebal style="color:gray;font-weight:300;">Sub Category</label> : <lebal style="color:#000;font-weight:bold;">##subcategoryiddesc##</label><br/>
+    <lebal style="color:gray;font-weight:300;">Self Rating</label> : <lebal style="color:#000;font-weight:bold;">##selfrating##</label><br/>
+    <lebal style="color:gray;font-weight:300;">Remarks</label> : <lebal style="color:#000;font-weight:bold;">##remarks##</label>
+
+<!--<h2>##skillcategorydesc## ##subcategoryiddesc##</h2>
 <h3 class='profile__section__item__sub'>##selfrating##</h3>
-<p>##remarks##</p>
+<p>##remarks##</p>-->
+
 </div>
 `;
     return ret;
   }
   mstapplicantworkreferenceshtml() {
     let ret = "";
-    ret += `<div class='card1'>
-<h2>##worktopic## - ##referenceurl##</h2>
+    ret += `<div class='project-card1'>
+    <lebal style="color:gray;font-weight:300;">Work Topic</label> : <lebal style="color:#000;font-weight:bold;">##worktopic##</label><br/>
+    <lebal style="color:gray;font-weight:300;">Reference Url</label> : <lebal style="color:#000;font-weight:bold;">##referenceurl##</label><br/>
+    <lebal style="color:gray;font-weight:300;">Work Description</label> : <lebal style="color:#000;font-weight:bold;">##workdescription##</label><br/>
+    <lebal style="color:gray;font-weight:300;">Remarks</label> : <lebal style="color:#000;font-weight:bold;">##remarks##</label><br/>
+
+<!--<h2>##worktopic## - ##referenceurl##</h2>
 <h3 class='profile__section__item__sub'>##workdescription##</h3>
-<p>##remarks##</p>
+<p>##remarks##</p>-->
 </div>
 `;
     return ret;
@@ -749,8 +768,30 @@ export class mstapplicantmasterviewComponent implements OnInit {
   }
   mstapplicanteducationdetailshtml() {
     let ret = "";
-    ret += `<div class='card1'>
-<div class='row' >
+    ret += `<div class='table-card1'>
+<table>
+<thead style="background-color: #6b431d;">
+<tr>
+<th>From Year</th>
+<th>Education Details</th>
+<th>To Year</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>##fromyear##</td>
+<td>
+<label>##institutionname##</label><br/>
+<label>##coursename##</label><br/>
+<label>##remarks##</label>
+</td>
+<td>##toyear##</td>
+</tr></tbody>
+</table>
+
+
+
+<!--<div class='row' >
 <div class='col-4  bold' style="margin-top: 15px !important;">##fromyear##</div>
 <div class='col-4 center' style='display:block'>
 <h2 class='navy'>##institutionname##</h2>
@@ -763,7 +804,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
 </div>
 <div class='col-4 bold' style="margin-top: 15px !important;">##toyear##</div>
 </div>
-</div>
+</div>-->
 `;
     return ret;
   }
@@ -2710,7 +2751,7 @@ return false;
         // delete: (this.IsApplicant || this.IsAdmin),
         position: 'right',
         // custom: this.mstapplicantworkreference_menuactions
-        custom:""
+        custom: ""
         // custom: [{
         //     name: 'reference',
         //     title: `<i class="icon-references" aria-hidden="true"></i>`,

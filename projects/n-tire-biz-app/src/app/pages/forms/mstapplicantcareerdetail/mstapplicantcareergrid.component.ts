@@ -700,8 +700,8 @@ export class mstapplicantcareergridComponent implements OnInit {
         debugger;
         this.showSkillDetails_input = true;
         this.getData();
-        let add = false;
-        if (event == null) add = true;
+        // let add = false;
+        // if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         console.log(event, event.data.careerid, event.data.applicantid);
