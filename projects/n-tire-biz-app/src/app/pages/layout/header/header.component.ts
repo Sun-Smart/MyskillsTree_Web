@@ -62,10 +62,10 @@ export class HeaderComponent implements OnInit {
   appmenu: boolean;
   menuhides: boolean;
   showCertifiermenu: boolean = false;
-  applicanticon: boolean =false;
-  corporateicon: boolean =false;
-  adminicon: boolean =false;
-  mobilenumber:any;
+  applicanticon: boolean = false;
+  corporateicon: boolean = false;
+  adminicon: boolean = false;
+  mobilenumber: any;
   email: any;
   constructor(
     private router: Router,
@@ -146,9 +146,9 @@ export class HeaderComponent implements OnInit {
       this.showApplicantmenu = false;
       this.showCorporateMenuaccess = false;
 
-      this.applicanticon=false;
-      this.adminicon=true;
-      this.corporateicon=false;
+      this.applicanticon = false;
+      this.adminicon = true;
+      this.corporateicon = false;
 
     } else if (this.sessionService.getItem('role') == '2') {
       this.userrole = 'Applicant';
@@ -156,9 +156,9 @@ export class HeaderComponent implements OnInit {
       this.showAdminMenuaccess = false;
       this.showCorporateMenuaccess = false;
 
-      this.applicanticon=true;
-      this.adminicon=false;
-      this.corporateicon=false;
+      this.applicanticon = true;
+      this.adminicon = false;
+      this.corporateicon = false;
 
       if (localStorage.getItem('user_type') == "C") {
         this.showCertifiermenu = true;
@@ -168,9 +168,9 @@ export class HeaderComponent implements OnInit {
       this.showCorporateMenuaccess = true;
       this.showApplicantmenu = false;
       this.showAdminMenuaccess = false;
-      this.applicanticon=false;
-      this.adminicon=false;
-      this.corporateicon=true;
+      this.applicanticon = false;
+      this.adminicon = false;
+      this.corporateicon = true;
     }
     if (this.sessionService.getItem('role') == '2') this.menuvisible = false;
     /*
@@ -412,6 +412,7 @@ export class HeaderComponent implements OnInit {
 
   //  sowmiya dropdown menu routing
   showSkills() {
+
     this.dialog.open(mstapplicantskilldetailgridComponent,
       {
         width: '100% !important',
@@ -420,8 +421,11 @@ export class HeaderComponent implements OnInit {
       }
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
-    })
-  }
+    });
+    this.menuhides = false;
+  };
+
+
   showGeography() {
     this.dialog.open(mstapplicantgeographygrid,
       {

@@ -3,14 +3,14 @@
     <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
     <ngx-spinner></ngx-spinner>
     <form [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-      <div class="row second common_title_style applicant-popup-header">
+      <div class="row second  applicant-popup-header" style="height: 60px;">
 
-        <div class="col-4">
+        <div class="col-4" style="margin: auto;">
           <h1 class="columns mainheader left common_titles_new">Personal</h1>
         </div>
 
-        <div class='col-4  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
-          <div class='dropdown d-inline-block btn-dropdown show'>
+        <div class='col-4  sticky1 second' style="margin: auto;" role='toolbar' aria-label='Toolbar with button groups'>
+          <!-- <div class='dropdown d-inline-block btn-dropdown show' style="display: none;">
 
             <ul class='nav nav-pills  input-group'>
               <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_mstapplicantmasters()"><i
@@ -60,14 +60,14 @@
                 </ul>
               </li>
             </ul>
-          </div>
+          </div> -->
           <ng-container *ngFor="let action of mstapplicantmaster_menuactions">
-            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i
-                  class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+            <!-- <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i
+                  class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li> -->
           </ng-container>
         </div>
 
-        <div class='col-4'>
+        <div class='col-4' style="margin: auto;">
 
           <!-- <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
@@ -82,12 +82,12 @@
             <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li> -->
           <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
-            <li class='nav-item actionheader ' *ngIf="!showview" style="padding:0 !important;">
+            <li class='nav-item actionheader ' *ngIf="!showview" style="padding:0 !important;font-size: 12px;">
               <a class="alert-success personal-info-btn-liftRadius" [routerLink]='' (click)="onSubmitAndWait()">
                 <!-- <i class="fa fa-database"></i> -->
                 Submit</a>
             </li>
-            <li class='nav-item actionheader'>
+            <li class='nav-item actionheader' style="font-size: 12px">
               <a class="alert-primary personal-info-btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
                 [routerLink]='' (click)="onSubmit()">
                 <!-- <i class="fa fa-share-square"></i>  -->
@@ -95,7 +95,7 @@
               <app-action *ngIf="f.applicantid.value != null" (afterAction)="afterAction($event)"
                 [menuid]="p_menuid" [value]="f.applicantid.value" [status]="f.status.value"></app-action>
             </li>
-            <li class='nav-item actionheader'
+            <li class='nav-item actionheader' style="font-size: 12px"
               *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
               <a class="alert-danger personal-info-btn-rightRadius" [routerLink]='' (click)="onClose()">
                 <!-- <i class="fa fa-close"></i>  -->
