@@ -57,7 +57,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 @Component({
     selector: 'app-applicantsocialmediagrid',
     template: `
-    <div class="row form-group sticky1" style=" background: #f5f3e4 !important;color: #000;padding: 5px;">
+    <div class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
 <div class="col-4">
     <h4 class="columns left">{{'Social Media Details'}}</h4>

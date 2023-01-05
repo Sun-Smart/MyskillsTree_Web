@@ -58,7 +58,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 @Component({
     selector: 'app-applicantlanguagegrid',
     template: `
-    <div class="row form-group sticky1" style=" background: #f5f3e4 !important;color: #000;padding: 5px;">
+    <div class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
 <div class="col-4">
     <h4 class="columns left">{{'Language Details'}}</h4>
@@ -104,16 +104,16 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 <form [formGroup]="mstapplicantlanguagedetail_Form">
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
   <thead>
-    <tr>
-      <th style="width: 20%;">Language</th>
-      <th style="width: 15%;">Read Proficiency</th>
-      <th style="width: 15%;">Write Proficiency</th>
-      <th style="width: 15%;">Speak Proficiency</th>
-      <th style="width: 10%;">Rating</th>
-      <th style="width: 15%;">Remarks</th>
+    <tr >
+      <th >Language</th>
+      <th>Read Proficiency</th>
+      <th>Write Proficiency</th>
+      <th>Speak Proficiency</th>
+      <th>Rating</th>
+      <th>Remarks</th>
       <!-- <th style="width: 31.5%;">Attachment</th> -->
       <!--<th>Attachment</th>-->
-      <th style="text-align:center;width: 10%;">Action</th>
+    <th >Action</th>
     </tr>
   </thead>
   <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
@@ -462,12 +462,12 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         <table class="table table-hover languagedetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
-            <th style="width: 20%;" >##languagedesc##</th>
-            <th style="width: 15%;" >##readproficiency##</th>
-            <th style="width: 15%;" >##writeproficiency##</th>
-            <th style="width: 15%;" >##speakproficiency##</th>
-            <th style="width: 10%;" >##overallrating##</th>
-            <th style="width: 15%;" >##remarks##</th>
+            <th>##languagedesc##</th>
+            <th>##readproficiency##</th>
+            <th>##writeproficiency##</th>
+            <th>##speakproficiency##</th>
+            <th>##overallrating##</th>
+            <th>##remarks##</th>
             <!--<th style="" >##attachment##</th>-->
           </tr>
         </tbody>

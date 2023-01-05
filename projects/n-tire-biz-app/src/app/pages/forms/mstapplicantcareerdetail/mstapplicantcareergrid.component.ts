@@ -54,7 +54,7 @@ import { mstapplicantcareerdetail } from '../../../model/mstapplicantcareerdetai
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 @Component({
     selector: 'app-applicantcareergrid',
-    template: `<div class="row form-group sticky1" style=" background: #f5f3e4 !important;color: #000;padding: 5px;">
+    template: `<div class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
     <div class="col-4">
     <h4 class="  columns left"
@@ -95,7 +95,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </div>
   </div>
   <form [formGroup]="mstapplicantcareerdetail_Form">
-  <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
+  <table class="table" style="margin: 0;background-color: #ebf3fc;color: #fff;position: relative;">
   <thead >
     <tr>
 
@@ -580,7 +580,7 @@ export class mstapplicantcareergridComponent implements OnInit {
             <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;">##referencecount##</th>-->
             <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##fromdate##</th>
             <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##todate##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##skills##</th>
+            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##string_agg##</th>
             <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##remarks##</th>
           </tr>
         </tbody>
@@ -722,11 +722,13 @@ export class mstapplicantcareergridComponent implements OnInit {
                 currentlyworking: res.mstapplicantcareerdetail.currentlyworking,
                 requestid: res.mstapplicantcareerdetail.requestid,
                 skills: res.mstapplicantcareerdetail.skills,
+                string_agg: res.mstapplicantcareerdetail.string_agg,
                 remarks: res.mstapplicantcareerdetail.remarks,
                 status: res.mstapplicantcareerdetail.status,
                 statusdesc: res.mstapplicantcareerdetail.statusdesc,
                 attachment: JSON.parse(res.mstapplicantcareerdetail.attachment),
             });
+            debugger
         })
     }
 
