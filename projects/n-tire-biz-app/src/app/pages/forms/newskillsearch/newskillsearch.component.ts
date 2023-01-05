@@ -16,6 +16,7 @@ import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { Router } from '@angular/router';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { bomenumasterService } from '../../../../../../n-tire-biz-app/src/app/service/bomenumaster.service';
+import { mstcategoryComponent } from '../mstcategory/mstcategory.component';
 @Component({
   selector: 'app-newskillsearch',
   templateUrl: './newskillsearch.component.html',
@@ -361,7 +362,7 @@ export class NewskillsearchComponent implements OnInit {
 
     this.location_field = "";
     for (let i = 0; i < this.location_arry.length; i++) {
-      this.showData=[];
+      this.showData = [];
       this.location_field = this.location_field + this.location_arry[i].loca + ',';
     }
     this.location_field = this.location_field.slice(0, -1);
@@ -377,261 +378,45 @@ export class NewskillsearchComponent implements OnInit {
     });
   }
 
-  opendialog1(action, rowData) {
-    debugger;
-    let stredit = 'edit';
-    // if (rowData["noneditable"] == '1')
-    //   stredit = 'view';
-    // stredit = 'view';
-    //let url = "/#/workflow/" + rowData["modulename"] + "/" + rowData["modulename"] + "/"+stredit+"/" + encodeURIComponent(rowData["pkvalue"]);
-    let url = "#/workflow/" + rowData["modulename"] + "/" + rowData["modulename"] + "/" + stredit + "/" + encodeURIComponent(rowData["pkvalue"]);
-    // this.sharedService.alert(url);
+  opendialog1(applicantid: any, pkcol: any) {
+    console.log('applicantid',applicantid );
+    console.log('pkcol',pkcol );
+    let stredit = 'view';
+    let url = "#/workflow/" + "mstapplicantmasters" + "/" + "mstapplicantmasters" + "/" + stredit + "/" + encodeURIComponent(pkcol);
     this.dialog.open(dataComponent,
       {
-        data: { modulename: rowData["modulename"], pkvalue: rowData["pkvalue"], url: url, ScreenType: 2 }
+        "height": "85%",
+        data: { modulename: "mstapplicantmasters", pkvalue: pkcol, url: url, ScreenType: 2 }
       }
     );
   }
 
-  buttonactions(action, rowData) {
-    debugger;
-    //this.sharedService.alert('a');
-    if (action.actionid != "-4002" && action.actionid != "-4006") {
-      //if (!confirm("Do you want to proceed with " + action.description + "?")) return;
-    }
-
-    let actionid = action.actionid;
-    this.boreportviewerservice.formid = 0;
-    if (this.dialogdata != null && this.dialogdata["formid"] != null) this.boreportviewerservice.formid = this.dialogdata["formid"];
-    // console.log(this.selecteddata);
-    this.boreportviewerservice.actionids = [];
-
-    this.boreportviewerservice.actionids.push("" + rowData['pkcol']);
-
-    if (this.menuactions != null) {
-      for (let i = 0; i < this.menuactions.length; i++) {
-        if (this.menuactions[i].actionid == actionid) {
-          var objmenuaction = this.menuactions[i];
-          if (objmenuaction.actiontype == "F" && objmenuaction.actionname == "opendialog") {
-            this.opendialog(action, rowData);
-          }
-          else if (objmenuaction.actiontype == "F" && objmenuaction.actionname == "opendialog1") {
-            this.opendialog1(action, rowData);
-          }
-          else if (objmenuaction.actiontype == "F" && objmenuaction.actionname == "openreportdialog") {
-            this.openreportdialog(action, rowData);
-          }
-          else if (action.actionid == "-4002") {
-            this.selecteddata = rowData;
-            this.route('edit');
-          }
-          else if (action.actionid == "-4006") {
-            this.selecteddata = rowData;
-            this.route('view');
-          }
-          else {
-            this.boreportviewerservice.action(this.pmenuid, this.menuactions[i], this.pmenucode).then((res: any) => {
-              debugger;
-              console.log(res);
-              //this.Initialize(this.paramid, "");
-              // this.toastService.addSingle("", "", (res as any).resultOutput);
-              // this.sharedService.alert((res as any).resultOutput);
-              this.ReportOutputAction(res);
-
-            });
-          }
-          break;
-        }
-      }
-    }
-
-  }
-  openreportdialog(action, rowData) {
-    debugger;
-    let stredit = 'edit';
-    if (rowData["noneditable"] == '1')
-      stredit = 'view';
-    //let url = "/#/workflow/" + rowData["modulename"] + "/" + rowData["modulename"] + "/"+stredit+"/" + encodeURIComponent(rowData["pkvalue"]);
-    let url = "/#/home/showpopup/mstre/module/" + this.configdata.maintablename + "/" + encodeURIComponent(rowData["pkcol"]) + "/menu/hide";// + encodeURIComponent(rowData["pkvalue"])
-    //this.sharedService.alert(url);
-    /*
-    this.dialog.open(dataComponent,
-        {
-            data: { url: url, ScreenType: 2 }
-        }
-    );
-    */
-    this.dialog.open(ReportViewerCtrlComponent,
-      {
-        data: { reportid: 'mstre', modulepkcol: rowData["pkcol"], ScreenType: 3 }
-      }
-    );
-  }
-  opendialog(action, rowData) {
-    this.router.navigate(["/home/" + rowData["modulename"] + "/" + rowData["modulename"] + "/edit/" + rowData["pkvalue"] + "/source/workflow/" + rowData["pk"]]);
-    return;
-    this.dialog.open(bodlgviewerComponent,
-      {
-        data: { url: "/modal/" + rowData["modulename"] + "/" + rowData["modulename"] + "/edit/" + rowData["pkvalue"] + "/workflow/" + rowData["pk"] }
-      }
-    ).onClose.subscribe(res => {
-    });
-  }
-  route(action, recordid = null) {
-    debugger;
-    //document.getElementById("contentArea1").scrollTop = 0;
-    if (this.bsameform) {
-      if (action == 'create') {
-        this.componentRef.instance.parameterid = null;
-      }
-      return;
-    }
-    let formname = "";
-    //let recordid = "";
-
-
-    if (this.configdata.maintablename == "boreports") {
-      formname = "boreports";
-      //PK
-      //if(this.selecteddata!=null && action!="edit" || action!="delete")
-      if (this.selecteddata != null) recordid = this.selecteddata["reportid"];
-    }
-    else {
-      formname = (this.configdata.component as string);
-      if (formname == null || formname == "") {
-        formname = (this.configdata.maintablename as string).toLowerCase();
-
-      }
-
-
-    }
-    if (recordid == null) {
-      if (this.selecteddata != null && this.selecteddata != undefined && action != "create") {
-        if ((action == "edit" || action == "delete") && (this.selecteddata.length > 1 || this.selecteddata.length < 1)) {
-          this.sharedService.alert("Select a record");
-          return;
-        }
-        if (this.selecteddata instanceof Array) {
-          let firstrow = this.selecteddata[0];
-          recordid = firstrow[((this.configdata.pk == "" || this.configdata.pk == undefined || this.configdata.pk == null) ? this.configdata.maintableidentityfield : "pkcol")]
-        }
-        else
-          recordid = this.selecteddata[((this.configdata.pk == "" || this.configdata.pk == undefined || this.configdata.pk == null) ? this.configdata.maintableidentityfield : "pkcol")];
-      }
-      else if (action == "edit" || action == "delete" || (this.selecteddata != null && this.selecteddata != undefined && this.selecteddata.length > 1)) {
-        this.sharedService.alert("Select a record");
-        return;
-      }
-    }
-    let query = "";
-    if (this.fkname != null && this.fkname != "" && this.fk != null && this.fk != "") {
-      query = "/" + this.fkname + "/" + this.fk;
-    }
-    if (this.fkname1 != null && this.fkname1 != "" && this.fk1 != null && this.fk1 != "") {
-      query = query + "/" + this.fkname1 + "/" + this.fk1;
-    }
-    let child = false;
-    //if(this.menumasterdata!=null && this.menumasterdata!=undefined)child=this.menumasterdata.childparent;
-
-    let url = "";
-    switch (action) {
-      case 'url':
-        query = query + "/menu/hide";
-        url = '/#/home/' + formname + '/' + formname + '/edit/' + encodeURIComponent(this.selecteddata['pkcol']) + query;
-        this.dialog.open(dataComponent,
-          {
-            data: { url: url, ScreenType: 2 }
-          }
-        );
-        break
-      case 'get':
-        if (this.dialogdata.ScreenType == "2") this.dialogRef.close(this.selecteddata);
-        break;
-      case 'create':
-        url = '/home/' + formname + '/' + formname + query
-        if (this.dialogdata?.ScreenType == 2) {
-          url = '#/workflow/' + formname + '/' + formname + query
-          this.dialog.open(dataComponent,
-            {
-              data: { url: url, Save: true, ScreenType: 2 }
-            }
-          );
-        }
-        else
-          this.router.navigate([url]);
-        break;
-      case 'view':
-        //this.router.navigate(['/home/boreportviewer/view/' + this.configdata.reportid + '/' + recordid]);
-        this.sessionService.setViewHtml(this.configdata.viewhtml);
-        this.router.navigate(['/home/' + formname + '/' + formname + '/view/' + this.selecteddata['pkcol'] + query]);
-        break;
-      case 'edit':
-        url = '/home/' + formname + '/' + formname + '/edit/' + this.selecteddata['pkcol'] + query
-
-        if (this.dialogdata?.ScreenType == 2) {
-          url = '#/workflow/' + formname + '/' + formname + '/edit/' + encodeURIComponent(this.selecteddata['pkcol']) + query
-
-
-          this.dialog.open(dataComponent,
-            {
-              data: { url: url, Save: true, ScreenType: 2 }
-            }
-          );
-        }
-        else
-          this.router.navigate([url]);
-
-
-        break;
-    }
-  }
-  ReportOutputAction(res) {
-    //this.sharedService.alert('r');
-    if ((res as any).gotopage != undefined && (res as any).gotopage != null && (res as any).gotopage != "") {
-      let formname = (res as any).gotopage;
-      let recordid = (res as any).gotoid;
-      if (formname = "REPORT") {
-        var reportparameters = recordid.split('#');
-        ////debugger;
-        this.paramid = reportparameters[0];
-        this.updatemenu(this.paramid);
-
-
-
-        //
-        //this.paramsChange(reportparameters[0]);
-      }
-      else {
-        this.router.navigate(['/home/' + formname + '/' + formname + '/edit/' + recordid]);
-      }
-
-    }
-    else {
-      // this.Initialize(this.paramid, "");
-    }
-  }
-  async updatemenu(reportcode) {
-    let res = await this.bomenumasterservice.getListBy_menuurl(reportcode);
-    console.log(res);
-    //this.sharedService.alert("res ");
-    this.sharedService.menuid = (res as any)[0].menuid;
-    this.sharedService.menucode = (res as any)[0].menucode;
-    this.pmenuid = this.sharedService.menuid;
-    this.pmenucode = this.sharedService.menucode;
-    this.router.navigate(['/home/boreportviewer/' + reportcode]);
-  }
   onItemDeSelect(item: any) {
     debugger;
     console.log(item);
-    // this.districtLists = [];
-    // this.stateLists = [];
+    this.skillcategory_List = [];
+    this.subcategoryid_List = [];
 
-    // // console.log(this.AdminDropdown_Form.getRawValue());
-    // const index: number = this.Zone.indexOf(item.ZoneId);
-    // console.log(index);
-    // if (index !== -1) {
-    //   this.Zone.splice(index, 1);
-    // }
+    // console.log(this.AdminDropdown_Form.getRawValue());
+    const index: number = this.skillcategoryarry.indexOf(item.value);
+    console.log(index);
+    if (index !== -1) {
+      this.skillcategoryarry.splice(index, 1);
+    }
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(item.label ? item.label : null, null, null, null, null, null, null).then((res: any) => {
+      console.log('res ', res);
+      debugger
+      this.showData = res;
+      for (let z = 0; this.showData.length > 0; z++) {
+        this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
+        console.log(this.showData[z].useprofilephoto);
+      }
+      debugger
+      this.showData = res;
+
+      console.log('split image', this.showData);
+
+    });
   }
   checktest() {
     const slideValue = document.querySelector("span");
@@ -646,4 +431,6 @@ export class NewskillsearchComponent implements OnInit {
       slideValue.classList.remove("show");
     });
   }
+
+
 }
