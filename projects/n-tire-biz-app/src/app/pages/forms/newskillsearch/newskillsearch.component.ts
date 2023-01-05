@@ -144,10 +144,10 @@ export class NewskillsearchComponent implements OnInit {
       key: "",
       pkvalue: 0
     }
-    this.http.post(AppConstants.ntireboURL + '/ReportViewer', data).subscribe((res: any) => {
-      this.showData = res.results.Rows;
-      console.log(this.showData);
-    })
+    // this.http.post(AppConstants.ntireboURL + '/ReportViewer', data).subscribe((res: any) => {
+    //   this.showData = res.results.Rows;
+    //   console.log(this.showData);
+    // })
     this.http.get(AppConstants.ntirebizURL + '/boreport/reportcode/mstsr').subscribe((res: any) => {
       console.log(res);
     })
@@ -379,8 +379,8 @@ export class NewskillsearchComponent implements OnInit {
   }
 
   opendialog1(applicantid: any, pkcol: any) {
-    console.log('applicantid',applicantid );
-    console.log('pkcol',pkcol );
+    console.log('applicantid', applicantid);
+    console.log('pkcol', pkcol);
     let stredit = 'view';
     let url = "#/workflow/" + "mstapplicantmasters" + "/" + "mstapplicantmasters" + "/" + stredit + "/" + encodeURIComponent(pkcol);
     this.dialog.open(dataComponent,
@@ -393,9 +393,12 @@ export class NewskillsearchComponent implements OnInit {
 
   onItemDeSelect(item: any) {
     debugger;
+    this.segmentcategory_onChange('');
     console.log(item);
-    this.skillcategory_List = [];
-    this.subcategoryid_List = [];
+    if (item == "") {
+      this.skillcategory_List = [];
+      this.subcategoryid_List = [];
+    }
 
     // console.log(this.AdminDropdown_Form.getRawValue());
     const index: number = this.skillcategoryarry.indexOf(item.value);
@@ -403,20 +406,7 @@ export class NewskillsearchComponent implements OnInit {
     if (index !== -1) {
       this.skillcategoryarry.splice(index, 1);
     }
-    this.mstapplicantskilldetail_service.getMultipleSkillSearch(item.label ? item.label : null, null, null, null, null, null, null).then((res: any) => {
-      console.log('res ', res);
-      debugger
-      this.showData = res;
-      for (let z = 0; this.showData.length > 0; z++) {
-        this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
-        console.log(this.showData[z].useprofilephoto);
-      }
-      debugger
-      this.showData = res;
 
-      console.log('split image', this.showData);
-
-    });
   }
   checktest() {
     const slideValue = document.querySelector("span");
