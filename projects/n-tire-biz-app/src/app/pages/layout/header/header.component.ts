@@ -93,7 +93,8 @@ export class HeaderComponent implements OnInit {
     }
   }
   openApplicant() {
-    debugger
+    debugger;
+    this.menuhide=false;
     //
     //"home/boreportviewer/arrA"
     // this.sharedService.currenturl = 'home/bodashboardviewer/bodashboardviewer/';
@@ -103,15 +104,18 @@ export class HeaderComponent implements OnInit {
 
   }
   openJobs() {
+    this.menuhide=false;
     this.sharedService.currenturl = "home/boreportviewer/jobs";
     this.router.navigate(["home/boreportviewer/jobs"]);
   }
   openReference() {
     debugger
+    this.menuhide=false;
     this.sharedService.currenturl = "home/boreportviewer/arrA";
     this.router.navigate(["home/boreportviewer/arrA"]);
   }
   openGallery() {
+    this.menuhide=false;
     this.sharedService.currenturl = "home/gallery";
     this.router.navigate(["home/gallery"]);
   }

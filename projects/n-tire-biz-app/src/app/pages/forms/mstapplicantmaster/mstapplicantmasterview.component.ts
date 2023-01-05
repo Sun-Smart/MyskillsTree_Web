@@ -699,10 +699,10 @@ export class mstapplicantmasterviewComponent implements OnInit {
   mstapplicantskilldetailshtml() {
     let ret = "";
     ret += `<div class='skill-card1'>
-    <lebal style="color:gray;font-weight:300;">Skill Category</label> : <lebal style="color:#000;font-weight:bold;">##skillcategorydesc##</label><br/>
-    <lebal style="color:gray;font-weight:300;">Sub Category</label> : <lebal style="color:#000;font-weight:bold;">##subcategoryiddesc##</label><br/>
-    <lebal style="color:gray;font-weight:300;">Self Rating</label> : <lebal style="color:#000;font-weight:bold;">##selfrating##</label><br/>
-    <lebal style="color:gray;font-weight:300;">Remarks</label> : <lebal style="color:#000;font-weight:bold;">##remarks##</label>
+    <label style="color:gray;font-weight:300;">Skill Category</label> : <label style="color:#000;font-weight:bold;">##skillcategorydesc##</label><br/>
+    <label style="color:gray;font-weight:300;">Sub Category</label> : <label style="color:#000;font-weight:bold;">##subcategoryiddesc##</label><br/>
+    <label style="color:gray;font-weight:300;">Self Rating</label> : <label style="color:#000;font-weight:bold;">##selfrating##</label><br/>
+    <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label>
 
 <!--<h2>##skillcategorydesc## ##subcategoryiddesc##</h2>
 <h3 class='profile__section__item__sub'>##selfrating##</h3>
@@ -715,10 +715,10 @@ export class mstapplicantmasterviewComponent implements OnInit {
   mstapplicantworkreferenceshtml() {
     let ret = "";
     ret += `<div class='project-card1'>
-    <lebal style="color:gray;font-weight:300;">Work Topic</label> : <lebal style="color:#000;font-weight:bold;">##worktopic##</label><br/>
-    <lebal style="color:gray;font-weight:300;">Reference Url</label> : <lebal style="color:#000;font-weight:bold;">##referenceurl##</label><br/>
-    <lebal style="color:gray;font-weight:300;">Work Description</label> : <lebal style="color:#000;font-weight:bold;">##workdescription##</label><br/>
-    <lebal style="color:gray;font-weight:300;">Remarks</label> : <lebal style="color:#000;font-weight:bold;">##remarks##</label><br/>
+    <label style="color:gray;font-weight:300;">Work Topic</label> : <label style="color:#000;font-weight:bold;">##worktopic##</label><br/>
+    <label style="color:gray;font-weight:300;">Reference Url</label> : <label style="color:#000;font-weight:bold;">##referenceurl##</label><br/>
+    <label style="color:gray;font-weight:300;">Work Description</label> : <label style="color:#000;font-weight:bold;">##workdescription##</label><br/>
+    <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label>
 
 <!--<h2>##worktopic## - ##referenceurl##</h2>
 <h3 class='profile__section__item__sub'>##workdescription##</h3>
@@ -729,39 +729,65 @@ export class mstapplicantmasterviewComponent implements OnInit {
   }
   mstapplicantsocialmediadetailshtml() {
     let ret = "";
-    ret += `<div class='card1'>
-<h2>##socialmedianamedesc## - ##handlename##</h2>
+    ret += `<div class='socialmedia-card1'>
+    <label style="color:gray;font-weight:300;">Social Media Description</label> : <label style="color:#000;font-weight:bold;">##socialmedianamedesc##</label><br/>
+    <label style="color:gray;font-weight:300;">Handle Name</label> : <label style="color:#000;font-weight:bold;">##handlename##</label><br/>
+    <label style="color:gray;font-weight:300;">URL</label> : <label style="color:#000;font-weight:bold;">##url##</label><br/>
+    <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label>
+
+<!--<h2>##socialmedianamedesc## - ##handlename##</h2>
 <h3 class='profile__section__item__sub'><a href='##url##' target='_blank'>##url##</a></h3>
-<p>##remarks##</p>
+<p>##remarks##</p>-->
 </div>
 `;
     return ret;
   }
   mstapplicantachievementdetailshtml() {
     let ret = "";
-    ret += `<div class='card1'>
-        <div class="row">
+    ret += `<div class='achievement-card1'>
+
+    <!--<label style="color:gray;font-weight:300;">Mater Data Type</label> : <label style="color:#000;font-weight:bold;">##masterdatatypeiddesc##</label><br/>-->
+    <label style="color:gray;font-weight:300;">Mater Data Type</label> : <label style="color:#000;font-weight:bold;">##masterdataiddesc##</label><br/>
+    <label style="color:gray;font-weight:300;">Achievement Details</label> : <label style="color:#000;font-weight:bold;">##achievementdetails##</label><br/>
+    <!--<label style="color:gray;font-weight:300;">Self Rating</label> : <label style="color:#000;font-weight:bold;">##selfrating##</label><br/>
+    <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label><br/>-->
+
+
+        <!--<div class="row">
         <div class="col-6">
-        <h2>##masterdatatypeiddesc##  ##masterdataiddesc##</h2>
+       <h2>##masterdatatypeiddesc##  ##masterdataiddesc##</h2>
         </div>
 
         <div class="col-6">
         <h2 class='profile_sectionitem_sub'>##achievementdetails##  ##selfrating##</h2>
         <p>##remarks##</p>
         </div>
-        </div>
+        </div>-->
 </div>
 `;
     return ret;
   }
   mstapplicantlanguagedetailshtml() {
     let ret = "";
-    ret += `<div class='card1'>
-<h2>##languagedesc## - ##overallrating##</h2>
+    ret += `<div class='language-card1'>
+
+    <label style="color:gray;font-weight:300;">Language</label> : <label style="color:#000;font-weight:bold;">##languagedesc##</label> - 
+    <label style="color:gray;font-weight:300;">Overall Rating</label> : <label style="color:#000;font-weight:bold;">##overallrating##</label><br/>
+    <label style="color:gray;font-weight:300;">Read</label> : <label style="color:#000;font-size: small;;">##readproficiency##</label>  
+    <label style="color:gray;font-weight:300;">Write</label> : <label style="color:#000;font-size: small;;">##writeproficiency##</label>  
+    <label style="color:gray;font-weight:300;">Speak</label> : <label style="color:#000;font-size: small;;">##speakproficiency##</label><br/> 
+    <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label>  
+    <!--<label style="color:gray;font-weight:300;">Mobile Number</label> : <label style="color:#000;font-weight:bold;">##mobilenumber##</label>  
+    <label style="color:gray;font-weight:300;">Email</label> : <label style="color:#000;font-weight:bold;">##email##</label>  
+    <label style="color:gray;font-weight:300;">Known Duration</label> : <label style="color:#000;font-weight:bold;">##knownduration##</label>
+    <label style="color:gray;font-weight:300;">Attachment</label> : <label style="color:#000;font-weight:bold;">##attachment##</label>-->
+
+
+<!--<h2>##languagedesc## - ##overallrating##</h2>
 <h3 class='profile__section__item__sub'>Read ##readproficiency## Write ##writeproficiency## Speak: ##speakproficiency##</h3>
 <h3 class='profile__section__item__sub'>##mobilenumber## - ##email## ##knownduration##</h3>
 <p>##remarks##</p>
-<p>##attachment##</p>
+<p>##attachment##</p>-->
 </div>
 `;
     return ret;
@@ -769,26 +795,11 @@ export class mstapplicantmasterviewComponent implements OnInit {
   mstapplicanteducationdetailshtml() {
     let ret = "";
     ret += `<div class='table-card1'>
-<table>
-<thead style="background-color: #6b431d;">
-<tr>
-<th>From Year</th>
-<th>Education Details</th>
-<th>To Year</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>##fromyear##</td>
-<td>
-<label>##institutionname##</label><br/>
-<label>##coursename##</label><br/>
-<label>##remarks##</label>
-</td>
-<td>##toyear##</td>
-</tr></tbody>
-</table>
-
+    <label style="color:gray;font-weight:300;">From Year</label> : <label style="color:#000;font-weight:bold;">##fromyear##</label> - 
+    <label style="color:gray;font-weight:300;">To Year</label> : <label style="color:#000;font-weight:bold;">##toyear##</label><br/>
+    <label style="color:gray;font-weight:300;">Institution Name</label> : <label style="color:#000;font-weight:bold;">##institutionname##</label><br/>
+    <label style="color:gray;font-weight:300;">Course Name</label> : <label style="color:#000;font-weight:bold;">##coursename##</label><br/>
+    <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label><br/>
 
 
 <!--<div class='row' >
