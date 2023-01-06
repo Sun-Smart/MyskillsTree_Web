@@ -363,18 +363,18 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       applicantiddesc: [null],
       skillid: [null],
       skillcategory: [null, Validators.compose([Validators.required])],
-      skillcategorydesc: [null, Validators.compose([Validators.required])],
+      skillcategorydesc: [null],
       subcategoryid: [null, Validators.compose([Validators.required])],
-      subcategoryiddesc: [null, Validators.compose([Validators.required])],
+      subcategoryiddesc: [null],
       segmentid: [null, Validators.compose([Validators.required])],
-      segmentcategorydesc: [null, Validators.compose([Validators.required])],
+      segmentcategorydesc: [null],
       selfrating: [null],
       remarks: [null],
       requestid: [null],
       referenceacceptance: [null],
       referenceacceptancedesc: [null],
-      showorhide: [Boolean],
-      attachment: [null],
+      // showorhide: [Boolean],
+      // attachment: [null],
       status: [null],
       statusdesc: [null],
       segmentcategoryothers: [null],
@@ -761,7 +761,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
           if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
             this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res =>
               this.subcategoryid_List = res as DropDownValues[]);
-        });
+        }, 3000);
 
         setTimeout(() => {
           this.mstapplicantskilldetail_service.getList_subcategoryid2(this.skillsubcategory_Code).then(res => {
@@ -776,7 +776,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
             }
           }
           );
-        })
+        },3000)
       }).catch((err) => {
         //console.log(err);
       });

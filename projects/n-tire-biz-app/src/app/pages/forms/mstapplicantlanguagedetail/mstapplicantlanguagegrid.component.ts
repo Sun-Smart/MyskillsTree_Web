@@ -369,7 +369,12 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         this.getdata();
         this.isSubmitted = true;
         let strError = "";
+        if (strError != "") return this.sharedService.alert(strError);
 
+        if (!this.mstapplicantlanguagedetail_Form.valid) {
+            this.toastr.addSingle("error", "", "Enter the required fields");
+            return;
+        }
         this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
         // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
         // this.fileAttachmentList = this.fileattachment.getAllFiles();

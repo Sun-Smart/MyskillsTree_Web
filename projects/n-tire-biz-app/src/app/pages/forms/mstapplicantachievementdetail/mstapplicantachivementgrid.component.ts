@@ -320,6 +320,12 @@ export class mstapplicantachivementgridComponent implements OnInit {
         debugger;
         this.isSubmitted = true;
         let strError = "";
+        if (strError != "") return this.sharedService.alert(strError);
+
+        if (!this.mstapplicantachievementdetail_Form.valid) {
+            this.toastr.addSingle("error", "", "Enter the required fields");
+            return;
+          }
         this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
         console.log(this.formData);
 

@@ -128,6 +128,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <!-- <label *ngIf="showview" class="labelview">{{f.companyname?.value}}</label> -->
      <!-- <label for="companyname" class="control-label required">Company Name</label> -->
         <input  id="companyname" required formControlName="companyname" class="form-control">
+        
      </td>
 
      <!-- Designation-->
@@ -761,6 +762,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     // }
 
     onDelete_mstapplicantcareerdetail(event: any, childID: number, i: number) {
+        debugger
         if (confirm('Do you want to delete this record?')) {
             this.mstapplicantcareerdetail_service.delete_mstapplicantcareerdetail(childID).then(res => {
                 this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {

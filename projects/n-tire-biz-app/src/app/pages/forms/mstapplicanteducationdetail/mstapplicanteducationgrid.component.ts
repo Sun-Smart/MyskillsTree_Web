@@ -425,8 +425,16 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     debugger;
 
     this.isSubmitted = true;
-    let strError = "";
     console.log(this.mstapplicanteducationdetail_Form);
+
+    let strError = "";
+
+    if (strError != "") return this.sharedService.alert(strError);
+
+    if (!this.mstapplicanteducationdetail_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    }
     this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
 
     // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());

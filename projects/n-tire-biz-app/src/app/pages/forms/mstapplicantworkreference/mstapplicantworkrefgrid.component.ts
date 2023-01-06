@@ -116,13 +116,20 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 <!-- Work Topic -->
 
                     <td>
-                        <input *ngIf="!showview" id="worktopic" required formControlName="worktopic" class="form-control">
-                    </td>
+                        <input id="worktopic" required formControlName="worktopic" class="form-control">
+                        
+                        <div *ngIf="mstapplicantworkreference_Form.get('worktopic').errors  && isSubmitted" class="invalid-feedback">
+                        <span *ngIf="mstapplicantworkreference_Form.get('worktopic').hasError('required')">worktopic is required</span>
+                        </div>
+
+                        </td>
 
                 <!-- Reference URL -->
 
                     <td>
                     <input id="referenceurl" formControlName="referenceurl" class="form-control">
+
+                   
                     </td>
 
                 <!-- Referal Status -->
@@ -137,6 +144,10 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                     <textarea autosize rows="1" cols="10" onlyGrow="true"  id="workdescription" required
                     formControlName="workdescription" class="form-control">
                     </textarea>
+
+                    <div *ngIf="mstapplicantworkreference_Form.get('workdescription').errors  && isSubmitted" class="invalid-feedback">
+                        <span *ngIf="mstapplicantworkreference_Form.get('workdescription').hasError('required')">workdescription is required</span>
+                        </div>
                     </td>
 
                 <!-- Remarks -->
@@ -260,8 +271,10 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             applicantid: this.sessionService.getItem('applicantid'),
             applicantiddesc: [null],
             workreferenceid: [null],
-            worktopic: [null, Validators.compose([Validators.required])],
-            workdescription: [null, Validators.compose([Validators.required])],
+            // worktopic: [null, Validators.compose([Validators.required])],
+            worktopic: [null, [Validators.required]],
+            // workdescription: [null, Validators.compose([Validators.required])],
+            workdescription: [null, [Validators.required]],
             referenceurl: [null],
             remarks: [null],
             requestid: [null],
@@ -386,7 +399,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         //     });
         //   }
         // });
-        // if (strError != "") return this.sharedService.alert(strError);
+        if (strError != "") return this.sharedService.alert(strError);
 
 
 
