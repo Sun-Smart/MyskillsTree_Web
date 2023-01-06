@@ -402,10 +402,10 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     debugger
     let e = evt.value;
     this.getidd = e
-    this.mstapplicantskilldetail_Form.patchValue({
-      subcategoryid:null,skillcategory:null
+    // this.mstapplicantskilldetail_Form.patchValue({
+    //   subcategoryid:null,skillcategory:null
 
-    })
+    // })
     this.mstapplicantskilldetail_service.getList_skillcategory2(e).then((res: any) => {
       debugger;
       this.skillcategory_List = res as DropDownValues[];
@@ -416,6 +416,10 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     debugger
     let e = evt.value;
     this.getidd1 = e
+    // this.mstapplicantskilldetail_Form.patchValue({
+    //   subcategoryid:null
+
+    // })
     
     if (this.getidd1 == "262") {
       this.showinput2 = true
