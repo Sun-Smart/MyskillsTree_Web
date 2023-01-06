@@ -104,10 +104,11 @@ const URL = AppConstants.UploadURL;
     
     </ng-container>
 
-    <div class="col-5" style="display: flex; top:8px;">
-    Select
+    <div class="col-5" style="top:8px;">
+    <label>Select</label> <br>
+   
      <!-- <input type="file"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" /> -->
-     <input type="file" style="margin: 2rem -2rem 0rem -2.5rem;;" #myImageInput formControlName="ImageName"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" />
+     <input type="file" style="" #myImageInput formControlName="ImageName"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" />
     
      <a [routerLink]='' (click)="test(attachmentForm)" *ngIf="showplus"><i style="color:black !important; font-size: 20px; position: absolute;
         margin: 2.3rem 6rem;
@@ -254,30 +255,10 @@ export class AttachmentComponent implements ControlValueAccessor {
         localStorage.removeItem("attachedsaved")
         this.showplus = !this.showplus;
 
-     this.setpage=localStorage.getItem("choosefileforprofile")
-     if(this.setpage=="ok"){
-    
+        this.setpage = localStorage.getItem("choosefileforprofile")
+        if (this.setpage == "ok") {
 
-      const file: File = event[0];
 
-      //debugger;
-      this.onFileSelect(event);
-
-      this.src = await readBase64(file)
-          .then(function (data) {
-              return data;
-          })
-     this.showplus=false
-
-     }
-     else
-     {
-          if(!this.attachmentForm.valid){
-            alert("Enter the required fields")
-            this.attachmentForm.reset();
-            this.myInputVariable.nativeElement.value = "";
-          }
-          else{
             const file: File = event[0];
 
             //debugger;
@@ -286,11 +267,30 @@ export class AttachmentComponent implements ControlValueAccessor {
             this.src = await readBase64(file)
                 .then(function (data) {
                     return data;
-
                 })
+            this.showplus = false
+
+        }
+        else {
+            if (!this.attachmentForm.valid) {
+                alert("Enter the required fields")
                 this.attachmentForm.reset();
-          }
-          this.attachmentForm.reset();
+                this.myInputVariable.nativeElement.value = "";
+            }
+            else {
+                const file: File = event[0];
+
+                //debugger;
+                this.onFileSelect(event);
+
+                this.src = await readBase64(file)
+                    .then(function (data) {
+                        return data;
+
+                    })
+                this.attachmentForm.reset();
+            }
+            this.attachmentForm.reset();
 
 
 
@@ -299,7 +299,7 @@ export class AttachmentComponent implements ControlValueAccessor {
 
 
 
-     }
+        }
 
 
 
@@ -318,18 +318,18 @@ export class AttachmentComponent implements ControlValueAccessor {
         //     alert("Enter the required fields")
         //     this.attachmentForm.reset();
         //     this.myInputVariable.nativeElement.value = "";
-          
+
         //   }
         //   else{
         //     const file: File = event[0];
-          
+
         //     //debugger;
         //     this.onFileSelect(event);
-          
+
         //     this.src = await readBase64(file)
         //         .then(function (data) {
         //             return data;
-          
+
         //         })
         //         this.attachmentForm.reset();
         //   }
@@ -361,7 +361,7 @@ export class AttachmentComponent implements ControlValueAccessor {
             // description: [null],
             // color: [null],
             // ImageName: [null],
-            url:[null]
+            url: [null]
         });
     }
     getCount(e) {
@@ -435,32 +435,33 @@ export class AttachmentComponent implements ControlValueAccessor {
         //debugger;
         this.dialog.open(opencommentComponent,
             {
+                'width': '60% !important',
                 data: { comments: e.comments, ScreenType: 2 },
                 header: "Comments"
             }
         ).onClose.subscribe(res => {
             if (res != undefined) this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].comments = res;
-        }); 
+        });
     }
-    geturl(e, filename: string, filetype: string) {
-      
+    geturl(e:any, filename: string, filetype: string) {
+        debugger;
         this.showview = this.sessionService.getItem("attachedsaved");
-        if (this.showview=="true"){
-      console.log(e, filename, filetype);
-      this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].views += 1;
-      this.dialog.open(openfileComponent,
-        {
-            data: { url: AppConstants.AttachmentURL + filename, ScreenType: 2 },
-            header: filename
+        if (this.showview == "true") {
+            console.log(e, filename, filetype);
+            this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].views += 1;
+            this.dialog.open(openfileComponent,
+                {
+                    data: { url: AppConstants.AttachmentURL + filename, ScreenType: 2 },
+                    header: filename
+                }
+            );
         }
-        );
-          }
-          else{
-           alert("View the file once you submit")
+        else {
+            alert("View the file once you submit")
             return
-          }
-      
-      
+        }
+
+
         //old
         //debugger;
         // console.log(e, filename, filetype);
@@ -473,7 +474,7 @@ export class AttachmentComponent implements ControlValueAccessor {
         //     }
         // );
 
-//end
+        //end
 
         //window.open(AppConstants.AttachmentURL + filename);
         return;
@@ -544,7 +545,7 @@ export class AttachmentComponent implements ControlValueAccessor {
         return this.attachedfiles;
     }
     async onFileSelect(e: any) {
-        
+
         ////debugger;
         //this.attachedfiles = [];
         if (!this.isAttachment) {

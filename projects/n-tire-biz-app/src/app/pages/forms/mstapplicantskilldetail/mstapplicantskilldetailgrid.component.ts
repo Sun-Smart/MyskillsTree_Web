@@ -165,6 +165,9 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
             <option [ngValue]="null" [disabled]="true">-Select-</option>
             <option *ngFor="let item of Segmentcategory_list" value="{{item.value}}">{{item.label}}</option>
           </select>
+          <app-field-error-display [displayError]="f.segmentid.errors?.required" 
+          errorMsg="Enter {{'segment Category'}}">
+          </app-field-error-display>
         </td>
 
         <!-- Skill Category -->
@@ -173,6 +176,10 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
             <option value=null [disabled]="true">-Select-</option>
             <option *ngFor="let item of skillcategory_List" value="{{item.categoryid}}">{{item.name}}</option>
           </select>
+
+          <app-field-error-display [displayError]="f.skillcategory.errors?.required"
+          errorMsg="Enter {{'Skill Category'}}">
+        </app-field-error-display>
         </td>
 
         <!-- SubCategory Id -->
@@ -182,6 +189,9 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
             <option value=null [disabled]="true">-Select-</option>
             <option *ngFor="let item of subcategoryid_List" value="{{item.subcategoryid}}">{{item.name}}</option>
           </select>
+          <app-field-error-display [displayError]="f.subcategoryid.errors?.required"
+          errorMsg="Enter {{'Sub Category' | translate}}">
+        </app-field-error-display>
         </td>
 
         <!-- Self Rating -->
@@ -402,10 +412,10 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     debugger
     let e = evt.value;
     this.getidd = e
-    // this.mstapplicantskilldetail_Form.patchValue({
-    //   subcategoryid:null,skillcategory:null
-
-    // })
+    this.mstapplicantskilldetail_Form.patchValue({
+      subcategoryid:null,
+      skillcategory:null
+    })
     this.mstapplicantskilldetail_service.getList_skillcategory2(e).then((res: any) => {
       debugger;
       this.skillcategory_List = res as DropDownValues[];
@@ -426,6 +436,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     } else {
       this.showinput2 = false
     }
+    this.mstapplicantskilldetail_Form.patchValue({
+      subcategoryid:null
+    })
     debugger
     this.mstapplicantskilldetail_service.getList_subcategoryid2(e).then((res: any) => {
       debugger;
@@ -467,6 +480,11 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
     this.isSubmitted = true;
     let strError = "";
+    if (strError != "") return this.sharedService.alert(strError);
+    if (!this.mstapplicantskilldetail_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
     debugger
     // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());

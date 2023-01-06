@@ -36,11 +36,13 @@
             (input)="treeview?dt1.filterGlobal($event.target.value, 'contains'):dt.filterGlobal($event.target.value, 'contains')">
 
         </div> -->
-        <div class="col-4" style="" *ngIf="showAddJobs">
+        <div class="col-4">
+        <div  style="" *ngIf="showAddJobs">
           <a [routerLink]='' (click)="onChangeAction('Add')" *ngIf="showhideaddapplicant"><i class="fa fa-plus-circle"
               style="color:#6B431D!important;vertical-align: middle;margin-top: 8px;
               font-size: 18px;"></i></a>
         </div>
+      </div>
         <div class="col-3  input-group  nomargin nowrap">
 
           <nav class="right navbar navbar-default">
@@ -157,6 +159,14 @@
 
             <!-- <option value="E">Expanded</option> -->
           </select>
+
+          <a class="" [routerLink]='' (click)="onClose()"
+          *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)">
+          <i class="fa fa-times-circle close_common_icon"
+            style="top: 5% !important;"></i></a>
+        <!-- <a class="nav-link active right alert-success" [routerLink]='' (click)="onClose()"
+                      *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)"><i
+                          class="fa fa-close"></i></a> -->
         </div>
         <!--
                 <div class="col-2  input-group nomargin nowrap">
@@ -175,15 +185,6 @@
 
                 </div>
             -->
-        <div class="col-1">
-          <a class="" [routerLink]='' (click)="onClose()"
-            *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)">
-            <i class="fa fa-times-circle close_common_icon"
-              style="position: absolute !important;top: -5% !important;"></i></a>
-          <!-- <a class="nav-link active right alert-success" [routerLink]='' (click)="onClose()"
-                        *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)"><i
-                            class="fa fa-close"></i></a> -->
-        </div>
         {{viewfilter}}
         <!--
     <div class="col-5" style="text-align: right" role="toolbar" aria-label="Toolbar with button groups">
