@@ -164,7 +164,10 @@
         class="col-3 ">
         <label for="pincode" class="control-label">Pin Code</label>
         <label *ngIf="showview" class="labelview">{{f.pincode?.value}}</label>
-        <input *ngIf="!showview" id="pincode" formControlName="pincode" class="form-control">
+        <input type="number"  required pattern="^[0-9]{6}$" maxlength="6" *ngIf="!showview" id="pincode"  formControlName="pincode" class="form-control">
+         
+        <!-- "Enter Pincode" required pattern="^[0-9]{6}$" title="Enter Valid Pin Code" -->
+        
       </div>
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">

@@ -426,6 +426,10 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     debugger
     let e = evt.value;
     this.getidd1 = e
+    // this.mstapplicantskilldetail_Form.patchValue({
+    //   subcategoryid:null
+
+    // })
     
     if (this.getidd1 == "262") {
       this.showinput2 = true
