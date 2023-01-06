@@ -389,6 +389,8 @@ a + a {
   padding: 4px 14px !important;
   margin-right: 15px !important;
   background:#6B431D!important;
+  line-height: 0px;
+  font-size: 14px;
 }
 .alert-success,
 .alert-danger,
@@ -2956,7 +2958,7 @@ p-table {
 
 #contentAreanoscroll {
   position: absolute !important;
-  height: 93% !important;
+  height: 77% !important;
   width: 100% !important;
   max-width: 100% !important;
 }
@@ -3094,7 +3096,7 @@ textarea#briefintroduction {
   top: 3px !important;
   top: -8px !important;
   cursor: pointer;
-  left: 34px;
+  left: 38px;
   // color: white !important;
   background: white !important;
   color: red !important;
@@ -3503,6 +3505,8 @@ ng2-smart-table table thead {
   margin-right: 15px !important;
   // background:#584040!important;
   background-color: #6B431D !important;
+  line-height: 0px;
+  font-size: 14px;
 }
 
 .popup-add-button:hover {
