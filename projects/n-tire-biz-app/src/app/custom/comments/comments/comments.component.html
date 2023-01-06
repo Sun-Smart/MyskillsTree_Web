@@ -9,13 +9,13 @@
                     <span><small class="bluecolor">{{post.user}}:{{post.currentDate | date:
                             'dd/MM/yyyy'}}</small></span>
                     <span class="divider"></span>
-                    <button type="button" class="btn btn-sm btn-info" (click)="replyComment(i)">
+                    <button type="button" class="btn btn-sm btn-info popup-add-button" (click)="replyComment(i)">
                         Reply
                     </button>
 
                     <span class="divider"></span>
                     <button type="button" class="btn btn-sm btn-danger" (click)="removeComment(i)">
-                        <i class="fa fa-trash"></i>
+                        <i class="fa fa-trash" style="vertical-align: middle !important;"></i>
                     </button>
                 </div>
                 <div class="childCommentBox">

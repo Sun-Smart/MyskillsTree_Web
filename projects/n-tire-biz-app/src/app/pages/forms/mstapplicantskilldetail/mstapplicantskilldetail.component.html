@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 
 <form [formGroup]="mstapplicantskilldetail_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <div class="row second common_title_style applicant-popup-header">
+  <div class="row second applicant-popup-header">
 
     <div class="col-4">
       <h1 class="columns mainheader left common_titles_new">{{'Skill Details'}}</h1>
@@ -67,7 +67,7 @@
 
     <div class="col-4">
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
-        <li class='nav-item actionheader common_title_style' *ngIf="!showview">
+        <li class='nav-item actionheader' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
           <button type="button" class="btn btn-outline-primary personal-info-btn" style="border-color: #000 !important;margin: 5px;
       padding: 3px;

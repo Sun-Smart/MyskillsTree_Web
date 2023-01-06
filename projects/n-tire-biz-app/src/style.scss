@@ -718,7 +718,7 @@ ul.nav li.dropdown:hover ul.dropdown-menu {
 div#header {
   // background-color: #0368b7 !important;
   background-color: #cbf29f !important;
-  margin-top: 1px !important;
+  // margin-top: 1px !important;
   color: gray !important;
 }
 
@@ -3152,6 +3152,8 @@ textarea#briefintroduction {
   /*background: #0BA4E1 !important;*/
   // background: #2fb8ef !important;
   background-color: #6B431D !important;
+  color: #fff !important;
+
 }
 
 ng2-smart-table-pager {
@@ -3727,4 +3729,21 @@ footer {
 .achievement-card1, .language-card1{
   line-height: 1.5 !important;
   margin: 10px;
+}
+// .popup-comment-button{
+//   background-color: #6B431D !important;
+//   border: none !important;
+//   border-radius: 6px;
+// }
+// .popup-comment-button:hover{
+//   background-color: #6B431D !important;
+//   border: none !important;
+//   border-radius: 6px;
+// }
+.popup-comment-header{
+  height: 35px;
+  background-color: #e9f1fa;
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }
