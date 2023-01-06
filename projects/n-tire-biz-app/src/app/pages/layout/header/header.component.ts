@@ -67,6 +67,7 @@ export class HeaderComponent implements OnInit {
   adminicon: boolean = false;
   mobilenumber: any;
   email: any;
+  showApplicantAccount: boolean;
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
@@ -94,7 +95,7 @@ export class HeaderComponent implements OnInit {
   }
   openApplicant() {
     debugger;
-    this.menuhide=false;
+    this.menuhide = false;
     //
     //"home/boreportviewer/arrA"
     // this.sharedService.currenturl = 'home/bodashboardviewer/bodashboardviewer/';
@@ -104,18 +105,18 @@ export class HeaderComponent implements OnInit {
 
   }
   openJobs() {
-    this.menuhide=false;
+    this.menuhide = false;
     this.sharedService.currenturl = "home/boreportviewer/jobs";
     this.router.navigate(["home/boreportviewer/jobs"]);
   }
   openReference() {
     debugger
-    this.menuhide=false;
+    this.menuhide = false;
     this.sharedService.currenturl = "home/boreportviewer/arrA";
     this.router.navigate(["home/boreportviewer/arrA"]);
   }
   openGallery() {
-    this.menuhide=false;
+    this.menuhide = false;
     this.sharedService.currenturl = "home/gallery";
     this.router.navigate(["home/gallery"]);
   }
@@ -149,7 +150,7 @@ export class HeaderComponent implements OnInit {
       this.showAdminMenuaccess = true;
       this.showApplicantmenu = false;
       this.showCorporateMenuaccess = false;
-
+      this.showApplicantAccount = false;
       this.applicanticon = false;
       this.adminicon = true;
       this.corporateicon = false;
@@ -159,7 +160,7 @@ export class HeaderComponent implements OnInit {
       this.showApplicantmenu = true;
       this.showAdminMenuaccess = false;
       this.showCorporateMenuaccess = false;
-
+      this.showApplicantAccount = true;
       this.applicanticon = true;
       this.adminicon = false;
       this.corporateicon = false;
@@ -174,6 +175,7 @@ export class HeaderComponent implements OnInit {
       this.showAdminMenuaccess = false;
       this.applicanticon = false;
       this.adminicon = false;
+      this.showApplicantAccount = false;
       this.corporateicon = true;
     }
     if (this.sessionService.getItem('role') == '2') this.menuvisible = false;
@@ -384,7 +386,7 @@ export class HeaderComponent implements OnInit {
       this.menuhide = false;
       this.showhideProfile = false;
       this.showmenulist = false;
-      
+
     }
     //  else{
     // this.menuhide=false
@@ -402,7 +404,7 @@ export class HeaderComponent implements OnInit {
     debugger
     this.menuhides = true;
     this.showhideProfile = false;
-    
+
   }
   closePopups() {
     this.menuhides = false;

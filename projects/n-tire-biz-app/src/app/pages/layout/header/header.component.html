@@ -191,10 +191,10 @@
                   <a [routerLink]='' (click)="openReference()">
                     <li class="li2"><i class="bi bi-person-square fa1" aria-hidden="true"></i><br /> References</li>
                   </a>
-                </div>   
+                </div>
               </div>
               </div>
-              
+
             </ul>
           </label>
         </li>
@@ -387,7 +387,7 @@
                     </li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;"(click)="closePopups()"> 
+                <div class="col-3 card admindrop" style="text-align:center;"(click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/terms']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-trademark fa1" aria-hidden="true"></i><br /> Terms </li>
                   </a>
@@ -585,7 +585,7 @@
                   border-radius: 50px;" class="img_content" title="Profile">
             </center>
           </li>
-          <li class="list-group-item" *ngIf="applicanticon"> 
+          <li class="list-group-item" *ngIf="applicanticon">
             <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
             <span>{{username}} ({{userrole}})</span>
           </li>
@@ -609,7 +609,7 @@
           </li>
 
 
-          <li class="list-group-item li1" style="cursor: pointer;" (click)="showProfile()">
+          <li class="list-group-item li1" *ngIf="showApplicantAccount" style="cursor: pointer;" (click)="showProfile()">
             <i class="fa fa-cog" aria-hidden="true" style="font-size: 16px;"></i>&nbsp;
             <span>Manage your account</span>
           </li>
