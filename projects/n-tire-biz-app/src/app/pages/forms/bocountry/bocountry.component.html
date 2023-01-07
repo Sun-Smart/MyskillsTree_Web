@@ -1,7 +1,7 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="bocountry_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <div class="row second">
+  <div class="row second bgcolor">
     <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'BOCountries'}}</a></h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
