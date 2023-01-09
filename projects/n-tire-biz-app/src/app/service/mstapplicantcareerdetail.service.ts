@@ -71,6 +71,7 @@ export class mstapplicantcareerdetailService {
   }
 
   delete_mstapplicantcareerdetail(id: number): any {
+    debugger
     if (this.valid()) {
       return this.http.delete(AppConstants.ntirebizURL + '/mstapplicantcareerdetail' + '/' + id).toPromise();
     }

@@ -209,7 +209,7 @@ import { OtpvalidationService } from '../../service/otpvalidation.service';
 }
 
 #logo_custom {
-    margin-top: -6px;
+    
 }
 
 @media only screen and (max-width: 760px) {

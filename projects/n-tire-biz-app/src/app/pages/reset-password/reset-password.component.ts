@@ -10,7 +10,7 @@
 //   <center>
 //   <h1 class="layout-topbar-logo ng-tns-c186-0"><img src="assets/logo.png"
 //   style="width: 300px;" /></h1>
-  
+
 // <h1 class="font-weight-600 mb-4 center">Reset Password</h1>
 // </center>
 // <div class="row">
@@ -201,33 +201,30 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'reset-password',
   template: `<ng-template #defaultTemplate>
+  <ngx-spinner></ngx-spinner>
 
-  <div>
-  <div class="bg-img"  style=" background: url(/assets/bg.jpg) !important;
-    height: 100vh !important;
-    background-size: cover !important;
-    background-position: center !important; ">
-    <div class="content"  style="
+<div class = "row">
 
- position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    z-index: 999 !important;
-    height:540px;
-    text-align: center !important;
-    padding: 25px 28px !important;
-    width: 378px !important;
-    transform: translate(-50%,-50%) !important;
-    background: rgba(255,255,255,0.04) !important;
-    box-shadow: -1px 4px 28px 0px rgb(0 0 0 / 75%) !important;
+<!-- Header -->
 
-     ">
-      <ngx-spinner></ngx-spinner>
-        <form class="form-horizontal" *ngIf="verified && !reset" (ngSubmit)="onSubmit()" autocomplete="off"  [formGroup]="reactiveForm">
+<div class = "col-12 custom-navbar">
+  <img class="navbar-brand logo" src="assets/companylogo.png" id="logo_custom" alt="logo"
+  style="width: 50px;">
+</div>
+
+
+<!-- Login Page Image -->
+
+<div class = "col-6 front-img">
+<img src="assets/register.png" alt="MySkillTree" class="logo-img"/>
+</div>
+
+
+<div class = "col-6 reset-details">
+
+<form class="form-horizontal reset-form" *ngIf="verified && !reset" (ngSubmit)="onSubmit()" autocomplete="off"  [formGroup]="reactiveForm">
         <div class="row" style="margin: 30px !important;">
           <div class="col">
-            <h1><a routerlink="/" class="layout-topbar-logo ng-tns-c186-0" href="#/"><img src="assets/companylogo.png"
-                  style="max-width: 100px;" /></a></h1>
             <!-- <h1 class="font-weight-600 mb-4 center" style="color: #007bff !important;padding:10px!important;">Reset Password</h1> -->
             <h1 class="font-weight-600 mb-4 center" style="color: #007bff !important;padding:10px!important;">Set New Password</h1>
 <div class="row">
@@ -257,7 +254,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
       </div>
       <span *ngIf="donotMatch" style="color: red;">Password do not match.</span>
       <div class="form-group">
-        <label for="spPassword" class="col-xs-12 control-label"  style="margin-left: -70px;">Confirm New Password</label>
+        <label for="spPassword" class="col-xs-12 control-label"  style="">Confirm New Password</label>
         <div class="col-xs-12 input-group">
           <input class="form-control" name="confirmPassword" id="confirmPassword"   formControlName="confirmPassword" [(ngModel)]="formModel.confirmPassword"
                  placeholder="Confirm New Password"  [type]="pwdconfirmfieldTextType ? 'text' : 'password'"  [disabled]="posting">
@@ -281,7 +278,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
           </div>
         </div>
       </form>
-    </div>
   </div>
 
 </div>
@@ -291,7 +287,64 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 </ng-template>
 <ng-template
   [ngTemplateOutlet]="customTemplate || defaultTemplate">
-</ng-template>`
+</ng-template>`,
+  styles: [`
+.custom-navbar {
+  background-color: #ecf7fd;
+  height: 5rem;
+}
+.reset-form{
+  background-color: #f8f9fa;
+  border: 1px solid #b5adad;
+  border-radius: 30px;
+};
+
+.front-img{
+  margin-top:10px !important;
+}
+.logo-img{
+  width:100%; height:100%;
+
+}
+.reset-details{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 40px;
+}
+
+@media only screen and (max-width:760px) {
+  .custom-navbar {
+    background-color: #ecf7fd;
+    height: 5rem;
+  }
+  .reset-form{
+    background-color: #f8f9fa;
+    border: 1px solid #b5adad;
+    border-radius: 30px;
+  };
+
+.front-img{
+  margin-top:10px !important;
+  display: contents !important;
+}
+.logo-img{
+  width:100%; 
+  height:100%;
+  display: contents !important;
+}
+.reset-details{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 40px;
+  position: absolute;
+  margin: auto;
+  left: 6.5rem;
+  bottom: 3rem;
+}
+}
+`]
 })
 @Injectable()
 export class ResetPasswordComponent implements OnInit {
@@ -317,7 +370,7 @@ export class ResetPasswordComponent implements OnInit {
 
   pwdfieldTextType: boolean;
   pwdconfirmfieldTextType: boolean;
-  donotMatch: boolean=false;
+  donotMatch: boolean = false;
 
   reactiveForm: FormGroup;
   constructor(public auth: Auth, private builder: FormBuilder, public location: Location, public sessionService: SessionService, private router: Router,) {
@@ -331,7 +384,7 @@ export class ResetPasswordComponent implements OnInit {
     this.reactiveForm = this.builder.group({
       // email: [null, Validators.required]
       password: [null, [Validators.required]],
-      confirmPassword : [null, [Validators.required]]
+      confirmPassword: [null, [Validators.required]]
     });
 
 
@@ -344,7 +397,7 @@ export class ResetPasswordComponent implements OnInit {
       this.formModel = {
         sptoken: JSON.parse(this.sessionService.getItem("currentUser")),
         password: '',
-        confirmPassword:''
+        confirmPassword: ''
       };
       this.verified = true;
     }
@@ -352,7 +405,7 @@ export class ResetPasswordComponent implements OnInit {
       this.formModel = {
         sptoken: this.spTokenResolver(),
         password: '',
-        confirmPassword:''
+        confirmPassword: ''
       };
       this.verify();
     }
@@ -408,13 +461,13 @@ export class ResetPasswordComponent implements OnInit {
 
   onSubmit(): void {
     debugger
-    if(this.formModel.password == this.formModel.confirmPassword){
+    if (this.formModel.password == this.formModel.confirmPassword) {
       console.log('matched');
-    this.send();
-    this.router.navigate(['/login']);
-    }else{
+      this.send();
+      this.router.navigate(['/login']);
+    } else {
       console.log('not match');
-      this.donotMatch=true;
+      this.donotMatch = true;
       // this.toastService.addSingle('error', '', 'Password do not match.');
       return;
     }

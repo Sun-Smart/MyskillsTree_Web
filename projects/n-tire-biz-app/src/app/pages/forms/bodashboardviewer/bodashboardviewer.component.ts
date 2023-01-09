@@ -517,7 +517,7 @@ export class BODashboardViewerComponent implements OnInit {
   showcareer() {
     this.dialog.open(mstapplicantcareergridComponent, {
       width: '100% !important',
-      height: 'auto !important',
+      height: '60% !important',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
