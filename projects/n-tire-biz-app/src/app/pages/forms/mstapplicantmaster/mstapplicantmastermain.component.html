@@ -326,7 +326,9 @@
                 <!-- <a [routerLink]='' *ngIf="profilephoto.getattachmentlist().length > 0"
                     (click)="getprofilephoto()">{{profilephoto.getattachmentlist()[0].filekey}}</a> -->
                 <button type="button" class="btn" *ngIf="profilephoto.getAttachmentList().length > 0"
-                  (click)="getprofilephoto()">Open File</button>
+                  (click)="getprofilephoto()" style="
+                  margin: 15px;
+                  margin-left: 4px;">Open File</button>
               </div>
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
@@ -359,7 +361,7 @@
                   <label for="availableforjob" class="control-label">Available For Job</label>
                   <label *ngIf="showview" class="labelview">{{f.availableforjob?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="availableforjob" formControlName="availableforjob"
-                    class="form-control">
+                    class="">
                 </div>
               </div>
               <div
