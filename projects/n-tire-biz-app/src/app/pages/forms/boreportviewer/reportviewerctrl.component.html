@@ -30,6 +30,15 @@
         <div class="reportheader col-5  nomargin nowrap">
           <h1 style="color:gray !important;">{{reportheader}}</h1>
         </div>
+
+        <!-- <div class="col-6 input-group nomargin nowrap" style="display:flex; justify-content:center; align-items:center;padding: 0 5rem;">
+          <i class="fa fa-search search-icon" aria-hidden="true"></i><input type="text" class="form-control" placeholder="Search"
+           style="border-radius:30px !important; padding: 0 30px;height: 31px;"
+           (input)="treeview?dt1.filterGlobal($event.target.value, 'contains'):dt.filterGlobal($event.target.value, 'contains')">
+      <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
+
+        </div> -->
+
         <!-- <div class="col-2 input-group nomargin nowrap">
           <i class="fa fa-search search"></i><input type="text" class="border form-control"
             placeholder="    Global Filter"
@@ -163,7 +172,7 @@
           <a class="" [routerLink]='' (click)="onClose()"
           *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)">
           <i class="fa fa-times-circle close_common_icon"
-            style="top: 5% !important;"></i></a>
+            style="top: 5% !important; left: 10px;"></i></a>
         <!-- <a class="nav-link active right alert-success" [routerLink]='' (click)="onClose()"
                       *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)"><i
                           class="fa fa-close"></i></a> -->
@@ -1091,6 +1100,7 @@
           </ng-container>
         </div>
 
+
         <div class="col-3" style="display: flex !important;">
           <ng-container *ngFor="let action of menuactions">
             <div *ngIf="action.actionbutton==true && action.actionbuttonlocation=='B'">
@@ -1100,9 +1110,10 @@
                   (click)="onChangeAction(action.actionid)"></i>
               </span>&nbsp;&nbsp;
               <span *ngIf="action.description == 'Rejected'">
-                <i class="fa fa-times-circle" style="font-size:30px;color: red;margin-top: -4px;"
+                <i class="fa fa-times-circle" style="font-size:30px;color: red;"
                   (click)="onChangeAction(action.actionid)"></i>
               </span>
+              
               <!-- </div> -->
               <!-- <button *ngIf="action.actionbutton==true && action.actionbuttonlocation=='B'" type="button" class="btn-success"
                         (click)="onChangeAction(action.actionid)"><i
@@ -1112,7 +1123,7 @@
         </div>
         <div class="col-2"></div>
         <div class="col-3">
-          <i class="fa fa-eye" style="font-size: 1.3rem;" (click)='opendialog1(null,rowData)'></i>
+          <i class="fa fa-eye" style="font-size: 20px !important; margin-top: 7px;" (click)='opendialog1(null,rowData)'></i>
           <!-- <a [routerLink]='' (click)='opendialog1(null,rowData)'>View</a> -->
         </div>
       </div>
