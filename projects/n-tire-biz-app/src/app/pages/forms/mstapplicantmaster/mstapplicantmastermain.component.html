@@ -82,22 +82,22 @@
             <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li> -->
           <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
-            <li class='nav-item actionheader ' *ngIf="!showview" style="padding:0 !important;font-size: 12px;">
-              <a class="alert-success personal-info-btn-liftRadius" [routerLink]='' (click)="onSubmitAndWait()">
+            <li class='nav-item actionheader ' *ngIf="!showview" style="padding:0 !important;font-size: 12px; line-height: 15px !important;">
+              <a class="alert-success personal-info-btn-liftRadius popup-add-button heightbtn" [routerLink]='' (click)="onSubmitAndWait()">
                 <!-- <i class="fa fa-database"></i> -->
                 Submit</a>
             </li>
-            <li class='nav-item actionheader' style="font-size: 12px">
-              <a class="alert-primary personal-info-btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            <li class='nav-item actionheader' style="font-size: 12px; line-height: 15px !important;">
+              <a class="alert-primary personal-info-btn popup-add-button heightbtn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
                 [routerLink]='' (click)="onSubmit()">
                 <!-- <i class="fa fa-share-square"></i>  -->
                 Submit & Clear</a>
               <app-action *ngIf="f.applicantid.value != null" (afterAction)="afterAction($event)"
                 [menuid]="p_menuid" [value]="f.applicantid.value" [status]="f.status.value"></app-action>
             </li>
-            <li class='nav-item actionheader' style="font-size: 12px"
+            <li class='nav-item actionheader' style="font-size: 12px; line-height: 15px !important;"
               *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-              <a class="alert-danger personal-info-btn-rightRadius" [routerLink]='' (click)="onClose()">
+              <a class="alert-danger personal-info-btn-rightRadius heightbtn" [routerLink]='' (click)="onClose()">
                 <!-- <i class="fa fa-close"></i>  -->
                 Close</a>
             </li>
