@@ -880,9 +880,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   }
 
   onDelete_mstapplicantskilldetail(event: any, childID: number, i: number) {
+    debugger
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicantskilldetail_service.delete_mstapplicantskilldetail(childID).then(res => {
+        debugger
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
+          debugger
           this.ngOnInit();
           this.mstapplicantskilldetails_LoadTable(res);
         });

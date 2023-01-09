@@ -19,12 +19,21 @@
     // color: black !important;
     color: gray !important;
   }
-
-  ul {
-    li {
-      // color: #fff;
-      color: black;
-    }
+}
+.profile-card {
+  position: absolute;
+  top: 50px;
+  left: 10%;
+  height: 10px !important;
+  width: 81% !important;
+  li {
+    color: black;
+    cursor: pointer;
+  }
+  li:hover {
+    color: black;
+    cursor: pointer;
+    background-color: aliceblue;
   }
 }
 
@@ -85,7 +94,7 @@ a:hover {
 }
 
 .dd-button:after {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   right: 15px;
@@ -118,11 +127,11 @@ a:hover {
   list-style-type: none;
 }
 
-.dd-input+.dd-menu {
+.dd-input + .dd-menu {
   display: none;
 }
 
-.dd-input:checked+.dd-menu {
+.dd-input:checked + .dd-menu {
   display: block;
 }
 
@@ -153,7 +162,7 @@ a:hover {
   border-color: #e0dfdf;
 }
 
-.p-menubar-root-list>.p-menuitem-active>p-menubarsub>.p-submenu-list {
+.p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
   display: block;
   display: flex;
   flex-wrap: wrap;
@@ -163,7 +172,7 @@ a:hover {
   right: 0px;
 }
 
-.p-menubar-root-list>.p-menuitem-active>p-menubarsub>.p-submenu-list {
+.p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
   display: grid !important;
   grid-template-columns: 165px 1fr 1fr !important;
   right: 0px !important;
@@ -207,7 +216,9 @@ a[_ngcontent-uuu-c401] {
   color: gray !important;
 }
 
-.headerClass[_ngcontent-uuu-c401] ul[_ngcontent-uuu-c401] li[_ngcontent-uuu-c401] {
+.headerClass[_ngcontent-uuu-c401]
+  ul[_ngcontent-uuu-c401]
+  li[_ngcontent-uuu-c401] {
   color: gray !important;
 }
 
@@ -225,10 +236,10 @@ a[_ngcontent-uuu-c401] {
 }
 
 .fa1 {
-  color:#6B431D !important;
+  color: #6b431d !important;
   font-size: 24px !important;
 }
-.fa2{
+.fa2 {
   color: gray !important;
   font-size: 24px !important;
 }
@@ -272,7 +283,6 @@ a[_ngcontent-uuu-c401] {
   }
 }
 
-
 .row.second {
   max-height: 40px !important;
   margin-top: 1px !important;
@@ -287,36 +297,36 @@ a[_ngcontent-uuu-c401] {
 //   background-color: #d8ecc1 !important;
 // }
 
-.adminbgColor{
+.adminbgColor {
   background-color: #d8ecc1 !important;
   margin-top: -2px !important;
 }
-.applicantbgColor{
+.applicantbgColor {
   background-color: #ebf3fc !important;
 }
-.corporatebgColor{
+.corporatebgColor {
   background-color: #f5f3e4 !important;
   margin-top: -2px !important;
 }
-.seconds{
+.seconds {
   background-color: #ccc;
 }
-.foot{
+.foot {
   padding-left: 55px !important;
 }
-.rights{
+.rights {
   right: 30px !important;
 }
-.abc1{
+.abc1 {
   max-width: 40%;
 }
-.applicantdrop{
+.applicantdrop {
   border: none !important;
   height: fit-content !important;
   border-color: #ffffff !important;
   background-color: white !important;
   padding: 5px !important;
- 
+
   margin: 0px 0 10px 0 !important;
   max-width: 30%;
   box-shadow: none !important;
@@ -327,7 +337,7 @@ a[_ngcontent-uuu-c401] {
   background-color: #ebf3fc !important;
 }
 
-.Corporatedrop{
+.Corporatedrop {
   border: none !important;
   height: fit-content !important;
   border-color: #ffffff !important;
@@ -342,7 +352,7 @@ a[_ngcontent-uuu-c401] {
 .Corporatedrop:hover {
   background-color: #f5f3e4 !important;
 }
-.admindrop{
+.admindrop {
   border: none !important;
   height: fit-content !important;
   border-color: #ffffff !important;
@@ -354,21 +364,21 @@ a[_ngcontent-uuu-c401] {
   font-size: 11px;
   text-align: center;
 }
-.admindrop:hover{
+.admindrop:hover {
   background-color: #d8ecc1 !important;
 }
-.adminscroll{
+.adminscroll {
   width: 30rem;
   margin-top: 12px !important;
   border-radius: 12px;
   overflow-y: scroll;
   height: 500px !important;
 }
-.certi:hover{
-background-color: #ebf3fc !important;
+.certi:hover {
+  background-color: #ebf3fc !important;
 }
-.certi{
+.certi {
   max-width: 97px;
   max-height: 86px;
-  background-color:white !important ;
+  background-color: white !important ;
 }

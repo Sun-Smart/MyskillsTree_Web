@@ -284,6 +284,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     showDateError: boolean;
     skillsstring: string;
     attachment: string;
+    career_id: any;
 
 
     constructor(
@@ -314,6 +315,7 @@ export class mstapplicantcareergridComponent implements OnInit {
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
         }
+     console.log("Career_Id", this.data);
      
     }
     async ngOnInit() {
@@ -692,8 +694,8 @@ export class mstapplicantcareergridComponent implements OnInit {
         this.getData();
         let add = false;
         if (event == null) add = true;
-        // let childsave = true;
-        // if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+        let childsave = true;
+        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
     }
 
@@ -701,14 +703,16 @@ export class mstapplicantcareergridComponent implements OnInit {
         debugger;
         this.showSkillDetails_input = true;
         this.getData();
-        // let add = false;
-        // if (event == null) add = true;
+        let add = false;
+        if (event == null) add = true;
         let childsave = true;
-        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        console.log(event, event.data.careerid, event.data.applicantid);
+        if (this.pkcol != undefined && this.pkcol != null) childsave = true;    
+        console.log(event, this.career_id, event.data.applicantid);
         this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByEID(event.data.pkcol).then((res: any) => {
             debugger
             console.log(res);
+            this.career_id = res.mstapplicantcareerdetail.careerid;
+
             this.mstapplicantcareerdetail_Form.patchValue({
                 applicantid: res.mstapplicantcareerdetail.applicantid,
                 applicantiddesc: res.mstapplicantcareerdetail.applicantiddesc,
@@ -762,10 +766,22 @@ export class mstapplicantcareergridComponent implements OnInit {
     // }
 
     onDelete_mstapplicantcareerdetail(event: any, childID: number, i: number) {
+
+        
         debugger
         if (confirm('Do you want to delete this record?')) {
             this.mstapplicantcareerdetail_service.delete_mstapplicantcareerdetail(childID).then(res => {
+                console.log("this.applicantid", this.applicantid);
+
+                let applicantresp = res;
+
+                console.log("applicantresp", applicantresp);
+                
+                console.log("this.applicantid", this.applicantid);
+                
+                debugger;
                 this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
+                    debugger;
                     this.ngOnInit();
                     this.mstapplicantcareerdetails_LoadTable(res);
                 });
@@ -971,11 +987,11 @@ export class mstapplicantcareergridComponent implements OnInit {
             },
         };
     }
-    mstapplicantcareerdetails_LoadTable(mstapplicantcareerdetails = new LocalDataSource()) {
+    mstapplicantcareerdetails_LoadTable(mstapplicantcareerdetail = new LocalDataSource()) {
         debugger
         if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantcareerdetails_ID) >= 0) {
             if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source = new LocalDataSource();
-            if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source.load(mstapplicantcareerdetails as any as LocalDataSource);
+            if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source.load(mstapplicantcareerdetail as any as LocalDataSource);
             if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source.setPaging(1, 20, true);
         }
     }
@@ -1013,6 +1029,7 @@ export class mstapplicantcareergridComponent implements OnInit {
 
     */
     mstapplicantcareerdetails_route(event: any, action: any) {
+        debugger
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
             addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
@@ -1028,7 +1045,8 @@ export class mstapplicantcareergridComponent implements OnInit {
                 this.Edit_mstapplicantcareerdetail(event, event.data.careerid, this.applicantid);
                 break;
             case 'delete':
-                this.onDelete_mstapplicantcareerdetail(event, event.data.careerid, ((this.tbl_mstapplicantcareerdetails.source.getPaging().page - 1) * this.tbl_mstapplicantcareerdetails.source.getPaging().perPage) + event.index);
+                this.onDelete_mstapplicantcareerdetail(event, event.data.careerid, 
+                    ((this.tbl_mstapplicantcareerdetails.source.getPaging().page - 1) * this.tbl_mstapplicantcareerdetails.source.getPaging().perPage) + event.index);
                 this.tbl_mstapplicantcareerdetails.source.refresh();
                 break;
         }

@@ -1,15 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "~bootstrap/dist/css/bootstrap.css";
-@import "var.scss";
-@import "theme.scss";
+@import '~bootstrap/dist/css/bootstrap.css';
+@import 'var.scss';
+@import 'theme.scss';
 //@import '../node_modules/primeng/resources/themes/luna-pink/theme.css';
-@import "../../../node_modules/primeng/resources/primeng.min.css";
-@import "~primeicons/primeicons.css";
+@import '../../../node_modules/primeng/resources/primeng.min.css';
+@import '~primeicons/primeicons.css';
 
-@import "layout-light.css";
-@import "theme-light.css";
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import 'layout-light.css';
+@import 'theme-light.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 /*.form-control
 {
@@ -17,7 +17,7 @@
 }*/
 * {
   // font-family: Arial, Helvetica, sans-serif;
-  font-family: "Poppins";
+  font-family: 'Poppins';
 }
 
 .nav-tabs .nav-item a.active.after {
@@ -67,14 +67,14 @@
   border-bottom: 20px inset transparent !important;
   border-left: 20px solid #efefef !important;
   position: absolute !important;
-  content: "" !important;
+  content: '' !important;
   top: 0 !important;
   right: -20px !important;
   z-index: 2 !important;
 }
 
 .nav-tabs .nav-item a.active:after {
-  border-left-color:#6b431d  !important;
+  border-left-color: #6b431d !important;
 }
 
 .nav-tabs {
@@ -102,7 +102,7 @@
   }
   */
 .nav-tabs .nav-item .active {
-  background:  #6B431D !important;
+  background: #6b431d !important;
   color: #fff !important;
 }
 
@@ -137,7 +137,6 @@
   margin: 2px;
   // text-align: center;
   // justify-content: center;
-
 }
 
 .alert-success,
@@ -147,7 +146,7 @@
   white-space: nowrap;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   margin-left: 20px !important;
   vertical-align: middle !important;
 }
@@ -161,7 +160,7 @@ ng2-smart-table table thead {
 }
 
 .basecolor,
-input[type="file"] {
+input[type='file'] {
   background-color: var(--backcolor) !important;
   color: var(--frontcolor) !important;
 }
@@ -172,7 +171,7 @@ input[type="file"] {
 
 .ng2-smart-row {
   // height: 50px;
-   td {
+  td {
     padding: 0 !important;
   }
 }
@@ -281,7 +280,6 @@ p-multiselect {
 }
 
 .designrow .smart-table-container {
-
   border-color: #4e2727 !important;
   border-style: solid !important;
   border-width: thin !important;
@@ -388,8 +386,8 @@ a + a {
   border-radius: 6px;
   padding: 4px 14px !important;
   margin-right: 15px !important;
-  background:#6B431D!important;
-  line-height: 0px;
+  background: #6b431d !important;
+  // line-height: 0px;
   font-size: 14px;
 }
 .alert-success,
@@ -397,23 +395,22 @@ a + a {
 .alert-primary,
 .alert-info,
 .alert-action,
-.btn-success :hover{
-//  color: #fff !important;
-//  border: none !important;
-//  border-radius: 6px;
-//  padding: 4px 14px !important;
-//  margin-right: 15px !important;
-//  background: #8d6f6f !important;
+.btn-success :hover {
+  //  color: #fff !important;
+  //  border: none !important;
+  //  border-radius: 6px;
+  //  padding: 4px 14px !important;
+  //  margin-right: 15px !important;
+  //  background: #8d6f6f !important;
 }
-.alert-primary:hover{
+.alert-primary:hover {
   color: #fff !important;
- border: none !important;
- border-radius: 6px;
- padding: 4px 14px !important;
- margin-right: 15px !important;
- background: #8d6f6f !important;
+  border: none !important;
+  border-radius: 6px;
+  padding: 4px 14px !important;
+  margin-right: 15px !important;
+  background: #8d6f6f !important;
 }
-
 
 .layout-topbar-logo {
   margin-top: 20px;
@@ -478,16 +475,16 @@ p-toastitem {
   background-color: var(--backcolor) !important;
   color: #484545 !important;
   font-size: large !important;
-  width: 50% ;
+  width: 50%;
   text-align: center !important;
   // float: right !important;
   margin: auto !important;
-   margin-bottom: 34rem !important;
-   background-color:  #ebf3fc !important;
+  margin-bottom: 34rem !important;
+  background-color: #ebf3fc !important;
 }
 
 .p-toast-detail span::before {
-  content: "\A";
+  content: '\A';
   white-space: pre;
 }
 
@@ -527,8 +524,7 @@ html {
   height: 0.7em !important;
   color: rgb(71, 33, 33) !important;
 }
-::-webkit-scrollbar-thumb{
-  
+::-webkit-scrollbar-thumb {
   background-color: rgb(71, 33, 33) !important;
 }
 
@@ -888,10 +884,10 @@ h1 a {
 }
 
 .table thead tr {
-  background-color:#6B431D !important;
+  background-color: #6b431d !important;
   // background-color: var(--backcolor) !important;
   color: var(--frontcolor) !important;
-  border: #6B431D !important;
+  border: #6b431d !important;
 }
 
 .table td,
@@ -1001,14 +997,13 @@ th .p-inputtext {
   // padding: 0px !important;
   // margin: 0px !important;
   // border: none !important;
-      /* padding: 0px !important; */
-      margin: 0px !important;
-      width: 95px;
-      height: 20px;
-      display: block;
-      margin-top: 6px !important;
-      border: none !important;
-  
+  /* padding: 0px !important; */
+  margin: 0px !important;
+  width: 95px;
+  height: 20px;
+  display: block;
+  margin-top: 6px !important;
+  border: none !important;
 }
 
 th {
@@ -1031,17 +1026,17 @@ th {
 }
 
 .pi-sort-alt:before {
-  content: "\e903 \A \e902";
+  content: '\e903 \A \e902';
   font-size: 75%;
 }
 
 .pi-sort-amount-up-alt:before {
-  content: "\e903";
+  content: '\e903';
   font-size: 75%;
 }
 
 .pi-sort-amount-down:before {
-  content: "\e902";
+  content: '\e902';
   font-size: 75%;
 }
 
@@ -1133,7 +1128,7 @@ body {
   background-color: $backColor;
 
   &:after {
-    content: "";
+    content: '';
     display: block;
     height: 100%;
     background-color: $themeColor;
@@ -1150,7 +1145,7 @@ body {
   background-color: $backColor;
 
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 5px;
     left: 5px;
@@ -1161,7 +1156,7 @@ body {
   }
 
   &:after {
-    content: "";
+    content: '';
     display: inline-block;
     width: 100%;
     height: 100%;
@@ -1217,11 +1212,21 @@ $half: round($loops / 2);
   .progress--circle.progress--#{$i * $step}:after {
     @if $i < $half {
       $nextDeg: 90deg+ ($increment * $i);
-      background-image: linear-gradient(90deg, $backColor 50%, transparent 50%, transparent),
+      background-image: linear-gradient(
+          90deg,
+          $backColor 50%,
+          transparent 50%,
+          transparent
+        ),
         linear-gradient($nextDeg, $themeColor 50%, $backColor 50%, $backColor);
     } @else {
       $nextDeg: -90deg+ ($increment * ($i - $half));
-      background-image: linear-gradient($nextDeg, $themeColor 50%, transparent 50%, transparent),
+      background-image: linear-gradient(
+          $nextDeg,
+          $themeColor 50%,
+          transparent 50%,
+          transparent
+        ),
         linear-gradient(270deg, $themeColor 50%, $backColor 50%, $backColor);
     }
   }
@@ -1337,9 +1342,13 @@ button.btn.btn-primary.btn-sm.readMoreBtn {
   // line-height: 1;
 
   &::before {
-    content: "★★★★★";
+    content: '★★★★★';
     letter-spacing: 3px;
-    background: linear-gradient(90deg, green var(--percent), var(--frontcolor) var(--percent));
+    background: linear-gradient(
+      90deg,
+      green var(--percent),
+      var(--frontcolor) var(--percent)
+    );
     font-weight: bolder;
     // font-size:x-large;
     -webkit-background-clip: text;
@@ -1539,13 +1548,17 @@ th {
       &::before {
         width: 144px;
         transition: all 0.1s;
-        content: "";
+        content: '';
         height: 47px;
         margin-left: -144px;
         position: absolute;
         top: 0;
         left: 0;
-        background-image: linear-gradient(90deg, rgba(#fafbfc, 0) 0%, #fafbfc 100%);
+        background-image: linear-gradient(
+          90deg,
+          rgba(#fafbfc, 0) 0%,
+          #fafbfc 100%
+        );
         opacity: 0;
       }
 
@@ -1866,7 +1879,7 @@ p.small {
 }
 
 .ssgicon {
-  font-family: "ssgicons";
+  font-family: 'ssgicons';
   font-style: normal;
   font-weight: normal;
   speak: never;
@@ -1972,26 +1985,27 @@ dynamic-form-builder {
 }
 
 .folder {
-  background-image: url("https://demo.herbie.ai/attachment/MyResources/folder.webp");
+  background-image: url('https://demo.herbie.ai/attachment/MyResources/folder.webp');
   height: 48px;
   width: 48px;
   display: inline-block;
 }
 
 .file {
-  background-image: url("https://demo.herbie.ai/attachment/MyResources/file.png");
+  background-image: url('https://demo.herbie.ai/attachment/MyResources/file.png');
   height: 48px;
   width: 48px;
   display: inline-block;
 }
 
 .flagInput .flag {
-  background-image: url("https://demo.herbie.ai/attachment/flags_boi3c5.png") !important;
-  background: url("https://demo.herbie.ai/attachment/flags_boi3c5.png") !important;
+  background-image: url('https://demo.herbie.ai/attachment/flags_boi3c5.png') !important;
+  background: url('https://demo.herbie.ai/attachment/flags_boi3c5.png') !important;
 }
 
 .defaultCountry {
-  background: url("https://demo.herbie.ai/attachment/flags_boi3c5.png") no-repeat;
+  background: url('https://demo.herbie.ai/attachment/flags_boi3c5.png')
+    no-repeat;
   display: inline-block;
   width: 15px;
   height: 15px;
@@ -2074,7 +2088,7 @@ dynamic-form-builder {
 }
 
 .hrms:before {
-  content: "\f0c4";
+  content: '\f0c4';
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
@@ -2400,7 +2414,7 @@ td {
 }
 
 .help-tip:before {
-  content: "?" !important;
+  content: '?' !important;
   font-weight: bold !important;
   color: #000 !important;
 }
@@ -2437,7 +2451,6 @@ td {
     color:var(--frontcolor)!important;
   }
 */
-
 
 // .comments,
 .card {
@@ -2543,7 +2556,7 @@ td {
   table-layout: fixed;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   // height: 15px !important;
   height: 15px !important;
   // padding: -42px !important;
@@ -2700,7 +2713,7 @@ ng2-smart-table {
 }
 
 label.required::after {
-  content: " *";
+  content: ' *';
   color: red;
 }
 
@@ -2895,9 +2908,11 @@ p-dynamicdialog,
   bottom: 0;
 }
 
-.p-accordion .p-accordion-header:not(.p-disabled).p-highlight:hover .p-accordion-header-link {
+.p-accordion
+  .p-accordion-header:not(.p-disabled).p-highlight:hover
+  .p-accordion-header-link {
   border-color: transparent;
-  background: #6B431D !important;
+  background: #6b431d !important;
   color: #fff !important;
 }
 
@@ -3002,7 +3017,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -3081,9 +3096,6 @@ textarea#briefintroduction {
 .common_header_clr {
   background: #f5f3e4 !important;
 
-
-
-
   // background: linear-gradient(to bottom, #004fce 0%, #009c8e 80%) !important;
 }
 
@@ -3150,12 +3162,13 @@ textarea#briefintroduction {
 //     margin-top: -11px;
 //     height: 31px;
 // }
-.p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
+.p-accordion
+  .p-accordion-header:not(.p-disabled).p-highlight
+  .p-accordion-header-link {
   /*background: #0BA4E1 !important;*/
   // background: #2fb8ef !important;
-  background-color: #6B431D !important;
+  background-color: #6b431d !important;
   color: #fff !important;
-
 }
 
 ng2-smart-table-pager {
@@ -3433,8 +3446,8 @@ button.alert-danger {
   width: 15% !important;
   cursor: pointer;
 }
-.commonAttachmenticon{
-  color:blue !important;
+.commonAttachmenticon {
+  color: blue !important;
 }
 
 .commonDeleteicon {
@@ -3490,7 +3503,6 @@ ng2-smart-table table thead {
 
 .skill-detailstable {
   -webkit-box-shadow: none !important;
-  
 }
 
 .p-accordion-tab {
@@ -3504,8 +3516,8 @@ ng2-smart-table table thead {
   padding: 4px 14px !important;
   margin-right: 15px !important;
   // background:#584040!important;
-  background-color: #6B431D !important;
-  line-height: 0px;
+  background-color: #6b431d !important;
+  // line-height: 0px;
   font-size: 14px;
 }
 
@@ -3535,7 +3547,6 @@ ng2-smart-table table thead {
   display: flex;
   justify-content: center;
   padding: 15px !important;
-  
 }
 
 .field-autocomplete {
@@ -3564,7 +3575,7 @@ ng2-smart-table table thead {
 }
 
 .personal-info-btn {
-  background: #584040  !important;
+  background: #584040 !important;
   color: #fff !important;
   text-decoration: none !important;
   margin: 0;
@@ -3588,7 +3599,7 @@ ng2-smart-table table thead {
 }
 
 .personal-info-btn-rightRadius:hover {
-  background: #8d6f6f  !important;
+  background: #8d6f6f !important;
   color: #fff !important;
   text-decoration: none !important;
   border: none !important;
@@ -3600,7 +3611,7 @@ ng2-smart-table table thead {
 // Sowmiya 19/12/2022
 
 a {
-  color: #3a3a3a  !important;
+  color: #3a3a3a !important;
   text-decoration: none;
   background-color: transparent;
   // color: black !important;
@@ -3654,19 +3665,18 @@ a {
 }
 
 .corporatebgColor {
-  background-color: #f5f3e4  !important;
+  background-color: #f5f3e4 !important;
   margin-top: -2px !important;
 }
 
-
-.report-coporate-bgColor{
-  background-color: #cbf29f  !important;
+.report-coporate-bgColor {
+  background-color: #cbf29f !important;
 }
-.report-admin-bgColor{
-  background-color: #f5f3e4!important;
+.report-admin-bgColor {
+  background-color: #f5f3e4 !important;
 }
-.report-applicant-bgColor{
-  background-color: #ebf3fc  !important;
+.report-applicant-bgColor {
+  background-color: #ebf3fc !important;
 }
 
 footer {
@@ -3692,10 +3702,10 @@ footer {
     color: #186ba0 !important;
   }
 }
-.corprate-dashboard{
+.corprate-dashboard {
   background-color: #f5f3e4 !important;
 }
-.applicant-popup-header{
+.applicant-popup-header {
   background-color: #ebf3fc !important;
 }
 .Skill-attachment {
@@ -3710,8 +3720,9 @@ footer {
   height: auto !important;
   line-height: 2;
 }
-.omega .p-datatable .p-datatable-thead > tr > th, .omega .p-datatable .p-datatable-tfoot > tr > td {
-  background-color: #6B431D !important;
+.omega .p-datatable .p-datatable-thead > tr > th,
+.omega .p-datatable .p-datatable-tfoot > tr > td {
+  background-color: #6b431d !important;
   border-color: #d9d9d9 !important;
 }
 .common_title_style {
@@ -3719,18 +3730,21 @@ footer {
 }
 // .mainheader{
 //  background-color: #f5f3e4 !important;
-// } 
+// }
 // .left{
 //   background-color: #f5f3e4 !important;
 // }
-.geo-card1{
+.geo-card1 {
   line-height: 1.5 !important;
   margin: 10px;
 }
 .table-card1,
-.skill-card1, .career-card1, 
-.project-card1, .socialmedia-card1,
-.achievement-card1, .language-card1{
+.skill-card1,
+.career-card1,
+.project-card1,
+.socialmedia-card1,
+.achievement-card1,
+.language-card1 {
   line-height: 1.5 !important;
   margin: 10px;
 }
@@ -3744,10 +3758,15 @@ footer {
 //   border: none !important;
 //   border-radius: 6px;
 // }
-.popup-comment-header{
+.popup-comment-header {
   height: 35px;
   background-color: #e9f1fa;
   display: flex;
   justify-content: end;
   align-items: center;
+}
+.ng-8-smart-actions-title-add {
+  .ng2-smart-action {
+    display: none !important;
+  }
 }
