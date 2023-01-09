@@ -79,9 +79,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <!-- <button type="button" style="border-color: #fff !important;
     color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button>  -->
     <button type="button" class="btn btn-outline-primary"  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"
-    class="popup-add-button" title = "Add Details">Add</button>
+    class="popup-add-button heightbtn" title = "Add Details">Add</button>
 
-    <!-- <button type="button"  class="popup-add-button" (click)="addSkills()">Add</button> -->
+    <!-- <button type="button"  class="popup-add-button heightbtn" (click)="addSkills()">Add</button> -->
     <!-- </a> -->
     <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
@@ -229,6 +229,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 
 export class mstapplicantcareergridComponent implements OnInit {
+
 
     mstapplicantcareerdetail_Form: FormGroup
 
