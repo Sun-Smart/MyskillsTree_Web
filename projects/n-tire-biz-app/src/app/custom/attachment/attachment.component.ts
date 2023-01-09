@@ -111,7 +111,7 @@ const URL = AppConstants.UploadURL;
      <input type="file" style="" #myImageInput formControlName="ImageName"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" />
     
      <a [routerLink]='' (click)="test(attachmentForm)" *ngIf="showplus"><i style="color:black !important; font-size: 20px; position: absolute;
-        margin: 2.3rem 6rem;
+        margin: auto 5rem;
 " class="fa fa-plus-circle"></i></a>
     
     </div>

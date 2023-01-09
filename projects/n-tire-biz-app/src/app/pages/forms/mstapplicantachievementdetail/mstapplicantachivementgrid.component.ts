@@ -97,7 +97,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
         <thead>
           <tr>
-            <th scope="col" style="padding-left: 25px !important;width: 30%;">Master Data Type</th>
+            <th scope="col" style="padding-left: 25px !important;width: 30%;">Category</th>
             <!--<th scope="col" style="width: 14%">Attachment</th>-->
             <th scope="col" style="width: 61%">Achievement Details</th>
             <!-- <th scope="col" style="width: 61%">Attachment</th> -->

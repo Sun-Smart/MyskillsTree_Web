@@ -2962,7 +2962,7 @@ p-table {
   overflow-y: auto !important;
 
   position: absolute !important;
-  height: 93% !important;
+  height: 81% !important;
 
   width: 100% !important;
 }
@@ -3681,12 +3681,15 @@ a {
 
 footer {
   position: fixed !important;
-  height: 100px !important;
+  height: 85px !important;
   bottom: -60px !important;
   width: 100% !important;
   // text-align: center;
   background: #fff;
   font-weight: 600;
+  .container {
+    font-size: 11px !important;
+  }
 }
 
 .all_rights {
@@ -3770,9 +3773,9 @@ footer {
     display: none !important;
   }
 }
-.bgcolor{
-  background-color: #f5f3e4 ;
+.bgcolor {
+  background-color: #f5f3e4;
 }
-.heightbtn{
+.heightbtn {
   line-height: 15px !important;
 }

@@ -138,19 +138,24 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      </td>
 
      <!-- From Date -->
+
      <td>
-     <!-- <label for="fromdate" class="control-label required">From Date</label> -->
-     <!-- <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.fromdate?.value)}}</label> -->
+     <div >
+     <div class="input-group" style="display: flex;width: 100%;">
+       <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+       [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
+         formControlName="fromdate" style="margin-right: 5px;" class="form-control">
+       <button class="input-group-addon" (click)="d.toggle()" type="button"><i
+           class="fa fa-calendar" aria-hidden="true"></i></button>
 
-     <div  style="display: flex;width: 80%;">
-     <input #f="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
-          [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
-            formControlName="fromdate" class="form-control" style="margin-right: 5px;">
-
-            <button class="input-group-addon"  (click)="f.toggle()" type="button"><i
-              class="fa fa-calendar" aria-hidden="true"></i></button>
      </div>
-     </td>
+     <div *ngIf="showDateError" style="color: red;font-size: 12px;">
+       To date is greater than from date
+     </div>
+    <!-- <app-field-error-display [displayError]="f.fromdate.errors?.required"
+       errorMsg="Enter {{'From Date' | translate}}">
+     </app-field-error-display> -->
+   </div></td>
 
      <!-- To Date -->
 
@@ -514,6 +519,7 @@ export class mstapplicantcareergridComponent implements OnInit {
                     this.spinner.hide();
                     debugger;
                     this.toastr.addSingle("success", "", "Successfully saved");
+                    this.showDateError = false;
                     this.sessionService.setItem("attachedsaved", "true")
                     this.objvalues.push((res as any).mstapplicantcareerdetail);
                     this.ngOnInit();
@@ -620,7 +626,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     }
 
     FillData() {
-
+debugger
         // this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.applicantid).then(res => {
         //     this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
         //     this.Set_mstapplicantcareerdetails_TableConfig();
@@ -628,6 +634,7 @@ export class mstapplicantcareergridComponent implements OnInit {
         // });
 
         this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
+           debugger;
             this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
             this.Set_mstapplicantcareerdetails_TableConfig();
             this.mstapplicantcareerdetails_LoadTable(res.mstapplicantcareerdetail);
@@ -732,7 +739,7 @@ export class mstapplicantcareergridComponent implements OnInit {
                 remarks: res.mstapplicantcareerdetail.remarks,
                 status: res.mstapplicantcareerdetail.status,
                 statusdesc: res.mstapplicantcareerdetail.statusdesc,
-                attachment: JSON.parse(res.mstapplicantcareerdetail.attachment),
+                attachment: "[]",
             });
             debugger
         })
@@ -772,16 +779,9 @@ export class mstapplicantcareergridComponent implements OnInit {
         debugger
         if (confirm('Do you want to delete this record?')) {
             this.mstapplicantcareerdetail_service.delete_mstapplicantcareerdetail(childID).then(res => {
-                console.log("this.applicantid", this.applicantid);
-
-                let applicantresp = res;
-
-                console.log("applicantresp", applicantresp);
-                
-                console.log("this.applicantid", this.applicantid);
                 
                 debugger;
-                this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
+                this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByID(event.data.pkcol).then(res => {
                     debugger;
                     this.ngOnInit();
                     this.mstapplicantcareerdetails_LoadTable(res);
@@ -988,11 +988,11 @@ export class mstapplicantcareergridComponent implements OnInit {
             },
         };
     }
-    mstapplicantcareerdetails_LoadTable(mstapplicantcareerdetail = new LocalDataSource()) {
+    mstapplicantcareerdetails_LoadTable(mstapplicantcareerdetails = new LocalDataSource()) {
         debugger
         if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantcareerdetails_ID) >= 0) {
             if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source = new LocalDataSource();
-            if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source.load(mstapplicantcareerdetail as any as LocalDataSource);
+            if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source.load(mstapplicantcareerdetails as any as LocalDataSource);
             if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source.setPaging(1, 20, true);
         }
     }
@@ -1053,10 +1053,13 @@ export class mstapplicantcareergridComponent implements OnInit {
         }
     }
     mstapplicantcareerdetails_onDelete(obj) {
+        debugger
         let careerid = obj.data.careerid;
         if (confirm('Are you sure to delete this record ?')) {
-            this.mstapplicantcareerdetail_service.delete_mstapplicantcareerdetail(careerid).then(res =>
-                this.mstapplicantcareerdetails_LoadTable()
+            this.mstapplicantcareerdetail_service.delete_mstapplicantcareerdetail(careerid).then(res =>{
+                debugger;
+                this.mstapplicantcareerdetails_LoadTable();
+            }
             );
         }
     }

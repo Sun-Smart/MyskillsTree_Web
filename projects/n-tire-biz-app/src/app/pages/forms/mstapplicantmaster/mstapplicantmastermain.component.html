@@ -89,23 +89,15 @@
             </li>
             <li class='nav-item actionheader' style="font-size: 12px">
               <a class="alert-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null'
-            <li class='nav-item actionheader ' *ngIf="!showview" style="padding:0 !important;font-size: 12px; line-height: 15px !important;">
-              <a class="alert-success personal-info-btn-liftRadius popup-add-button heightbtn" [routerLink]='' (click)="onSubmitAndWait()">
-                <!-- <i class="fa fa-database"></i> -->
-                Submit</a>
-            </li>
-            <li class='nav-item actionheader' style="font-size: 12px; line-height: 15px !important;">
-              <a class="alert-primary personal-info-btn popup-add-button heightbtn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
                 [routerLink]='' (click)="onSubmit()">
                 <!-- <i class="fa fa-share-square"></i>  -->
                 Submit & Clear</a>
               <app-action *ngIf="f.applicantid.value != null" (afterAction)="afterAction($event)"
                 [menuid]="p_menuid" [value]="f.applicantid.value" [status]="f.status.value"></app-action>
             </li>
-            <li class='nav-item actionheader' style="font-size: 12px; line-height: 15px !important;"
+            <li class='nav-item actionheader' style="font-size: 12px;"
               *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
               <a class="alert-danger popup-add-button" [routerLink]='' (click)="onClose()">
-              <a class="alert-danger personal-info-btn-rightRadius heightbtn" [routerLink]='' (click)="onClose()">
                 <!-- <i class="fa fa-close"></i>  -->
                 Close</a>
             </li>
@@ -334,9 +326,7 @@
                 <!-- <a [routerLink]='' *ngIf="profilephoto.getattachmentlist().length > 0"
                     (click)="getprofilephoto()">{{profilephoto.getattachmentlist()[0].filekey}}</a> -->
                 <button type="button" class="btn" *ngIf="profilephoto.getAttachmentList().length > 0"
-                  (click)="getprofilephoto()" style="
-                  margin: 15px;
-                  margin-left: 4px;">Open File</button>
+                  (click)="getprofilephoto()" style="margin: 10px;">Open File</button>
               </div>
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">

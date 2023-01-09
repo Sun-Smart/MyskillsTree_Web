@@ -600,7 +600,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   }
 
   FillData() {
+    debugger
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
+      debugger
       this.mstapplicantskilldetail_menuactions = res.mstapplicantskilldetail_menuactions;
       this.Set_mstapplicantskilldetails_TableConfig();
       this.mstapplicantskilldetails_LoadTable(res.mstapplicantskilldetail);
@@ -1138,10 +1140,13 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     }
   }
   mstapplicantskilldetails_onDelete(obj) {
+    debugger
     let skillid = obj.data.skillid;
     if (confirm('Are you sure to delete this record ?')) {
-      this.mstapplicantskilldetail_service.delete_mstapplicantskilldetail(skillid).then(res =>
+      this.mstapplicantskilldetail_service.delete_mstapplicantskilldetail(skillid).then(res =>{
+        debugger
         this.mstapplicantskilldetails_LoadTable(res)
+      }
       );
     }
   }

@@ -162,11 +162,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- Percentage -->
 
                     <td>
-                      <input  id="percentage" formControlName="percentage" type="number" 
+                    <div>
+                    <input  id="percentage" formControlName="percentage" type="number" min="0"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                       onKeyPress="if(this.value.length==3) return false;" class="form-control">
-                      <div *ngIf="showPercentError" style="color: red;">
-                        Percentage allow only 0-100
-                      </div>
+                    <div *ngIf="showPercentError" style="color: red;">
+                      Percentage allow only 0-100
+                    </div>
+                  </div>
                     </td>
 
                     <!-- Remarks -->
@@ -292,6 +295,15 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   institutionname: any[];
   coursename: any[];
   remarks: any[];
+
+  showDateError: boolean;
+  showDateError1:boolean;
+  showPercentError: boolean;
+
+  fromyearCondition: any;
+  toyearCondition: any
+  test1: number;
+
   constructor(
     private nav: Location,
     private translate: TranslateService,
@@ -436,6 +448,25 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       return;
     }
     this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
+ //new
+ if(parseInt(this.toyearCondition) <= this.test1) {
+  this.showDateError1 = false;
+ }else {
+  this.showDateError1 = true;
+  return
+ }
+ //old
+  if (this.formData.fromyear > this.formData.toyear) {
+  this.showDateError = true;
+  this.showPercentError = false;
+  return;
+} else if (this.formData.percentage > '100') {
+  this.showPercentError = true;
+  this.showDateError = true;
+  return;
+} else {
+  this.showDateError = false;
+  this.showPercentError = false;
 
     // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     // this.fileAttachmentList = this.fileattachment.getAllFiles();
@@ -480,6 +511,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         this.toastr.addSingle("error", "", err.error);
         console.log(err);
       });
+    }
   }
 
   resetForm() {
