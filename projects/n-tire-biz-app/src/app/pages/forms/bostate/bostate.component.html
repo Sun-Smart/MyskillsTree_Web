@@ -1,7 +1,7 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="bostate_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <div class="row second">
+  <div class="row second bgcolor">
     <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'states'}}</a></h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
@@ -60,10 +60,10 @@
           </ng-container>
 
           <li class='nav-item actionheader common_title_style' *ngIf="!showview">
-            <button type="button" class="btn btn-outline-primary" style="border-color: #fff !important;margin: 5px;
+            <button type="button" class="btn btn-outline-primary popup-add-button " style="border-color: #fff !important;margin: 5px;
               padding: 3px;
               color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
-            <button type="button" class="btn btn-outline-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            <button type="button" class="btn btn-outline-primary popup-add-button " *ngIf='data.pkcol==null || maindata.ScreenType==null'
               style="border-color: #fff !important;
               color: #fff;margin: 5px;
     padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;

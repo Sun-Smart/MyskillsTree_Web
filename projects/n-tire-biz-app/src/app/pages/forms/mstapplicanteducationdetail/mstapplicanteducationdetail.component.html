@@ -247,14 +247,18 @@
         style='' class="col-3 ">
         <label for="fromyear" class="control-label">From Year</label>
         <label *ngIf="showview" class="labelview">{{f.fromyear?.value}}</label>
-        <input *ngIf="!showview" id="fromyear" formControlName="fromyear" class="form-control">
+        <input   *ngIf="!showview" id="fromyear" formControlName="fromyear" type="number" min="0"
+        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+        onKeyPress="if(this.value.length==3) ;" class="form-control">
       </div>
 
       <div *ngIf="((hidelist.indexOf('toyear') == -1) && (toyearvisible==undefined || toyearvisible==true))" style=''
         class="col-3 ">
         <label for="toyear" class="control-label">To Year</label>
         <label *ngIf="showview" class="labelview">{{f.toyear?.value}}</label>
-        <input *ngIf="!showview" id="toyear" formControlName="toyear" class="form-control">
+        <input *ngIf="!showview" id="toyear" formControlName="toyear" type="number" min="0"
+        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+        onKeyPress="if(this.value.length==3) return false;" class="form-control">
         <div *ngIf="showDateError" style="color: red;">
           To Year is greater than from year
         </div>

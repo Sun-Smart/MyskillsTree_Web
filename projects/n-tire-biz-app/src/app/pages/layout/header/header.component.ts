@@ -68,6 +68,7 @@ export class HeaderComponent implements OnInit {
   mobilenumber: any;
   email: any;
   showApplicantAccount: boolean;
+  email_id: any;
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
@@ -143,6 +144,7 @@ export class HeaderComponent implements OnInit {
     });
     this.mobilenumber = this.sessionService.getItem('mobilenumber');
     this.email = this.sessionService.getItem('email');
+    this.email_id = this.sessionService.getItem('emailid');
 
     this.username = this.sessionService.getItem('username');
     if (this.sessionService.getItem('role') == '1') {
