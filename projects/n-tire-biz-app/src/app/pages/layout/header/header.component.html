@@ -605,7 +605,7 @@
           </li>
           <li class="list-group-item li1" style="cursor: pointer;" (click)="showProfile()">
             <i class="fa fa-envelope-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
-            <span>{{email}}</span>
+            <span>{{email_id}}</span>
           </li>
 
 
@@ -632,14 +632,15 @@
     </div>
   </div>
 
-  <footer>
-    <div class="container">
-      <p class="text-muted foot">Copyright © MySkillsTree Solutions Pvt Ltd.<label class="all_rights rights">All rights
-          reserved.</label></p>
-    </div>
-      
-  </footer>
+  
 </div>
+<footer>
+  <div class="container">
+    <p class="text-muted foot">Copyright © MySkillsTree Solutions Pvt Ltd.<label class="all_rights rights">All rights
+        reserved.</label></p>
+  </div>
+    
+</footer>
 <p-overlayPanel #userdetails>
   <div><b>User Name: </b><i [innerHtml]="user.username"></i></div>
   <div><b>Code: </b><i [innerHtml]="user.usercode"></i></div>
@@ -679,6 +680,7 @@
 
 
     </div>
+    
   </ng-container>
 
 </p-sidebar>
