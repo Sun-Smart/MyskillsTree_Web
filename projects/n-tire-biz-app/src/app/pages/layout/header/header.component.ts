@@ -70,6 +70,7 @@ export class HeaderComponent implements OnInit {
   showApplicantAccount: boolean;
   email_id: any;
   usersource: any;
+  showmobilenumber: boolean;
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
@@ -91,6 +92,7 @@ export class HeaderComponent implements OnInit {
     this.theme = this.sessionService.getItem("selected-theme");
     this.usersource = this.sessionService.getItem("usersource");
     this.applicantid = this.sessionService.getItem("applicantid");
+
     //this.theme ='cruze';
     if (this.theme) {
       this.selectTheme(this.theme);
@@ -144,9 +146,15 @@ export class HeaderComponent implements OnInit {
       //debugger;
       this.theme = val;
     });
-    this.mobilenumber = this.sessionService.getItem('mobilenumber');
+
     this.email = this.sessionService.getItem('email');
     this.email_id = this.sessionService.getItem('emailid');
+    this.mobilenumber = this.sessionService.getItem('mobilenumber');
+    if (this.sessionService.getItem('mobilenumber') == "" || this.sessionService.getItem('mobilenumber') == null) {
+      this.showmobilenumber = false;
+    } else {
+      this.showmobilenumber = true;
+    }
 
     this.username = this.sessionService.getItem('username');
     if (this.sessionService.getItem('role') == '1') {
