@@ -120,7 +120,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <tr>
                   <!-- From Year -->
                     <td>
-                    <input  id="fromyear" formControlName="fromyear" class="form-control">
+                    <input  id="fromyear" formControlName="fromyear" class="form-control" required>
                     </td>
 
                     <!-- Category -->
@@ -147,7 +147,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- Institution Name -->
 
                     <td>
-                    <input  id="institutionname" formControlName="institutionname" class="form-control">
+                    <input  id="institutionname" formControlName="institutionname" class="form-control" required>
                     </td>
 
                     <!-- Course Name -->
@@ -162,14 +162,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- Percentage -->
 
                     <td>
-                    <input  id="percentage" formControlName="percentage" type="number" min="0" max="3" class="form-control">
+                    <input  id="percentage" formControlName="percentage" type="number" min="0" max="3" class="form-control" required>
                    
                     </td>
 
                     <!-- Remarks -->
 
                    <td>
-                    <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+                    <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks" required></textarea>
                     <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor> -->
                     </td>
 
@@ -183,13 +183,13 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                       </p-accordionTab>
                     </p-accordion>
                     </td> -->
+
                     <!-- To Year -->
 
                     <td>
-                    <input  id="toyear" formControlName="toyear" class="form-control">
+                    <input  id="toyear" formControlName="toyear" class="form-control" required>
+                    <span *ngIf = "showerror" style = "color:red; font-size:10px;"> To year should not be greater than from year</span>
                     </td>
-
-
 
                     <!-- Submit & Close -->
 
@@ -285,12 +285,14 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   remarks: any[];
 
   showDateError: boolean;
-  showDateError1:boolean;
+  showDateError1: boolean;
   showPercentError: boolean;
 
   fromyearCondition: any;
   toyearCondition: any
   test1: number;
+  formValue: any;
+  showerror: boolean = false;
 
   constructor(
     private nav: Location,
@@ -339,19 +341,19 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       applicantid: [this.applicantid],
       applicantiddesc: [null],
       educationid: [null],
-      educationcategory: [null, Validators.compose([Validators.required])],
-      educationcategorydesc: [null],
-      educationsubcategory: [null, Validators.compose([Validators.required])],
-      educationsubcategorydesc: [null],
-      coursename: [null, Validators.compose([Validators.required])],
-      institutionname: [null],
-      fromyear: [null],
-      toyear: [null],
-      percentage: [null],
+      educationcategory: [null, Validators.required],
+      educationcategorydesc: [null, Validators.required],
+      educationsubcategory: [null, Validators.required],
+      educationsubcategorydesc: [null, Validators.required],
+      coursename: [null, Validators.required],
+      institutionname: [null, Validators.required],
+      fromyear: [null, Validators.required],
+      toyear: [null, Validators.required],
+      percentage: [null, Validators.required],
       requestid: [null],
       referenceacceptance: [null],
       referenceacceptancedesc: [null],
-      remarks: [null],
+      remarks: [null, Validators.required],
       attachment: [null],
       status: [null],
       statusdesc: [null],
@@ -425,40 +427,30 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     debugger;
     this.isSubmitted = true;
     let strError = "";
-    console.log(this.mstapplicanteducationdetail_Form)
-    // if (!this.mstapplicanteducationdetail_Form.valid) {
-    //   this.toastr.addSingle("error", "", "Enter the required fields");
-    //   return;
-    // }
-    // Object.keys(this.mstapplicanteducationdetail_Form.controls).forEach(key => {
-    //   const controlErrors: ValidationErrors = this.mstapplicanteducationdetail_Form.get(key).errors;
-    //   if (controlErrors != null) {
-    //     Object.keys(controlErrors).forEach(keyError => {
-    //       strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-    //     });
-    //   }
-    // });
+    console.log(this.mstapplicanteducationdetail_Form.value)
+
     // if (strError != "") return this.sharedService.alert(strError);
 
-
     // if (!this.mstapplicanteducationdetail_Form.valid) {
     //   this.toastr.addSingle("error", "", "Enter the required fields");
     //   return;
     // }
-    if (!this.validate()) {
+    this.formValue = this.mstapplicanteducationdetail_Form.value;
+
+    if (this.mstapplicanteducationdetail_Form.value.coursename == null ||
+      this.mstapplicanteducationdetail_Form.value.educationcategory == null || this.mstapplicanteducationdetail_Form.value.educationsubcategory == null ||
+      this.mstapplicanteducationdetail_Form.value.institutionname == null || this.mstapplicanteducationdetail_Form.value.percentage == null ||
+      this.mstapplicanteducationdetail_Form.value.remarks == null || this.mstapplicanteducationdetail_Form.value.fromyear == null || this.mstapplicanteducationdetail_Form.value.toyear == null) {
+      debugger;
+      this.toastr.addSingle("error", "", "Enter the required fields");
       return;
+    } else if (this.mstapplicanteducationdetail_Form.value.fromyear > this.mstapplicanteducationdetail_Form.value.toyear) {
+      this.showerror = true;
     }
-    this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
-    debugger
-    // if (this.dynamicconfig.data != null) {
-    //   for (let key in this.dynamicconfig.data) {
-    //     if (key != 'visiblelist' && key != 'hidelist') {
-    //       if (this.mstapplicanteducationdetail_Form.controls[key] != null) {
-    //         this.formData[key] = this.mstapplicanteducationdetail_Form.controls[key].value;
-    //       }
-    //     }
-    //   }
-    // }
+    else {
+
+      this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
+      debugger
 
       this.showDateError = false;
       this.showPercentError = false;
@@ -477,6 +469,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicanteducationdetail);
           this.ngOnInit();
+          this.showerror = false;
           if (!bclear) this.showview = true;
           if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
           if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
@@ -506,10 +499,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
           this.spinner.hide();
           this.toastr.addSingle("error", "", err.error);
           console.log(err);
-        }
-      )
-    
-
+        })
+    };
   };
 
   validate() {
@@ -661,10 +652,10 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
 
       // setTimeout(() => {
-        // if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) 
-        this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then(res => {
-          this.educationsubcategory_List = res as DropDownValues[];
-        }).catch((err) => { console.log(err); });
+      // if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) 
+      this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then(res => {
+        this.educationsubcategory_List = res as DropDownValues[];
+      }).catch((err) => { console.log(err); });
       // });
     });
     debugger

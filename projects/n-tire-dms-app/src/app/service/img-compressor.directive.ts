@@ -48,6 +48,7 @@ export class ImgCompressorDirective extends FileSelectDirective {
   }
  
   protected uploadFile(files: any[]) {
+    debugger;
     this.uploader.addToQueue(files, this.getOptions(), this.getFilters());
     this.onFileSelected.emit(files);
     if (!this.isEmptyAfterSelection()) {
