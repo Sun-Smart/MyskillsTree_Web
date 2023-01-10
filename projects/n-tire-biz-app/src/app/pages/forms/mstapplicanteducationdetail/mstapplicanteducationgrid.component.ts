@@ -162,14 +162,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- Percentage -->
 
                     <td>
-                    <div>
-                    <input  id="percentage" formControlName="percentage" type="number" min="0"
-                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                      onKeyPress="if(this.value.length==3) return false;" class="form-control">
-                    <div *ngIf="showPercentError" style="color: red;">
-                      Percentage allow only 0-100
-                    </div>
-                  </div>
+                    <input  id="percentage" formControlName="percentage" type="number" min="0" max="3" class="form-control">
+                   
                     </td>
 
                     <!-- Remarks -->
@@ -193,12 +187,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                     <td>
                     <input  id="toyear" formControlName="toyear" class="form-control">
-                      <div *ngIf="showDateError" style="color: red;">
-                        To Year is greater than from year
-                      </div>
-                      <div *ngIf="showDateError1" style="color: red;">
-                        cannot accepted more than 15 years from year
-                      </div>
                     </td>
 
 
@@ -433,85 +421,100 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     }
   };
 
-  onSubmitData(bclear: any) {
+  async onSubmitData(bclear: any) {
     debugger;
-
     this.isSubmitted = true;
-    console.log(this.mstapplicanteducationdetail_Form);
-
     let strError = "";
+    console.log(this.mstapplicanteducationdetail_Form)
+    // if (!this.mstapplicanteducationdetail_Form.valid) {
+    //   this.toastr.addSingle("error", "", "Enter the required fields");
+    //   return;
+    // }
+    // Object.keys(this.mstapplicanteducationdetail_Form.controls).forEach(key => {
+    //   const controlErrors: ValidationErrors = this.mstapplicanteducationdetail_Form.get(key).errors;
+    //   if (controlErrors != null) {
+    //     Object.keys(controlErrors).forEach(keyError => {
+    //       strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
+    //     });
+    //   }
+    // });
+    // if (strError != "") return this.sharedService.alert(strError);
 
-    if (strError != "") return this.sharedService.alert(strError);
 
-    if (!this.mstapplicanteducationdetail_Form.valid) {
-      this.toastr.addSingle("error", "", "Enter the required fields");
+    // if (!this.mstapplicanteducationdetail_Form.valid) {
+    //   this.toastr.addSingle("error", "", "Enter the required fields");
+    //   return;
+    // }
+    if (!this.validate()) {
       return;
     }
     this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
- //new
- if(parseInt(this.toyearCondition) <= this.test1) {
-  this.showDateError1 = false;
- }else {
-  this.showDateError1 = true;
-  return
- }
- //old
-  if (this.formData.fromyear > this.formData.toyear) {
-  this.showDateError = true;
-  this.showPercentError = false;
-  return;
-} else if (this.formData.percentage > '100') {
-  this.showPercentError = true;
-  this.showDateError = true;
-  return;
-} else {
-  this.showDateError = false;
-  this.showPercentError = false;
+    debugger
+    // if (this.dynamicconfig.data != null) {
+    //   for (let key in this.dynamicconfig.data) {
+    //     if (key != 'visiblelist' && key != 'hidelist') {
+    //       if (this.mstapplicanteducationdetail_Form.controls[key] != null) {
+    //         this.formData[key] = this.mstapplicanteducationdetail_Form.controls[key].value;
+    //       }
+    //     }
+    //   }
+    // }
 
-    // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-    // this.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log(this.formData);
-    this.spinner.show();
-    this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
-      async res => {
-        // await this.sharedService.upload(this.fileAttachmentList);
-        // this.attachmentlist = [];
-        // if (this.fileattachment) this.fileattachment.clear();
-        this.spinner.hide();
-        debugger;
-        this.toastr.addSingle("success", "", "Successfully saved");
-        this.sessionService.setItem("attachedsaved", "true")
-        this.objvalues.push((res as any).mstapplicanteducationdetail);
-        this.ngOnInit();
-        this.mstapplicanteducationdetail_Form.reset();
-        if (!bclear) this.showview = true;
-        if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-          this.dialogRef.close(this.objvalues);
-          return;
-        }
-        else {
+      this.showDateError = false;
+      this.showPercentError = false;
+      // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+      // this.fileAttachmentList = this.fileattachment.getAllFiles();
+      console.log(this.formData);
+      this.spinner.show();
+      this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
+        async res => {
+          await this.sharedService.upload(this.fileAttachmentList);
+          this.attachmentlist = [];
+          if (this.fileattachment) this.fileattachment.clear();
+          this.spinner.hide();
+          debugger;
+          this.toastr.addSingle("success", "", "Successfully saved");
+          this.sessionService.setItem("attachedsaved", "true")
+          this.objvalues.push((res as any).mstapplicanteducationdetail);
+          this.ngOnInit();
+          if (!bclear) this.showview = true;
           if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        }
-        if (bclear) {
-          this.resetForm();
-        }
-        else {
-          if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-            this.objvalues.push((res as any).mstapplicanteducationdetail);
+          if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
             this.dialogRef.close(this.objvalues);
+            return;
           }
           else {
-            // this.FillData(res);
+            if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
           }
+          if (bclear) {
+            this.resetForm();
+          }
+          else {
+            if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+              this.objvalues.push((res as any).mstapplicanteducationdetail);
+              this.dialogRef.close(this.objvalues);
+            }
+            else {
+              this.FillData();
+            }
+          }
+          this.mstapplicanteducationdetail_Form.markAsUntouched();
+          this.mstapplicanteducationdetail_Form.markAsPristine();
+        },
+        err => {
+          debugger;
+          this.spinner.hide();
+          this.toastr.addSingle("error", "", err.error);
+          console.log(err);
         }
-      },err => {
-        debugger;
-        this.spinner.hide();
-        this.toastr.addSingle("error", "", err.error);
-        console.log(err);
-      });
-    }
+      )
+    
+
+  };
+
+  validate() {
+    let ret = true;
+    return ret;
   }
 
   resetForm() {
@@ -650,7 +653,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         referenceacceptance: res.mstapplicanteducationdetail.referenceacceptance,
         referenceacceptancedesc: res.mstapplicanteducationdetail.referenceacceptancedesc,
         remarks: res.mstapplicanteducationdetail.remarks,
-        attachment: JSON.parse(res.mstapplicanteducationdetail.attachment),
+        attachment: "[]",
         status: res.mstapplicanteducationdetail.status,
         statusdesc: res.mstapplicanteducationdetail.statusdesc,
       });

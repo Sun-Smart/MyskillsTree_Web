@@ -767,7 +767,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
           if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
             this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res =>
               this.subcategoryid_List = res as DropDownValues[]);
-        }, 3000);
+        }, 1000);
 
         setTimeout(() => {
           this.mstapplicantskilldetail_service.getList_subcategoryid2(this.skillsubcategory_Code).then(res => {
@@ -782,7 +782,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
             }
           }
           );
-        },3000)
+        }, 1000)
       }).catch((err) => {
         //console.log(err);
       });

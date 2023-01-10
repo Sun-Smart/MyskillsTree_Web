@@ -24,19 +24,36 @@
   position: absolute;
   top: 50px;
   left: 10%;
-  height: 10px !important;
-  width: 81% !important;
-  li {
-    color: black;
-    cursor: pointer;
+  height: auto !important;
+  width: 80% !important;
+  background-color: #fff;
+  box-shadow: 1px 1px 5px 0px #b9afaf;
+
+  .profile-img {
+    text-align: center;
   }
-  li:hover {
+
+  .profile-label {
     color: black;
     cursor: pointer;
-    background-color: aliceblue;
+    padding: 10px;
+    margin: 0;
+  }
+  .profile-label:hover {
+    margin: 0;
+    padding: 10px;
+    background-color: #ebf3fc;
   }
 }
-
+.sign_out-label {
+  padding: 8px;
+  cursor: pointer;
+  background-color: red;
+  margin: 0 !important;
+  display: flex;
+  justify-content: center;
+  color: #fff !important;
+}
 .logo-2 {
   // width: 70%;
   //   height: 100%;

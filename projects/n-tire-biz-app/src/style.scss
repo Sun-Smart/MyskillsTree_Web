@@ -191,7 +191,7 @@ ngb-datepicker {
 
 .p-sidebar-content {
   width: 90%;
-  overflow: scroll !important;
+  overflow-y: scroll !important;
   // max-height: 400px;
   max-height: 450px;
 }
@@ -203,17 +203,13 @@ ngb-datepicker {
 .p-sidebar-content {
   background-color: #ebf3fc;
   margin: 5px;
-  padding: 11px;
+  padding: 10px;
   border-radius: 5px;
   width: 50%;
   position: fixed !important;
-  right: 120px;
-  // background-color: #148eeb;
-  // margin: 5px;
-  //   padding: 5px;
-  //   width: 50%;
-  //   position: fixed !important;
-  //   right: 120px;
+  right: 10rem !important;
+  background-color: #fff;
+  box-shadow: 1px 1px 5px 0px #b9afaf;
 }
 
 .ql-syntax {
@@ -2960,10 +2956,8 @@ p-table {
 .table-container:not(.p-dialog-content .table-container) {
   overflow-x: auto !important;
   overflow-y: auto !important;
-
   position: absolute !important;
   height: 81% !important;
-
   width: 100% !important;
 }
 
@@ -3059,9 +3053,9 @@ i.pi.pi-caret-up.fs-large.ng-tns-c186-0 {
   position: fixed;
   z-index: 1;
   font-size: 50px !important;
-  top: 13px;
-  right: 29%;
-  color: #ebf3fc !important;
+  top: 19px;
+  right: 13%;
+  color: #fff !important;
 }
 
 pre.ql-syntax {

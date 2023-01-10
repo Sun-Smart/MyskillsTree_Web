@@ -8,8 +8,7 @@
     <label style="left: 63px;position: fixed;font-size: 20px; color:#6B431D;">MySkillsTree</label>
 
   </div>
-  <div class="col-6"
-    style="display:flex; justify-content:center; align-items:center;padding: 0 5rem;">
+  <div class="col-6" style="display:flex; justify-content:center; align-items:center;padding: 0 5rem;">
     <i class="fa fa-search search-icon" aria-hidden="true"></i>
     <input type="text" class="form-control" placeholder="Search"
       style="border-radius:30px !important; padding: 0 30px;height: 31px;">
@@ -38,7 +37,8 @@
 
             <div>
               <i class="fa fa-th fa1 fa2" aria-haspopup="true" aria-expanded="false"
-                style="margin-left:10px; font-size: 24px !important; margin-top: 6px;cursor: pointer !important;" (click)="openpopup()"></i>
+                style="margin-left:10px; font-size: 24px !important; margin-top: 6px;cursor: pointer !important;"
+                (click)="openpopup()"></i>
               <span class="p-ink" style="height: 44px; width: 44px; "></span>
             </div>
 
@@ -49,7 +49,7 @@
               <div style="display: flex;margin: 8px 8px 0 8px !important;" class="row">
 
                 <div class="col-12" style="text-align: end;display: flex;justify-content: end;
-                padding: 0 0px;" >
+                padding: 0 0px;">
                   <button type="button" (click)="closePopup();"
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
                     style=" margin:8px;">
@@ -163,18 +163,17 @@
 
         <!-- certified -->
 
-        <li *ngIf="showCertifiermenu" class="layout-topbar-item ng-tns-c186-0 "
-          style="list-style: none; color:black;">
+        <li *ngIf="showCertifiermenu" class="layout-topbar-item ng-tns-c186-0 " style="list-style: none; color:black;">
           <label class="dropdown">
             <div>
               <i class="fa fa-th fa1 fa2" aria-hidden="true"
-                style="margin-left:10px; font-size: 24px !important; margin-top: 6px;cursor: pointer !important;" (click)="openpopup()"></i>
+                style="margin-left:10px; font-size: 24px !important; margin-top: 6px;cursor: pointer !important;"
+                (click)="openpopup()"></i>
               <span class="p-ink" style="height: 44px; width: 44px; "></span>
             </div>
             <input type="checkbox" class="dd-input" id="test">
 
-            <ul class="dd-menu" *ngIf="menuhide"
-              style="  margin-top: 12px !important; border-radius: 12px;">
+            <ul class="dd-menu" *ngIf="menuhide" style="  margin-top: 12px !important; border-radius: 12px;">
               <div style="display: flex;    margin: 8px 8px 0 8px !important;" class="row">
 
                 <div class="col-12" style="text-align: end;
@@ -186,13 +185,13 @@
                       style="color: red !important; font-size: 20PX;"></span>
                   </button>
                 </div>
-              <div class="row" style="margin: 8px 8px 0 8px !important;">
-                <div class="col-12 card certi" style="text-align:center;margin: 0px 0px 26px 0px !important">
-                  <a [routerLink]='' (click)="openReference()">
-                    <li class="li2"><i class="bi bi-person-square fa1" aria-hidden="true"></i><br /> References</li>
-                  </a>
+                <div class="row" style="margin: 8px 8px 0 8px !important;">
+                  <div class="col-12 card certi" style="text-align:center;margin: 0px 0px 26px 0px !important">
+                    <a [routerLink]='' (click)="openReference()">
+                      <li class="li2"><i class="bi bi-person-square fa1" aria-hidden="true"></i><br /> References</li>
+                    </a>
+                  </div>
                 </div>
-              </div>
               </div>
 
             </ul>
@@ -349,7 +348,7 @@
                     </li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center; "(click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center; " (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/v2mgx']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-database fa1" aria-hidden="true"></i><br /> Master Data Type</li>
                   </a>
@@ -373,7 +372,7 @@
                     <li class="li2"><i class="fa fa-cc fa1" aria-hidden="true"></i><br /> Subcategory Masters</li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" >
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/wc9rn']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Countries</li>
                   </a>
@@ -387,7 +386,7 @@
                     </li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;"(click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/terms']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-trademark fa1" aria-hidden="true"></i><br /> Terms </li>
                   </a>
@@ -464,13 +463,13 @@
                 </div>
                 <!-- Corporate -->
 
-                <div class="col-4 card  Corporatedrop" style="text-align:center; " (click)="closePopups()">
-                  <a [routerLink]="['/home/boreportviewer/mcm']" routerLinkActive="router-link-active">
+                <div class="col-4 card  Corporatedrop" style="text-align:center; " (click)="corporate_data()">
+                  <a routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Corporate Masters
                     </li>
                   </a>
                 </div>
-                <div class="col-4 card  Corporatedrop" style="text-align:center;"(click)="closePopups()">
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/jobq']" routerLinkActive="router-link-active ">
                     <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Job requirements</li>
                   </a>
@@ -561,67 +560,66 @@
             </span></a>
         </li>
 
+        <div class="list-group profile-card" *ngIf="showhideProfile">
 
-        <ul class="list-group profile-card" *ngIf="showhideProfile">
-          <li class="list-group-item">
-
-            <button type="button" pripple (click)="closePopup();"
-              class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-              style="float: right; margin:0px; ">
+          <label style="text-align: end;">
+            <button type="button" pripple (click)="closePopup();" style=" background-color: transparent;border: none;">
               <i class="fa fa-times-circle" aria-hidden="true" style="color: red !important; font-size: 20px;"
                 (click)="closePopup();"></i>
             </button>
-          </li>
-          <li class="list-group-item">
-            <center>
-              <img *ngIf="userphoto" src="https://demo.herbie.ai/attachment/{{userphoto}}" alt="avatar" style="width: 100px;
-                  height: 100px;
-                  border-radius: 50px;" class="img_content" title="Profile">
-            </center>
-            <center>
-              <img *ngIf="!userphoto" src="assets/profile.jpeg" alt="avatar" style="width: 100px;
-                  height: 100px;
-                  border-radius: 50px;" class="img_content" title="Profile">
-            </center>
-          </li>
-          <li class="list-group-item" *ngIf="applicanticon">
-            <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
-            <span>{{username}} ({{userrole}})</span>
-          </li>
-          <li class="list-group-item"  *ngIf="adminicon">
-            <i class="fa fa-user-secret" aria-hidden="true"></i>&nbsp;
-            <span>{{username}} ({{userrole}})</span>
-          </li>
-          <li class="list-group-item" *ngIf="corporateicon">
-            <i class="fa fa-building-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
-            <span>{{username}} ({{userrole}})</span>
-          </li>
+          </label>
 
-          <li class="list-group-item li1" style="cursor: pointer;" (click)="showProfile()">
-            <i class="fa fa-mobile" aria-hidden="true" style="font-size: 23px;
-            font-weight: bold;"></i>&nbsp;
-            <span>{{mobilenumber}}</span>
-          </li>
-          <li class="list-group-item li1" style="cursor: pointer;" (click)="showProfile()">
-            <i class="fa fa-envelope-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
-            <span>{{email_id}}</span>
-          </li>
+          <label class="profile-img">
+            <img *ngIf="userphoto" src="https://demo.herbie.ai/attachment/{{userphoto}}" alt="avatar" style="width: 100px;
+              height: 100px;
+              border-radius: 50px;" title="Profile">
+
+            <img *ngIf="!userphoto" src="assets/profile.jpeg" alt="avatar" style="width: 100px;
+              height: 100px;
+              border-radius: 50px;" title="Profile">
+          </label>
+
+          <label class="profile-label" *ngIf="applicanticon" >
+            <span><i class="fa fa-user" aria-hidden="true"></i>&nbsp;
+              {{username}} ({{userrole}})</span>
+          </label>
+
+          <label class="profile-label" *ngIf="adminicon">
+            <span><i class="fa fa-user-secret" aria-hidden="true"></i>&nbsp;
+              {{username}} ({{userrole}})</span>
+          </label>
+
+          <label class="profile-label" *ngIf="corporateicon">
+            <span><i class="fa fa-building-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
+              {{username}} ({{userrole}})</span>
+          </label>
+
+          <label class="profile-label" style="cursor: pointer;" (click)="showProfile()">
+            <span><i class="fa fa-mobile" aria-hidden="true" style="font-size: 23px;
+           font-weight: bold;"></i>&nbsp;
+              {{mobilenumber}}</span>
+          </label>
+
+          <label class="profile-label" style="cursor: pointer;" (click)="showProfile()">
+            <span><i class="fa fa-envelope-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
+              {{email_id}}</span>
+          </label>
+
+          <label class="profile-label" *ngIf="showApplicantAccount" style="cursor: pointer;" (click)="showProfile()">
+            <span><i class="fa fa-cog" aria-hidden="true" style="font-size: 16px;"></i>&nbsp;
+              Manage your account</span>
+          </label>
+
+          <label  (click)="logout()" class="sign_out-label">
+            <i class="pi fs-large ng-tns-c186-0 pi-sign-out" title="Logout"></i>
+            <span style="color:white !important;">Signout from account</span>
+          </label>
+        </div>
 
 
-          <li class="list-group-item li1" *ngIf="showApplicantAccount" style="cursor: pointer;" (click)="showProfile()">
-            <i class="fa fa-cog" aria-hidden="true" style="font-size: 16px;"></i>&nbsp;
-            <span>Manage your account</span>
-          </li>
-          <li class="list-group-item li1" (click)="logout()" style="cursor: pointer; background-color: red;">
-            <a pripple="" class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple"><i
-                class="pi fs-large ng-tns-c186-0 pi-sign-out"
-                style="font-size: 20px !important;color: white;position: relative;top: 4px;" title="Logout"></i>
-              <span style="color:white !important;">Signout from account</span></a>
-          </li>
-        </ul>
-        <!-- <li class="layout-topbar-item" style='width:fit-content'>{{username}}({{userrole}})
+        <!-- <label class="profile-label" class="layout-topbar-item" style='width:fit-content'>{{username}}({{userrole}})
               </li> -->
-        <!-- <li class="layout-topbar-item ng-tns-c186-0"><a pripple="" (click)="logout()"
+        <!-- <label class="layout-topbar-item ng-tns-c186-0"><a pripple="" (click)="logout()"
                       class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple"><i
                           class="pi fs-large ng-tns-c186-0 pi-sign-out"
                           style="font-size: 30px !important; color: #000;" title="Logout"></i><span
@@ -631,7 +629,7 @@
     </div>
   </div>
 
-  
+
 </div>
 <footer>
   <div class="container">
@@ -662,7 +660,7 @@
 
 
 
-      <div class="card bg-light mt-3 col-12 notification" style="color: #000 !important;"
+      <div class="card bg-light mt-3 col-12 notification" style="color: #000 !important;background-color: #ebf3fc !important;"
         (click)="ShowTask(notification)">
         <a class="" [routerLink]='' title="Delete" (click)="delteNotify(notificationDelete[i])"><i
             class="fa fa-times-circle" style="position: absolute;right: 0;top: 2%;
@@ -679,7 +677,7 @@
 
 
     </div>
-    
+
   </ng-container>
 
 </p-sidebar>

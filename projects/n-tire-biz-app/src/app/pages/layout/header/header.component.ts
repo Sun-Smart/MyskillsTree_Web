@@ -69,6 +69,7 @@ export class HeaderComponent implements OnInit {
   email: any;
   showApplicantAccount: boolean;
   email_id: any;
+  usersource: any;
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
@@ -88,6 +89,7 @@ export class HeaderComponent implements OnInit {
     this.displayNotifications = false;
     this.userid = this.sessionService.getItem('userid');
     this.theme = this.sessionService.getItem("selected-theme");
+    this.usersource = this.sessionService.getItem("usersource");
     this.applicantid = this.sessionService.getItem("applicantid");
     //this.theme ='cruze';
     if (this.theme) {
@@ -522,5 +524,10 @@ export class HeaderComponent implements OnInit {
   }
   closeNotify() {
     this.showNotify = false;
+  }
+
+  corporate_data() {
+    this.menuhide = false;
+    this.router.navigate(['home/mstcorporatemasters/mstcorporatemasters/edit/' + this.usersource])
   }
 }
