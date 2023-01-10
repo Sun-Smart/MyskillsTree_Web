@@ -130,7 +130,9 @@
         <div class="input-group">
         </div>
         <label *ngIf="showview" class="labelview">{{f.countrydesc?.value}}</label>
-        <app-field-error-display [displayError]="f.country.errors?.required" errorMsg="Enter {{'Country' | translate}}">
+        <app-field-error-display [displayError]="f.country.errors?.required" errorMsg="Enter {{'Country' | translate}}"
+        [ngStyle]="{'height':getdataitem.length >0?'100px':'0px'}">
+        
         </app-field-error-display>
       </div>
 

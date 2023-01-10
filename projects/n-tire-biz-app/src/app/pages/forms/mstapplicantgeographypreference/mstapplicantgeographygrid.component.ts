@@ -107,7 +107,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 [form]="bocountry" (selectItem)="onSelected_country($event)" [reportid]='wc9rn' [menuid]='wc9rn'
                 formControlName="country" id="value" desc="label"></app-popupselect>
 
-                <app-field-error-display [displayError]="f.country.errors?.required" errorMsg="Enter {{'Country' | translate}}">
+                <app-field-error-display [displayError]="f.country.errors?.required" errorMsg="Enter {{'Country' | translate}}"
+                >
                 </app-field-error-display>
               </td>
 
