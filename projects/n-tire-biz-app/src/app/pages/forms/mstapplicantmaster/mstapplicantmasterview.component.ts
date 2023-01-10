@@ -746,8 +746,8 @@ export class mstapplicantmasterviewComponent implements OnInit {
     let ret = "";
     ret += `<div class='achievement-card1'>
 
-    <!--<label style="color:gray;font-weight:300;">Mater Data Type</label> : <label style="color:#000;font-weight:bold;">##masterdatatypeiddesc##</label><br/>-->
-    <label style="color:gray;font-weight:300;">Mater Data Type</label> : <label style="color:#000;font-weight:bold;">##masterdataiddesc##</label><br/>
+    <!--<label style="color:gray;font-weight:300;">Category</label> : <label style="color:#000;font-weight:bold;">##masterdatatypeiddesc##</label><br/>-->
+    <label style="color:gray;font-weight:300;">Category</label> : <label style="color:#000;font-weight:bold;">##masterdataiddesc##</label><br/>
     <label style="color:gray;font-weight:300;">Achievement Details</label> : <label style="color:#000;font-weight:bold;">##achievementdetails##</label><br/>
     <!--<label style="color:gray;font-weight:300;">Self Rating</label> : <label style="color:#000;font-weight:bold;">##selfrating##</label><br/>
     <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label><br/>-->

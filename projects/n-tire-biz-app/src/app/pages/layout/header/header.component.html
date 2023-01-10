@@ -594,7 +594,7 @@
               {{username}} ({{userrole}})</span>
           </label>
 
-          <label class="profile-label" style="cursor: pointer;" (click)="showProfile()">
+          <label class="profile-label" *ngIf="showmobilenumber" style="cursor: pointer;" (click)="showProfile()">
             <span><i class="fa fa-mobile" aria-hidden="true" style="font-size: 23px;
            font-weight: bold;"></i>&nbsp;
               {{mobilenumber}}</span>
