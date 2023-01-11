@@ -1,7 +1,7 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstapplicantsocialmediadetail_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <!-- <div class="row second common_title_style">
+  <!-- <div class="row second ">
     <h1 class="col-4 columns mainheader left">{{'SocialMedia Details' |
         translate}}</h1>
     <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
@@ -59,7 +59,7 @@
             <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
-          <li class='nav-item actionheader common_title_style' *ngIf="!showview">
+          <li class='nav-item actionheader ' *ngIf="!showview">
             <button type="button" class="btn btn-outline-primary" style="border-color: #fff !important;margin: 5px;
               padding: 3px;
               color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
@@ -78,12 +78,16 @@
       </div>
     </div>
   </div> -->
-  <div class="row second common_title_style">
-    <h1 class="col-4 columns mainheader left common_titles_new">{{'SocialMedia Details' |
-      translate}}</h1>
-    <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
+
+  <div class="row second applicant-popup-header">
+
+    <div class="col-4">
+      <h1 class="columns mainheader left common_titles_new">{{'SocialMedia Details' |
+        translate}}</h1>
+    </div>
+
+    <div class='col-4 sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
-      <div class='col'></div>
       <div class='dropdown d-inline-block btn-dropdown show'>
 
         <ul class='nav nav-pills  input-group'>
@@ -136,42 +140,47 @@
             <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
-          <li class='nav-item actionheader common_title_style' *ngIf="!showview">
-            <!-- <a class="alert-success" [routerLink]=''>  -->
-            <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
+        </ul>
+      </div>
+    </div>
+
+    <div class='col-4'>
+      <ul>
+        <li class='nav-item actionheader ' *ngIf="!showview">
+          <!-- <a class="alert-success" [routerLink]=''>  -->
+          <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
               padding: 3px;
               color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
-            <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+          <!-- <a class="alert-primary " *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-            <button type="button" class="btn btn-outline-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null'
-              style="border-color: #000 !important;
-              color: #000;margin: 5px;
-    padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
-            <app-action *ngIf="f.socialrefid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
-              [value]="f.socialrefid.value" [status]="f.status.value"></app-action>
-          </li>
-          <i class='nav-item actionheader common_title_style'
-            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
-            class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
-          <!-- <li class='nav-item actionheader' *ngIf="!showview" style="padding: 1px 0px 8px 0px;">
-            <a class="alert-success common_title_style" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+          <button type="button" class="btn btn-outline-primary popup-add-button"
+            *ngIf='data.pkcol==null || maindata.ScreenType==null' style="border-color: #000 !important;
+              color: #000;margin: 5px; padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
+          <app-action *ngIf="f.socialrefid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+            [value]="f.socialrefid.value" [status]="f.status.value"></app-action>
+        </li>
+        <i class='nav-item actionheader '
+          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
+          class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
+        <!-- <li class='nav-item actionheader' *ngIf="!showview" style="padding: 1px 0px 8px 0px;">
+            <a class="alert-success " [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary " *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.socialrefid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.socialrefid.value" [status]="f.status.value"></app-action>
           </li> -->
-          <!-- <li class='nav-item actionheader'
+        <!-- <li class='nav-item actionheader'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a  class="alert-danger common_title_style" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+            <a  class="alert-danger " [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li> -->
-          <!-- <i class='nav-item actionheader common_title_style'
+        <!-- <i class='nav-item actionheader '
           *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
           class="fa fa-times-circle close_common_icon" (click)="onClose()"></i> -->
 
-        </ul>
-      </div>
+      </ul>
     </div>
+
   </div>
   <div class="container"
     id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
@@ -183,12 +192,13 @@
     </div>
 
 
-    <!--applicantid-->
-
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+
+      <!--Applicant Id-->
+
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        style='' class="col-3"><label for="applicantid" class="control-label"
+        class="col-3"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
@@ -199,11 +209,11 @@
       </div>
 
 
-      <!--socialmedianame-->
+      <!--social Media Name-->
 
       <div
         *ngIf="((hidelist.indexOf('socialmedianame') == -1) && (socialmedianamevisible==undefined || socialmedianamevisible==true))"
-        style='' class="col-3"><label for="socialmedianame" class="control-label required"
+        class="col-3"><label for="socialmedianame" class="control-label required"
           (click)="AddOrEdit_socialmedianame(null)" (click)="AddOrEdit_socialmedianame(null)">Social Media</label>
         <select *ngIf="!showview" id="socialmedianame" required (change)="socialmedianame_onChange($event.target)"
           formControlName="socialmedianame" class="form-control">
@@ -215,22 +225,28 @@
           errorMsg="Enter {{'Social Media' | translate}}">
         </app-field-error-display>
       </div>
+
+      <!-- Handle Name -->
+
       <div *ngIf="((hidelist.indexOf('handlename') == -1) && (handlenamevisible==undefined || handlenamevisible==true))"
-        style='' class="col-3 ">
+        class="col-3 ">
         <label for="handlename" class="control-label">Handle Name</label>
         <label *ngIf="showview" class="labelview">{{f.handlename?.value}}</label>
         <input *ngIf="!showview" id="handlename" formControlName="handlename" class="form-control">
       </div>
-      <div *ngIf="((hidelist.indexOf('url') == -1) && (urlvisible==undefined || urlvisible==true))" style=''
-        class="col-3 ">
+
+      <!-- URL -->
+
+      <div *ngIf="((hidelist.indexOf('url') == -1) && (urlvisible==undefined || urlvisible==true))" class="col-3 ">
         <label for="url" class="control-label required">U R L</label>
         <label *ngIf="showview" class="labelview">{{f.url?.value}}</label>
         <input *ngIf="!showview" id="url" required formControlName="url" class="form-control">
         <app-field-error-display [displayError]="f.url.errors?.required" errorMsg="Enter {{'U R L' | translate}}">
         </app-field-error-display>
       </div>
-    </div>
-    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+
+      <!-- Remarks -->
+
       <div *ngIf="((hidelist.indexOf('remarks') == -1) && (remarksvisible==undefined || remarksvisible==true))"
         style='width:1500px' class="col-12 ">
         <label for="remarks" class="control-label">Remarks</label>
@@ -238,6 +254,9 @@
         <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>
       </div>
     </div>
+
+    <!-- Attachment -->
+
     <div class='full-width' *ngIf="attachmentVisible">
       <p-accordion [multiple]='true'>
         <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>

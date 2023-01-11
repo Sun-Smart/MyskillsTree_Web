@@ -211,6 +211,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
     @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
     attachmentFieldJson: any[] = [];
     attachmentVisible: boolean = true;
+    showAttachment: boolean = true;
     SESSIONUSERID: any;//current user
 
     sessionData: any;
@@ -274,7 +275,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
         this.FillData();
 
         //autocomplete
-        this.mstapplicantachievementdetail_service.get_mstapplicantachievementdetails_List().then((res:any) => {
+        this.mstapplicantachievementdetail_service.get_mstapplicantachievementdetails_List().then((res: any) => {
             debugger
             this.pkList = res as mstapplicantachievementdetail[];
             this.pkoptionsEvent.emit(this.pkList);
@@ -325,7 +326,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
         if (!this.mstapplicantachievementdetail_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
             return;
-          }
+        }
         this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
         console.log(this.formData);
 
@@ -461,15 +462,15 @@ export class mstapplicantachivementgridComponent implements OnInit {
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.getdata();
-        console.log(event, achievementid,applicantid);
-        
+        console.log(event, achievementid, applicantid);
+
         this.mstapplicantachievementdetail_service.get_mstapplicantachievementdetails_ByEID(event.data.pkcol).then(res => {
             console.log(res);
 
             this.formData = res.mstapplicantachievementdetail;
             // this.formid = res.mstapplicantachievementdetail.achievementid;
             this.pkcol = res.mstapplicantachievementdetail.pkcol;
-            
+
             debugger
             this.mstapplicantachievementdetail_Form.patchValue({
                 applicantid: res.mstapplicantachievementdetail.applicantid,
@@ -486,8 +487,8 @@ export class mstapplicantachivementgridComponent implements OnInit {
                 attachment: "[]",
                 status: res.mstapplicantachievementdetail.status,
                 statusdesc: res.mstapplicantachievementdetail.statusdesc,
-              });
-              debugger
+            });
+            debugger
         })
     }
 
@@ -764,7 +765,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
             if (this.pkcol != undefined && this.pkcol != null) childsave = true;
             this.dialog.open(mstapplicantachievementdetailComponent,
                 {
-                    data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, achievementid, applicantid, visiblelist: this.mstapplicantachievementdetails_visiblelist, hidelist: this.mstapplicantachievementdetails_hidelist, ScreenType: 2 },
+                    data: { showview: false, showAttachment: false, save: childsave, maindatapkcol: this.pkcol, event, achievementid, applicantid, visiblelist: this.mstapplicantachievementdetails_visiblelist, hidelist: this.mstapplicantachievementdetails_hidelist, ScreenType: 2 },
                 }
             ).onClose.subscribe(res => {
                 if (res) {

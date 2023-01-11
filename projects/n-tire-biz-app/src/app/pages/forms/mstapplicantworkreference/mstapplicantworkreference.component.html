@@ -1,10 +1,10 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstapplicantworkreference_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <!-- <div class="row second common_title_style">
+  <!-- <div class="row second">
     <h1 class="col-4 columns mainheader left">{{'Projects' | translate}}
     </h1>
-    <div class='col  sticky1 second common_title_style' role='toolbar' aria-label='Toolbar with button groups'>
+    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
 
       <div class='col'></div>
       <div class='dropdown d-inline-block btn-dropdown show'>
@@ -56,7 +56,7 @@
             </ul>
           </li>
 
-          <li class='nav-item actionheader common_title_style' *ngIf="!showview">
+          <li class='nav-item actionheader' *ngIf="!showview">
             <button type="button" class="btn btn-outline-primary" style="border-color: #fff !important;margin: 5px;
               padding: 3px;
               color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
@@ -67,7 +67,7 @@
             <app-action *ngIf="f.workreferenceid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.workreferenceid.value" [status]="f.status.value"></app-action>
           </li>
-          <i class='nav-item actionheader common_title_style'
+          <i class='nav-item actionheader'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
             class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
 
@@ -75,14 +75,14 @@
       </div>
     </div>
   </div> -->
-  <div class="row second common_title_style applicant-popup-header">
+  <div class="row second applicant-popup-header">
 
     <div class='col-4'>
       <h1 class="columns mainheader left common_titles_new">{{'Projects' | translate}}
       </h1>
     </div>
 
-    <div class='col-4  sticky1 second common_title_style' role='toolbar' aria-label='Toolbar with button groups'>
+    <div class='col-4  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
 
       <div class='dropdown d-inline-block btn-dropdown show'>
@@ -152,14 +152,15 @@
         </ul>
       </div>
     </div>
-    <div class="col-4" >
+
+    <div class="col-4">
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
-        <li class='nav-item actionheader common_title_style' *ngIf="!showview">
+        <li class='nav-item actionheader' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
           <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
             padding: 3px;
             color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
-          <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+          <!-- <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
             (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
           <button type="button" class="btn btn-outline-primary popup-add-button"
             *ngIf='data.pkcol==null || maindata.ScreenType==null' style="border-color: #000 !important;
@@ -167,7 +168,7 @@
           <app-action *ngIf="f.workreferenceid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
             [value]="f.workreferenceid.value" [status]="f.status.value"></app-action>
         </li>
-        <i class='nav-item actionheader common_title_style' style="position: inherit;"
+        <i class='nav-item actionheader' style="position: inherit;"
           *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
           class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
       </ul>
@@ -185,12 +186,15 @@
     </div>
 
 
-    <!--applicantid-->
 
-    <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
+
+    <div *ngIf="(viewHtml == '' || !showview) && showAttachment" class="form-group row">
+
+      <!--applicantid-->
+
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        style='' class="col-3"><label for="applicantid" class="control-label"
+        class="col-3"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
@@ -203,7 +207,7 @@
       <!-- Work Topic -->
 
       <div *ngIf="((hidelist.indexOf('worktopic') == -1) && (worktopicvisible==undefined || worktopicvisible==true))"
-        style='' class="col-3 ">
+        class="col-3 ">
         <label for="worktopic" class="control-label required">Work Topic</label>
         <label *ngIf="showview" class="labelview">{{f.worktopic?.value}}</label>
         <input *ngIf="!showview" id="worktopic" required formControlName="worktopic" class="form-control">
@@ -211,24 +215,23 @@
           errorMsg="Enter {{'Work Topic' | translate}}">
         </app-field-error-display>
       </div>
-      <div class="col"></div>
-      <div class="col"></div>
-    </div>
-    <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
+
+      <!-- Work Description -->
+
       <div
         *ngIf="((hidelist.indexOf('workdescription') == -1) && (workdescriptionvisible==undefined || workdescriptionvisible==true))"
         style='width:1500px' class="col-12 ">
         <label for="workdescription" class="control-label required">Work Description</label>
         <label *ngIf="showview" class="labelview">{{f.workdescription?.value}}</label>
         <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="workdescription" required
-          formControlName="workdescription" class="form-control">
-</textarea>
+          formControlName="workdescription" class="form-control"> </textarea>
         <app-field-error-display [displayError]="f.workdescription.errors?.required"
           errorMsg="Enter {{'Work Description' | translate}}">
         </app-field-error-display>
       </div>
-    </div>
-    <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
+
+      <!-- Reference URL -->
+
       <div
         *ngIf="((hidelist.indexOf('referenceurl') == -1) && (referenceurlvisible==undefined || referenceurlvisible==true))"
         style='width:1500px' class="col-12 ">
@@ -236,23 +239,19 @@
         <label *ngIf="showview" class="labelview">{{f.referenceurl?.value}}</label>
         <input *ngIf="!showview" id="referenceurl" formControlName="referenceurl" class="form-control">
       </div>
-    </div>
-    <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
+
+      <!-- Remarks -->
+
       <div *ngIf="((hidelist.indexOf('remarks') == -1) && (remarksvisible==undefined || remarksvisible==true))"
         style='width:1500px' class="col-12 ">
         <label for="remarks" class="control-label">Remarks</label>
         <label *ngIf="showview" class="labelview">{{f.remarks?.value}}</label>
         <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>
       </div>
+
     </div>
-    <!-- <div *ngIf="(viewhtml == '' || !showview)" class="form-group row">
-      <div *ngIf="hidelist.indexOf('requestid') == -1 && f.requestid.value !=null" class="col-3 ">
-        <button class="btn btn-link" (click)="viewrequestid()" type="button"><i class="fa fa-external-link"></i>
-          View Request</button>
-        <label *ngIf="showview" class="labelview">{{f.requestid?.value}}</label>
-      </div>
-    </div> -->
-    <div class='full-width Skill-attachment' *ngIf="attachmentVisible">
+
+    <div class='full-width Skill-attachment'>
       <p-accordion [multiple]='true'>
         <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
           <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
@@ -260,5 +259,6 @@
         </p-accordionTab>
       </p-accordion>
     </div>
+
   </div>
 </form>

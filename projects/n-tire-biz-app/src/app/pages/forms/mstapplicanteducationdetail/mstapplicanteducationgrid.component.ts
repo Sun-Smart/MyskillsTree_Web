@@ -163,7 +163,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                     <td>
                     <input  id="percentage" formControlName="percentage" type="number" min="0" max="3" class="form-control" required>
-                   
+                    <span *ngIf = "show_percentageError" style = "color:red; font-size:10px;"> Percentage value should be below 100</span>
                     </td>
 
                     <!-- Remarks -->
@@ -188,7 +188,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                     <td>
                     <input  id="toyear" formControlName="toyear" class="form-control" required>
-                    <span *ngIf = "showerror" style = "color:red; font-size:10px;"> To year should not be greater than from year</span>
+                    <span *ngIf = "show_YearError" style = "color:red; font-size:10px;"> To year should not be greater than from year</span>
                     </td>
 
                     <!-- Submit & Close -->
@@ -251,6 +251,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   IsAdmin: boolean;
   bSingleRecord: boolean;
   isSubmitted: boolean = false;
+  showAttachment: boolean = false;
 
   applicantid: any;
   data: any;
@@ -292,7 +293,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   toyearCondition: any
   test1: number;
   formValue: any;
-  showerror: boolean = false;
+  show_percentageError: boolean = false;
+  show_YearError: boolean;
 
   constructor(
     private nav: Location,
@@ -392,6 +394,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   skillClose() {
     this.mstapplicanteducationdetail_Form.reset();
     this.showSkillDetails_input = false;
+    this.show_percentageError = false;
+    this.show_YearError = false;
   };
 
   onSubmitAndWait() {
@@ -445,7 +449,12 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       this.toastr.addSingle("error", "", "Enter the required fields");
       return;
     } else if (this.mstapplicanteducationdetail_Form.value.fromyear > this.mstapplicanteducationdetail_Form.value.toyear) {
-      this.showerror = true;
+      debugger
+      this.show_YearError = true;
+      return
+    } else if (this.mstapplicanteducationdetail_Form.value.percentage > 100) {
+      this.show_percentageError = true;
+      return
     }
     else {
 
@@ -468,8 +477,10 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
           this.toastr.addSingle("success", "", "Successfully saved");
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicanteducationdetail);
+          this.mstapplicanteducationdetail_Form.reset();
           this.ngOnInit();
-          this.showerror = false;
+          this.show_percentageError = false;
+          this.show_YearError = false;
           if (!bclear) this.showview = true;
           if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
           if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
@@ -589,14 +600,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     //     this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
     //     this.Set_mstapplicanteducationdetails_TableConfig();
     //     this.mstapplicanteducationdetails_LoadTable(res.mstapplicanteducationdetails);
-
-    // });
-
-
-    //   this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.applicantid).then(res => {
-    //     this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
-    //     this.Set_mstapplicanteducationdetails_TableConfig();
-    //     this.mstapplicanteducationdetails_LoadTable(res.mstapplicanteducationdetails);
     // });
 
     this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
@@ -694,6 +697,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   }
 
   onDelete_mstapplicanteducationdetail(event: any, childID: number, i: number) {
+    debugger
     console.log('event call');
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicanteducationdetail_service.delete_mstapplicanteducationdetail(childID).then(res => {
@@ -920,7 +924,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       //     break;
 
       case 'delete':
-        this.onDelete_mstapplicanteducationdetail(event, event.data.educationid, ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
+        this.onDelete_mstapplicanteducationdetail(event, event.data.educationid,
+          ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
         this.tbl_mstapplicanteducationdetails.source.refresh();
         break;
     }
@@ -1010,7 +1015,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       if (this.pkcol != undefined && this.pkcol != null) childsave = true;
       this.dialog.open(mstapplicanteducationdetailComponent,
         {
-          data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
+          data: { showview: false, showAttachment: true, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
         }
       ).onClose.subscribe(res => {
         if (res) {

@@ -106,6 +106,7 @@ export class mstapplicantachievementdetailComponent implements OnInit {
   @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
   attachmentFieldJson: any[] = [];
   attachmentVisible: boolean = true;
+  showAttachment: boolean = true;
   SESSIONUSERID: any;//current user
 
   sessionData: any;
@@ -227,6 +228,12 @@ export class mstapplicantachievementdetailComponent implements OnInit {
   // initialize
   async ngOnInit() {
     debugger
+
+    if((localStorage.getItem('role') == '1')  || (localStorage.getItem('role') == '3')){
+      this.showAttachment = true;
+    }else {
+      this.showAttachment = false;
+    }
     // let checkuser=localStorage.getItem('role');
     // if(checkuser == '3'){
     //   // this.showRefAcept=true;
