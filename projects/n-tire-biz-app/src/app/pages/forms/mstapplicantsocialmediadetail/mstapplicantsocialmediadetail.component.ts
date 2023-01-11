@@ -79,6 +79,7 @@ export class mstapplicantsocialmediadetailComponent implements OnInit {
     p_menuid: any;
     p_currenturl: any;
     isSubmitted: boolean = false;
+    showAttachment: boolean = true;
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
@@ -219,6 +220,13 @@ export class mstapplicantsocialmediadetailComponent implements OnInit {
 
     // initialize
     async ngOnInit() {
+
+        if((localStorage.getItem('role') == '1')  || (localStorage.getItem('role') == '3')){
+            this.showAttachment = true;
+          }else {
+            this.showAttachment = false;
+          }
+
         //session & theme
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;

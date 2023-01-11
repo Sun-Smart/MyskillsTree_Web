@@ -251,6 +251,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   IsAdmin: boolean;
   bSingleRecord: boolean;
   isSubmitted: boolean = false;
+  showAttachment: boolean = false;
 
   applicantid: any;
   data: any;
@@ -694,6 +695,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   }
 
   onDelete_mstapplicanteducationdetail(event: any, childID: number, i: number) {
+    debugger
     console.log('event call');
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicanteducationdetail_service.delete_mstapplicanteducationdetail(childID).then(res => {
@@ -920,7 +922,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       //     break;
 
       case 'delete':
-        this.onDelete_mstapplicanteducationdetail(event, event.data.educationid, ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
+        this.onDelete_mstapplicanteducationdetail(event, event.data.educationid,
+          ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
         this.tbl_mstapplicanteducationdetails.source.refresh();
         break;
     }
@@ -1010,7 +1013,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       if (this.pkcol != undefined && this.pkcol != null) childsave = true;
       this.dialog.open(mstapplicanteducationdetailComponent,
         {
-          data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
+          data: { showview: false, showAttachment: true, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
         }
       ).onClose.subscribe(res => {
         if (res) {

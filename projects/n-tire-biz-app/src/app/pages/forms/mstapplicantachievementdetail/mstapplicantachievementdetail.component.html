@@ -1,7 +1,7 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstapplicantachievementdetail_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <!-- <div class="row second common_title_style">
+  <!-- <div class="row second">
     <h1 class="col-4 columns mainheader left">{{'Achievement Details'}}</h1>
     <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
       <div class='col'></div>
@@ -53,7 +53,7 @@
               </li>
             </ul>
           </li>
-          <li class='nav-item actionheader common_title_style' *ngIf="!showview">
+          <li class='nav-item actionheader' *ngIf="!showview">
             <button type="button" class="btn btn-outline-primary" style="border-color: #fff !important;margin: 5px;
               padding: 3px;
               color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
@@ -64,7 +64,7 @@
             <app-action *ngIf="f.achievementid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.achievementid.value" [status]="f.status.value"></app-action>
           </li>
-          <i class='nav-item actionheader common_title_style'
+          <i class='nav-item actionheader'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
             class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
 
@@ -72,7 +72,7 @@
       </div>
     </div>
   </div> -->
-  <div class="row second common_title_style applicant-popup-header">
+  <div class="row second applicant-popup-header">
 
     <div class="col-4">
       <h1 class="columns mainheader left common_titles_new">{{'Achievement Details'}}</h1>
@@ -150,19 +150,21 @@
 
     <div class="col-4">
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
-        <li class='nav-item actionheader common_title_style' *ngIf="!showview">
+        <li class='nav-item actionheader' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
           <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
             padding: 3px;
             color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
-          <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+          <!-- <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
             (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-          <button type="button" class="btn btn-outline-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null'
-            style="border-color: #000 !important;color: #000;margin: 5px;padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
+          <button type="button" class="btn btn-outline-primary popup-add-button"
+            *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            style="border-color: #000 !important;color: #000;margin: 5px;padding: 3px;" (click)="onSubmit()">Submit &
+            Clear</button>&nbsp;
           <app-action *ngIf="f.achievementid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
             [value]="f.achievementid.value" [status]="f.status.value"></app-action>
         </li>
-        <i class='nav-item actionheader common_title_style'
+        <i class='nav-item actionheader'
           *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
           class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
       </ul>
@@ -179,12 +181,13 @@
     </div>
 
 
-    <!--applicantid-->
+    <div *ngIf="(viewHtml == '' || !showview) && showAttachment" class="form-group row">
 
-    <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
+      <!--applicantid-->
+
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        style='' class="col-3"><label for="applicantid" class="control-label"
+        class="col-3"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
@@ -194,13 +197,12 @@
         <label *ngIf="showview" class="labelview">{{f.applicantiddesc?.value}}</label>
       </div>
 
-
-      <!--masterdataid-->
+      <!--Category-->
 
       <div
         *ngIf="((hidelist.indexOf('masterdataid') == -1) && (masterdataidvisible==undefined || masterdataidvisible==true))"
-        style='' class="col-3"><label for="masterdataid" class="control-label required"
-          (click)="AddOrEdit_masterdataid(null)" (click)="AddOrEdit_masterdataid(null)">Type</label>
+        class="col-3"><label for="masterdataid" class="control-label required" (click)="AddOrEdit_masterdataid(null)"
+          (click)="AddOrEdit_masterdataid(null)">Category</label>
         <select *ngIf="!showview" id="masterdataid" required (change)="masterdataid_onChange($event.target)"
           formControlName="masterdataid" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -211,11 +213,9 @@
           errorMsg="Enter {{'Data' | translate}}">
         </app-field-error-display>
       </div>
-      <div class="col"></div>
-      <div class="col"></div>
-    </div>
 
-    <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
+      <!-- Achievement Details -->
+
       <div
         *ngIf="((hidelist.indexOf('achievementdetails') == -1) && (achievementdetailsvisible==undefined || achievementdetailsvisible==true))"
         style='width:1500px' class="col-12 ">
@@ -223,46 +223,17 @@
         <label *ngIf="showview" class="labelview">{{f.achievementdetails?.value}}</label>
         <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="achievementdetails" required
           formControlName="achievementdetails" class="form-control">
-</textarea>
+        </textarea>
         <app-field-error-display [displayError]="f.achievementdetails.errors?.required"
           errorMsg="Enter {{'Achievement Details' | translate}}">
         </app-field-error-display>
       </div>
-    </div>
-    <!--
-    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div *ngIf="((hidelist.indexOf('selfrating') == -1) && (selfratingvisible==undefined || selfratingvisible==true))"
-        style='' class="col-3 ">
-        <label for="selfrating" class="control-label">Rating</label>
-        <label *ngIf="showview" class="labelview">{{f.selfrating?.value}}</label>
-        <p-rating *ngIf="!showview" id="selfrating" formControlName="selfrating" class="form-control">
-        </p-rating>
-      </div>
-      <div class="col"></div>
-      <div class="col"></div>
-      <div class="col"></div>
-    </div>
-    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div *ngIf="((hidelist.indexOf('remarks') == -1) && (remarksvisible==undefined || remarksvisible==true))"
-        style='width:1500px' class="col-12 ">
-        <label for="remarks" class="control-label">Remarks</label>
-        <label *ngIf="showview" class="labelview">{{f.remarks?.value}}</label>
-        <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>
-      </div>
-    </div>
--->
-    <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
-      <!-- <div *ngIf="hidelist.indexOf('requestid') == -1 && f.requestid.value !=null" class="col-3 ">
-        <button class="btn btn-link" (click)="viewrequestid()" type="button"><i class="fa fa-external-link"></i>
-          View Request</button>
-        <label *ngIf="showview" class="labelview">{{f.requestid?.value}}</label>
-      </div> -->
 
       <!--referenceacceptance-->
 
       <div
         *ngIf="((hidelist.indexOf('referenceacceptance') == -1) && (referenceacceptancevisible==undefined || referenceacceptancevisible==true)) && showRefAcept"
-        style='' class="col-3"><label for="referenceacceptance" class="control-label">Reference Acceptance</label>
+        class="col-3"><label for="referenceacceptance" class="control-label">Reference Acceptance</label>
         <select *ngIf="!showview" id="referenceacceptance" (change)="referenceacceptance_onChange($event.target)"
           formControlName="referenceacceptance" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -271,8 +242,8 @@
         <label *ngIf="showview" class="labelview">{{f.referenceacceptancedesc?.value}}</label>
       </div>
     </div>
-    
-    <div class='full-width' *ngIf="attachmentVisible">
+
+    <div class='full-width'>
       <p-accordion [multiple]='true'>
         <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
           <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
@@ -280,5 +251,7 @@
         </p-accordionTab>
       </p-accordion>
     </div>
+
   </div>
+ 
 </form>

@@ -104,6 +104,7 @@ export class mstapplicantworkreferenceComponent implements OnInit {
   @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
   attachmentFieldJson: any[] = [];
   attachmentVisible: boolean = true;
+  showAttachment: boolean = true;
   SESSIONUSERID: any;//current user
 
   sessionData: any;
@@ -221,6 +222,13 @@ export class mstapplicantworkreferenceComponent implements OnInit {
 
   // initialize
   async ngOnInit() {
+
+    if((localStorage.getItem('role') == '1')  || (localStorage.getItem('role') == '3')){
+      this.showAttachment = true;
+    }else {
+      this.showAttachment = false;
+    }
+
     //session & theme
     this.themeService.theme.subscribe((val: string) => {
       this.theme = val;

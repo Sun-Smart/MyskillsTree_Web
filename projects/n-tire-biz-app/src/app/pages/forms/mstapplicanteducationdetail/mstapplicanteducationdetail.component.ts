@@ -77,6 +77,7 @@ export class mstapplicanteducationdetailComponent implements OnInit {
   objvalues: any = [];
   viewHtml: any = '';//stores html view of the screen
   showview: boolean = false;//view or edit mode
+  showAttachment: boolean = false;//view or edit mode
   theme: string = "";//current theme
   //formdata: any;//current form data
   shortcuts: ShortcutInput[] = [];//keyboard keys
@@ -123,7 +124,7 @@ export class mstapplicanteducationdetailComponent implements OnInit {
   // showRefAcept: boolean;
   getid: string;
   showDateError: boolean;
-  showDateError1:boolean;
+  showDateError1: boolean;
   showPercentError: boolean;
 
   fromyearCondition: any;
@@ -200,24 +201,24 @@ export class mstapplicanteducationdetailComponent implements OnInit {
       status: [null],
       statusdesc: [null],
     });
-//new suneel
+    //new suneel
     this.mstapplicanteducationdetail_Form.controls['fromyear'].valueChanges.pipe(pairwise()).subscribe(([prev, next]: [any, any]) => {
       this.fromyearCondition = next;
       this.test(this.fromyearCondition);
-       console.log(prev,next)
-     } );
-     this.mstapplicanteducationdetail_Form.controls['toyear'].valueChanges.pipe(pairwise()).subscribe(([prev, next]: [any, any]) => {
- 
-      this.toyearCondition =next;
-      console.log(parseInt(this.toyearCondition) , this.test1);
+      console.log(prev, next)
+    });
+    this.mstapplicanteducationdetail_Form.controls['toyear'].valueChanges.pipe(pairwise()).subscribe(([prev, next]: [any, any]) => {
+
+      this.toyearCondition = next;
+      console.log(parseInt(this.toyearCondition), this.test1);
       // if(parseInt(this.toyearCondition) <= this.test1) {
       //  this.showDateError1 = false;
       // }else {
       //  this.showDateError1 = true;
       // }
-      console.log(prev,next)
-     } );
-     //end
+      console.log(prev, next)
+    });
+    //end
   }
 
   get f() { return this.mstapplicanteducationdetail_Form.controls; }
@@ -280,6 +281,12 @@ export class mstapplicanteducationdetailComponent implements OnInit {
 
   // initialize
   async ngOnInit() {
+
+    if((localStorage.getItem('role') == '1')  || (localStorage.getItem('role') == '3')){
+      this.showAttachment = true;
+    }else {
+      this.showAttachment = false;
+    }
 
     debugger
     // let checkuser=localStorage.getItem('role');
@@ -691,14 +698,14 @@ export class mstapplicanteducationdetailComponent implements OnInit {
       }
     }
     //new
-    if(parseInt(this.toyearCondition) <= this.test1) {
+    if (parseInt(this.toyearCondition) <= this.test1) {
       this.showDateError1 = false;
-     }else {
+    } else {
       this.showDateError1 = true;
       return
-     }
-     //old
-      if (this.formData.fromyear > this.formData.toyear) {
+    }
+    //old
+    if (this.formData.fromyear > this.formData.toyear) {
       this.showDateError = true;
       this.showPercentError = false;
       return;

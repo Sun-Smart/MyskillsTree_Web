@@ -69,6 +69,7 @@ export class mstapplicantcareerdetailComponent implements OnInit {
   objvalues: any = [];
   viewHtml: any = '';//stores html view of the screen
   showview: boolean = false;//view or edit mode
+  showAttachment: boolean = false;//view or edit mode
   theme: string = "";//current theme
   //formdata: any;//current form data
   shortcuts: ShortcutInput[] = [];//keyboard keys
@@ -249,6 +250,13 @@ export class mstapplicantcareerdetailComponent implements OnInit {
 
   // initialize
   async ngOnInit() {
+
+    if((localStorage.getItem('role') == '1')  || (localStorage.getItem('role') == '3')){
+      this.showAttachment = true;
+    }else {
+      this.showAttachment = false;
+    }
+
     //session & theme
     this.themeService.theme.subscribe((val: string) => {
       this.theme = val;
