@@ -8,12 +8,16 @@
     <label style="left: 63px;position: fixed;font-size: 20px; color:#6B431D;">MySkillsTree</label>
 
   </div>
-  <div class="col-6" style="display:flex; justify-content:center; align-items:center;padding: 0 5rem;">
+  <div class="col-6"></div>
+  <!-- <div class="col-6" style="display:flex; justify-content:center; align-items:center;padding: 0 5rem;">
     <i class="fa fa-search search-icon" aria-hidden="true"></i>
     <input type="text" class="form-control" placeholder="Search"
       style="border-radius:30px !important; padding: 0 30px;height: 31px;">
     <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
-  </div>
+    <ngx-reportviewer >
+
+    </ngx-reportviewer>
+  </div> -->
   <!-- <div class="col-6" *ngIf="!hideCorporatePage"></div> -->
   <div class="col-3 layout-topbar-right ng-tns-c186-0">
 
@@ -594,13 +598,13 @@
               {{username}} ({{userrole}})</span>
           </label>
 
-          <label class="profile-label" *ngIf="showmobilenumber" style="cursor: pointer;" (click)="showProfile()">
+          <label class="profile-label" *ngIf="showmobilenumber" style="cursor: pointer;" >
             <span><i class="fa fa-mobile" aria-hidden="true" style="font-size: 23px;
            font-weight: bold;"></i>&nbsp;
               {{mobilenumber}}</span>
           </label>
 
-          <label class="profile-label" style="cursor: pointer;" (click)="showProfile()">
+          <label class="profile-label" style="cursor: pointer;" >
             <span><i class="fa fa-envelope-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
               {{email_id}}</span>
           </label>

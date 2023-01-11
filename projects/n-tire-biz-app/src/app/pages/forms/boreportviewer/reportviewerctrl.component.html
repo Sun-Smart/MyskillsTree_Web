@@ -27,7 +27,7 @@
 
       <div *ngIf="showmenu" class="row" id="header">
 
-        <div class="reportheader col-5  nomargin nowrap">
+        <div class="reportheader col-3  nomargin nowrap">
           <h1 style="color:gray !important;">{{reportheader}}</h1>
         </div>
 
@@ -35,24 +35,40 @@
           <i class="fa fa-search search-icon" aria-hidden="true"></i><input type="text" class="form-control" placeholder="Search"
            style="border-radius:30px !important; padding: 0 30px;height: 31px;"
            (input)="treeview?dt1.filterGlobal($event.target.value, 'contains'):dt.filterGlobal($event.target.value, 'contains')">
-      <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
+      <i class="fa fa-microphone microphone-icon" aria-hidden="true" style="position: relative;
+      right: 2rem;
+      color: #b1aaaa;
+    "></i>
 
         </div> -->
+        <div class="col-6"
+          style="display: flex;justify-content: center;align-items: center;padding: 0 5rem;position: relative;bottom: 43px;z-index: 999;">
+          <i class="fa fa-search search-icon" aria-hidden="true"
+            style="position: relative;left: 2rem;color: #b1aaaa;"></i>
+          <input type="text" class="form-control" placeholder="Search"
+            (input)="treeview?dt1.filterGlobal($event.target.value, 'contains'):dt.filterGlobal($event.target.value, 'contains')"
+            style="border-radius:30px !important; padding: 0 30px;height: 31px;">
+          <i class="fa fa-microphone microphone-icon" aria-hidden="true" style="position: relative;
+          right: 2rem;
+          color: #b1aaaa;"></i>
 
-        <!-- <div class="col-2 input-group nomargin nowrap">
-          <i class="fa fa-search search"></i><input type="text" class="border form-control"
-            placeholder="    Global Filter"
-            (input)="treeview?dt1.filterGlobal($event.target.value, 'contains'):dt.filterGlobal($event.target.value, 'contains')">
-
-        </div> -->
-        <div class="col-4">
-        <div  style="" *ngIf="showAddJobs">
-          <a [routerLink]='' (click)="onChangeAction('Add')" *ngIf="showhideaddapplicant"><i class="fa fa-plus-circle"
-              style="color:#6B431D!important;vertical-align: middle;margin-top: 8px;
-              font-size: 18px;"></i></a>
         </div>
-      </div>
-        <div class="col-3  input-group  nomargin nowrap">
+        <!-- <div class="col-2 input-group nomargin nowrap">
+          <i class="fa fa-search search"></i>
+          <input type="text" class="border form-control" placeholder="Global Filter"
+            (input)="treeview?dt1.filterGlobal($event.target.value, 'contains'):dt.filterGlobal($event.target.value, 'contains')">
+        </div> -->
+
+
+
+
+<a [routerLink]='' (click)="onChangeAction('Add')" *ngIf="showAddJobs"><i class="fa fa-plus-circle"
+  style="color:#6B431D!important;vertical-align: middle;margin-top: 8px;
+  font-size: 18px; position: fixed;"></i></a>
+        <div class="col-1">
+         
+        </div>
+        <div class="col-2  input-group  nomargin nowrap" style="margin-left: -100px;">
 
           <nav class="right navbar navbar-default">
             <div class="container-fluid">
@@ -148,8 +164,8 @@
                         </select>
                     -->
           <ng-container *ngFor="let action of menuactions">
-            <button *ngIf="action.actionbutton==true && action.actionbuttonlocation!='B'" type="button"
-              class=" border" (click)="onChangeAction(action.actionid)" style="color: #dee2e6!important;"><i
+            <button *ngIf="action.actionbutton==true && action.actionbuttonlocation!='B'" type="button" class=" border"
+              (click)="onChangeAction(action.actionid)" style="color: #dee2e6!important;"><i
                 class="fa fa-new"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</button>
           </ng-container>
 
@@ -170,10 +186,9 @@
           </select>
 
           <a class="" [routerLink]='' (click)="onClose()"
-          *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)">
-          <i class="fa fa-times-circle close_common_icon"
-            style="top: 5% !important; left: 10px;"></i></a>
-        <!-- <a class="nav-link active right alert-success" [routerLink]='' (click)="onClose()"
+            *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)">
+            <i class="fa fa-times-circle close_common_icon" style="top: 5% !important; left: 10px;"></i></a>
+          <!-- <a class="nav-link active right alert-success" [routerLink]='' (click)="onClose()"
                       *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)"><i
                           class="fa fa-close"></i></a> -->
         </div>
@@ -292,8 +307,8 @@
                 <div
                   *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.dropdownItems==null && (itemcol.datatype=='date'))">
                   <p-dropdown [options]="filters" [style]="{'width':'100%'}"
-                    (onChange)="dt.filter($event.value, itemcol.field, 'in')"
-                    styleClass="ui-column-filter"></p-dropdown>
+                    (onChange)="dt.filter($event.value, itemcol.field, 'in')" styleClass="ui-column-filter">
+                  </p-dropdown>
                 </div>
                 <p-dropdown *ngIf="itemcol.datatype=='dp'" [options]="getdropdownItems(itemcol.field)"
                   [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, itemcol.field, 'equals')"></p-dropdown>
@@ -359,8 +374,8 @@
                       <div
                         *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.dropdownItems==null && (itemcol.datatype=='date'))">
                         <p-dropdown [options]="filters" [style]="{'width':'100%'}"
-                          (onChange)="dt.filter($event.value, itemcol.field, 'in')"
-                          styleClass="ui-column-filter"></p-dropdown>
+                          (onChange)="dt.filter($event.value, itemcol.field, 'in')" styleClass="ui-column-filter">
+                        </p-dropdown>
                       </div>
                       <p-dropdown *ngIf="itemcol.datatype=='dp'" [options]="getdropdownItems(itemcol.field)"
                         [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, itemcol.field, 'equals')">
@@ -761,12 +776,13 @@
                 <div
                   *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.dropdownItems==null && (itemcol.datatype=='date'))">
 
-                  
-                  <p-calendar style="width:5px !important;" [(ngModel)]="dateFilters" appendTo="body" selectionMode="range" [readonlyInput]="false"
-                    dateFormat="dd.mm.yy" (onSelect)="onDateSelect($event,itemcol.field)" >
+
+                  <p-calendar style="width:5px !important;" [(ngModel)]="dateFilters" appendTo="body"
+                    selectionMode="range" [readonlyInput]="false" dateFormat="dd.mm.yy"
+                    (onSelect)="onDateSelect($event,itemcol.field)">
                     <!-- <i class="fa fa-calendar" aria-hidden="true"></i> -->
                   </p-calendar>
-                   
+
                 </div>
                 <!--<p-dropdown appendTo="body"
                                         *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.datatype=='dp')"
@@ -1113,7 +1129,7 @@
                 <i class="fa fa-times-circle" style="font-size:30px;color: red;"
                   (click)="onChangeAction(action.actionid)"></i>
               </span>
-              
+
               <!-- </div> -->
               <!-- <button *ngIf="action.actionbutton==true && action.actionbuttonlocation=='B'" type="button" class="btn-success"
                         (click)="onChangeAction(action.actionid)"><i
@@ -1123,7 +1139,8 @@
         </div>
         <div class="col-2"></div>
         <div class="col-3">
-          <i class="fa fa-eye" style="font-size: 20px !important; margin-top: 7px;" (click)='opendialog1(null,rowData)'></i>
+          <i class="fa fa-eye" style="font-size: 20px !important; margin-top: 7px;"
+            (click)='opendialog1(null,rowData)'></i>
           <!-- <a [routerLink]='' (click)='opendialog1(null,rowData)'>View</a> -->
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, ViewChild,EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteStateService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/route-state.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
@@ -25,6 +25,7 @@ import { mstapplicanteducationdetailgridComponent } from '../../forms/mstapplica
 import { mstapplicantachivementgridComponent } from '../../forms/mstapplicantachievementdetail/mstapplicantachivementgrid.component';
 import { mstapplicantsocialmediagridComponent } from '../../forms/mstapplicantsocialmediadetail/mstapplicantsocialmediagrid.component';
 import { mstapplicantlanuagegridComponent } from '../../forms/mstapplicantlanguagedetail/mstapplicantlanguagegrid.component';
+import { ReportViewerCtrlComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/boreportviewer/reportviewerctrl.component';
 
 @Component({
   selector: 'app-header',
@@ -46,6 +47,7 @@ export class HeaderComponent implements OnInit {
   menuvisible: boolean = true;
   loggedIn: boolean = false;
   @Output() toggleMenubar: EventEmitter<any> = new EventEmitter();
+  @ViewChild('globalSearch', { static: false }) globalSearch : ReportViewerCtrlComponent;
   theme: string;
   _start: boolean;
   actionid: any;
@@ -71,6 +73,8 @@ export class HeaderComponent implements OnInit {
   email_id: any;
   usersource: any;
   showmobilenumber: boolean;
+  
+
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
@@ -86,7 +90,6 @@ export class HeaderComponent implements OnInit {
     private pageroute: Router,
   ) {
     //debugger;
-
     this.displayNotifications = false;
     this.userid = this.sessionService.getItem('userid');
     this.theme = this.sessionService.getItem("selected-theme");

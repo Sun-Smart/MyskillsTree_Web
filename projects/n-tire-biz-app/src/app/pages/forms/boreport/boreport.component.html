@@ -172,6 +172,7 @@
                 *ngIf="((hidelist.indexOf('sidefilter') == -1) && (sidefiltervisible==undefined || sidefiltervisible==true))"
                 style='' class="col-3 ">
                 <div class="columnchk">
+                  
                   <label for="sidefilter" class="control-label">Side Filter</label>
                   <label *ngIf="showview" class="labelview">{{f.sidefilter?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="sidefilter" formControlName="sidefilter"
