@@ -713,7 +713,7 @@ ul.nav li.dropdown:hover ul.dropdown-menu {
 div#header {
   // background-color: #0368b7 !important;
   background-color: #cbf29f !important;
-   margin-top: 1px !important;
+  margin-top: 1px !important;
   color: gray !important;
 }
 
@@ -743,7 +743,7 @@ ngx-reportviewer {
 
 //.p-datatable-wrapper table
 p-table {
-  margin-bottom: 200px !important;
+  margin-bottom: 0px !important;
 }
 
 .layout-topbar-left {
@@ -2544,7 +2544,7 @@ td {
 }
 
 .p-datatable {
-  /* margin: 1%!important;*/
+  // margin: 10px!important;
 }
 
 .ui-table table {
@@ -2953,13 +2953,21 @@ p-treeTable,
 p-table {
   // position: relative !important;
 }
+.p-datatable-wrapper {
+  p-paginator {
+    position: fixed;
+    width: 100%;
+    bottom: 20px;
+  }
+}
 
 .table-container:not(.p-dialog-content .table-container) {
   overflow-x: auto !important;
   overflow-y: auto !important;
   position: absolute !important;
-  height: 81% !important;
+  height: 500px !important;
   width: 100% !important;
+  // max-height: 500px !important;
 }
 
 .p-datatable-wrapper table {
@@ -3406,6 +3414,11 @@ button.alert-danger {
   background-color: #fff;
   color: #000;
   height: 55px;
+}
+.menu-icon{
+  margin-left:10px; 
+  font-size: 24px !important; 
+  margin-top: 6px;cursor: pointer;
 }
 
 .cancel-button {

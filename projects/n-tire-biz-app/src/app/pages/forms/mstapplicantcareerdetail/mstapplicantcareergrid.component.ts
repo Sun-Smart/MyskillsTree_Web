@@ -694,12 +694,11 @@ export class mstapplicantcareergridComponent implements OnInit {
                 statusdesc: res.mstapplicantcareerdetail.statusdesc,
                 attachment: "[]",
             });
-            debugger
-
-            this.career_id = res.mstapplicantcareerdetail.careerid,
-
-            console.log("this.career_id", this.career_id);
-            
+            setTimeout(() => {
+                this.getSkillsDescription();
+              }, 400);
+            debugger;
+            this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
         })
 
     }

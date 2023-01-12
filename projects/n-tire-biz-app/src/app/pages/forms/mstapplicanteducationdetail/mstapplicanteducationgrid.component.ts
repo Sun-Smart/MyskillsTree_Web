@@ -120,7 +120,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <tr>
                   <!-- From Year -->
                     <td>
-                    <input  id="fromyear" formControlName="fromyear" class="form-control" required>
+                    <input type="number" id="fromyear" formControlName="fromyear" class="form-control" required>
                     </td>
 
                     <!-- Category -->
@@ -187,7 +187,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- To Year -->
 
                     <td>
-                    <input  id="toyear" formControlName="toyear" class="form-control" required>
+                    <input type="number" id="toyear" formControlName="toyear" class="form-control" required>
                     <span *ngIf = "show_YearError" style = "color:red; font-size:10px;"> To year should not be greater than from year</span>
                     </td>
 
@@ -448,7 +448,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       debugger;
       this.toastr.addSingle("error", "", "Enter the required fields");
       return;
-    } else if (this.mstapplicanteducationdetail_Form.value.fromyear > this.mstapplicanteducationdetail_Form.value.toyear) {
+    } else if (this.mstapplicanteducationdetail_Form.value.fromyear >= this.mstapplicanteducationdetail_Form.value.toyear) {
       debugger
       this.show_YearError = true;
       return
