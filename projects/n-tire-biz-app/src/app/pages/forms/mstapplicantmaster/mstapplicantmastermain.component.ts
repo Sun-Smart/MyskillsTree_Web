@@ -115,6 +115,7 @@ export class mstapplicantmastermainComponent implements OnInit {
   sourceKey: any;
 
   profilecompletionvisible: boolean = false;
+  showOpenfile: boolean = false;
 
 
 
@@ -138,12 +139,12 @@ export class mstapplicantmastermainComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
 
-      const current = new Date();
-      this.maxDate = {
-        year: current.getFullYear(),
-        month: current.getMonth() + 1,
-        day: current.getDate()
-      };
+    const current = new Date();
+    this.maxDate = {
+      year: current.getFullYear(),
+      month: current.getMonth() + 1,
+      day: current.getDate()
+    };
 
     this.translate = this.sharedService.translate;
     this.data = dynamicconfig;
@@ -387,10 +388,12 @@ export class mstapplicantmastermainComponent implements OnInit {
     debugger
 
     if (this.profilephoto.getAttachmentList().length > 0) {
+      debugger
       let file = this.profilephoto.getAttachmentList()[0];
       this.sharedService.geturl(file.filekey, file.type);
     }
   }
+
   resetForm() {
     if (this.mstapplicantmaster_Form != null)
       this.mstapplicantmaster_Form.reset();
@@ -726,6 +729,7 @@ export class mstapplicantmastermainComponent implements OnInit {
         this.toastr.addSingle("success", "", "Successfully saved");
         localStorage.removeItem("choosefileforprofile")
         this.objvalues.push((res as any).mstapplicantmaster);
+        this.showOpenfile = true;
         if (!bclear) this.showview = true;
         // document.getElementById("contentAreascroll").scrollTop = 0;
         if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
