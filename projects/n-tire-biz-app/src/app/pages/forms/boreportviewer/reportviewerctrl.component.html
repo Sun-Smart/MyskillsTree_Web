@@ -25,7 +25,8 @@
       <!--filters-->
 
 
-      <div *ngIf="showmenu" class="row report-coporate-bgColor" id="header">
+      <div *ngIf="showmenu" class="row" id="header"
+      [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
 
         <div class="reportheader col-3  nomargin nowrap">
           <h1 style="color:gray !important;">{{reportheader}}</h1>

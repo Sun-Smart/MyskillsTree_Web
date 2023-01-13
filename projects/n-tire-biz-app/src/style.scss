@@ -3720,8 +3720,8 @@ footer {
   background-color: #ebf3fc !important;
 }
 .Skill-attachment {
-  width: 95% !important;
-  margin: 10px auto !important;
+  width: auto !important;
+  margin: 25px !important;
 }
 .show-Pfl-Hdr-Lbl {
   color: #958a8a !important;
@@ -3730,6 +3730,11 @@ footer {
   font-weight: 600 !important;
   height: auto !important;
   line-height: 2;
+}
+.form-list{
+  .col-3, .col-12{
+    margin: 10px;
+  }
 }
 .omega .p-datatable .p-datatable-thead > tr > th,
 .omega .p-datatable .p-datatable-tfoot > tr > td {

@@ -120,6 +120,11 @@ export class mstcorporatemasterComponent implements OnInit {
 
     useridvisible: boolean = false;
 
+    userrole:any;
+    showApplicantmenu: boolean = false;
+    showAdminMenuaccess: boolean = false;
+    showCorporateMenuaccess: boolean = false;
+
 
     mstcorporatelocations_visiblelist: any;
     mstcorporatelocations_hidelist: any;
@@ -247,6 +252,23 @@ export class mstcorporatemasterComponent implements OnInit {
 
     // initialize
     async ngOnInit() {
+
+        if (this.sessionService.getItem('role') == '1') {
+            this.userrole = 'Admin';
+            this.showAdminMenuaccess = true;
+            this.showApplicantmenu = false;
+            this.showCorporateMenuaccess = false;
+          } else if (this.sessionService.getItem('role') == '2') {
+            this.userrole = 'Applicant';
+            this.showApplicantmenu = true;
+            this.showAdminMenuaccess = false;
+            this.showCorporateMenuaccess = false;
+          } else if (this.sessionService.getItem('role') == '3') {
+            this.userrole = 'Corporate';
+            this.showCorporateMenuaccess = true;
+            this.showApplicantmenu = false;
+            this.showAdminMenuaccess = false;
+          }
 
         this.sessionService.setItem("choosefileforprofile", "ok");
         //session & theme
