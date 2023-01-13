@@ -451,7 +451,11 @@ export class mstapplicanteducationdetailComponent implements OnInit {
     this.dialogRef.close(this.objvalues);
   }
 
-
+  goBack(){
+        
+    this.router.navigate(['/home/boreportviewer/aed']);
+    
+}
 
   onSubmitAndWait() {
     debugger

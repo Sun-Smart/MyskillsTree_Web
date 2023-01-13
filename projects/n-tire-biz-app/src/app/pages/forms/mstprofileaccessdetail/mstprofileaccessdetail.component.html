@@ -1,7 +1,7 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstprofileaccessdetail_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <div class="row second">
+  <div class="row second bgcolor">
     <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Profile Access Details' |
         translate}}</a></h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
@@ -60,6 +60,8 @@
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
           <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success popup-add-button" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
+              Back</a>
             <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
             <a class="alert-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''

@@ -429,7 +429,9 @@ export class mstcorporatemasterComponent implements OnInit {
         this.dialogRef.close(this.objvalues);
     }
     goBack(){
-        this.router.navigate(["/home/ + CorporateDashboardComponent"])
+        // this.router.navigate(["/home/ + CorporateDashboardComponent"])
+        this.router.navigate(['/home/corporatedashboard']);
+        
     }
     onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {

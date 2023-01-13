@@ -138,6 +138,12 @@
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
         <li class='nav-item actionheader' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
+            <!-- <a class="btn btn-outline-primary popup-add-button" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
+              Back</a> -->
+              <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
+              padding: 3px;
+              color: #000;"[routerLink]=''(click)="goBack()" >Back</button>&nbsp;  
+
           <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
             padding: 3px;
             color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
