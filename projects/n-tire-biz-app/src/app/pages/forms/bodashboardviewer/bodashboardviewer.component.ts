@@ -26,7 +26,7 @@ import { mstresumeapplicantComponent } from '../mstapplicantmaster/mstresumeappl
 @Component({
   selector: 'ngx-dashboardviewer',
   // template: `<div><canvas id="canvas"></canvas></div>`,
-  styles: [` 
+  styles: [`
   /* #divChart {
     display: block;
     width: 400px;
@@ -196,6 +196,14 @@ import { mstresumeapplicantComponent } from '../mstapplicantmaster/mstresumeappl
   .tabbed [type="radio"]:nth-of-type(6):checked~.tab-content:nth-of-type(6),
   .tabbed [type="radio"]:nth-of-type(7):checked~.tab-content:nth-of-type(7) {
     display: block;
+  }
+  @media only screen and (max-width: 600px) {
+    #contentArea1 .container{
+      margin-top: -40px !important;
+      height: 630px !important;
+      overflow-y: scroll !important;
+      overflow-x: hidden !important;
+    }
   }
   `],
   templateUrl: './bodashboardviewer.component.html',
@@ -517,7 +525,7 @@ export class BODashboardViewerComponent implements OnInit {
   showcareer() {
     this.dialog.open(mstapplicantcareergridComponent, {
       width: '100% !important',
-      height: '60% !important',
+      height: 'auto !important',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;

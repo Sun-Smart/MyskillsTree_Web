@@ -158,7 +158,7 @@
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('remarks') == -1) && (remarksvisible==undefined || remarksvisible==true))"
-        style='width:1500px' class="col-12 ">
+      class="col-12 ">
         <label for="remarks" class="control-label">Remarks</label>
         <label *ngIf="showview" class="labelview">{{f.remarks?.value}}</label>
         <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>

@@ -209,7 +209,7 @@ import { OtpvalidationService } from '../../service/otpvalidation.service';
 }
 
 #logo_custom {
-    
+
 }
 
 @media only screen and (max-width: 760px) {
@@ -290,6 +290,54 @@ label{
 }
 .common_register_font{
     font-weight: 100 !important;
+}
+
+
+
+
+/* code added by dhana jan-13-2023 */
+@media only screen and (max-width: 600px) {
+  #logo_custom {
+    width: 13% !important;
+    margin-top: -6px;
+  }
+
+  .register-left img {
+    width: 70% !important;
+    height: 26vh !important;
+    position: relative !important;
+    left: -1px !important;
+  }
+
+  .register-right {
+    max-width: 500px !important;
+    left: 0px !important;
+    bottom: 2px !important;
+    height: 380px !important;
+  }
+  .register-heading{
+    margin-top: 2% !important;
+  }
+  .custom_header{
+    margin-top: -47px !important;
+    font-size: 14px !important;
+  }
+  label{
+    font-size: 12px !important;
+  }
+  footer{
+    height: 35px !important;
+    /* top: 570px !important; */
+    text-align:center;
+    bottom: 0px !important;
+  }
+  .container{
+      position: fixed !important;
+      bottom: 0px;
+    }
+  .all_rights{
+      display:none !important;
+  }
 }
     `]
 })

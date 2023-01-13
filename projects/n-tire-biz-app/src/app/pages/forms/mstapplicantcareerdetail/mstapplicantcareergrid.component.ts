@@ -94,7 +94,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </ul>-->
     </div>
   </div>
-  <form [formGroup]="mstapplicantcareerdetail_Form">
+
+  <form [formGroup]="mstapplicantcareerdetail_Form" >
   <table class="table" style="margin: 0;background-color: #ebf3fc;color: #fff;position: relative;">
   <thead >
     <tr>
@@ -213,9 +214,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
    </tr>
  </tbody>
+ </table>
+ </form>
 
-</table>
-</form>
   <ng2-smart-table #tbl_mstapplicantcareerdetails
     (userRowSelect)="handle_mstapplicantcareerdetails_GridSelected($event)"
     [settings]="mstapplicantcareerdetails_settings"

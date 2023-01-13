@@ -162,7 +162,7 @@
     </div>
   </div>
 
-  <div class="container"
+  <div class="container" 
     id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
     <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
       <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
@@ -171,7 +171,7 @@
 
     </div>
 
-    <div *ngIf="(viewHtml == '' || !showview) && showAttachment" class="form-group row">
+    <div *ngIf="(viewHtml == '' || !showview) && showAttachment" class="form-group row form-list">
 
       <!--applicantid-->
 
@@ -301,7 +301,7 @@
 
       <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
         <div *ngIf="((hidelist.indexOf('remarks') == -1) && (remarksvisible==undefined || remarksvisible==true))"
-          style='width:1500px' class="col-12 ">
+          class="col-12 ">
           <label for="remarks" class="control-label">Remarks</label>
           <label *ngIf="showview" class="labelview">{{f.remarks?.value}}</label>
           <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>

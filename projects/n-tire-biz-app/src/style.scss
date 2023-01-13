@@ -2984,7 +2984,7 @@ p-table {
 #contentAreascroll {
   position: absolute !important;
   height: 93% !important;
-  width: 98% !important;
+  width: 100% !important;
   max-width: 100% !important;
   overflow-x: auto !important;
   overflow-y: auto !important;
@@ -3251,7 +3251,7 @@ h1.col-4.columns.mainheader.left.common_popup_title {
 }
 
 .row.second {
-  max-height: 40px !important;
+  height: 40px !important;
   margin-top: 1px !important;
   color: gray !important;
   // background-color: #ebf3fc;
@@ -3416,8 +3416,8 @@ button.alert-danger {
   height: 55px;
 }
 .menu-icon{
-  margin-left:10px; 
-  font-size: 24px !important; 
+  margin-left:10px;
+  font-size: 24px !important;
   margin-top: 6px;cursor: pointer;
 }
 
@@ -3527,6 +3527,7 @@ ng2-smart-table table thead {
   background-color: #6b431d !important;
   // line-height: 0px;
   font-size: 14px;
+  height: fit-content;
 }
 
 .popup-add-button:hover {
@@ -3720,8 +3721,8 @@ footer {
   background-color: #ebf3fc !important;
 }
 .Skill-attachment {
-  width: 95% !important;
-  margin: 10px auto !important;
+  width: auto !important;
+  margin: 25px !important;
 }
 .show-Pfl-Hdr-Lbl {
   color: #958a8a !important;
@@ -3730,6 +3731,11 @@ footer {
   font-weight: 600 !important;
   height: auto !important;
   line-height: 2;
+}
+.form-list{
+  .col-3, .col-12{
+    margin: 10px;
+  }
 }
 .omega .p-datatable .p-datatable-thead > tr > th,
 .omega .p-datatable .p-datatable-tfoot > tr > td {
@@ -3786,4 +3792,24 @@ footer {
 }
 .heightbtn {
   line-height: 15px !important;
+}
+@media only screen and (max-width: 600px) {
+  footer{
+    height: 35px !important;
+    /* top: 570px !important; */
+    text-align:center;
+    bottom: 0px !important;
+  }
+  .container{
+      position: fixed !important;
+      bottom: 0px;
+    }
+  .all_rights{
+      display:none !important;
+  }
+  .p-sidebar-content{
+    position: fixed !important;
+    width: 80% !important;
+    right: 2rem !important;
+  }
 }

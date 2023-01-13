@@ -92,7 +92,7 @@
                       <!-- <app-field-error-display [displayError]="f.email.errors!=null && f.email.errors?.email"
                       errorMsg="Enter valid Email or Mobile Number"></app-field-error-display> -->
                       <div class="validation">
-                        <span *ngIf="bologinForm.controls['email'].hasError('pattern') && 
+                        <span *ngIf="bologinForm.controls['email'].hasError('pattern') &&
                         (bologinForm.controls['email'].dirty || bologinForm.controls['email'].touched)">
                           Please enter valid email address or phone number</span>
                       </div>
@@ -100,10 +100,10 @@
                     <div *ngIf="login_validation && f.email.errors" class="invalid-feedback">
                       <span *ngIf="f.email.errors.required">Email or Phone Number is required</span>
                     </div>
-                  
+
                   </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 1rem;">
+                <div class="col-xs-12 col-sm-12 col-md-12">
                   <div class="form-group">
                     <span class="common_register_font" style="line-height:1.7;">Password</span>
                     <div class="input-group" [ngClass]="{ 'is-invalid': login_validation && f.password.errors }">
@@ -132,12 +132,10 @@
                   </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                  <br />
                   <button class="btn btn-info btn-block register_btn" style="font-size:17px;"
                     (click)="onSubmit()">Login</button>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                  <br />
                   <div class="form-group">
                     <label class="form-check-label" for="flexCheckDefault">
                       &nbsp;&nbsp;Don't have an account? <a href="javascript:void(0);" class="custom_link"
@@ -160,7 +158,7 @@
         </div>
       </div>
     </div>
-   
+
   </div>
   <footer>
     <div class="container">

@@ -204,6 +204,11 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
     thCollection: any = [];
 
+    userrole:any;
+    showApplicantmenu: boolean = false;
+    showAdminMenuaccess: boolean = false;
+    showCorporateMenuaccess: boolean = false;
+
 
     customfieldservicelist: any;
     @ViewChild('customform', { static: false }) customform: DynamicFormBuilderComponent;
@@ -1456,6 +1461,24 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+
+        if (this.sessionService.getItem('role') == '1') {
+            this.userrole = 'Admin';
+            this.showAdminMenuaccess = true;
+            this.showApplicantmenu = false;
+            this.showCorporateMenuaccess = false;
+          } else if (this.sessionService.getItem('role') == '2') {
+            this.userrole = 'Applicant';
+            this.showApplicantmenu = true;
+            this.showAdminMenuaccess = false;
+            this.showCorporateMenuaccess = false;
+          } else if (this.sessionService.getItem('role') == '3') {
+            this.userrole = 'Corporate';
+            this.showCorporateMenuaccess = true;
+            this.showApplicantmenu = false;
+            this.showAdminMenuaccess = false;
+          }
+
 
         if (localStorage.getItem("role") == '1') {
             this.showAddJobs = true;
