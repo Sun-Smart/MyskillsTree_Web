@@ -252,3 +252,50 @@ label {
   z-index: 1;
   bottom: -50px;
 }
+@media only screen and (max-width: 600px) {
+  #logo_custom {
+    width: 13% !important;
+    margin-top: -6px;
+  }
+
+  .register-left img {
+    width: 80% !important;
+    height: 26vh !important;
+    position: relative !important;
+    left: 0px !important;
+  }
+
+  .register-right {
+    max-width: 500px !important;
+    left: 0px !important;
+    bottom: -27px !important;
+    height: 420px !important;
+    overflow-y: scroll !important;
+  }
+  .register-heading{
+    margin-top: 2% !important;
+  }
+  .custom_header{
+    margin-top: -47px !important;
+    font-size: 14px !important;
+  }
+  label{
+    font-size: 12px !important;
+  }
+  footer{
+    height: 35px !important;
+    /* top: 570px !important; */
+    text-align:center;
+    bottom: 0px !important;
+  }
+  .container{
+      position: fixed !important;
+      bottom: 0px;
+    }
+  .all_rights{
+      display:none !important;
+  }
+  .spinnerShow{
+    height: 100% !important;
+  }
+}
