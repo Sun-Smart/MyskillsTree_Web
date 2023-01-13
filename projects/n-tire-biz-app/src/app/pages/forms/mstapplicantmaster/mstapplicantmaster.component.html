@@ -90,7 +90,7 @@
       </div>
       <ngb-tab>
         <ng-template ngbTabTitle>
-          <div (click)="ToolBar(true)">Master</div>
+          <div (click)="ToolBar(true)">Maser</div>
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
@@ -289,7 +289,8 @@
               <app-attachment #profilephoto formControlName="profilephoto" [showremove]='bmyrecord'
                 [SessionData]="sessionData"></app-attachment>
               <button type="button" class="btn" *ngIf="profilephoto.getAttachmentList().length > 0"
-                (click)="getprofilephoto()">Open File</button>
+                (click)="getprofilephoto()" style="margin: 15px;
+                margin-left: 5px;">Open File</button>
             </div>
           </div>
           <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
@@ -322,7 +323,7 @@
                 <label for="availableforjob" class="control-label">Available For Job</label>
                 <label *ngIf="showview" class="labelview">{{f.availableforjob?.value}}</label>
                 <input type="checkbox" *ngIf="!showview" id="availableforjob" formControlName="availableforjob"
-                  class="form-control">
+                  class="">
               </div>
             </div>
             <div

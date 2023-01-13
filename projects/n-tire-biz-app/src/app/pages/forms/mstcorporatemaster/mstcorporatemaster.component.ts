@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 //Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
+import { CorporateDashboardComponent } from '../corporate.component';
 //Custom error functions
 import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 
@@ -60,7 +60,7 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
     selector: 'app-mstcorporatemaster',
     templateUrl: './mstcorporatemaster.component.html',
     styles: [],
-    providers: [KeyboardShortcutsService]
+    providers: [KeyboardShortcutsService, CorporateDashboardComponent]
 })
 
 
@@ -428,7 +428,9 @@ export class mstcorporatemasterComponent implements OnInit {
     onClose() {
         this.dialogRef.close(this.objvalues);
     }
-
+    goBack(){
+        this.router.navigate(["/home/ + CorporateDashboardComponent"])
+    }
     onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
             this.onSubmitData(false);
