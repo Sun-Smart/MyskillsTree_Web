@@ -753,11 +753,11 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
           });
         }
         //to null subcategory
-        setTimeout(() => {
-          if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
+        // setTimeout(() => {
+        //   if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
             this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res =>
               this.subcategoryid_List = res as DropDownValues[]);
-        }, 1000);
+        // }, 3000);
 
         setTimeout(() => {
           this.mstapplicantskilldetail_service.getList_subcategoryid2(this.skillsubcategory_Code).then(res => {
