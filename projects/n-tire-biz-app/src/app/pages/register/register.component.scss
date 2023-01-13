@@ -255,17 +255,18 @@ label {
   }
 
   .register-left img {
-    width: 50% !important;
-    height: 16vh !important;
+    width: 80% !important;
+    height: 26vh !important;
     position: relative !important;
-    left: -30px !important;
+    left: 0px !important;
   }
 
   .register-right {
-    max-width: 80% !important;
-    left: -30px !important;
+    max-width: 500px !important;
+    // left: -30px !important;
     bottom: -28px !important;
-    height: 540px !important;
+    height: 430px !important;
+    overflow-y: scroll !important;
   }
   .register-heading{
     margin-top: 4% !important;
@@ -283,9 +284,16 @@ label {
   footer{
     height: 35px !important;
     bottom: 0px !important;
+    text-align: center;
     .container{
       position: fixed !important;
       bottom: 0px !important;
+      .all_rights{
+        display: none !important;
+      }
     }
+  }
+  .spinnerShow{
+    height: 100% !important;
   }
 }

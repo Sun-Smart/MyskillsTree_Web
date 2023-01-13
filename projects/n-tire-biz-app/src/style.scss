@@ -3416,8 +3416,8 @@ button.alert-danger {
   height: 55px;
 }
 .menu-icon{
-  margin-left:10px; 
-  font-size: 24px !important; 
+  margin-left:10px;
+  font-size: 24px !important;
   margin-top: 6px;cursor: pointer;
 }
 
@@ -3792,4 +3792,24 @@ footer {
 }
 .heightbtn {
   line-height: 15px !important;
+}
+@media only screen and (max-width: 600px) {
+  footer{
+    height: 35px !important;
+    /* top: 570px !important; */
+    text-align:center;
+    bottom: 0px !important;
+  }
+  .container{
+      position: fixed !important;
+      bottom: 0px;
+    }
+  .all_rights{
+      display:none !important;
+  }
+  .p-sidebar-content{
+    position: fixed !important;
+    width: 80% !important;
+    right: 2rem !important;
+  }
 }
