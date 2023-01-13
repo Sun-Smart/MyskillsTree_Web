@@ -3251,7 +3251,7 @@ h1.col-4.columns.mainheader.left.common_popup_title {
 }
 
 .row.second {
-  max-height: 40px !important;
+  height: 40px !important;
   margin-top: 1px !important;
   color: gray !important;
   // background-color: #ebf3fc;
@@ -3527,6 +3527,7 @@ ng2-smart-table table thead {
   background-color: #6b431d !important;
   // line-height: 0px;
   font-size: 14px;
+  height: fit-content;
 }
 
 .popup-add-button:hover {

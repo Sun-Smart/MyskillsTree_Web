@@ -117,6 +117,10 @@ export class mstjobrequirementComponent implements OnInit {
     sessionData: any;
     sourceKey: any;
 
+    userrole:any;
+    showApplicantmenu: boolean = false;
+    showAdminMenuaccess: boolean = false;
+    showCorporateMenuaccess: boolean = false;
 
 
     mstjobstatuses_visiblelist: any;
@@ -254,6 +258,22 @@ export class mstjobrequirementComponent implements OnInit {
     // initialize
     async ngOnInit() {
 
+        if (this.sessionService.getItem('role') == '1') {
+            this.userrole = 'Admin';
+            this.showAdminMenuaccess = true;
+            this.showApplicantmenu = false;
+            this.showCorporateMenuaccess = false;
+          } else if (this.sessionService.getItem('role') == '2') {
+            this.userrole = 'Applicant';
+            this.showApplicantmenu = true;
+            this.showAdminMenuaccess = false;
+            this.showCorporateMenuaccess = false;
+          } else if (this.sessionService.getItem('role') == '3') {
+            this.userrole = 'Corporate';
+            this.showCorporateMenuaccess = true;
+            this.showApplicantmenu = false;
+            this.showAdminMenuaccess = false;
+          }
 
         //session & theme
         this.themeService.theme.subscribe((val: string) => {

@@ -1,19 +1,19 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstjobrequirement_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <div class="row second common_title_style">
-    <div class="col-4">
-    <h1 class=" columns mainheader left"><a href='#/home/{{p_currenturl}}' style="margin: auto;">{{'Job Requirements' | translate}}</a>
-    </h1></div>
+  <div class="row second"
+    [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
+    <div class="col-4" style="display: flex;align-items: center;">
+      <h1 class=" columns mainheader left"><a href='#/home/{{p_currenturl}}' style="margin: auto;">{{'Job Requirements'
+          | translate}}</a>
+      </h1>
+    </div>
 
-    <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
+    <div class='col-4  sticky1 second' style="display: flex;justify-content: end;align-items: center;" role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
-      <div class='col'></div>
       <div class='dropdown d-inline-block btn-dropdown show'>
 
         <ul class='nav nav-pills  input-group'>
-          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_mstjobrequirements()"><i
-                class="nb-edit"></i>Edit</a></li>
           <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
             <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
                 aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
@@ -60,23 +60,50 @@
           <!--<ng-container *ngFor="let action of mstjobrequirement_menuactions">
     <li><a  class="alert-action" [routerLink]=''  (click)="onChangeAction(action.actionid)" ><i class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
 </ng-container>-->
-          <li class='nav-item actionheader' *ngIf="!showview">
-            <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
-              Submit</a>
-            <!-- <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-            <app-action *ngIf="f.jobid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
-              [value]="f.jobid.value" [status]="f.status.value"></app-action>
-          </li>
-          <li class='nav-item actionheader'
-            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-          </li>
-
         </ul>
       </div>
     </div>
+
+    <div class='col-4' style="display: flex;justify-content: end;align-items: center;">
+
+      <button *ngIf='showview' (click)="edit_mstjobrequirements()" class="popup-add-button">
+        <i class="nb-edit"></i>Edit
+      </button>
+
+      <button *ngIf="!showview" (click)="onSubmitAndWait()" class="popup-add-button">
+        <i class="fa fa-database"></i>Submit
+        <app-action *ngIf="f.jobid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+          [value]="f.jobid.value" [status]="f.status.value"></app-action>
+      </button>
+
+      <button class="popup-add-button"
+        *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
+        (click)="onClose()">
+        <i class="fa fa-close"></i>Close
+      </button>
+
+      <ul style="display: none;">
+        <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_mstjobrequirements()"><i
+              class="nb-edit"></i>Edit</a></li>
+        <li class='nav-item actionheader' *ngIf="!showview">
+          <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i
+              class="fa fa-database"></i>
+            Submit</a>
+          <!-- <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
+          <app-action *ngIf="f.jobid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+            [value]="f.jobid.value" [status]="f.status.value"></app-action>
+        </li>
+        <li class='nav-item actionheader'
+          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+          <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+        </li>
+
+      </ul>
+    </div>
+
   </div>
+
   <div class="container"
     id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
     <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
@@ -145,9 +172,9 @@
                 <label *ngIf="showview"
                   class="labelview">{{ngbDateParserFormatter.format(f.tobefilledbefore?.value)}}</label>
                 <div class="input-group" *ngIf="!showview">
-                  <input #tobefilledbeforeformpicker="ngbDatepicker" [minDate]="minDate" readonly
-                     ngbDatepicker name="tobefilledbeforeformpicker"
-                    id="tobefilledbefore" formControlName="tobefilledbefore" class="form-control">
+                  <input #tobefilledbeforeformpicker="ngbDatepicker" [minDate]="minDate" readonly ngbDatepicker
+                    name="tobefilledbeforeformpicker" id="tobefilledbefore" formControlName="tobefilledbefore"
+                    class="form-control">
                   <button class="input-group-addon" *ngIf="!showview" (click)="tobefilledbeforeformpicker.toggle()"
                     type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
                 </div>
@@ -171,10 +198,9 @@
               <!--locations-->
               <div
                 *ngIf="((hidelist.indexOf('locations') == -1) && (locationsvisible==undefined || locationsvisible==true))"
-                style='' class="col-3"><label for="locations" class="control-label">Locations</label>&nbsp;&nbsp; <br/>
+                style='' class="col-3"><label for="locations" class="control-label">Locations</label>&nbsp;&nbsp; <br />
                 <p-autoComplete formControlName="locations" field="label" [multiple]="true" *ngIf="!showview"
-                 [suggestions]="locations_results"
-                (completeMethod)="locations_onChange($event)"></p-autoComplete>
+                  [suggestions]="locations_results" (completeMethod)="locations_onChange($event)"></p-autoComplete>
                 <!-- <p-multiSelect [options]="locations_List" formControlName="locations" [filter]="true" *ngIf="!showview"
                   id="locationsdesc" (change)="locations_onChange($event.target)" formControlName="locations"
                   class="form-control">
@@ -190,20 +216,20 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('skills') == -1) && (skillsvisible==undefined || skillsvisible==true))"
                 style='' class="col-3"><label for="skills" class="control-label"
-                  (click)="AddOrEdit_skills(null)">Skills</label>&nbsp;&nbsp; <br/>
-                  <p-autoComplete formControlName="skills" field="label"  id="skillsdesc" [multiple]="true" *ngIf="!showview"
-                   [suggestions]="skills_results"
+                  (click)="AddOrEdit_skills(null)">Skills</label>&nbsp;&nbsp; <br />
+                <p-autoComplete formControlName="skills" field="label" id="skillsdesc" [multiple]="true"
+                  *ngIf="!showview" [suggestions]="skills_results"
                   (completeMethod)="skills_onChange($event)"></p-autoComplete>
 
-                  <!-- <p-autoComplete formControlName="skills" field="label" id="skillsdesc" [multiple]="true" *ngIf="!showview" [suggestions]="skills_results"
+                <!-- <p-autoComplete formControlName="skills" field="label" id="skillsdesc" [multiple]="true" *ngIf="!showview" [suggestions]="skills_results"
                   (completeMethod)="skills_onChange($event)"></p-autoComplete> -->
 
                 <!-- <p-multiSelect [options]="skills_List" formControlName="skills" [filter]="true" *ngIf="!showview"
                   id="skillsdesc" (change)="skills_onChange($event.target)" formControlName="skills"
                   class="form-control">
                 </p-multiSelect> -->
-                 <label *ngIf="showview" class="labelview">{{f.skills?.label}}</label>
-                 <label class="labelview alignment_label" *ngIf="showview">{{mstjobrequirement.skilldesc}}</label>
+                <label *ngIf="showview" class="labelview">{{f.skills?.label}}</label>
+                <label class="labelview alignment_label" *ngIf="showview">{{mstjobrequirement.skilldesc}}</label>
               </div>
 
               <!--education-->
@@ -211,8 +237,9 @@
                 *ngIf="((hidelist.indexOf('education') == -1) && (educationvisible==undefined || educationvisible==true))"
                 style='' class="col-3"><label for="education" class="control-label"
                   (click)="AddOrEdit_education(null)">Education</label>
-                  <br/>
-                  <p-autoComplete formControlName="education" field="label" id="educationdesc" [multiple]="true" *ngIf="!showview" [suggestions]="education_results"
+                <br />
+                <p-autoComplete formControlName="education" field="label" id="educationdesc" [multiple]="true"
+                  *ngIf="!showview" [suggestions]="education_results"
                   (completeMethod)="education_onChange($event)"></p-autoComplete>
 
 
@@ -231,15 +258,16 @@
               <div
                 *ngIf="((hidelist.indexOf('language') == -1) && (languagevisible==undefined || languagevisible==true))"
                 style='' class="col-3"><label for="language" class="control-label">Language</label>
-                <br/>
-                <p-autoComplete formControlName="language" field="label" id="languagedesc" [multiple]="true" *ngIf="!showview" [suggestions]="language_results"
+                <br />
+                <p-autoComplete formControlName="language" field="label" id="languagedesc" [multiple]="true"
+                  *ngIf="!showview" [suggestions]="language_results"
                   (completeMethod)="language_onChange($event)"></p-autoComplete>
                 <!-- <p-multiSelect [options]="language_List" formControlName="language" [filter]="false" *ngIf="!showview"
                   id="languagedesc" (change)="language_onChange($event.target)" formControlName="language"
                   class="form-control">
                 </p-multiSelect> -->
-                 <label *ngIf="showview" class="labelview">{{f.language?.label}}</label>
-                 <label class="labelview alignment_label" *ngIf="showview">{{mstjobrequirement.languagedesc}}</label>
+                <label *ngIf="showview" class="labelview">{{f.language?.label}}</label>
+                <label class="labelview alignment_label" *ngIf="showview">{{mstjobrequirement.languagedesc}}</label>
               </div>
               <div
                 *ngIf="((hidelist.indexOf('referenceavailability') == -1) && (referenceavailabilityvisible==undefined || referenceavailabilityvisible==true))"
@@ -250,7 +278,7 @@
                   <label for="referenceavailability" class="control-label">Reference Availability</label>
                   <label *ngIf="showview" class="labelview">{{f.referenceavailability?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="referenceavailability"
-                    formControlName="referenceavailability" >
+                    formControlName="referenceavailability">
                 </div>
               </div>
             </div>
@@ -264,7 +292,7 @@
                   <label for="referencevalidation" class="control-label">Reference Validation</label>
                   <label *ngIf="showview" class="labelview">{{f.referencevalidation?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="referencevalidation"
-                    formControlName="referencevalidation" >
+                    formControlName="referencevalidation">
                 </div>
               </div>
               <div class="col"></div>

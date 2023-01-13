@@ -5,12 +5,12 @@
 
   <div class="row second"
   [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
-    <div class="col-4">
+    <div class="col-4" style="display: flex;justify-content: initial;align-items: center;">
     <h1 class="   mainheader left " style="margin: 0px; color: gray !important;">
       <a href='#/home/{{p_currenturl}}' style="margin: auto;">{{'Corporate Masters' | translate}}</a>
     </h1>
   </div>
-    <div class='col-4  sticky1 second ' role='toolbar' aria-label='Toolbar with button groups'>
+    <div class='col-4  sticky1 second' style="display: flex;justify-content: end;align-items: center;" role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
 
       <div class='dropdown d-inline-block btn-dropdown show'>
@@ -68,8 +68,29 @@
         </ul>
       </div>
     </div>
-    <div class='col-4'>
-      <ul>
+    <div class='col-4' style="display: flex;justify-content: end;align-items: center;">
+
+      <button *ngIf="!showview" (click)="onSubmitAndWait()" class="popup-add-button">
+        <i class="fa fa-database"></i>Submit
+        <app-action *ngIf="f.jobid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+          [value]="f.jobid.value" [status]="f.status.value"></app-action>
+      </button>
+
+      <button *ngIf='data.pkcol==null || maindata.ScreenType==null' (click)="onSubmitAndWait()" 
+      class="popup-add-button">
+      <i class="fa fa-share-square"></i> Submit & Clear
+        <app-action *ngIf="f.corporateid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+        [value]="f.corporateid.value" [status]="f.status.value"></app-action>
+      </button>
+
+      <button class="popup-add-button"
+        *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
+        (click)="onClose()">
+        <i class="fa fa-close"></i>Close
+      </button>
+
+
+      <ul style="display: none;">
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success  popup-add-button" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
               Back</a>
