@@ -825,7 +825,11 @@ export class bousermasterComponent implements OnInit {
   onClose() {
     this.dialogRef.close(this.objvalues);
   }
-
+  goBack(){
+        
+    this.router.navigate(['/home/boreportviewer/e99kq']);
+    
+}
   onSubmitAndWait() {
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.username != null) {
       this.onSubmitData(false);

@@ -60,6 +60,8 @@
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
           <li class='nav-item actionheader' *ngIf="!showview">
+            <a class="alert-success popup-add-button" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
+              Back</a>
             <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
             <a class="alert-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''

@@ -372,6 +372,12 @@ export class bomasterdataComponent implements OnInit {
         this.dialogRef.close(this.objvalues);
     }
 
+
+    goBack(){
+        
+        this.router.navigate(['/home/boreportviewer/aj5qt']);
+        
+    }
     onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.masterdatadescription != null) {
             this.onSubmitData(false);

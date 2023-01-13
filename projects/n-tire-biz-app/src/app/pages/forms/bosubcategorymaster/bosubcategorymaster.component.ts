@@ -359,7 +359,11 @@ export class bosubcategorymasterComponent implements OnInit {
     onClose() {
         this.dialogRef.close(this.objvalues);
     }
-
+    goBack(){
+        
+        this.router.navigate(['/home/boreportviewer/674']);
+        
+    }
     onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.subcategoryname != null) {
             this.onSubmitData(false);

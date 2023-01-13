@@ -343,7 +343,11 @@ export class msttermComponent implements OnInit {
     onClose() {
         this.dialogRef.close(this.objvalues);
     }
-
+    goBack(){
+        
+        this.router.navigate(['/home/boreportviewer/terms']);
+        
+    }
     onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
             this.onSubmitData(false);
