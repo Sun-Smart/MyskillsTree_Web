@@ -92,7 +92,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" style="width: 20px;" title = "Close"/></a>
+                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="eduction_close" style="width: 20px;" title = "Close"/></a>
 </div>
 
 </div>
@@ -102,7 +102,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
                 <thead>
                     <tr>
-                    
+
                     <th  style="width: 11.5%;">From Year</th>
                     <th style="width: 11.5%;">Category</th>
                     <th style="width: 11.5%;">Sub Category</th>
@@ -217,7 +217,26 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 (edit)="mstapplicanteducationdetails_route($event,'edit')"
                 (editConfirm)="mstapplicanteducationdetails_beforesave($event)">
               </ng2-smart-table>
-    `
+    `,
+  styles: [`
+    @media only screen and (max-width: 600px) {
+      h4.columns.left{
+        white-space: nowrap;
+        margin-top: 10px !important;
+      }
+      button.btn.btn-outline-primary.popup-add-button{
+        position: relative !important;
+        top: 11px !important;
+        right: 30px !important;
+      }
+      .eduction_close{
+        width: 20px !important;
+        position: relative !important;
+        bottom: 15px !important;
+        right: 7px !important;
+      }
+    }
+    `]
 })
 export class mstapplicanteducationdetailgridComponent implements OnInit {
 
@@ -655,7 +674,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
 
       // setTimeout(() => {
-      // if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) 
+      // if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null)
       this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then(res => {
         this.educationsubcategory_List = res as DropDownValues[];
       }).catch((err) => { console.log(err); });

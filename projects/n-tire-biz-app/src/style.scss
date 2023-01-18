@@ -3820,7 +3820,7 @@ footer {
   }
 
   .container {
-    position: fixed !important;
+    // position: fixed !important;
     bottom: 0px;
   }
 
@@ -3841,11 +3841,17 @@ footer {
   .mobileView {
     display: none !important;
   }
-  .mobilegeogrid{
+
+  .mobilegeogrid {
     display: none !important;
   }
-  .mobile_title{
+
+  .mobile_title {
     font-size: 17px !important;
     white-space: nowrap !important;
+  }
+
+  .mobile_hide_btn {
+    display: none !important;
   }
 }

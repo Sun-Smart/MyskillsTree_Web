@@ -88,7 +88,7 @@
                 Submit</a>
             </li>
             <li class='nav-item actionheader' style="font-size: 12px">
-              <a class="alert-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+              <a class="alert-primary popup-add-button mobile_hide_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
                 [routerLink]='' (click)="onSubmit()">
                 <!-- <i class="fa fa-share-square"></i>  -->
                 Submit & Clear</a>
@@ -124,7 +124,7 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('firstname') == -1) && (firstnamevisible==undefined || firstnamevisible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="firstname" class="control-label required">First Name</label>
                 <label *ngIf="showview" class="labelview">{{f.firstname?.value}}</label>
                 <input *ngIf="!showview" id="firstname" required formControlName="firstname" class="form-control">
@@ -137,7 +137,7 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('lastname') == -1) && (lastnamevisible==undefined || lastnamevisible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="lastname" class="control-label required">Last Name</label>
                 <label *ngIf="showview" class="labelview">{{f.lastname?.value}}</label>
                 <input *ngIf="!showview" id="lastname" required formControlName="lastname" class="form-control">
@@ -151,7 +151,7 @@
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('emailid') == -1) && (emailidvisible==undefined || emailidvisible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="emailid" class="control-label required">Email</label>
                 <label *ngIf="showview" class="labelview">{{f.emailid?.value}}</label>
                 <input type="email" [email]="true" *ngIf="!showview" id="emailid" required formControlName="emailid"
@@ -165,7 +165,7 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('mobilenumber') == -1) && (mobilenumbervisible==undefined || mobilenumbervisible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="mobilenumber" class="control-label required">Mobile Number</label>
                 <label *ngIf="showview" class="labelview">{{f.mobilenumber?.value}}</label>
                 <int-phone-prefix *ngIf="!showview" id="mobilenumber" required formControlName="mobilenumber"
@@ -183,7 +183,7 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('applicanttype') == -1) && (applicanttypevisible==undefined || applicanttypevisible==true))"
-                style='' class="col-6"><label for="applicanttype" class="control-label required">Type</label>
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="applicanttype" class="control-label required">Type</label>
                 <select *ngIf="!showview" id="applicanttype" required (change)="applicanttype_onChange($event.target)"
                   formControlName="applicanttype" class="form-control">
                   <option [ngValue]="null" selected>-Select-</option>
@@ -199,7 +199,7 @@
               <!--gender-->
 
               <div *ngIf="((hidelist.indexOf('gender') == -1) && (gendervisible==undefined || gendervisible==true))"
-                style='' class="col-6"><label for="gender" class="control-label">Gender</label>
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="gender" class="control-label">Gender</label>
                 <select *ngIf="!showview" id="gender" (change)="gender_onChange($event.target)" formControlName="gender"
                   class="form-control">
                   <option [ngValue]="null" selected>-Select-</option>
@@ -210,7 +210,7 @@
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('dob') == -1) && (dobvisible==undefined || dobvisible==true))" style=''
-                class="col-6 ">
+                class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="dob" class="control-label">D O B</label>
                 <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.dob?.value)}}</label>
                 <div class="input-group" *ngIf="!showview">
@@ -222,7 +222,7 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('address1') == -1) && (address1visible==undefined || address1visible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="address1" class="control-label">Address1</label>
                 <label *ngIf="showview" class="labelview">{{f.address1?.value}}</label>
                 <input *ngIf="!showview" id="address1" formControlName="address1" class="form-control">
@@ -231,14 +231,14 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('address2') == -1) && (address2visible==undefined || address2visible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="address2" class="control-label">Address2</label>
                 <label *ngIf="showview" class="labelview">{{f.address2?.value}}</label>
                 <input *ngIf="!showview" id="address2" formControlName="address2" class="form-control">
               </div>
               <div
                 *ngIf="((hidelist.indexOf('address3') == -1) && (address3visible==undefined || address3visible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="address3" class="control-label">Address3</label>
                 <label *ngIf="showview" class="labelview">{{f.address3?.value}}</label>
                 <input *ngIf="!showview" id="address3" formControlName="address3" class="form-control">
@@ -250,7 +250,7 @@
 
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('country') == -1) && (countryvisible==undefined || countryvisible==true))"
-                style='' class="col-6"><label for="country" class="control-label"
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="country" class="control-label"
                   (click)="AddOrEdit_country(null)">Country</label>
                 <app-popupselect *ngIf="!showview" [formControl]="mstapplicantmaster_Form.controls['country']"
                   [options]="country_List" [optionsEvent]="country_optionsEvent" [form]="bocountry"
@@ -265,7 +265,7 @@
               <!--state-->
 
               <div *ngIf="((hidelist.indexOf('state') == -1) && (statevisible==undefined || statevisible==true))"
-                style='' class="col-6"><label for="state" class="control-label"
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="state" class="control-label"
                   (click)="AddOrEdit_state(null)">State</label>
                 <app-popupselect *ngIf="!showview" [formControl]="mstapplicantmaster_Form.controls['state']"
                   [options]="state_List" [optionsEvent]="state_optionsEvent" [form]="bostate"
@@ -282,7 +282,7 @@
 
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('city') == -1) && (cityvisible==undefined || cityvisible==true))" style=''
-                class="col-6"><label for="city" class="control-label" (click)="AddOrEdit_city(null)">City</label>
+                class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="city" class="control-label" (click)="AddOrEdit_city(null)">City</label>
                 <app-popupselect *ngIf="!showview" [formControl]="mstapplicantmaster_Form.controls['city']"
                   [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
                   (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city"
@@ -292,7 +292,7 @@
                 <label *ngIf="showview" class="labelview">{{f.citydesc?.value}}</label>
               </div>
               <div *ngIf="((hidelist.indexOf('zipcode') == -1) && (zipcodevisible==undefined || zipcodevisible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="zipcode" class="control-label">Zip Code</label>
                 <label *ngIf="showview" class="labelview">{{f.zipcode?.value}}</label>
                 <input *ngIf="!showview" id="zipcode" formControlName="zipcode" type="number" class="form-control">
@@ -304,7 +304,7 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('recoveryemailid') == -1) && (recoveryemailidvisible==undefined || recoveryemailidvisible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="recoveryemailid" class="control-label">Recovery Email</label>
                 <label *ngIf="showview" class="labelview">{{f.recoveryemailid?.value}}</label>
                 <input type="email" [email]="true" *ngIf="!showview" id="recoveryemailid"
@@ -316,7 +316,7 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('profilephoto') == -1) && (profilephotovisible==undefined || profilephotovisible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="profilephoto" class="control-label">Photo</label>
                 <label *ngIf="showview" class="labelview">{{f.profilephoto?.value[0]?.name}}</label>
                 <app-attachment #profilephoto formControlName="profilephoto" [showremove]='bmyrecord'
@@ -354,7 +354,7 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('availableforjob') == -1) && (availableforjobvisible==undefined || availableforjobvisible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <div class="columnchk">
                   <label for="availableforjob" class="control-label" style="margin: 20px;">Available For Job</label>
                   <label *ngIf="showview" class="labelview">{{f.availableforjob?.value}}</label>
@@ -364,7 +364,7 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('profilecompletion') == -1) && (profilecompletionvisible==undefined || profilecompletionvisible==true))"
-                style='' class="col-6 ">
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="profilecompletion" class="control-label">Profile Completion</label>
                 <label *ngIf="showview" class="labelview">{{f.profilecompletion?.value}}</label>
                 <p-progressBar *ngIf="!showview" id="profilecompletion" formControlName="profilecompletion"
