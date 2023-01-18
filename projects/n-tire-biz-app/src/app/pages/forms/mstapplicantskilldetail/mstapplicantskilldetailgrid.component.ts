@@ -112,7 +112,7 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
 
   //New code
   template: `
-<div class="row" style="background: #ebf3fc !important;
+<div class="row skill_title" style="background: #ebf3fc !important;
     color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
 
   <div class="col-4" style="margin:auto;">
@@ -420,7 +420,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     //   subcategoryid:null
 
     // })
-    
+
     if (this.getidd1 == "262") {
       this.showinput2 = true
     } else {
@@ -576,12 +576,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     <table class="table table-hover skilldetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
     <tbody>
       <tr>
-        <th scope="row" style="width:185px;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
+        <th scope="row" style="width:185px;" class="mobileView">##segmentdesc##&nbsp##segmentcategoryothers##</th>
         <th scope="row" style="width:185px;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
         <th scope="row" style="width:185px;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
-        <th scope="row" style="width:185px;">##selfrating##</th>
+        <th scope="row" style="width:185px;" class="mobileView">##selfrating##</th>
         <th scope="row" style="width:185px;">##referencecount##</th>
-        <th scope="row" style="width:185px;">##remarks##</th>
+        <th scope="row" style="width:185px;" class="mobileView">##remarks##</th>
       </tr>
     </tbody>
   </table>
