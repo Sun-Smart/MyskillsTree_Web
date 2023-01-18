@@ -96,7 +96,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" style="width: 20px;" title = "Close"/></a>
+                <a  class="" [routerLink]='' (click)="onClose()"><img style="width:20px;" class="social_close_btn" src="assets/mainmenuicons/icons_close.png"/></a>
 
                 <!-- </ul> -->
 </div>
@@ -185,7 +185,31 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     (edit)="mstapplicantsocialmediadetails_route($event,'edit')"
     (editConfirm)="mstapplicantsocialmediadetails_beforesave($event)">
   </ng2-smart-table>
-    `
+    `,
+    styles:[
+      `
+      @media only screen and (max-width: 600px) {
+        h4.columns.left{
+          white-space: nowrap;
+          font-size: 17px;
+          margin-top: 10px !important;
+        }
+        button.btn.btn-outline-primary.popup-add-button{
+          position: relative !important;
+          right: 30px !important;
+          top: 10px !important;
+        }
+        .social_close_btn{
+          width: 20px !important;
+          position: relative !important;
+          bottom: 16px !important;
+        }
+        .mobile_view_social{
+          word-break: normal !important;
+        }
+      }
+      `
+    ]
 })
 export class mstapplicantsocialmediagridComponent implements OnInit {
 
@@ -293,7 +317,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         if (this.sessionData != null) {
             this.SESSIONUSERID = this.sessionData.userid;
         }
-        
+
         debugger;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
@@ -320,7 +344,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         this.mstapplicantsocialmediadetail_Form.markAsUntouched();
         this.mstapplicantsocialmediadetail_Form.markAsPristine();
 
-   
+
     }
 
     // addSkills() {
@@ -501,10 +525,10 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         <table class="table table-hover socialmedia_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##socialmedianamedesc##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##handlename##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2"><a href="https://##url##" target="_blank">##url##</a></th>
-            <th style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##remarks##</th>
+            <th style="white-space: break-spaces;" class="col-2 mobile_view_social">##socialmedianamedesc##</th>
+            <th style="white-space: break-spaces;" class="col-2 mobile_view_social">##handlename##</th>
+            <th style="white-space: break-spaces;" class="col-2 mobile_view_social"><a href="https://##url##" target="_blank">##url##</a></th>
+            <th style="white-space: break-spaces;" class="col-2 mobile_view_social">##remarks##</th>
           </tr>
         </tbody>
       </table>
@@ -641,7 +665,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
 
     Add_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
         debugger
-        
+
         debugger
         this.showSkillDetails_input = true;
         this.ngOnInit();
