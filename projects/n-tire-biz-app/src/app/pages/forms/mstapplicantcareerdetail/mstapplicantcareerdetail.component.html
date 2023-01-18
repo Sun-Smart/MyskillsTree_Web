@@ -211,19 +211,22 @@
 
       <div
         *ngIf="((hidelist.indexOf('currentlyworking') == -1) && (currentlyworkingvisible==undefined || currentlyworkingvisible==true))"
-        class="col-3">
+        class="col-3" style="display: flex;
+        text-align: center;
+        justify-content: center;
+        margin: auto;">
         <div class="columnchk">
           <label for="currentlyworking" class="control-label">Currently Working</label>
           <label *ngIf="showview" class="labelview">{{f.currentlyworking?.value}}</label>
           <input type="checkbox" *ngIf="!showview" id="currentlyworking" (change)="selectctwo($event)"
-            formControlName="currentlyworking" name="true" class="form-control">
+            formControlName="currentlyworking" name="true" class="">
         </div>
       </div>
 
       <!-- Skills -->
 
       <div *ngIf="((hidelist.indexOf('skills') == -1) && (skillsvisible==undefined || skillsvisible==true))"
-        class="col-3">
+        class="col-3" style="margin: auto;">
         <label for="skills" class="control-label">Skills &nbsp;&nbsp;</label>
         <p-autoComplete formControlName="skills" *ngIf="!showview" field="label" [multiple]="true"
           [suggestions]="skills_results" (completeMethod)="search_skills($event)"></p-autoComplete>

@@ -131,7 +131,7 @@
           <label for="intereststatus" class="control-label">Interest Status</label>
           <label *ngIf="showview" class="labelview">{{f.intereststatus?.value}}</label>
           <input type="checkbox" *ngIf="!showview" id="intereststatus" formControlName="intereststatus"
-            class="form-control">
+            class="">
         </div>
       </div>
     </div>
@@ -171,7 +171,7 @@
           <label for="hiringstatus" class="control-label">Hiring Status</label>
           <label *ngIf="showview" class="labelview">{{f.hiringstatus?.value}}</label>
           <input type="checkbox" *ngIf="!showview" id="hiringstatus" formControlName="hiringstatus"
-            class="form-control">
+            class="">
         </div>
       </div>
       <div *ngIf="((hidelist.indexOf('ctcoffered') == -1) && (ctcofferedvisible==undefined || ctcofferedvisible==true))"
