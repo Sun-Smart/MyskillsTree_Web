@@ -1,8 +1,16 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="bocompanyholiday_Form" (ngSubmit)="onSubmit()" [ngClass]="theme" class="finpopup">
-  <div class="row second">
-    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Company Holidays' | translate}}</a>
+  <div class="row second bgcolor">
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}' style="
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      margin: auto;
+      /* margin-left: -15px; */
+      margin-right: 60px;
+      margin-top: 5px;
+  ">{{'Company Holidays' | translate}}</a>
     </h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->

@@ -162,7 +162,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- Percentage -->
 
                     <td>
-                    <input  id="percentage" formControlName="percentage" type="number" min="0" max="3" class="form-control" required>
+                     <input  id="percentage" formControlName="percentage" type="number"  class="form-control" required >
                     <span *ngIf = "show_percentageError" style = "color:red; font-size:10px;"> Percentage value should be below 100</span>
                     </td>
 
@@ -474,6 +474,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     } else if (this.mstapplicanteducationdetail_Form.value.percentage > 100) {
       this.show_percentageError = true;
       return
+
+      
     }
     else {
 
