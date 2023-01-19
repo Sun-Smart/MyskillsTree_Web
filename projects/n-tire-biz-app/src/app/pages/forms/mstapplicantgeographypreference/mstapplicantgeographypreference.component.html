@@ -61,7 +61,7 @@
           </ng-container>
           <li class='nav-item actionheader common_title_style' *ngIf="!showview">
             <!-- <a class="alert-success" [routerLink]=''>  -->
-              <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
+              <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #000 !important;margin: 5px;
               padding: 3px;
               color: #000;" [routerLink]=''(click)="goBack()" >Back</button>&nbsp;
             <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
@@ -69,7 +69,7 @@
               color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
             <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-            <button type="button" class="btn btn-outline-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
               style="border-color: #000 !important;
               color: #000;margin: 5px;
     padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
@@ -111,7 +111,7 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        style='' class="col-3"><label for="applicantid" class="control-label"
+        style='' class="col-3 education_view_mobile"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
@@ -125,7 +125,7 @@
       <!--country-->
 
       <div *ngIf="((hidelist.indexOf('country') == -1) && (countryvisible==undefined || countryvisible==true))" style=''
-        class="col-3"><label for="country" class="control-label required"
+        class="col-3 education_view_mobile"><label for="country" class="control-label required"
           (click)="AddOrEdit_country(null)">Country</label>
         <app-popupselect *ngIf="!showview" [options]="country_List" [optionsEvent]="country_optionsEvent"
           [form]="bocountry" (selectItem)="onSelected_country($event)" [reportid]='wc9rn' [menuid]='wc9rn'
@@ -135,7 +135,7 @@
         <label *ngIf="showview" class="labelview">{{f.countrydesc?.value}}</label>
         <app-field-error-display [displayError]="f.country.errors?.required" errorMsg="Enter {{'Country' | translate}}"
         [ngStyle]="{'height':getdataitem.length >0?'100px':'0px'}">
-        
+
         </app-field-error-display>
       </div>
 
@@ -143,7 +143,7 @@
       <!--city-->
 
       <div *ngIf="((hidelist.indexOf('city') == -1) && (cityvisible==undefined || cityvisible==true))" style=''
-        class="col-3"><label for="city" class="control-label required" (click)="AddOrEdit_city(null)">City</label>
+        class="col-3 education_view_mobile"><label for="city" class="control-label required" (click)="AddOrEdit_city(null)">City</label>
         <app-popupselect *ngIf="!showview" [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
           (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value"
           desc="label"></app-popupselect>

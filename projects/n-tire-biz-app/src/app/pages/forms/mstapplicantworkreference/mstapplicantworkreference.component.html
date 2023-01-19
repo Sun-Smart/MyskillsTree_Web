@@ -157,7 +157,7 @@
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
         <li class='nav-item actionheader' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
-            <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #000 !important;margin: 5px;
             padding: 3px;
             color: #000;" [routerLink]=''(click)="goBack()">Back</button>&nbsp;
           <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
@@ -165,7 +165,7 @@
             color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
           <!-- <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
             (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-          <button type="button" class="btn btn-outline-primary popup-add-button"
+          <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn"
             *ngIf='data.pkcol==null || maindata.ScreenType==null' style="border-color: #000 !important;
             color: #000;margin: 5px;padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
           <app-action *ngIf="f.workreferenceid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
@@ -197,7 +197,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        class="col-3"><label for="applicantid" class="control-label"
+        class="col-3 education_view_mobile"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
@@ -210,7 +210,7 @@
       <!-- Work Topic -->
 
       <div *ngIf="((hidelist.indexOf('worktopic') == -1) && (worktopicvisible==undefined || worktopicvisible==true))"
-        class="col-3 ">
+        class="col-3  education_view_mobile">
         <label for="worktopic" class="control-label required">Work Topic</label>
         <label *ngIf="showview" class="labelview">{{f.worktopic?.value}}</label>
         <input *ngIf="!showview" id="worktopic" required formControlName="worktopic" class="form-control">

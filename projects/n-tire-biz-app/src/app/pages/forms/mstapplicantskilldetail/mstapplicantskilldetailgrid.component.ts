@@ -576,12 +576,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     <table class="table table-hover skilldetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
     <tbody>
       <tr>
-        <th scope="row" style="width:185px;" class="mobileView">##segmentdesc##&nbsp##segmentcategoryothers##</th>
+        <th scope="row" style="width:185px;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
         <th scope="row" style="width:185px;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
         <th scope="row" style="width:185px;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
-        <th scope="row" style="width:185px;" class="mobileView">##selfrating##</th>
+        <th scope="row" style="width:185px;">##selfrating##</th>
         <th scope="row" style="width:185px;">##referencecount##</th>
-        <th scope="row" style="width:185px;" class="mobileView">##remarks##</th>
+        <th scope="row" style="width:185px;">##remarks##</th>
       </tr>
     </tbody>
   </table>

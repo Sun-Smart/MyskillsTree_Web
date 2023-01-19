@@ -152,7 +152,7 @@
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
         <li class='nav-item actionheader' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
-            <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #000 !important;margin: 5px;
             padding: 3px;
             color: #000;"  [routerLink]=''(click)="goBack()" >Back</button>&nbsp;
           <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
@@ -160,7 +160,7 @@
             color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
           <!-- <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
             (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-          <button type="button" class="btn btn-outline-primary popup-add-button"
+          <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn"
             *ngIf='data.pkcol==null || maindata.ScreenType==null'
             style="border-color: #000 !important;color: #000;margin: 5px;padding: 3px;" (click)="onSubmit()">Submit &
             Clear</button>&nbsp;
@@ -190,7 +190,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        class="col-3"><label for="applicantid" class="control-label"
+        class="col-3 education_view_mobile"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
@@ -204,7 +204,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('masterdataid') == -1) && (masterdataidvisible==undefined || masterdataidvisible==true))"
-        class="col-3"><label for="masterdataid" class="control-label required" (click)="AddOrEdit_masterdataid(null)"
+        class="col-3 education_view_mobile"><label for="masterdataid" class="control-label required" (click)="AddOrEdit_masterdataid(null)"
           (click)="AddOrEdit_masterdataid(null)">Category</label>
         <select *ngIf="!showview" id="masterdataid" required (change)="masterdataid_onChange($event.target)"
           formControlName="masterdataid" class="form-control">
@@ -236,7 +236,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('referenceacceptance') == -1) && (referenceacceptancevisible==undefined || referenceacceptancevisible==true)) && showRefAcept"
-        class="col-3"><label for="referenceacceptance" class="control-label">Reference Acceptance</label>
+        class="col-3 education_view_mobile"><label for="referenceacceptance" class="control-label">Reference Acceptance</label>
         <select *ngIf="!showview" id="referenceacceptance" (change)="referenceacceptance_onChange($event.target)"
           formControlName="referenceacceptance" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -256,5 +256,5 @@
     </div>
 
   </div>
- 
+
 </form>

@@ -5,7 +5,7 @@
     <form [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
       <div class="row second">
         <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'
-        [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
+          [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
           <!--btn-toolbar-->
           <div class='col'></div>
           <div class='dropdown d-inline-block btn-dropdown show'>
@@ -80,7 +80,8 @@
         </div>
       </div>
       <div class="container"
-        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}" style="height: 89% !important;">
+        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}"
+        style="height: 89% !important;">
         <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
           <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
         </div>
@@ -154,7 +155,7 @@
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-                     aria-expanded='false'> <span class='caret'></span></a>
+                      aria-expanded='false'> <span class='caret'></span></a>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" [routerLink]=''
                           (click)="mstapplicanteducationdetailtoggleOption();mstapplicanteducationdetails_route(null, 'create')"><i
@@ -511,3 +512,10 @@
     </form>
   </div>
 </div>
+<footer>
+  <div class="container">
+      <p class="text-muted foot">Copyright © MySkillsTree Solutions Pvt Ltd.<label class="all_rights rights">All
+              rights reserved.</label></p>
+  </div>
+    
+</footer>

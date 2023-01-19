@@ -60,7 +60,7 @@ const URL = AppConstants.UploadURL;
 
     <!--Multiple-->
     <ng-container *ngIf='isAttachment'>
-    <div class="col-4">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     Category <label style="color: red;">*</label><br/><select (click)="show()" id="category" formControlName="category" class="form-control">
     <option  [ngValue]="null" [disabled]="true" selected>-Select-</option>
     <!-- <option value="W">Work</option>
@@ -80,7 +80,7 @@ const URL = AppConstants.UploadURL;
    </div>
  </div>
     </div>
-    <div class="col-4">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     <div>
       Description <label style="color: red;">*</label>
     <br/> <input  id="description" (click)="show()" formControlName="description" class="form-control" placeholder="Enter attachment description">
@@ -91,7 +91,7 @@ const URL = AppConstants.UploadURL;
 </div>
     </div>
     </div>
-    <div class="col-4">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
     URL <br/><input  id="url" (click)="show()" formControlName="url" [(ngModel)]="url" style="margin-top: 7px;" class="form-control">
     </div>
     <!--<div>
@@ -101,26 +101,26 @@ const URL = AppConstants.UploadURL;
     <a [routerLink]='' (click)="test(attachmentForm)" *ngIf="showplus==true"><i style="color:black !important; font-size: 20px; position: absolute;
     margin-top: 27px;" class="fa fa-plus"></i></a>
     </div>-->
-    
+
     </ng-container>
 
-    <div class="col-5" style="top:8px;">
+    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="top:8px;">
     <label>Select</label> <br>
-   
+
      <!-- <input type="file"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" /> -->
      <input type="file" style="" #myImageInput formControlName="ImageName"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" />
-    
+
      <a [routerLink]='' (click)="test(attachmentForm)" *ngIf="showplus"><i style="color:black !important; font-size: 20px; position: absolute;
         margin: auto 5rem;
 " class="fa fa-plus-circle"></i></a>
-    
+
     </div>
 
     <!-- <div class="col-5">
- 
+
     </div> -->
-   
-    
+
+
 
     <div class="col-2">
     <!-- <div  *ngIf="!isAttachment && src!=null && src!=undefined"><img [src]="src" style="width:200px;height:200px"></div> -->
@@ -151,7 +151,7 @@ const URL = AppConstants.UploadURL;
                 <td>{{getCategoryDescription(uploadedfile.category)}}</td>
                 <td>{{uploadedfile.desc}}</td>
                 <td>   <a href="https://{{uploadedfile.certificationurl}}" target="_blank">{{uploadedfile.certificationurl}}</a></td>
-                
+
                 <td><a href="javascript:void(0);" (click)="geturl(uploadedfile,uploadedfile.filekey,uploadedfile.type)" >{{uploadedfile.name}}</a></td>
                 <!--<td *ngFor="let attachmentfield of attachmentfields">
                     {{uploadedfile[attachmentfield.label + uploadedfile.Key]}}
@@ -181,6 +181,8 @@ const URL = AppConstants.UploadURL;
 export class AttachmentComponent implements ControlValueAccessor {
 
     showplus: boolean = false;
+
+    showOpenfile: boolean = false;
 
     onChange: Function;
 
@@ -249,27 +251,21 @@ export class AttachmentComponent implements ControlValueAccessor {
 
     public async onFileSelected(event: EventEmitter<File[]>) {
 
-
-
-
         localStorage.removeItem("attachedsaved")
         this.showplus = !this.showplus;
+        this.showOpenfile = !this.showOpenfile;
 
         this.setpage = localStorage.getItem("choosefileforprofile")
         if (this.setpage == "ok") {
-
-
+            debugger
             const file: File = event[0];
-
-            //debugger;
+            debugger;
             this.onFileSelect(event);
-
             this.src = await readBase64(file)
                 .then(function (data) {
                     return data;
                 })
-            this.showplus = false
-
+            this.showplus = false;
         }
         else {
             if (!this.attachmentForm.valid) {
@@ -279,39 +275,16 @@ export class AttachmentComponent implements ControlValueAccessor {
             }
             else {
                 const file: File = event[0];
-
                 //debugger;
                 this.onFileSelect(event);
-
                 this.src = await readBase64(file)
                     .then(function (data) {
                         return data;
-
                     })
                 this.attachmentForm.reset();
             }
             this.attachmentForm.reset();
-
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
         // localStorage.removeItem("attachedsaved")
         // this.showplus = !this.showplus;
         // if(!this.attachmentForm.valid){
@@ -343,8 +316,6 @@ export class AttachmentComponent implements ControlValueAccessor {
         // //     .then(function (data) {
         // //         return data;
         // //     })
-
-
     }
 
     constructor(private fb: FormBuilder, private sharedService: SharedService, public dialog: DialogService, public sessionService: SessionService) {
@@ -443,7 +414,7 @@ export class AttachmentComponent implements ControlValueAccessor {
             if (res != undefined) this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].comments = res;
         });
     }
-    geturl(e:any, filename: string, filetype: string) {
+    geturl(e: any, filename: string, filetype: string) {
         debugger;
         this.showview = this.sessionService.getItem("attachedsaved");
         if (this.showview == "true") {

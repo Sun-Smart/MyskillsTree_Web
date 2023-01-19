@@ -88,12 +88,12 @@
                 Submit</a>
             </li>
             <li class='nav-item actionheader' style="font-size: 12px">
-              <a class="alert-primary popup-add-button mobile_hide_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
-                [routerLink]='' (click)="onSubmit()">
+              <a class="alert-primary popup-add-button mobile_hide_btn"
+                *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]='' (click)="onSubmit()">
                 <!-- <i class="fa fa-share-square"></i>  -->
                 Submit & Clear</a>
-              <app-action *ngIf="f.applicantid.value != null" (afterAction)="afterAction($event)"
-                [menuid]="p_menuid" [value]="f.applicantid.value" [status]="f.status.value"></app-action>
+              <app-action *ngIf="f.applicantid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+                [value]="f.applicantid.value" [status]="f.status.value"></app-action>
             </li>
             <li class='nav-item actionheader' style="font-size: 12px;"
               *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
@@ -183,7 +183,9 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('applicanttype') == -1) && (applicanttypevisible==undefined || applicanttypevisible==true))"
-                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="applicanttype" class="control-label required">Type</label>
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="applicanttype"
+                  class="control-label required">Type</label>
+                <label for="applicanttype" class="control-label required">Type</label>
                 <select *ngIf="!showview" id="applicanttype" required (change)="applicanttype_onChange($event.target)"
                   formControlName="applicanttype" class="form-control">
                   <option [ngValue]="null" selected>-Select-</option>
@@ -199,7 +201,9 @@
               <!--gender-->
 
               <div *ngIf="((hidelist.indexOf('gender') == -1) && (gendervisible==undefined || gendervisible==true))"
-                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="gender" class="control-label">Gender</label>
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">><label for="gender"
+                  class="control-label">Gender</label>
+                <label for="gender" class="control-label">Gender</label>
                 <select *ngIf="!showview" id="gender" (change)="gender_onChange($event.target)" formControlName="gender"
                   class="form-control">
                   <option [ngValue]="null" selected>-Select-</option>
@@ -209,7 +213,7 @@
               </div>
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-              <div *ngIf="((hidelist.indexOf('dob') == -1) && (dobvisible==undefined || dobvisible==true))" style=''
+              <div *ngIf="((hidelist.indexOf('dob') == -1) && (dobvisible==undefined || dobvisible==true))"
                 class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="dob" class="control-label">D O B</label>
                 <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.dob?.value)}}</label>
@@ -222,7 +226,7 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('address1') == -1) && (address1visible==undefined || address1visible==true))"
-                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
+                class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="address1" class="control-label">Address1</label>
                 <label *ngIf="showview" class="labelview">{{f.address1?.value}}</label>
                 <input *ngIf="!showview" id="address1" formControlName="address1" class="form-control">
@@ -238,7 +242,7 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('address3') == -1) && (address3visible==undefined || address3visible==true))"
-                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
+                class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="address3" class="control-label">Address3</label>
                 <label *ngIf="showview" class="labelview">{{f.address3?.value}}</label>
                 <input *ngIf="!showview" id="address3" formControlName="address3" class="form-control">
@@ -282,7 +286,8 @@
 
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('city') == -1) && (cityvisible==undefined || cityvisible==true))" style=''
-                class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="city" class="control-label" (click)="AddOrEdit_city(null)">City</label>
+                class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="city" class="control-label"
+                  (click)="AddOrEdit_city(null)">City</label>
                 <app-popupselect *ngIf="!showview" [formControl]="mstapplicantmaster_Form.controls['city']"
                   [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
                   (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city"
@@ -325,7 +330,7 @@
                   </app-attachment> -->
                 <!-- <a [routerLink]='' *ngIf="profilephoto.getattachmentlist().length > 0"
                     (click)="getprofilephoto()">{{profilephoto.getattachmentlist()[0].filekey}}</a> -->
-                <button type="button" class="btn" *ngIf="((profilephoto.getAttachmentList().length > 0) && (!showOpenfile))"
+                <button type="button" class="btn" *ngIf="profilephoto.getAttachmentList().length > 0"
                   (click)="getprofilephoto()" style="margin: 10px;">Open File</button>
               </div>
             </div>
@@ -373,32 +378,25 @@
               </div>
               <!-- <div
                 *ngIf="((hidelist.indexOf('applicantreference') == -1) && (applicantreferencevisible==undefined || applicantreferencevisible==true))"
-                style='' class="col-6 ">
+                 class="col-6 ">
                 <label for="applicantreference" class="control-label">Reference</label>
                 <label *ngIf="showview" class="labelview">{{f.applicantreference?.value}}</label>
                 <input *ngIf="!showview" id="applicantreference" readonly formControlName="applicantreference"
                   class="form-control">
               </div> -->
             </div>
+
+            <div class='full-width' style="margin-left: 18px !important;" *ngIf="attachmentVisible">
+              <p-accordion [multiple]='true'>
+                <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+                  <app-attachment #fileattachment isAttachment=true formControlName="attachment"
+                    [SessionData]="sessionData"></app-attachment>
+                </p-accordionTab>
+              </p-accordion>
+            </div>
           </p-accordion>
-
-          <div class='full-width' style="margin-left: 18px !important;" *ngIf="attachmentVisible">
-            <p-accordion [multiple]='true'>
-              <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
-                <app-attachment #fileattachment isAttachment=true formControlName="attachment"
-                  [SessionData]="sessionData"></app-attachment>
-              </p-accordionTab>
-            </p-accordion>
-          </div>
-
         </div>
-
-
-      </div>
-      <div class='row'>
-
       </div>
     </form>
-
   </div>
 </div>
