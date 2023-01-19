@@ -651,17 +651,18 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         status: res.mstapplicanteducationdetail.status,
         statusdesc: res.mstapplicanteducationdetail.statusdesc,
       });
-      debugger;
+      setTimeout(() => {
+        this.get_educationsubcategory();
+      }, 400);
       this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
+    });
+  }
 
-      // setTimeout(() => {
-      // if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) 
+  get_educationsubcategory() {
+    if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null)
       this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then(res => {
         this.educationsubcategory_List = res as DropDownValues[];
-      }).catch((err) => { console.log(err); });
-      // });
-    });
-    debugger
+      });
   }
 
   // Old Code

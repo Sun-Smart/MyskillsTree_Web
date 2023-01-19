@@ -249,6 +249,8 @@ export class BODashboardViewerComponent implements OnInit {
   iscompleted: boolean = false;
   ispending: boolean = false;
   isnotstarted: boolean = false;
+  showOpenfile: boolean = false;
+
   appli_id: any;
   constructor(private sharedService: SharedService, public dialogRef: DynamicDialogRef, private toastr: ToastService, public dialog: DialogService, private mstapplicantmaster_service: mstapplicantmasterService, private currentRoute: ActivatedRoute, private pageroute: Router, private sessionService: SessionService) {
     debugger;
@@ -572,11 +574,12 @@ export class BODashboardViewerComponent implements OnInit {
     debugger
     this.dialog.open(mstapplicantmastermainComponent,
       {
-        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+        data: { showOpenfile : false, ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
+    debugger
     // this.dialog.open(mstapplicantmastermainComponent,
     //   {
     //     width: '100% !important',

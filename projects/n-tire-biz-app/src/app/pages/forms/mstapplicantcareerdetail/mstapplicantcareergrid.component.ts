@@ -150,9 +150,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
            class="fa fa-calendar" aria-hidden="true"></i></button>
 
      </div>
-     <div *ngIf="showDateError" style="color: red;font-size: 12px;">
-       To date is greater than from date
-     </div>
+
     <!-- <app-field-error-display [displayError]="f.fromdate.errors?.required"
        errorMsg="Enter {{'From Date' | translate}}">
      </app-field-error-display> -->
@@ -165,6 +163,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <!-- <input  id="designation" required formControlName="designation" class="form-control"> -->
      <!-- <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.todate?.value)}}</label> -->
 
+     <div>
     <div style="display: flex;width: 80%;">
      <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
           [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate" class="form-control"
@@ -172,6 +171,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
           <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
               class="fa fa-calendar" aria-hidden="true"></i></button>
+    </div>
+            <div *ngIf="showDateError" style="color: red;font-size: 12px;">
+              To date is greater than from date
+            </div>
     </div>
      </td>
 
@@ -480,7 +483,7 @@ export class mstapplicantcareergridComponent implements OnInit {
         debugger;
         this.isSubmitted = true;
         let strError = "";
-        this.getData()
+        // this.getData()   
 
         this.formData = this.mstapplicantcareerdetail_Form.getRawValue();
         // if (this.dynamicconfig.data != null) {
@@ -522,9 +525,9 @@ export class mstapplicantcareergridComponent implements OnInit {
                     this.showDateError = false;
                     this.sessionService.setItem("attachedsaved", "true")
                     this.objvalues.push((res as any).mstapplicantcareerdetail);
-                    this.ngOnInit();
                     this.mstapplicantcareerdetail_Form.reset();
-                    if (!bclear) this.showview = true;
+                    this.ngOnInit();
+                    // if (!bclear) this.showview = true;
                     if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                     if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
                         this.dialogRef.close(this.objvalues);
@@ -697,7 +700,7 @@ export class mstapplicantcareergridComponent implements OnInit {
             });
             setTimeout(() => {
                 this.getSkillsDescription();
-              }, 400);
+            }, 400);
             debugger;
             this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
         })
@@ -1001,15 +1004,15 @@ export class mstapplicantcareergridComponent implements OnInit {
             );
         }
     }
-    onDelete_mstapplicantcareerdetail(event: any, childID:any, i: number) {
-    
+    onDelete_mstapplicantcareerdetail(event: any, childID: any, i: number) {
+
         debugger
         if (confirm('Do you want to delete this record?')) {
             this.mstapplicantcareerdetail_service.delete_mstapplicantcareerdetail(childID).then(res => {
                 this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
-                debugger;
-                this.ngOnInit();
-                this.mstapplicantcareerdetails_LoadTable(res);
+                    debugger;
+                    this.ngOnInit();
+                    this.mstapplicantcareerdetails_LoadTable(res);
                 });
             })
         } else {
