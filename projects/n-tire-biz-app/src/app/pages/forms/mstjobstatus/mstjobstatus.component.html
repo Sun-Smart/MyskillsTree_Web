@@ -87,10 +87,10 @@
 
     <!--applicantid-->
 
-    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row applicant_view">
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        style='' class="col-3"><label for="applicantid" class="control-label"
+        style='' class="col-3 applicantfield"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
@@ -106,14 +106,14 @@
 
       <div
         *ngIf="((hidelist.indexOf('corporateid') == -1) && (corporateidvisible==undefined || corporateidvisible==true))"
-        style='' class="col-3"><label for="corporateid" class="control-label"
+        style='' class="col-3 applicantfield"><label for="corporateid" class="control-label"
           (click)="AddOrEdit_corporateid(null)">Corporate</label>
         <input readonly id="corporateiddesc" formControlName="corporateiddesc" class="form-control">
         <label *ngIf="showview" class="labelview">{{f.corporateiddesc?.value}}</label>
       </div>
       <div
         *ngIf="((hidelist.indexOf('viewdatetime') == -1) && (viewdatetimevisible==undefined || viewdatetimevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 applicantfield">
         <label for="viewdatetime" class="control-label">View Date Time</label>
         <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.viewdatetime?.value)}}</label>
         <div class="input-group" *ngIf="!showview">
@@ -126,12 +126,12 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('intereststatus') == -1) && (intereststatusvisible==undefined || intereststatusvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 applicantfield">
         <div class="columnchk">
           <label for="intereststatus" class="control-label">Interest Status</label>
           <label *ngIf="showview" class="labelview">{{f.intereststatus?.value}}</label>
           <input type="checkbox" *ngIf="!showview" id="intereststatus" formControlName="intereststatus"
-            class="form-control">
+            class="">
         </div>
       </div>
     </div>
@@ -160,22 +160,22 @@
 
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('jobid') == -1) && (jobidvisible==undefined || jobidvisible==true))" style=''
-        class="col-3"><label for="jobid" class="control-label" (click)="AddOrEdit_jobid(null)">Job</label>
+        class="col-3 applicantfield"><label for="jobid" class="control-label" (click)="AddOrEdit_jobid(null)">Job</label>
         <input readonly id="jobiddesc" formControlName="jobiddesc" class="form-control">
         <label *ngIf="showview" class="labelview">{{f.jobiddesc?.value}}</label>
       </div>
       <div
         *ngIf="((hidelist.indexOf('hiringstatus') == -1) && (hiringstatusvisible==undefined || hiringstatusvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 applicantfield">
         <div class="columnchk">
           <label for="hiringstatus" class="control-label">Hiring Status</label>
           <label *ngIf="showview" class="labelview">{{f.hiringstatus?.value}}</label>
           <input type="checkbox" *ngIf="!showview" id="hiringstatus" formControlName="hiringstatus"
-            class="form-control">
+            class="">
         </div>
       </div>
       <div *ngIf="((hidelist.indexOf('ctcoffered') == -1) && (ctcofferedvisible==undefined || ctcofferedvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 applicantfield">
         <label for="ctcoffered" class="control-label">C T C Offered</label>
         <label *ngIf="showview" class="labelview">{{f.ctcoffered?.value}}</label>
         <input *ngIf="!showview" id="ctcoffered" formControlName="ctcoffered" type="number" class="form-control">

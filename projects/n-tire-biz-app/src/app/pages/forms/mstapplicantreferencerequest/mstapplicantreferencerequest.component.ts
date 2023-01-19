@@ -50,7 +50,16 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
 @Component({
   selector: 'app-mstapplicantreferencerequest',
   templateUrl: './mstapplicantreferencerequest.component.html',
-  styles: [],
+  styles: [`
+  @media only screen and (max-width: 600px) {
+    .showhideback{
+      display: none !important;
+    }
+    .showapplicantView{
+      margin-top: 60px !important;
+    }
+  }
+  `],
   providers: [KeyboardShortcutsService]
 })
 
@@ -440,9 +449,9 @@ export class mstapplicantreferencerequestComponent implements OnInit {
     this.dialogRef.close(this.objvalues);
   }
   goBack(){
-        
+
     this.router.navigate(['/home/boreportviewer/arrA']);
-    
+
 }
   onSubmitAndWait() {
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {

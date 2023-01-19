@@ -46,7 +46,16 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
 @Component({
     selector: 'app-mstjobstatus',
     templateUrl: './mstjobstatus.component.html',
-    styles: [],
+    styles: [`
+    @media only screen and (max-width: 600px) {
+      .applicantfield{
+        min-width: 100% !important;
+      }
+      .applicant_view{
+        margin-top: 40px !important;
+      }
+    }
+    `],
     providers: [KeyboardShortcutsService]
 })
 
@@ -259,7 +268,7 @@ export class mstjobstatusComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -276,7 +285,7 @@ export class mstjobstatusComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.mstjobstatus_service.getDefaultData().then(res => {
             this.applicantid_List = res.list_applicantid.value;
@@ -290,7 +299,7 @@ export class mstjobstatusComponent implements OnInit {
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        //setting the flag that the screen is not touched
         this.mstjobstatus_Form.markAsUntouched();
         this.mstjobstatus_Form.markAsPristine();
     }

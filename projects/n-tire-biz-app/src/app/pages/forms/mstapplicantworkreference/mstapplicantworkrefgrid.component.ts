@@ -58,7 +58,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
     <div class="row form-group sticky1" style=" background: #ebf3fc; !important;color: #000;padding: 5px;">
 
     <div class="col-4">
-    <h4 >{{'Projects'}}</h4>
+    <h4 class="mobile_work_ref">{{'Projects'}}</h4>
 </div>
 
 <div class="col-4">
@@ -88,7 +88,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" style="width: 20px;" title = "Close"/></a>
+                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="work_ref_mobile" style="width: 20px;" title = "Close"/></a>
 
                 <!--<ul class="rightside">
                 <a  [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
@@ -100,7 +100,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
                 <thead>
                     <tr>
-      
+
                     <th style="width: 22.5%;">Work Topic</th>
                     <th style="width: 22.5%">Reference Url</th>
                     <!-- <th style="width: 20%">Referral Status</th> -->
@@ -117,7 +117,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 
                     <td>
                         <input id="worktopic" required formControlName="worktopic" class="form-control">
-                        
+
                         <div *ngIf="mstapplicantworkreference_Form.get('worktopic').errors  && isSubmitted" class="invalid-feedback">
                         <span *ngIf="mstapplicantworkreference_Form.get('worktopic').hasError('required')">worktopic is required</span>
                         </div>
@@ -129,11 +129,11 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                     <td>
                     <input id="referenceurl" formControlName="referenceurl" class="form-control">
 
-                   
+
                     </td>
 
                 <!-- Referal Status -->
-                <!-- 
+                <!--
                     <td>
 
                     </td> -->
@@ -193,7 +193,25 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 (edit)="mstapplicantworkreferences_route($event,'edit')"
                 (editConfirm)="mstapplicantworkreferences_beforesave($event)">
               </ng2-smart-table>
-    `
+    `,
+    styles:[`
+    @media only screen and (max-width: 600px) {
+            .mobile_work_ref{
+              margin-top: 10px !important;
+            }
+            button.btn.btn-outline-primary.popup-add-button{
+              position: relative !important;
+              top: 13px !important;
+              right: 40px !important;
+            }
+            .work_ref_mobile{
+              width: 20px !important;
+              position: relative !important;
+              bottom: 14px !important;
+              right: 10px !important;
+            }
+    }
+    `]
 })
 export class mstapplicantworkrefgridComponent implements OnInit {
     formData: mstapplicantworkreference;

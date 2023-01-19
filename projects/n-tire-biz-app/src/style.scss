@@ -170,6 +170,7 @@ input[type='file'] {
 }
 
 .ng2-smart-row {
+
   // height: 50px;
   td {
     padding: 0 !important;
@@ -244,6 +245,9 @@ ngb-datepicker {
 .form-control,
 .columnchk {
   min-width: 100%;
+  display: flex;
+  margin-left: 5px;
+
 }
 
 .notification {
@@ -367,7 +371,7 @@ h1 a {
   margin-right: 17rem;
 }
 
-a + a {
+a+a {
   margin-left: 10px;
 }
 
@@ -386,6 +390,7 @@ a + a {
   // line-height: 0px;
   font-size: 14px;
 }
+
 .alert-success,
 .alert-danger,
 .alert-primary,
@@ -399,6 +404,7 @@ a + a {
   //  margin-right: 15px !important;
   //  background: #8d6f6f !important;
 }
+
 .alert-primary:hover {
   color: #fff !important;
   border: none !important;
@@ -520,6 +526,7 @@ html {
   height: 0.7em !important;
   color: rgb(71, 33, 33) !important;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: rgb(71, 33, 33) !important;
 }
@@ -634,7 +641,7 @@ ng2-smart-table table > tbody > tr > td {
 }
 */
 /* headers grid color*/
-ng2-smart-table thead > tr > th {
+ng2-smart-table thead>tr>th {
   //border: 1px solid lightgrey!important ;
   text-align: center;
 }
@@ -1064,8 +1071,8 @@ table-cell-view-mode {
   // margin: 1px;
 }
 
-.p-datatable .p-datatable-thead > tr > th,
-.p-datatable .p-datatable-tfoot > tr > td {
+.p-datatable .p-datatable-thead>tr>th,
+.p-datatable .p-datatable-tfoot>tr>td {
   font-weight: bold;
   font-size: medium;
 }
@@ -1208,22 +1215,20 @@ $half: round($loops / 2);
 
   .progress--circle.progress--#{$i * $step}:after {
     @if $i < $half {
-      $nextDeg: 90deg+ ($increment * $i);
-      background-image: linear-gradient(
-          90deg,
+      $nextDeg: 90deg+($increment * $i);
+      background-image: linear-gradient(90deg,
           $backColor 50%,
           transparent 50%,
-          transparent
-        ),
+          transparent),
         linear-gradient($nextDeg, $themeColor 50%, $backColor 50%, $backColor);
-    } @else {
-      $nextDeg: -90deg+ ($increment * ($i - $half));
-      background-image: linear-gradient(
-          $nextDeg,
+    }
+
+    @else {
+      $nextDeg: -90deg+($increment * ($i - $half));
+      background-image: linear-gradient($nextDeg,
           $themeColor 50%,
           transparent 50%,
-          transparent
-        ),
+          transparent),
         linear-gradient(270deg, $themeColor 50%, $backColor 50%, $backColor);
     }
   }
@@ -1341,11 +1346,9 @@ button.btn.btn-primary.btn-sm.readMoreBtn {
   &::before {
     content: '★★★★★';
     letter-spacing: 3px;
-    background: linear-gradient(
-      90deg,
-      green var(--percent),
-      var(--frontcolor) var(--percent)
-    );
+    background: linear-gradient(90deg,
+        green var(--percent),
+        var(--frontcolor) var(--percent));
     font-weight: bolder;
     // font-size:x-large;
     -webkit-background-clip: text;
@@ -1551,11 +1554,9 @@ th {
         position: absolute;
         top: 0;
         left: 0;
-        background-image: linear-gradient(
-          90deg,
-          rgba(#fafbfc, 0) 0%,
-          #fafbfc 100%
-        );
+        background-image: linear-gradient(90deg,
+            rgba(#fafbfc, 0) 0%,
+            #fafbfc 100%);
         opacity: 0;
       }
 
@@ -2001,8 +2002,7 @@ dynamic-form-builder {
 }
 
 .defaultCountry {
-  background: url('https://demo.herbie.ai/attachment/flags_boi3c5.png')
-    no-repeat;
+  background: url('https://demo.herbie.ai/attachment/flags_boi3c5.png') no-repeat;
   display: inline-block;
   width: 15px;
   height: 15px;
@@ -2013,7 +2013,7 @@ dynamic-form-builder {
   margin: 0px !important;
 }
 
-.telephone > .form-control {
+.telephone>.form-control {
   border: none !important;
 }
 
@@ -2259,8 +2259,7 @@ p-accordion {
 }
 
 .p-dialog-content,
-.p-dynamicdialog {
-}
+.p-dynamicdialog {}
 
 /*
 .layout-menu-static:not(.layout-menu-active)
@@ -2791,7 +2790,7 @@ p-dynamicdialog {
   top: 0 !important;
 }
 
-.menu-wrapper + div {
+.menu-wrapper+div {
   margin-top: 2% !important;
 }
 
@@ -2905,9 +2904,7 @@ p-dynamicdialog,
   bottom: 0;
 }
 
-.p-accordion
-  .p-accordion-header:not(.p-disabled).p-highlight:hover
-  .p-accordion-header-link {
+.p-accordion .p-accordion-header:not(.p-disabled).p-highlight:hover .p-accordion-header-link {
   border-color: transparent;
   background: #6b431d !important;
   color: #fff !important;
@@ -2939,7 +2936,8 @@ iframe {
 }
 
 #contentArea1 //,#reportmaincontent
-{
+
+  {
   position: relative;
   height: 93% !important;
   width: 98% !important;
@@ -2953,6 +2951,7 @@ p-treeTable,
 p-table {
   // position: relative !important;
 }
+
 .p-datatable-wrapper {
   p-paginator {
     position: fixed;
@@ -2983,7 +2982,7 @@ p-table {
 
 #contentAreascroll {
   position: absolute !important;
-  height: 93% !important;
+  height: 83% !important;
   width: 100% !important;
   max-width: 100% !important;
   overflow-x: auto !important;
@@ -3165,9 +3164,7 @@ textarea#briefintroduction {
 //     margin-top: -11px;
 //     height: 31px;
 // }
-.p-accordion
-  .p-accordion-header:not(.p-disabled).p-highlight
-  .p-accordion-header-link {
+.p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
   /*background: #0BA4E1 !important;*/
   // background: #2fb8ef !important;
   background-color: #6b431d !important;
@@ -3415,10 +3412,12 @@ button.alert-danger {
   color: #000;
   height: 55px;
 }
-.menu-icon{
-  margin-left:10px;
+
+.menu-icon {
+  margin-left: 10px;
   font-size: 24px !important;
-  margin-top: 6px;cursor: pointer;
+  margin-top: 6px;
+  cursor: pointer;
 }
 
 .cancel-button {
@@ -3454,6 +3453,7 @@ button.alert-danger {
   width: 15% !important;
   cursor: pointer;
 }
+
 .commonAttachmenticon {
   color: blue !important;
 }
@@ -3626,7 +3626,7 @@ a {
   // color: black !important;
 }
 
-.p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
+.p-menubar-root-list>.p-menuitem-active>p-menubarsub>.p-submenu-list {
   display: grid !important;
   grid-template-columns: 165px 1fr 1fr !important;
   right: 0px !important;
@@ -3681,9 +3681,11 @@ a {
 .report-coporate-bgColor {
   background-color: #cbf29f !important;
 }
+
 .report-admin-bgColor {
   background-color: #f5f3e4 !important;
 }
+
 .report-applicant-bgColor {
   background-color: #ebf3fc !important;
 }
@@ -3696,6 +3698,7 @@ footer {
   // text-align: center;
   background: #fff;
   font-weight: 600;
+
   .container {
     font-size: 11px !important;
   }
@@ -3706,24 +3709,30 @@ footer {
   position: absolute;
   right: 80px;
 }
+
 .second2 {
   // background-color: #ebf3fc !important;
 }
+
 .applicant-menu {
   i {
     color: #186ba0 !important;
   }
 }
+
 .corprate-dashboard {
   background-color: #f5f3e4 !important;
 }
+
 .applicant-popup-header {
   background-color: #ebf3fc !important;
 }
+
 .Skill-attachment {
   width: auto !important;
   margin: 25px !important;
 }
+
 .show-Pfl-Hdr-Lbl {
   color: #958a8a !important;
   font-size: 16px !important;
@@ -3732,19 +3741,25 @@ footer {
   height: auto !important;
   line-height: 2;
 }
-.form-list{
-  .col-3, .col-12{
+
+.form-list {
+
+  .col-3,
+  .col-12 {
     margin: 10px;
   }
 }
-.omega .p-datatable .p-datatable-thead > tr > th,
-.omega .p-datatable .p-datatable-tfoot > tr > td {
+
+.omega .p-datatable .p-datatable-thead>tr>th,
+.omega .p-datatable .p-datatable-tfoot>tr>td {
   background-color: #6b431d !important;
   border-color: #d9d9d9 !important;
 }
+
 .common_title_style {
   background-color: #f5f3e4 !important;
 }
+
 // .mainheader{
 //  background-color: #f5f3e4 !important;
 // }
@@ -3755,6 +3770,7 @@ footer {
   line-height: 1.5 !important;
   margin: 10px;
 }
+
 .table-card1,
 .skill-card1,
 .career-card1,
@@ -3765,6 +3781,7 @@ footer {
   line-height: 1.5 !important;
   margin: 10px;
 }
+
 // .popup-comment-button{
 //   background-color: #6B431D !important;
 //   border: none !important;
@@ -3782,34 +3799,62 @@ footer {
   justify-content: end;
   align-items: center;
 }
+
 .ng-8-smart-actions-title-add {
   .ng2-smart-action {
     display: none !important;
   }
 }
+
 .bgcolor {
   background-color: #f5f3e4;
 }
+
 .heightbtn {
   line-height: 15px !important;
 }
+
 @media only screen and (max-width: 600px) {
-  footer{
+  footer {
     height: 35px !important;
     /* top: 570px !important; */
-    text-align:center;
+    text-align: center;
     bottom: 0px !important;
   }
-  .container{
-      position: fixed !important;
-      bottom: 0px;
-    }
-  .all_rights{
-      display:none !important;
+
+  .container {
+    // position: fixed !important;
+    bottom: 0px;
   }
-  .p-sidebar-content{
+
+  .all_rights {
+    display: none !important;
+  }
+
+  .p-sidebar-content {
     position: fixed !important;
     width: 80% !important;
     right: 2rem !important;
+  }
+
+  .row .skill_title {
+    // background-color: #ffffff !important;
+  }
+
+  .mobileView {
+    display: none !important;
+  }
+
+  .mobilegeogrid {
+    display: none !important;
+  }
+
+  .mobile_title {
+    font-size: 17px !important;
+    white-space: nowrap !important;
+  }
+
+  .mobile_hide_btn {
+    display: none !important;
   }
 }

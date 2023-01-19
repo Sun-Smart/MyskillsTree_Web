@@ -6,3 +6,18 @@ p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
   .p-accordion {
     margin-top: 0px !important;
 }
+@media only screen and (max-width: 600px) {
+  h4.form-group.sticky1.columns.left{
+    white-space: nowrap !important;
+  }
+  .closeButton{
+    top: 2px !important;
+    position: relative !important;
+    left: 70px !important;
+    width: 75%!important;
+  }
+  button.btn.btn-outline-primary.popup-add-button{
+    position: absolute !important;
+  }
+
+}
