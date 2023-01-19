@@ -449,7 +449,7 @@
 
             <input type="checkbox" class="dd-input" id="test">
 
-            <ul class="dd-menu" *ngIf="menuhides"
+            <ul class="dd-menu adminscroll" *ngIf="menuhides"
               style="width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;">
               <div style="display: flex;justify-content: space-between; margin: 8px 8px 0 8px !important;" class="row">
                 <div class="col-12" style="text-align: end;display: flex;justify-content: end;
@@ -546,9 +546,40 @@
                 </div>
                 <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-leanpub fa1" aria-hidden="true"></i><br /> Applicant Ledger</li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-search fa1" aria-hidden="true"></i><br /> Country Wise Seekers </li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-area-chart fa1" aria-hidden="true"></i><br /> Job Posting Analysis Report</li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-file fa1" aria-hidden="true"></i><br /> Job Report</li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-sticky-note fa1" aria-hidden="true"></i><br /> Reference Summary report</li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-info-circle fa1" aria-hidden="true"></i><br /> Reference Detail Report</li>
+                  </a>
+                </div>
+                <div class="col-4  Cor " style="text-align:center;" (click)="closePopups()">
+                  <a>
                     <li class="li2"><i class=" fa1" aria-hidden="true"></i><br /> </li>
                   </a>
                 </div>
+                
               </div>
             </ul>
 
@@ -684,9 +715,6 @@
         </span>
 
       </div>
-
-
-
     </div>
 
   </ng-container>

@@ -378,7 +378,18 @@ a[_ngcontent-uuu-c401] {
   font-size: 11px;
   text-align: center;
 }
-
+.Cor{
+  border: none !important;
+  height: fit-content !important;
+  border-color: #ffffff !important;
+  background-color: white !important;
+  padding: 5px !important;
+  /* margin: 5px 5px !important; */
+  max-width: 30%;
+  box-shadow: none !important;
+  font-size: 11px;
+  text-align: center;
+}
 .Corporatedrop:hover {
   background-color: #f5f3e4 !important;
 }
