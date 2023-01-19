@@ -63,7 +63,17 @@ import { pairwise } from 'rxjs/operators';
 @Component({
   selector: 'app-mstapplicanteducationdetail',
   templateUrl: './mstapplicanteducationdetail.component.html',
-  styles: [],
+  styles: [`
+      @media only screen and (max-width: 600px) {
+        .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+      }
+  `],
   providers: [KeyboardShortcutsService]
 })
 
@@ -452,9 +462,9 @@ export class mstapplicanteducationdetailComponent implements OnInit {
   }
 
   goBack(){
-        
+
     this.router.navigate(['/home/boreportviewer/aed']);
-    
+
 }
 
   onSubmitAndWait() {

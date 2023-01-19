@@ -152,13 +152,13 @@
 
           <li class='nav-item actionheader common_title_style' *ngIf="!showview">
             <!-- <a class="alert-success" [routerLink]=''>  -->
-              <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
+              <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #000 !important;margin: 5px;
               padding: 3px;
               color: #000;" [routerLink]=''(click)="goBack()">Back</button>&nbsp;
             <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
               padding: 3px;
               color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
-            <button type="button" class="btn btn-outline-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
               style="border-color: #000 !important;
               color: #000;margin: 5px;
     padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
@@ -188,7 +188,7 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        style='' class="col-3"><label for="applicantid" class="control-label"
+        style='' class="col-3 education_view_mobile"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
@@ -202,7 +202,7 @@
       <!--language-->
 
       <div *ngIf="((hidelist.indexOf('language') == -1) && (languagevisible==undefined || languagevisible==true))"
-        style='' class="col-3"><label for="language" class="control-label required">Language</label>
+        style='' class="col-3 education_view_mobile"><label for="language" class="control-label required">Language</label>
         <select *ngIf="!showview" id="language" required (change)="language_onChange($event.target)"
           formControlName="language" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -215,7 +215,7 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('readproficiency') == -1) && (readproficiencyvisible==undefined || readproficiencyvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="readproficiency" class="control-label">Read Proficiency</label>
         <label *ngIf="showview" class="labelview">{{f.readproficiency?.value}}</label>
         <p-rating *ngIf="!showview" id="readproficiency" formControlName="readproficiency" class="form-control">
@@ -223,7 +223,7 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('writeproficiency') == -1) && (writeproficiencyvisible==undefined || writeproficiencyvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="writeproficiency" class="control-label">Write Proficiency</label>
         <label *ngIf="showview" class="labelview">{{f.writeproficiency?.value}}</label>
         <p-rating *ngIf="!showview" id="writeproficiency" formControlName="writeproficiency" class="form-control">
@@ -233,7 +233,7 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('speakproficiency') == -1) && (speakproficiencyvisible==undefined || speakproficiencyvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="speakproficiency" class="control-label">Speak Proficiency</label>
         <label *ngIf="showview" class="labelview">{{f.speakproficiency?.value}}</label>
         <p-rating *ngIf="!showview" id="speakproficiency" formControlName="speakproficiency" class="form-control">
@@ -241,7 +241,7 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('overallrating') == -1) && (overallratingvisible==undefined || overallratingvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="overallrating" class="control-label">Over All Rating</label>
         <label *ngIf="showview" class="labelview">{{f.overallrating?.value}}</label>
         <p-rating *ngIf="!showview" id="overallrating" formControlName="overallrating" class="form-control">

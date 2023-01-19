@@ -81,7 +81,7 @@
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
         <li class='nav-item actionheader' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
-            <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #000 !important;margin: 5px;
             padding: 3px;
             color: #000;" [routerLink]=''(click)="goBack()" >Back</button>&nbsp;
           <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
@@ -89,7 +89,7 @@
           color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
           <!-- <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
           (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-          <button type="button" class="btn btn-outline-primary popup-add-button"
+          <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn"
             *ngIf='data.pkcol==null || maindata.ScreenType==null' style="border-color: #000 !important;
           color: #000;margin: 5px;
           padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
@@ -122,7 +122,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        class="col-3"><label for="applicantid" class="control-label"
+        class="col-3 education_view_mobile"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
@@ -136,7 +136,7 @@
       <!--category-->
 
       <div *ngIf="((hidelist.indexOf('category') == -1) && (categoryvisible==undefined || categoryvisible==true))"
-        class="col-3"><label for="category" class="control-label">Category</label>
+        class="col-3 education_view_mobile"><label for="category" class="control-label">Category</label>
         <select *ngIf="!showview" id="category" (change)="category_onChange($event.target)" formControlName="category"
           class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -149,7 +149,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('companyname') == -1) && (companynamevisible==undefined || companynamevisible==true))"
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="companyname" class="control-label required">Company Name</label>
         <label *ngIf="showview" class="labelview">{{f.companyname?.value}}</label>
         <input *ngIf="!showview" id="companyname" required formControlName="companyname" class="form-control">
@@ -162,7 +162,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('designation') == -1) && (designationvisible==undefined || designationvisible==true))"
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="designation" class="control-label required">Designation</label>
         <label *ngIf="showview" class="labelview">{{f.designation?.value}}</label>
         <input *ngIf="!showview" id="designation" required formControlName="designation" class="form-control">
@@ -174,7 +174,7 @@
       <!-- From Date -->
 
       <div *ngIf="((hidelist.indexOf('fromdate') == -1) && (fromdatevisible==undefined || fromdatevisible==true))"
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="fromdate" class="control-label required">From Date</label>
         <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.fromdate?.value)}}</label>
         <div class="input-group" *ngIf="!showview">
@@ -194,7 +194,7 @@
       <!-- To Date -->
 
       <div *ngIf="((hidelist.indexOf('todate') == -1) && (todatevisible==undefined || todatevisible==true))"
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="todate" class="control-label">To Date</label>
         <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.todate?.value)}}</label>
         <div class="input-group" *ngIf="!showview">
@@ -211,7 +211,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('currentlyworking') == -1) && (currentlyworkingvisible==undefined || currentlyworkingvisible==true))"
-        class="col-3" style="display: flex;
+        class="col-3 education_view_mobile" style="display: flex;
         text-align: center;
         justify-content: center;
         margin: auto;">
@@ -226,7 +226,7 @@
       <!-- Skills -->
 
       <div *ngIf="((hidelist.indexOf('skills') == -1) && (skillsvisible==undefined || skillsvisible==true))"
-        class="col-3" style="margin: auto;">
+        class="col-3 education_view_mobile" style="margin: auto;">
         <label for="skills" class="control-label">Skills &nbsp;&nbsp;</label>
         <p-autoComplete formControlName="skills" *ngIf="!showview" field="label" [multiple]="true"
           [suggestions]="skills_results" (completeMethod)="search_skills($event)"></p-autoComplete>
