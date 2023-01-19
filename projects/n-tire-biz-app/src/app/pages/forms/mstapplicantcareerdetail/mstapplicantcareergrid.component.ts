@@ -150,9 +150,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
            class="fa fa-calendar" aria-hidden="true"></i></button>
 
      </div>
-     <div *ngIf="showDateError" style="color: red;font-size: 12px;">
-       To date is greater than from date
-     </div>
+
     <!-- <app-field-error-display [displayError]="f.fromdate.errors?.required"
        errorMsg="Enter {{'From Date' | translate}}">
      </app-field-error-display> -->
@@ -165,6 +163,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <!-- <input  id="designation" required formControlName="designation" class="form-control"> -->
      <!-- <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.todate?.value)}}</label> -->
 
+     <div>
     <div style="display: flex;width: 80%;">
      <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
           [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate" class="form-control"
@@ -172,6 +171,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
           <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
               class="fa fa-calendar" aria-hidden="true"></i></button>
+    </div>
+            <div *ngIf="showDateError" style="color: red;font-size: 12px;">
+              To date is greater than from date
+            </div>
     </div>
      </td>
 

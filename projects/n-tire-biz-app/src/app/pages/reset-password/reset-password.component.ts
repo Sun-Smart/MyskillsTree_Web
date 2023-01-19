@@ -331,7 +331,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 .logo-img{
   width:100%; 
   height:100%;
-  display: contents !important;
+  display: flex !important;
+  margin: 10% 60% !important;
 }
 .reset-details{
   display: flex;

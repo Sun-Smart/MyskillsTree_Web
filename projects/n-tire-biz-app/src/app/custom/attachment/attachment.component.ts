@@ -182,6 +182,8 @@ export class AttachmentComponent implements ControlValueAccessor {
 
     showplus: boolean = false;
 
+    showOpenfile: boolean = false;
+
     onChange: Function;
 
 
@@ -249,27 +251,21 @@ export class AttachmentComponent implements ControlValueAccessor {
 
     public async onFileSelected(event: EventEmitter<File[]>) {
 
-
-
-
         localStorage.removeItem("attachedsaved")
         this.showplus = !this.showplus;
+        this.showOpenfile = !this.showOpenfile;
 
         this.setpage = localStorage.getItem("choosefileforprofile")
         if (this.setpage == "ok") {
-
-
+            debugger
             const file: File = event[0];
-
-            //debugger;
+            debugger;
             this.onFileSelect(event);
-
             this.src = await readBase64(file)
                 .then(function (data) {
                     return data;
                 })
-            this.showplus = false
-
+            this.showplus = false;
         }
         else {
             if (!this.attachmentForm.valid) {
@@ -279,39 +275,16 @@ export class AttachmentComponent implements ControlValueAccessor {
             }
             else {
                 const file: File = event[0];
-
                 //debugger;
                 this.onFileSelect(event);
-
                 this.src = await readBase64(file)
                     .then(function (data) {
                         return data;
-
                     })
                 this.attachmentForm.reset();
             }
             this.attachmentForm.reset();
-
-
-
-
-
-
-
-
         }
-
-
-
-
-
-
-
-
-
-
-
-
         // localStorage.removeItem("attachedsaved")
         // this.showplus = !this.showplus;
         // if(!this.attachmentForm.valid){
@@ -343,8 +316,6 @@ export class AttachmentComponent implements ControlValueAccessor {
         // //     .then(function (data) {
         // //         return data;
         // //     })
-
-
     }
 
     constructor(private fb: FormBuilder, private sharedService: SharedService, public dialog: DialogService, public sessionService: SessionService) {
@@ -443,7 +414,7 @@ export class AttachmentComponent implements ControlValueAccessor {
             if (res != undefined) this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].comments = res;
         });
     }
-    geturl(e:any, filename: string, filetype: string) {
+    geturl(e: any, filename: string, filetype: string) {
         debugger;
         this.showview = this.sessionService.getItem("attachedsaved");
         if (this.showview == "true") {
