@@ -70,20 +70,20 @@
     </div>
     <div class='col-4' style="display: flex;justify-content: end;align-items: center;">
 
-      <button *ngIf="!showview" (click)="onSubmitAndWait()" class="popup-add-button">
+      <button *ngIf="!showview" (click)="onSubmitAndWait()" class="popup-add-button mst_cor_btn">
         <i class="fa fa-database"></i>Submit
         <app-action *ngIf="f.jobid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
           [value]="f.jobid.value" [status]="f.status.value"></app-action>
       </button>
 
-      <button *ngIf='data.pkcol==null || maindata.ScreenType==null' (click)="onSubmitAndWait()" 
-      class="popup-add-button">
+      <button *ngIf='data.pkcol==null || maindata.ScreenType==null' (click)="onSubmitAndWait()"
+      class="popup-add-button mobile_view_btn">
       <i class="fa fa-share-square"></i> Submit & Clear
         <app-action *ngIf="f.corporateid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
         [value]="f.corporateid.value" [status]="f.status.value"></app-action>
       </button>
 
-      <button class="popup-add-button"
+      <button class="popup-add-button mobile_view_btn"
         *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
         (click)="onClose()">
         <i class="fa fa-close"></i>Close
@@ -107,7 +107,7 @@
           </li>
 
         </ul>
-      
+
     </div>
   </div>
 

@@ -59,7 +59,20 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
 @Component({
     selector: 'app-mstcorporatemaster',
     templateUrl: './mstcorporatemaster.component.html',
-    styles: [],
+    styles: [`
+    @media only screen and (max-width: 600px) {
+      .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mst_cor_btn{
+          padding: 4px 6px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+    }
+    `],
     providers: [KeyboardShortcutsService, CorporateDashboardComponent]
 })
 
@@ -453,7 +466,7 @@ export class mstcorporatemasterComponent implements OnInit {
     goBack(){
         // this.router.navigate(["/home/ + CorporateDashboardComponent"])
         this.router.navigate(['/home/corporatedashboard']);
-        
+
     }
     onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {

@@ -56,7 +56,7 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
       display: none !important;
     }
     .showapplicantView{
-      margin-top: 60px !important;
+      margin-top: 0px !important;
     }
   }
   `],
