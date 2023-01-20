@@ -127,97 +127,104 @@
 
     <div class="main-dash-content">
 
-      <div class="row" style="display: flex;justify-content:space-between;" *ngFor="let item of employment_details">
+      <!-- Employment -->
+
+      <div class="row main-data" *ngFor="let item of employment_details">
         <div class="col-12" style="text-align: initial;">
-          <h6 style="color: #000;font-size: 18px;">Employment</h6>
+          <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">Employment</h5>
         </div>
 
-        <div class="col-2" style="display: grid;" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Company</label>
+        <div class="col-2" style="display: grid;">
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Company</label>
           <label for="" style="color: #000;font-size: small;">{{item.company}}</label>
         </div>
         <div class="col-2" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Project</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Project</label>
           <label for="" style="color: #000;font-size: small;">{{item.project}}</label>
         </div>
         <div class="col-2" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Details</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Details</label>
           <label for="" style="color: #000;font-size: small;">{{item.details}}</label>
         </div>
         <div class="col-2" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">From</label>
-          <label for="" style="color: #000;font-size: small;">{{item.fromDate | date :  "dd-MM-y"}}</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">From</label>
+          <label for="" style="color: #000;font-size: small;">{{item.fromDate | date : "dd-MM-y"}}</label>
         </div>
         <div class="col-2" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">To</label>
-          <label for="" style="color: #000;font-size: small;">{{item.toDate | date :  "dd-MM-y"}}</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">To</label>
+          <label for="" style="color: #000;font-size: small;">{{item.toDate | date : "dd-MM-y"}}</label>
         </div>
 
-      </div><br>
+      </div>
 
+      <!-- Achievement -->
 
-      <div class="row" style="display: flex;justify-content:space-between;">
+      <div class="row main-data">
         <div class="col-12" style="text-align: initial;">
-          <h6 style="color: #000;font-size: 18px;">Achievement</h6>
+          <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">Achievement</h5>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Course</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Course</label>
           <label for="" style="color: #000;font-size: small;"></label>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Institution</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Institution</label>
           <label for="" style="color: #000;font-size: small;"></label>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">From Year</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">From Year</label>
           <label for="" style="color: #000;font-size: small;"></label>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">To Year</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">To Year</label>
           <label for="" style="color: #000;font-size: small;"></label>
         </div>
-      </div><br>
+      </div>
 
-      <div class="row" style="display: flex;justify-content:space-between;">
+      <!-- References -->
+
+      <div class="row main-data">
         <div class="col-12" style="text-align: initial;">
-          <h6 style="color: #000;font-size: 18px;">References</h6>
+          <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">References</h5>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Date</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Date</label>
           <label for="" style="color: #000;font-size: small;"> </label>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Referred To</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Referred To</label>
           <label for="" style="color: #000;font-size: small;"></label>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Response</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Response</label>
           <label for="" style="color: #000;font-size: small;"></label>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Remarks</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Remarks</label>
           <label for="" style="color: #000;font-size: small;"></label>
         </div>
-      </div><br>
+      </div>
 
-      <div class="row" style="display: flex;justify-content:space-between;">
+      <!-- New Knowlwdge -->
+
+      <div class="row main-data">
         <div class="col-12" style="text-align: initial;">
-          <h6 style="color: #000;font-size: 18px;">New Knowledge</h6>
+          <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">New Knowledge</h5>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Date</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Date</label>
           <label for="" style="color: #000;font-size: small;"> - </label>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Knowledge-base Name</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Knowledge-base Name</label>
           <label for="" style="color: #000;font-size: small;"> - </label>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">Knowledge-base Details</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">Knowledge-base Details</label>
           <label for="" style="color: #000;font-size: small;"> - </label>
         </div>
         <div class="col-3" style="display: grid;">
-          <label for="" style="color: #a59e9e;font-weight: 800;">View Details</label>
+          <label for="" style="color: #c2c1c1;font-weight: 600;">View Details</label>
           <label for="" style="color: #000;font-size: small;"> - </label>
         </div>
       </div><br>

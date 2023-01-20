@@ -105,15 +105,15 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
   <thead>
     <tr >
-      <th >Language</th>
-      <th>Read Proficiency</th>
-      <th>Write Proficiency</th>
-      <th>Speak Proficiency</th>
-      <th>Rating</th>
-      <th>Remarks</th>
+      <th style="width:15%;">Language</th>
+      <th style="width:15%;">Read Proficiency</th>
+      <th style="width:15%;">Write Proficiency</th>
+      <th style="width:15%;">Speak Proficiency</th>
+      <th style="width:15%;">Rating</th>
+      <th style="width:15%;">Remarks</th>
       <!-- <th style="width: 31.5%;">Attachment</th> -->
       <!--<th>Attachment</th>-->
-    <th >Action</th>
+    <th style="width:10%;">Action</th>
     </tr>
   </thead>
   <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
@@ -467,12 +467,12 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         <table class="table table-hover languagedetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
-            <th>##languagedesc##</th>
-            <th>##readproficiency##</th>
-            <th>##writeproficiency##</th>
-            <th>##speakproficiency##</th>
-            <th>##overallrating##</th>
-            <th>##remarks##</th>
+            <th style="white-space: break-spaces;width:7%;">##languagedesc##</th>
+            <th style="white-space: break-spaces;width:17%;">##readproficiency##</th>
+            <th style="white-space: break-spaces;width:17%;">##writeproficiency##</th>
+            <th style="white-space: break-spaces;width:16%;">##speakproficiency##</th>
+            <th style="white-space: break-spaces;width:27%;">##overallrating##</th>
+            <th style="white-space: break-spaces;">##remarks##</th>
             <!--<th style="" >##attachment##</th>-->
           </tr>
         </tbody>

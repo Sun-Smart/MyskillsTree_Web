@@ -185,7 +185,7 @@
                 *ngIf="((hidelist.indexOf('applicanttype') == -1) && (applicanttypevisible==undefined || applicanttypevisible==true))"
                 style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="applicanttype"
                   class="control-label required">Type</label>
-                <label for="applicanttype" class="control-label required">Type</label>
+                
                 <select *ngIf="!showview" id="applicanttype" required (change)="applicanttype_onChange($event.target)"
                   formControlName="applicanttype" class="form-control">
                   <option [ngValue]="null" selected>-Select-</option>
@@ -201,8 +201,7 @@
               <!--gender-->
 
               <div *ngIf="((hidelist.indexOf('gender') == -1) && (gendervisible==undefined || gendervisible==true))"
-                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">><label for="gender"
-                  class="control-label">Gender</label>
+                style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
                 <label for="gender" class="control-label">Gender</label>
                 <select *ngIf="!showview" id="gender" (change)="gender_onChange($event.target)" formControlName="gender"
                   class="form-control">

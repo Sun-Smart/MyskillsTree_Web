@@ -539,7 +539,7 @@ export class BODashboardViewerComponent implements OnInit {
         this.skill_detail.push({
           strRating: this.sub_category[i].selfrating,
           subCategory: this.sub_category[i].subcategoryiddesc,
-          skill_id: this.sub_category[i].skillid,
+          skill_id: this.sub_category[i].skillcategory,
         });
       };
 
@@ -549,7 +549,6 @@ export class BODashboardViewerComponent implements OnInit {
         if (this.skill_detail[i].strRating == 1) {
           debugger
           this.showstr = '★'
-
         } else if (this.skill_detail[i].strRating == 2) {
           this.showstr = '★★'
         } else if (this.skill_detail[i].strRating == 3) {

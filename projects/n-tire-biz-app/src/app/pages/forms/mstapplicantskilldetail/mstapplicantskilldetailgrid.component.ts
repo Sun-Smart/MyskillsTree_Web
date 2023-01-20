@@ -146,13 +146,13 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
       <tr>
-        <th  style="width:185px;">Segments</th>
-        <th  style="width:185px;">Skill Category</th>
-        <th  style="width:185px;text-align: center;">Sub Category</th>
-        <th  style="width:185px;text-align: center;">Self Rating</th>
-        <th  style="width:185px;text-align: center;">Referal Status</th>
-        <th  style="width:185px;text-align: center;">Remarks</th>
-        <th style="width:185px;text-align: center;">Action</th>
+        <th  style="width:15%;">Segments</th>
+        <th  style="width:15%;">Skill Category</th>
+        <th  style="width:15%;text-align: center;">Sub Category</th>
+        <th  style="width:15%;text-align: center;">Self Rating</th>
+        <th  style="width:15%;text-align: center;">Referal Status</th>
+        <th  style="width:15%;text-align: center;">Remarks</th>
+        <th style="width:10%;text-align: center;">Action</th>
       </tr>
     </thead>
     <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
@@ -576,12 +576,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     <table class="table table-hover skilldetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
     <tbody>
       <tr>
-        <th scope="row" style="width:185px;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
-        <th scope="row" style="width:185px;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
-        <th scope="row" style="width:185px;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
-        <th scope="row" style="width:185px;">##selfrating##</th>
-        <th scope="row" style="width:185px;">##referencecount##</th>
-        <th scope="row" style="width:185px;">##remarks##</th>
+        <th style="white-space: break-spaces;width:17%;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
+        <th style="white-space: break-spaces;width:20%;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
+        <th style="white-space: break-spaces;width:14%;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
+        <th style="white-space: break-spaces;width:18%;">##selfrating##</th>
+        <th style="white-space: break-spaces;width:19%;">##referencecount##</th>
+        <th style="white-space: break-spaces;">##remarks##</th>
       </tr>
     </tbody>
   </table>

@@ -520,7 +520,7 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 3px !important;
+  width: 0px !important;
   height: 0.7em !important;
   color: rgb(71, 33, 33) !important;
 }
@@ -1720,6 +1720,7 @@ body {
   // padding: .5em .5em!important;
   //  padding: 0px!important;
   margin: 0px !important;
+  text-align: center;
 }
 
 .container2 {
@@ -3869,8 +3870,9 @@ footer {
 .dashboard-sidebar {
   width: 20%;
   height: 100%;
-  background-color: #f8f9fa;
+  background-color: #fff;
   float: left;
+  box-shadow: 0px 0px 2px 0px #e2e0e0;
 }
 
 .dashboard-sidebar-content {
@@ -3889,6 +3891,14 @@ footer {
   width: 80% !important;
   overflow-y: scroll;
   height: 87% !important;
+  .main-data{
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0px 0px 2px 0px #e2e0e0;
+    border-radius: 5px;
+    margin: 11px !important;
+    padding: 10px 0px !important;
+  }
 }
 .skill-label {
   label:hover {
