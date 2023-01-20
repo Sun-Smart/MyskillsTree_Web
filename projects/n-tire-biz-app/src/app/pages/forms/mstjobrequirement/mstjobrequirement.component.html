@@ -211,18 +211,7 @@
 
 
               <!--locations-->
-              <div
-                *ngIf="((hidelist.indexOf('locations') == -1) && (locationsvisible==undefined || locationsvisible==true))"
-                style='' class="col-3 education_view_mobile"><label for="locations" class="control-label">Locations</label>&nbsp;&nbsp; <br />
-                <p-autoComplete formControlName="locations" field="label" [multiple]="true" *ngIf="!showview"
-                  [suggestions]="locations_results" (completeMethod)="locations_onChange($event)"></p-autoComplete>
-                <!-- <p-multiSelect [options]="locations_List" formControlName="locations" [filter]="true" *ngIf="!showview"
-                  id="locationsdesc" (change)="locations_onChange($event.target)" formControlName="locations"
-                  class="form-control">
-                </p-multiSelect>  -->
-                <label *ngIf="showview" class="labelview">{{f.locations?.label}}</label>
-                <label class="labelview alignment_label" *ngIf="showview">{{mstjobrequirement.locationdesc}}</label>
-              </div>
+             
             </div>
 
 
