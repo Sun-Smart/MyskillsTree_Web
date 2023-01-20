@@ -628,8 +628,9 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     //     this.Set_mstapplicanteducationdetails_TableConfig();
     //     this.mstapplicanteducationdetails_LoadTable(res.mstapplicanteducationdetails);
     // });
-
+debugger
     this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
+      debugger
       this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
       this.Set_mstapplicanteducationdetails_TableConfig();
       this.mstapplicanteducationdetails_LoadTable(res.mstapplicanteducationdetail);
@@ -795,6 +796,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
   }
   Set_mstapplicanteducationdetails_TableConfig() {
+    debugger
     this.mstapplicanteducationdetails_settings = {
       hideSubHeader: true,
       mode: 'external',
@@ -874,6 +876,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
               } else {
                 if (row.referencecount > 0 && row.referenceacceptedcount > 0 && row.referencerejactedcount == 0) {
                   this.r1 = row.referencecount - row.referenceacceptedcount
+
                   for (let i = 0; i < this.r1; i++) {
                     let abc = '★'
                     this.countarray.push(abc.fontcolor('gray'))

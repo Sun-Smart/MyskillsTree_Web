@@ -86,7 +86,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 <!-- </ul> -->
     </div>
     </div>
-    <form [formGroup]="mstapplicantgeographypreference_Form">
+    <form [formGroup]="mstapplicantgeographypreference_Form" class="mobile_grid_view">
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
   <thead>
     <tr>
@@ -182,6 +182,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       width: 75% !important;
     }
     .mobile_view_geo{
+      width: 380px !important;
+    }
+    .mobile_grid_view{
       width: 380px !important;
     }
     }

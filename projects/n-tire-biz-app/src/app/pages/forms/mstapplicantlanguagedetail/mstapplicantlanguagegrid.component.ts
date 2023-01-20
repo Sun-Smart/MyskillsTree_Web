@@ -57,6 +57,32 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 @Component({
     selector: 'app-applicantlanguagegrid',
+    styles:[`
+     @media only screen and (max-width: 600px) {
+      button.btn.btn-outline-primary.popup-add-button{
+        position: absolute !important;
+        left: 167px !important;
+        bottom: 0px !important;
+    }
+    .row.form-group.sticky1{
+      width: 890px !important;
+      height: 50px !important;
+    }
+    h4.columns.left{
+      margin-top: 10px !important;
+    }
+    h4.form-group.sticky1.columns.left{
+      white-space: pre !important;
+      font-size: 17px !important;
+    }
+    .closeButton1{
+      /* width: 27% !important; */
+    }
+    .mobile_grid_view{
+      width: 900px !important;
+    }
+    }
+    `],
     template: `
     <div class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
@@ -96,12 +122,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" style="width: 20px;" title = "Close"/></a>
+                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="closeButton1" style="width: 20px;" title = "Close"/></a>
 
                 <!-- </ul> -->
 </div>
 </div>
-<form [formGroup]="mstapplicantlanguagedetail_Form">
+<form [formGroup]="mstapplicantlanguagedetail_Form" class="mobile_grid_view">
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
   <thead>
     <tr >
@@ -219,7 +245,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     ShowTableslist: any;
     pkcol: any;
 
- 
+
     applicantid_List: DropDownValues[];
     applicantid_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
     language_List: DropDownValues[];
@@ -270,7 +296,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
         }
- 
+
     }
     ngOnInit() {
         this.Set_mstapplicantlanguagedetails_TableConfig();
@@ -299,7 +325,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             statusdesc: [null],
         });
         this.FillData();
-        
+
     }
 
     get f() { return this.mstapplicantlanguagedetail_Form.controls; }
@@ -383,12 +409,12 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe((res:any) => {
             debugger;
             console.log(res);
-            
+
             // await this.sharedService.upload(this.fileAttachmentList);
                 // this.attachmentlist = [];
                 // if (this.fileattachment) this.fileattachment.clear();
                 this.spinner.hide();
-                
+
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.sessionService.setItem("attachedsaved", "true")
                 this.objvalues.push((res as any).mstapplicantlanguagedetail);
@@ -490,13 +516,13 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         return ret;
     }
     FillData() {
-    
+
         this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByApplicantID(this.applicantid).then(res => {
             this.Set_mstapplicantlanguagedetails_TableConfig();
             this.mstapplicantlanguagedetails_LoadTable(res.mstapplicantlanguagedetail);
         });
 
-        
+
         // this.formData = res.mstapplicantlanguagedetail;
         // this.formid = res.mstapplicantlanguagedetail.languageid;
         // this.pkcol = res.mstapplicantlanguagedetail.pkcol;
@@ -523,7 +549,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         // this.mstapplicantlanguagedetail_menuactions = res.mstapplicantlanguagedetail_menuactions;
         // if (this.mstapplicantlanguagedetail_Form.get('attachment').value != null && this.mstapplicantlanguagedetail_Form.get('attachment').value != "" && this.fileattachment != null && this.fileattachment != undefined) this.fileattachment.setattachmentlist(this.mstapplicantlanguagedetail_Form.get('attachment').value);
         // //Child Tables if any
-    
+
     }
     //start of Grid Codes mstapplicantlanguagedetails
     mstapplicantlanguagedetails_settings: any;
@@ -705,7 +731,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         }
     }
 
-    
+
     Add_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
         debugger
         this.showSkillDetails_input = true;
@@ -717,18 +743,18 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         // if (this.pkcol != undefined && this.pkcol != null) childsave = true;
     }
 
-    
+
     Edit_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
         debugger
         this.showSkillDetails_input = true;
-        
+
         // let add = false;
         // if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.getdata();
         console.log(event, languageid, applicantid);
-        
+
         this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByEID(event.data.pkcol).then(res => {
             console.log(res);
             this.formData = res.mstapplicantlanguagedetail;
@@ -831,7 +857,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantlanguagedetails");
         let formname = (objbomenuaction as any).actionname;
         if (formname == "mstapplicantlanguagedetails") {
-            
+
         }
 
     };
