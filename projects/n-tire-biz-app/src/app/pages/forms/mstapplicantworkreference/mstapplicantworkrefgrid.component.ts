@@ -101,17 +101,24 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 <thead>
                     <tr>
 
-                    <th style="width: 22.5%;">Work Topic</th>
-                    <th style="width: 22.5%">Reference Url</th>
-                    <!-- <th style="width: 20%">Referral Status</th> -->
-                    <th style="width: 22.5%;">Work Description</th>
-                    <th style="width: 22.5%;">Remarks</th>
-                    <!-- <th style="width: 20%;">Attachment</th> -->
+                    <th style="width: 15%;">Company Name</th>
+                    <th style="width: 15%;">Work Topic</th>
+                    <th style="width: 15%">Reference Url</th>
+                    <th style="width: 15%;">Work Description</th>
+                    <th style="width: 15%;">Remarks</th>
                     <th style="width: 10%;text-align: center;">Action</th>
                     </tr>
                 </thead>
                 <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
                 <tr>
+
+                <!-- Company Name -->
+                    <td>
+                    <select id="companyname" (change)="onChange_companyList($event.target.value)" formControlName="companyname" class="form-control">
+                    <option value="null" selected>-Select-</option>
+                    <option *ngFor="let item of companyList" value="{{item.companyname}}">{{item.companyname}}</option>
+                    </select>
+                    </td>
 
                 <!-- Work Topic -->
 
@@ -129,14 +136,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                     <td>
                     <input id="referenceurl" formControlName="referenceurl" class="form-control">
 
-
                     </td>
-
-                <!-- Referal Status -->
-                <!--
-                    <td>
-
-                    </td> -->
 
                 <!-- Work Description -->
 
@@ -194,7 +194,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 (editConfirm)="mstapplicantworkreferences_beforesave($event)">
               </ng2-smart-table>
     `,
-    styles:[`
+    styles: [`
     @media only screen and (max-width: 600px) {
             .mobile_work_ref{
               margin-top: 10px !important;
@@ -254,6 +254,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     r2: any;
     r3: any;
     maindata: any;
+    companyList: DropDownValues[];
     constructor(
         private nav: Location,
         private translate: TranslateService,
@@ -289,9 +290,8 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             applicantid: this.sessionService.getItem('applicantid'),
             applicantiddesc: [null],
             workreferenceid: [null],
-            // worktopic: [null, Validators.compose([Validators.required])],
+            companyname:[null],
             worktopic: [null, [Validators.required]],
-            // workdescription: [null, Validators.compose([Validators.required])],
             workdescription: [null, [Validators.required]],
             referenceurl: [null],
             remarks: [null],
@@ -306,7 +306,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
         this.FillData();
-
+        this.get_companyName();
         let mstapplicantworkreferenceid = null;
         //copy the data from previous dialog
         this.viewHtml = ``;
@@ -330,10 +330,20 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         this.mstapplicantworkreference_service.getDefaultData().then(res => {
             this.applicantid_List = res.list_applicantid.value;
         }).catch((err) => { this.spinner.hide(); console.log(err); });
-
     };
 
+    get_companyName() {
+        debugger
+        this.mstapplicantworkreference_service.get_mstapplicantworkreferences_companyList(this.applicantid).then(res => {
+            console.log(res);
+            this.companyList = res as DropDownValues[];
+        })
+    }
+    onChange_companyList(event: any) {
+        debugger
+        console.log(event);
 
+    }
     async PopulateScreen(pkcol: any) {
         this.spinner.show();
         this.mstapplicantworkreference_service.get_mstapplicantworkreferences_ByEID(pkcol).then(res => {
@@ -409,40 +419,15 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             this.toastr.addSingle("error", "", "Enter the required fields");
             return;
         }
-        // Object.keys(this.mstapplicantworkreference_Form.controls).forEach(key => {
-        //   const controlErrors: ValidationErrors = this.mstapplicantworkreference_Form.get(key).errors;
-        //   if (controlErrors != null) {
-        //     Object.keys(controlErrors).forEach(keyError => {
-        //       strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //     });
-        //   }
-        // });
+
         if (strError != "") return this.sharedService.alert(strError);
 
-
-
-        // if (!this.validate()) {
-        //     return;
-        // }
         this.formData = this.mstapplicantworkreference_Form.getRawValue();
-        // if (this.dynamicconfig.data != null) {
-        //     for (let key in this.dynamicconfig.data) {
-        //         if (key != 'visiblelist' && key != 'hidelist') {
-        //             if (this.mstapplicantworkreference_Form.controls[key] != null) {
-        //                 this.formData[key] = this.mstapplicantworkreference_Form.controls[key].value;
-        //             }
-        //         }
-        //     }
-        // }
-        // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-        // this.fileAttachmentList = this.fileattachment.getAllFiles();
+
         console.log(this.formData);
         this.spinner.show();
         this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(
             async res => {
-                // await this.sharedService.upload(this.fileAttachmentList);
-                // this.attachmentlist = [];
-                // if (this.fileattachment) this.fileattachment.clear();
                 this.spinner.hide();
                 debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
@@ -526,6 +511,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         <table class="table table-hover workdetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
+            <th style="white-space: break-spaces;word-break: break-word !important;width:20%;">##companyname##</th>
             <th style="white-space: break-spaces;word-break: break-word !important;width:20%;">##worktopic##</th>
             <th style="white-space: break-spaces;word-break: break-word !important;width:20%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
             <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;width:20%;">##referencecount##</th>-->

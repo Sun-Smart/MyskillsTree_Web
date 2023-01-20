@@ -38,6 +38,13 @@ export class mstapplicantworkreferenceService {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference').toPromise();
     }
   }
+
+  get_mstapplicantworkreferences_companyList(id:any){
+    debugger;
+    if (this.valid()) {
+      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference' + '/companydetails/' + id).toPromise();
+    }
+  }
   getListBy_workreferenceid(workreferenceid: number): any {
     if (this.valid()) {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference' + '/workreferenceid/' + workreferenceid).toPromise();
