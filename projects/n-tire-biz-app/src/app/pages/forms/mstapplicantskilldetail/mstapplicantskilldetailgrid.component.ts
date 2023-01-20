@@ -147,10 +147,10 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
     <thead class="skill-detailstable" style="">
       <tr>
         <th  style="width:185px;">Segments</th>
-        <th  style="width:185px;">Skill Category</th>
+        <th  style="width:185px;white-space: nowrap;">Skill Category</th>
         <th  style="width:185px;text-align: center;">Sub Category</th>
-        <th  style="width:185px;text-align: center;">Self Rating</th>
-        <th  style="width:185px;text-align: center;">Referal Status</th>
+        <th  style="width:185px;text-align: center;white-space: nowrap;">Self Rating</th>
+        <th  style="width:185px;text-align: center;white-space: nowrap;">Referal Status</th>
         <th  style="width:185px;text-align: center;">Remarks</th>
         <th style="width:185px;text-align: center;">Action</th>
       </tr>

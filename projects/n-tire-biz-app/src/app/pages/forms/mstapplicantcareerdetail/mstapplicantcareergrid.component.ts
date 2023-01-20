@@ -101,10 +101,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <tr>
 
       <th style="width: 11.5%;">Category</th>
-      <th style="width: 11.5%;">Company Name</th>
+      <th style="width: 11.5%;white-space: nowrap;">Company Name</th>
       <th style="width: 11.5%;">Designation</th>
-      <th style="width: 11.5%;">From Date</th>
-      <th style="width: 11.5%;">To Date</th>
+      <th style="width: 11.5%;white-space: nowrap;">From Date</th>
+      <th style="width: 11.5%;white-space: nowrap;">To Date</th>
       <th style="width: 11.5%;">Skills</th>
       <th style="width: 11.5%;">Remarks</th>
       <!-- <th style="width: 11.5%;">Attachment</th> -->

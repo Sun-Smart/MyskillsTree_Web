@@ -54,7 +54,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 @Component({
   selector: 'app-applicantgeographygrid',
   template: `
-    <div class= row   style="background: #ebf3fc; color: #000; padding: 5px; height: 45px;">
+    <div class= "row mobile_view_geo"   style="background: #ebf3fc; color: #000; padding: 5px; height: 45px;">
     <div class=col-4 style="margin: auto;">
     <h4 class="form-group sticky1  columns left mobile_title">
         {{'Geography Preferences'}}
@@ -180,6 +180,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     }
     .closeButton{
       width: 75% !important;
+    }
+    .mobile_view_geo{
+      width: 380px !important;
     }
     }
     `
