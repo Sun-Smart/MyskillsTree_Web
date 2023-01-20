@@ -170,7 +170,6 @@ input[type='file'] {
 }
 
 .ng2-smart-row {
-
   // height: 50px;
   td {
     padding: 0 !important;
@@ -247,7 +246,6 @@ ngb-datepicker {
   min-width: 100%;
   display: flex;
   margin-left: 5px;
-
 }
 
 .notification {
@@ -371,7 +369,7 @@ h1 a {
   margin-right: 17rem;
 }
 
-a+a {
+a + a {
   margin-left: 10px;
 }
 
@@ -641,7 +639,7 @@ ng2-smart-table table > tbody > tr > td {
 }
 */
 /* headers grid color*/
-ng2-smart-table thead>tr>th {
+ng2-smart-table thead > tr > th {
   //border: 1px solid lightgrey!important ;
   text-align: center;
 }
@@ -1071,8 +1069,8 @@ table-cell-view-mode {
   // margin: 1px;
 }
 
-.p-datatable .p-datatable-thead>tr>th,
-.p-datatable .p-datatable-tfoot>tr>td {
+.p-datatable .p-datatable-thead > tr > th,
+.p-datatable .p-datatable-tfoot > tr > td {
   font-weight: bold;
   font-size: medium;
 }
@@ -1215,20 +1213,22 @@ $half: round($loops / 2);
 
   .progress--circle.progress--#{$i * $step}:after {
     @if $i < $half {
-      $nextDeg: 90deg+($increment * $i);
-      background-image: linear-gradient(90deg,
+      $nextDeg: 90deg+ ($increment * $i);
+      background-image: linear-gradient(
+          90deg,
           $backColor 50%,
           transparent 50%,
-          transparent),
+          transparent
+        ),
         linear-gradient($nextDeg, $themeColor 50%, $backColor 50%, $backColor);
-    }
-
-    @else {
-      $nextDeg: -90deg+($increment * ($i - $half));
-      background-image: linear-gradient($nextDeg,
+    } @else {
+      $nextDeg: -90deg+ ($increment * ($i - $half));
+      background-image: linear-gradient(
+          $nextDeg,
           $themeColor 50%,
           transparent 50%,
-          transparent),
+          transparent
+        ),
         linear-gradient(270deg, $themeColor 50%, $backColor 50%, $backColor);
     }
   }
@@ -1346,9 +1346,11 @@ button.btn.btn-primary.btn-sm.readMoreBtn {
   &::before {
     content: '★★★★★';
     letter-spacing: 3px;
-    background: linear-gradient(90deg,
-        green var(--percent),
-        var(--frontcolor) var(--percent));
+    background: linear-gradient(
+      90deg,
+      green var(--percent),
+      var(--frontcolor) var(--percent)
+    );
     font-weight: bolder;
     // font-size:x-large;
     -webkit-background-clip: text;
@@ -1554,9 +1556,11 @@ th {
         position: absolute;
         top: 0;
         left: 0;
-        background-image: linear-gradient(90deg,
-            rgba(#fafbfc, 0) 0%,
-            #fafbfc 100%);
+        background-image: linear-gradient(
+          90deg,
+          rgba(#fafbfc, 0) 0%,
+          #fafbfc 100%
+        );
         opacity: 0;
       }
 
@@ -2002,7 +2006,8 @@ dynamic-form-builder {
 }
 
 .defaultCountry {
-  background: url('https://demo.herbie.ai/attachment/flags_boi3c5.png') no-repeat;
+  background: url('https://demo.herbie.ai/attachment/flags_boi3c5.png')
+    no-repeat;
   display: inline-block;
   width: 15px;
   height: 15px;
@@ -2013,7 +2018,7 @@ dynamic-form-builder {
   margin: 0px !important;
 }
 
-.telephone>.form-control {
+.telephone > .form-control {
   border: none !important;
 }
 
@@ -2259,7 +2264,8 @@ p-accordion {
 }
 
 .p-dialog-content,
-.p-dynamicdialog {}
+.p-dynamicdialog {
+}
 
 /*
 .layout-menu-static:not(.layout-menu-active)
@@ -2790,7 +2796,7 @@ p-dynamicdialog {
   top: 0 !important;
 }
 
-.menu-wrapper+div {
+.menu-wrapper + div {
   margin-top: 2% !important;
 }
 
@@ -2904,7 +2910,9 @@ p-dynamicdialog,
   bottom: 0;
 }
 
-.p-accordion .p-accordion-header:not(.p-disabled).p-highlight:hover .p-accordion-header-link {
+.p-accordion
+  .p-accordion-header:not(.p-disabled).p-highlight:hover
+  .p-accordion-header-link {
   border-color: transparent;
   background: #6b431d !important;
   color: #fff !important;
@@ -2936,11 +2944,10 @@ iframe {
 }
 
 #contentArea1 //,#reportmaincontent
-
-  {
+{
   position: relative;
   height: 93% !important;
-  width: 98% !important;
+  width: 100% !important;
   max-width: 100% !important;
 
   //bottom:0;
@@ -3164,7 +3171,9 @@ textarea#briefintroduction {
 //     margin-top: -11px;
 //     height: 31px;
 // }
-.p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
+.p-accordion
+  .p-accordion-header:not(.p-disabled).p-highlight
+  .p-accordion-header-link {
   /*background: #0BA4E1 !important;*/
   // background: #2fb8ef !important;
   background-color: #6b431d !important;
@@ -3626,7 +3635,7 @@ a {
   // color: black !important;
 }
 
-.p-menubar-root-list>.p-menuitem-active>p-menubarsub>.p-submenu-list {
+.p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
   display: grid !important;
   grid-template-columns: 165px 1fr 1fr !important;
   right: 0px !important;
@@ -3743,15 +3752,14 @@ footer {
 }
 
 .form-list {
-
   .col-3,
   .col-12 {
     margin: 10px;
   }
 }
 
-.omega .p-datatable .p-datatable-thead>tr>th,
-.omega .p-datatable .p-datatable-tfoot>tr>td {
+.omega .p-datatable .p-datatable-thead > tr > th,
+.omega .p-datatable .p-datatable-tfoot > tr > td {
   background-color: #6b431d !important;
   border-color: #d9d9d9 !important;
 }
@@ -3856,5 +3864,34 @@ footer {
 
   .mobile_hide_btn {
     display: none !important;
+  }
+}
+.dashboard-sidebar {
+  width: 20%;
+  height: 100%;
+  background-color: #f8f9fa;
+  float: left;
+}
+
+.dashboard-sidebar-content {
+  padding: 1rem;
+  overflow-y: scroll;
+  height: 550px;
+  .form-check {
+    font-size: 12px;
+    color: #9ba0a5;
+    line-height: 1.9;
+    padding-left: 2.25rem !important;
+  }
+}
+.main-dash-content {
+  width: 80% !important;
+  overflow-y: scroll;
+  height: 87% !important;
+}
+.skill-label {
+  label:hover {
+    cursor: pointer;
+    text-decoration: underline;
   }
 }

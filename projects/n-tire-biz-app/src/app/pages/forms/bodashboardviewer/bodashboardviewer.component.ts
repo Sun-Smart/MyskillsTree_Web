@@ -22,6 +22,11 @@ import { ToastService } from '../../core/services/toast.service';
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { mstapplicantmastermainComponent } from '../mstapplicantmaster/mstapplicantmastermain.component';
 import { mstresumeapplicantComponent } from '../mstapplicantmaster/mstresumeapplicant.component';
+import { mstapplicantskilldetailService } from '../../../service/mstapplicantskilldetail.service';
+import { Rating } from 'primeng/rating';
+import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
+import { mstapplicantachievementdetailService } from '../../../service/mstapplicantachievementdetail.service';
+import { mstapplicantreferencerequestService } from '../../../service/mstapplicantreferencerequest.service';
 
 @Component({
   selector: 'ngx-dashboardviewer',
@@ -245,19 +250,65 @@ export class BODashboardViewerComponent implements OnInit {
   iseducationpending: boolean;
   issocialpending: boolean;
   ispersonalpending: boolean;
-
+  finalarray: any[] = []
   iscompleted: boolean = false;
   ispending: boolean = false;
   isnotstarted: boolean = false;
   showOpenfile: boolean = false;
 
   appli_id: any;
-  constructor(private sharedService: SharedService, public dialogRef: DynamicDialogRef, private toastr: ToastService, public dialog: DialogService, private mstapplicantmaster_service: mstapplicantmasterService, private currentRoute: ActivatedRoute, private pageroute: Router, private sessionService: SessionService) {
+  mst_skillDetails: any;
+  sub_category: any = [];
+  starRate: any = [];
+  skill_detail: any = [];
+  countarray: any = [];
+  showstr: any;
+  str_rateCount: any;
+
+
+  r1: any;
+  r2: any;
+  r3: any;
+  skill_desc: any;
+  ratingarray: any = []
+  ratingarray1: any = []
+
+  career_array: any = [];
+  project_array: any = [];
+
+
+  career_detail: any = [];
+  project_detail: any = [];
+  employment_details: any = [];
+
+  career_companyName: any;
+  career_frDate: any;
+  career_toDate: any;
+  project_worktopic: any;
+  project_workdescription: any;
+  skill_id: any;
+
+
+  constructor(private sharedService: SharedService, public dialogRef: DynamicDialogRef,
+    private toastr: ToastService,
+    public dialog: DialogService, private mstapplicantmaster_service: mstapplicantmasterService,
+    private currentRoute: ActivatedRoute, private pageroute: Router,
+    private sessionService: SessionService,
+    private mstapplicantskilldetail_service: mstapplicantskilldetailService,
+    private mstapplicantcareerdetail_service: mstapplicantcareerdetailService,
+    private mstapplicantachivement_service: mstapplicantachievementdetailService,
+    private mstapplicantreferencerequestService: mstapplicantreferencerequestService,
+
+  ) {
     debugger;
     this.applicantid = this.sessionService.getItem("applicantid");
     this.appli_id = this.sessionService.getItem("applicantid");
   }
   ngOnInit() {
+    this.get_allData();
+    this.get_employement();
+
+
     this.isskillcompleted = false
     this.isresumecompleted = false
     this.isprojectcompleted = false
@@ -470,7 +521,110 @@ export class BODashboardViewerComponent implements OnInit {
     if (this.sessionService.getItem("role") == '1') {
       this.isadmin = true;
     }
+  };
+
+  get_allData() {
+    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
+      debugger;
+
+      this.sub_category = res.mstapplicantskilldetail;
+      console.log(" this.sub_category", this.sub_category);
+
+
+      for (let i = 0; i < this.sub_category.length; i++) {
+        this.skill_detail.push({
+          strRating: this.sub_category[i].selfrating,
+          subCategory: this.sub_category[i].subcategoryiddesc,
+          skill_id: this.sub_category[i].skillid,
+        });
+      };
+
+
+      for (let i = 0; i < this.skill_detail.length; i++) {
+
+        if (this.skill_detail[i].strRating == 1) {
+          debugger
+          this.showstr = '★'
+
+        } else if (this.skill_detail[i].strRating == 2) {
+          this.showstr = '★★'
+        } else if (this.skill_detail[i].strRating == 3) {
+          this.showstr = '★★★'
+        } else if (this.skill_detail[i].strRating == 4) {
+          this.showstr = '★★★★'
+        } else if (this.skill_detail[i].strRating == 5) {
+          this.showstr = '★★★★★'
+        }
+
+        this.finalarray.push({
+          subCategory: this.skill_detail[i].subCategory,
+          skillId: this.skill_detail[i].skill_id,
+          showstr: this.showstr
+        });
+      }
+      console.log(" this.finalarray", this.finalarray);
+
+    });
+  };
+
+  showDetails(get_id: any) {
+
+    console.log("get_id",get_id);
+    
+    
   }
+
+  get_employement() {
+    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
+      debugger;
+
+      this.career_detail = res.mstapplicantcareerdetail;
+
+      for (let i = 0; i < this.career_detail.length; i++) {
+        debugger
+        this.career_array.push({
+          career_companyName: this.career_detail[i].companyname,
+          career_frDate: this.career_detail[i].fromdate,
+          career_toDate: this.career_detail[i].todate,
+        });
+
+        this.career_companyName = this.career_array[i].career_companyName;
+        this.career_frDate = this.career_array[i].career_frDate;
+        this.career_toDate = this.career_array[i].career_toDate;
+      };
+      this.employment_details.push({
+        company: this.career_companyName,
+        project: this.project_worktopic,
+        details: this.project_workdescription,
+        fromDate: this.career_frDate,
+        toDate: this.career_toDate
+      });
+    });
+
+
+    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
+
+      this.project_detail = res.mstapplicantworkreference;
+
+      for (let i = 0; i < this.project_detail.length; i++) {
+        debugger
+        this.project_array.push({
+          project_worktopic: this.project_detail[i].worktopic,
+          project_workdescription: this.project_detail[i].workdescription,
+        });
+
+        this.project_worktopic = this.project_array[i].project_worktopic;
+        this.project_workdescription = this.project_array[i].project_workdescription;
+      };
+
+    });
+
+
+
+    console.log("this.employment_details", this.employment_details);
+
+  }
+
   showSkills() {
     this.dialog.open(mstapplicantskilldetailgridComponent,
       {
@@ -574,7 +728,7 @@ export class BODashboardViewerComponent implements OnInit {
     debugger
     this.dialog.open(mstapplicantmastermainComponent,
       {
-        data: { showOpenfile : false, ScreenType: 2, applicantid: this.applicantid, save: true }
+        data: { showOpenfile: false, ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
