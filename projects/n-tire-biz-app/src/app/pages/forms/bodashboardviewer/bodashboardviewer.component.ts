@@ -492,6 +492,10 @@ export class BODashboardViewerComponent implements OnInit {
               // [ctx.dataIndex].toUpperCase() + "\n" + percentage.toFixed(2) + "%";
             },
             color: '#fff',
+            font: {
+              size: 7,
+              weight: 600
+            }
           }
         }
       };
@@ -570,7 +574,7 @@ export class BODashboardViewerComponent implements OnInit {
   showDetails(get_id: any) {
 
     console.log("get_id",get_id);
-    
+
     
   }
 
@@ -596,8 +600,8 @@ export class BODashboardViewerComponent implements OnInit {
         company: this.career_companyName,
         project: this.project_worktopic,
         details: this.project_workdescription,
-        fromDate: this.career_frDate,
-        toDate: this.career_toDate
+        fromDate: new Date(this.career_frDate).toLocaleDateString(),
+        toDate:  new Date(this.career_toDate).toLocaleDateString(),
       });
     });
 

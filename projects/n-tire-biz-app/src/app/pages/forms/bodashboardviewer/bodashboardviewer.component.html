@@ -146,11 +146,11 @@
         </div>
         <div class="col-2" style="display: grid;">
           <label for="" style="color: #a59e9e;font-weight: 800;">From</label>
-          <label for="" style="color: #000;font-size: small;">{{item.fromDate}}</label>
+          <label for="" style="color: #000;font-size: small;">{{item.fromDate | date :  "dd-MM-y"}}</label>
         </div>
         <div class="col-2" style="display: grid;">
           <label for="" style="color: #a59e9e;font-weight: 800;">To</label>
-          <label for="" style="color: #000;font-size: small;">{{item.toDate}}</label>
+          <label for="" style="color: #000;font-size: small;">{{item.toDate | date :  "dd-MM-y"}}</label>
         </div>
 
       </div><br>
