@@ -270,7 +270,7 @@ export class mstjobrequirementComponent implements OnInit {
 
     // initialize
     async ngOnInit() {
-
+debugger
         if (this.sessionService.getItem('role') == '1') {
             this.userrole = 'Admin';
             this.showAdminMenuaccess = true;
@@ -436,6 +436,7 @@ export class mstjobrequirementComponent implements OnInit {
         }
     }
     PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
+        debugger
         if (mainscreendata != null) {
             for (let key in mainscreendata) {
                 if (key != 'visiblelist' && key != 'hidelist' && key != 'event') {
@@ -543,10 +544,11 @@ export class mstjobrequirementComponent implements OnInit {
 
 
     async PopulateScreen(pkcol: any) {
+        debugger
         this.spinner.show();
         this.mstjobrequirement_service.get_mstjobrequirements_ByEID(pkcol).then(res => {
             this.spinner.hide();
-
+debugger
             this.formData = res.mstjobrequirement;
             let formproperty = res.mstjobrequirement.formproperty;
             if (formproperty && formproperty.edit == false) this.showview = true;
@@ -557,6 +559,7 @@ export class mstjobrequirementComponent implements OnInit {
     }
 
     FillData(res: any) {
+        debugger
         this.formData = res.mstjobrequirement;
         this.formid = res.mstjobrequirement.jobid;
         this.pkcol = res.mstjobrequirement.pkcol;
@@ -574,7 +577,7 @@ export class mstjobrequirementComponent implements OnInit {
         console.log('res ', res.mstjobrequirement.skilldesc);
         // //console.log(res.order);
         // console.log('res.mstjobrequirement ', res.mstjobrequirement);
-
+debugger
         this.mstjobrequirement_Form.patchValue({
             jobid: res.mstjobrequirement.jobid,
             corporateid: res.mstjobrequirement.corporateid,
@@ -604,6 +607,7 @@ export class mstjobrequirementComponent implements OnInit {
             this.getlocationDescription();
             this.geteducationDescription();
         }, 400);
+        debugger
         this.mstjobrequirement = res.mstjobrequirement;
         this.mstjobrequirement_menuactions = res.mstjobrequirement_menuactions;
         this.mstjobstatus_menuactions = res.mstjobstatus_menuactions;
