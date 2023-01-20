@@ -141,7 +141,7 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
 
   </div>
 </div>
-<form [formGroup]="mstapplicantskilldetail_Form">
+<form [formGroup]="mstapplicantskilldetail_Form" class="mobile_grid_view">
 
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">

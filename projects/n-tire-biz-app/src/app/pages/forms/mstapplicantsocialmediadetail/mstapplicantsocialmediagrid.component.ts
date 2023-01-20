@@ -103,7 +103,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 
 </div>
-<form [formGroup]="mstapplicantsocialmediadetail_Form">
+<form [formGroup]="mstapplicantsocialmediadetail_Form" class="mobile_grid_view">
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
   <thead>
     <tr>
@@ -197,15 +197,21 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         button.btn.btn-outline-primary.popup-add-button{
           position: relative !important;
           right: 30px !important;
-          top: 10px !important;
+          top: 0px !important;
         }
         .social_close_btn{
           width: 20px !important;
           position: relative !important;
-          bottom: 16px !important;
+          /* bottom: 16px !important; */
         }
         .mobile_view_social{
           word-break: normal !important;
+        }
+        .row.form-group.sticky1{
+          width: 460px !important;
+        }
+        .mobile_grid_view{
+          width: 460px !important;
         }
       }
       `
