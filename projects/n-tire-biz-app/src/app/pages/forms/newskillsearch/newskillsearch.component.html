@@ -1,6 +1,6 @@
 <div class="content">
   <div class="header row">
-    <div class="col-8"
+    <div class="col-8 mobileview_search"
       style="display: flex;justify-content: center;align-items: center;padding: 0rem 12rem;position: absolute;top: 5px;z-index: 9999;">
       <i class="fa fa-search search-icon" aria-hidden="true"></i>
       <input type="text" class="form-control" placeholder="Search" [(ngModel)]="term"
@@ -48,17 +48,17 @@
         <!-- <input class="form-control" [(ngModel)]="location" (keyup)="valueChanged1($event)"> -->
       </div>
     </div>
-    <div class="main-content">
+    <div class="main-content mobile_content">
       <div class="row tab">
-        <div class="col-5 tab-button">
+        <div class="tab-button">
           <button style="border-bottom-left-radius: 20px;border-top-left-radius: 20px;" (click)="onList()">List
             View</button>
           <button (click)="onGrid()">Grid View</button>
           <button style="border-bottom-right-radius: 20px;border-top-right-radius: 20px;" (click)="onCard()">Card
             View</button>
         </div>
-        <div class="col-4"></div>
-        <div class="col-3 dropdown-skillSet">
+        <div class=""></div>
+        <div class="dropdown-skillSet">
         </div>
       </div>
 
@@ -85,7 +85,7 @@
               <li>Skills : <b style="color:#000;font-weight: 600;">{{item.skills}}</b></li>
               <li>Category : <b style="color:#000;font-weight: 600;"> {{item.category}} -
                 {{item.subcategory}}</b></li>
-          
+
             </ul>
           </div>
         </div>
