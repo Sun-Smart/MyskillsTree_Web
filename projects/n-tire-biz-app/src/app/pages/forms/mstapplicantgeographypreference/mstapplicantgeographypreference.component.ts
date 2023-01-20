@@ -51,7 +51,17 @@ import { bocity } from '../../../model/bocity.model';
 @Component({
     selector: 'app-mstapplicantgeographypreference',
     templateUrl: './mstapplicantgeographypreference.component.html',
-    styles: [],
+    styles: [`
+    @media only screen and (max-width: 600px) {
+        .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+      }
+    `],
     providers: [KeyboardShortcutsService]
 })
 
@@ -436,9 +446,9 @@ export class mstapplicantgeographypreferenceComponent implements OnInit {
         this.dialogRef.close(this.objvalues);
     }
     goBack(){
-        
+
         this.router.navigate(['/home/boreportviewer/agp']);
-        
+
     }
     onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {

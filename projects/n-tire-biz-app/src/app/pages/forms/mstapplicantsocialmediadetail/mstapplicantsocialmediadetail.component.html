@@ -148,7 +148,7 @@
       <ul style="display: flex; justify-content: center; text-align: center;">
         <li class='nav-item actionheader ' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
-            <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #000 !important;margin: 5px;
             padding: 3px;
             color: #000;" [routerLink]=''(click)="goBack()" >Back</button>&nbsp;
           <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
@@ -156,7 +156,7 @@
               color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
           <!-- <a class="alert-primary " *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-          <button type="button" class="btn btn-outline-primary popup-add-button"
+          <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn"
             *ngIf='data.pkcol==null || maindata.ScreenType==null' style="border-color: #000 !important;
               color: #000;margin: 5px; padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
           <app-action *ngIf="f.socialrefid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
@@ -201,7 +201,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        class="col-3"><label for="applicantid" class="control-label"
+        class="col-3 education_view_mobile"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
@@ -216,7 +216,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('socialmedianame') == -1) && (socialmedianamevisible==undefined || socialmedianamevisible==true))"
-        class="col-3"><label for="socialmedianame" class="control-label required"
+        class="col-3 education_view_mobile"><label for="socialmedianame" class="control-label required"
           (click)="AddOrEdit_socialmedianame(null)" (click)="AddOrEdit_socialmedianame(null)">Social Media</label>
         <select *ngIf="!showview" id="socialmedianame" required (change)="socialmedianame_onChange($event.target)"
           formControlName="socialmedianame" class="form-control">
@@ -232,7 +232,7 @@
       <!-- Handle Name -->
 
       <div *ngIf="((hidelist.indexOf('handlename') == -1) && (handlenamevisible==undefined || handlenamevisible==true))"
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="handlename" class="control-label">Handle Name</label>
         <label *ngIf="showview" class="labelview">{{f.handlename?.value}}</label>
         <input *ngIf="!showview" id="handlename" formControlName="handlename" class="form-control">
@@ -240,7 +240,7 @@
 
       <!-- URL -->
 
-      <div *ngIf="((hidelist.indexOf('url') == -1) && (urlvisible==undefined || urlvisible==true))" class="col-3 ">
+      <div *ngIf="((hidelist.indexOf('url') == -1) && (urlvisible==undefined || urlvisible==true))" class="col-3 education_view_mobile">
         <label for="url" class="control-label required">U R L</label>
         <label *ngIf="showview" class="labelview">{{f.url?.value}}</label>
         <input *ngIf="!showview" id="url" required formControlName="url" class="form-control">

@@ -445,7 +445,7 @@ export class mstapplicantgeographygrid implements OnInit {
           <tr>
             <th scope="row"  style="width:25% !important">##countrydesc##</th>
             <th scope="row"  style="width:25% !important">##citydesc##</th>
-            <th scope="row"  style="width:40% !important" class="mobilegeogrid">##remarks##</th>
+            <th scope="row"  style="width:40% !important">##remarks##</th>
             <!--<th scope="row"  style="width:321px !important">##attachment##</th>-->
           </tr>
         </tbody>

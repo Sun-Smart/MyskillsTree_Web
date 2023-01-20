@@ -65,8 +65,7 @@
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.reportid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.reportid.value" [status]="f.status.value"></app-action>
-            <a class="alert-danger" [routerLink]='' (click)="MakeAllHide()
-"><i class="fa fa-database"></i>Close</a>
+            <a class="alert-danger" [routerLink]='' (click)="MakeAllHide()"><i class="fa fa-close"></i>Close</a>
           </li>
           <li class='nav-item actionheader'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">

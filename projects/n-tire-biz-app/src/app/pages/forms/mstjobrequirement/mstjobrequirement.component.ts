@@ -53,7 +53,20 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
 @Component({
     selector: 'app-mstjobrequirement',
     templateUrl: './mstjobrequirement.component.html',
-    styles: [],
+    styles: [`
+    @media only screen and (max-width: 600px) {
+      .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .job_re_btn{
+          padding: 4px 6px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+    }
+    `],
     providers: [KeyboardShortcutsService]
 })
 
@@ -456,9 +469,9 @@ export class mstjobrequirementComponent implements OnInit {
         this.dialogRef.close(this.objvalues);
     }
     goBack(){
-        
+
         this.router.navigate(['/home/boreportviewer/jobq']);
-        
+
     }
     onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {

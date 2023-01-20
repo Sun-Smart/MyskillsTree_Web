@@ -133,23 +133,23 @@
         </ul>
       </div>
     </div>
-    
+
     <div class="col-4">
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
         <li class='nav-item actionheader' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
             <!-- <a class="btn btn-outline-primary popup-add-button" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
               Back</a> -->
-              <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
+              <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #000 !important;margin: 5px;
               padding: 3px;
-              color: #000;"[routerLink]=''(click)="goBack()" >Back</button>&nbsp;  
+              color: #000;"[routerLink]=''(click)="goBack()" >Back</button>&nbsp;
 
           <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
             padding: 3px;
             color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
           <!-- <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
             (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-          <button type="button" class="btn btn-outline-primary popup-add-button"
+          <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn"
             *ngIf='data.pkcol==null || maindata.ScreenType==null' style="border-color: #000 !important;
             color: #000;margin: 5px;padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
           <app-action *ngIf="f.educationid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
@@ -162,7 +162,7 @@
     </div>
   </div>
 
-  <div class="container" 
+  <div class="container"
     id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
     <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
       <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
@@ -177,7 +177,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        class="col-3"><label for="applicantid" class="control-label"
+        class="col-3 education_view_mobile"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
         <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
@@ -189,7 +189,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('educationcategory') == -1) && (educationcategoryvisible==undefined || educationcategoryvisible==true))"
-        class="col-3"><label for="educationcategory" class="control-label required"
+        class="col-3 education_view_mobile"><label for="educationcategory" class="control-label required"
           (click)="AddOrEdit_educationcategory(null)" (click)="AddOrEdit_educationcategory(null)">Category</label>
         <select *ngIf="!showview" id="educationcategory" required (change)="educationcategory_onChange($event.target)"
           formControlName="educationcategory" class="form-control">
@@ -206,7 +206,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('educationsubcategory') == -1) && (educationsubcategoryvisible==undefined || educationsubcategoryvisible==true))"
-        class="col-3"><label for="educationsubcategory" class="control-label required"
+        class="col-3 education_view_mobile"><label for="educationsubcategory" class="control-label required"
           (click)="AddOrEdit_educationsubcategory(null)">Subcategory</label>
         <select *ngIf="!showview" id="educationsubcategory" required
           (change)="educationsubcategory_onChange($event.target)" formControlName="educationsubcategory"
@@ -223,7 +223,7 @@
       <!-- Course Name -->
 
       <div *ngIf="((hidelist.indexOf('coursename') == -1) && (coursenamevisible==undefined || coursenamevisible==true))"
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="coursename" class="control-label required">Course Name</label>
         <label *ngIf="showview" class="labelview">{{f.coursename?.value}}</label>
         <input *ngIf="!showview" id="coursename" required formControlName="coursename" class="form-control">
@@ -236,7 +236,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('institutionname') == -1) && (institutionnamevisible==undefined || institutionnamevisible==true))"
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="institutionname" class="control-label">Institution Name</label>
         <label *ngIf="showview" class="labelview">{{f.institutionname?.value}}</label>
         <input *ngIf="!showview" id="institutionname" formControlName="institutionname" class="form-control">
@@ -245,7 +245,7 @@
       <!-- From Year -->
 
       <div *ngIf="((hidelist.indexOf('fromyear') == -1) && (fromyearvisible==undefined || fromyearvisible==true))"
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="fromyear" class="control-label">From Year</label>
         <label *ngIf="showview" class="labelview">{{f.fromyear?.value}}</label>
         <input *ngIf="!showview" id="fromyear" formControlName="fromyear" type="number" min="0"
@@ -256,7 +256,7 @@
       <!-- From Year -->
 
       <div *ngIf="((hidelist.indexOf('toyear') == -1) && (toyearvisible==undefined || toyearvisible==true))"
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="toyear" class="control-label">To Year</label>
         <label *ngIf="showview" class="labelview">{{f.toyear?.value}}</label>
         <input *ngIf="!showview" id="toyear" formControlName="toyear" type="number" min="0"
@@ -273,7 +273,7 @@
       <!-- Percentage -->
 
       <div *ngIf="((hidelist.indexOf('percentage') == -1) && (percentagevisible==undefined || percentagevisible==true))"
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="percentage" class="control-label">Percentage</label>
         <label *ngIf="showview" class="labelview">{{f.percentage?.value}}</label>
         <input *ngIf="!showview" id="percentage" formControlName="percentage" type="number" min="0"
@@ -288,7 +288,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('referenceacceptance') == -1) && (referenceacceptancevisible==undefined || referenceacceptancevisible==true)) && showRefAcept"
-        class="col-3"><label for="referenceacceptance" class="control-label">Reference Acceptance</label>
+        class="col-3 education_view_mobile"><label for="referenceacceptance" class="control-label">Reference Acceptance</label>
         <select *ngIf="!showview" id="referenceacceptance" (change)="referenceacceptance_onChange($event.target)"
           formControlName="referenceacceptance" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>

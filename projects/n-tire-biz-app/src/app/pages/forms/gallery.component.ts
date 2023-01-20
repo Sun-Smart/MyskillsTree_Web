@@ -18,7 +18,7 @@ import { opencommentComponent } from '../../custom/opencomment.component';
     <div class="" style="width:305px;height:305px;margin-left: 10px;margin-top: 10px;">
     <iframe [src]="(uploadedfile.safeurl)" width='300px!important' height='300px!important;' style='border: 1px solid #000 !important;
     border-radius: 10px !important;border-width: thin;border-style: solid;'></iframe><br/>
-    <a [routerLink]='' (click) = "geturl(uploadedfile,uploadedfile.filekey,uploadedfile.type)" >{{uploadedfile.name}}</a>&nbsp;&nbsp;{{uploadedfile.size}} bytes&nbsp;&nbsp;<i class='fa fa-thumbs-up backcolor' (click)='updateRatings(uploadedfile)'>&nbsp;{{uploadedfile.ratings}}</i>&nbsp;&nbsp;<i class='fa fa-eye backcolor'>&nbsp;{{uploadedfile.views}}</i>&nbsp;&nbsp;<i class='fa fa-comment backcolor'  (click)='opencomment(uploadedfile)'>&nbsp;{{getCount(uploadedfile.comments)}}</i>
+    <a [routerLink]='' (click) = "geturl(uploadedfile,uploadedfile.filekey,uploadedfile.type)" >{{uploadedfile.name}}</a>&nbsp;&nbsp;{{uploadedfile.size}} bytes&nbsp;&nbsp;<i class='fa fa-thumbs-up backcolor' (click)='updateRatings(uploadedfile)'>&nbsp;{{uploadedfile.ratings}}</i>&nbsp;&nbsp;<i class='fa fa-eye backcolor'>&nbsp;{{uploadedfile.views}}</i>&nbsp;&nbsp;<i class='fa fa-comment backcolor'  (click)='(uploadedfile)'>&nbsp;{{getCount(uploadedfile.comments)}}</i>
     </div>
     </ng-container>
     </div>

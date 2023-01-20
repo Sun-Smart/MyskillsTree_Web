@@ -1007,7 +1007,9 @@ export class boreportComponent implements OnInit {
             this.boreportservice.boreportcolumns[i].hide=true;
         }
         */
-        this.onSubmitData(false);
+        // this.onSubmitData(false);
+        this.router.navigate(['/home/corporatedashboard']);
+
     }
 
 

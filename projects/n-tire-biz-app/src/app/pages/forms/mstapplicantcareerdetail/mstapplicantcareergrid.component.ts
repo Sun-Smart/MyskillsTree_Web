@@ -54,7 +54,7 @@ import { mstapplicantcareerdetail } from '../../../model/mstapplicantcareerdetai
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 @Component({
   selector: 'app-applicantcareergrid',
-  template: `<div class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
+  template: `<div class="row form-group sticky1 career_mobile_grid" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
     <div class="col-4">
     <h4 class="  columns left"
@@ -242,17 +242,20 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                   }
                   button.popup-add-button.heightbtn{
                     position: relative !important;
-                    top: 10px !important;
+                    top: 0px !important;
                     right: 40px !important;
                   }
                   .mobile_career_close{
                     width: 20px !important;
                     position: relative !important;
-                    bottom: 13px !important;
-                    right: 10px !important;
+                    bottom: 0px !important;
+                    right: 30px !important;
+                  }
+                  .career_mobile_grid{
+                    width: 630px !important;
                   }
                 }
-                `]
+`]
 })
 
 
@@ -606,14 +609,14 @@ export class mstapplicantcareergridComponent implements OnInit {
         <table class="table table-hover" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##categorydesc##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##companyname##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##designation##</th>
-            <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;">##referencecount##</th>-->
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##fromdate##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##todate##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##string_agg##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##remarks##</th>
+            <th style="white-space: break-spaces;">##categorydesc##</th>
+            <th style="white-space: break-spaces;">##companyname##</th>
+            <th style="white-space: break-spaces;">##designation##</th>
+            <!--<th scope="row" style="white-space: break-spaces;">##referencecount##</th>-->
+            <th style="white-space: break-spaces;">##fromdate##</th>
+            <th style="white-space: break-spaces;">##todate##</th>
+            <th style="white-space: break-spaces;">##string_agg##</th>
+            <th style="white-space: break-spaces;">##remarks##</th>
           </tr>
         </tbody>
       </table>

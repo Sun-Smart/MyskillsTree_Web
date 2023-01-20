@@ -9,6 +9,7 @@ import { DynamicDialogRef } from 'primeng/dynamicDialog';
     selector: 'openfile-App',
     template: `  
     <div class="row">
+    
     <div class="col-12 popup-comment-header">
         <button class="popup-add-button">
         <a class="nav-link active right" [routerLink]='' style="color:#fff !important;" (click)="onClose()"   ><i class="fa fa-close"></i> Close</a>
