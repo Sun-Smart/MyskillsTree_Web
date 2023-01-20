@@ -101,10 +101,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <tr>
 
       <th style="width: 11.5%;">Category</th>
-      <th style="width: 11.5%;">Company Name</th>
+      <th style="width: 11.5%;white-space: nowrap;">Company Name</th>
       <th style="width: 11.5%;">Designation</th>
-      <th style="width: 11.5%;">From Date</th>
-      <th style="width: 11.5%;">To Date</th>
+      <th style="width: 11.5%;white-space: nowrap;">From Date</th>
+      <th style="width: 11.5%;white-space: nowrap;">To Date</th>
       <th style="width: 11.5%;">Skills</th>
       <th style="width: 11.5%;">Remarks</th>
       <!-- <th style="width: 11.5%;">Attachment</th> -->
@@ -609,13 +609,13 @@ export class mstapplicantcareergridComponent implements OnInit {
         <table class="table table-hover" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr>
-            <th style="white-space: break-spaces;">##categorydesc##</th>
-            <th style="white-space: break-spaces;">##companyname##</th>
-            <th style="white-space: break-spaces;">##designation##</th>
+            <th style="white-space: break-spaces;width:15%;">##categorydesc##</th>
+            <th style="white-space: break-spaces;width:14%;">##companyname##</th>
+            <th style="white-space: break-spaces;width:14%;">##designation##</th>
             <!--<th scope="row" style="white-space: break-spaces;">##referencecount##</th>-->
-            <th style="white-space: break-spaces;">##fromdate##</th>
-            <th style="white-space: break-spaces;">##todate##</th>
-            <th style="white-space: break-spaces;">##string_agg##</th>
+            <th style="white-space: break-spaces;width:15%;">##fromdate##</th>
+            <th style="white-space: break-spaces;width:14%;">##todate##</th>
+            <th style="white-space: break-spaces;width:15%;">##string_agg##</th>
             <th style="white-space: break-spaces;">##remarks##</th>
           </tr>
         </tbody>

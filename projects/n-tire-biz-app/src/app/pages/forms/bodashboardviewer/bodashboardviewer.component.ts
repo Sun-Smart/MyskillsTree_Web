@@ -209,6 +209,21 @@ import { mstapplicantreferencerequestService } from '../../../service/mstapplica
       overflow-y: scroll !important;
       overflow-x: hidden !important;
     }
+    .dashboard-sidebar{
+      width: 100% !important;
+    }
+    .dash_list{
+      padding: 1px 1px !important;
+    }
+    .dash_list img {
+      width: 35px !important;
+    }
+    .dashboard-sidebar{
+      height: 90% !important;
+    }
+    .main-dash-content{
+      width: 100% !important;
+    }
   }
   `],
   templateUrl: './bodashboardviewer.component.html',
@@ -492,6 +507,10 @@ export class BODashboardViewerComponent implements OnInit {
               // [ctx.dataIndex].toUpperCase() + "\n" + percentage.toFixed(2) + "%";
             },
             color: '#fff',
+            font: {
+              size: 7,
+              weight: 600
+            }
           }
         }
       };
@@ -535,7 +554,7 @@ export class BODashboardViewerComponent implements OnInit {
         this.skill_detail.push({
           strRating: this.sub_category[i].selfrating,
           subCategory: this.sub_category[i].subcategoryiddesc,
-          skill_id: this.sub_category[i].skillid,
+          skill_id: this.sub_category[i].skillcategory,
         });
       };
 
@@ -545,7 +564,6 @@ export class BODashboardViewerComponent implements OnInit {
         if (this.skill_detail[i].strRating == 1) {
           debugger
           this.showstr = '★'
-
         } else if (this.skill_detail[i].strRating == 2) {
           this.showstr = '★★'
         } else if (this.skill_detail[i].strRating == 3) {
@@ -569,9 +587,9 @@ export class BODashboardViewerComponent implements OnInit {
 
   showDetails(get_id: any) {
 
-    console.log("get_id",get_id);
-    
-    
+    console.log("get_id", get_id);
+
+
   }
 
   get_employement() {
@@ -596,8 +614,8 @@ export class BODashboardViewerComponent implements OnInit {
         company: this.career_companyName,
         project: this.project_worktopic,
         details: this.project_workdescription,
-        fromDate: this.career_frDate,
-        toDate: this.career_toDate
+        fromDate: new Date(this.career_frDate).toLocaleDateString(),
+        toDate: new Date(this.career_toDate).toLocaleDateString(),
       });
     });
 

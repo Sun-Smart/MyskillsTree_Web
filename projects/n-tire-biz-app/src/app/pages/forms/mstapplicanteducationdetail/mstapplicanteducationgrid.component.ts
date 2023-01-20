@@ -57,7 +57,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 @Component({
   selector: 'app-applicanteducationgrid',
   template: `
-    <div class="row form-group sticky1" style=" background:#ebf3fc !important;color: #000;padding: 5px;">
+    <div class="row form-group sticky1 educ_det_title" style=" background:#ebf3fc !important;color: #000;padding: 5px;">
 
         <div class="col-4">
     <h4 class="columns left" >{{'Education Details'}}</h4>
@@ -111,7 +111,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <th style="width: 11.5%;">Percentage</th>
                     <!-- <th style="width: 13%;">Referral Status</th> -->
                     <th style="width: 11.5%;">Remarks</th>
-                    <th style="width: 11.5%;">To Year</th>
+                    <th style="width: 11.5%;white-space: nowrap !important;">To Year</th>
                     <!-- <th style="width: 11.5%;">Attachment</th> -->
                     <th style="width: 8%;">Action</th>
                     </tr>
@@ -226,14 +226,20 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       }
       button.btn.btn-outline-primary.popup-add-button{
         position: relative !important;
-        top: 11px !important;
+        top: 0px !important;
         right: 30px !important;
       }
       .eduction_close{
         width: 20px !important;
         position: relative !important;
-        bottom: 15px !important;
+        bottom: 0px !important;
         right: 7px !important;
+      }
+      .educ_det_title{
+        width: 650px !important;
+      }
+      .edu_sub{
+        white-space: nowrap !important;
       }
     }
     `]
@@ -475,7 +481,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       this.show_percentageError = true;
       return
 
-      
+
     }
     else {
 
@@ -585,15 +591,15 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         <table class="table table-hover educationdetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr class="tbody-res">
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 12.5%;" >##fromyear##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 13%;">##educationcategorydesc##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 12.5%;">##educationsubcategorydesc##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 13%;" >##institutionname##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 13%;" >##coursename##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;twidth: 11.5%;" >##percentage##</th>
-            <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;">##referencecount##</th>-->
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11.5%;" >##remarks##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width: 11%;">##toyear##</th>
+            <th style="white-space: break-spaces;width: 12.5%;" class="from_yr">##fromyear##</th>
+            <th style="white-space: break-spaces;width: 13%;" class="edu_cat">##educationcategorydesc##</th>
+            <th style="white-space: break-spaces;width: 12.5%;white-space: nowrap !important;" class="edu_sub">##educationsubcategorydesc##</th>
+            <th style="white-space: break-spaces;width: 13%;"  class="inst_name">##institutionname##</th>
+            <th style="white-space: break-spaces;width: 13%;"  class="cour_name">##coursename##</th>
+            <th style="white-space: break-spaces;twidth: 11.5%;"  class="percent">##percentage##</th>
+            <!--<th scope="row" style="white-space: break-spaces;width: 11.5%;" class="ref_count">##referencecount##</th>-->
+            <th style="white-space: break-spaces;width: 11.5%;"  class="edu_rm">##remarks##</th>
+            <th style="white-space: break-spaces;width: 11%;" class="to_yr">##toyear##</th>
           </tr>
         </tbody>
       </table>
