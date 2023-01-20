@@ -429,3 +429,38 @@ input.p-multiselect-filter.p-inputtext {
   top: 11px;
   font-size: 17px;
 }
+
+@media only screen and (max-width: 600px) {
+  .main-content {
+    position: absolute !important;
+    top: 440px !important;
+  }
+
+  .sidebar {
+    width: 100% !important;
+    height: 60% !important;
+    margin-top: 30px;
+  }
+
+  .range input {
+    width: 340px !important;
+  }
+
+  .tab .tab-button {
+    margin: 0px !important;
+  }
+  .active{
+    width: 33% !important;
+  }
+  .cardView-content .card-view{
+    display: block !important;
+  }
+  .range span{
+    margin-left: 145px !important;
+  }
+  .mobileview_search{
+    top: 55px !important;
+    padding: 0rem 2rem !important;
+    z-index: 1 !important;
+  }
+}
