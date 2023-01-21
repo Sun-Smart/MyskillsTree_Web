@@ -318,6 +318,10 @@
                   errorMsg="Enter valid email">
                 </app-field-error-display>
               </div>
+
+              <!-- sowmi -->
+
+              
               <div
                 *ngIf="((hidelist.indexOf('profilephoto') == -1) && (profilephotovisible==undefined || profilephotovisible==true))"
                 style='' class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
@@ -331,6 +335,12 @@
                     (click)="getprofilephoto()">{{profilephoto.getattachmentlist()[0].filekey}}</a> -->
                 <button type="button" class="btn" *ngIf="profilephoto.getAttachmentList().length > 0"
                   (click)="getprofilephoto()" style="margin: 10px;">Open File</button>
+                  <!-- <app-field-error-display [displayError]="f.openfile.errors!=null && f.openfile.errors?.email"
+                  errorMsg="Please select file">
+                </app-field-error-display> -->
+                 <!-- <app-field-error-display [displayError]="f.openfile.errors?.required"
+                  errorMsg="Enter {{'Open File' | translate}}">
+                </app-field-error-display> -->
               </div>
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
