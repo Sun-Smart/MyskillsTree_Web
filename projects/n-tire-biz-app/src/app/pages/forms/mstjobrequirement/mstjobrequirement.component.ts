@@ -358,6 +358,7 @@ debugger
             //foreign keys
         }
         this.mstjobrequirement_service.getDefaultData().then(res => {
+            debugger
             console.log('getDefaultData() ', res.list_skills.value);
 
             this.locations_List = res.list_locations.value;
@@ -368,6 +369,7 @@ debugger
 
         //autocomplete
         this.mstjobrequirement_service.get_mstjobrequirements_List().then(res => {
+            debugger
             this.pkList = res as mstjobrequirement[];
             this.pkoptionsEvent.emit(this.pkList);
 
@@ -475,6 +477,7 @@ debugger
 
     }
     onSubmitAndWait() {
+        debugger
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
             this.onSubmitData(false);
         }
@@ -486,6 +489,7 @@ debugger
         }
     }
     onSubmit() {
+        debugger
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
             this.onSubmitData(true);
         }
