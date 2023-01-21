@@ -391,6 +391,17 @@ export class NewskillsearchComponent implements OnInit {
     );
   }
 
+  category_DeSelect(item:any){
+    debugger;
+    console.log("category",item.value);
+      // this.skillcategory_List = [];
+      // this.subcategoryid_List = [];
+  }
+  subcategory_DeSelect(item:any){
+
+    console.log("subcategory",item.value);
+
+  }
   onItemDeSelect(item: any) {
     debugger;
     this.segmentcategory_onChange('');

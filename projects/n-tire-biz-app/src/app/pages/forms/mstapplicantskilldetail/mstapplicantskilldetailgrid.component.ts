@@ -465,9 +465,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   async onSubmitData(bclear: any) {
     debugger
-
-    console.log("this.mstapplicantskilldetail_Form", this.mstapplicantskilldetail_Form);
-
     this.isSubmitted = true;
     let strError = "";
     if (strError != "") return this.sharedService.alert(strError);
@@ -507,6 +504,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(getapp);
         this.objvalues.push((res as any).mstapplicantskilldetail);
         if (!bclear) this.showview = true;
+        if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
         if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
           this.dialogRef.close(this.objvalues);
           return;

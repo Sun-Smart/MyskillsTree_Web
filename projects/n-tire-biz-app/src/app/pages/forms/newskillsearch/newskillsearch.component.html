@@ -8,29 +8,43 @@
       <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
     </div>
   </div>
+
   <div class="container">
     <div class="sidebar">
       <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Skills Set</h6>
+
+        <!-- Select Segment -->
+
         <ng-multiselect-dropdown [placeholder]="'Select Segment'" [settings]="dropdownSettings"
           [data]="Segmentcategory_list" [(ngModel)]="segmentid" (onSelect)="segmentcategory_onChange($event,val)"
           (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)">
         </ng-multiselect-dropdown><br />
+
+        <!-- Select Category -->
+
         <ng-multiselect-dropdown [placeholder]="'Select Category'" [settings]="categorySettings"
           [data]="skillcategory_List" [(ngModel)]="skillcategory" (onSelect)="skillcategory_onChange($event,val)"
-          (onSelectAll)="onSelectAll($event)">
+          (onSelectAll)="onSelectAll($event)" (onDeSelect)="category_DeSelect($event)">
         </ng-multiselect-dropdown><br />
+
+        <!-- Select Sub-Category -->
+
         <ng-multiselect-dropdown [placeholder]="'Select Subcategory'" [settings]="subCategorySettings"
           [data]="subcategoryid_List" [(ngModel)]="subcategoryid" (onSelect)="subcategoryid_onChange($event,val)"
-          (onSelectAll)="onSelectAll($event)">
+          (onSelectAll)="onSelectAll($event)" (onDeSelect)="subcategory_DeSelect($event)">
         </ng-multiselect-dropdown>
       </div>
+
       <div class="sidebar-content">
-        <h6 style="font-weight: 600;"> Experience</h6><br/>
+        <h6 style="font-weight: 600;"> Experience</h6><br />
+
+        <!-- Choose Range -->
+
         <div class="range">
           <div class="sliderValue">
             <span>{{rangevalue}}</span>
-          </div><br/><br/>
+          </div><br /><br />
           <div class="field">
             <div class="value left">
               0</div>
@@ -39,7 +53,10 @@
               30</div>
           </div>
         </div>
-      </div><br/>
+      </div><br />
+
+      <!-- Choose Location -->
+
       <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Location</h6>
         <ng-multiselect-dropdown [placeholder]="'Select Location'" [settings]="locationSettings" [data]="location_List"
@@ -48,6 +65,9 @@
         <!-- <input class="form-control" [(ngModel)]="location" (keyup)="valueChanged1($event)"> -->
       </div>
     </div>
+
+    <!-- Main Content -->
+
     <div class="main-content mobile_content">
       <div class="row tab">
         <div class="tab-button">
@@ -84,7 +104,7 @@
               </li>
               <li>Skills : <b style="color:#000;font-weight: 600;">{{item.skills}}</b></li>
               <li>Category : <b style="color:#000;font-weight: 600;"> {{item.category}} -
-                {{item.subcategory}}</b></li>
+                  {{item.subcategory}}</b></li>
 
             </ul>
           </div>
@@ -148,7 +168,9 @@
               <li>Experience : {{item.experience ? item.experience : '-'}}</li>
               <li>Skills : {{item.skills ? item.skills : '-'}}</li>
               <li>Category : {{item.segment}} - {{item.category}} - {{item.subcategory}}</li>
-              <li><i class="fa fa-eye" title="View Profile" style="font-size: 1.7rem;position: relative;color: #000;left: 110px;cursor: pointer;" (click)='opendialog1(item.applicant,item.pkcol)'></i></li>
+              <li><i class="fa fa-eye" title="View Profile"
+                  style="font-size: 1.7rem;position: relative;color: #000;left: 110px;cursor: pointer;"
+                  (click)='opendialog1(item.applicant,item.pkcol)'></i></li>
             </ul>
           </div>
         </div>
