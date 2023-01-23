@@ -496,8 +496,7 @@ export class mstapplicantgeographygrid implements OnInit {
           this.dialogRef.close(this.objvalues);
         }
         else {
-          this.FillData(
-          );
+          this.FillData();
         }
       }
       this.mstapplicantgeographypreference_Form.markAsUntouched();
@@ -832,11 +831,11 @@ export class mstapplicantgeographygrid implements OnInit {
   }
 
   async onCustom_mstapplicantgeographypreferencesAttachment_Action(event: any, geographypreferenceid: any, applicantid: any) {
-    
+
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantgeographypreferences");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantgeographypreferences") {
-
+      debugger
       let add = false;
       if (event == null) add = true;
       let childsave = true;
