@@ -1,23 +1,45 @@
 p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
-    max-width: 99% !important;
-    display: flex !important;
-    // min-height: 85% !important;
-  }
-  .p-accordion {
-    margin-top: 0px !important;
+  max-width: 99% !important;
+  display: flex !important;
+  // min-height: 85% !important;
+}
+
+.p-accordion {
+  margin-top: 0px !important;
+}
+
+.showhidemobileviewskill{
+  display: none;
 }
 @media only screen and (max-width: 600px) {
-  h4.form-group.sticky1.columns.left{
+  h4.form-group.sticky1.columns.left {
     white-space: nowrap !important;
   }
-  .closeButton{
-    top: 2px !important;
-    position: relative !important;
-    left: 70px !important;
-    width: 75%!important;
+  .custom_list{
+    padding: 0.45rem 0.26rem !important;
   }
-  button.btn.btn-outline-primary.popup-add-button{
-    position: absolute !important;
+  .closeButton {
+    top: 0px !important;
+    position: relative !important;
+    left: -20px !important;
+    width: 20px !important;
   }
 
+  button.btn.btn-outline-primary.popup-add-button {
+    position: absolute !important;
+    right: 70px !important;
+    bottom: -3px !important;
+  }
+  .row.skill_title{
+    // width: 540px !important;
+  }
+  .mobile_grid_view{
+    width: 540px !important;
+  }
+  .showhidemobileviewskill{
+    display: block !important;
+  }
+  .showhideng2{
+    display: none !important;
+  }
 }
