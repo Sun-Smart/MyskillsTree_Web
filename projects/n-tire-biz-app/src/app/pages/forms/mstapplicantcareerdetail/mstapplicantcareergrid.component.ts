@@ -54,7 +54,7 @@ import { mstapplicantcareerdetail } from '../../../model/mstapplicantcareerdetai
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 @Component({
   selector: 'app-applicantcareergrid',
-  template: `<div class="row form-group sticky1 career_mobile_grid" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
+  template: `<div *ngIf="showWebviewDetect" class="row form-group sticky1 career_mobile_grid" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
     <div class="col-4">
     <h4 class="  columns left"
@@ -95,7 +95,49 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </div>
   </div>
 
-  <form [formGroup]="mstapplicantcareerdetail_Form" >
+
+  <div *ngIf="showMobileDetectskill" class="row form-group sticky1 career_mobile_grid" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
+
+    <div class="col-4">
+    <h4 class="  columns left"
+    >{{'Career Details'}}</h4>
+    </div>
+    <div class="col-4">
+    <ul class="nav navbar-nav1" style='display:none'>
+      <li class="dropdown">
+        <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+          aria-expanded='false'> <span class='caret'></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" [routerLink]=''
+              (click)="mstapplicantcareerdetails_route(null, 'create')"><i class="fa fa-plus"
+                aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+        </ul>
+      </li>
+    </ul>
+    </div>
+    <div class="col-4" style="text-align: end; margin: auto;">
+
+    <!-- <a  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"> -->
+    <!-- <button type="button" style="border-color: #fff !important;
+    color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button>  -->
+    <button type="button" class="btn btn-outline-primary"  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"
+    class="popup-add-button heightbtn" title = "Add Details">Add</button>
+
+    <!-- <button type="button"  class="popup-add-button heightbtn" (click)="addSkills()">Add</button> -->
+    <!-- </a> -->
+    <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
+
+    <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
+
+
+    <!--<ul class="rightside">
+    <a [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i style="color:#fff !important;"
+        class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
+    </ul>-->
+    </div>
+  </div>
+
+  <form [formGroup]="mstapplicantcareerdetail_Form" *ngIf="showWebviewDetect">
   <table class="table" style="margin: 0;background-color: #ebf3fc;color: #fff;position: relative;">
   <thead >
     <tr>
@@ -220,6 +262,68 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
  </table>
  </form>
 
+ <form [formGroup]="mstapplicantcareerdetail_Form"  *ngIf="showMobileDetectskill">
+ <div class="row" *ngIf="showSkillDetails_input" style="width: 320px;margin: 10px !important;">
+<div class="col-md-12">
+  <label>Category</label>
+<select id="category" (change)="category_onChange($event.target)" formControlName="category" class="form-control">
+          <option value="null" selected>-Select-</option>
+          <option *ngFor="let item of category_List" value="{{item.value}}">{{item.label}}</option>
+        </select>
+</div>
+<div class="col-md-12">
+<label>Company Name</label>
+<input  id="companyname" required formControlName="companyname" class="form-control">
+
+</div>
+
+<div class="col-md-12">
+<label>Designation</label>
+<input  id="designation" required formControlName="designation" class="form-control">
+</div>
+
+<div class="col-md-12">
+<label>From Date</label>
+<div class="input-group" style="display: flex;width: 100%;">
+       <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+       [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
+         formControlName="fromdate" style="margin-right: 5px;" class="form-control">
+       <button class="input-group-addon" (click)="d.toggle()" type="button"><i
+           class="fa fa-calendar" aria-hidden="true"></i></button>
+</div>
+</div>
+<div class="col-md-12">
+  <label>To Date</label>
+<div class="input-group" style="display: flex;width: 100%;">
+     <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+          [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate" class="form-control"
+          style="margin-right: 5px;">
+          <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
+              class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+            <div *ngIf="showDateError" style="color: red;font-size: 12px;">
+              To date is greater than from date
+            </div>
+</div>
+<div class="col-md-12">
+  <label>Skills</label><br/>
+<p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
+          (completeMethod)="search_skills($event)"></p-autoComplete>
+</div>
+
+<div class="col-md-12">
+<label>Remarks</label>
+<textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+</div>
+<div style="position: relative;left: 120px;top: 7px;">
+<i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+
+<i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+   (click)="skillClose()"></i>
+</div>
+</div>
+ </form>
+
   <ng2-smart-table #tbl_mstapplicantcareerdetails
     (userRowSelect)="handle_mstapplicantcareerdetails_GridSelected($event)"
     [settings]="mstapplicantcareerdetails_settings"
@@ -242,17 +346,17 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                   }
                   button.popup-add-button.heightbtn{
                     position: relative !important;
-                    top: 0px !important;
+                    top: 10px !important;
                     right: 40px !important;
                   }
                   .mobile_career_close{
                     width: 20px !important;
                     position: relative !important;
-                    bottom: 0px !important;
-                    right: 30px !important;
+                    bottom: 14px !important;
+                    /* right: 30px !important; */
                   }
                   .career_mobile_grid{
-                    width: 630px !important;
+                    /* width: 630px !important; */
                   }
                 }
 `]
@@ -317,7 +421,9 @@ export class mstapplicantcareergridComponent implements OnInit {
   skillsstring: string;
   attachment: string;
   career_id: any;
-
+  showMobileDetectskill: boolean = false;
+  showWebviewDetect: boolean = true;
+  isMobile: any;
 
   constructor(
     private nav: Location,
@@ -349,6 +455,12 @@ export class mstapplicantcareergridComponent implements OnInit {
     }
   }
   async ngOnInit() {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      this.showMobileDetectskill = true;
+      this.showWebviewDetect = false;
+      /* your code here */
+    }
     this.Set_mstapplicantcareerdetails_TableConfig();
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
@@ -630,6 +742,21 @@ export class mstapplicantcareergridComponent implements OnInit {
 `;
     return ret;
   };
+  mstapplicantcareerdetailshtml1() {
+    let ret = "";
+    ret += `
+      <ul class="list-group" style="line-height: 15px;margin: 0px;">
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Category </span>: <label style="font-size: small;">##categorydesc##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Company Name </span>: <label style="font-size: small;">##companyname##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Designation :</span> <label style="font-size: small;">##designation##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">From Date :</span> <label style="font-size: small;">##fromdate##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">To Date :</span> <label style="font-size: small;">##todate##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skills :</span> <label style="font-size: small;">##string_agg##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks :</span> <label style="font-size: small;">##remarks##</label></li>
+  </ul>
+`;
+    return ret;
+  };
 
   search_skills(event) {
     debugger;
@@ -864,6 +991,11 @@ export class mstapplicantcareergridComponent implements OnInit {
           valuePrepareFunction: (cell, row) => {
             //debugger;;
             cell = this.mstapplicantcareerdetailshtml();
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+              cell = this.mstapplicantcareerdetailshtml1();
+              /* your code here */
+            }
             var divrow = JSON.parse(JSON.stringify(row));
 
 

@@ -656,12 +656,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     let ret = "";
     ret += `
     <ul class="list-group" style="line-height: 15px;margin: 0px;">
-      <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Segment </span>: <label class="color: #000 !important;">##segmentdesc##&nbsp##segmentcategoryothers##</label></li>
-      <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skill Category </span>: <label class="color: #000 !important;">##skillcategorydesc##&nbsp##skillcategoryothers##</label></li>
-      <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Sub Category :</span> <label class="color: #000 !important;">##subcategoryiddesc##&nbsp##subcategoryidothers##</label></li>
+      <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Segment </span>: <label style="font-size: small;">##segmentdesc##&nbsp##segmentcategoryothers##</label></li>
+      <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skill Category </span>: <label style="font-size: small;">##skillcategorydesc##&nbsp##skillcategoryothers##</label></li>
+      <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Sub Category :</span> <label style="font-size: small;">##subcategoryiddesc##&nbsp##subcategoryidothers##</label></li>
       <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Self Rating</span> : ##selfrating##</li>
       <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Referal Status</span> : ##referencecount##</li>
-      <li class="list-group-item" style="line-height: 17px;padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks </span>: <label class="color: #000 !important;">##remarks##</label></li>
+      <li class="list-group-item" style="line-height: 17px;padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks </span>: <label style="font-size: small;">##remarks##</label></li>
     </ul>
                 `;
     return ret;

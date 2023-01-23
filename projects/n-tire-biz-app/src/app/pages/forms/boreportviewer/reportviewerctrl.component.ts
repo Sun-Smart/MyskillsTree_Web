@@ -1839,7 +1839,24 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                 this.canedit = true;
                 this.candelete = true;
             } else if (localStorage.getItem('role') == '3') {
-                this.canedit = true;
+                // let result = this.router.routerState.snapshot.url.match("aed");
+                // let result1 = this.router.routerState.snapshot.url.match("aadl");
+                // let result2 = this.router.routerState.snapshot.url.match("acdl");
+                // let result3 = this.router.routerState.snapshot.url.match("ASMD");
+                // let result4 = this.router.routerState.snapshot.url.match("agp");
+                // let result5 = this.router.routerState.snapshot.url.match("ald");
+                // let result6 = this.router.routerState.snapshot.url.match("AWR");
+                // let result7 = this.router.routerState.snapshot.url.match("mscwa");
+                // let result8 = this.router.routerState.snapshot.url.match("msapl");
+    
+    // if (result[0] == "aed"|| result1[0] == "aadl" || result2[0] == "acdl" || result3[0] == " ASMD" || result4[0] == "agp" || result5[0] == "ald" || result6[0] =="AWR" || result7[0] == "mscwa" || result8[0] == "msapl")  
+    // {
+    //   this.canedit = false;
+    // } 
+    // else{
+    //     this.canedit = true;
+    // }
+                // this.canedit = true;
                 this.candelete = false;
             } else if (localStorage.getItem('role') == '2' && localStorage.getItem('user_type') == 'C') {
                 // if(){
