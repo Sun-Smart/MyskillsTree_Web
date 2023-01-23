@@ -61,10 +61,10 @@
     <li><a  class="alert-action" [routerLink]=''  (click)="onChangeAction(action.actionid)" ><i class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
 </ng-container>-->
 
-          <li class='nav-item actionheader'
+          <!-- <li class='nav-item actionheader'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
             <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-          </li>
+          </li> -->
 
         </ul>
       </div>
@@ -76,8 +76,8 @@
         <i class="nb-edit"></i>Edit
       </button>
       <li class='nav-item actionheader' *ngIf="!showview">
-        <a class="alert-success  popup-add-button mobile_view_btn" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
-          Back</a>
+        <!-- <a class="alert-success  popup-add-button mobile_view_btn" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
+          Back</a> -->
         <!-- <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
           Submit</a> -->
         <!-- <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''

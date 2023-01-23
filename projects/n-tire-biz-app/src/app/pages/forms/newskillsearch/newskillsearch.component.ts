@@ -56,6 +56,7 @@ export class NewskillsearchComponent implements OnInit {
   city_optionsEvent: EventEmitter<any> = new EventEmitter<any>();
   rangevalue = 0;
   skillcategory: any;
+  subcategoryid:any;
   label: any;
   skillcategoryarry: any = []
   skillcategory1: any;
@@ -395,7 +396,8 @@ export class NewskillsearchComponent implements OnInit {
     debugger;
     console.log("category",item.value);
       // this.skillcategory_List = [];
-      // this.subcategoryid_List = [];
+      this.subcategoryid_List = [];
+      this.subcategoryid ='' || [];
   }
   subcategory_DeSelect(item:any){
 
@@ -406,9 +408,14 @@ export class NewskillsearchComponent implements OnInit {
     debugger;
     this.segmentcategory_onChange('');
     console.log(item);
+    this.subcategoryid ='' || [];
+    this.skillcategory ='' || [];
+     
     if (item == "") {
       this.skillcategory_List = [];
       this.subcategoryid_List = [];
+    
+      
     }
 
     // console.log(this.AdminDropdown_Form.getRawValue());
