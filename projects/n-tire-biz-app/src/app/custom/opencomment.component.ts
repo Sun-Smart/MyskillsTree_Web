@@ -9,20 +9,25 @@ import { DynamicDialogRef } from 'primeng/dynamicDialog';
     selector: 'opencomment-App',
     template: `  
     <form [formGroup]="commentForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
-    <div class = "row">
-    <div class = "col-12 popup-comment-header" >
+    <div class = "row  popup-comment-header">
+    <div class = "col-4">
+    <h6>Comments</h6>
+    </div>
+    <div class = "col-4"></div>
+    <div class = "col-4" style="text-align:end;">
     <button class = "popup-add-button" style="padding: 2px 14px !important;">
     <a style="color:#fff !important" (click)="onSubmit()"> Submit</a>   
     </button>
    
     <img (click)="onClose()" src="assets/mainmenuicons/icons_close.png" style="width: 20px;" />
-
     </div>
+    </div>
+
     <div class = "col-12" style="margin-top:2rem;">
     <app-comment  id="comments" formControlName="comments" [label]="'Comments'" (commentemitter)="receiveComment($event)">
     </app-comment>
     </div>
-    </div>
+  
     </form>            `,
 
 })

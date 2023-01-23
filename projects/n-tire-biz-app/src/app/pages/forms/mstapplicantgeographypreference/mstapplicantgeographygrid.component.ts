@@ -107,9 +107,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 [form]="bocountry" (selectItem)="onSelected_country($event)" [reportid]='wc9rn' [menuid]='wc9rn'
                 formControlName="country" id="value" desc="label"></app-popupselect>
 
-                <app-field-error-display [displayError]="f.country.errors?.required" errorMsg="Enter {{'Country' | translate}}"
-                >
-                </app-field-error-display>
               </td>
 
             <!--city-->
@@ -118,9 +115,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
                 (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value"
                 desc="label"></app-popupselect>
-
-                <app-field-error-display [displayError]="f.city.errors?.required" errorMsg="Enter {{'City' | translate}}">
-                </app-field-error-display>
               </td>
 
               <!-- Remarks -->
@@ -467,32 +461,9 @@ export class mstapplicantgeographygrid implements OnInit {
   FillData() {
     this.Set_mstapplicantgeographypreferences_TableConfig();
     this.mstapplicantgeographypreference_service.get_mstapplicantgeographypreferences_ByApplicantID(this.applicantid).then(res => {
+      this.mstapplicantgeographypreference_menuactions = res.mstapplicantgeographypreference_menuactions;
       this.Set_mstapplicantgeographypreferences_TableConfig();
       this.mstapplicantgeographypreferences_LoadTable(res.mstapplicantgeographypreference);
-
-      // this.formData = res.mstapplicantgeographypreference;
-      // this.formid = res.mstapplicantgeographypreference.geographypreferenceid;
-      // this.pkcol = res.mstapplicantgeographypreference.pkcol;
-      // this.bmyrecord = false;
-
-      // if ((res.mstapplicantgeographypreference as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-      // console.log(res);
-
-      // this.mstapplicantgeographypreference_Form.patchValue({
-      //     applicantid: res.mstapplicantgeographypreference.applicantid,
-      //     applicantiddesc: res.mstapplicantgeographypreference.applicantiddesc,
-      //     geographypreferenceid: res.mstapplicantgeographypreference.geographypreferenceid,
-      //     country: res.mstapplicantgeographypreference.country,
-      //     countrydesc: res.mstapplicantgeographypreference.countrydesc,
-      //     city: res.mstapplicantgeographypreference.city,
-      //     citydesc: res.mstapplicantgeographypreference.citydesc,
-      //     remarks: res.mstapplicantgeographypreference.remarks,
-      //     status: res.mstapplicantgeographypreference.status,
-      //     statusdesc: res.mstapplicantgeographypreference.statusdesc,
-      //     attachment: "[]",
-      // });
-
-      //Child Tables if any
     })
   };
 
@@ -767,16 +738,18 @@ export class mstapplicantgeographygrid implements OnInit {
   }
 
   async onCustom_mstapplicantgeographypreferencesAttachment_Action(event: any, geographypreferenceid: any, applicantid: any) {
+    
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantgeographypreferences");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantgeographypreferences") {
+
       let add = false;
       if (event == null) add = true;
       let childsave = true;
       if (this.pkcol != undefined && this.pkcol != null) childsave = true;
       this.dialog.open(mstapplicantgeographypreferenceComponent,
         {
-          data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, geographypreferenceid, applicantid, visiblelist: this.mstapplicantgeographypreferences_visiblelist, hidelist: this.mstapplicantgeographypreferences_hidelist, ScreenType: 2 },
+          data: { showAttachmentView: true, save: childsave, maindatapkcol: this.pkcol, event, geographypreferenceid, applicantid, visiblelist: this.mstapplicantgeographypreferences_visiblelist, hidelist: this.mstapplicantgeographypreferences_hidelist, ScreenType: 2 },
         }
       ).onClose.subscribe(res => {
         if (res) {

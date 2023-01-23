@@ -449,7 +449,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
     this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {
       debugger
-      this.mstapplicantachievementdetail_menuactions.push (res.mstapplicantachievementdetail_menuactions[1]);
+      this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
       this.Set_mstapplicantachievementdetails_TableConfig();
       this.mstapplicantachievementdetails_LoadTable(res.mstapplicantachievementdetail);
     });

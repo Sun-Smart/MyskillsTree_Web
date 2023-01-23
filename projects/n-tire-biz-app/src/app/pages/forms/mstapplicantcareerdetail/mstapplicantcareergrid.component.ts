@@ -659,7 +659,6 @@ export class mstapplicantcareergridComponent implements OnInit {
       this.Set_mstapplicantcareerdetails_TableConfig();
       this.mstapplicantcareerdetails_LoadTable(res.mstapplicantcareerdetail);
     });
-
   };
 
   getSkillsDescription() {
@@ -1087,7 +1086,7 @@ export class mstapplicantcareergridComponent implements OnInit {
       if (this.pkcol != undefined && this.pkcol != null) childsave = true;
       this.dialog.open(mstapplicantcareerdetailComponent,
         {
-          data: { showview: false, showAttachment: false, save: childsave, maindatapkcol: this.pkcol, event, careerid, applicantid, visiblelist: this.mstapplicantcareerdetails_visiblelist, hidelist: this.mstapplicantcareerdetails_hidelist, ScreenType: 2 },
+          data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, careerid, applicantid, visiblelist: this.mstapplicantcareerdetails_visiblelist, hidelist: this.mstapplicantcareerdetails_hidelist, ScreenType: 2 },
         }
       ).onClose.subscribe(res => {
         if (res) {

@@ -176,7 +176,7 @@
       <div *ngIf="((hidelist.indexOf('fromdate') == -1) && (fromdatevisible==undefined || fromdatevisible==true))"
         class="col-3 education_view_mobile">
         <label for="fromdate" class="control-label required">From Date</label>
-        <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.fromdate?.value)}}</label>
+        <label *ngIf="showview" class="labelview">{{fromdate | date : "dd-MM-y"}}</label>
         <div class="input-group" *ngIf="!showview">
           <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}' [maxDate]="maxDate"
             name="fromdateformpicker" id="fromdate" required formControlName="fromdate">
@@ -196,7 +196,7 @@
       <div *ngIf="((hidelist.indexOf('todate') == -1) && (todatevisible==undefined || todatevisible==true))"
         class="col-3 education_view_mobile">
         <label for="todate" class="control-label">To Date</label>
-        <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.todate?.value)}}</label>
+        <label *ngIf="showview" class="labelview">{{todate | date : "dd-MM-y"}}</label>
         <div class="input-group" *ngIf="!showview">
 
           <input #d="ngbDatepicker" readonly [disabled]="isdisabled" ngbDatepicker

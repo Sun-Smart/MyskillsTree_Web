@@ -566,8 +566,8 @@ export class mstapplicantcareerdetailComponent implements OnInit {
       companyname: res.mstapplicantcareerdetail.companyname,
       designation: res.mstapplicantcareerdetail.designation,
       keyproject: res.mstapplicantcareerdetail.keyproject,
-      fromdate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.fromdate),
-      todate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.todate),
+      fromdate:  new Date(res.mstapplicantcareerdetail.fromdate).toLocaleDateString(),
+      todate: new Date(res.mstapplicantcareerdetail.todate).toLocaleDateString(),
       currentlyworking: res.mstapplicantcareerdetail.currentlyworking,
       requestid: res.mstapplicantcareerdetail.requestid,
       skills: res.mstapplicantcareerdetail.skills,
@@ -691,13 +691,14 @@ export class mstapplicantcareerdetailComponent implements OnInit {
         }
       }
     }
-    this.formData.fromdate = new Date(this.mstapplicantcareerdetail_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('fromdate').value) + '  UTC' : null);
+    this.formData.fromdate = new Date(this.mstapplicantcareerdetail_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('fromdate').value) + '  UTC' : null).toLocaleDateString();
     // this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('todate').value) + '  UTC' : null);
     if (this.mstapplicantcareerdetail_Form.value.currentlyworking == true) {
-      this.formData.todate = new Date()
+      this.formData.fromdate = new Date().toLocaleDateString();
+      this.formData.todate = new Date().toLocaleDateString();
       console.log(this.formData.todate);
     } else {
-      this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('todate').value) + '  UTC' : null);
+      this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('todate').value) + '  UTC' : null).toLocaleDateString();
     }
     this.formData.skills = null;
 

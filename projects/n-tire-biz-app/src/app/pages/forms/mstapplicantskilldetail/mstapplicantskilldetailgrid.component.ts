@@ -395,6 +395,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     this.mstapplicantskilldetail_service.getList_segmentcategory().then((res: any) => {
       this.Segmentcategory_list = res as DropDownValues[];
       this.skillcategory_List = [];
+      this.subcategoryid_List = [];
     });
   };
 
@@ -405,22 +406,18 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     this.mstapplicantskilldetail_Form.patchValue({
       subcategoryid:null,
       skillcategory:null
-    })
+    });
     this.mstapplicantskilldetail_service.getList_skillcategory2(e).then((res: any) => {
       debugger;
       this.skillcategory_List = res as DropDownValues[];
+      this.subcategoryid_List = [];
     });
   };
 
   skillcategory_onChange(evt: any) {
     debugger
     let e = evt.value;
-    this.getidd1 = e
-    // this.mstapplicantskilldetail_Form.patchValue({
-    //   subcategoryid:null
-
-    // })
-
+    this.getidd1 = e;
     if (this.getidd1 == "262") {
       this.showinput2 = true
     } else {
@@ -428,13 +425,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     }
     this.mstapplicantskilldetail_Form.patchValue({
       subcategoryid:null
-    })
+    });
     debugger
     this.mstapplicantskilldetail_service.getList_subcategoryid2(e).then((res: any) => {
       debugger;
       this.subcategoryid_List = res as DropDownValues[]
     });
-
   };
 
   subcategoryid_onChange(evt: any) {
@@ -447,7 +443,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.showinput3 = false
     }
     this.mstapplicantskilldetail_Form.patchValue({ subcategoryiddesc: evt.options[evt.options.selectedIndex].text, categoryid: this.getdata2 });
-  }
+  };
 
   validate() {
     let ret = true;
@@ -535,7 +531,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       });
   }
 
-
   onSubmitAndWait() {
     debugger
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
@@ -564,8 +559,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.onSubmitData(true);
     }
   }
-
-
 
   mstapplicantskilldetailshtml() {
     debugger
