@@ -87,14 +87,14 @@
                 <!-- <i class="fa fa-database"></i> -->
                 Submit</a>
             </li>
-            <li class='nav-item actionheader' style="font-size: 12px">
+            <!-- <li class='nav-item actionheader' style="font-size: 12px">
               <a class="alert-primary popup-add-button mobile_hide_btn"
                 *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]='' (click)="onSubmit()">
-                <!-- <i class="fa fa-share-square"></i>  -->
+                <i class="fa fa-share-square"></i> 
                 Submit & Clear</a>
               <app-action *ngIf="f.applicantid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
                 [value]="f.applicantid.value" [status]="f.status.value"></app-action>
-            </li>
+            </li> -->
             <li class='nav-item actionheader' style="font-size: 12px;"
               *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
               <a class="alert-danger popup-add-button" [routerLink]='' (click)="onClose()">
