@@ -69,6 +69,15 @@ export class mstapplicantmasterService {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantmaster' + '/getdefaultdata').toPromise();
     }
   }
+
+  get_dashboardAll_details(body){
+
+debugger
+    return this.http.get(AppConstants.ntirebizURL + '/bodashboard/getapplicantdashboarddata/' +body.applicantid + '/' + body.skillid).toPromise();
+  
+    }
+
+
   get_mstapplicantmasters_List(): any {
     if (this.valid()) {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantmaster').toPromise();
@@ -140,7 +149,6 @@ export class mstapplicantmasterService {
   }
   //dhana mar-11
   // post release
-
 
 
   postRelease(releaseForm) {
