@@ -27,6 +27,7 @@ import { Rating } from 'primeng/rating';
 import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
 import { mstapplicantachievementdetailService } from '../../../service/mstapplicantachievementdetail.service';
 import { mstapplicantreferencerequestService } from '../../../service/mstapplicantreferencerequest.service';
+import { mstapplicanteducationdetailService } from '../../../service/mstapplicanteducationdetail.service';
 
 @Component({
   selector: 'ngx-dashboardviewer',
@@ -296,12 +297,18 @@ export class BODashboardViewerComponent implements OnInit {
   project_detail: any = [];
   employment_details: any = [];
 
+  dashboard_details: any = [];
+  dashboard_employementdetails: any = [];
+  dashboard_educationdetails: any = [];
+  get_educationd_data: any = [];
+
   career_companyName: any;
   career_frDate: any;
   career_toDate: any;
   project_worktopic: any;
   project_workdescription: any;
   skill_id: any;
+  education_details: any = [];
 
 
   constructor(private sharedService: SharedService, public dialogRef: DynamicDialogRef,
@@ -313,6 +320,7 @@ export class BODashboardViewerComponent implements OnInit {
     private mstapplicantcareerdetail_service: mstapplicantcareerdetailService,
     private mstapplicantachivement_service: mstapplicantachievementdetailService,
     private mstapplicantreferencerequestService: mstapplicantreferencerequestService,
+    private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,
 
   ) {
     debugger;
@@ -322,6 +330,8 @@ export class BODashboardViewerComponent implements OnInit {
   ngOnInit() {
     this.get_allData();
     this.get_employement();
+    this.get_educationdata();
+
 
 
     this.isskillcompleted = false
@@ -543,6 +553,9 @@ export class BODashboardViewerComponent implements OnInit {
   };
 
   get_allData() {
+
+
+    this.showDetails('');
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
       debugger;
 
@@ -586,10 +599,30 @@ export class BODashboardViewerComponent implements OnInit {
   };
 
   showDetails(get_id: any) {
-
+    debugger;
     console.log("get_id", get_id);
+    let body = {
+      "applicantid": this.applicantid,
+      "skillid": get_id
+    };
+    this.mstapplicantmaster_service.get_dashboardAll_details(body).then(res => {
+      debugger;
+      console.log('dashboard_details', res);
+      
+      this.dashboard_details.push(res);
 
+      this.dashboard_employementdetails = this.dashboard_details[0].list_dashboardemployeement.value;
+      this.dashboard_educationdetails = this.dashboard_details[0].list_dashboareducation.value;
+    });
 
+  }
+
+  get_educationdata(){
+    debugger
+    this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
+    console.log('get_educationdata', res.mstapplicanteducationdetail);
+    this.get_educationd_data = res.mstapplicanteducationdetail
+    });
   }
 
   get_employement() {

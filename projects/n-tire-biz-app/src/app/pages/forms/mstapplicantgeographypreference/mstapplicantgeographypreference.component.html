@@ -1,12 +1,15 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstapplicantgeographypreference_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <div class="row second common_title_style">
-    <h1 class="col-4 columns mainheader left common_titles_new ">{{'Geography Preferences' |
-        translate}}</h1>
-    <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
+
+  <div class="row second applicant-popup-header">
+    <div class="col-4">
+      <h1 class="columns mainheader left common_titles_new">{{'Geography Preferences' | translate}}</h1>
+    </div>
+
+    <div class='col-4  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
-      <div class='col'></div>
+
       <div class='dropdown d-inline-block btn-dropdown show'>
 
         <ul class='nav nav-pills  input-group'>
@@ -59,43 +62,38 @@
             <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
-          <li class='nav-item actionheader common_title_style' *ngIf="!showview">
-            <!-- <a class="alert-success" [routerLink]=''>  -->
-              <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #000 !important;margin: 5px;
-              padding: 3px;
-              color: #000;" [routerLink]=''(click)="goBack()" >Back</button>&nbsp;
-            <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
-              padding: 3px;
-              color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
-            <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
-              style="border-color: #000 !important;
-              color: #000;margin: 5px;
-    padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
-            <app-action *ngIf="f.geographypreferenceid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
-              [value]="f.geographypreferenceid.value" [status]="f.status.value"></app-action>
-          </li>
-          <i class='nav-item actionheader common_title_style'
-            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
-            class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
-          <!-- <li class='nav-item actionheader' *ngIf="!showview"  style="padding: 1px 0px 8px 0px;">
-            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
-              Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
-            <app-action *ngIf="f.geographypreferenceid.value != null" (afterAction)="afterAction($event)"
-              [menuid]="p_menuid" [value]="f.geographypreferenceid.value" [status]="f.status.value"></app-action>
-          </li>
-          <li class='nav-item actionheader'
-            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-          </li> -->
-
         </ul>
       </div>
     </div>
+
+    <div class="col-4">
+      <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
+        <li class='nav-item actionheader' *ngIf="!showview">
+          <!-- <a class="alert-success" [routerLink]=''>  -->
+          <!-- <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #000 !important;margin: 5px;
+              padding: 3px;
+              color: #000;" [routerLink]='' (click)="goBack()">Back</button>&nbsp; -->
+          <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
+              padding: 3px;
+              color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
+          <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
+          <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn"
+            *ngIf='data.pkcol==null || maindata.ScreenType==null' style="border-color: #000 !important;
+              color: #000;margin: 5px;padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
+          <app-action *ngIf="f.geographypreferenceid.value != null" (afterAction)="afterAction($event)"
+            [menuid]="p_menuid" [value]="f.geographypreferenceid.value" [status]="f.status.value"></app-action>
+        </li>
+        <i class='nav-item actionheader common_title_style'
+          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
+          class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
+      </ul>
+    </div>
   </div>
+
+
+  <!-- Content -->
+
   <div class="container"
     id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
     <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
@@ -108,7 +106,7 @@
 
     <!--applicantid-->
 
-    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+    <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
         style='' class="col-3 education_view_mobile"><label for="applicantid" class="control-label"
@@ -134,7 +132,7 @@
         </div>
         <label *ngIf="showview" class="labelview">{{f.countrydesc?.value}}</label>
         <app-field-error-display [displayError]="f.country.errors?.required" errorMsg="Enter {{'Country' | translate}}"
-        [ngStyle]="{'height':getdataitem.length >0?'100px':'0px'}">
+          [ngStyle]="{'height':getdataitem.length >0?'100px':'0px'}">
 
         </app-field-error-display>
       </div>
@@ -143,7 +141,8 @@
       <!--city-->
 
       <div *ngIf="((hidelist.indexOf('city') == -1) && (cityvisible==undefined || cityvisible==true))" style=''
-        class="col-3 education_view_mobile"><label for="city" class="control-label required" (click)="AddOrEdit_city(null)">City</label>
+        class="col-3 education_view_mobile"><label for="city" class="control-label required"
+          (click)="AddOrEdit_city(null)">City</label>
         <app-popupselect *ngIf="!showview" [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
           (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value"
           desc="label"></app-popupselect>
@@ -153,17 +152,18 @@
         <app-field-error-display [displayError]="f.city.errors?.required" errorMsg="Enter {{'City' | translate}}">
         </app-field-error-display>
       </div>
-
-      <div class="col"></div>
     </div>
-    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+
+    <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
       <div *ngIf="((hidelist.indexOf('remarks') == -1) && (remarksvisible==undefined || remarksvisible==true))"
-      class="col-12 ">
+        class="col-12 ">
         <label for="remarks" class="control-label">Remarks</label>
         <label *ngIf="showview" class="labelview">{{f.remarks?.value}}</label>
         <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>
       </div>
     </div>
+
+
     <div class='full-width' *ngIf="attachmentVisible">
       <p-accordion [multiple]='true'>
         <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>

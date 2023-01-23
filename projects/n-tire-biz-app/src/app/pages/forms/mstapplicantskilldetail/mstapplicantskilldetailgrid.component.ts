@@ -112,7 +112,7 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
 
   //New code
   template: `
-<div class="row skill_title" style="background: #ebf3fc !important;
+<div class="row skill_title" *ngIf="showWebviewDetect" style="background: #ebf3fc !important;
     color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
 
   <div class="col-4" style="margin:auto;">
@@ -141,7 +141,36 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
 
   </div>
 </div>
-<form [formGroup]="mstapplicantskilldetail_Form" class="mobile_grid_view">
+<div class="row skill_title" *ngIf="showMobileDetectskill" style="background: #ebf3fc !important;
+    color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
+
+  <div class="col-4" style="margin:auto;">
+    <h4 class="form-group sticky1  columns left">{{'Skill Details'}}
+
+      <ul class="nav navbar-nav1" style='display:none'>
+        <li class="dropdown">
+          <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+            aria-expanded='false'> <span class='caret'></span></a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
+                  class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+            <li> </li>
+          </ul>
+        </li>
+      </ul>
+    </h4>
+  </div>
+  <div class="col-6"></div>
+  <div class="col-2" style="text-align:right; margin:auto;">
+    <!-- <button type="button"  [routerLink]='' (click)="addSkills()"  class="btn btn-outline-primary" style="border-color: #000 !important; color: #000; margin-right:15px;">Add</button> -->
+    <button type="button" class="btn btn-outline-primary popup-add-button"
+      (click)="mstapplicantskilldetails_route(null, 'create')">Add</button>
+    <!-- <i  [routerLink]='' (click)="onClose()" class="fa fa-times-circle close_common_icon"></i> -->
+    <img (click)="onClose()" src="assets/mainmenuicons/icons_close.png" class="closeButton" />
+
+  </div>
+</div>
+<form [formGroup]="mstapplicantskilldetail_Form" class="mobile_grid_view" *ngIf="showWebviewDetect">
 
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
@@ -223,6 +252,41 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
     </tbody>
   </table>
 </form>
+
+<form [formGroup]="mstapplicantskilldetail_Form" class="mobile_grid_view" *ngIf="showMobileDetectskill">
+
+<div class="row" *ngIf="showSkillDetails_input" style="width: 320px;margin: 10px !important;">
+<label>Segment</label>
+<select formControlName="segmentid" class="form-control col-md-12" (change)="segmentcategory_onChange($event.target)">
+  <option [ngValue]="null" [disabled]="true">-Select-</option>
+  <option *ngFor="let item of Segmentcategory_list" value="{{item.value}}">{{item.label}}</option>
+</select>
+<label>Skill Category</label>
+          <select class="form-control" formControlName="skillcategory" (change)="skillcategory_onChange($event.target)">
+            <option value=null [disabled]="true">-Select-</option>
+            <option *ngFor="let item of skillcategory_List" value="{{item.categoryid}}">{{item.name}}</option>
+          </select>
+          <label>Sub Category</label>
+          <select class="form-control" formControlName="subcategoryid" (change)="subcategoryid_onChange($event.target)">
+            <option value=null [disabled]="true">-Select-</option>
+            <option *ngFor="let item of subcategoryid_List" value="{{item.subcategoryid}}">{{item.name}}</option>
+          </select>
+          <label>Self Rating</label>
+        <!-- <label *ngIf="showview" class="labelview">{{f.selfrating?.value}}</label> -->
+        <p-rating  id="selfrating" formControlName="selfrating" class="form-control">
+        </p-rating>
+        <label>Remarks</label>
+        <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+        <div class="col" style="position: relative;left: 120px;top: 7px;">
+        <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait(mstapplicantskilldetail_Form)"></i>
+          <!-- <button type="button" class="btn btn-outline-primary"  (click)="onSubmitData(mstapplicantskilldetail_Form)"
+          style="background: green;color: antiquewhite;padding: 5px;border: none;box-shadow: 1px 1px 1px 0px black;">Submit</button> -->
+
+          <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+          (click)="skillClose()"></i>
+        </div>
+</div>
+</form>
 <ng2-smart-table #tbl_mstapplicantskilldetails
   (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
   [settings]="mstapplicantskilldetails_settings"
@@ -303,8 +367,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   skillsubcategory_Code: any;
   seg_id: any;
   getdata2: any;
-
-
+  showMobileDetectskill: boolean = false;
+  showWebviewDetect: boolean = true;
+  isMobile: any;
 
   constructor(
     private nav: Location,
@@ -336,6 +401,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   ngOnInit() {
     debugger;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      this.showMobileDetectskill = true;
+      this.showWebviewDetect = false;
+      /* your code here */
+    }
 
     this.Set_mstapplicantskilldetails_TableConfig();
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
@@ -395,6 +466,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     this.mstapplicantskilldetail_service.getList_segmentcategory().then((res: any) => {
       this.Segmentcategory_list = res as DropDownValues[];
       this.skillcategory_List = [];
+      this.subcategoryid_List = [];
     });
   };
 
@@ -405,22 +477,18 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     this.mstapplicantskilldetail_Form.patchValue({
       subcategoryid:null,
       skillcategory:null
-    })
+    });
     this.mstapplicantskilldetail_service.getList_skillcategory2(e).then((res: any) => {
       debugger;
       this.skillcategory_List = res as DropDownValues[];
+      this.subcategoryid_List = [];
     });
   };
 
   skillcategory_onChange(evt: any) {
     debugger
     let e = evt.value;
-    this.getidd1 = e
-    // this.mstapplicantskilldetail_Form.patchValue({
-    //   subcategoryid:null
-
-    // })
-
+    this.getidd1 = e;
     if (this.getidd1 == "262") {
       this.showinput2 = true
     } else {
@@ -428,13 +496,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     }
     this.mstapplicantskilldetail_Form.patchValue({
       subcategoryid:null
-    })
+    });
     debugger
     this.mstapplicantskilldetail_service.getList_subcategoryid2(e).then((res: any) => {
       debugger;
       this.subcategoryid_List = res as DropDownValues[]
     });
-
   };
 
   subcategoryid_onChange(evt: any) {
@@ -447,7 +514,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.showinput3 = false
     }
     this.mstapplicantskilldetail_Form.patchValue({ subcategoryiddesc: evt.options[evt.options.selectedIndex].text, categoryid: this.getdata2 });
-  }
+  };
 
   validate() {
     let ret = true;
@@ -535,7 +602,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       });
   }
 
-
   onSubmitAndWait() {
     debugger
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
@@ -565,8 +631,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     }
   }
 
-
-
   mstapplicantskilldetailshtml() {
     debugger
     let ret = "";
@@ -586,6 +650,23 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
                 `;
     return ret;
   }
+
+  mstapplicantskilldetailshtml1() {
+    debugger
+    let ret = "";
+    ret += `
+    <ul class="list-group" style="line-height: 15px;margin: 0px;">
+      <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Segment </span>: <label style="font-size: small;">##segmentdesc##&nbsp##segmentcategoryothers##</label></li>
+      <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skill Category </span>: <label style="font-size: small;">##skillcategorydesc##&nbsp##skillcategoryothers##</label></li>
+      <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Sub Category :</span> <label style="font-size: small;">##subcategoryiddesc##&nbsp##subcategoryidothers##</label></li>
+      <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Self Rating</span> : ##selfrating##</li>
+      <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Referal Status</span> : ##referencecount##</li>
+      <li class="list-group-item" style="line-height: 17px;padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks </span>: <label style="font-size: small;">##remarks##</label></li>
+    </ul>
+                `;
+    return ret;
+  }
+
 
   FillData() {
     debugger
@@ -753,8 +834,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         //to null subcategory
         // setTimeout(() => {
         //   if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
-            this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res =>
-              this.subcategoryid_List = res as DropDownValues[]);
+        this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res =>
+          this.subcategoryid_List = res as DropDownValues[]);
         // }, 3000);
 
         setTimeout(() => {
@@ -1002,6 +1083,10 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
             // var blue = starrr.fontcolor("green")
             // console.log(blue)
             cell = this.mstapplicantskilldetailshtml();
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+              cell = this.mstapplicantskilldetailshtml1();
+            }
             var divrow = JSON.parse(JSON.stringify(row));
             let showstr = "";
 
@@ -1085,7 +1170,13 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
             divrow['referencecount'] = "<div style='position: relative;left: 12%;font-size: 17px;'>" + xyzyzyz + "</div>";
             this.countarray = [];
             // "<div class='Stars' style='--rating:" + showstr + "'></div>"
+
             divrow["selfrating"] = "<div style='font-size: large !important;color:green;position: relative;left: 19%;'>" + showstr + "</div>";
+            this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (this.isMobile) {
+              divrow['referencecount'] = "<div style='position: relative;left: 68%;font-size: 17px;'>" + xyzyzyz + "</div>";
+              divrow["selfrating"] = "<div style='font-size: large !important;color:green;position: relative;left: 60%;'>" + showstr + "</div>";
+            }
             return this.sharedService.HtmlValue(divrow, cell);
           },
         },
@@ -1131,7 +1222,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     debugger
     let skillid = obj.data.skillid;
     if (confirm('Are you sure to delete this record ?')) {
-      this.mstapplicantskilldetail_service.delete_mstapplicantskilldetail(skillid).then(res =>{
+      this.mstapplicantskilldetail_service.delete_mstapplicantskilldetail(skillid).then(res => {
         debugger
         this.mstapplicantskilldetails_LoadTable(res)
       }

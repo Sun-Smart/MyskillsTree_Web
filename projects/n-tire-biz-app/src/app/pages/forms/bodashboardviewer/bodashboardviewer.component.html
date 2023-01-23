@@ -129,79 +129,89 @@
 
       <!-- Employment -->
 
-      <div class="row main-data" *ngFor="let item of employment_details">
-        <div class="col-12" style="text-align: initial;">
-          <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">Employment</h5>
+      <div class="main-data">
+
+        <div class="row">
+          <div class="col-12">
+            <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">Employment</h5>
+          </div>
         </div>
 
-        <div class="col-2" style="display: grid;">
-          <label for="" style="color: #000;font-weight: 600;">Company</label>
-          <label for="" style="color: #000;font-size: small;">{{item.company}}</label>
-        </div>
-        <div class="col-2" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">Project</label>
-          <label for="" style="color: #000;font-size: small;">{{item.project}}</label>
-        </div>
-        <div class="col-2" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">Details</label>
-          <label for="" style="color: #000;font-size: small;">{{item.details}}</label>
-        </div>
-        <div class="col-2" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">From</label>
-          <label for="" style="color: #000;font-size: small;">{{item.fromDate | date : "dd-MM-y"}}</label>
-        </div>
-        <div class="col-2" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">To</label>
-          <label for="" style="color: #000;font-size: small;">{{item.toDate | date : "dd-MM-y"}}</label>
+        <div class="row">
+          <div class="col-12">
+            <label for="" style="color:#000;font-weight: 600;width: 200px;">Company</label>
+            <label for="" style="color:#000;font-weight: 600;width: 200px;">Project</label>
+            <label for="" style="color:#000;font-weight: 600;width: 200px;">Details</label>
+            <label for="" style="color:#000;font-weight: 600;width: 200px;">From</label>
+            <label for="" style="color:#000;font-weight: 600;">To</label>
+          </div>
+
+          <div class="col-12" *ngFor="let item of employment_details">
+            <label for="" style="color: #000;font-size: small;width: 200px;">{{item.company}}</label>
+            <label for="" style="color: #000;font-size: small;width: 200px;">{{item.project}}</label>
+            <label for="" style="color: #000;font-size: small;width: 200px;">{{item.details}}</label>
+            <label for="" style="color: #000;font-size: small;width: 200px;">{{item.fromDate | date : "dd-MM-y"}}</label>
+            <label for="" style="color: #000;font-size: small;">{{item.toDate | date : "dd-MM-y"}}</label>
+          </div>
         </div>
 
       </div>
 
-      <!-- Achievement -->
+      <!-- Education -->
 
-      <div class="row main-data">
-        <div class="col-12" style="text-align: initial;">
-          <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">Achievement</h5>
+      <div class="main-data">
+
+        <div class="row">
+          <div class="col-12">
+            <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">Education</h5>
+          </div>
         </div>
-        <div class="col-3" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">Course</label>
-          <label for="" style="color: #000;font-size: small;"></label>
-        </div>
-        <div class="col-3" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">Institution</label>
-          <label for="" style="color: #000;font-size: small;"></label>
-        </div>
-        <div class="col-3" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">From Year</label>
-          <label for="" style="color: #000;font-size: small;"></label>
-        </div>
-        <div class="col-3" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">To Year</label>
-          <label for="" style="color: #000;font-size: small;"></label>
+
+        <div class="row">
+
+          <div class="col-12">
+            <label for="" style="color:#000;font-weight: 600;width: 250px;">Course</label>
+            <label for="" style="color:#000;font-weight: 600;width: 250px;">Institution</label>
+            <label for="" style="color:#000;font-weight: 600;width: 250px;">From Year</label>
+            <label for="" style="color:#000;font-weight: 600;">To Year</label>
+          </div>
+
+          <div class="col-12" *ngFor="let item of get_educationd_data">
+            <label for="" style="color: #000;font-size: small;width: 250px;">{{item.coursename}}</label>
+            <label for="" style="color: #000;font-size: small;width: 250px;">{{item.institutionname}}</label>
+            <label for="" style="color: #000;font-size: small;width: 250px;">{{item.fromyear}}</label>
+            <label for="" style="color: #000;font-size: small;">{{item.toyear}}</label>
+          </div>
+
         </div>
       </div>
 
       <!-- References -->
 
-      <div class="row main-data">
-        <div class="col-12" style="text-align: initial;">
-          <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">References</h5>
+      <div class="main-data">
+
+        <div class="row">
+          <div class="col-12">
+            <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">References</h5>
+          </div>
         </div>
-        <div class="col-3" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">Date</label>
-          <label for="" style="color: #000;font-size: small;"> </label>
-        </div>
-        <div class="col-3" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">Referred To</label>
-          <label for="" style="color: #000;font-size: small;"></label>
-        </div>
-        <div class="col-3" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">Response</label>
-          <label for="" style="color: #000;font-size: small;"></label>
-        </div>
-        <div class="col-3" style="display: grid;">
-          <label for="" style="color:#000;font-weight: 600;">Remarks</label>
-          <label for="" style="color: #000;font-size: small;"></label>
+
+        <div class="row">
+
+          <div class="col-12">
+            <label for="" style="color:#000;font-weight: 600;width: 250px;">Date</label>
+            <label for="" style="color:#000;font-weight: 600;width: 250px;">Referred To</label>
+            <label for="" style="color:#000;font-weight: 600;width: 250px;">Response</label>
+            <label for="" style="color:#000;font-weight: 600;">Remarks</label>
+          </div>
+
+          <div class="col-12">
+            <label for="" style="color: #000;font-size: small;width: 250px;"></label>
+            <label for="" style="color: #000;font-size: small;width: 250px;"></label>
+            <label for="" style="color: #000;font-size: small;width: 250px;"></label>
+            <label for="" style="color: #000;font-size: small;"></label>
+          </div>
+
         </div>
       </div>
 

@@ -54,7 +54,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 @Component({
   selector: 'app-applicantgeographygrid',
   template: `
-    <div class= "row mobile_view_geo"   style="background: #ebf3fc; color: #000; padding: 5px; height: 45px;">
+    <div *ngIf="showWebviewDetect" class= "row mobile_view_geo"   style="background: #ebf3fc; color: #000; padding: 5px; height: 45px;">
     <div class=col-4 style="margin: auto;">
     <h4 class="form-group sticky1  columns left mobile_title">
         {{'Geography Preferences'}}
@@ -86,7 +86,40 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 <!-- </ul> -->
     </div>
     </div>
-    <form [formGroup]="mstapplicantgeographypreference_Form" class="mobile_grid_view">
+
+    <div *ngIf="showMobileDetectskill" class= "row mobile_view_geo"   style="background: #ebf3fc; color: #000; padding: 5px; height: 45px;">
+    <div class=col-4 style="margin: auto;">
+    <h4 class="form-group sticky1  columns left mobile_title">
+        {{'Geography Preferences'}}
+
+    <ul class="nav navbar-nav1" style='display:none'>
+      <li class="dropdown">
+        <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+          aria-expanded='false'> <span class='caret'></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" [routerLink]=''
+              (click)="mstapplicantgeographypreferences_route(null, 'create')"><i class="fa fa-plus"
+                aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+        </ul>
+      </li>
+    </ul>
+</h4>
+</div>
+<div class=col-6></div>
+<div class=col-2 style="text-align: right; margin: auto;">
+    <!-- <ul class="rightside"> -->
+    <!-- <a  [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')">
+    <button type="button" class="btn btn-outline-primary" style="border-color: #fff !important;    color: #fff;
+    margin-top: -17%;">Add</button>
+    </a> -->
+    <button type="button" [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')" class="btn btn-outline-primary popup-add-button">Add</button>
+
+    <a  class="" [routerLink]='' (click)="onClose()"><img class="closeButton" src="assets/mainmenuicons/icons_close.png"/></a>
+
+<!-- </ul> -->
+    </div>
+    </div>
+    <form [formGroup]="mstapplicantgeographypreference_Form" class="mobile_grid_view" *ngIf="showWebviewDetect">
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
   <thead>
     <tr>
@@ -107,9 +140,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 [form]="bocountry" (selectItem)="onSelected_country($event)" [reportid]='wc9rn' [menuid]='wc9rn'
                 formControlName="country" id="value" desc="label"></app-popupselect>
 
-                <app-field-error-display [displayError]="f.country.errors?.required" errorMsg="Enter {{'Country' | translate}}"
-                >
-                </app-field-error-display>
               </td>
 
             <!--city-->
@@ -118,9 +148,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
                 (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value"
                 desc="label"></app-popupselect>
-
-                <app-field-error-display [displayError]="f.city.errors?.required" errorMsg="Enter {{'City' | translate}}">
-                </app-field-error-display>
               </td>
 
               <!-- Remarks -->
@@ -153,6 +180,44 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </table>
 </form>
 
+<form [formGroup]="mstapplicantgeographypreference_Form" class="mobile_grid_view" *ngIf="showMobileDetectskill">
+
+<div class="row" *ngIf="showSkillDetails_input" style="width: 320px;margin: 10px !important;">
+<div class="col-md-12">
+<label>Country</label>
+<app-popupselect [options]="country_List" [optionsEvent]="country_optionsEvent" style="width: 100%;"
+                [form]="bocountry" (selectItem)="onSelected_country($event)" [reportid]='wc9rn' [menuid]='wc9rn'
+                formControlName="country" id="value" desc="label"></app-popupselect>
+
+                <app-field-error-display [displayError]="f.country.errors?.required" errorMsg="Enter {{'Country' | translate}}"
+                >
+                </app-field-error-display>
+</div>
+<div class="col-md-12">
+<label>City</label>
+<app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity" style="width: 100%;"
+                (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value"
+                desc="label"></app-popupselect>
+
+                <app-field-error-display [displayError]="f.city.errors?.required" errorMsg="Enter {{'City' | translate}}">
+                </app-field-error-display>
+
+</div>
+<div class="col-md-12">
+<label>Remarks</label>
+                <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+
+</div>
+<div class="col" style="position: relative;left: 120px;top: 7px;">
+                <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+
+                <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                (click)="skillClose()"></i>
+                </div>
+
+</div>
+</form>
+
   <ng2-smart-table #tbl_mstapplicantgeographypreferences
     (userRowSelect)="handle_mstapplicantgeographypreferences_GridSelected($event)"
     [settings]="mstapplicantgeographypreferences_settings"
@@ -182,10 +247,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       width: 75% !important;
     }
     .mobile_view_geo{
-      width: 380px !important;
     }
     .mobile_grid_view{
-      width: 380px !important;
     }
     }
     `
@@ -233,7 +296,9 @@ export class mstapplicantgeographygrid implements OnInit {
   maindata: any;
   p_currenturl: any;
   pkList: any;//stores values - used in search, prev, next
-
+  showMobileDetectskill: boolean = false;
+  showWebviewDetect: boolean = true;
+  isMobile: any;
   constructor(public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
     private router: Router,
@@ -269,6 +334,12 @@ export class mstapplicantgeographygrid implements OnInit {
 
   }
   ngOnInit() {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      this.showMobileDetectskill = true;
+      this.showWebviewDetect = false;
+      /* your code here */
+    }
     this.Set_mstapplicantgeographypreferences_TableConfig();
 
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
@@ -464,35 +535,25 @@ export class mstapplicantgeographygrid implements OnInit {
 `;
     return ret;
   }
+
+  mstapplicantgeographypreferenceshtml1() {
+
+    let ret = "";
+    ret += `
+    <ul class="list-group" style="line-height: 15px;margin: 0px;">
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Country </span>: <label style="font-size: small;">##countrydesc##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skill Category </span>: <label style="font-size: small;">##citydesc##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Sub Category :</span> <label style="font-size: small;">##remarks##</label></li>
+  </ul>
+`;
+    return ret;
+  }
   FillData() {
     this.Set_mstapplicantgeographypreferences_TableConfig();
     this.mstapplicantgeographypreference_service.get_mstapplicantgeographypreferences_ByApplicantID(this.applicantid).then(res => {
+      this.mstapplicantgeographypreference_menuactions = res.mstapplicantgeographypreference_menuactions;
       this.Set_mstapplicantgeographypreferences_TableConfig();
       this.mstapplicantgeographypreferences_LoadTable(res.mstapplicantgeographypreference);
-
-      // this.formData = res.mstapplicantgeographypreference;
-      // this.formid = res.mstapplicantgeographypreference.geographypreferenceid;
-      // this.pkcol = res.mstapplicantgeographypreference.pkcol;
-      // this.bmyrecord = false;
-
-      // if ((res.mstapplicantgeographypreference as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-      // console.log(res);
-
-      // this.mstapplicantgeographypreference_Form.patchValue({
-      //     applicantid: res.mstapplicantgeographypreference.applicantid,
-      //     applicantiddesc: res.mstapplicantgeographypreference.applicantiddesc,
-      //     geographypreferenceid: res.mstapplicantgeographypreference.geographypreferenceid,
-      //     country: res.mstapplicantgeographypreference.country,
-      //     countrydesc: res.mstapplicantgeographypreference.countrydesc,
-      //     city: res.mstapplicantgeographypreference.city,
-      //     citydesc: res.mstapplicantgeographypreference.citydesc,
-      //     remarks: res.mstapplicantgeographypreference.remarks,
-      //     status: res.mstapplicantgeographypreference.status,
-      //     statusdesc: res.mstapplicantgeographypreference.statusdesc,
-      //     attachment: "[]",
-      // });
-
-      //Child Tables if any
     })
   };
 
@@ -712,6 +773,10 @@ export class mstapplicantgeographygrid implements OnInit {
           valuePrepareFunction: (cell, row) => {
             //debugger;;
             cell = this.mstapplicantgeographypreferenceshtml();
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+              cell = this.mstapplicantgeographypreferenceshtml1();
+            }
             var divrow = JSON.parse(JSON.stringify(row));
 
 
@@ -767,16 +832,18 @@ export class mstapplicantgeographygrid implements OnInit {
   }
 
   async onCustom_mstapplicantgeographypreferencesAttachment_Action(event: any, geographypreferenceid: any, applicantid: any) {
+    
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantgeographypreferences");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantgeographypreferences") {
+
       let add = false;
       if (event == null) add = true;
       let childsave = true;
       if (this.pkcol != undefined && this.pkcol != null) childsave = true;
       this.dialog.open(mstapplicantgeographypreferenceComponent,
         {
-          data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, geographypreferenceid, applicantid, visiblelist: this.mstapplicantgeographypreferences_visiblelist, hidelist: this.mstapplicantgeographypreferences_hidelist, ScreenType: 2 },
+          data: { showAttachmentView: true, save: childsave, maindatapkcol: this.pkcol, event, geographypreferenceid, applicantid, visiblelist: this.mstapplicantgeographypreferences_visiblelist, hidelist: this.mstapplicantgeographypreferences_hidelist, ScreenType: 2 },
         }
       ).onClose.subscribe(res => {
         if (res) {

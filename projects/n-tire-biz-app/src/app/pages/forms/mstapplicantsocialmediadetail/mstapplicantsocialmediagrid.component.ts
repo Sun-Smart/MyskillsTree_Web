@@ -319,38 +319,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
 
         this.FillData();
 
-        this.sessionData = this.sessionService.getSession();
-        if (this.sessionData != null) {
-            this.SESSIONUSERID = this.sessionData.userid;
-        }
-
-        debugger;
-        //getting data - from list page, from other screen through dialog
-        if (this.data != null && this.data.data != null) {
-            this.data = this.data.data;
-            this.maindata = this.data;
-        }
-        if (this.maindata != null && this.maindata.showview != undefined && this.maindata.showview != null) this.showview = this.maindata.showview;
-        if (this.maindata != null && this.maindata.ScreenType != undefined && this.maindata.ScreenType != null) {
-            this.viewHtml = '';
-        }
-        if (this.data != null && this.data.event != null && this.data.event.data != null) this.data = this.data.event.data;
-        if (this.currentRoute.snapshot.paramMap.get('sourceKey') != null) {
-            this.sourceKey = this.currentRoute.snapshot.paramMap.get('sourceKey');
-        }
-        let mstapplicantsocialmediadetailid = null;
-
-        //autocomplete
-        this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_List().then(res => {
-            this.pkList = res as mstapplicantsocialmediadetail[];
-            this.pkoptionsEvent.emit(this.pkList);
-        }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched
-        this.mstapplicantsocialmediadetail_Form.markAsUntouched();
-        this.mstapplicantsocialmediadetail_Form.markAsPristine();
-
-
     }
 
     // addSkills() {
@@ -551,10 +519,11 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
 
     FillData() {
         debugger
-        this.Set_mstapplicantsocialmediadetails_TableConfig();
+ 
 
         this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByApplicantID(this.applicantid).then((res:any) => {
-           this.mstapplicantsocialmediadetail_menuactions = res.mstapplicantsocialmediadetail_menuactions;
+            this.Set_mstapplicantsocialmediadetails_TableConfig();
+            this.mstapplicantsocialmediadetail_menuactions = res.mstapplicantsocialmediadetail_menuactions;
             this.mstapplicantsocialmediadetails_LoadTable(res.mstapplicantsocialmediadetail);
         });
 
@@ -672,26 +641,24 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     Add_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
         debugger
 
-        debugger
         this.showSkillDetails_input = true;
         this.ngOnInit();
         this.getdata();
         let add = false;
         if (event == null) add = true;
-        // let childsave = true;
-        // if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+   
     }
 
     Edit_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
         debugger
-        //  let add = false;
-        //  debugger
-        this.showSkillDetails_input = true;
 
-        //  if (event == null) add = true;
+        this.showSkillDetails_input = true;
+        this.getdata();
+        let add = false;
+        if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        this.getdata();
+   
         this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByEID(event.data.pkcol).then(res => {
             console.log(res);
 
@@ -709,6 +676,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
                 status: res.mstapplicantsocialmediadetail.status,
                 statusdesc: res.mstapplicantsocialmediadetail.statusdesc,
             });
+            this.mstapplicantsocialmediadetail_menuactions = res.mstapplicantsocialmediadetail_menuactions;
         });
 
 
@@ -801,9 +769,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         if (formname == "mstapplicantsocialmediadetails") {
             debugger
             let add = false;
-            debugger
-            this.showSkillDetails_input = true;
-            this.getdata();
             if (event == null) add = true;
             let childsave = true;
             if (this.pkcol != undefined && this.pkcol != null) childsave = true;

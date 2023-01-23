@@ -389,12 +389,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     this.FillData();
   };
 
-  // addSkills() {
-  //   debugger
-  //   this.showSkillDetails_input = true;
-  //   // this.getData();
-  //   this.eduCategory();
-  // };
   eduCategory() {
     this.mstapplicanteducationdetail_service.getDefaultData().then((res: any) => {
       debugger
@@ -403,6 +397,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       this.referenceacceptance_List = res.list_referenceacceptance.value;
     }).catch((err) => { this.spinner.hide(); console.log(err); });
   };
+
   educationcategory_onChange(evt: any) {
     debugger
     let e = evt.value;
@@ -411,6 +406,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then((res: any) => this.educationsubcategory_List = res as DropDownValues[]);
     });
   };
+  
   educationsubcategory_onChange(evt: any) {
     let e = evt.value;
     this.mstapplicanteducationdetail_Form.patchValue({ educationsubcategorydesc: evt.options[evt.options.selectedIndex].text });
@@ -458,12 +454,12 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     let strError = "";
     console.log(this.mstapplicanteducationdetail_Form.value)
 
-    // if (strError != "") return this.sharedService.alert(strError);
+    if (strError != "") return this.sharedService.alert(strError);
 
-    // if (!this.mstapplicanteducationdetail_Form.valid) {
-    //   this.toastr.addSingle("error", "", "Enter the required fields");
-    //   return;
-    // }
+    if (!this.mstapplicanteducationdetail_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    }
     this.formValue = this.mstapplicanteducationdetail_Form.value;
 
     if (this.mstapplicanteducationdetail_Form.value.coursename == null ||
@@ -593,7 +589,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
           <tr class="tbody-res">
             <th style="white-space: break-spaces;width: 12.5%;" class="from_yr">##fromyear##</th>
             <th style="white-space: break-spaces;width: 13%;" class="edu_cat">##educationcategorydesc##</th>
-            <th style="white-space: break-spaces;width: 12.5%;white-space: nowrap !important;" class="edu_sub">##educationsubcategorydesc##</th>
+            <th style="white-space: break-spaces;width: 12.5%; !important;" class="edu_sub">##educationsubcategorydesc##</th>
             <th style="white-space: break-spaces;width: 13%;"  class="inst_name">##institutionname##</th>
             <th style="white-space: break-spaces;width: 13%;"  class="cour_name">##coursename##</th>
             <th style="white-space: break-spaces;twidth: 11.5%;"  class="percent">##percentage##</th>
@@ -604,30 +600,12 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         </tbody>
       </table>
       </div>
-
-
-        <!--<div class='card1'>
-<div class='row'>
-<div class='col-2  bold'>##fromyear##</div>
-<div class='col center' style='display:block'>
-<h2 style="margin: 0 auto !important;" class='navy'>##institutionname##</h2>
-<h2>##coursename##</h2>
-<h3 style="margin: 0 auto !important;" class='profile__section__item__sub'>##percentage##%</h3>
-##remarks##
-</div>
-<div class='col-2 bold'>##toyear##</div>
-</div>
-</div>-->
 `;
     return ret;
   }
 
   FillData() {
-    // this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.applicantid).then(res => {
-    //     this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
-    //     this.Set_mstapplicanteducationdetails_TableConfig();
-    //     this.mstapplicanteducationdetails_LoadTable(res.mstapplicanteducationdetails);
-    // });
+
 debugger
     this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
       debugger
@@ -680,8 +658,10 @@ debugger
         statusdesc: res.mstapplicanteducationdetail.statusdesc,
       });
       setTimeout(() => {
-        this.get_educationsubcategory();
-      }, 400);
+        this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then(res => {
+          this.educationsubcategory_List = res as DropDownValues[];
+        });
+      });
       this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
     });
   }
@@ -807,20 +787,10 @@ debugger
         edit: true, // true,
         delete: (this.IsApplicant || this.IsAdmin),
         position: 'right',
-        // custom: this.mstapplicanteducationdetail_menuactions
+
         custom: this.mstapplicanteducationdetail_menuactions
       },
-      // actions: {
-      //     columnTitle: '',
-      //     width: '300px',
-      //     edit: true, // true,
-      //     delete: (this.IsApplicant || this.IsAdmin),
-      //     position: 'left',
-      //     // custom: this.mstapplicanteducationdetail_menuactions
-      //     custom: [{ name: 'reference',
-      //     title: `<i class="icon-references" aria-hidden="true"></i>`,
-      //     }],
-      // },
+
       add: {
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',

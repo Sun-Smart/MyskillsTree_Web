@@ -577,6 +577,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
                 applicantiddesc: res.mstapplicantworkreference.applicantiddesc,
                 workreferenceid: res.mstapplicantworkreference.workreferenceid,
                 worktopic: res.mstapplicantworkreference.worktopic,
+                companyname : res.mstapplicantworkreference.companyname,
                 workdescription: res.mstapplicantworkreference.workdescription,
                 referenceurl: res.mstapplicantworkreference.referenceurl,
                 remarks: res.mstapplicantworkreference.remarks,

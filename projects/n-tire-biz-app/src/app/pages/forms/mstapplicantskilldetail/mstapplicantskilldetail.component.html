@@ -191,6 +191,7 @@
         </p-rating>
       </div>
     </div>
+
     <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
       <div *ngIf="((hidelist.indexOf('showorhide') == -1) && (showorhidevisible==undefined || showorhidevisible==true))"
         style='' class="col-3">
@@ -205,6 +206,7 @@
         </div>
       </div>
     </div>
+
     <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
       <div *ngIf="((hidelist.indexOf('remarks') == -1) && (remarksvisible==undefined || remarksvisible==true))"
          class="col-12 ">
@@ -213,6 +215,7 @@
         <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>
       </div>
     </div>
+    
     <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="hidelist.indexOf('requestid') == -1 && f.requestid.value !=null" class="col-3 ">
         <button class="btn btn-link" (click)="viewrequestid()" type="button"><i class="fa fa-external-link"></i>
