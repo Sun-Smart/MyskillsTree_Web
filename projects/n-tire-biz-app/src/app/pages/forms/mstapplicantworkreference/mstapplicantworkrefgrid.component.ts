@@ -55,7 +55,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 @Component({
     selector: 'app-applicantworkrefgrid',
     template: `
-    <div class="row form-group sticky1" style=" background: #ebf3fc; !important;color: #000;padding: 5px;">
+    <div *ngIf="showWebviewDetect" class="row form-group sticky1" style=" background: #ebf3fc; !important;color: #000;padding: 5px;">
 
     <div class="col-4">
     <h4 class="mobile_work_ref">{{'Projects'}}</h4>
@@ -96,7 +96,50 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 </ul>-->
 </div>
 </div>
-<form [formGroup]="mstapplicantworkreference_Form">
+
+<div *ngIf="showMobileDetectskill" class="row form-group sticky1" style=" background: #ebf3fc; !important;color: #000;padding: 5px;">
+
+    <div class="col-4">
+    <h4 class="mobile_work_ref">{{'Projects'}}</h4>
+</div>
+
+<div class="col-4">
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstapplicantworkreferences_route(null, 'create')"><i class="fa fa-plus"
+                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                    </ul>
+                  </li>
+                </ul>
+</div>
+
+<div class="col-4" style="text-align: end; margin: auto;">
+
+                <!-- <a  [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"> -->
+                <!-- <button type="button" style="border-color: #fff !important;
+                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
+                <button type="button" class="btn btn-outline-primary popup-add-button" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"
+                title = "Add Details">Add</button>
+
+                <!-- <button (click)="addSkills()">Add 1</button> -->
+                <!-- </a> -->
+
+                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
+
+                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="work_ref_mobile" style="width: 20px;" title = "Close"/></a>
+
+                <!--<ul class="rightside">
+                <a  [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
+                style="color:#fff !important;"   class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
+                </ul>-->
+</div>
+</div>
+
+<form [formGroup]="mstapplicantworkreference_Form"  *ngIf="showWebviewDetect">
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
                 <thead>
                     <tr>
@@ -180,6 +223,60 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
             </tbody>
                 </table>
 </form>
+
+
+<form [formGroup]="mstapplicantworkreference_Form"  *ngIf="showMobileDetectskill">
+
+<div class="row" *ngIf="showSkillDetails_input" style="width: 320px;margin: 10px !important;">
+<div class="col-md-12">
+  <label>Company Name</label>
+<select id="companyname" (change)="onChange_companyList($event.target.value)" formControlName="companyname" class="form-control">
+                    <option value="null" selected>-Select-</option>
+                    <option *ngFor="let item of companyList" value="{{item.companyname}}">{{item.companyname}}</option>
+                    </select>
+</div>
+
+<div class="col-md-12">
+  <label>Work Topic</label>
+<input id="worktopic" required formControlName="worktopic" class="form-control">
+
+                        <div *ngIf="mstapplicantworkreference_Form.get('worktopic').errors  && isSubmitted" class="invalid-feedback">
+                        <span *ngIf="mstapplicantworkreference_Form.get('worktopic').hasError('required')">worktopic is required</span>
+                        </div>
+</div>
+
+
+<div class="col-md-12">
+<label>Reference URL</label>
+<input id="referenceurl" formControlName="referenceurl" class="form-control">
+</div>
+
+<div class="col-md-12">
+<label>Work Description</label>
+<textarea autosize rows="1" cols="10" onlyGrow="true"  id="workdescription" required
+                    formControlName="workdescription" class="form-control">
+                    </textarea>
+
+                    <div *ngIf="mstapplicantworkreference_Form.get('workdescription').errors  && isSubmitted" class="invalid-feedback">
+                        <span *ngIf="mstapplicantworkreference_Form.get('workdescription').hasError('required')">workdescription is required</span>
+                        </div>
+</div>
+
+
+<div class="col-md-12">
+  <label>Remarks</label>
+<textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+</div>
+<div class="col" style="position: relative;left: 120px;top: 7px;">
+
+<i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantworkreference_Form)"></i>
+                        <!-- Close -->
+                        <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                        (click)="skillClose()"></i>
+</div>
+
+</div>
+</form>
               <ng2-smart-table #tbl_mstapplicantworkreferences
                 (userRowSelect)="handle_mstapplicantworkreferences_GridSelected($event)"
                 [settings]="mstapplicantworkreferences_settings"
@@ -255,6 +352,9 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     r3: any;
     maindata: any;
     companyList: DropDownValues[];
+    showMobileDetectskill: boolean = false;
+  showWebviewDetect: boolean = true;
+  isMobile: any;
     constructor(
         private nav: Location,
         private translate: TranslateService,
@@ -302,6 +402,12 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         });
     }
     async ngOnInit() {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      if (isMobile) {
+        this.showMobileDetectskill = true;
+        this.showWebviewDetect = false;
+        /* your code here */
+      }
         this.Set_mstapplicantworkreferences_TableConfig();
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
@@ -520,12 +626,19 @@ export class mstapplicantworkrefgridComponent implements OnInit {
           </tr>
         </tbody>
       </table>
-
-        <!--<div class='card1'>
-<h2>##worktopic## - ##referenceurl##</h2>
-<h3 style="margin: 0 auto !important;"  class='profile__section__item__sub'>##workdescription##</h3>
-<p style="margin: 0 auto !important;line-height: 2.0rem !important">##remarks##</p>
-</div>-->
+`;
+        return ret;
+    }
+    mstapplicantworkreferenceshtml1() {
+        let ret = "";
+        ret += `
+        <ul class="list-group" style="line-height: 15px;margin: 0px;">
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Company Name </span>: <label style="font-size: small;">##companyname##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Work Topic </span>: <label style="font-size: small;">##worktopic##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Reference URL :</span> <label style="font-size: small;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Work Description :</span> <label style="font-size: small;">##workdescription##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks :</span> <label style="font-size: small;">##remarks##</label></li>
+  </ul>
 `;
         return ret;
     }
@@ -729,6 +842,10 @@ export class mstapplicantworkrefgridComponent implements OnInit {
                     valuePrepareFunction: (cell, row) => {
                         //debugger;;
                         cell = this.mstapplicantworkreferenceshtml();
+                        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                        if (isMobile) {
+                          cell = this.mstapplicantworkreferenceshtml1();
+                        }
                         var divrow = JSON.parse(JSON.stringify(row));
 
                         if (row.referencecount == 0 || row.referencecount == undefined) {

@@ -1901,7 +1901,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                 servicename: ""
             };
 
-            // this.menuactions.push(objmenuaction);
+            this.menuactions.push(objmenuaction);   
 
             if (this.canedit) this.menuactions.push(objmenuaction);
 

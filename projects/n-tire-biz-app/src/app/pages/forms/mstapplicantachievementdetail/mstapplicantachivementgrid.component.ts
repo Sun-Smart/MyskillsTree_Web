@@ -790,7 +790,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
       if (this.pkcol != undefined && this.pkcol != null) childsave = true;
       this.dialog.open(mstapplicantachievementdetailComponent,
         {
-          data: { showview: false, showAttachment: false, save: childsave, maindatapkcol: this.pkcol, event, achievementid, applicantid, visiblelist: this.mstapplicantachievementdetails_visiblelist, hidelist: this.mstapplicantachievementdetails_hidelist, ScreenType: 2 },
+          data: { showAttachment: true, save: childsave, maindatapkcol: this.pkcol, event, achievementid, applicantid, visiblelist: this.mstapplicantachievementdetails_visiblelist, hidelist: this.mstapplicantachievementdetails_hidelist, ScreenType: 2 },
         }
       ).onClose.subscribe(res => {
         if (res) {

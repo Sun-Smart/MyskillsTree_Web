@@ -186,8 +186,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     (editConfirm)="mstapplicantsocialmediadetails_beforesave($event)">
   </ng2-smart-table>
     `,
-    styles:[
-      `
+    styles: [
+        `
       @media only screen and (max-width: 600px) {
         h4.columns.left{
           white-space: nowrap;
@@ -318,7 +318,10 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         });
 
         this.FillData();
-
+        this.mstapplicantsocialmediadetail_service.getDefaultData().then(res => {
+            this.applicantid_List = res.list_applicantid.value;
+            this.socialmedianame_List = res.list_socialmedianame.value;
+        }).catch((err) => { this.spinner.hide(); console.log(err); });
     }
 
     // addSkills() {
@@ -329,14 +332,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     skillClose() {
         this.mstapplicantsocialmediadetail_Form.reset();
         this.showSkillDetails_input = false;
-    };
-
-    getdata() {
-
-        this.mstapplicantsocialmediadetail_service.getDefaultData().then(res => {
-            this.applicantid_List = res.list_applicantid.value;
-            this.socialmedianame_List = res.list_socialmedianame.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
     };
 
     socialmedianame_onChange(evt: any) {
@@ -394,15 +389,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         };
 
         this.formData = this.mstapplicantsocialmediadetail_Form.getRawValue();
-        // if (this.dynamicconfig.data != null) {
-        //     for (let key in this.dynamicconfig.data) {
-        //         if (key != 'visiblelist' && key != 'hidelist') {
-        //             if (this.mstapplicantsocialmediadetail_Form.controls[key] != null) {
-        //                 this.formData[key] = this.mstapplicantsocialmediadetail_Form.controls[key].value;
-        //             }
-        //         }
-        //     }
-        // };
+
         console.log(this.formData);
         this.spinner.show();
 
@@ -434,7 +421,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
                         this.dialogRef.close(this.objvalues);
                     }
                     else {
-                        // this.FillData(res);
+                        this.FillData();
                     }
                 }
                 this.mstapplicantsocialmediadetail_Form.markAsUntouched();
@@ -518,15 +505,14 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     };
 
     FillData() {
-        debugger
- 
 
-        this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByApplicantID(this.applicantid).then((res:any) => {
+        this.Set_mstapplicantsocialmediadetails_TableConfig();
+
+        this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByApplicantID(this.applicantid).then((res: any) => {
             this.Set_mstapplicantsocialmediadetails_TableConfig();
             this.mstapplicantsocialmediadetail_menuactions = res.mstapplicantsocialmediadetail_menuactions;
             this.mstapplicantsocialmediadetails_LoadTable(res.mstapplicantsocialmediadetail);
         });
-
     }
     //start of Grid Codes mstapplicantsocialmediadetails
     mstapplicantsocialmediadetails_settings: any;
@@ -586,10 +572,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
                 edit: true, // true,
                 delete: (this.IsApplicant || this.IsAdmin),
                 position: 'right',
-                 custom: this.mstapplicantsocialmediadetail_menuactions
-                // custom: [{ name: 'reference',
-                // title: `<i class="icon-references" aria-hidden="true"></i>`,
-                // }],
+                custom: this.mstapplicantsocialmediadetail_menuactions
             },
             add: {
                 addButtonContent: '<i class="nb-plus"></i>',
@@ -629,7 +612,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
             },
         };
     }
-    mstapplicantsocialmediadetails_LoadTable(mstapplicantsocialmediadetail= new LocalDataSource()) {
+    mstapplicantsocialmediadetails_LoadTable(mstapplicantsocialmediadetail = new LocalDataSource()) {
         debugger
         if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantsocialmediadetails_ID) >= 0) {
             if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source = new LocalDataSource();
@@ -643,22 +626,22 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
 
         this.showSkillDetails_input = true;
         this.ngOnInit();
-        this.getdata();
+
         let add = false;
         if (event == null) add = true;
-   
+
     }
 
     Edit_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
         debugger
 
         this.showSkillDetails_input = true;
-        this.getdata();
+
         let add = false;
         if (event == null) add = true;
         let childsave = true;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-   
+
         this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByEID(event.data.pkcol).then(res => {
             console.log(res);
 
@@ -670,17 +653,13 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
                 socialmedianamedesc: res.mstapplicantsocialmediadetail.socialmedianamedesc,
                 handlename: res.mstapplicantsocialmediadetail.handlename,
                 url: res.mstapplicantsocialmediadetail.url,
-                // .replace(/<[^>]*>/g, '')
                 remarks: res.mstapplicantsocialmediadetail.remarks,
                 attachment: JSON.parse(res.mstapplicantsocialmediadetail.attachment),
                 status: res.mstapplicantsocialmediadetail.status,
                 statusdesc: res.mstapplicantsocialmediadetail.statusdesc,
             });
-            this.mstapplicantsocialmediadetail_menuactions = res.mstapplicantsocialmediadetail_menuactions;
         });
-
-
-    }
+    };
 
     //  Old Code
 
@@ -763,7 +742,9 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
         let formname = (objbomenuaction as any).actionname;
     }
+
     async onCustom_mstapplicantsocialmediadetailsAttachment_Action(event: any, socialrefid: any, applicantid: any) {
+        
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
         let formname = (objbomenuaction as any).actionname;
         if (formname == "mstapplicantsocialmediadetails") {
