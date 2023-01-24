@@ -57,7 +57,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 @Component({
   selector: 'app-applicanteducationgrid',
   template: `
-    <div class="row form-group sticky1 educ_det_title" style=" background:#ebf3fc !important;color: #000;padding: 5px;">
+    <div *ngIf="showWebviewDetect"  class="row form-group sticky1 educ_det_title" style=" background:#ebf3fc !important;color: #000;padding: 5px;">
 
         <div class="col-4">
     <h4 class="columns left" >{{'Education Details'}}</h4>
@@ -96,9 +96,51 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </div>
 
 </div>
+
+
+<div *ngIf="showMobileDetectskill" class="row form-group sticky1 educ_det_title" style=" background:#ebf3fc !important;color: #000;padding: 5px;">
+
+        <div class="col-4">
+    <h4 class="columns left" >{{'Education Details'}}</h4>
+</div>
+
+<div class="col-4">
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstapplicanteducationdetails_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                    </ul>
+                  </li>
+                </ul>
+</div>
+<div class="col-4" style="text-align: end; margin: auto;">
+                <!-- <ul class="rightside">
+                    <a [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i style="color:#fff !important;"
+                       class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
+                </ul> -->
+                <!-- <a  [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"> -->
+                <!-- <button type="button" style="border-color: #fff !important;
+                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
+                <button type="button" class="btn btn-outline-primary  popup-add-button"  [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"
+                 title = "Add Details">Add</button>
+
+                 <!-- <button (click)="addSkills()" >Add 1</button> -->
+                <!-- </a> -->
+
+                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
+
+                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="eduction_close" style="width: 20px;" title = "Close"/></a>
+</div>
+
+</div>
+
               <!-- suneel12  & modifed by muthu dated 19/12/22-->
 
-            <form [formGroup]="mstapplicanteducationdetail_Form">
+            <form [formGroup]="mstapplicanteducationdetail_Form" *ngIf="showWebviewDetect">
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
                 <thead>
                     <tr>
@@ -204,6 +246,65 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 </table>
             </form>
 
+
+
+            <form [formGroup]="mstapplicanteducationdetail_Form"  *ngIf="showMobileDetectskill">
+
+            <div class="row" *ngIf="showSkillDetails_input" style="width: 320px;margin: 10px !important;">
+<div class="col-md-12">
+  <label>From Year</label>
+  <input type="number" id="fromyear" formControlName="fromyear" class="form-control" required>
+</div>
+<div class="col-md-12">
+  <label>Category</label>
+  <select  id="educationcategory" required (change)="educationcategory_onChange($event.target)"
+                        formControlName="educationcategory" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of educationcategory_List" value="{{item.value}}">{{item.label}}</option>
+                    </select>
+</div>
+<div class="col-md-12">
+  <label>Sub Category</label>
+  <select  id="educationsubcategory" required
+                        (change)="educationsubcategory_onChange($event.target)" formControlName="educationsubcategory"
+                        class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of educationsubcategory_List" value="{{item.value}}">{{item.label}}</option>
+                    </select>
+</div>
+<div class="col-md-12">
+  <label>Institution Name</label>
+  <input  id="institutionname" formControlName="institutionname" class="form-control" required>
+</div>
+<div class="col-md-12">
+  <label>Course Name</label>
+  <input  id="coursename" required formControlName="coursename" class="form-control">
+</div>
+<div class="col-md-12">
+  <label>Percentage</label>
+  <input  id="percentage" formControlName="percentage" type="number"  class="form-control" required >
+                    <span *ngIf = "show_percentageError" style = "color:red; font-size:10px;"> Percentage value should be below 100</span>
+</div>
+<div class="col-md-12">
+  <label>Remarks</label>
+  <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks" required></textarea>
+</div>
+<div class="col-md-12">
+  <label>To Year</label>
+  <input type="number" id="toyear" formControlName="toyear" class="form-control" required>
+  <span *ngIf = "show_YearError" style = "color:red; font-size:10px;"> To year should not be greater than from year</span>
+</div>
+
+<div class="col" style="position: relative;left: 120px;top: 7px;">
+
+<i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+
+                    <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                    (click)="skillClose()"></i>
+</div>
+            </div>
+            </form>
+
               <ng2-smart-table #tbl_mstapplicanteducationdetails
                 (userRowSelect)="handle_mstapplicanteducationdetails_GridSelected($event)"
                 [settings]="mstapplicanteducationdetails_settings"
@@ -226,17 +327,17 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       }
       button.btn.btn-outline-primary.popup-add-button{
         position: relative !important;
-        top: 0px !important;
+        top: 10px !important;
         right: 30px !important;
       }
       .eduction_close{
         width: 20px !important;
         position: relative !important;
-        bottom: 0px !important;
+        bottom: 15px !important;
         right: 7px !important;
       }
       .educ_det_title{
-        width: 650px !important;
+        /* width: 650px !important; */
       }
       .edu_sub{
         white-space: nowrap !important;
@@ -320,7 +421,9 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   formValue: any;
   show_percentageError: boolean = false;
   show_YearError: boolean;
-
+showMobileDetectskill: boolean = false;
+  showWebviewDetect: boolean = true;
+  isMobile: any;
   constructor(
     private nav: Location,
     private translate: TranslateService,
@@ -353,6 +456,12 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   get f() { return this.mstapplicanteducationdetail_Form.controls; }
 
   ngOnInit() {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      this.showMobileDetectskill = true;
+      this.showWebviewDetect = false;
+      /* your code here */
+    }
     this.Set_mstapplicanteducationdetails_TableConfig();
 
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
@@ -406,7 +515,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then((res: any) => this.educationsubcategory_List = res as DropDownValues[]);
     });
   };
-  
+
   educationsubcategory_onChange(evt: any) {
     let e = evt.value;
     this.mstapplicanteducationdetail_Form.patchValue({ educationsubcategorydesc: evt.options[evt.options.selectedIndex].text });
@@ -600,6 +709,22 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         </tbody>
       </table>
       </div>
+`;
+    return ret;
+  }
+  mstapplicanteducationdetailshtml1() {
+    let ret = "";
+    ret += `
+  <ul class="list-group" style="line-height: 15px;margin: 0px;">
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">From Year </span>: <label style="font-size: small;">##fromyear##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Category </span>: <label style="font-size: small;">##educationcategorydesc##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Sub Category :</span> <label style="font-size: small;">##educationsubcategorydesc##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Institution Name :</span> <label style="font-size: small;">##institutionname##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Course Name :</span> <label style="font-size: small;">##coursename##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Percentage :</span> <label style="font-size: small;">##percentage##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks :</span> <label style="font-size: small;">##remarks##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">To Year :</span> <label style="font-size: small;">##toyear##</label></li>
+  </ul>
 `;
     return ret;
   }
@@ -820,6 +945,10 @@ debugger
           valuePrepareFunction: (cell, row) => {
             //debugger;;
             cell = this.mstapplicanteducationdetailshtml();
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+              cell = this.mstapplicanteducationdetailshtml1();
+            }
             var divrow = JSON.parse(JSON.stringify(row));
             if (row.referencecount == 0 || row.referencecount == undefined) {
               let abc = '-';
