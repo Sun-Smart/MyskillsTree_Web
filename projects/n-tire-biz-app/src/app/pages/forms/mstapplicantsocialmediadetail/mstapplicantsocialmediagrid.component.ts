@@ -293,6 +293,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     }
 
     ngOnInit() {
+        debugger
         this.Set_mstapplicantsocialmediadetails_TableConfig();
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
@@ -505,12 +506,13 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     };
 
     FillData() {
-
+        debugger
         this.Set_mstapplicantsocialmediadetails_TableConfig();
 
         this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByApplicantID(this.applicantid).then((res: any) => {
-            this.Set_mstapplicantsocialmediadetails_TableConfig();
+            debugger;
             this.mstapplicantsocialmediadetail_menuactions = res.mstapplicantsocialmediadetail_menuactions;
+            this.Set_mstapplicantsocialmediadetails_TableConfig();
             this.mstapplicantsocialmediadetails_LoadTable(res.mstapplicantsocialmediadetail);
         });
     }
@@ -636,7 +638,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         debugger
 
         this.showSkillDetails_input = true;
-
+        this.ngOnInit();
         let add = false;
         if (event == null) add = true;
         let childsave = true;
@@ -744,7 +746,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     }
 
     async onCustom_mstapplicantsocialmediadetailsAttachment_Action(event: any, socialrefid: any, applicantid: any) {
-        
+        debugger;
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
         let formname = (objbomenuaction as any).actionname;
         if (formname == "mstapplicantsocialmediadetails") {

@@ -146,12 +146,12 @@
             <label for="" style="color:#000;font-weight: 600;">To</label>
           </div>
 
-          <div class="col-12" *ngFor="let item of employment_details">
-            <label for="" style="color: #000;font-size: small;width: 200px;">{{item.company}}</label>
+          <div class="col-12" *ngFor="let item of dashboard_employementdetails">
+            <label for="" style="color: #000;font-size: small;width: 200px;">{{item.companyname}}</label>
             <label for="" style="color: #000;font-size: small;width: 200px;">{{item.project}}</label>
             <label for="" style="color: #000;font-size: small;width: 200px;">{{item.details}}</label>
-            <label for="" style="color: #000;font-size: small;width: 200px;">{{item.fromDate | date : "dd-MM-y"}}</label>
-            <label for="" style="color: #000;font-size: small;">{{item.toDate | date : "dd-MM-y"}}</label>
+            <label for="" style="color: #000;font-size: small;width: 200px;">{{item.fromdate}}</label>
+            <label for="" style="color: #000;font-size: small;">{{item.todate}}</label>
           </div>
         </div>
 
