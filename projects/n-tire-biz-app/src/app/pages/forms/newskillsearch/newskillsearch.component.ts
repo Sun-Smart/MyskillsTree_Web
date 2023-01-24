@@ -417,12 +417,16 @@ export class NewskillsearchComponent implements OnInit {
     
       
     }
-
+    
+  
     // console.log(this.AdminDropdown_Form.getRawValue());
     const index: number = this.skillcategoryarry.indexOf(item.value);
     console.log(index);
     if (index !== -1) {
       this.skillcategoryarry.splice(index, 1);
+      console.log( this.skillcategoryarry,'segments')
+ 
+
     }
 
   }

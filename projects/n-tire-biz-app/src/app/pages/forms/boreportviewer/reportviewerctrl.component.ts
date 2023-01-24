@@ -204,7 +204,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
     thCollection: any = [];
 
-    userrole:any;
+    userrole: any;
     showApplicantmenu: boolean = false;
     showAdminMenuaccess: boolean = false;
     showCorporateMenuaccess: boolean = false;
@@ -1467,17 +1467,25 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
             this.showAdminMenuaccess = true;
             this.showApplicantmenu = false;
             this.showCorporateMenuaccess = false;
-          } else if (this.sessionService.getItem('role') == '2') {
+        } else if (this.sessionService.getItem('role') == '2') {
             this.userrole = 'Applicant';
             this.showApplicantmenu = true;
             this.showAdminMenuaccess = false;
             this.showCorporateMenuaccess = false;
-          } else if (this.sessionService.getItem('role') == '3') {
+        } else if (this.sessionService.getItem('role') == '3') {
             this.userrole = 'Corporate';
             this.showCorporateMenuaccess = true;
             this.showApplicantmenu = false;
             this.showAdminMenuaccess = false;
-          }
+                
+            // let resultjobq = this.router.routerState.snapshot.url.match("jobq");
+            //     let resultarrA = this.router.routerState.snapshot.url.match("arrA");
+            //     console.log('result ', resultjobq);
+            //     console.log('result ', resultarrA);
+            //     if (resultjobq[0] == "jobq" || resultarrA[0] == "arrA") {
+            //         this.canedit = true;
+            //     } 
+        }
 
 
         if (localStorage.getItem("role") == '1') {
@@ -1583,6 +1591,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         else {
             this.Initialize(this.currentRoute.snapshot.paramMap.get('id'), null);
             this.paramid = this.currentRoute.snapshot.paramMap.get('id');
+            console.log("paramid    ", this.paramid)
         }
         if (this.reportparameterid != null) {
             this.Initialize(this.reportparameterid, null);
@@ -1641,7 +1650,6 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
             if (this.customreportid != null && this.customreportid != undefined && this.customreportid != "") id = this.customreportid;
             if ((this.currentRoute.component as any).name.toLowerCase() == "boreportviewercomponent") {
                 let res = await this.bomenumasterservice.getListBy_menuurl(id);
-
                 //this.sharedService.alert("res ");
                 if ((res as any).length > 0) {
                     this.sharedService.menuid = (res as any)[0].menuid;
@@ -1649,6 +1657,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                     this.pmenuid = this.sharedService.menuid;
                     this.pmenucode = this.sharedService.menucode;
                 }
+
             }
         }
         else {
@@ -1752,6 +1761,22 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         console.log(initalizeid);
         console.log(this.pmenuid);
 
+     if(this.reportcode== "jobq"  || this.reportcode=="arrA"){
+         this.canedit =true
+     }
+     else{
+        this.canedit =false
+     }
+
+     if(this.reportcode== "ASMD" || this.reportcode=="agp" || this.reportcode=="ald" || this.reportcode=="AWR")
+     {
+        this.menuactions =false
+     }
+     else
+     {
+        this.menuactions =true
+     }
+   
 
         this.fkname = "";
         this.fk = "";
@@ -1798,6 +1823,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
         this.boreportviewerservice.getBOReportResultsByID(this.reportcode, this.fkname, this.fk, this.fkname1, this.fk1, status, this.dialogdata, this.additionaldata, null, this.modulename, this.modulepkcol).then((res: any) => {
             debugger;
+            this.reportcode=""
             this.reportid = res.boreport.reportid;
             this.configdata = res.boreport;
             let filters = this.configdata.filters;
@@ -1839,30 +1865,26 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                 this.canedit = true;
                 this.candelete = true;
             } else if (localStorage.getItem('role') == '3') {
-                // let result = this.router.routerState.snapshot.url.match("aed");
-                // let result1 = this.router.routerState.snapshot.url.match("aadl");
-                // let result2 = this.router.routerState.snapshot.url.match("acdl");
-                // let result3 = this.router.routerState.snapshot.url.match("ASMD");
-                // let result4 = this.router.routerState.snapshot.url.match("agp");
-                // let result5 = this.router.routerState.snapshot.url.match("ald");
-                // let result6 = this.router.routerState.snapshot.url.match("AWR");
-                // let result7 = this.router.routerState.snapshot.url.match("mscwa");
-                // let result8 = this.router.routerState.snapshot.url.match("msapl");
-    
-    // if (result[0] == "aed"|| result1[0] == "aadl" || result2[0] == "acdl" || result3[0] == " ASMD" || result4[0] == "agp" || result5[0] == "ald" || result6[0] =="AWR" || result7[0] == "mscwa" || result8[0] == "msapl")  
-    // {
-    //   this.canedit = false;
-    // } 
-    // else{
-    //     this.canedit = true;
-    // }
-                // this.canedit = true;
-// let result = this.router.routerState.snapshot.url.match ("jobq");
-// if(result[0] == "jobq")
-// {
-//     this.canedit = true ;
-// }
 
+
+                // let resultjobq = this.router.routerState.snapshot.url.match("jobq");
+                // let resultarrA = this.router.routerState.snapshot.url.match("arrA");
+                // console.log('result ', resultjobq);
+                // console.log('result ', resultarrA);
+
+                // if (resultjobq[0] == "jobq") {
+                //     this.canedit = true;
+                // } else if (resultarrA[0] == "arrA") {
+                //     this.canedit = true;
+                // }
+                // else {
+                //     this.canedit = false;
+                // }
+
+
+
+
+                //    this.canedit = false ;
                 this.candelete = false;
             } else if (localStorage.getItem('role') == '2' && localStorage.getItem('user_type') == 'C') {
                 // if(){
@@ -1901,7 +1923,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                 servicename: ""
             };
 
-            this.menuactions.push(objmenuaction);   
+            // this.menuactions.push(objmenuaction);
 
             if (this.canedit) this.menuactions.push(objmenuaction);
 
@@ -2139,7 +2161,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         });
 
 
-
+        this.reportcode=""
         let group: number = 0;
 
 
@@ -2223,7 +2245,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
 
     }
-    ononsubmit(){
+    ononsubmit() {
         debugger
         alert("hi")
     }
