@@ -541,8 +541,8 @@ export class mstapplicantgeographygrid implements OnInit {
     ret += `
     <ul class="list-group" style="line-height: 15px;margin: 0px;">
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Country </span>: <label style="font-size: small;">##countrydesc##</label></li>
-    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skill Category </span>: <label style="font-size: small;">##citydesc##</label></li>
-    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Sub Category :</span> <label style="font-size: small;">##remarks##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">City </span>: <label style="font-size: small;">##citydesc##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks :</span> <label style="font-size: small;">##remarks##</label></li>
   </ul>
 `;
     return ret;
