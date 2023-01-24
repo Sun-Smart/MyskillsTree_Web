@@ -225,6 +225,9 @@ import { mstapplicanteducationdetailService } from '../../../service/mstapplican
     .main-dash-content{
       width: 100% !important;
     }
+    .dashboard-sidebar-content{
+      height: 600px !important;
+    }
   }
   `],
   templateUrl: './bodashboardviewer.component.html',
@@ -608,7 +611,7 @@ export class BODashboardViewerComponent implements OnInit {
     this.mstapplicantmaster_service.get_dashboardAll_details(body).then(res => {
       debugger;
       console.log('dashboard_details', res);
-      
+
       this.dashboard_details=[],
       this.dashboard_employementdetails =[]
       this.dashboard_details.push(res);
