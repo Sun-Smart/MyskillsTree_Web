@@ -1857,6 +1857,12 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
     //     this.canedit = true;
     // }
                 // this.canedit = true;
+// let result = this.router.routerState.snapshot.url.match ("jobq");
+// if(result[0] == "jobq")
+// {
+//     this.canedit = true ;
+// }
+
                 this.candelete = false;
             } else if (localStorage.getItem('role') == '2' && localStorage.getItem('user_type') == 'C') {
                 // if(){
