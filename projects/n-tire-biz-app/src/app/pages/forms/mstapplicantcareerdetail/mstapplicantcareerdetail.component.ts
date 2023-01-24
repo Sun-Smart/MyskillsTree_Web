@@ -55,7 +55,16 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
 @Component({
   selector: 'app-mstapplicantcareerdetail',
   templateUrl: './mstapplicantcareerdetail.component.html',
-  styles: [],
+  styles: [`
+   @media only screen and (max-width: 600px) {
+    .education_view_mobile{
+      min-width: 100% !important;
+    }
+    .mobile_view_btn{
+      display: none !important;
+    }
+   }
+  `],
   providers: [KeyboardShortcutsService]
 })
 
@@ -419,9 +428,9 @@ export class mstapplicantcareerdetailComponent implements OnInit {
     this.dialogRef.close(this.objvalues);
   }
   goBack(){
-        
+
     this.router.navigate(['/home/boreportviewer/acdl']);
-    
+
 }
   onSubmitAndWait() {
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {

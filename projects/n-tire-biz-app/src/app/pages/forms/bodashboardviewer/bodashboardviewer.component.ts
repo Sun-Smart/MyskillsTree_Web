@@ -225,6 +225,9 @@ import { mstapplicanteducationdetailService } from '../../../service/mstapplican
     .main-dash-content{
       width: 100% !important;
     }
+    .dashboard-sidebar-content{
+      height: 600px !important;
+    }
   }
   `],
   templateUrl: './bodashboardviewer.component.html',
@@ -329,7 +332,7 @@ export class BODashboardViewerComponent implements OnInit {
   }
   ngOnInit() {
     this.get_allData();
-    this.get_employement();
+    // this.get_employement();
     this.get_educationdata();
 
 
@@ -567,7 +570,7 @@ export class BODashboardViewerComponent implements OnInit {
         this.skill_detail.push({
           strRating: this.sub_category[i].selfrating,
           subCategory: this.sub_category[i].subcategoryiddesc,
-          skill_id: this.sub_category[i].skillcategory,
+          skill_id: this.sub_category[i].subcategoryid,
         });
       };
 
@@ -608,11 +611,18 @@ export class BODashboardViewerComponent implements OnInit {
     this.mstapplicantmaster_service.get_dashboardAll_details(body).then(res => {
       debugger;
       console.log('dashboard_details', res);
-      
+
+      this.dashboard_details=[],
+      this.dashboard_employementdetails =[]
       this.dashboard_details.push(res);
 
+      // for(var i=0; i< this.dashboard_details.length; i++){
+
+      // }
+
       this.dashboard_employementdetails = this.dashboard_details[0].list_dashboardemployeement.value;
-      this.dashboard_educationdetails = this.dashboard_details[0].list_dashboareducation.value;
+      console.log('dashboard_employementdetails', this.dashboard_employementdetails);
+
     });
 
   }
@@ -625,56 +635,56 @@ export class BODashboardViewerComponent implements OnInit {
     });
   }
 
-  get_employement() {
-    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
-      debugger;
+  // get_employement() {
+  //   this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
+  //     debugger;
 
-      this.career_detail = res.mstapplicantcareerdetail;
+  //     this.career_detail = res.mstapplicantcareerdetail;
 
-      for (let i = 0; i < this.career_detail.length; i++) {
-        debugger
-        this.career_array.push({
-          career_companyName: this.career_detail[i].companyname,
-          career_frDate: this.career_detail[i].fromdate,
-          career_toDate: this.career_detail[i].todate,
-        });
+  //     for (let i = 0; i < this.career_detail.length; i++) {
+  //       debugger
+  //       this.career_array.push({
+  //         career_companyName: this.career_detail[i].companyname,
+  //         career_frDate: this.career_detail[i].fromdate,
+  //         career_toDate: this.career_detail[i].todate,
+  //       });
 
-        this.career_companyName = this.career_array[i].career_companyName;
-        this.career_frDate = this.career_array[i].career_frDate;
-        this.career_toDate = this.career_array[i].career_toDate;
-      };
-      this.employment_details.push({
-        company: this.career_companyName,
-        project: this.project_worktopic,
-        details: this.project_workdescription,
-        fromDate: new Date(this.career_frDate).toLocaleDateString(),
-        toDate: new Date(this.career_toDate).toLocaleDateString(),
-      });
-    });
-
-
-    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
-
-      this.project_detail = res.mstapplicantworkreference;
-
-      for (let i = 0; i < this.project_detail.length; i++) {
-        debugger
-        this.project_array.push({
-          project_worktopic: this.project_detail[i].worktopic,
-          project_workdescription: this.project_detail[i].workdescription,
-        });
-
-        this.project_worktopic = this.project_array[i].project_worktopic;
-        this.project_workdescription = this.project_array[i].project_workdescription;
-      };
-
-    });
+  //       this.career_companyName = this.career_array[i].career_companyName;
+  //       this.career_frDate = this.career_array[i].career_frDate;
+  //       this.career_toDate = this.career_array[i].career_toDate;
+  //     };
+  //     this.employment_details.push({
+  //       company: this.career_companyName,
+  //       project: this.project_worktopic,
+  //       details: this.project_workdescription,
+  //       fromDate: new Date(this.career_frDate).toLocaleDateString(),
+  //       toDate: new Date(this.career_toDate).toLocaleDateString(),
+  //     });
+  //   });
 
 
+  //   this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
 
-    console.log("this.employment_details", this.employment_details);
+  //     this.project_detail = res.mstapplicantworkreference;
 
-  }
+  //     for (let i = 0; i < this.project_detail.length; i++) {
+  //       debugger
+  //       this.project_array.push({
+  //         project_worktopic: this.project_detail[i].worktopic,
+  //         project_workdescription: this.project_detail[i].workdescription,
+  //       });
+
+  //       this.project_worktopic = this.project_array[i].project_worktopic;
+  //       this.project_workdescription = this.project_array[i].project_workdescription;
+  //     };
+
+  //   });
+
+
+
+  //   console.log("this.employment_details", this.employment_details);
+
+  // }
 
   showSkills() {
     this.dialog.open(mstapplicantskilldetailgridComponent,
