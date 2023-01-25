@@ -3200,6 +3200,7 @@ li.nav-item.actionheader.col {
 
 li.list-group-item {
   white-space: break-spaces;
+  border-bottom: none;
 }
 
 // .terms_condition {
@@ -3890,7 +3891,7 @@ footer {
 .main-dash-content {
   width: 80%;
   overflow-y: scroll;
-  height: 87% !important;
+  height: 500px !important;
   .main-data{
     // display: flex;
     // justify-content: space-between;

@@ -54,6 +54,9 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
       .applicant_view{
         margin-top: 0px !important;
       }
+      .mobileshowview{
+        display: none !important;
+      }
     }
     `],
     providers: [KeyboardShortcutsService]

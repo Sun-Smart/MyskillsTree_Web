@@ -67,7 +67,7 @@
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;line-height: 1;">
         <li class='nav-item actionheader' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
-            <!-- <a class="btn btn-outline-primary  popup-add-button showhideback" [routerLink]=''(click)="goBack()" >
+          <!-- <a class="btn btn-outline-primary  popup-add-button showhideback" [routerLink]=''(click)="goBack()" >
               Back</a> -->
           <button type="button" class="btn btn-outline-primary  popup-add-button"
             (click)="onSubmitAndWait()">Submit</button>&nbsp;
@@ -81,9 +81,9 @@
             [value]="f.requestid.value" [status]="f.status.value"></app-action>
         </li>
         <li>
-        <i class='nav-item actionheader'
-          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
-          class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
+          <i class='nav-item actionheader'
+            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
+            class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
         </li>
 
 
@@ -137,16 +137,18 @@
     </div>
 
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div *ngIf="requestmasteridvisible==undefined || requestmasteridvisible==true" style='' class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div *ngIf="requestmasteridvisible==undefined || requestmasteridvisible==true" style=''
+        class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <label for="requestmasterid" class="control-label">Request Masterid</label>
         <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.requestmasterid?.value}}</label>
         <input *ngIf="!(showview || bapplicantentry)" id="requestmasterid" formControlName="requestmasterid"
           class="form-control">
       </div>
     </div>
-    
+
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div *ngIf="requestreferencedatevisible==undefined || requestreferencedatevisible==true" style='' class="col-lg-4 col-md-4 col-sm-12 col-xs-12 showapplicantView">
+      <div *ngIf="requestreferencedatevisible==undefined || requestreferencedatevisible==true" style=''
+        class="col-lg-4 col-md-4 col-sm-12 col-xs-12 showapplicantView">
         <label for="requestreferencedate" class="control-label required">Date</label>
         <label *ngIf="showview"
           class="labelview">{{ngbDateParserFormatter.format(f.requestreferencedate?.value)}}</label>
@@ -162,7 +164,8 @@
           errorMsg="Enter {{'Date' | translate}}">
         </app-field-error-display>
       </div>
-      <div *ngIf="requestedcontactvisible==undefined || requestedcontactvisible==true" style='' class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div *ngIf="requestedcontactvisible==undefined || requestedcontactvisible==true" style=''
+        class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <label for="requestedcontact" class="control-label required">Contact Person</label>
         <label *ngIf="showview" class="labelview">{{f.requestedcontact?.value}}</label>
         <input *ngIf="!showview" id="requestedcontact" required formControlName="requestedcontact" class="form-control">
@@ -173,7 +176,8 @@
           errorMsg="{{'Contact' | translate}} not valid">
         </app-field-error-display>
       </div>
-      <div *ngIf="contactdesignationvisible==undefined || contactdesignationvisible==true" style='' class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div *ngIf="contactdesignationvisible==undefined || contactdesignationvisible==true" style=''
+        class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <label for="contactdesignation" class="control-label">Designation</label>
         <label *ngIf="showview" class="labelview">{{f.contactdesignation?.value}}</label>
         <input *ngIf="!showview" id="contactdesignation" formControlName="contactdesignation" class="form-control">
@@ -181,7 +185,8 @@
           errorMsg="Enter {{'Designation' | translate}}">
         </app-field-error-display> -->
       </div>
-      <div *ngIf="contactemailidvisible==undefined || contactemailidvisible==true" style='' class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div *ngIf="contactemailidvisible==undefined || contactemailidvisible==true" style=''
+        class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <label for="contactemailid" class="control-label required">Email</label>
         <label *ngIf="showview" class="labelview">{{f.contactemailid?.value}}</label>
         <input type="email" [email]="true" *ngIf="!showview" id="contactemailid" formControlName="contactemailid"
@@ -195,14 +200,16 @@
       </div>
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div *ngIf="contactmobilevisible==undefined || contactmobilevisible==true" style='' class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div *ngIf="contactmobilevisible==undefined || contactmobilevisible==true" style=''
+        class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <label for="contactmobile" class="control-label">Mobile</label>
         <label *ngIf="showview" class="labelview">{{f.contactmobile?.value}}</label>
         <int-phone-prefix *ngIf="!showview" id="contactmobile" formControlName="contactmobile" [locale]="'en'"
           class="form-control telephone">
         </int-phone-prefix>
       </div>
-      <div *ngIf="contactuseridvisible==undefined || contactuseridvisible==true" style='' class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div *ngIf="contactuseridvisible==undefined || contactuseridvisible==true" style=''
+        class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <label for="contactuserid" class="control-label">Contact User</label>
         <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.contactuserid?.value}}</label>
         <input *ngIf="!(showview || bapplicantentry)" id="contactuserid" formControlName="contactuserid"
@@ -217,12 +224,12 @@
         <label for="requestremarks" class="control-label">Request Remarks</label>
         <label *ngIf="showview" class="labelview">{{f.requestremarks?.value}}</label>
         <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="requestremarks"
-          formControlName="requestremarks" class="form-control">
-</textarea>
+          formControlName="requestremarks" class="form-control"></textarea>
       </div>
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div *ngIf="referencedatevisible==undefined || referencedatevisible==true" style='' class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div *ngIf="referencedatevisible==undefined || referencedatevisible==true" style=''
+        class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <label for="referencedate" class="control-label">Reference Date</label>
         <label *ngIf="(showview || bcompanyentry)"
           class="labelview">{{ngbDateParserFormatter.format(f.referencedate?.value)}}</label>
@@ -241,7 +248,8 @@
     <!--referenceacceptance-->
 
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div *ngIf="referenceacceptancevisible==undefined || referenceacceptancevisible==true" style='' class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div *ngIf="referenceacceptancevisible==undefined || referenceacceptancevisible==true" style=''
+        class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <label for="referenceacceptance" class="control-label">Reference Acceptance</label>
         <select *ngIf="!(showview || bcompanyentry)" id="referenceacceptance"
           (change)="referenceacceptance_onChange($event.target)" formControlName="referenceacceptance"

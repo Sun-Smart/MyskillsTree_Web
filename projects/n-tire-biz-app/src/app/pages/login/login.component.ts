@@ -685,6 +685,8 @@ export class LoginComponent implements OnInit {
                 otpm: null,
                 otpe: null,
             }
+            localStorage.setItem("verifyEmail_data", verify_data.email);
+
             console.log(verify_data);
             let options = new HttpHeaders().set('Content-Type', 'application/json');
             return this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + verify_data.email + '&otpm=' + verify_data.otpm + '&otpe=' + verify_data.otpe)
@@ -701,6 +703,8 @@ export class LoginComponent implements OnInit {
                     console.log("this.verifyMob_Otp", this.verifyMob_Otp);
                     console.log("this.verifyEmail_Otp", this.verifyEmail_Otp);
 
+                    localStorage.setItem('verifyMob_Otp', this.verifyMob_Otp)
+                    localStorage.setItem("verifyEmail_Otp", this.verifyEmail_Otp);
                     this.router.navigate(['verify']);
 
                     if (this.verify_outputstring == "OTP has send to your registered mail id and Mobilenumber") {

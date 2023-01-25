@@ -736,7 +736,7 @@ export class mstapplicantreferencerequestComponent implements OnInit {
         if (this.fileattachment) this.fileattachment.clear();
         this.spinner.hide();
         debugger;
-        this.toastr.addSingle("success", "", "Reference Request Successfully");
+        this.toastr.addSingle("success", "", "Reference Request Sent Successfully");
         this.sessionService.setItem("attachedsaved", "true")
         this.objvalues.push((res as any).mstapplicantreferencerequest);
         this.ngOnInit();
