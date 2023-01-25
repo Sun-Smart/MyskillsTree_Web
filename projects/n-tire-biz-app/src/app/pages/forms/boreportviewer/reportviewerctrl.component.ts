@@ -220,6 +220,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
     getAdminRole: string;
     showAddJobs: boolean;
     showhideaddapplicant: boolean;
+    bomenuactions: boolean;
 
 
     constructor(
@@ -1477,7 +1478,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
             this.showCorporateMenuaccess = true;
             this.showApplicantmenu = false;
             this.showAdminMenuaccess = false;
-                
+
             // let resultjobq = this.router.routerState.snapshot.url.match("jobq");
             //     let resultarrA = this.router.routerState.snapshot.url.match("arrA");
             //     console.log('result ', resultjobq);
@@ -1485,6 +1486,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
             //     if (resultjobq[0] == "jobq" || resultarrA[0] == "arrA") {
             //         this.canedit = true;
             //     } 
+
         }
 
 
@@ -1761,22 +1763,20 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         console.log(initalizeid);
         console.log(this.pmenuid);
 
-     if(this.reportcode== "jobq"  || this.reportcode=="arrA"){
-         this.canedit =true
-     }
-     else{
-        this.canedit =false
-     }
+        if (this.reportcode == "jobq" || this.reportcode == "arrA") {
+            this.canedit = true
+        }
+        else {
+            this.canedit = false
+        }
 
-     if(this.reportcode== "ASMD" || this.reportcode=="agp" || this.reportcode=="ald" || this.reportcode=="AWR")
-     {
-        this.menuactions =false
-     }
-     else
-     {
-        this.menuactions =true
-     }
-   
+        // if (this.reportcode == "ASMD" || this.reportcode == "agp" || this.reportcode == "ald" || this.reportcode == "AWR") {
+        // this.menuactions =false
+        // }
+        // else {
+        // this.menuactions =true
+        // }
+
 
         this.fkname = "";
         this.fk = "";
@@ -1823,7 +1823,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
         this.boreportviewerservice.getBOReportResultsByID(this.reportcode, this.fkname, this.fk, this.fkname1, this.fk1, status, this.dialogdata, this.additionaldata, null, this.modulename, this.modulepkcol).then((res: any) => {
             debugger;
-            this.reportcode=""
+            this.reportcode = ""
             this.reportid = res.boreport.reportid;
             this.configdata = res.boreport;
             let filters = this.configdata.filters;
@@ -1858,6 +1858,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
             this.menuactions = [];
             this.canadd = true;
+            console.log(this.menuactions)
             //code added bu dhana june 30 2022
             // this.canedit = true;
             // this.candelete = true;
@@ -1867,22 +1868,17 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
             } else if (localStorage.getItem('role') == '3') {
 
 
-                // let resultjobq = this.router.routerState.snapshot.url.match("jobq");
-                // let resultarrA = this.router.routerState.snapshot.url.match("arrA");
-                // console.log('result ', resultjobq);
-                // console.log('result ', resultarrA);
-
-                // if (resultjobq[0] == "jobq") {
-                //     this.canedit = true;
-                // } else if (resultarrA[0] == "arrA") {
-                //     this.canedit = true;
-                // }
-                // else {
-                //     this.canedit = false;
-                // }
 
 
 
+                // if(this.reportcode== "ASMD" || this.reportcode=="agp" || this.reportcode=="ald" || this.reportcode=="AWR")
+                //      {
+                //          this.bomenuactions =false
+                //      }
+                //      else
+                //      {
+                //          this.bomenuactions =true
+                //      }
 
                 //    this.canedit = false ;
                 this.candelete = false;
@@ -1949,6 +1945,32 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
 
             this.menuactions = this.menuactions.concat(res.bomenuactions);
+            console.log('this.menuactions ', this.menuactions);
+
+
+            if (localStorage.getItem('role') == '3') {
+
+                // if (this.reportcode == "jobq" || this.reportcode == "arrA") 
+
+                // let resultASMD = this.router.routerState.snapshot.url.match("ASMD");
+
+                // if (resultASMD[0] == "ASMD") {
+
+                if (res.bomenuactions[0]?.description == "Socialmedia Attachment") {
+
+                    this.menuactions[1] = [];
+                }
+                else if (res.bomenuactions[0]?.description == "Geographypreferences Attachment") {
+                    this.menuactions[1] = [];
+                }
+                else if (res.bomenuactions[0]?.description == "Language Attachment") {
+                    this.menuactions[1] =[];
+                }
+                else if (res.bomenuactions[0]?.description == "Workreference Attachment") {
+                    this.menuactions[1] =[];
+                }
+            }
+
 
 
             //////////debugger;
@@ -2161,7 +2183,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         });
 
 
-        this.reportcode=""
+        this.reportcode = ""
         let group: number = 0;
 
 
