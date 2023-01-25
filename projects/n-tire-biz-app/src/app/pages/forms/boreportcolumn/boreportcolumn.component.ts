@@ -587,6 +587,7 @@ export class boreportcolumnComponent implements OnInit {
                 }
             }
         }
+        debugger;
         console.log(this.formData);
         this.spinner.show();
         this.boreportcolumn_service.saveOrUpdate_boreportcolumns(this.formData).subscribe(

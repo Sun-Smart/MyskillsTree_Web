@@ -554,6 +554,10 @@ export class mstapplicantsocialmediadetailComponent implements OnInit {
         debugger;
         this.isSubmitted = true;
         let strError = "";
+        
+
+
+        
         if (!this.mstapplicantsocialmediadetail_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
             return;
