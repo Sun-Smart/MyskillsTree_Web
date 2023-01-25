@@ -56,13 +56,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 
 @Component({
-<<<<<<< HEAD
-    selector: 'app-applicantlanguagegrid',
-    styles: [`
-=======
   selector: 'app-applicantlanguagegrid',
   styles: [`
->>>>>>> a206b3cad022b49ad02e892ebac7f9ce161f4981
      @media only screen and (max-width: 600px) {
       button.btn.btn-outline-primary.popup-add-button{
         position: absolute !important;
@@ -407,26 +402,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
       this.data = this.data.data;
     }
 
-<<<<<<< HEAD
-    get f() { return this.mstapplicantlanguagedetail_Form.controls; }
-
-
-    //     addSkills() {
-    //     debugger
-    //     this.showSkillDetails_input = true;
-    //     this.getdata();
-    // };
-    skillClose() {
-        this.showSkillDetails_input = false;
-    };
-
-    getdata() {
-        debugger;
-        this.mstapplicantlanguagedetail_service.getDefaultData().then(res => {
-            this.applicantid_List = res.list_applicantid.value;
-            this.language_List = res.list_language.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
-=======
   }
   ngOnInit() {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -434,7 +409,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
       this.showMobileDetectskill = true;
       this.showWebviewDetect = false;
       /* your code here */
->>>>>>> a206b3cad022b49ad02e892ebac7f9ce161f4981
     }
     this.Set_mstapplicantlanguagedetails_TableConfig();
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
@@ -592,91 +566,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     this.PopulateFromMainScreen(this.dynamicconfig.data, true);
   }
 
-<<<<<<< HEAD
-        if (!this.mstapplicantlanguagedetail_Form.valid) {
-            this.toastr.addSingle("error", "", "Enter the required fields");
-            return;
-        }
-        this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
-        // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-        // this.fileAttachmentList = this.fileattachment.getAllFiles();
-        console.log(this.formData);
-        this.spinner.show();;
-        this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe((res: any) => {
-            debugger;
-            console.log(res);
-
-            // await this.sharedService.upload(this.fileAttachmentList);
-            // this.attachmentlist = [];
-            // if (this.fileattachment) this.fileattachment.clear();
-            this.spinner.hide();
-
-            this.toastr.addSingle("success", "", "Successfully saved");
-            this.sessionService.setItem("attachedsaved", "true")
-            this.objvalues.push((res as any).mstapplicantlanguagedetail);
-            this.ngOnInit();
-            this.mstapplicantlanguagedetail_Form.reset();
-            if (!bclear) this.showview = true;
-            if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-            if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-                this.dialogRef.close(this.objvalues);
-                return;
-            }
-            else {
-                if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-            }
-            if (bclear) {
-                this.resetForm();
-            }
-            else {
-                if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-                    this.objvalues.push((res as any).mstapplicantlanguagedetail);
-                    this.dialogRef.close(this.objvalues);
-                }
-                else {
-                    // this.FillData(res);
-                }
-            }
-            this.mstapplicantlanguagedetail_Form.markAsUntouched();
-            this.mstapplicantlanguagedetail_Form.markAsPristine();
-        });
-    }
-
-    resetForm() {
-        if (this.mstapplicantlanguagedetail_Form != null)
-            this.mstapplicantlanguagedetail_Form.reset();
-        this.mstapplicantlanguagedetail_Form.patchValue({
-        });
-        this.PopulateFromMainScreen(this.data, false);
-        this.PopulateFromMainScreen(this.dynamicconfig.data, true);
-    }
-
-    PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
-        if (mainscreendata != null) {
-            for (let key in mainscreendata) {
-                if (key != 'visiblelist' && key != 'hidelist' && key != 'event') {
-
-                    let jsonstring = "";
-                    let json = null;
-                    let ctrltype = typeof (mainscreendata[key]);
-                    if (false)
-                        json = "";
-                    else if (ctrltype == "string") {
-                        this.mstapplicantlanguagedetail_Form.patchValue({ [key]: mainscreendata[key] });
-                    }
-                    else {
-                        this.mstapplicantlanguagedetail_Form.patchValue({ [key]: mainscreendata[key] });
-                    }
-                    {
-                        {
-                            if (bdisable && this.mstapplicantlanguagedetail_Form.controls[key] != undefined) {
-                                this.mstapplicantlanguagedetail_Form.controls[key].disable({ onlySelf: true });
-                                this.hidelist.push(key);
-                            }
-                        }
-                    }
-                }
-=======
   PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
     if (mainscreendata != null) {
       for (let key in mainscreendata) {
@@ -699,7 +588,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
                 this.mstapplicantlanguagedetail_Form.controls[key].disable({ onlySelf: true });
                 this.hidelist.push(key);
               }
->>>>>>> a206b3cad022b49ad02e892ebac7f9ce161f4981
             }
           }
         }
@@ -827,66 +715,10 @@ export class mstapplicantlanuagegridComponent implements OnInit {
       this.tbl_mstapplicantlanguagedetails.source.settings = clone;
       this.tbl_mstapplicantlanguagedetails.source.initGrid();
     }
-<<<<<<< HEAD
-    FillData() {
-        debugger
-        this.Set_mstapplicantlanguagedetails_TableConfig();
-        this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByApplicantID(this.applicantid).then(res => {
-            debugger;
-            this.mstapplicantlanguagedetail_menuactions = res.mstapplicantlanguagedetail_menuactions;
-            this.Set_mstapplicantlanguagedetails_TableConfig();
-            this.mstapplicantlanguagedetails_LoadTable(res.mstapplicantlanguagedetail);
-        });
-    }
-    //start of Grid Codes mstapplicantlanguagedetails
-    mstapplicantlanguagedetails_settings: any;
-
-    show_mstapplicantlanguagedetails_Checkbox() {
-        //debugger;;
-        if (this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] = 'single';
-        else
-            this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] = 'multi';
-        this.tbl_mstapplicantlanguagedetails.source.initGrid();
-    }
-    delete_mstapplicantlanguagedetails_All() {
-        this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] = 'single';
-    }
-    show_mstapplicantlanguagedetails_Filter() {
-        setTimeout(() => {
-            //  this.Set_mstapplicantlanguagedetails_TableDropDownConfig();
-        });
-        if (this.tbl_mstapplicantlanguagedetails.source.settings != null) this.tbl_mstapplicantlanguagedetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantlanguagedetails.source.settings['hideSubHeader'];
-        this.tbl_mstapplicantlanguagedetails.source.initGrid();
-    }
-    show_mstapplicantlanguagedetails_InActive() {
-    }
-    enable_mstapplicantlanguagedetails_InActive() {
-    }
-    async Set_mstapplicantlanguagedetails_TableDropDownConfig(res) {
-        if (!this.bfilterPopulate_mstapplicantlanguagedetails) {
-
-            var clone = this.sharedService.clone(this.tbl_mstapplicantlanguagedetails.source.settings);
-            if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantlanguagedetails_applicantid.value)), }, };
-            if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantlanguagedetails_applicantid.value)), }, };
-            this.tbl_mstapplicantlanguagedetails.source.settings = clone;
-            this.tbl_mstapplicantlanguagedetails.source.initGrid();
-
-            var clone = this.sharedService.clone(this.tbl_mstapplicantlanguagedetails.source.settings);
-            if (clone.columns['language'] != undefined) clone.columns['language'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantlanguagedetails_language.value)), }, };
-            if (clone.columns['language'] != undefined) clone.columns['language'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantlanguagedetails_language.value)), }, };
-            this.tbl_mstapplicantlanguagedetails.source.settings = clone;
-            this.tbl_mstapplicantlanguagedetails.source.initGrid();
-        }
-        this.bfilterPopulate_mstapplicantlanguagedetails = true;
-    }
-    async mstapplicantlanguagedetails_beforesave(event: any) {
-        event.confirm.resolve(event.newData);
-=======
     this.bfilterPopulate_mstapplicantlanguagedetails = true;
   }
   async mstapplicantlanguagedetails_beforesave(event: any) {
     event.confirm.resolve(event.newData);
->>>>>>> a206b3cad022b49ad02e892ebac7f9ce161f4981
 
 
 
@@ -1027,44 +859,12 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         },
       },
     };
-<<<<<<< HEAD
-
-    async onCustom_mstapplicantlanguagedetailsAttachment_Action(event: any, languageid: any, applicantid: any) {
-        debugger
-        let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantlanguagedetails");
-        let formname = (objbomenuaction as any).actionname;
-        if (formname == "mstapplicantlanguagedetails") {
-            let add = false;
-            if (event == null) add = true;
-            let childsave = true;
-            if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-
-            this.dialog.open(mstapplicantlanguagedetailComponent,
-                {
-                    data: { showAttachment: true, save: childsave, maindatapkcol: this.pkcol, event, languageid, applicantid, visiblelist: this.mstapplicantlanguagedetails_visiblelist, hidelist: this.mstapplicantlanguagedetails_hidelist, ScreenType: 2 },
-                }
-            ).onClose.subscribe(res => {
-                if (res) {
-                    if (add) {
-                        for (let i = 0; i < res.length; i++) {
-                            this.tbl_mstapplicantlanguagedetails.source.add(res[i]);
-                        }
-                        this.tbl_mstapplicantlanguagedetails.source.refresh();
-                    }
-                    else {
-                        this.tbl_mstapplicantlanguagedetails.source.update(event.data, res[0]);
-                    }
-                }
-            });
-        }
-=======
   }
   mstapplicantlanguagedetails_LoadTable(mstapplicantlanguagedetails = new LocalDataSource()) {
     if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantlanguagedetails_ID) >= 0) {
       if (this.tbl_mstapplicantlanguagedetails != undefined) this.tbl_mstapplicantlanguagedetails.source = new LocalDataSource();
       if (this.tbl_mstapplicantlanguagedetails != undefined) this.tbl_mstapplicantlanguagedetails.source.load(mstapplicantlanguagedetails as any as LocalDataSource);
       if (this.tbl_mstapplicantlanguagedetails != undefined) this.tbl_mstapplicantlanguagedetails.source.setPaging(1, 20, true);
->>>>>>> a206b3cad022b49ad02e892ebac7f9ce161f4981
     }
   }
 
