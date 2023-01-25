@@ -60,6 +60,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   styles: [`
      @media only screen and (max-width: 600px) {
       button.btn.btn-outline-primary.popup-add-button{
+        /* position: absolute !important;
+        right: 50px !important;
+        bottom: -3px !important; */
         position: absolute !important;
         right: 50px !important;
         bottom: -3px !important;
@@ -174,7 +177,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="closeButton1" style="width: 20px;" title = "Close"/></a>
+                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png"  style="width: 20px;" title = "Close"/></a>
 
                 <!-- </ul> -->
 </div>

@@ -87,11 +87,13 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </div>
     </div>
 
-    <div *ngIf="showMobileDetectskill" class= "row mobile_view_geo"   style="background: #ebf3fc; color: #000; padding: 5px; height: 45px;">
-    <div class=col-4 style="margin: auto;">
-    <h4 class="form-group sticky1  columns left mobile_title">
+    <div *ngIf="showMobileDetectskill" class= "row mobile_view_geo"   style="background: #ebf3fc; color: #000; padding: 5px;">
+    <div class=col-4 >
+    <h4 class="columns left" style="font-size: 16px;">
         {{'Geography Preferences'}}
-
+</h4>
+</div>
+<div class="col-4">
     <ul class="nav navbar-nav1" style='display:none'>
       <li class="dropdown">
         <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -103,10 +105,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         </ul>
       </li>
     </ul>
-</h4>
 </div>
-<div class=col-6></div>
-<div class=col-2 style="text-align: right; margin: auto;">
+<div class=col-4 style="text-align: end; margin: auto;">
     <!-- <ul class="rightside"> -->
     <!-- <a  [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')">
     <button type="button" class="btn btn-outline-primary" style="border-color: #fff !important;    color: #fff;
@@ -114,7 +114,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </a> -->
     <button type="button" [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')" class="btn btn-outline-primary popup-add-button">Add</button>
 
-    <a  class="" [routerLink]='' (click)="onClose()"><img class="closeButton" src="assets/mainmenuicons/icons_close.png"/></a>
+    <a  class="" [routerLink]='' (click)="onClose()"><img class="closeButton1" style="width: 20px;" src="assets/mainmenuicons/icons_close.png"/></a>
 
 <!-- </ul> -->
     </div>
@@ -235,16 +235,19 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     `
     @media only screen and (max-width: 600px) {
       button.btn.btn-outline-primary.popup-add-button{
-    position: absolute !important;
+    /* position: absolute !important;
     left: -43px !important;
-    bottom: -4px !important;
+    bottom: -4px !important; */
+    position: absolute !important;
+    right: 50px !important;
+    bottom: -3px !important;
     }
     h4.form-group.sticky1.columns.left{
     white-space: pre !important;
     font-size: 17px !important;
     }
-    .closeButton{
-      width: 75% !important;
+    .closeButton1{
+      /* width: 75% !important; */
     }
     .mobile_view_geo{
     }

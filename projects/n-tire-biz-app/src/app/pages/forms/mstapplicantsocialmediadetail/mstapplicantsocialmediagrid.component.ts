@@ -144,7 +144,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
-                <a  class="" [routerLink]='' (click)="onClose()"><img style="width:20px;" class="social_close_btn" src="assets/mainmenuicons/icons_close.png"/></a>
+                <a  class="" [routerLink]='' (click)="onClose()"><img style="width:20px;"  src="assets/mainmenuicons/icons_close.png"/></a>
 
                 <!-- </ul> -->
 </div>
@@ -282,18 +282,22 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       @media only screen and (max-width: 600px) {
         h4.columns.left{
           white-space: nowrap;
-          font-size: 17px;
-          margin-top: 10px !important;
+          font-size: 20px;
+          height: 50px;
+          margin-top: 16px !important;
         }
         button.btn.btn-outline-primary.popup-add-button{
-          position: relative !important;
+          /* position: relative !important;
           right: 30px !important;
-          top: 10px !important;
+          top: 10px !important; */
+          position: absolute !important;
+          right: 50px !important;
+          bottom: -3px !important;
         }
         .social_close_btn{
-          width: 20px !important;
+          /* width: 20px !important;
           position: relative !important;
-          bottom: 16px !important;
+          bottom: 16px !important; */
         }
         .mobile_view_social{
           word-break: normal !important;

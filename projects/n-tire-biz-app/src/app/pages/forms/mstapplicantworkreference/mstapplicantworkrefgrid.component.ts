@@ -297,15 +297,21 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
               margin-top: 10px !important;
             }
             button.btn.btn-outline-primary.popup-add-button{
-              position: relative !important;
+              /* position: relative !important;
               top: 13px !important;
-              right: 40px !important;
+              right: 40px !important; */
+              position: absolute !important;
+              right: 50px !important;
+              bottom: -3px !important;
+            }
+            .row.form-group.sticky1{
+              height: 50px !important;
             }
             .work_ref_mobile{
-              width: 20px !important;
+              /* width: 20px !important;
               position: relative !important;
               bottom: 14px !important;
-              right: 10px !important;
+              right: 10px !important; */
             }
     }
     `]
