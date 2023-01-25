@@ -606,7 +606,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     ret += `
         <table class="table table-hover languagedetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
-          <tr>
+          <tr style="word-break: break-word;">
             <th style="white-space: break-spaces;width:7%;">##languagedesc##</th>
             <th style="white-space: break-spaces;width:17%;">##readproficiency##</th>
             <th style="white-space: break-spaces;width:17%;">##writeproficiency##</th>

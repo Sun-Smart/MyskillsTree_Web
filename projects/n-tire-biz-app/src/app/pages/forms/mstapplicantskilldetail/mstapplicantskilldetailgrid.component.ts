@@ -134,9 +134,12 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
   <div class="col-6"></div>
   <div class="col-2" style="text-align:right; margin:auto;">
     <!-- <button type="button"  [routerLink]='' (click)="addSkills()"  class="btn btn-outline-primary" style="border-color: #000 !important; color: #000; margin-right:15px;">Add</button> -->
+    
     <button type="button" class="btn btn-outline-primary popup-add-button"
       (click)="mstapplicantskilldetails_route(null, 'create')">Add</button>
+
     <!-- <i  [routerLink]='' (click)="onClose()" class="fa fa-times-circle close_common_icon"></i> -->
+    
     <img (click)="onClose()" src="assets/mainmenuicons/icons_close.png" class="closeButton" />
 
   </div>
@@ -177,10 +180,10 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
       <tr>
         <th  style="width:15%;">Segments</th>
         <th  style="width:15%;">Skill Category</th>
-        <th  style="width:15%;text-align: center;">Sub Category</th>
-        <th  style="width:15%;text-align: center;">Self Rating</th>
-        <th  style="width:15%;text-align: center;">Referal Status</th>
-        <th  style="width:15%;text-align: center;">Remarks</th>
+        <th  style="width:15%;">Sub Category</th>
+        <th  style="width:15%;">Self Rating</th>
+        <th  style="width:15%;">Referal Status</th>
+        <th  style="width:15%;">Remarks</th>
         <th style="width:10%;text-align: center;">Action</th>
       </tr>
     </thead>
@@ -637,12 +640,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     ret += `
     <table class="table table-hover skilldetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
     <tbody>
-      <tr>
-        <th style="white-space: break-spaces;width:17%;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
-        <th style="white-space: break-spaces;width:20%;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
-        <th style="white-space: break-spaces;width:14%;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
-        <th style="white-space: break-spaces;width:18%;">##selfrating##</th>
-        <th style="white-space: break-spaces;width:19%;">##referencecount##</th>
+      <tr style="word-break: break-word;">
+        <th style="white-space: break-spaces;width:16.5%;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
+        <th style="white-space: break-spaces;width:16.5%;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
+        <th style="white-space: break-spaces;width:14.5%;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
+        <th style="white-space: break-spaces;width:16.5%;">##selfrating##</th>
+        <th style="white-space: break-spaces;width:19.5%;">##referencecount##</th>
         <th style="white-space: break-spaces;">##remarks##</th>
       </tr>
     </tbody>
@@ -1308,10 +1311,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   }
   //end of Grid Codes mstapplicantskilldetails
   onClose() {
-    // window.location.reload();
+    window.location.reload();
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.dialogRef.close();
-    this.ngOnInit();
   }
 
 
