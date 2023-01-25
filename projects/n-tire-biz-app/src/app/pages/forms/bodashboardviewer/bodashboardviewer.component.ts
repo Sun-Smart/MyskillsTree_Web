@@ -28,6 +28,8 @@ import { mstapplicantcareerdetailService } from '../../../service/mstapplicantca
 import { mstapplicantachievementdetailService } from '../../../service/mstapplicantachievementdetail.service';
 import { mstapplicantreferencerequestService } from '../../../service/mstapplicantreferencerequest.service';
 import { mstapplicanteducationdetailService } from '../../../service/mstapplicanteducationdetail.service';
+import { DatePipe } from '@angular/common';
+import { AnyCnameRecord } from 'dns';
 
 @Component({
   selector: 'ngx-dashboardviewer',
@@ -274,6 +276,7 @@ export class BODashboardViewerComponent implements OnInit {
   ispending: boolean = false;
   isnotstarted: boolean = false;
   showOpenfile: boolean = false;
+  showhearder_Details: boolean = false;
 
   appli_id: any;
   mst_skillDetails: any;
@@ -312,6 +315,12 @@ export class BODashboardViewerComponent implements OnInit {
   project_workdescription: any;
   skill_id: any;
   education_details: any = [];
+  startformat: any;
+  endformat: any;
+  dateFormat: object;
+  espYr:any
+  expYrs: any;
+  sub_categorydesc: any;
 
 
   constructor(private sharedService: SharedService, public dialogRef: DynamicDialogRef,
@@ -324,18 +333,22 @@ export class BODashboardViewerComponent implements OnInit {
     private mstapplicantachivement_service: mstapplicantachievementdetailService,
     private mstapplicantreferencerequestService: mstapplicantreferencerequestService,
     private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,
+    private datepipe: DatePipe,
 
   ) {
     debugger;
+    localStorage.removeItem("verifyMob_Otp")
+    localStorage.removeItem("verifyEmail_Otp")
+    localStorage.removeItem("verifyEmail_data")
     this.applicantid = this.sessionService.getItem("applicantid");
     this.appli_id = this.sessionService.getItem("applicantid");
   }
   ngOnInit() {
+    debugger;
+
     this.get_allData();
     // this.get_employement();
     this.get_educationdata();
-
-
 
     this.isskillcompleted = false
     this.isresumecompleted = false
@@ -557,8 +570,6 @@ export class BODashboardViewerComponent implements OnInit {
 
   get_allData() {
 
-
-    this.showDetails('');
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
       debugger;
 
@@ -601,9 +612,15 @@ export class BODashboardViewerComponent implements OnInit {
     });
   };
 
-  showDetails(get_id: any) {
+  showDetails(get_id: any, category:any) {
     debugger;
+
+    this.showhearder_Details = true;
     console.log("get_id", get_id);
+    console.log("category", category);
+
+    this.sub_categorydesc = category;
+
     let body = {
       "applicantid": this.applicantid,
       "skillid": get_id
@@ -612,9 +629,10 @@ export class BODashboardViewerComponent implements OnInit {
       debugger;
       console.log('dashboard_details', res);
 
-      this.dashboard_details=[],
-      this.dashboard_employementdetails =[]
+      this.dashboard_details = [],
+        this.dashboard_employementdetails = []
       this.dashboard_details.push(res);
+      console.log()
 
       // for(var i=0; i< this.dashboard_details.length; i++){
 
@@ -623,15 +641,60 @@ export class BODashboardViewerComponent implements OnInit {
       this.dashboard_employementdetails = this.dashboard_details[0].list_dashboardemployeement.value;
       console.log('dashboard_employementdetails', this.dashboard_employementdetails);
 
+      let StartDate = this.dashboard_employementdetails[0].fromdate;
+      let EndDate = this.dashboard_employementdetails[0].todate;
+  
+
+      this.endformat = this.datepipe.transform(new Date(EndDate), 'yyyy-MM-dd');
+      console.log(this.endformat);
+
+      this.startformat = this.datepipe.transform(new Date(StartDate), 'yyyy-MM-dd');
+      console.log(this.startformat);
+
+      // let dateSent = {
+      //   fromDate : this.startformat,
+      //   toDate : this.endformat
+      // }
+      
+      let currentDate = new Date(this.endformat);
+      let dateSent = new Date(this.startformat);
+  
+     let result = Math.floor(
+  
+       (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) -
+         Date.UTC(dateSent.getFullYear(), dateSent.getMonth(),dateSent.getDate())) / (1000 * 60 * 60 * 24));
+     debugger
+     this.espYr = result;
+     this.expYrs = ((this.espYr/365).toFixed(1));
+     console.log("this.expYrs",this.expYrs);
     });
+
+    // this.calculateDiff(this.dateFormat);
+
 
   }
 
-  get_educationdata(){
+  // calculateDiff(dateSent:any) {
+  //   debugger;
+  //   let currentDate = new Date(this.endformat);
+  //    dateSent = new Date(this.startformat);
+
+  //   let result = Math.floor(
+
+  //     (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) -
+  //       Date.UTC(dateSent.getFullYear(), dateSent.getMonth(),dateSent.getDate())) / (1000 * 60 * 60 * 24));
+    
+  //   this.espYr = result;
+  //   this.expYrs = ((this.espYr/365).toFixed(1));
+  //   console.log("this.expYrs",this.expYrs);
+    
+  // }
+
+  get_educationdata() {
     debugger
     this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
-    console.log('get_educationdata', res.mstapplicanteducationdetail);
-    this.get_educationd_data = res.mstapplicanteducationdetail
+      console.log('get_educationdata', res.mstapplicanteducationdetail);
+      this.get_educationd_data = res.mstapplicanteducationdetail
     });
   }
 

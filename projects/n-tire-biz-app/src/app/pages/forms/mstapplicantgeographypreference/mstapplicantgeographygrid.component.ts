@@ -881,7 +881,6 @@ export class mstapplicantgeographygrid implements OnInit {
   }
   onClose() {
     this.dialogRef.close();
-
   }
   //end of Grid Codes mstapplicantgeographypreferences
 }

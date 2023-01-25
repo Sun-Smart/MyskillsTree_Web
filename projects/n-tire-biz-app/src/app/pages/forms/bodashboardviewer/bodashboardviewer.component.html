@@ -2,8 +2,14 @@
 
 
   <div class="container" style="margin-top: 50px !important;">
-    <div style="background-color: #ebf3fc;padding: 10px;">
-      <h6 style="font-weight: 600;"> Dashboard</h6>
+    <div class="row" style="background-color: #ebf3fc;padding: 10px;display: flex;">
+      <div class="col-3">
+        <h6 style="font-weight: 600;"> Dashboard</h6>
+      </div>
+      <div class="col-4">
+        <h6 *ngIf="showhearder_Details" style="font-weight: 600;margin-left:18%;">{{sub_categorydesc}} - {{expYrs}}yrs
+        </h6>
+      </div>
     </div>
 
     <div class="dashboard-sidebar">
@@ -15,13 +21,13 @@
         <div class="row" *ngFor="let item of finalarray" style="display: flex;justify-content: space-evenly;">
 
           <div class="col-3">
-            <label style="color: #ffc107;">
+            <label style="color: rgb(8, 111, 8);">
               {{item.showstr}}
             </label>
           </div>
 
           <div class="col-8 skill-label">
-            <label (click)="showDetails(item.skillId)">{{item.subCategory}}</label>
+            <label (click)="showDetails(item.skillId, item.subCategory)">{{item.subCategory}}</label>
           </div>
 
         </div>
@@ -206,10 +212,10 @@
           </div>
 
           <div class="col-12">
-            <label for="" style="color: #000;font-size: small;width: 250px;"></label>
-            <label for="" style="color: #000;font-size: small;width: 250px;"></label>
-            <label for="" style="color: #000;font-size: small;width: 250px;"></label>
-            <label for="" style="color: #000;font-size: small;"></label>
+            <label for="" style="color: #000;font-size: small;width: 250px;">item.date</label>
+            <label for="" style="color: #000;font-size: small;width: 250px;">item.reffered_to</label>
+            <label for="" style="color: #000;font-size: small;width: 250px;">item.response</label>
+            <label for="" style="color: #000;font-size: small;">item.referenceremarks</label>
           </div>
 
         </div>

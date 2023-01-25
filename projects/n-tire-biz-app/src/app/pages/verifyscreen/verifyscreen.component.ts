@@ -29,6 +29,9 @@ export class VerifyscreenComponent implements OnInit {
   email: any;
   theme: string;
   showSpinner:boolean = false;
+  verifyEmail_Otp1: string;
+  verifyMob_Otp1: string;
+  verifyEmail_data1: string;
   constructor(private router: Router, private fb: FormBuilder,
     private route: ActivatedRoute, private http: HttpClient,
     private sharedService: SharedService,
@@ -57,11 +60,16 @@ export class VerifyscreenComponent implements OnInit {
         this.verifyMob_Otp = this.otp_data[0].mobileotp.toString();
         this.verifyEmail_Otp = this.otp_data[0].emailotp.toString();
         this.verifyEmail_data = this.otp_data[1].email;
-
-        console.log("this.verifyMob_Otp", this.verifyMob_Otp);
-        console.log("this.verifyEmail_Otp", this.verifyEmail_Otp);
       }
     });
+
+    
+    this.verifyMob_Otp1= localStorage.getItem("verifyMob_Otp");
+    this.verifyEmail_Otp1 = localStorage.getItem("verifyEmail_Otp");
+    this.verifyEmail_data1 = localStorage.getItem("verifyEmail_data");
+
+    console.log("this.verifyMob_Otp", this.verifyMob_Otp1);
+    console.log("this.verifyEmail_Otp", this.verifyEmail_Otp1);
   }
 
   // convenience getter for easy access to form fields
@@ -77,9 +85,11 @@ export class VerifyscreenComponent implements OnInit {
     this.mobile = this.validation_Form.value.mobileotp;
     this.email = this.validation_Form.value.emailotp;
 
-    if ((this.mobile == this.verifyMob_Otp) && (this.email == this.verifyEmail_Otp)) {
+    if ((this.mobile == this.verifyMob_Otp1) && (this.email == this.verifyEmail_Otp1)) {
       debugger;
-      this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + this.verifyEmail_data + '&otpm=' + this.verifyMob_Otp + '&otpe=' + this.verifyEmail_Otp)
+
+      
+      this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + this.verifyEmail_data1 + '&otpm=' + this.verifyMob_Otp1 + '&otpe=' + this.verifyEmail_Otp1)
         .subscribe((resp: any) => {
           debugger
           this.showSpinner = false;

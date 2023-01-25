@@ -145,7 +145,7 @@
     </div>
 
     <div class='col-4'>
-      <ul style="display: flex; justify-content: end; text-align: end;">
+      <ul style="display: flex; justify-content: end; text-align: end;align-items: center;">
         <li class='nav-item actionheader ' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
             <!-- <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #000 !important;margin: 5px;
@@ -162,9 +162,9 @@
           <app-action *ngIf="f.socialrefid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
             [value]="f.socialrefid.value" [status]="f.status.value"></app-action>
         </li>
-        <i class='nav-item actionheader '
+        <i class='nav-item actionheader common_title_style'
           *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
-          class="fa fa-times-circle close_common_icon2" (click)="onClose()" style="margin: 10px;"></i>
+          class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
         <!-- <li class='nav-item actionheader' *ngIf="!showview" style="padding: 1px 0px 8px 0px;">
             <a class="alert-success " [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>

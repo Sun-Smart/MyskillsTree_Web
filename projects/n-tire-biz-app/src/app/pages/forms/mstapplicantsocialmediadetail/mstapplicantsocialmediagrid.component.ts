@@ -829,92 +829,95 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     // this.tbl_mstapplicantsocialmediadetails.source.data.splice(i, 1);
     //this.updateGrandTotal();
   }
-  mstapplicantsocialmediadetails_route(event: any, action: any) {
-    var addparam = "";
-    if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
-      addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
-    }
-    switch (action) {
-      case 'create':
-        this.Add_mstapplicantsocialmediadetail(event, null, this.applicantid);
-        break;
-      case 'view':
-        break;
-      case 'edit':
-        this.Edit_mstapplicantsocialmediadetail(event, event.data.socialrefid, this.applicantid);
-        break;
-      case 'delete':
-        this.onDelete_mstapplicantsocialmediadetail(event, event.data.socialrefid, ((this.tbl_mstapplicantsocialmediadetails.source.getPaging().page - 1) * this.tbl_mstapplicantsocialmediadetails.source.getPaging().perPage) + event.index);
-        this.tbl_mstapplicantsocialmediadetails.source.refresh();
-        break;
-    }
-  }
-  formid(event: any, arg1: null, formid: any) {
-    throw new Error('Method not implemented.');
-  }
-  mstapplicantsocialmediadetails_onDelete(obj) {
-    let socialrefid = obj.data.socialrefid;
-    if (confirm('Are you sure to delete this record ?')) {
-      this.mstapplicantsocialmediadetail_service.delete_mstapplicantsocialmediadetail(socialrefid).then(res =>
-        this.mstapplicantsocialmediadetails_LoadTable(res)
-      );
-    }
-  }
-  async onCustom_mstapplicantsocialmediadetails_Action(event: any) {
-    let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
-    let formname = (objbomenuaction as any).actionname;
-  }
 
-  async onCustom_mstapplicantsocialmediadetailsAttachment_Action(event: any, socialrefid: any, applicantid: any) {
-    debugger;
-    let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
-    let formname = (objbomenuaction as any).actionname;
-    if (formname == "mstapplicantsocialmediadetails") {
-      debugger
-      let add = false;
-      if (event == null) add = true;
-      let childsave = true;
-      if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+ 
 
-      this.dialog.open(mstapplicantsocialmediadetailComponent,
-        {
-          data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, socialrefid, applicantid, visiblelist: this.mstapplicantsocialmediadetails_visiblelist, hidelist: this.mstapplicantsocialmediadetails_hidelist, ScreenType: 2 },
+    mstapplicantsocialmediadetails_route(event: any, action: any) {
+        var addparam = "";
+        if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
+            addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
         }
-      ).onClose.subscribe(res => {
-        if (res) {
-          if (add) {
-            for (let i = 0; i < res.length; i++) {
-              this.tbl_mstapplicantsocialmediadetails.source.add(res[i]);
-            }
-            this.tbl_mstapplicantsocialmediadetails.source.refresh();
-          }
-          else {
-            this.tbl_mstapplicantsocialmediadetails.source.update(event.data, res[0]);
-          }
+        switch (action) {
+            case 'create':
+                this.Add_mstapplicantsocialmediadetail(event, null, this.applicantid);
+                break;
+            case 'view':
+                break;
+            case 'edit':
+                this.Edit_mstapplicantsocialmediadetail(event, event.data.socialrefid, this.applicantid);
+                break;
+            case 'delete':
+                this.onDelete_mstapplicantsocialmediadetail(event, event.data.socialrefid, ((this.tbl_mstapplicantsocialmediadetails.source.getPaging().page - 1) * this.tbl_mstapplicantsocialmediadetails.source.getPaging().perPage) + event.index);
+                this.tbl_mstapplicantsocialmediadetails.source.refresh();
+                break;
         }
-      });
     }
-  }
+    formid(event: any, arg1: null, formid: any) {
+        throw new Error('Method not implemented.');
+    }
+    mstapplicantsocialmediadetails_onDelete(obj) {
+        let socialrefid = obj.data.socialrefid;
+        if (confirm('Are you sure to delete this record ?')) {
+            this.mstapplicantsocialmediadetail_service.delete_mstapplicantsocialmediadetail(socialrefid).then(res =>
+                this.mstapplicantsocialmediadetails_LoadTable(res)
+            );
+        }
+    }
+    async onCustom_mstapplicantsocialmediadetails_Action(event: any) {
+        let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
+        let formname = (objbomenuaction as any).actionname;
+    }
 
-  mstapplicantsocialmediadetails_Paging(val) {
-    //debugger;;
-    this.tbl_mstapplicantsocialmediadetails.source.setPaging(1, val, true);
-  }
+    async onCustom_mstapplicantsocialmediadetailsAttachment_Action(event: any, socialrefid: any, applicantid: any) {
+        debugger;
+        let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
+        let formname = (objbomenuaction as any).actionname;
+        if (formname == "mstapplicantsocialmediadetails") {
+            debugger
+            let add = false;
+            if (event == null) add = true;
+            let childsave = true;
+            if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
-  handle_mstapplicantsocialmediadetails_GridSelected(event: any) {
-    this.mstapplicantsocialmediadetails_selectedindex = this.tbl_mstapplicantsocialmediadetails.source.findIndex(i => i.socialrefid === event.data.socialrefid);
-  }
-  Is_mstapplicantsocialmediadetails_Visible() {
-    if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantsocialmediadetails_ID) >= 0) {
-      return "tbl smart-table-container";
+            this.dialog.open(mstapplicantsocialmediadetailComponent,
+                {
+                    data: { showAttachment: true, save: childsave, maindatapkcol: this.pkcol, event, socialrefid, applicantid, visiblelist: this.mstapplicantsocialmediadetails_visiblelist, hidelist: this.mstapplicantsocialmediadetails_hidelist, ScreenType: 2 },
+                }
+            ).onClose.subscribe(res => {
+                if (res) {
+                    if (add) {
+                        for (let i = 0; i < res.length; i++) {
+                            this.tbl_mstapplicantsocialmediadetails.source.add(res[i]);
+                        }
+                        this.tbl_mstapplicantsocialmediadetails.source.refresh();
+                    }
+                    else {
+                        this.tbl_mstapplicantsocialmediadetails.source.update(event.data, res[0]);
+                    }
+                }
+            });
+        }
     }
-    else {
-      return "hide";
+
+    mstapplicantsocialmediadetails_Paging(val) {
+        //debugger;;
+        this.tbl_mstapplicantsocialmediadetails.source.setPaging(1, val, true);
     }
+
+    handle_mstapplicantsocialmediadetails_GridSelected(event: any) {
+        this.mstapplicantsocialmediadetails_selectedindex = this.tbl_mstapplicantsocialmediadetails.source.findIndex(i => i.socialrefid === event.data.socialrefid);
+    }
+    Is_mstapplicantsocialmediadetails_Visible() {
+        if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantsocialmediadetails_ID) >= 0) {
+            return "tbl smart-table-container";
+        }
+        else {
+            return "hide";
+        }
+    }
+    onClose() {
+        // location.reload();
+        this.dialogRef.close();
+    }
+    //end of Grid Codes mstapplicantsocialmediadetails
   }
-  onClose() {
-    // location.reload();
-    this.dialogRef.close();
-  }
-  //end of Grid Codes mstapplicantsocialmediadetails
-}
