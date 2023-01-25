@@ -61,7 +61,7 @@
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary popup-add-button mobileshowview" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.viewid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.viewid.value" [status]="f.status.value"></app-action>
