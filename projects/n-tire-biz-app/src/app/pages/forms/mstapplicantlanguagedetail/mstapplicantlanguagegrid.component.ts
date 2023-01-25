@@ -643,6 +643,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
   FillData() {
 
     this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByApplicantID(this.applicantid).then(res => {
+      this.mstapplicantlanguagedetail_menuactions = res.mstapplicantlanguagedetail_menuactions
       this.Set_mstapplicantlanguagedetails_TableConfig();
       this.mstapplicantlanguagedetails_LoadTable(res.mstapplicantlanguagedetail);
     });
@@ -1003,7 +1004,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantlanguagedetails");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantlanguagedetails") {
-      this.getdata();
+    
       let add = false;
       if (event == null) add = true;
       let childsave = true;

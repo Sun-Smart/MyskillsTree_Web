@@ -318,7 +318,7 @@ export class BODashboardViewerComponent implements OnInit {
   startformat: any;
   endformat: any;
   dateFormat: object;
-  espYr:any
+  espYr: any
   expYrs: any;
   sub_categorydesc: any;
 
@@ -336,7 +336,6 @@ export class BODashboardViewerComponent implements OnInit {
     private datepipe: DatePipe,
 
   ) {
-    debugger;
     localStorage.removeItem("verifyMob_Otp")
     localStorage.removeItem("verifyEmail_Otp")
     localStorage.removeItem("verifyEmail_data")
@@ -344,7 +343,6 @@ export class BODashboardViewerComponent implements OnInit {
     this.appli_id = this.sessionService.getItem("applicantid");
   }
   ngOnInit() {
-    debugger;
 
     this.get_allData();
     // this.get_employement();
@@ -371,24 +369,16 @@ export class BODashboardViewerComponent implements OnInit {
     this.ispersonalpending = false
     this.sessionService.setItem("attachedsaved", "true")
 
-    // if (this.data != null && this.data.data != null) {
-    //   this.data = this.data.data;
-    // }
-    // this.pkcol = this.data.maindatapkcol;
-
     this.mstapplicantmaster_service.get_profilecompletionsecond(this.appli_id).then(res => {
-      debugger;
-      console.log(res);
+
       this.getdata = res;
-
-
       for (let i = 0; i < this.getdata.length; i++) {
         this.datalabel.push(this.getdata[i].name)
         this.datacount.push(this.getdata[i].cnt);
         this.datacolour.push(this.getdata[i].colour);
         this.dataod.push(this.getdata[i].od);
         this.datarelease.push(this.getdata[i].releasestatus)
-        debugger
+    
 
         if (this.getdata[i].name == "Skillset" && this.getdata[i].colour == "#65AE12") {
           this.isskillcompleted = true;
@@ -406,10 +396,7 @@ export class BODashboardViewerComponent implements OnInit {
               this.isskillpending = false;
             }
           }
-
         }
-
-
         if (this.getdata[i].name == "Resume" && this.getdata[i].colour == "#65AE12") {
           this.isresumecompleted = true;
           this.isresumepending = false;
@@ -427,8 +414,6 @@ export class BODashboardViewerComponent implements OnInit {
             }
           }
         }
-
-
         if (this.getdata[i].name == "Project" && this.getdata[i].colour == "#65AE12") {
           this.isprojectcompleted = true;
           this.isprojectpending = false;
@@ -448,8 +433,6 @@ export class BODashboardViewerComponent implements OnInit {
             }
           }
         }
-
-
         if (this.getdata[i].name == "Education" && this.getdata[i].colour == "#65AE12") {
           this.iseducationcompleted = true;
           this.iseducationpending = false;
@@ -468,8 +451,6 @@ export class BODashboardViewerComponent implements OnInit {
             }
           }
         }
-
-
         if (this.getdata[i].name == "Social Info" && this.getdata[i].colour == "#65AE12") {
           this.issocialcompleted = true;
           this.issocialpending = false;
@@ -488,8 +469,6 @@ export class BODashboardViewerComponent implements OnInit {
             }
           }
         }
-
-
         if (this.getdata[i].name == "Personal" && this.getdata[i].colour == "#65AE12") {
           this.ispersonalcompleted = true;
           this.ispersonalpending = false;
@@ -517,7 +496,6 @@ export class BODashboardViewerComponent implements OnInit {
         }
       }
       Chart.plugins.register(ChartDataLabels);
-
       var options = {
         tooltips: {
           enabled: false
@@ -552,14 +530,10 @@ export class BODashboardViewerComponent implements OnInit {
         data: {
           // labels: ['Completed', 'In-complete'],
           datasets: piedata,
-
         },
-
         options: options,
-
         plugins: [ChartDataLabels],
       });
-
     }).catch((err) => { console.log(err); });
     // this.applicantid = this.currentRoute.snapshot.paramMap.get('id');
     this.applicantid = this.sessionService.getItem('applicantid');
@@ -571,11 +545,8 @@ export class BODashboardViewerComponent implements OnInit {
   get_allData() {
 
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
-      debugger;
 
       this.sub_category = res.mstapplicantskilldetail;
-      console.log(" this.sub_category", this.sub_category);
-
 
       for (let i = 0; i < this.sub_category.length; i++) {
         this.skill_detail.push({
@@ -587,9 +558,7 @@ export class BODashboardViewerComponent implements OnInit {
 
 
       for (let i = 0; i < this.skill_detail.length; i++) {
-
         if (this.skill_detail[i].strRating == 1) {
-          debugger
           this.showstr = '★'
         } else if (this.skill_detail[i].strRating == 2) {
           this.showstr = '★★'
@@ -600,112 +569,63 @@ export class BODashboardViewerComponent implements OnInit {
         } else if (this.skill_detail[i].strRating == 5) {
           this.showstr = '★★★★★'
         }
-
         this.finalarray.push({
           subCategory: this.skill_detail[i].subCategory,
           skillId: this.skill_detail[i].skill_id,
           showstr: this.showstr
         });
       }
-      console.log(" this.finalarray", this.finalarray);
-
     });
   };
 
-  showDetails(get_id: any, category:any) {
-    debugger;
+  showDetails(get_id: any, category: any) {
 
     this.showhearder_Details = true;
-    console.log("get_id", get_id);
-    console.log("category", category);
-
     this.sub_categorydesc = category;
-
     let body = {
       "applicantid": this.applicantid,
       "skillid": get_id
     };
     this.mstapplicantmaster_service.get_dashboardAll_details(body).then(res => {
-      debugger;
-      console.log('dashboard_details', res);
 
       this.dashboard_details = [],
-        this.dashboard_employementdetails = []
+      this.dashboard_employementdetails = []
       this.dashboard_details.push(res);
-      console.log()
-
-      // for(var i=0; i< this.dashboard_details.length; i++){
-
-      // }
 
       this.dashboard_employementdetails = this.dashboard_details[0].list_dashboardemployeement.value;
-      console.log('dashboard_employementdetails', this.dashboard_employementdetails);
-
       let StartDate = this.dashboard_employementdetails[0].fromdate;
       let EndDate = this.dashboard_employementdetails[0].todate;
-  
 
       this.endformat = this.datepipe.transform(new Date(EndDate), 'yyyy-MM-dd');
-      console.log(this.endformat);
-
       this.startformat = this.datepipe.transform(new Date(StartDate), 'yyyy-MM-dd');
-      console.log(this.startformat);
 
-      // let dateSent = {
-      //   fromDate : this.startformat,
-      //   toDate : this.endformat
-      // }
-      
       let currentDate = new Date(this.endformat);
       let dateSent = new Date(this.startformat);
-  
-     let result = Math.floor(
-  
-       (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) -
-         Date.UTC(dateSent.getFullYear(), dateSent.getMonth(),dateSent.getDate())) / (1000 * 60 * 60 * 24));
-     debugger
-     this.espYr = result;
-     this.expYrs = ((this.espYr/365).toFixed(1));
-     console.log("this.expYrs",this.expYrs);
+
+      let result = Math.floor(
+
+        (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) -
+          Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
+
+      this.espYr = result;
+      this.expYrs = ((this.espYr / 365).toFixed(1));
     });
-
-    // this.calculateDiff(this.dateFormat);
-
-
   }
 
-  // calculateDiff(dateSent:any) {
-  //   debugger;
-  //   let currentDate = new Date(this.endformat);
-  //    dateSent = new Date(this.startformat);
-
-  //   let result = Math.floor(
-
-  //     (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) -
-  //       Date.UTC(dateSent.getFullYear(), dateSent.getMonth(),dateSent.getDate())) / (1000 * 60 * 60 * 24));
-    
-  //   this.espYr = result;
-  //   this.expYrs = ((this.espYr/365).toFixed(1));
-  //   console.log("this.expYrs",this.expYrs);
-    
-  // }
-
   get_educationdata() {
-    debugger
     this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
-      console.log('get_educationdata', res.mstapplicanteducationdetail);
       this.get_educationd_data = res.mstapplicanteducationdetail
     });
   }
 
   // get_employement() {
   //   this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
-  //     debugger;
+  //   ;
 
   //     this.career_detail = res.mstapplicantcareerdetail;
 
   //     for (let i = 0; i < this.career_detail.length; i++) {
-  //       debugger
+  //     
   //       this.career_array.push({
   //         career_companyName: this.career_detail[i].companyname,
   //         career_frDate: this.career_detail[i].fromdate,
@@ -731,7 +651,7 @@ export class BODashboardViewerComponent implements OnInit {
   //     this.project_detail = res.mstapplicantworkreference;
 
   //     for (let i = 0; i < this.project_detail.length; i++) {
-  //       debugger
+  //     
   //       this.project_array.push({
   //         project_worktopic: this.project_detail[i].worktopic,
   //         project_workdescription: this.project_detail[i].workdescription,
@@ -742,11 +662,6 @@ export class BODashboardViewerComponent implements OnInit {
   //     };
 
   //   });
-
-
-
-  //   console.log("this.employment_details", this.employment_details);
-
   // }
 
   showSkills() {
@@ -762,7 +677,7 @@ export class BODashboardViewerComponent implements OnInit {
   }
   // suneel2
   showmyProfile() {
-    debugger;
+;
     var showmyproid = "showMyPro";
     localStorage.setItem('showprofile', showmyproid);
     this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')]);
@@ -849,7 +764,7 @@ export class BODashboardViewerComponent implements OnInit {
     })
   }
   edit_fullpagemstapplicantmasters() {
-    debugger
+
     this.dialog.open(mstapplicantmastermainComponent,
       {
         data: { showOpenfile: false, ScreenType: 2, applicantid: this.applicantid, save: true }
@@ -857,7 +772,7 @@ export class BODashboardViewerComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-    debugger
+
     // this.dialog.open(mstapplicantmastermainComponent,
     //   {
     //     width: '100% !important',
@@ -901,7 +816,7 @@ export class BODashboardViewerComponent implements OnInit {
 
   //dhana
   uploadmethod() {
-    debugger
+
     this.dialog.open(mstresumeapplicantComponent,
       {
         data: { ScreenType: 2, applicantid: this.applicantid, save: true }
@@ -924,18 +839,17 @@ export class BODashboardViewerComponent implements OnInit {
   }
 
   releasemethod(e: any) {
-    debugger
+
 
     let obj = {
       "applicantid": this.applicantid,
       "ReleaseStatus": e
     }
 
-    debugger
+
 
     this.mstapplicantmaster_service.release_method(obj).subscribe(res => {
-      debugger
-      console.log(res)
+  
       //need ngoninit api result need to arrange release status
       // need result for status=false
 
