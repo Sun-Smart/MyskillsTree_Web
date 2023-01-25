@@ -646,6 +646,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
   FillData() {
 
     this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByApplicantID(this.applicantid).then(res => {
+      this.mstapplicantlanguagedetail_menuactions = res.mstapplicantlanguagedetail_menuactions
       this.Set_mstapplicantlanguagedetails_TableConfig();
       this.mstapplicantlanguagedetails_LoadTable(res.mstapplicantlanguagedetail);
     });
@@ -848,10 +849,10 @@ export class mstapplicantlanuagegridComponent implements OnInit {
 
             this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (this.isMobile) {
-              divrow["speakproficiency"] = "<div class='Stars'  style='font-size: large !important;color:green;position: relative !important;right: -40px !important;'>" + speakproficiency + "</div>";
-              divrow["readproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative !important;right:-40px !important;'>" + readproficiency + "</div>";
-              divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative !important;right: -40px !important;'>" + writeproficiency + "</div>";
-              divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative;right: -40px !important;'>" + overallrating + "</div>";
+              divrow["speakproficiency"] = "<div class='Stars'  style='font-size: large !important;color:green;position: relative !important;right: -40px !important;bottom: 5px;'>" + speakproficiency + "</div>";
+              divrow["readproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative !important;right:-40px !important;bottom: 5px;'>" + readproficiency + "</div>";
+              divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative !important;right: -40px !important;bottom: 5px;'>" + writeproficiency + "</div>";
+              divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative;right: -40px !important;bottom: 5px;'>" + overallrating + "</div>";
             }
             // divrow["speakproficiency"] = "<div class='Stars' style='--rating:" + row['speakproficiency'] + "'></div>";
             // divrow["readproficiency"] = "<div class='Stars' style='--rating:" + row['readproficiency'] + "'></div>";
@@ -1006,7 +1007,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantlanguagedetails");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantlanguagedetails") {
-      this.getdata();
+    
       let add = false;
       if (event == null) add = true;
       let childsave = true;
