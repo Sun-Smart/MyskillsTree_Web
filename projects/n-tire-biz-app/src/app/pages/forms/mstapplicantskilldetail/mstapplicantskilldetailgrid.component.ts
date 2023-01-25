@@ -1311,6 +1311,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     // window.location.reload();
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.dialogRef.close();
+    this.ngOnInit();
   }
 
 

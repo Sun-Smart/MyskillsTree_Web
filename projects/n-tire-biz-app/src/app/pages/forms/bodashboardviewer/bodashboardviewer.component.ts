@@ -305,6 +305,7 @@ export class BODashboardViewerComponent implements OnInit {
 
   dashboard_details: any = [];
   dashboard_employementdetails: any = [];
+  dashboard_reffreq_details: any = [];
   dashboard_educationdetails: any = [];
   get_educationd_data: any = [];
 
@@ -321,6 +322,7 @@ export class BODashboardViewerComponent implements OnInit {
   espYr: any
   expYrs: any;
   sub_categorydesc: any;
+  remarks: any;
 
 
   constructor(private sharedService: SharedService, public dialogRef: DynamicDialogRef,
@@ -553,6 +555,7 @@ export class BODashboardViewerComponent implements OnInit {
           strRating: this.sub_category[i].selfrating,
           subCategory: this.sub_category[i].subcategoryiddesc,
           skill_id: this.sub_category[i].subcategoryid,
+          remarks: this.sub_category[i].remarks,
         });
       };
 
@@ -572,16 +575,27 @@ export class BODashboardViewerComponent implements OnInit {
         this.finalarray.push({
           subCategory: this.skill_detail[i].subCategory,
           skillId: this.skill_detail[i].skill_id,
+          remarks : this.skill_detail[i].remarks,
           showstr: this.showstr
+          
         });
+        console.log("this.finalarray",this.finalarray);
+        
       }
+
+      this.showDetails(this.finalarray[0].skillId ,this.finalarray[0].category , this.finalarray[0].remarks)
+      this.showhearder_Details = false;
     });
   };
 
-  showDetails(get_id: any, category: any) {
+  showDetails(get_id: any, category: any, remarks:any) {
 
     this.showhearder_Details = true;
     this.sub_categorydesc = category;
+    this.remarks = remarks.replace(/['"]+/g, '');
+
+    console.log("this.remarks", this.remarks);
+    
     let body = {
       "applicantid": this.applicantid,
       "skillid": get_id
@@ -592,7 +606,17 @@ export class BODashboardViewerComponent implements OnInit {
       this.dashboard_employementdetails = []
       this.dashboard_details.push(res);
 
+      console.log("this.dashboard_details",this.dashboard_details);
+
+      this.dashboard_reffreq_details = this.dashboard_details[0].list_dashboardreff.value;
+
+      console.log("this.dashboard_reffreq_details", this.dashboard_reffreq_details);
+      
+      
+
       this.dashboard_employementdetails = this.dashboard_details[0].list_dashboardemployeement.value;
+      console.log("this.dashboard_employementdetails", this.dashboard_employementdetails);
+      
       let StartDate = this.dashboard_employementdetails[0].fromdate;
       let EndDate = this.dashboard_employementdetails[0].todate;
 
