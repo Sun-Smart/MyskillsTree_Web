@@ -326,15 +326,21 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         margin-top: 10px !important;
       }
       button.btn.btn-outline-primary.popup-add-button{
-        position: relative !important;
+        /* position: relative !important;
         top: 10px !important;
-        right: 30px !important;
+        right: 30px !important; */
+        position: absolute !important;
+        right: 50px !important;
+        bottom: -3px !important;
+      }
+      .row.form-group.sticky1.educ_det_title{
+        height: 50px !important;
       }
       .eduction_close{
-        width: 20px !important;
+        /* width: 20px !important;
         position: relative !important;
         bottom: 15px !important;
-        right: 7px !important;
+        right: 7px !important; */
       }
       .educ_det_title{
         /* width: 650px !important; */

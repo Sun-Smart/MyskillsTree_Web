@@ -234,22 +234,25 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     `
       @media only screen and (max-width: 600px) {
         h4.columns.left{
-        font-size: 17px !important;
-        white-space: nowrap !important;
+        /* font-size: 17px !important; */
+        /* white-space: nowrap !important; */
         margin-top: 10px !important;
       }
       .achieve_title{
         padding-left: 0px !important;
       }
       button.btn.btn-outline-primary.popup-add-button{
-        position: relative !important;
+        /* position: relative !important;
         right: 20px !important;
-        top: 10px !important;
+        top: 10px !important; */
+        position: absolute !important;
+        right: 50px !important;
+        bottom: -3px !important;
       }
       .achive_btn{
-        width: 20px !important;
+        /* width: 20px !important;
         position: relative !important;
-        bottom: 15px !important;
+        bottom: 15px !important; */
       }
       }
 

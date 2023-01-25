@@ -341,18 +341,24 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   styles: [`
                 @media only screen and (max-width: 600px) {
                   h4.columns.left{
+                    /* white-space: nowrap !important;
+                    margin-top: 7px !important; */
                     white-space: nowrap !important;
-                    margin-top: 7px !important;
+                    height: 40px !important;
+                    margin-top: 10px !important;
                   }
                   button.popup-add-button.heightbtn{
-                    position: relative !important;
+                    /* position: relative !important;
                     top: 10px !important;
-                    right: 40px !important;
+                    right: 40px !important; */
+                    position: absolute !important;
+                    right: 50px !important;
+                    bottom: -3px !important;
                   }
                   .mobile_career_close{
-                    width: 20px !important;
+                    /* width: 20px !important;
                     position: relative !important;
-                    bottom: 14px !important;
+                    bottom: 14px !important; */
                     /* right: 30px !important; */
                   }
                   .career_mobile_grid{

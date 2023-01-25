@@ -60,6 +60,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   styles: [`
      @media only screen and (max-width: 600px) {
       button.btn.btn-outline-primary.popup-add-button{
+        /* position: absolute !important;
+        right: 50px !important;
+        bottom: -3px !important; */
         position: absolute !important;
         right: 50px !important;
         bottom: -3px !important;
@@ -174,7 +177,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                 <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="closeButton1" style="width: 20px;" title = "Close"/></a>
+                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png"  style="width: 20px;" title = "Close"/></a>
 
                 <!-- </ul> -->
 </div>
@@ -846,10 +849,10 @@ export class mstapplicantlanuagegridComponent implements OnInit {
 
             this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (this.isMobile) {
-              divrow["speakproficiency"] = "<div class='Stars'  style='font-size: large !important;color:green;position: relative !important;right: -40px !important;'>" + speakproficiency + "</div>";
-              divrow["readproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative !important;right:-40px !important;'>" + readproficiency + "</div>";
-              divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative !important;right: -40px !important;'>" + writeproficiency + "</div>";
-              divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative;right: -40px !important;'>" + overallrating + "</div>";
+              divrow["speakproficiency"] = "<div class='Stars'  style='font-size: large !important;color:green;position: relative !important;right: -40px !important;bottom: 5px;'>" + speakproficiency + "</div>";
+              divrow["readproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative !important;right:-40px !important;bottom: 5px;'>" + readproficiency + "</div>";
+              divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative !important;right: -40px !important;bottom: 5px;'>" + writeproficiency + "</div>";
+              divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative;right: -40px !important;bottom: 5px;'>" + overallrating + "</div>";
             }
             // divrow["speakproficiency"] = "<div class='Stars' style='--rating:" + row['speakproficiency'] + "'></div>";
             // divrow["readproficiency"] = "<div class='Stars' style='--rating:" + row['readproficiency'] + "'></div>";

@@ -1174,8 +1174,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
             divrow["selfrating"] = "<div style='font-size: large !important;color:green;position: relative;left: 19%;'>" + showstr + "</div>";
             this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (this.isMobile) {
-              divrow['referencecount'] = "<div style='position: relative;left: 68%;font-size: 17px;'>" + xyzyzyz + "</div>";
-              divrow["selfrating"] = "<div style='font-size: large !important;color:green;position: relative;left: 60%;'>" + showstr + "</div>";
+              divrow['referencecount'] = "<div style='position: relative;left: 61%;font-size: 17px;bottom: 8px;'>" + xyzyzyz + "</div>";
+              divrow["selfrating"] = "<div style='font-size: large !important;color:green;position: relative;left: 60%;bottom: 9px;'>" + showstr + "</div>";
             }
             return this.sharedService.HtmlValue(divrow, cell);
           },

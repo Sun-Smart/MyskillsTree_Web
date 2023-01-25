@@ -69,7 +69,7 @@
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
         <li class='nav-item actionheader' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
-          <button type="button" class="btn btn-outline-primary personal-info-btn" style="border-color: #000 !important;margin: 5px;
+          <button type="button" class="btn btn-outline-primary personal-info-btn mobileviewBtn" style="border-color: #000 !important;margin: 5px;
       padding: 3px;
       color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
           <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
@@ -81,9 +81,9 @@
           <app-action *ngIf="f.skillid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
             [value]="f.skillid.value" [status]="f.status.value"></app-action>
         </li>
-        <i class='nav-item actionheader common_title_style'
+        <i class='nav-item actionheader common_title_style '
           *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
-          class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
+          class="fa fa-times-circle close_common_icon2 mobileviewCloseBtn" (click)="onClose()"></i>
       </ul>
     </div>
   </div>
@@ -215,7 +215,7 @@
         <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>
       </div>
     </div>
-    
+
     <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="hidelist.indexOf('requestid') == -1 && f.requestid.value !=null" class="col-3 ">
         <button class="btn btn-link" (click)="viewrequestid()" type="button"><i class="fa fa-external-link"></i>
