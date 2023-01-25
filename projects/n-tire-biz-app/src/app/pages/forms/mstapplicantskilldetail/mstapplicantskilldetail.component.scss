@@ -10,4 +10,17 @@ p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
   display: flex !important;
   // min-height: 85% !important;
 }
+@media only screen and (max-width: 600px) {
+.mobileviewBtn{
+  position: absolute !important;
+  right: 20px !important;
+}
+.mobileviewCloseBtn{
+  position: relative !important;
+    bottom: 6px !important;
+}
+h1.columns.mainheader.left.common_titles_new{
+  margin-top: 5px !important;
+}
+}
 

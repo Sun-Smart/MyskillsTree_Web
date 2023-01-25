@@ -45,6 +45,11 @@ const URL = AppConstants.UploadURL;
     .another-file-over-class { border: dotted 3px green; }
 
     html, body { height: 100%; }
+    @media only screen and (max-width: 600px) {
+      .mobileviewAttachment{
+        width: 100% !important;
+      }
+    }
   `],
     template: `
     <form  [formGroup]="attachmentForm">
@@ -108,7 +113,7 @@ const URL = AppConstants.UploadURL;
     <label>Select</label> <br>
 
      <!-- <input type="file"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" /> -->
-     <input type="file" style="" #myImageInput formControlName="ImageName"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" />
+     <input type="file" style="" #myImageInput formControlName="ImageName"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="mobileviewAttachment" />
 
      <a [routerLink]='' (click)="test(attachmentForm)" *ngIf="showplus"><i style="color:black !important; font-size: 20px; position: absolute;
         margin: auto 5rem;
