@@ -3889,16 +3889,16 @@ footer {
   }
 }
 .main-dash-content {
-  width: 80%;
   overflow-y: scroll;
   height: 500px !important;
-  .main-data{
+  padding: 0 !important;
+  .main-data {
     // display: flex;
     // justify-content: space-between;
     box-shadow: 0px 0px 10px 0px #e2e0e0;
     border-radius: 5px;
     margin: 11px !important;
-    padding: 10px 0px !important;
+    padding: 0px 0px 5px 0px !important;
   }
 }
 .skill-label {
@@ -3917,11 +3917,25 @@ footer {
   justify-content: space-between;
   align-items: center;
   width: 7rem;
-  img{
+  img {
     width: 15px;
   }
-  label{
+  label {
     font-size: 9px;
     margin: 0 !important;
   }
 }
+.dashboard-list_data{
+  padding: 0 !important;
+  h5{
+    color: #000;
+    font-size: 15px;
+    padding: 5px 0 5px 5px!important;
+    font-weight: 600;
+    background-color: #ebf3fc;
+  }
+  hr{
+    margin: 0px 0px 10px 0px !important;
+  }
+}
+

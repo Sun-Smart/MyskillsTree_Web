@@ -238,18 +238,14 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
 
       <!-- Add & Close -->
 
-        <td class="field-add-close-button" style="">
+        <td class="field-add-close-button">
 
-        <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait(mstapplicantskilldetail_Form)"></i>
-          <!-- <button type="button" class="btn btn-outline-primary"  (click)="onSubmitData(mstapplicantskilldetail_Form)"
-          style="background: green;color: antiquewhite;padding: 5px;border: none;box-shadow: 1px 1px 1px 0px black;">Submit</button> -->
+        <i class="fa fa-plus-square field-Add-button" aria-hidden="true" 
+        (click)="onSubmitAndWait(mstapplicantskilldetail_Form)"></i>
 
           <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
           (click)="skillClose()"></i>
-          <!-- <button type="button" *ngIf="showSkillDetails_input"
-            (click)="skillClose()"
-            style="background: red;color: antiquewhite;padding: 3px 5px;border-radius: 6px;
-            border: none;box-shadow: 1px 1px 1px 0px black;">Cancel</button> -->
+ 
         </td>
       </tr>
     </tbody>
