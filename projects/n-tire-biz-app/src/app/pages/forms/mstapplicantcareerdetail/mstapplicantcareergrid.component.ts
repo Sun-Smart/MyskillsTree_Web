@@ -201,10 +201,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <!-- To Date -->
 
      <td>
-     <!-- <label for="todate" class="control-label">To Date</label> -->
-     <!-- <input  id="designation" required formControlName="designation" class="form-control"> -->
-     <!-- <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.todate?.value)}}</label> -->
-
      <div>
     <div style="display: flex;width: 80%;">
      <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
@@ -223,8 +219,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <!-- Skills -->
 
      <td>
-     <!-- <label for="skills" class="control-label">Skills &nbsp;&nbsp;</label><br> -->
-     <!-- <input  id="designation" required formControlName="skills" class="form-control"> -->
      <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
           (completeMethod)="search_skills($event)"></p-autoComplete>
      </td>

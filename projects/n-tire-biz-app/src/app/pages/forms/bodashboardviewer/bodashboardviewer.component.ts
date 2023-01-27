@@ -320,7 +320,7 @@ export class BODashboardViewerComponent implements OnInit {
   endformat: any;
   dateFormat: object;
   espYr: any
-  expYrs: any;
+  expYrs: any = [];
   sub_categorydesc: any;
   remarks: any;
 
@@ -604,6 +604,7 @@ export class BODashboardViewerComponent implements OnInit {
 
       this.dashboard_details = [],
       this.dashboard_employementdetails = []
+      this.expYrs = []
       this.dashboard_details.push(res);
 
       console.log("this.dashboard_details",this.dashboard_details);

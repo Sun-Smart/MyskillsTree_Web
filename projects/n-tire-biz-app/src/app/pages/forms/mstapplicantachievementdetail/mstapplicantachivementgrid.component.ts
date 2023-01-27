@@ -137,16 +137,15 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
         <thead>
           <tr>
-            <th scope="col" class="achieve_title" style="padding-left: 25px !important;width: 16%;">Category</th>
-            <!--<th scope="col" style="width: 14%">Attachment</th>-->
-            <th scope="col" style="width: 16%">Achievement Details</th>
-            <th scope="col" style="width: 16%">From date</th>
-            <th scope="col" style="width: 16%">To date</th>
-            <th scope="col" style="width: 16%">Skill</th>
-            <!-- <th scope="col" style="width: 61%">Attachment</th> -->
-            <th scope="col" style="width: 16%">Action</th>
+            <th scope="col" class="achieve_title" style="padding-left: 25px !important;width: 17%;">Category</th>
+            <th scope="col" style="width:17%">Achievement Details</th>
+            <th scope="col" style="width:17%">Skills</th>
+            <th scope="col" style="width:17%">From Date</th>
+            <th scope="col" style="width:17%">To Date</th>
+            <th scope="col" style="width:15%;text-align: center;"> Action</th>
           </tr>
         </thead>
+
         <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
             <tr>
 
@@ -167,41 +166,53 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     formControlName="achievementdetails" class="form-control">
                     </textarea>
                 </td>
-                <!--fromdate-->
-                  <td>
-                    <input type="number" id="fromdate" formControlName="fromdate" class="form-control" required>
-                    </td>
-              <!--todate-->
-                   <td>
-                    <input type="number" id="todate" formControlName="todate" class="form-control" required>
-                    </td>
-<!--skill-->
-<td>
-                   
-<select  id="Skill" required
-(change)="skill_onchange($event.target)" formControlName="Skill"
-class="form-control">
-<option [ngValue]="null" selected>-Select-</option>
-<option  value="null">ytyy</option>
-</select>
-</td>
-                <!-- Attachment -->
 
-                <!-- <td>
-                <p-accordion [multiple]='true'>
-                    <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
-                    <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
-                    </app-attachment>
-                    </p-accordionTab>
-                </p-accordion>
-                </td> -->
+                <!-- Skills -->
+
+                <td>
+                <select  id="skills" required (change)="skills_onChange($event.target)"
+                formControlName="skills" class="form-control">
+                <option [ngValue]="null" selected>-Select-</option>
+                <option value="1" selected>Angular</option>
+              
+                </select>
+                </td>
+
+                <!-- From Date -->
+
+                <td>
+                <div >
+                <div class="input-group" style="display: flex;width: 100%;">
+                  <input #d="ngbDatepicker" readonly ngbDatepicker
+                    name="fromdateformpicker" id="fromdate" required
+                    formControlName="fromdate" style="margin-right: 5px;" class="form-control">
+                  <button class="input-group-addon" (click)="d.toggle()" type="button"><i
+                      class="fa fa-calendar" aria-hidden="true"></i></button>
+                </div>
+              </div>
+                </td>
+
+                <!-- To Date -->
+
+                <td>
+                <div style="display: flex;width: 80%;">
+                <input #t="ngbDatepicker" readonly  ngbDatepicker 
+                      name="todateformpicker" id="todate" formControlName="todate" class="form-control"
+                     style="margin-right: 5px;">
+           
+                     <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
+                         class="fa fa-calendar" aria-hidden="true"></i></button>
+               </div>
+                      
+              
+                </td>
 
             <!-- Submit & Close -->
 
                 <td class="field-add-close-button">
                     <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
 
-                    <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                    <i class="fa fa-window-close field-close-button" aria-hidden="true"
                     (click)="skillClose()"></i>
                 </td>
             </tr>
@@ -302,6 +313,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
   IsApplicant: boolean;
   IsAdmin: boolean;
   bSingleRecord: boolean;
+  showDateError: boolean;
 
 
   applicantid_List: DropDownValues[];
@@ -336,6 +348,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
   showMobileDetectskill: boolean = false;
   showWebviewDetect: boolean = true;
   isMobile: any;
+  fromdate: Date;
+  todate: Date;
+  skills: null;
+
   constructor(
     private nav: Location,
     private translate: TranslateService,
@@ -385,7 +401,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
       achievementid: [null],
       masterdataid: [null, Validators.compose([Validators.required])],
       masterdataiddesc: [null],
+      skills: [null],
       achievementdetails: [null, Validators.compose([Validators.required])],
+      fromdate: [null, Validators.compose([Validators.required])],
+      todate: [null],
       selfrating: [null],
       remarks: [null],
       requestid: [null],
@@ -394,8 +413,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
       attachment: [null],
       status: [null],
       statusdesc: [null],
-      fromdate:[null],
-      todate:[null],
       skill:[null],
 
     });
@@ -430,6 +447,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
   masterdataid_onChange(evt: any) {
     let e = evt.value;
     this.mstapplicantachievementdetail_Form.patchValue({ masterdataiddesc: evt.options[evt.options.selectedIndex].text });
+  };
+
+  skills_onChange(event) {
+    debugger;
   }
 
   onSubmitAndWait() {
@@ -458,8 +479,20 @@ export class mstapplicantachivementgridComponent implements OnInit {
     this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
     console.log(this.formData);
 
-    // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-    // this.fileAttachmentList = this.fileattachment.getAllFiles();
+    this.formData.fromdate = new Date(this.mstapplicantachievementdetail_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('fromdate').value) + '  UTC' : null);
+
+    if (this.mstapplicantachievementdetail_Form.value.currentlyworking == true) {
+      this.formData.todate = new Date()
+      console.log(this.formData.todate);
+    } else {
+      this.formData.todate = new Date(this.mstapplicantachievementdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('todate').value) + '  UTC' : null);
+    }
+    this.formData.skills = null;
+
+    if (this.formData.fromdate > this.formData.todate) {
+      this.showDateError = true;
+      return;
+    } else {
     console.log(this.formData);
     this.spinner.show();
     this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
@@ -499,6 +532,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
         this.mstapplicantachievementdetail_Form.markAsPristine();
 
       });
+    }
   };
 
   resetForm() {
@@ -520,6 +554,11 @@ export class mstapplicantachivementgridComponent implements OnInit {
           let ctrltype = typeof (mainscreendata[key]);
           if (false)
             json = "";
+          else if (key == "fromdate")
+            this.mstapplicantachievementdetail_Form.patchValue({ "fromdate": this.ngbDateParserFormatter.parse(mainscreendata[key]) });
+          else if (key == "todate")
+            this.mstapplicantachievementdetail_Form.patchValue({ "todate": this.ngbDateParserFormatter.parse(mainscreendata[key]) });
+
           else if (ctrltype == "string") {
             this.mstapplicantachievementdetail_Form.patchValue({ [key]: mainscreendata[key] });
           }
