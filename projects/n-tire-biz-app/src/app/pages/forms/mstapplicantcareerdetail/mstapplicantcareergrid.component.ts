@@ -726,7 +726,7 @@ export class mstapplicantcareergridComponent implements OnInit {
         <div class='card1'>
         <table class="table table-hover" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
-          <tr>
+          <tr style="word-break: break-word;">
             <th style="white-space: break-spaces;width:15%;">##categorydesc##</th>
             <th style="white-space: break-spaces;width:14%;">##companyname##</th>
             <th style="white-space: break-spaces;width:14%;">##designation##</th>

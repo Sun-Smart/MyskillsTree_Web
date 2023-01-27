@@ -634,14 +634,13 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         ret += `
         <table class="table table-hover workdetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
-          <tr>
-            <th style="white-space: break-spaces;word-break: break-word !important;width:20%;">##companyname##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width:20%;">##worktopic##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width:20%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
-            <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;width:20%;">##referencecount##</th>-->
-            <th style="white-space: break-spaces;word-break: break-word !important;width:20%;">##workdescription##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width:20%;">##remarks##</th>
-            <th style="white-space: break-spaces;word-break: break-word !important;width:20%;">##skill##</th>
+          <tr style="word-break: break-word;">
+            <th style="white-space: break-spaces;width:20%;">##companyname##</th>
+            <th style="white-space: break-spaces;width:20%;">##worktopic##</th>
+            <th style="white-space: break-spaces;width:20%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
+            <!--<th scope="row" style="white-space: break-spaces;width:20%;">##referencecount##</th>-->
+            <th style="white-space: break-spaces;width:20%;">##workdescription##</th>
+            <th style="white-space: break-spaces;width:20%;">##remarks##</th>
           </tr>
         </tbody>
       </table>

@@ -562,11 +562,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
     ret += `
         <table class="table table-hover" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
-          <tr>
-            <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##masterdataiddesc##</th>
-            <!--<th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##attachment##</th>-->
-            <th scope="row" class="card1 profile__section__item__sub col-2" style="white-space: break-spaces;word-break: break-word !important;" class="col-1">##achievementdetails##</th>
-            <th scope="row" style="white-space: break-spaces;word-break: break-word !important;" class="col-2">##remarks##</th>
+          <tr style="word-break: break-word !important;">
+            <th scope="row" style="white-space: break-spaces;width:33%;">##masterdataiddesc##</th>
+            <th scope="row" class="card1 profile__section__item__sub" style="white-space: break-spaces;">##achievementdetails##</th>
+            <th scope="row" style="white-space: break-spaces;">##remarks##</th>
           </tr>
         </tbody>
       </table>

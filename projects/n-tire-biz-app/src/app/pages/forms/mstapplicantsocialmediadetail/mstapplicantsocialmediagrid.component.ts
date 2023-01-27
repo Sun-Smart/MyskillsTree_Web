@@ -589,11 +589,11 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
 
         <table class="table table-hover socialmedia_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
-          <tr>
-            <th style="white-space: break-spaces;" class="col-2 mobile_view_social">##socialmedianamedesc##</th>
-            <th style="white-space: break-spaces;" class="col-2 mobile_view_social">##handlename##</th>
-            <th style="white-space: break-spaces;" class="col-2 mobile_view_social"><a href="https://##url##" target="_blank">##url##</a></th>
-            <th style="white-space: break-spaces;" class="col-2 mobile_view_social">##remarks##</th>
+          <tr style="word-break: break-word;">
+            <th style="white-space: break-spaces;width:25.5%;" class="mobile_view_social">##socialmedianamedesc##</th>
+            <th style="white-space: break-spaces;width:24%;" class="mobile_view_social">##handlename##</th>
+            <th style="white-space: break-spaces;width:24%;" class="mobile_view_social"><a href="https://##url##" target="_blank">##url##</a></th>
+            <th style="white-space: break-spaces;" class="mobile_view_social">##remarks##</th>
           </tr>
         </tbody>
       </table>
