@@ -145,7 +145,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <thead>
                     <tr>
 
-                    <th  style="width: 11.5%;">From Year</th>
+                   
                     <th style="width: 11.5%;">Category</th>
                     <th style="width: 11.5%;">Sub Category</th>
                     <th style="width:11.5%;%">Institution Name</th>
@@ -153,17 +153,16 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <th style="width: 11.5%;">Percentage</th>
                     <!-- <th style="width: 13%;">Referral Status</th> -->
                     <th style="width: 11.5%;">Remarks</th>
+                    <th  style="width: 11.5%;">From Year</th>
                     <th style="width: 11.5%;white-space: nowrap !important;">To Year</th>
+                    <th  style="width: 11.5%;">Skill</th>
                     <!-- <th style="width: 11.5%;">Attachment</th> -->
                     <th style="width: 8%;">Action</th>
                     </tr>
                 </thead>
                 <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
                 <tr>
-                  <!-- From Year -->
-                    <td>
-                    <input type="number" id="fromyear" formControlName="fromyear" class="form-control" required>
-                    </td>
+                  
 
                     <!-- Category -->
 
@@ -225,12 +224,25 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                       </p-accordionTab>
                     </p-accordion>
                     </td> -->
-
+                    <!-- From Year -->
+                    <td>
+                    <input type="number" id="fromyear" formControlName="fromyear" class="form-control" required>
+                    </td>
                     <!-- To Year -->
 
                     <td>
                     <input type="number" id="toyear" formControlName="toyear" class="form-control" required>
                     <span *ngIf = "show_YearError" style = "color:red; font-size:10px;"> To year should not be greater than from year</span>
+                    </td>
+                    <!--skill-->
+                    <td>
+                   
+                    <select  id="Skill" required
+                    (change)="skill_onchange($event.target)" formControlName="Skill"
+                    class="form-control">
+                <option [ngValue]="null" selected>-Select-</option>
+                <option  value="null">ytyy</option>
+                </select>
                     </td>
 
                     <!-- Submit & Close -->
@@ -498,6 +510,7 @@ showMobileDetectskill: boolean = false;
       remarks: [null, Validators.required],
       attachment: [null],
       status: [null],
+      Skill:[null],
       statusdesc: [null],
     });
 
@@ -702,7 +715,6 @@ showMobileDetectskill: boolean = false;
         <table class="table table-hover educationdetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr class="tbody-res">
-            <th style="white-space: break-spaces;width: 12.5%;" class="from_yr">##fromyear##</th>
             <th style="white-space: break-spaces;width: 13%;" class="edu_cat">##educationcategorydesc##</th>
             <th style="white-space: break-spaces;width: 12.5%; !important;" class="edu_sub">##educationsubcategorydesc##</th>
             <th style="white-space: break-spaces;width: 13%;"  class="inst_name">##institutionname##</th>
@@ -710,6 +722,7 @@ showMobileDetectskill: boolean = false;
             <th style="white-space: break-spaces;twidth: 11.5%;"  class="percent">##percentage##</th>
             <!--<th scope="row" style="white-space: break-spaces;width: 11.5%;" class="ref_count">##referencecount##</th>-->
             <th style="white-space: break-spaces;width: 11.5%;"  class="edu_rm">##remarks##</th>
+            <th style="white-space: break-spaces;width: 12.5%;" class="from_yr">##fromyear##</th>
             <th style="white-space: break-spaces;width: 11%;" class="to_yr">##toyear##</th>
           </tr>
         </tbody>
@@ -722,13 +735,14 @@ showMobileDetectskill: boolean = false;
     let ret = "";
     ret += `
   <ul class="list-group" style="line-height: 15px;margin: 0px;">
-    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">From Year </span>: <label style="font-size: small;">##fromyear##</label></li>
+   
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Category </span>: <label style="font-size: small;">##educationcategorydesc##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Sub Category :</span> <label style="font-size: small;">##educationsubcategorydesc##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Institution Name :</span> <label style="font-size: small;">##institutionname##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Course Name :</span> <label style="font-size: small;">##coursename##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Percentage :</span> <label style="font-size: small;">##percentage##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks :</span> <label style="font-size: small;">##remarks##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">From Year </span>: <label style="font-size: small;">##fromyear##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">To Year :</span> <label style="font-size: small;">##toyear##</label></li>
   </ul>
 `;

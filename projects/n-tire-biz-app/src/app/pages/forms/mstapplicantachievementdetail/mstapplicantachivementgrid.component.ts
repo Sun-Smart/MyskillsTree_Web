@@ -413,6 +413,8 @@ export class mstapplicantachivementgridComponent implements OnInit {
       attachment: [null],
       status: [null],
       statusdesc: [null],
+      skill:[null],
+
     });
 
     this.FillData();
