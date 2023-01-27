@@ -1955,20 +1955,23 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                 // let resultASMD = this.router.routerState.snapshot.url.match("ASMD");
 
                 // if (resultASMD[0] == "ASMD") {
+                    for(let i=0;i<this.menuactions.length;i++){
 
-                if (res.bomenuactions[0]?.description == "Socialmedia Attachment") {
+                        if (this.menuactions[i].description == "Socialmedia Attachment") {
 
-                    this.menuactions[1] = [];
-                }
-                else if (res.bomenuactions[0]?.description == "Geographypreferences Attachment") {
-                    this.menuactions[1] = [];
-                }
-                else if (res.bomenuactions[0]?.description == "Language Attachment") {
-                    this.menuactions[1] =[];
-                }
-                else if (res.bomenuactions[0]?.description == "Workreference Attachment") {
-                    this.menuactions[1] =[];
-                }
+                            this.menuactions[i] = [];
+                        }
+                        else if (this.menuactions[i].description == "Geographypreferences Attachment") {
+                            this.menuactions[i] = [];
+                        }
+                        else if (this.menuactions[i].description == "Language Attachment") {
+                            this.menuactions[i] = [];
+                        }
+                        else if (this.menuactions[i].description == "Workreference Attachment") {
+                            this.menuactions[i] = [];
+                        }
+                    }
+
             }
 
 

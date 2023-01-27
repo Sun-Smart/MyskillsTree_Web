@@ -137,11 +137,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
         <thead>
           <tr>
-            <th scope="col" class="achieve_title" style="padding-left: 25px !important;width: 30%;">Category</th>
+            <th scope="col" class="achieve_title" style="padding-left: 25px !important;width: 16%;">Category</th>
             <!--<th scope="col" style="width: 14%">Attachment</th>-->
-            <th scope="col" style="width: 61%">Achievement Details</th>
+            <th scope="col" style="width: 16%">Achievement Details</th>
+            <th scope="col" style="width: 16%">From date</th>
+            <th scope="col" style="width: 16%">To date</th>
+            <th scope="col" style="width: 16%">Skill</th>
             <!-- <th scope="col" style="width: 61%">Attachment</th> -->
-            <th scope="col" style="width: 42%">Action</th>
+            <th scope="col" style="width: 16%">Action</th>
           </tr>
         </thead>
         <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
@@ -164,7 +167,24 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     formControlName="achievementdetails" class="form-control">
                     </textarea>
                 </td>
-
+                <!--fromdate-->
+                  <td>
+                    <input type="number" id="fromdate" formControlName="fromdate" class="form-control" required>
+                    </td>
+              <!--todate-->
+                   <td>
+                    <input type="number" id="todate" formControlName="todate" class="form-control" required>
+                    </td>
+<!--skill-->
+<td>
+                   
+<select  id="Skill" required
+(change)="skill_onchange($event.target)" formControlName="Skill"
+class="form-control">
+<option [ngValue]="null" selected>-Select-</option>
+<option  value="null">ytyy</option>
+</select>
+</td>
                 <!-- Attachment -->
 
                 <!-- <td>
@@ -374,6 +394,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
       attachment: [null],
       status: [null],
       statusdesc: [null],
+      fromdate:[null],
+      todate:[null],
+      skill:[null],
+
     });
 
     this.FillData();
