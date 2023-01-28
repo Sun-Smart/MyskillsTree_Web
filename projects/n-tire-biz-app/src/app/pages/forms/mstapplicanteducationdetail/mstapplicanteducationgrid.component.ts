@@ -146,18 +146,16 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <tr>
 
                    
-                    <th style="width: 11.5%;">Category</th>
-                    <th style="width: 11.5%;">Sub Category</th>
-                    <th style="width:11.5%;%">Institution Name</th>
-                    <th style="width: 11.5%;">Course Name</th>
-                    <th style="width: 11.5%;">Percentage</th>
-                    <!-- <th style="width: 13%;">Referral Status</th> -->
-                    <th style="width: 11.5%;">Remarks</th>
-                    <th  style="width: 11.5%;">From Year</th>
-                    <th style="width: 11.5%;white-space: nowrap !important;">To Year</th>
-                    <th  style="width: 11.5%;">Skill</th>
-                    <!-- <th style="width: 11.5%;">Attachment</th> -->
-                    <th style="width: 8%;">Action</th>
+                    <th style="width: 10%;">Category</th>
+                    <th style="width: 10%;">Sub Category</th>
+                    <th style="width: 10%">Institution Name</th>
+                    <th style="width: 10%;">Course Name</th>
+                    <th style="width: 10%;">Percentage</th>
+                    <th style="width: 10%;">Remarks</th>
+                    <th style="width: 10%;">From Year</th>
+                    <th style="width: 10%;">To Year</th>
+                    <th style="width: 10%;">Skill</th>
+                    <th style="width: 10%;">Action</th>
                     </tr>
                 </thead>
                 <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
@@ -214,16 +212,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor> -->
                     </td>
 
-                    <!-- Attachment -->
-
-                    <!-- <td>
-                    <p-accordion [multiple]='true'>
-                      <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
-                        <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
-                        </app-attachment>
-                      </p-accordionTab>
-                    </p-accordion>
-                    </td> -->
                     <!-- From Year -->
                     <td>
                     <input type="number" id="fromyear" formControlName="fromyear" class="form-control" required>
@@ -237,12 +225,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!--skill-->
                     <td>
                    
-                    <select  id="Skill" required
-                    (change)="skill_onchange($event.target)" formControlName="Skill"
+                    <select  id="skill" required (change)="skill_onchange($event.target)" formControlName="skill"
                     class="form-control">
-                <option [ngValue]="null" selected>-Select-</option>
-                <option  value="null">ytyy</option>
-                </select>
+                      <option [ngValue]="null" selected>-Select-</option>
+                      <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
+                    </select>
                     </td>
 
                     <!-- Submit & Close -->
@@ -386,6 +373,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   applicantid_List: DropDownValues[];
   referenceacceptance_List: DropDownValues[];
   educationsubcategory_List: DropDownValues[];
+  skill_list: DropDownValues[];
 
 
   ShowTableslist: any;
@@ -439,7 +427,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   formValue: any;
   show_percentageError: boolean = false;
   show_YearError: boolean;
-showMobileDetectskill: boolean = false;
+  showMobileDetectskill: boolean = false;
   showWebviewDetect: boolean = true;
   isMobile: any;
   constructor(
@@ -510,7 +498,8 @@ showMobileDetectskill: boolean = false;
       remarks: [null, Validators.required],
       attachment: [null],
       status: [null],
-      Skill:[null],
+      skill: [null],
+      skilldesc: [null],
       statusdesc: [null],
     });
 
@@ -523,8 +512,15 @@ showMobileDetectskill: boolean = false;
       this.applicantid_List = res.list_applicantid.value;
       this.educationcategory_List = res.list_educationcategory.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
+      this.skill_list = res.list_skills.value;
     }).catch((err) => { this.spinner.hide(); console.log(err); });
   };
+
+  skill_onchange(evt: any) {
+    debugger;
+    let e = evt.value;
+    this.mstapplicanteducationdetail_Form.patchValue({ skilldesc: evt.options[evt.options.selectedIndex].text });
+  }
 
   educationcategory_onChange(evt: any) {
     debugger
@@ -715,15 +711,16 @@ showMobileDetectskill: boolean = false;
         <table class="table table-hover educationdetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr class="tbody-res">
-            <th style="white-space: break-spaces;width: 13%;" class="edu_cat">##educationcategorydesc##</th>
-            <th style="white-space: break-spaces;width: 12.5%; !important;" class="edu_sub">##educationsubcategorydesc##</th>
-            <th style="white-space: break-spaces;width: 13%;"  class="inst_name">##institutionname##</th>
-            <th style="white-space: break-spaces;width: 13%;"  class="cour_name">##coursename##</th>
-            <th style="white-space: break-spaces;twidth: 11.5%;"  class="percent">##percentage##</th>
-            <!--<th scope="row" style="white-space: break-spaces;width: 11.5%;" class="ref_count">##referencecount##</th>-->
-            <th style="white-space: break-spaces;width: 11.5%;"  class="edu_rm">##remarks##</th>
-            <th style="white-space: break-spaces;width: 12.5%;" class="from_yr">##fromyear##</th>
-            <th style="white-space: break-spaces;width: 11%;" class="to_yr">##toyear##</th>
+            <th style="white-space: break-spaces;width: 11%;" class="edu_cat">##educationcategorydesc##</th>
+            <th style="white-space: break-spaces;width: 0%; !important;" class="edu_sub">##educationsubcategorydesc##</th>
+            <th style="white-space: break-spaces;width: 10%;"  class="inst_name">##institutionname##</th>
+            <th style="white-space: break-spaces;width: 11%;"  class="cour_name">##coursename##</th>
+            <th style="white-space: break-spaces;width: 10%;"  class="percent">##percentage##</th>
+            <!--<th scope="row" style="white-space: break-spaces;width: 10%;" class="ref_count">##referencecount##</th>-->
+            <th style="white-space: break-spaces;width: 10%;"  class="edu_rm">##remarks##</th>
+            <th style="white-space: break-spaces;width: 10%;" class="from_yr">##fromyear##</th>
+            <th style="white-space: break-spaces;width: 10%;" class="to_yr">##toyear##</th>
+            <th style="white-space: break-spaces;width: 10%;" class="to_yr">##skilldesc##</th>
           </tr>
         </tbody>
       </table>
@@ -751,7 +748,7 @@ showMobileDetectskill: boolean = false;
 
   FillData() {
 
-debugger
+    debugger
     this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
       debugger
       this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
@@ -798,6 +795,8 @@ debugger
         referenceacceptance: res.mstapplicanteducationdetail.referenceacceptance,
         referenceacceptancedesc: res.mstapplicanteducationdetail.referenceacceptancedesc,
         remarks: res.mstapplicanteducationdetail.remarks,
+        skill: res.mstapplicanteducationdetail.skill,
+        skilldesc: res.mstapplicanteducationdetail.skilldesc,
         attachment: "[]",
         status: res.mstapplicanteducationdetail.status,
         statusdesc: res.mstapplicanteducationdetail.statusdesc,

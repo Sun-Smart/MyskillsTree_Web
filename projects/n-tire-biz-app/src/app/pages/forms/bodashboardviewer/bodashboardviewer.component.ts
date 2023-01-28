@@ -286,6 +286,7 @@ export class BODashboardViewerComponent implements OnInit {
   countarray: any = [];
   showstr: any;
   str_rateCount: any;
+  subCategory: any;
 
 
   r1: any;
@@ -307,6 +308,8 @@ export class BODashboardViewerComponent implements OnInit {
   dashboard_employementdetails: any = [];
   dashboard_reffreq_details: any = [];
   dashboard_educationdetails: any = [];
+  dashboard_achievementdetails: any = [];
+  dashboard_projectdetails: any = [];
   get_educationd_data: any = [];
 
   career_companyName: any;
@@ -323,6 +326,8 @@ export class BODashboardViewerComponent implements OnInit {
   expYrs: any = [];
   sub_categorydesc: any;
   remarks: any;
+  start_date: string;
+  end_date: string;
 
 
   constructor(private sharedService: SharedService, public dialogRef: DynamicDialogRef,
@@ -380,7 +385,7 @@ export class BODashboardViewerComponent implements OnInit {
         this.datacolour.push(this.getdata[i].colour);
         this.dataod.push(this.getdata[i].od);
         this.datarelease.push(this.getdata[i].releasestatus)
-    
+
 
         if (this.getdata[i].name == "Skillset" && this.getdata[i].colour == "#65AE12") {
           this.isskillcompleted = true;
@@ -547,7 +552,6 @@ export class BODashboardViewerComponent implements OnInit {
   get_allData() {
 
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
-
       this.sub_category = res.mstapplicantskilldetail;
 
       for (let i = 0; i < this.sub_category.length; i++) {
@@ -558,7 +562,6 @@ export class BODashboardViewerComponent implements OnInit {
           remarks: this.sub_category[i].remarks,
         });
       };
-
 
       for (let i = 0; i < this.skill_detail.length; i++) {
         if (this.skill_detail[i].strRating == 1) {
@@ -575,51 +578,46 @@ export class BODashboardViewerComponent implements OnInit {
         this.finalarray.push({
           subCategory: this.skill_detail[i].subCategory,
           skillId: this.skill_detail[i].skill_id,
-          remarks : this.skill_detail[i].remarks,
+          remarks: this.skill_detail[i].remarks,
           showstr: this.showstr
-          
         });
-        console.log("this.finalarray",this.finalarray);
-        
       }
-
-      this.showDetails(this.finalarray[0].skillId ,this.finalarray[0].category , this.finalarray[0].remarks)
-      this.showhearder_Details = false;
+      this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
+      // this.showhearder_Details = false;
     });
   };
 
-  showDetails(get_id: any, category: any, remarks:any) {
+  showDetails(get_id: any, category: any, remarks: any) {
 
-    this.showhearder_Details = true;
+
     this.sub_categorydesc = category;
     this.remarks = remarks.replace(/['"]+/g, '');
 
-    console.log("this.remarks", this.remarks);
-    
     let body = {
       "applicantid": this.applicantid,
       "skillid": get_id
     };
     this.mstapplicantmaster_service.get_dashboardAll_details(body).then(res => {
-
+      this.showhearder_Details = true;
       this.dashboard_details = [],
-      this.dashboard_employementdetails = []
+        this.dashboard_employementdetails = []
       this.expYrs = []
       this.dashboard_details.push(res);
 
-      console.log("this.dashboard_details",this.dashboard_details);
-
       this.dashboard_reffreq_details = this.dashboard_details[0].list_dashboardreff.value;
-
-      console.log("this.dashboard_reffreq_details", this.dashboard_reffreq_details);
-      
-      
-
       this.dashboard_employementdetails = this.dashboard_details[0].list_dashboardemployeement.value;
-      console.log("this.dashboard_employementdetails", this.dashboard_employementdetails);
-      
+      this.dashboard_achievementdetails = this.dashboard_details[0].list_dashboarachievment.value;
+      this.dashboard_projectdetails = this.dashboard_details[0].lis_dashboardproject.value;
+
+      console.log("this.dashboard_achievementdetails", this.dashboard_achievementdetails);
+      console.log("this.dashboard_projectdetails", this.dashboard_projectdetails);
+
+
       let StartDate = this.dashboard_employementdetails[0].fromdate;
       let EndDate = this.dashboard_employementdetails[0].todate;
+
+      this.start_date = this.datepipe.transform(new Date(StartDate), 'dd-MM-yyyy');
+      this.end_date = this.datepipe.transform(new Date(EndDate), 'dd-MM-yyyy');
 
       this.endformat = this.datepipe.transform(new Date(EndDate), 'yyyy-MM-dd');
       this.startformat = this.datepipe.transform(new Date(StartDate), 'yyyy-MM-dd');
@@ -628,7 +626,6 @@ export class BODashboardViewerComponent implements OnInit {
       let dateSent = new Date(this.startformat);
 
       let result = Math.floor(
-
         (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) -
           Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
 
@@ -702,7 +699,7 @@ export class BODashboardViewerComponent implements OnInit {
   }
   // suneel2
   showmyProfile() {
-;
+    ;
     var showmyproid = "showMyPro";
     localStorage.setItem('showprofile', showmyproid);
     this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')]);
@@ -874,7 +871,7 @@ export class BODashboardViewerComponent implements OnInit {
 
 
     this.mstapplicantmaster_service.release_method(obj).subscribe(res => {
-  
+
       //need ngoninit api result need to arrange release status
       // need result for status=false
 

@@ -1,7 +1,7 @@
 import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 //Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
 
@@ -137,11 +137,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
         <thead>
           <tr>
-            <th scope="col" class="achieve_title" style="padding-left: 25px !important;width: 17%;">Category</th>
-            <th scope="col" style="width:17%">Achievement Details</th>
+            <th scope="col" class="achieve_title" style="width: 18%;">Category</th>
+            <th scope="col" style="width:25%">Achievement Details</th>
             <th scope="col" style="width:17%">Skills</th>
-            <th scope="col" style="width:17%">From Date</th>
-            <th scope="col" style="width:17%">To Date</th>
+            <th scope="col" style="width:15%">From Date</th>
+            <th scope="col" style="width:15%">To Date</th>
             <th scope="col" style="width:15%;text-align: center;"> Action</th>
           </tr>
         </thead>
@@ -168,15 +168,13 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 </td>
 
                 <!-- Skills -->
-
-                <td>
-                <select  id="skills" required (change)="skills_onChange($event.target)"
-                formControlName="skills" class="form-control">
-                <option [ngValue]="null" selected>-Select-</option>
-                <option value="1" selected>Angular</option>
-              
-                </select>
-                </td>
+           
+                    <td>
+                    <select  id="skill" required
+                    (change)="skill_onchange($event.target)" formControlName="skill" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
+                    </select>
 
                 <!-- From Date -->
 
@@ -184,8 +182,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <div >
                 <div class="input-group" style="display: flex;width: 100%;">
                   <input #d="ngbDatepicker" readonly ngbDatepicker
-                    name="fromdateformpicker" id="fromdate" required
-                    formControlName="fromdate" style="margin-right: 5px;" class="form-control">
+                    name="fromyearformpicker" id="fromyear" required
+                    formControlName="fromyear" style="margin-right: 5px;" class="form-control">
                   <button class="input-group-addon" (click)="d.toggle()" type="button"><i
                       class="fa fa-calendar" aria-hidden="true"></i></button>
                 </div>
@@ -197,7 +195,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <td>
                 <div style="display: flex;width: 80%;">
                 <input #t="ngbDatepicker" readonly  ngbDatepicker 
-                      name="todateformpicker" id="todate" formControlName="todate" class="form-control"
+                      name="toyearformpicker" id="toyear" formControlName="toyear" class="form-control"
                      style="margin-right: 5px;">
            
                      <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
@@ -319,6 +317,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
   applicantid_List: DropDownValues[];
   masterdataid_List: DropDownValues[];
   referenceacceptance_List: DropDownValues[];
+  skill_list: DropDownValues[];
 
   applicantid: any;
   data: any;
@@ -348,9 +347,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
   showMobileDetectskill: boolean = false;
   showWebviewDetect: boolean = true;
   isMobile: any;
-  fromdate: Date;
-  todate: Date;
+  fromyear: Date;
+  toyear: Date;
   skills: null;
+  myDate:any;
 
   constructor(
     private nav: Location,
@@ -367,11 +367,14 @@ export class mstapplicantachivementgridComponent implements OnInit {
     private sharedService: SharedService,
     private sessionService: SessionService,
     private toastr: ToastService,
-    private sanitizer: DomSanitizer,
+    private sanitizer: DomSanitizer,private datePipe: DatePipe,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
     private mstapplicantachivement_service: mstapplicantachievementdetailService,
   ) {
     debugger;
+
+    var date = new Date()
+    this.myDate = this.datePipe.transform(date);
     this.data = dynamicconfig;
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -401,10 +404,9 @@ export class mstapplicantachivementgridComponent implements OnInit {
       achievementid: [null],
       masterdataid: [null, Validators.compose([Validators.required])],
       masterdataiddesc: [null],
-      skills: [null],
       achievementdetails: [null, Validators.compose([Validators.required])],
-      fromdate: [null, Validators.compose([Validators.required])],
-      todate: [null],
+      fromyear: [null, Validators.compose([Validators.required])],
+      toyear: [null],
       selfrating: [null],
       remarks: [null],
       requestid: [null],
@@ -413,7 +415,8 @@ export class mstapplicantachivementgridComponent implements OnInit {
       attachment: [null],
       status: [null],
       statusdesc: [null],
-      skill:[null],
+      skill: [null],
+      skilldesc: [null],
 
     });
 
@@ -439,6 +442,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
       this.applicantid_List = res.list_applicantid.value;
       this.masterdataid_List = res.list_masterdataid.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
+      this.skill_list = res.list_skills.value;
     }).catch((err) => { this.spinner.hide(); console.log(err); });
   }
   skillClose() {
@@ -449,8 +453,11 @@ export class mstapplicantachivementgridComponent implements OnInit {
     this.mstapplicantachievementdetail_Form.patchValue({ masterdataiddesc: evt.options[evt.options.selectedIndex].text });
   };
 
-  skills_onChange(event) {
+  skills_onChange(evt: any) {
     debugger;
+    let e = evt.value;
+    this.mstapplicantachievementdetail_Form.patchValue({ skilldesc: evt.options[evt.options.selectedIndex].text });
+
   }
 
   onSubmitAndWait() {
@@ -479,59 +486,59 @@ export class mstapplicantachivementgridComponent implements OnInit {
     this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
     console.log(this.formData);
 
-    this.formData.fromdate = new Date(this.mstapplicantachievementdetail_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('fromdate').value) + '  UTC' : null);
+    this.formData.fromyear = new Date(this.mstapplicantachievementdetail_Form.get('fromyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('fromyear').value) + '  UTC' : null);
 
     if (this.mstapplicantachievementdetail_Form.value.currentlyworking == true) {
-      this.formData.todate = new Date()
-      console.log(this.formData.todate);
+      this.formData.toyear = new Date()
+      console.log(this.formData.toyear);
     } else {
-      this.formData.todate = new Date(this.mstapplicantachievementdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('todate').value) + '  UTC' : null);
+      this.formData.toyear = new Date(this.mstapplicantachievementdetail_Form.get('toyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('toyear').value) + '  UTC' : null);
     }
     this.formData.skills = null;
 
-    if (this.formData.fromdate > this.formData.todate) {
+    if (this.formData.fromyear > this.formData.toyear) {
       this.showDateError = true;
       return;
     } else {
-    console.log(this.formData);
-    this.spinner.show();
-    this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
-      async res => {
-        console.log("ressss", res);
-        // await this.sharedService.upload(this.fileAttachmentList);
-        // this.attachmentlist = [];
-        // if (this.fileattachment) this.fileattachment.clear();
-        this.spinner.hide();
-        debugger;
-        this.toastr.addSingle("success", "", "Successfully saved");
-        this.sessionService.setItem("attachedsaved", "true")
-        this.objvalues.push((res as any).mstapplicantachievementdetail);
-        this.ngOnInit();
-        if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-          this.dialogRef.close(this.objvalues);
-          return;
-        }
-        else {
+      console.log(this.formData);
+      this.spinner.show();
+      this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
+        async res => {
+          console.log("ressss", res);
+          // await this.sharedService.upload(this.fileAttachmentList);
+          // this.attachmentlist = [];
+          // if (this.fileattachment) this.fileattachment.clear();
+          this.spinner.hide();
+          debugger;
+          this.toastr.addSingle("success", "", "Successfully saved");
+          this.sessionService.setItem("attachedsaved", "true")
+          this.objvalues.push((res as any).mstapplicantachievementdetail);
+          this.ngOnInit();
           if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        }
-
-        if (bclear) {
-          this.resetForm();
-        }
-        else {
-          if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-            this.objvalues.push((res as any).mstapplicantachievementdetail);
+          if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
             this.dialogRef.close(this.objvalues);
+            return;
           }
           else {
-            // this.FillData(res);
+            if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
           }
-        }
-        this.mstapplicantachievementdetail_Form.markAsUntouched();
-        this.mstapplicantachievementdetail_Form.markAsPristine();
 
-      });
+          if (bclear) {
+            this.resetForm();
+          }
+          else {
+            if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+              this.objvalues.push((res as any).mstapplicantachievementdetail);
+              this.dialogRef.close(this.objvalues);
+            }
+            else {
+              this.FillData();
+            }
+          }
+          this.mstapplicantachievementdetail_Form.markAsUntouched();
+          this.mstapplicantachievementdetail_Form.markAsPristine();
+
+        });
     }
   };
 
@@ -554,10 +561,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
           let ctrltype = typeof (mainscreendata[key]);
           if (false)
             json = "";
-          else if (key == "fromdate")
-            this.mstapplicantachievementdetail_Form.patchValue({ "fromdate": this.ngbDateParserFormatter.parse(mainscreendata[key]) });
-          else if (key == "todate")
-            this.mstapplicantachievementdetail_Form.patchValue({ "todate": this.ngbDateParserFormatter.parse(mainscreendata[key]) });
+          else if (key == "fromyear")
+            this.mstapplicantachievementdetail_Form.patchValue({ "fromyear": this.ngbDateParserFormatter.parse(mainscreendata[key]) });
+          else if (key == "toyear")
+            this.mstapplicantachievementdetail_Form.patchValue({ "toyear": this.ngbDateParserFormatter.parse(mainscreendata[key]) });
 
           else if (ctrltype == "string") {
             this.mstapplicantachievementdetail_Form.patchValue({ [key]: mainscreendata[key] });
@@ -602,9 +609,12 @@ export class mstapplicantachivementgridComponent implements OnInit {
         <table class="table table-hover" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr style="word-break: break-word !important;">
-            <th scope="row" style="white-space: break-spaces;width:33%;">##masterdataiddesc##</th>
-            <th scope="row" class="card1 profile__section__item__sub" style="white-space: break-spaces;">##achievementdetails##</th>
-            <th scope="row" style="white-space: break-spaces;">##remarks##</th>
+            <th scope="row" style="white-space: break-spaces;width:20%;">##masterdataiddesc##</th>
+            <th scope="row" class="card1 profile__section__item__sub" style="white-space: break-spaces;width:28%;">##achievementdetails##</th>
+            <!--<th scope="row" style="white-space: break-spaces;">##remarks##</th>-->
+            <th scope="row" style="white-space: break-spaces;width:20%;">##skilldesc##</th>
+            <th scope="row" style="white-space: break-spaces;width:16%;">##fromyear##</th>
+            <th scope="row" style="white-space: break-spaces;width:20%;">##toyear##</th>
           </tr>
         </tbody>
       </table>
@@ -661,6 +671,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
         requestid: res.mstapplicantachievementdetail.requestid,
         referenceacceptance: res.mstapplicantachievementdetail.referenceacceptance,
         referenceacceptancedesc: res.mstapplicantachievementdetail.referenceacceptancedesc,
+        skill: res.mstapplicantachievementdetail.skill,
+        skilldesc: res.mstapplicantachievementdetail.skilldesc,
+        fromyear: this.ngbDateParserFormatter.parse(res.mstapplicantachievementdetail.fromyear),
+        toyear: this.ngbDateParserFormatter.parse(res.mstapplicantachievementdetail.toyear),
         attachment: "[]",
         status: res.mstapplicantachievementdetail.status,
         statusdesc: res.mstapplicantachievementdetail.statusdesc,
@@ -825,9 +839,21 @@ export class mstapplicantachivementgridComponent implements OnInit {
             }
             var divrow = JSON.parse(JSON.stringify(row));
 
-
             divrow["selfrating"] = "<div class='Stars' style='--rating:" + row['selfrating'] + "'></div>";
-            return this.sharedService.HtmlValue(divrow, cell);
+            // return this.sharedService.HtmlValue(divrow, cell);
+
+
+            divrow["fromyear"] = this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(row["fromyear"]));
+            divrow["toyear"] = this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(row["toyear"]));
+            var dateee = divrow["toyear"]
+            if (divrow["toyear"] == this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(this.myDate))) {
+              divrow["toyear"] = "Till date";
+              return this.sharedService.HtmlValue(divrow, cell)
+            } else {
+              divrow["toyear"] = dateee
+              return this.sharedService.HtmlValue(divrow, cell)
+            }
+
           },
         },
       },

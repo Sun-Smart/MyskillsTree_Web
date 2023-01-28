@@ -144,7 +144,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 <thead>
                     <tr>
 
-                    <th style="width: 15%;">Company Name</th>
+                    <th style="width: 18%;">Company Name</th>
                     <th style="width: 15%;">Work Topic</th>
                     <th style="width: 15%">Reference Url</th>
                     <th style="width: 15%;">Work Description</th>
@@ -199,27 +199,16 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                     <td>
                     <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
                     </td>
-<!--skill-->
-<td>
+                <!--skill-->
+                    <td>
                    
-<select  id="Skill" required
-(change)="skill_onchange($event.target)" formControlName="Skill"
-class="form-control">
-<option [ngValue]="null" selected>-Select-</option>
-<option  value="null">ytyy</option>
-</select>
-</td>
+                    <select  id="skill" required
+                    (change)="skill_onchange($event.target)" formControlName="skill" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
+                    </select>
+                    </td>
 
-                <!-- Attachment -->
-
-                    <!-- <td>
-                    <p-accordion [multiple]='true'>
-                        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
-                        <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
-                        </app-attachment>
-                        </p-accordionTab>
-                    </p-accordion>
-                    </td> -->
 
                 <!-- Add & Close -->
 
@@ -350,6 +339,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     objvalues: any = [];
     viewHtml: any = '';//stores html view of the screen
     applicantid_List: DropDownValues[];
+    skill_list: DropDownValues[];
 
     IsApplicant: boolean;
     IsAdmin: boolean;
@@ -370,8 +360,8 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     maindata: any;
     companyList: DropDownValues[];
     showMobileDetectskill: boolean = false;
-  showWebviewDetect: boolean = true;
-  isMobile: any;
+    showWebviewDetect: boolean = true;
+    isMobile: any;
     constructor(
         private nav: Location,
         private translate: TranslateService,
@@ -407,7 +397,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             applicantid: this.sessionService.getItem('applicantid'),
             applicantiddesc: [null],
             workreferenceid: [null],
-            companyname:[null],
+            companyname: [null],
             worktopic: [null, [Validators.required]],
             workdescription: [null, [Validators.required]],
             referenceurl: [null],
@@ -415,17 +405,18 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             requestid: [null],
             attachment: [null],
             status: [null],
-            Skill:[null],
+            skill: [null],
+            skilldesc: [null],
             statusdesc: [null],
         });
     }
     async ngOnInit() {
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      if (isMobile) {
-        this.showMobileDetectskill = true;
-        this.showWebviewDetect = false;
-        /* your code here */
-      }
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+            this.showMobileDetectskill = true;
+            this.showWebviewDetect = false;
+            /* your code here */
+        }
         this.Set_mstapplicantworkreferences_TableConfig();
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
@@ -453,6 +444,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         }
         this.mstapplicantworkreference_service.getDefaultData().then(res => {
             this.applicantid_List = res.list_applicantid.value;
+            this.skill_list = res.list_skills.value;
         }).catch((err) => { this.spinner.hide(); console.log(err); });
     };
 
@@ -463,10 +455,16 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             this.companyList = res as DropDownValues[];
         })
     }
+    skill_onchange(event: any){
+        console.log("skill_onchange",event);
+        let e = event.value;
+    this.mstapplicantworkreference_Form.patchValue({ skilldesc: event.options[event.options.selectedIndex].text });
+
+    }
     onChange_companyList(event: any) {
         debugger
-        console.log(event);
-
+        console.log("onChange_companyList",event);
+        this.mstapplicantworkreference_Form.patchValue({ companyname: event.options[event.options.selectedIndex].text });
     }
     async PopulateScreen(pkcol: any) {
         this.spinner.show();
@@ -636,11 +634,11 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         <tbody>
           <tr style="word-break: break-word;">
             <th style="white-space: break-spaces;width:20%;">##companyname##</th>
-            <th style="white-space: break-spaces;width:20%;">##worktopic##</th>
-            <th style="white-space: break-spaces;width:20%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
-            <!--<th scope="row" style="white-space: break-spaces;width:20%;">##referencecount##</th>-->
-            <th style="white-space: break-spaces;width:20%;">##workdescription##</th>
-            <th style="white-space: break-spaces;width:20%;">##remarks##</th>
+            <th style="white-space: break-spaces;width:17%;">##worktopic##</th>
+            <th style="white-space: break-spaces;width:17%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
+            <th style="white-space: break-spaces;width:16%;">##workdescription##</th>
+            <th style="white-space: break-spaces;width:17%;">##remarks##</th>
+            <th style="white-space: break-spaces;width:20%;">##skilldesc##</th>
           </tr>
         </tbody>
       </table>
@@ -709,11 +707,13 @@ export class mstapplicantworkrefgridComponent implements OnInit {
                 applicantiddesc: res.mstapplicantworkreference.applicantiddesc,
                 workreferenceid: res.mstapplicantworkreference.workreferenceid,
                 worktopic: res.mstapplicantworkreference.worktopic,
-                companyname : res.mstapplicantworkreference.companyname,
+                companyname: res.mstapplicantworkreference.companyname,
                 workdescription: res.mstapplicantworkreference.workdescription,
                 referenceurl: res.mstapplicantworkreference.referenceurl,
                 remarks: res.mstapplicantworkreference.remarks,
                 requestid: res.mstapplicantworkreference.requestid,
+                skill: res.mstapplicantworkreference.skill,
+                skilldesc: res.mstapplicantworkreference.skilldesc,
                 attachment: "[]",
                 status: res.mstapplicantworkreference.status,
                 statusdesc: res.mstapplicantworkreference.statusdesc,
@@ -863,7 +863,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
                         cell = this.mstapplicantworkreferenceshtml();
                         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
                         if (isMobile) {
-                          cell = this.mstapplicantworkreferenceshtml1();
+                            cell = this.mstapplicantworkreferenceshtml1();
                         }
                         var divrow = JSON.parse(JSON.stringify(row));
 

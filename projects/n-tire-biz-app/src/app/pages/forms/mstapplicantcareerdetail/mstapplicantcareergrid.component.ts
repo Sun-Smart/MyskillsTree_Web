@@ -620,15 +620,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     this.getData()
 
     this.formData = this.mstapplicantcareerdetail_Form.getRawValue();
-    // if (this.dynamicconfig.data != null) {
-    //     for (let key in this.dynamicconfig.data) {
-    //         if (key != 'visiblelist' && key != 'hidelist') {
-    //             if (this.mstapplicantcareerdetail_Form.controls[key] != null) {
-    //                 this.formData[key] = this.mstapplicantcareerdetail_Form.controls[key].value;
-    //             }
-    //         }
-    //     }
-    // }
+
     this.formData.fromdate = new Date(this.mstapplicantcareerdetail_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('fromdate').value) + '  UTC' : null);
 
     if (this.mstapplicantcareerdetail_Form.value.currentlyworking == true) {
@@ -645,15 +637,12 @@ export class mstapplicantcareergridComponent implements OnInit {
     } else {
 
       if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
-      // if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.mstapplicantcareerdetail_Form.get('skills').value);
-      //   if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-      //   this.fileAttachmentList = this.fileattachment.getAllFiles();
+  
       console.log(this.formData);
       this.spinner.show();
       this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
         async res => {
           this.spinner.hide();
-          // this.career_id = res.mstapplicantcareerdetail.careerid;
           debugger;
           this.toastr.addSingle("success", "", "Successfully saved");
           this.showDateError = false;
