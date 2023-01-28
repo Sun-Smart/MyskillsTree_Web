@@ -406,7 +406,22 @@ export class NewskillsearchComponent implements OnInit {
   }
   onItemDeSelect(item: any) {
     debugger;
-    this.segmentcategory_onChange('');
+    // this.segmentcategory_onChange(it);
+
+    this.skillcategoryarry.find(e=>{
+      debugger
+     if(e.segment==item.value){
+    this.skillcategoryarry.splice(item.value,1)
+    
+    this.skillcategory_List = [];
+    this.subcategoryid_List = [];
+     }else{
+      this.skillcategoryarry.push({ segment: item.value })
+     }
+    
+    })
+
+
     console.log(item);
     this.subcategoryid ='' || [];
     this.skillcategory ='' || [];
