@@ -199,14 +199,17 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                     <td>
                     <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
                     </td>
+
                 <!--skill-->
                     <td>
-                   
-                    <select  id="skill" required
+                    <!-- <select  id="skill" required
                     (change)="skill_onchange($event.target)" formControlName="skill" class="form-control">
                     <option [ngValue]="null" selected>-Select-</option>
                     <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
-                    </select>
+                    </select> -->
+
+                    <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
+                    (completeMethod)="search_skills($event)"></p-autoComplete>
                     </td>
 
 
@@ -245,38 +248,35 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                         </div>
 </div>
 
+                <div class="col-md-12">
+                    <label>Reference URL</label>
+                    <input id="referenceurl" formControlName="referenceurl" class="form-control">
+                </div>
 
-<div class="col-md-12">
-<label>Reference URL</label>
-<input id="referenceurl" formControlName="referenceurl" class="form-control">
-</div>
-
-<div class="col-md-12">
-<label>Work Description</label>
-<textarea autosize rows="1" cols="10" onlyGrow="true"  id="workdescription" required
+                <div class="col-md-12">
+                    <label>Work Description</label>
+                    <textarea autosize rows="1" cols="10" onlyGrow="true"  id="workdescription" required
                     formControlName="workdescription" class="form-control">
                     </textarea>
 
                     <div *ngIf="mstapplicantworkreference_Form.get('workdescription').errors  && isSubmitted" class="invalid-feedback">
                         <span *ngIf="mstapplicantworkreference_Form.get('workdescription').hasError('required')">workdescription is required</span>
                         </div>
-</div>
+                    </div>
 
+                <div class="col-md-12">
+                    <label>Remarks</label>
+                    <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+                </div>
 
-<div class="col-md-12">
-  <label>Remarks</label>
-<textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
-</div>
-<div class="col" style="position: relative;left: 120px;top: 7px;">
-
-<i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantworkreference_Form)"></i>
-                        <!-- Close -->
-                        <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
-                        (click)="skillClose()"></i>
-</div>
-
-</div>
-</form>
+                <!-- Add & Close -->
+                <div class="col" style="position: relative;left: 120px;top: 7px;">
+                    <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantworkreference_Form)"></i>
+                    <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                    (click)="skillClose()"></i>
+                </div>
+                </div>
+            </form>
               <ng2-smart-table #tbl_mstapplicantworkreferences
                 (userRowSelect)="handle_mstapplicantworkreferences_GridSelected($event)"
                 [settings]="mstapplicantworkreferences_settings"
@@ -339,7 +339,8 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     objvalues: any = [];
     viewHtml: any = '';//stores html view of the screen
     applicantid_List: DropDownValues[];
-    skill_list: DropDownValues[];
+    skills_results: DropDownValues[];
+    skills_List: any[] = [];
 
     IsApplicant: boolean;
     IsAdmin: boolean;
@@ -405,7 +406,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             requestid: [null],
             attachment: [null],
             status: [null],
-            skill: [null],
+            skills: [null],
             skilldesc: [null],
             statusdesc: [null],
         });
@@ -444,9 +445,32 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         }
         this.mstapplicantworkreference_service.getDefaultData().then(res => {
             this.applicantid_List = res.list_applicantid.value;
-            this.skill_list = res.list_skills.value;
+            this.skills_List = res.list_skills.value;
         }).catch((err) => { this.spinner.hide(); console.log(err); });
     };
+
+    getSkills(skills_List:any) {
+        debugger;
+        let skills: any[] = [];
+      
+        for (let i = 0; i < skills_List.length; i++) {
+            skills.push((skills_List[i] as any).value.toString());
+        }
+        return skills;
+      }
+
+      getSkillsDescription() {
+        debugger;
+        let skillsdescription: any[] = [];
+        for (let i = 0; i < this.skills_List.length; i++) {
+            for (let j = 0; j < this.mstapplicantworkreference_Form.get('skills').value.length; j++) {
+                if ((this.skills_List[i] as any).value.toString() == this.mstapplicantworkreference_Form.get('skills').value[j].toString()) {
+                    skillsdescription.push((this.skills_List[i] as any));
+                }
+            }
+        }
+        this.mstapplicantworkreference_Form.patchValue({ skills: skillsdescription });
+      }
 
     get_companyName() {
         debugger
@@ -455,6 +479,12 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             this.companyList = res as DropDownValues[];
         })
     }
+
+    search_skills(event) {
+        debugger;
+        this.skills_results = this.skills_List.filter(v => v.label.toLowerCase().indexOf(event.query.toLowerCase()) > -1).slice(0, 10);
+    }
+
     skill_onchange(event: any){
         console.log("skill_onchange",event);
         let e = event.value;
@@ -545,7 +575,9 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         if (strError != "") return this.sharedService.alert(strError);
 
         this.formData = this.mstapplicantworkreference_Form.getRawValue();
+        this.formData.skills = null;
 
+        if (this.mstapplicantworkreference_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantworkreference_Form.get('skills').value));
         console.log(this.formData);
         this.spinner.show();
         this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(
@@ -638,7 +670,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             <th style="white-space: break-spaces;width:17%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
             <th style="white-space: break-spaces;width:16%;">##workdescription##</th>
             <th style="white-space: break-spaces;width:17%;">##remarks##</th>
-            <th style="white-space: break-spaces;width:20%;">##skilldesc##</th>
+            <th style="white-space: break-spaces;width:20%;">##string_agg##</th>
           </tr>
         </tbody>
       </table>
@@ -712,13 +744,14 @@ export class mstapplicantworkrefgridComponent implements OnInit {
                 referenceurl: res.mstapplicantworkreference.referenceurl,
                 remarks: res.mstapplicantworkreference.remarks,
                 requestid: res.mstapplicantworkreference.requestid,
-                skill: res.mstapplicantworkreference.skill,
-                skilldesc: res.mstapplicantworkreference.skilldesc,
+                skills: res.mstapplicantworkreference.skills,
                 attachment: "[]",
                 status: res.mstapplicantworkreference.status,
                 statusdesc: res.mstapplicantworkreference.statusdesc,
             });
-            debugger;
+            setTimeout(() => {
+                this.getSkillsDescription();
+              }, 400);
         });
     }
 

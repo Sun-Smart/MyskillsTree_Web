@@ -222,14 +222,17 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <input type="number" id="toyear" formControlName="toyear" class="form-control" required>
                     <span *ngIf = "show_YearError" style = "color:red; font-size:10px;"> To year should not be greater than from year</span>
                     </td>
+
                     <!--skill-->
                     <td>
-                   
-                    <select  id="skill" required (change)="skill_onchange($event.target)" formControlName="skill"
+                    <!--<select  id="skill" required (change)="skill_onchange($event.target)" formControlName="skill"
                     class="form-control">
                       <option [ngValue]="null" selected>-Select-</option>
                       <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
-                    </select>
+                    </select>-->
+
+                    <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
+                    (completeMethod)="search_skills($event)"></p-autoComplete>
                     </td>
 
                     <!-- Submit & Close -->
@@ -373,7 +376,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   applicantid_List: DropDownValues[];
   referenceacceptance_List: DropDownValues[];
   educationsubcategory_List: DropDownValues[];
-  skill_list: DropDownValues[];
+  skills_results: DropDownValues[];
+  skills_List: any[] = [];
 
 
   ShowTableslist: any;
@@ -451,7 +455,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
     private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,
   ) {
-    debugger;
+
     this.data = dynamicconfig;
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -498,7 +502,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       remarks: [null, Validators.required],
       attachment: [null],
       status: [null],
-      skill: [null],
+      skills: [null],
       skilldesc: [null],
       statusdesc: [null],
     });
@@ -508,22 +512,49 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
   eduCategory() {
     this.mstapplicanteducationdetail_service.getDefaultData().then((res: any) => {
-      debugger
       this.applicantid_List = res.list_applicantid.value;
       this.educationcategory_List = res.list_educationcategory.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
-      this.skill_list = res.list_skills.value;
+      this.skills_List = res.list_skills.value;
     }).catch((err) => { this.spinner.hide(); console.log(err); });
+
   };
 
+
+  search_skills(event) {
+
+    this.skills_results = this.skills_List.filter(v => v.label.toLowerCase().indexOf(event.query.toLowerCase()) > -1).slice(0, 10);
+  }
+
+  getSkills(skills_List: any) {
+
+    let skills: any[] = [];
+
+    for (let i = 0; i < skills_List.length; i++) {
+      skills.push((skills_List[i] as any).value.toString());
+    }
+    return skills;
+  }
+  getSkillsDescription() {
+
+    let skillsdescription: any[] = [];
+    for (let i = 0; i < this.skills_List.length; i++) {
+      for (let j = 0; j < this.mstapplicanteducationdetail_Form.get('skills').value.length; j++) {
+        if ((this.skills_List[i] as any).value.toString() == this.mstapplicanteducationdetail_Form.get('skills').value[j].toString()) {
+          skillsdescription.push((this.skills_List[i] as any));
+        }
+      }
+    }
+    this.mstapplicanteducationdetail_Form.patchValue({ skills: skillsdescription });
+  }
+
   skill_onchange(evt: any) {
-    debugger;
+
     let e = evt.value;
     this.mstapplicanteducationdetail_Form.patchValue({ skilldesc: evt.options[evt.options.selectedIndex].text });
   }
 
   educationcategory_onChange(evt: any) {
-    debugger
     let e = evt.value;
     this.mstapplicanteducationdetail_Form.patchValue({ educationcategorydesc: evt.options[evt.options.selectedIndex].text });
     setTimeout(() => {
@@ -544,7 +575,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   };
 
   onSubmitAndWait() {
-    debugger
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
       this.onSubmitData(false);
 
@@ -573,7 +603,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   };
 
   async onSubmitData(bclear: any) {
-    debugger;
+
     this.isSubmitted = true;
     let strError = "";
     console.log(this.mstapplicanteducationdetail_Form.value)
@@ -590,28 +620,24 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       this.mstapplicanteducationdetail_Form.value.educationcategory == null || this.mstapplicanteducationdetail_Form.value.educationsubcategory == null ||
       this.mstapplicanteducationdetail_Form.value.institutionname == null || this.mstapplicanteducationdetail_Form.value.percentage == null ||
       this.mstapplicanteducationdetail_Form.value.remarks == null || this.mstapplicanteducationdetail_Form.value.fromyear == null || this.mstapplicanteducationdetail_Form.value.toyear == null) {
-      debugger;
+
       this.toastr.addSingle("error", "", "Enter the required fields");
       return;
     } else if (this.mstapplicanteducationdetail_Form.value.fromyear >= this.mstapplicanteducationdetail_Form.value.toyear) {
-      debugger
       this.show_YearError = true;
       return
     } else if (this.mstapplicanteducationdetail_Form.value.percentage > 100) {
       this.show_percentageError = true;
       return
-
-
     }
     else {
-
       this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
-      debugger
-
+      this.formData.skills = null;
       this.showDateError = false;
       this.showPercentError = false;
-      // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-      // this.fileAttachmentList = this.fileattachment.getAllFiles();
+
+      if (this.mstapplicanteducationdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicanteducationdetail_Form.get('skills').value));
+
       console.log(this.formData);
       this.spinner.show();
       this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
@@ -620,7 +646,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
           this.attachmentlist = [];
           if (this.fileattachment) this.fileattachment.clear();
           this.spinner.hide();
-          debugger;
+
           this.toastr.addSingle("success", "", "Successfully saved");
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicanteducationdetail);
@@ -653,7 +679,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
           this.mstapplicanteducationdetail_Form.markAsPristine();
         },
         err => {
-          debugger;
+
           this.spinner.hide();
           this.toastr.addSingle("error", "", err.error);
           console.log(err);
@@ -720,7 +746,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
             <th style="white-space: break-spaces;width: 10%;"  class="edu_rm">##remarks##</th>
             <th style="white-space: break-spaces;width: 10%;" class="from_yr">##fromyear##</th>
             <th style="white-space: break-spaces;width: 10%;" class="to_yr">##toyear##</th>
-            <th style="white-space: break-spaces;width: 10%;" class="to_yr">##skilldesc##</th>
+            <th style="white-space: break-spaces;width: 10%;" class="to_yr">##string_agg##</th>
           </tr>
         </tbody>
       </table>
@@ -748,9 +774,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
   FillData() {
 
-    debugger
     this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
-      debugger
       this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
       this.Set_mstapplicanteducationdetails_TableConfig();
       this.mstapplicanteducationdetails_LoadTable(res.mstapplicanteducationdetail);
@@ -758,7 +782,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   }
 
   Add_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
-    debugger;
+
     this.showSkillDetails_input = true;
     this.ngOnInit();
     this.eduCategory();
@@ -767,7 +791,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
   }
   Edit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
-    debugger
     this.showSkillDetails_input = true;
     let add = false;
     if (event == null) add = true;
@@ -777,7 +800,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     console.log(event, educationid, applicantid);
     this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByEID(event.data.pkcol).then(res => {
       console.log(res);
-      debugger
       this.mstapplicanteducationdetail_Form.patchValue({
         applicantid: res.mstapplicanteducationdetail.applicantid,
         applicantiddesc: res.mstapplicanteducationdetail.applicantiddesc,
@@ -795,8 +817,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         referenceacceptance: res.mstapplicanteducationdetail.referenceacceptance,
         referenceacceptancedesc: res.mstapplicanteducationdetail.referenceacceptancedesc,
         remarks: res.mstapplicanteducationdetail.remarks,
-        skill: res.mstapplicanteducationdetail.skill,
-        skilldesc: res.mstapplicanteducationdetail.skilldesc,
+        skills: res.mstapplicanteducationdetail.skills,
         attachment: "[]",
         status: res.mstapplicanteducationdetail.status,
         statusdesc: res.mstapplicanteducationdetail.statusdesc,
@@ -805,7 +826,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then(res => {
           this.educationsubcategory_List = res as DropDownValues[];
         });
-      });
+        this.getSkillsDescription();
+      }, 400);
       this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
     });
   }
@@ -820,8 +842,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   // Old Code
 
   // AddOrEdit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
-  //   debugger
-  //   this.eduCategory();
+  //     //   this.eduCategory();
   //   let add = false;
   //   if (event == null) add = true;
   //   let childsave = true;
@@ -850,7 +871,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   }
 
   onDelete_mstapplicanteducationdetail(event: any, childID: number, i: number) {
-    debugger
     console.log('event call');
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicanteducationdetail_service.delete_mstapplicanteducationdetail(childID).then(res => {
@@ -872,7 +892,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   // mstapplicanteducationdetails_settings: any;
 
   show_mstapplicanteducationdetails_Checkbox() {
-    //debugger;;
+    //;
     if (this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'multi';
@@ -920,7 +940,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
   }
   Set_mstapplicanteducationdetails_TableConfig() {
-    debugger
     this.mstapplicanteducationdetails_settings = {
       hideSubHeader: true,
       mode: 'external',
@@ -962,7 +981,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
+            //;
             cell = this.mstapplicanteducationdetailshtml();
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
@@ -1050,7 +1069,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     }
   }
   mstapplicanteducationdetails_route(event: any, action: any) {
-    debugger
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
       addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
@@ -1182,7 +1200,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     }
   }
   mstapplicanteducationdetails_Paging(val) {
-    //debugger;;
+    //;
     this.tbl_mstapplicanteducationdetails.source.setPaging(1, val, true);
   }
 
@@ -1198,8 +1216,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     }
   }
   // mstapplicanteducationdetails_route(event: any, action: any) {
-  //   debugger
-  //     var addparam = "";
+  //     //     var addparam = "";
   //     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
   //         addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
   //     }
