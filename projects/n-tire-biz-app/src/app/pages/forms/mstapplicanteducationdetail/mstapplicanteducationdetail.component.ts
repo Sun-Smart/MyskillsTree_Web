@@ -72,6 +72,13 @@ import { pairwise } from 'rxjs/operators';
         .mobile_view_btn{
           display: none !important;
         }
+        .close_common_icon2{
+          position: relative !important;
+          bottom: 6px !important;
+        }
+        h1.columns.mainheader.left.common_titles_new {
+          margin-top: 5px !important;
+        }
       }
   `],
   providers: [KeyboardShortcutsService]
