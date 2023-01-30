@@ -145,7 +145,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <thead>
                     <tr>
 
-                   
+
                     <th style="width: 10%;">Category</th>
                     <th style="width: 10%;">Sub Category</th>
                     <th style="width: 10%">Institution Name</th>
@@ -160,7 +160,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 </thead>
                 <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
                 <tr>
-                  
+
 
                     <!-- Category -->
 
@@ -295,6 +295,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <label>To Year</label>
   <input type="number" id="toyear" formControlName="toyear" class="form-control" required>
   <span *ngIf = "show_YearError" style = "color:red; font-size:10px;"> To year should not be greater than from year</span>
+</div>
+<div class="col-md-12">
+  <label>Skill</label>
+<select  id="skill" required (change)="skill_onchange($event.target)" formControlName="skill"
+                    class="form-control">
+                      <option [ngValue]="null" selected>-Select-</option>
+                      <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
+                    </select>
 </div>
 
 <div class="col" style="position: relative;left: 120px;top: 7px;">
@@ -758,7 +766,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     let ret = "";
     ret += `
   <ul class="list-group" style="line-height: 15px;margin: 0px;">
-   
+
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Category </span>: <label style="font-size: small;">##educationcategorydesc##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Sub Category :</span> <label style="font-size: small;">##educationsubcategorydesc##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Institution Name :</span> <label style="font-size: small;">##institutionname##</label></li>
@@ -767,6 +775,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks :</span> <label style="font-size: small;">##remarks##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">From Year </span>: <label style="font-size: small;">##fromyear##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">To Year :</span> <label style="font-size: small;">##toyear##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skill :</span> <label style="font-size: small;">##skilldesc##</label></li>
   </ul>
 `;
     return ret;

@@ -59,6 +59,13 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
         .mobile_view_btn{
           display: none !important;
         }
+        .close_common_icon2{
+          position: relative !important;
+          bottom: 6px !important;
+        }
+        h1.columns.mainheader.left.common_titles_new {
+          margin-top: 5px !important;
+        }
       }
     `],
     providers: [KeyboardShortcutsService]
@@ -554,10 +561,10 @@ export class mstapplicantsocialmediadetailComponent implements OnInit {
         debugger;
         this.isSubmitted = true;
         let strError = "";
-        
 
 
-        
+
+
         if (!this.mstapplicantsocialmediadetail_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
             return;

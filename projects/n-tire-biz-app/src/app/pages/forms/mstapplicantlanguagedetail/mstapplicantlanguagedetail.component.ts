@@ -59,6 +59,13 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
         .mobile_view_btn{
           display: none !important;
         }
+        .mobileviewtext{
+          color: #000 !important;
+        }
+        .close_common_icon2{
+          position: relative !important;
+          bottom: 6px !important;
+        }
       }
     `],
     providers: [KeyboardShortcutsService]

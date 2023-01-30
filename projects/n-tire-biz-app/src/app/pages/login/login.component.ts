@@ -338,6 +338,10 @@ label{
   .all_rights{
       display:none !important;
   }
+  .common_register_font{
+    color: #000 !important;
+    font-weight: bold !important;
+  }
 }
     `]
 })

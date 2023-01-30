@@ -134,8 +134,53 @@ const URL = AppConstants.UploadURL;
 
         <div class="row" style="margin-bottom: 40px" *ngIf="isAttachment">
 
-            <table class="table" style="
+            <table class="table" *ngIf="!isMobileView" style="
             max-width: 100%;
+            overflow-x: scroll;">
+                <thead>
+                <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>URL</th>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th *ngFor="let attachmentfield of attachmentfields">
+                        {{attachmentfield.label}}
+                    </th>
+                    <th><i class='fa fa-thumbs-up'></i></th>
+                    <th *ngIf='showremove' >&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  *ngFor="let uploadedfile of attachedfiles">
+                <td>{{getCategoryDescription(uploadedfile.category)}}</td>
+                <td>{{uploadedfile.desc}}</td>
+                <td>   <a href="https://{{uploadedfile.certificationurl}}" target="_blank">{{uploadedfile.certificationurl}}</a></td>
+
+                <td><a href="javascript:void(0);" (click)="geturl(uploadedfile,uploadedfile.filekey,uploadedfile.type)" >{{uploadedfile.name}}</a></td>
+                <!--<td *ngFor="let attachmentfield of attachmentfields">
+                    {{uploadedfile[attachmentfield.label + uploadedfile.Key]}}
+                </td>-->
+                <td>{{uploadedfile.size}} bytes</td>
+                <th><i class='fa fa-thumbs-up backcolor' (click)='updateRatings(uploadedfile)'>&nbsp;{{uploadedfile.ratings}}</i>&nbsp;&nbsp;<i class='fa fa-eye backcolor'>&nbsp;{{uploadedfile.views}}</i>&nbsp;&nbsp;<i class='fa fa-comment backcolor'  (click)='opencomment(uploadedfile)'>&nbsp;{{getCount(uploadedfile.comments)}}</i></th>
+                <td *ngIf='showremove' ><button type="button" class="btn btn-danger btn-xs"
+                (click)="delete(uploadedfile.filekey)"> <span class="glyphicon glyphicon-trash"></span> Remove </button></td>
+
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+
+
+        <div class="row" style="margin-bottom: 40px;width: 100% !important;overflow:hidden;" *ngIf="isAttachment">
+
+
+
+            <table class="table" *ngIf="isMobileView" style="
+            max-width: 100%;display: list-item !important;
             overflow-x: scroll;">
                 <thead>
                 <tr>
@@ -190,7 +235,7 @@ export class AttachmentComponent implements ControlValueAccessor {
     showOpenfile: boolean = false;
 
     onChange: Function;
-
+    isMobileView: boolean = false;
 
     onTouched: Function;
 
@@ -339,6 +384,11 @@ export class AttachmentComponent implements ControlValueAccessor {
             // ImageName: [null],
             url: [null]
         });
+
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      this.isMobileView = true;
+    }
     }
     getCount(e) {
         if (e != undefined && e != null && e != "") {

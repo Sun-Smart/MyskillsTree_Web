@@ -168,7 +168,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 </td>
 
                 <!-- Skills -->
-           
+
                     <td>
                     <select  id="skill" required
                     (change)="skill_onchange($event.target)" formControlName="skill" class="form-control">
@@ -194,15 +194,15 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                 <td>
                 <div style="display: flex;width: 80%;">
-                <input #t="ngbDatepicker" readonly  ngbDatepicker 
+                <input #t="ngbDatepicker" readonly  ngbDatepicker
                       name="toyearformpicker" id="toyear" formControlName="toyear" class="form-control"
                      style="margin-right: 5px;">
-           
+
                      <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
                          class="fa fa-calendar" aria-hidden="true"></i></button>
                </div>
-                      
-              
+
+
                 </td>
 
             <!-- Submit & Close -->
@@ -235,6 +235,36 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     formControlName="achievementdetails" class="form-control">
                     </textarea>
 </div>
+<div class="col-md-12">
+  <label>Skill</label>
+<select  id="skill" required
+                    (change)="skill_onchange($event.target)" formControlName="skill" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
+                    </select>
+</div>
+<div class="col-md-12">
+  <label>From Date</label>
+  <div class="input-group" style="display: flex;width: 100%;">
+                  <input #d="ngbDatepicker" readonly ngbDatepicker
+                    name="fromyearformpicker" id="fromyear" required
+                    formControlName="fromyear" style="margin-right: 5px;" class="form-control">
+                  <button class="input-group-addon" (click)="d.toggle()" type="button"><i
+                      class="fa fa-calendar" aria-hidden="true"></i></button>
+                </div>
+</div>
+<div class="col-md-12">
+  <label>To Date</label>
+  <div class="input-group" style="display: flex;width: 100%;">
+                <input #t="ngbDatepicker" readonly  ngbDatepicker
+                      name="toyearformpicker" id="toyear" formControlName="toyear" class="form-control"
+                     style="margin-right: 5px;">
+
+                     <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
+                         class="fa fa-calendar" aria-hidden="true"></i></button>
+               </div>
+</div>
+
 <div class="col" style="position: relative;left: 120px;top: 7px;">
 
 <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
@@ -627,7 +657,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
       <ul class="list-group" style="line-height: 15px;margin: 0px;">
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Category </span>: <label style="font-size: small;">##masterdataiddesc##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Achievement Details </span>: <label style="font-size: small;">##achievementdetails##</label></li>
-    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks :</span> <label style="font-size: small;">##remarks##</label></li>
+    <!--<li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks :</span> <label style="font-size: small;">##remarks##</label></li>-->
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skill :</span> <label style="font-size: small;">##skilldesc##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">From Date :</span> <label style="font-size: small;">##fromyear##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">To Date :</span> <label style="font-size: small;">##toyear##</label></li>
   </ul>
 `;
     return ret;
