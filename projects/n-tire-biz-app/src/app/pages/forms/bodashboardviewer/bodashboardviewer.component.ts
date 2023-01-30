@@ -214,9 +214,11 @@ import { AnyCnameRecord } from 'dns';
     }
     .dashboard-sidebar{
       width: 100% !important;
+      min-width: -webkit-fill-available !important;
     }
     .dash_list{
       padding: 1px 1px !important;
+      width: 130px !important;
     }
     .dash_list img {
       width: 35px !important;
@@ -226,9 +228,15 @@ import { AnyCnameRecord } from 'dns';
     }
     .main-dash-content{
       width: 100% !important;
+      min-width: fit-content !important;
     }
     .dashboard-sidebar-content{
-      height: 600px !important;
+      height: 550px !important;
+      /* padding: 0rem !important; */
+    }
+    .container .mobile_col{
+    overflow-y: scroll !important;
+    height: 600px !important;
     }
   }
   `],
@@ -647,7 +655,7 @@ export class BODashboardViewerComponent implements OnInit {
   //     this.career_detail = res.mstapplicantcareerdetail;
 
   //     for (let i = 0; i < this.career_detail.length; i++) {
-  //     
+  //
   //       this.career_array.push({
   //         career_companyName: this.career_detail[i].companyname,
   //         career_frDate: this.career_detail[i].fromdate,
@@ -673,7 +681,7 @@ export class BODashboardViewerComponent implements OnInit {
   //     this.project_detail = res.mstapplicantworkreference;
 
   //     for (let i = 0; i < this.project_detail.length; i++) {
-  //     
+  //
   //       this.project_array.push({
   //         project_worktopic: this.project_detail[i].worktopic,
   //         project_workdescription: this.project_detail[i].workdescription,
