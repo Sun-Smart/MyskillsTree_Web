@@ -17,10 +17,13 @@ p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
 }
 .mobileviewCloseBtn{
   position: relative !important;
-    bottom: 6px !important;
+    bottom: -4px !important;
 }
 h1.columns.mainheader.left.common_titles_new{
   margin-top: 5px !important;
+}
+.p-dialog.p-dynamic-dialog.p-component{
+  width: 100% !important;
 }
 }
 

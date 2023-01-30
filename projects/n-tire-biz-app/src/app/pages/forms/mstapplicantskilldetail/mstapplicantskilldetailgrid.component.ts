@@ -134,12 +134,12 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
   <div class="col-6"></div>
   <div class="col-2" style="text-align:right; margin:auto;">
     <!-- <button type="button"  [routerLink]='' (click)="addSkills()"  class="btn btn-outline-primary" style="border-color: #000 !important; color: #000; margin-right:15px;">Add</button> -->
-    
+
     <button type="button" class="btn btn-outline-primary popup-add-button"
       (click)="mstapplicantskilldetails_route(null, 'create')">Add</button>
 
     <!-- <i  [routerLink]='' (click)="onClose()" class="fa fa-times-circle close_common_icon"></i> -->
-    
+
     <img (click)="onClose()" src="assets/mainmenuicons/icons_close.png" class="closeButton" />
 
   </div>
@@ -240,12 +240,12 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
 
         <td class="field-add-close-button">
 
-        <i class="fa fa-plus-square field-Add-button" aria-hidden="true" 
+        <i class="fa fa-plus-square field-Add-button" aria-hidden="true"
         (click)="onSubmitAndWait(mstapplicantskilldetail_Form)"></i>
 
           <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
           (click)="skillClose()"></i>
- 
+
         </td>
       </tr>
     </tbody>
@@ -1270,7 +1270,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       if (this.pkcol != undefined && this.pkcol != null) childsave = true;
       this.dialog.open(mstapplicantskilldetailComponent,
         {
-          width: '75% !important',
+          width: '100% !important',
           data: { showAttachmentView: true, save: childsave, maindatapkcol: this.pkcol, event, skillid, applicantid, visiblelist: this.mstapplicantskilldetails_visiblelist, hidelist: this.mstapplicantskilldetails_hidelist, ScreenType: 2 },
         }
       ).onClose.subscribe(res => {
