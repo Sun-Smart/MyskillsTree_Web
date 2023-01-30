@@ -201,7 +201,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                     </td>
                 <!--skill-->
                     <td>
-                   
+
                     <select  id="skill" required
                     (change)="skill_onchange($event.target)" formControlName="skill" class="form-control">
                     <option [ngValue]="null" selected>-Select-</option>
@@ -266,6 +266,15 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 <div class="col-md-12">
   <label>Remarks</label>
 <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+</div>
+<div class="col-md-12">
+  <label>Skill</label>
+<select  id="skill" required
+                    (change)="skill_onchange($event.target)" formControlName="skill" class="form-control">
+                    <option [ngValue]="null" selected>-Select-</option>
+                    <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
+                    </select>
+
 </div>
 <div class="col" style="position: relative;left: 120px;top: 7px;">
 
@@ -654,7 +663,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Reference URL :</span> <label style="font-size: small;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Work Description :</span> <label style="font-size: small;">##workdescription##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks :</span> <label style="font-size: small;">##remarks##</label></li>
-    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">skill :</span> <label style="font-size: small;">##skill##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">skill :</span> <label style="font-size: small;">##skilldesc##</label></li>
   </ul>
 `;
         return ret;
