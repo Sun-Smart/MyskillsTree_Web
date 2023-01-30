@@ -495,7 +495,7 @@ export class ApplicantregisterComponent implements OnInit {
 
 
 
-  async onSubmitData(bclear: any) {
+  onSubmitData(bclear: any) {
     debugger;
     this.isSubmitted = true;
     let strError = "";
@@ -537,7 +537,7 @@ export class ApplicantregisterComponent implements OnInit {
         if (res == 'Email already exist') {
           this.showSpinner = false;
           // this.toastr.addSingle("error", "", "Email already exist");
-          alert("Email already exist");
+          // alert("Email already exist");
           return;
         } else {
           this.showSpinner = false;
