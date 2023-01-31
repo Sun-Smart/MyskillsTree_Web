@@ -232,6 +232,7 @@ import { AnyCnameRecord } from 'dns';
     }
     .dashboard-sidebar-content{
       height: 550px !important;
+      overflow: hidden !important;
       /* padding: 0rem !important; */
     }
     .container .mobile_col{
@@ -559,7 +560,7 @@ export class BODashboardViewerComponent implements OnInit {
   };
 
   get_allData() {
- 
+
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
       this.sub_category = res.mstapplicantskilldetail;
 
@@ -600,7 +601,7 @@ export class BODashboardViewerComponent implements OnInit {
   showDetails(get_id: any, category: any, remarks: any) {
 
     console.log("get_id",get_id);
-    
+
 
 
     this.sub_categorydesc = category;
