@@ -122,7 +122,7 @@
 
               <!--countryid-->
 
-              <div
+              <!-- <div
                 *ngIf="((hidelist.indexOf('countryid') == -1) && (countryidvisible==undefined || countryidvisible==true))"
                 style='' class="col-3"><label for="countryid" class="control-label"
                   (click)="AddOrEdit_countryid(null)">Country</label>
@@ -132,7 +132,7 @@
                 <div class="input-group">
                 </div>
                 <label *ngIf="showview" class="labelview">{{f.countryiddesc?.value}}</label>
-              </div>
+              </div> -->
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('metro') == -1) && (metrovisible==undefined || metrovisible==true))"
@@ -140,7 +140,7 @@
                 <div class="columnchk">
                   <label for="metro" class="control-label">Metro</label>
                   <label *ngIf="showview" class="labelview">{{f.metro?.value}}</label>
-                  <input type="checkbox" *ngIf="!showview" id="metro" formControlName="metro" class="form-control">
+                  <input type="checkbox" *ngIf="!showview" id="metro" formControlName="metro" class="">
                 </div>
               </div>
               <div class="col"></div>
@@ -152,7 +152,7 @@
       </ngb-tab>
       <ngb-tab>
         <ng-template ngbTabTitle>
-          <div (click)="ToolBar(false)">Locations</div>
+          <!-- <div (click)="ToolBar(false)">Locations</div> -->
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
