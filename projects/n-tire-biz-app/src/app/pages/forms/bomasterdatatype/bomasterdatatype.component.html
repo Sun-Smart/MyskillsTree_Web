@@ -168,7 +168,7 @@
                     class="form-control">
                 </div>
               </div>
-              <div *ngIf="((hidelist.indexOf('erp') == -1) && (erpvisible==undefined || erpvisible==true))" style=''
+              <!-- <div *ngIf="((hidelist.indexOf('erp') == -1) && (erpvisible==undefined || erpvisible==true))" style=''
                 class="col-3 ">
                 <div class="columnchk">
                   <label for="erp" class="control-label">E R P</label>
@@ -183,9 +183,9 @@
                   <label *ngIf="showview" class="labelview">{{f.cams?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="cams" formControlName="cams" class="form-control">
                 </div>
-              </div>
+              </div> -->
             </div>
-            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+            <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('crm') == -1) && (crmvisible==undefined || crmvisible==true))" style=''
                 class="col-3 ">
                 <div class="columnchk">
@@ -220,7 +220,7 @@
                   <input type="checkbox" *ngIf="!showview" id="hrms" formControlName="hrms" class="form-control">
                 </div>
               </div>
-            </div>
+            </div> -->
           </p-accordion>
         </ng-template>
       </ngb-tab>
