@@ -71,6 +71,9 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
         .mobile_view_btn{
           display: none !important;
         }
+        .mobile_viewsubmit{
+          margin-top: 4px !important;
+        }
     }
     `],
     providers: [KeyboardShortcutsService, CorporateDashboardComponent]
@@ -929,7 +932,7 @@ export class mstcorporatemasterComponent implements OnInit {
             columns: {
                 // branchid: {
                 //     title: '',
-                    
+
                 //     filter: false,
                 // },
                 countryiddesc: {

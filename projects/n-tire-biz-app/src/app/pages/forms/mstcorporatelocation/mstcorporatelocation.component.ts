@@ -46,7 +46,27 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
 @Component({
     selector: 'app-mstcorporatelocation',
     templateUrl: './mstcorporatelocation.component.html',
-    styles: [],
+    styles: [`
+    @media only screen and (max-width: 600px) {
+      .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mst_cor_btn{
+          padding: 4px 6px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+        .mobile_viewsubmit{
+          margin-top: 4px !important;
+        }
+        .custom_mobile_view{
+          margin-right: 0px !important;
+          padding: 4px 5px !important;
+        }
+    }
+    `],
     providers: [KeyboardShortcutsService]
 })
 
