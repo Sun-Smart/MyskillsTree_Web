@@ -154,7 +154,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <th style="width: 10%;">Remarks</th>
                     <th style="width: 10%;">From Year</th>
                     <th style="width: 10%;">To Year</th>
-                    <th style="width: 10%;">Skill</th>
+                    <th style="width: 10%;">Skills</th>
                     <th style="width: 10%;">Action</th>
                     </tr>
                 </thead>
@@ -285,7 +285,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 <div class="col-md-12">
   <label>Percentage</label>
   <input  id="percentage" formControlName="percentage" type="number"  class="form-control" required >
-                    <span *ngIf = "show_percentageError" style = "color:red; font-size:10px;"> Percentage value should be below 100</span>
+                    <span *ngIf="show_percentageError" style = "color:red; font-size:10px;"> Percentage value should be below 100</span>
 </div>
 <div class="col-md-12">
   <label>Remarks</label>
@@ -297,12 +297,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <span *ngIf = "show_YearError" style = "color:red; font-size:10px;"> To year should not be greater than from year</span>
 </div>
 <div class="col-md-12">
-  <label>Skill</label>
-<select  id="skill" required (change)="skill_onchange($event.target)" formControlName="skill"
+  <label>Skills</label><br/>
+  <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
+                    (completeMethod)="search_skills($event)"></p-autoComplete>
+<!-- <select  id="skill" required (change)="skill_onchange($event.target)" formControlName="skill"
                     class="form-control">
                       <option [ngValue]="null" selected>-Select-</option>
                       <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
-                    </select>
+                    </select> -->
 </div>
 
 <div class="col" style="position: relative;left: 120px;top: 7px;">
@@ -775,7 +777,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks :</span> <label style="font-size: small;">##remarks##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">From Year </span>: <label style="font-size: small;">##fromyear##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">To Year :</span> <label style="font-size: small;">##toyear##</label></li>
-    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skill :</span> <label style="font-size: small;">##skilldesc##</label></li>
+    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skills :</span> <label style="font-size: small;">##string_agg##</label></li>
   </ul>
 `;
     return ret;
