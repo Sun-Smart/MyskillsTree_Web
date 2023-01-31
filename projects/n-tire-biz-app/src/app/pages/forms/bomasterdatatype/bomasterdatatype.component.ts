@@ -718,8 +718,8 @@ export class bomasterdatatypeComponent implements OnInit {
                 confirmSave: true,
             },
             delete: {
-                deleteButtonContent: '<i class="nb-trash"></i>',
-                confirmDelete: true,
+                deleteButtonContent: '<i class=""></i>',
+                confirmDelete: false,
             },
             columns: {
                 masterdatacode: {
