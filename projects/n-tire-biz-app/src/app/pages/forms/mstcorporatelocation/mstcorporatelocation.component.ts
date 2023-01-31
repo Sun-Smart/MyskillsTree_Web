@@ -64,6 +64,7 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
         .custom_mobile_view{
           margin-right: 0px !important;
           padding: 4px 5px !important;
+          display: block !important;
         }
     }
     `],
