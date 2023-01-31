@@ -269,7 +269,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
 </div>
 <div class="col-md-12">
-  <label>Skills</label>
+  <label>Skills</label><br/>
 <!-- <select  id="skill" required
                     (change)="skill_onchange($event.target)" formControlName="skill" class="form-control">
                     <option [ngValue]="null" selected>-Select-</option>

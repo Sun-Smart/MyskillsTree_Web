@@ -232,6 +232,7 @@ export class NewskillsearchComponent implements OnInit {
       }
       debugger
       this.showData = res;
+      this.showGrid = true;
 
       console.log('split image', this.showData);
 
@@ -285,6 +286,7 @@ export class NewskillsearchComponent implements OnInit {
         console.log(this.showData[z].useprofilephoto);
       }
       this.showData = res;
+      this.showGrid = true;
     });
     this.getidd1 = e
     if (this.getidd1 == "262") {
@@ -316,6 +318,7 @@ export class NewskillsearchComponent implements OnInit {
         console.log(this.showData[z].useprofilephoto);
       }
       this.showData = res;
+      this.showGrid = true;
     });
     console.log('eeeeee', e);
 
@@ -352,6 +355,7 @@ export class NewskillsearchComponent implements OnInit {
         console.log(this.showData[z].useprofilephoto);
       }
       this.showData = res;
+      this.showGrid = true;
     });
   }
   location_onChange(e: any) {
@@ -376,6 +380,7 @@ export class NewskillsearchComponent implements OnInit {
         console.log(this.showData[z].useprofilephoto);
       }
       this.showData = res;
+      this.showGrid = true;
     });
   }
 
@@ -412,25 +417,25 @@ export class NewskillsearchComponent implements OnInit {
       debugger
      if(e.segment==item.value){
     this.skillcategoryarry.splice(item.value,1)
-    
+
     this.skillcategory_List = [];
     this.subcategoryid_List = [];
      }else{
       this.skillcategoryarry.push({ segment: item.value })
      }
-    
+
     })
 
 
     console.log(item);
     this.subcategoryid ='' || [];
     this.skillcategory ='' || [];
-     
+
     if (item == "") {
       this.skillcategory_List = [];
       this.subcategoryid_List = [];
-    
-      
+
+
     }
 
     // console.log(this.AdminDropdown_Form.getRawValue());

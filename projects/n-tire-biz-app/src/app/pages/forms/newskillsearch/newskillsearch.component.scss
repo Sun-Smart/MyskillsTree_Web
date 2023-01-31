@@ -450,7 +450,7 @@ input.p-multiselect-filter.p-inputtext {
     margin: 0px !important;
   }
   .active{
-    width: 33% !important;
+    width: 100% !important;
   }
   .cardView-content .card-view{
     display: block !important;
@@ -462,5 +462,11 @@ input.p-multiselect-filter.p-inputtext {
     top: 55px !important;
     padding: 0rem 2rem !important;
     z-index: 1 !important;
+  }
+  .grid-container{
+    width: 330px !important;
+  }
+  .main-content{
+    width: auto !important;
   }
 }
