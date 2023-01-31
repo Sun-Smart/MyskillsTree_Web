@@ -154,8 +154,8 @@
     <!--cityid-->
 
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-    
-      
+
+
       <div *ngIf="((hidelist.indexOf('address2') == -1) && (address2visible==undefined || address2visible==true))"
         style='' class="col-3 ">
         <label for="address2" class="control-label">Address2</label>
@@ -167,9 +167,9 @@
         <label for="pincode" class="control-label">Pin Code</label>
         <label *ngIf="showview" class="labelview">{{f.pincode?.value}}</label>
         <input type="number"  required pattern="^[0-9]{6}$" maxlength="6" *ngIf="!showview" id="pincode"  formControlName="pincode" class="form-control">
-         
+
         <!-- "Enter Pincode" required pattern="^[0-9]{6}$" title="Enter Valid Pin Code" -->
-        
+
       </div>
       <div
         *ngIf="((hidelist.indexOf('contactperson') == -1) && (contactpersonvisible==undefined || contactpersonvisible==true))"
@@ -187,8 +187,8 @@
     </div>
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      
-     
+
+
       <div *ngIf="((hidelist.indexOf('emailid') == -1) && (emailidvisible==undefined || emailidvisible==true))" style=''
         class="col-3 ">
         <label for="emailid" class="control-label required">Email</label>
