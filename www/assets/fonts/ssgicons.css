@@ -1,0 +1,126 @@
+@font-face {
+  font-family: 'ssgicons';
+  src: url('/assets/fonts/ssgicons/ssgicons.eot?4535754');
+  src: url('/assets/fonts/ssgicons/ssgicons.eot?4535754#iefix') format('embedded-opentype'),
+       url('/assets/fonts/ssgicons/ssgicons.woff2?4535754') format('woff2'),
+       url('/assets/fonts/ssgicons/ssgicons.woff?4535754') format('woff'),
+       url('/assets/fonts/ssgicons/ssgicons.ttf?4535754') format('truetype'),
+       url('/assets/fonts/ssgicons/ssgicons.svg?4535754#ssgicons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'ssgicons';
+    src: url('/assets/fonts/ssgicons/ssgicons.svg?4535754#ssgicons') format('svg');
+  }
+}
+*/
+[class^="icon-"]:before, [class*=" icon-"]:before {
+ /* font-family: "ssgicons";*/
+/*  font-style: normal;
+  color: red;font-weight: bold;
+  speak: never;
+
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;*/
+  /* opacity: .8; */
+
+  /* For safety - reset parent styles, that can break glyph codes
+  font-variant: normal;
+  text-transform: none;*/
+
+  /* fix buttons height, for twitter bootstrap 
+  line-height: 1em;*/
+
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed 
+  margin-left: .2em;*/
+
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+
+  /* Font smoothing. That was taken from TWBS 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;*/
+
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+[class^="faicon-"]:before, [class*=" faicon-"]:before ,[class^="icon-"]:before, [class*=" icon-"]:before{
+  font-family: FontAwesome;
+  color:var(--backcolor)!important;
+  padding:2px!important;
+}
+
+.faicon-master:before{
+  content: "\f069";
+  
+}
+.faicon-skilldetails:before{
+  content: "\f19d";
+}
+.faicon-crm:before{
+  content: "\f29a";
+}
+.faicon-analytics:before
+{
+  content: "\f200";
+}
+/*.icon-activities:before { content: '\e800'; }*/ /* '' */
+/*.icon-applicant:before { content: '\e801'; }*/ /* '' */
+/*.icon-actions:before { content: '\e802'; }*/ /* '' */
+/*.icon-achievement:before { content: '\e803'; }*/ /* '' */
+/*.icon-calendar:before { content: '\e804'; }*/ /* '' */
+/*.icon-applicantsearch:before { content: '\e805'; }*/ /* '' */
+/*.icon-career:before { content: '\e806'; }*/ /* '' */
+/*.icon-company:before { content: '\e807'; }*/ /* '' */
+/*.icon-masters:before { content: '\e808'; }*/ /* '' */
+/*.icon-menu:before { content: '\e809'; }*/ /* '' */
+/*.icon-education:before { content: '\e80a'; }*/ /* '' */
+/*.icon-crm:before { content: '\e80b'; }*/ /* '' */
+/*.icon-dashboard:before { content: '\e80c'; }*/ /* '' */
+/*.icon-configvalues:before { content: '\e80d'; }*/ /* '' */
+/*.icon-corporate:before { content: '\e80e'; }*/ /* '' */
+/*.icon-geography:before { content: '\e80f'; }*/ /* '' */
+/*.icon-financialyears:before { content: '\e810'; }*/ /* '' */
+/*.icon-expense:before { content: '\e811'; }*/ /* '' */
+
+
+/*.icon-menu-master:before { content: '\e812'; }*/ /* '' */
+/*.icon-profileaccessdetails:before { content: '\e813'; }*/ /* '' */
+/*.icon-profilecompletionmasters:before { content: '\e814'; }*/ /* '' */
+/*.icon-referencedetails:before { content: "\f079"; }*/ /* '' */
+/*.icon-referencerequests:before { content: '\f079'; }*/ /* '' */
+.icon-applicant:before { content: "\f007"; } /* '' */
+.icon-job-requirement:before { content: "\f0b1"; } /* '' */
+.icon-menu-actions:before { content: "\f0ae"; } /* '' */
+.icon-references:before { content: "\f2b5"; } /* '' */
+/*.icon-reports:before { content: '\e818'; }*/ /* '' */
+/*.icon-settings:before { content: '\e819'; }*/ /* '' */
+/*.icon-skilldetails:before { content: '\e81a'; }*/ /* '' */
+/*.icon-socialmedia:before { content: '\e81b'; }*/ /* '' */
+/*.icon-subcategorymasters:before { content: '\e81c'; }*/ /* '' */
+/*.icon-templates:before { content: '\e81d'; }*/ /* '' */
+/*.icon-usermaster:before { content: '\e81e'; }*/ /* '' */
+/*.icon-userroles:before { content: '\e81f'; }*/ /* '' */
+/*.icon-workreference:before { content: '\e820'; }*/ /* '' */
+/*.icon-achievement-details:before { content: '\e821'; }*/ /* '' */
+/*.icon-applicant-master:before { content: '\e822'; }*/ /* '' */
+/*.icon-career-details:before { content: '\e823'; }*/ /* '' */
+/*.icon-configvalues-1:before { content: '\e824'; }*/ /* '' */
+/*.icon-corporate-master:before { content: '\e825'; }*/ /* '' */
+/*.icon-education-details:before { content: '\e826'; }*/ /* '' */
+/*.icon-financial-years:before { content: '\e827'; }*/ /* '' */
+/*.icon-geography-references:before { content: '\e828'; }*/ /* '' */
+/*.icon-languagedetails:before { content: '\e829'; }*/ /* '' */
+/*.icon-masterdatatype:before { content: '\e82a'; }*/ 
+/*.icon-masterdata:before { content: '\e82b'; }*/ 
+/*.icon-job-requirement:before { content: '\e82c'; }*/ 
+/*.icon-menu-actions:before { content: '\e82d'; }*/ 
