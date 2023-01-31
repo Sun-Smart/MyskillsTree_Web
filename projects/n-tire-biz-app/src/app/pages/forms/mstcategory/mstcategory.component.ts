@@ -153,7 +153,7 @@ export class mstcategoryComponent implements OnInit {
       pk: [null],
       categoryid: [null],
       // code: [null],
-      name: [null],
+      name: ["",Validators.compose([Validators.required])],
       segmentid: [null],
       status: [null],
       statusdesc: [null],

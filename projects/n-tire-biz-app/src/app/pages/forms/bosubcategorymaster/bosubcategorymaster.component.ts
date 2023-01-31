@@ -474,6 +474,7 @@ export class bosubcategorymasterComponent implements OnInit {
         setTimeout(() => {
             //this.dialogRef.destroy();
         }, 200);
+        
     }
 
     //This has to come from bomenuactions & procedures
