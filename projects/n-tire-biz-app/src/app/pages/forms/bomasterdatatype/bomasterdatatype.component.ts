@@ -712,7 +712,7 @@ export class bomasterdatatypeComponent implements OnInit {
                 confirmCreate: true,
             },
             edit: {
-                editButtonContent: '<i class="nb-edit"></i>',
+                editButtonContent: '<i class="fa fa-edit"></i>',
                 saveButtonContent: '<i class="nb-checkmark"></i>',
                 cancelButtonContent: '<i class="nb-close"></i>',
                 confirmSave: true,
@@ -732,39 +732,39 @@ export class bomasterdatatypeComponent implements OnInit {
                     type: '',
                     filter: true,
                 },
-                orderno: {
-                    title: 'Order No',
-                    type: 'number',
-                    filter: true,
-                },
-                htmlcode: {
-                    title: 'H T M L Code',
-                    type: '',
-                    filter: true,
-                },
-                param1: {
-                    title: 'Param1',
-                    type: '',
-                    filter: true,
-                },
-                param2: {
-                    title: 'Param2',
-                    type: '',
-                    filter: true,
-                },
-                helptext: {
-                    title: 'Help Text',
-                    type: 'html',
-                    filter: true,
-                    editor: {
-                        type: 'textarea',
-                    },
-                },
-                flag: {
-                    title: 'Flag',
-                    type: '',
-                    filter: true,
-                },
+                // orderno: {
+                //     title: 'Order No',
+                //     type: 'number',
+                //     filter: true,
+                // },
+                // htmlcode: {
+                //     title: 'H T M L Code',
+                //     type: '',
+                //     filter: true,
+                // },
+                // param1: {
+                //     title: 'Param1',
+                //     type: '',
+                //     filter: true,
+                // },
+                // param2: {
+                //     title: 'Param2',
+                //     type: '',
+                //     filter: true,
+                // },
+                // helptext: {
+                //     title: 'Help Text',
+                //     type: 'html',
+                //     filter: true,
+                //     editor: {
+                //         type: 'textarea',
+                //     },
+                // },
+                // flag: {
+                //     title: 'Flag',
+                //     type: '',
+                //     filter: true,
+                // },
             },
         };
     }

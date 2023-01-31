@@ -60,9 +60,9 @@
           </ng-container>
           <li class='nav-item actionheader common_title_style' *ngIf="!showview">
             <!-- <a class="alert-success" [routerLink]=''>  -->
-              <button type="button" class="btn btn-outline-primary popup-add-button " style="border-color: #fff !important;margin: 5px;
+              <!-- <button type="button" class="btn btn-outline-primary popup-add-button " style="border-color: #fff !important;margin: 5px;
               padding: 3px;
-              color: #fff;" [routerLink]=''(click)="goBack()" >Back</button>&nbsp;
+              color: #fff;" [routerLink]=''(click)="goBack()" >Back</button>&nbsp; -->
             <button type="button" class="btn btn-outline-primary popup-add-button " style="border-color: #fff !important;margin: 5px;
               padding: 3px;
               color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
@@ -122,7 +122,7 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('masterdatatypeid') == -1) && (masterdatatypeidvisible==undefined || masterdatatypeidvisible==true))"
-                style='' class="col-3"><label for="masterdatatypeid" class="control-label"
+                style='' class="col-4"><label for="masterdatatypeid" class="control-label"
                   (click)="AddOrEdit_masterdatatypeid(null)">Master Datatype</label>
                 <select *ngIf="!showview" id="masterdatatypeid" (change)="masterdatatypeid_onChange($event.target)"
                   formControlName="masterdatatypeid" class="form-control">
@@ -133,27 +133,27 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('masterdatacode') == -1) && (masterdatacodevisible==undefined || masterdatacodevisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-4 ">
                 <label for="masterdatacode" class="control-label">Masterdata Code</label>
                 <label *ngIf="showview" class="labelview">{{f.masterdatacode?.value}}</label>
                 <input *ngIf="!showview" id="masterdatacode" formControlName="masterdatacode" class="form-control">
               </div>
               <div
                 *ngIf="((hidelist.indexOf('masterdatadescription') == -1) && (masterdatadescriptionvisible==undefined || masterdatadescriptionvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-4 ">
                 <label for="masterdatadescription" class="control-label">Masterdata Description</label>
                 <label *ngIf="showview" class="labelview">{{f.masterdatadescription?.value}}</label>
                 <input *ngIf="!showview" id="masterdatadescription" formControlName="masterdatadescription"
                   class="form-control">
               </div>
-              <div *ngIf="((hidelist.indexOf('orderno') == -1) && (ordernovisible==undefined || ordernovisible==true))"
+              <!-- <div *ngIf="((hidelist.indexOf('orderno') == -1) && (ordernovisible==undefined || ordernovisible==true))"
                 style='' class="col-3 ">
                 <label for="orderno" class="control-label">Order No</label>
                 <label *ngIf="showview" class="labelview">{{f.orderno?.value}}</label>
                 <input *ngIf="!showview" id="orderno" formControlName="orderno" class="form-control">
-              </div>
+              </div> -->
             </div>
-            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+            <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('htmlcode') == -1) && (htmlcodevisible==undefined || htmlcodevisible==true))"
                 style='' class="col-3 ">
@@ -196,7 +196,7 @@
               <div class="col"></div>
               <div class="col"></div>
               <div class="col"></div>
-            </div>
+            </div> -->
           </p-accordion>
         </ng-template>
       </ngb-tab>

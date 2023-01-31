@@ -92,12 +92,12 @@
         <label *ngIf="showview" class="labelview">{{f.corporateid?.value}}</label>
         <input *ngIf="!showview" id="corporateid" [(ngModel)]="corporateid" class="form-control">
       </div>
-      <div *ngIf="((hidelist.indexOf('branchid') == -1) && (branchidvisible==undefined || branchidvisible==true))"
+      <!-- <div *ngIf="((hidelist.indexOf('branchid') == -1) && (branchidvisible==undefined || branchidvisible==true))"
         style='' class="col-3 ">
         <label for="branchid" class="control-label">Branch</label>
         <label *ngIf="showview" class="labelview">{{f.branchdesc?.value}}</label>
         <input *ngIf="!showview" id="branchdesc" [(ngModel)]="branchdesc" type="text" class="form-control">
-      </div>
+      </div> -->
 
 
       <!--countryid-->
@@ -131,29 +131,31 @@
         <app-field-error-display [displayError]="f.stateid.errors?.required" errorMsg="Enter {{'State' | translate}}">
         </app-field-error-display>
       </div>
+      <div *ngIf="((hidelist.indexOf('cityid') == -1) && (cityidvisible==undefined || cityidvisible==true))" style=''
+      class="col-3"><label for="cityid" class="control-label required" (click)="AddOrEdit_cityid(null)">City</label>
+      <app-popupselect *ngIf="!showview" [options]="cityid_List" [optionsEvent]="cityid_optionsEvent" [form]="bocity"
+        (selectItem)="onSelected_cityid($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="cityid"
+        id="value" desc="label"></app-popupselect>
+      <div class="input-group">
+      </div>
+      <label *ngIf="showview" class="labelview">{{f.cityiddesc?.value}}</label>
+      <app-field-error-display [displayError]="f.cityid.errors?.required" errorMsg="Enter {{'City' | translate}}">
+      </app-field-error-display>
+    </div>
+    <div *ngIf="((hidelist.indexOf('address1') == -1) && (address1visible==undefined || address1visible==true))"
+        style='' class="col-3 ">
+        <label for="address1" class="control-label">Address1</label>
+        <label *ngIf="showview" class="labelview">{{f.address1?.value}}</label>
+        <input *ngIf="!showview" id="address1" formControlName="address1" class="form-control">
+      </div>
     </div>
 
 
     <!--cityid-->
 
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div *ngIf="((hidelist.indexOf('cityid') == -1) && (cityidvisible==undefined || cityidvisible==true))" style=''
-        class="col-3"><label for="cityid" class="control-label required" (click)="AddOrEdit_cityid(null)">City</label>
-        <app-popupselect *ngIf="!showview" [options]="cityid_List" [optionsEvent]="cityid_optionsEvent" [form]="bocity"
-          (selectItem)="onSelected_cityid($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="cityid"
-          id="value" desc="label"></app-popupselect>
-        <div class="input-group">
-        </div>
-        <label *ngIf="showview" class="labelview">{{f.cityiddesc?.value}}</label>
-        <app-field-error-display [displayError]="f.cityid.errors?.required" errorMsg="Enter {{'City' | translate}}">
-        </app-field-error-display>
-      </div>
-      <div *ngIf="((hidelist.indexOf('address1') == -1) && (address1visible==undefined || address1visible==true))"
-        style='' class="col-3 ">
-        <label for="address1" class="control-label">Address1</label>
-        <label *ngIf="showview" class="labelview">{{f.address1?.value}}</label>
-        <input *ngIf="!showview" id="address1" formControlName="address1" class="form-control">
-      </div>
+    
+      
       <div *ngIf="((hidelist.indexOf('address2') == -1) && (address2visible==undefined || address2visible==true))"
         style='' class="col-3 ">
         <label for="address2" class="control-label">Address2</label>
@@ -169,8 +171,6 @@
         <!-- "Enter Pincode" required pattern="^[0-9]{6}$" title="Enter Valid Pin Code" -->
         
       </div>
-    </div>
-    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('contactperson') == -1) && (contactpersonvisible==undefined || contactpersonvisible==true))"
         style='' class="col-3 ">
@@ -179,12 +179,16 @@
         <input *ngIf="!showview" id="contactperson" formControlName="contactperson" class="form-control">
       </div>
       <div
-        *ngIf="((hidelist.indexOf('designation') == -1) && (designationvisible==undefined || designationvisible==true))"
-        style='' class="col-3 ">
-        <label for="designation" class="control-label">Designation</label>
-        <label *ngIf="showview" class="labelview">{{f.designation?.value}}</label>
-        <input *ngIf="!showview" id="designation" formControlName="designation" class="form-control">
-      </div>
+      *ngIf="((hidelist.indexOf('designation') == -1) && (designationvisible==undefined || designationvisible==true))"
+      style='' class="col-3 ">
+      <label for="designation" class="control-label">Designation</label>
+      <label *ngIf="showview" class="labelview">{{f.designation?.value}}</label>
+      <input *ngIf="!showview" id="designation" formControlName="designation" class="form-control">
+    </div>
+    </div>
+    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      
+     
       <div *ngIf="((hidelist.indexOf('emailid') == -1) && (emailidvisible==undefined || emailidvisible==true))" style=''
         class="col-3 ">
         <label for="emailid" class="control-label required">Email</label>
