@@ -232,6 +232,7 @@ import { AnyCnameRecord } from 'dns';
     }
     .dashboard-sidebar-content{
       height: 550px !important;
+      overflow: hidden !important;
       /* padding: 0rem !important; */
     }
     .container .mobile_col{
@@ -334,8 +335,9 @@ export class BODashboardViewerComponent implements OnInit {
   expYrs: any = [];
   sub_categorydesc: any;
   remarks: any;
-  start_date: string;
-  end_date: string;
+  start_date: any;
+  end_date: any;
+  ref_date:any
 
 
   constructor(private sharedService: SharedService, public dialogRef: DynamicDialogRef,
@@ -591,11 +593,15 @@ export class BODashboardViewerComponent implements OnInit {
         });
       }
       this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
+
       // this.showhearder_Details = false;
     });
   };
 
   showDetails(get_id: any, category: any, remarks: any) {
+
+    console.log("get_id",get_id);
+
 
 
     this.sub_categorydesc = category;
@@ -617,9 +623,10 @@ export class BODashboardViewerComponent implements OnInit {
       this.dashboard_achievementdetails = this.dashboard_details[0].list_dashboarachievment.value;
       this.dashboard_projectdetails = this.dashboard_details[0].lis_dashboardproject.value;
 
+      console.log(" this.dashboard_employementdetails",  this.dashboard_employementdetails);
       console.log("this.dashboard_achievementdetails", this.dashboard_achievementdetails);
       console.log("this.dashboard_projectdetails", this.dashboard_projectdetails);
-
+      console.log("this.dashboard_reffreq_details", this.dashboard_reffreq_details);
 
       let StartDate = this.dashboard_employementdetails[0].fromdate;
       let EndDate = this.dashboard_employementdetails[0].todate;
@@ -750,7 +757,7 @@ export class BODashboardViewerComponent implements OnInit {
   showcareer() {
     this.dialog.open(mstapplicantcareergridComponent, {
       width: '100% !important',
-      height: 'auto !important',
+      height: '370px !important',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;

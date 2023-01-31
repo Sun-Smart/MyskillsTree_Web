@@ -156,8 +156,8 @@
           <div class="col-12 emp-resp" *ngFor="let item of dashboard_employementdetails">
             <label style="color: #000;font-size: small;width: 25%;">{{item.companyname}}</label>
             <label class="details-label">{{item.details}}</label>
-            <label style="color: #000;font-size: small;width: 20%;">{{start_date}}</label>
-            <label style="color: #000;font-size: small;">{{end_date}}</label>
+            <label style="color: #000;font-size: small;width: 20%;">{{item.fromdate | date : 'dd-MM-yyyy'}}</label>
+            <label style="color: #000;font-size: small;">{{item.todate |  date : 'dd-MM-yyyy'}}</label>
           </div>
 
         </div>
@@ -255,7 +255,7 @@
           </div>
 
           <div class="col-12" *ngFor="let item of dashboard_reffreq_details">
-            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.date}}</label>
+            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.date |  date : 'dd-MM-yyyy'}}</label>
             <label for="" style="color: #000;font-size: small;width: 25%;">{{item.reffered_to}}</label>
             <label for="" style="color: #000;font-size: small;width: 25%;">{{item.response}}</label>
             <label for="" style="color: #000;font-size: small;width: 25%;">{{item.referenceremarks}}</label>

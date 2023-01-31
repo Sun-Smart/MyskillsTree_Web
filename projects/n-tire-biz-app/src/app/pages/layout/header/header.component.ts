@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, ViewChild,EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, ViewChild, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteStateService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/route-state.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
@@ -26,6 +26,7 @@ import { mstapplicantachivementgridComponent } from '../../forms/mstapplicantach
 import { mstapplicantsocialmediagridComponent } from '../../forms/mstapplicantsocialmediadetail/mstapplicantsocialmediagrid.component';
 import { mstapplicantlanuagegridComponent } from '../../forms/mstapplicantlanguagedetail/mstapplicantlanguagegrid.component';
 import { ReportViewerCtrlComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/boreportviewer/reportviewerctrl.component';
+import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 
 @Component({
   selector: 'app-header',
@@ -47,7 +48,7 @@ export class HeaderComponent implements OnInit {
   menuvisible: boolean = true;
   loggedIn: boolean = false;
   @Output() toggleMenubar: EventEmitter<any> = new EventEmitter();
-  @ViewChild('globalSearch', { static: false }) globalSearch : ReportViewerCtrlComponent;
+  @ViewChild('globalSearch', { static: false }) globalSearch: ReportViewerCtrlComponent;
   theme: string;
   _start: boolean;
   actionid: any;
@@ -73,12 +74,14 @@ export class HeaderComponent implements OnInit {
   email_id: any;
   usersource: any;
   showmobilenumber: boolean;
-  
+  isrelease: boolean;
+
 
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
     public sessionService: SessionService,
+    private mstapplicantmaster_service: mstapplicantmasterService,
     private userIdle: UserIdleService,
     private themeService: ThemeService,
     private userContextService: UserContextService,
@@ -540,5 +543,37 @@ export class HeaderComponent implements OnInit {
   corporate_data() {
     this.menuhide = false;
     this.router.navigate(['home/mstcorporatemasters/mstcorporatemasters/edit/' + this.usersource])
+  };
+
+  dashboard() {
+    debugger;
+    this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("usersource")]);
+  }
+
+  releasemethod(e: any) {
+
+
+    let obj = {
+      "applicantid": this.applicantid,
+      "ReleaseStatus": e
+    }
+
+
+
+    this.mstapplicantmaster_service.release_method(obj).subscribe(res => {
+
+      //need ngoninit api result need to arrange release status
+      // need result for status=false
+
+      if (res == "Released Successfully") {
+        this.toastService.addSingle("success", "", "Successfully Released");
+        this.isrelease = true
+      }
+      else {
+        this.toastService.addSingle("success", "", "Your profile is successfully revoked");
+        this.isrelease = false
+      }
+
+    })
   }
 }

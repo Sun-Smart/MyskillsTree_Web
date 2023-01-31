@@ -617,7 +617,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     debugger;
     this.isSubmitted = true;
     let strError = "";
-    this.getData()
+    // this.getData()
 
     this.formData = this.mstapplicantcareerdetail_Form.getRawValue();
 
@@ -695,11 +695,6 @@ export class mstapplicantcareergridComponent implements OnInit {
     for (let i = 0; i < skills_List.length; i++) {
       skills.push((skills_List[i] as any).value.toString());
     }
-
-    // for (let i = 0; i < skills_List.length; i++) {
-    //     skills.push({skills_value :skills_List[i].value.toString(),
-    //         skills_label : skills_List[i].label.toString()});
-    // }
     return skills;
   }
 
