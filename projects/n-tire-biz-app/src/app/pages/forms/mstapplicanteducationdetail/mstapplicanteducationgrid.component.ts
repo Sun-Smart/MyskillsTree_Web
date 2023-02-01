@@ -232,7 +232,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     </select>-->
 
                     <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
-                    (completeMethod)="search_skills($event)"></p-autoComplete>
+                    (completeMethod)="search_skills($event)"></p-autoComplete><br/>
+                    <label style="color:blue;font-size: 9px;"> (Optional)</label>
                     </td>
 
                     <!-- Submit & Close -->
@@ -1125,10 +1126,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     //     );
     // }
   }
-
-
-
-
   //for delete function not wokring
 
   // mstapplicanteducationdetails_onDelete(obj) {

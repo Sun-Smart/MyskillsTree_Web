@@ -210,7 +210,9 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 
                     <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
                     (completeMethod)="search_skills($event)"></p-autoComplete>
+                    
                     </td>
+
 
 
                 <!-- Add & Close -->
