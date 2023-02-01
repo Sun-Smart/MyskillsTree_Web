@@ -236,8 +236,8 @@ import { AnyCnameRecord } from 'dns';
       /* padding: 0rem !important; */
     }
     .container .mobile_col{
-    overflow-y: scroll !important;
-    height: 600px !important;
+      overflow-y: scroll !important;
+      height: 630px !important;
     }
   }
   `],
