@@ -633,19 +633,25 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
       this.toastr.addSingle("error", "", "Enter the required fields");
       return;
-    } else if (this.mstapplicanteducationdetail_Form.value.fromyear >= this.mstapplicanteducationdetail_Form.value.toyear) {
+    } else if (this.mstapplicanteducationdetail_Form.value.fromyear >= this.mstapplicanteducationdetail_Form.value.toyear || this.mstapplicanteducationdetail_Form.value.percentage > 100) {
       this.show_YearError = true;
-      return
-    } else if (this.mstapplicanteducationdetail_Form.value.percentage > 100) {
       this.show_percentageError = true;
+      if(this.mstapplicanteducationdetail_Form.value.percentage == 100){
+        this.show_percentageError = false;
+      }
       return
     }
+    // else if (this.mstapplicanteducationdetail_Form.value.percentage > 100) {
+    //   this.show_percentageError = true;
+    //   return
+    // }
     else {
       this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
       this.formData.skills = null;
       this.showDateError = false;
       this.showPercentError = false;
-
+      this.show_YearError = false;
+      this.show_percentageError = false;
       if (this.mstapplicanteducationdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicanteducationdetail_Form.get('skills').value));
 
       console.log(this.formData);
