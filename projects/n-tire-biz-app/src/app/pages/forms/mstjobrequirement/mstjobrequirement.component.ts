@@ -61,6 +61,7 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
         }
         .job_re_btn{
           padding: 4px 6px !important;
+          white-space: nowrap !important;
         }
         .mobile_view_btn{
           display: none !important;

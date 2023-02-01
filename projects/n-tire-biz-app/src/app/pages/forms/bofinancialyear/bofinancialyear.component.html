@@ -60,16 +60,16 @@
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
           <li class='nav-item actionheader' *ngIf="!showview">
-            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+            <a class="alert-success custom_mobile_view" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.finyearid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.finyearid.value" [status]="f.status.value"></app-action>
           </li>
           <li class='nav-item actionheader'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+            <a class="alert-danger custom_mobile_view" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li>
 
         </ul>
@@ -87,13 +87,13 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('finyearname') == -1) && (finyearnamevisible==undefined || finyearnamevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="finyearname" class="control-label">Financialyear Name</label>
         <label *ngIf="showview" class="labelview">{{f.finyearname?.value}}</label>
         <input *ngIf="!showview" id="finyearname" formControlName="finyearname" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('startdate') == -1) && (startdatevisible==undefined || startdatevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="startdate" class="control-label">Start Date</label>
         <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.startdate?.value)}}</label>
         <div class="input-group" *ngIf="!showview">
@@ -105,7 +105,7 @@
         </div>
       </div>
       <div *ngIf="((hidelist.indexOf('enddate') == -1) && (enddatevisible==undefined || enddatevisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="enddate" class="control-label">End Date</label>
         <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.enddate?.value)}}</label>
         <div class="input-group" *ngIf="!showview">
@@ -118,7 +118,7 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('currentyear') == -1) && (currentyearvisible==undefined || currentyearvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <div class="columnchk">
           <label for="currentyear" class="control-label">Current Year</label>
           <label *ngIf="showview" class="labelview">{{f.currentyear?.value}}</label>

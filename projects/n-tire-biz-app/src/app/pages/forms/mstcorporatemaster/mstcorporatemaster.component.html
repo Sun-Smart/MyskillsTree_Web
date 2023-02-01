@@ -87,20 +87,20 @@
       </button>
       <ul style="display: none;"> -->
 
-          
+
           <li class='nav-item actionheader' *ngIf="!showview">
-            <a class="alert-success  popup-add-button" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
-              Back</a>
-            <a class="alert-success  popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+            <!-- <a class="alert-success  popup-add-button" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
+              Back</a> -->
+            <a class="alert-success  popup-add-button mobile_viewsubmit" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary  popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary  popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.corporateid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.corporateid.value" [status]="f.status.value"></app-action>
           </li>
           <li class='nav-item actionheader'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+            <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li>
 
         </ul>
@@ -128,21 +128,21 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('companyname') == -1) && (companynamevisible==undefined || companynamevisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="companyname" class="control-label">Company Name</label>
                 <label *ngIf="showview" class="labelview">{{f.companyname?.value}}</label>
                 <input *ngIf="!showview" id="companyname" formControlName="companyname" class="form-control">
               </div>
               <div
                 *ngIf="((hidelist.indexOf('tlnumber') == -1) && (tlnumbervisible==undefined || tlnumbervisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="tlnumber" class="control-label">T L Number</label>
                 <label *ngIf="showview" class="labelview">{{f.tlnumber?.value}}</label>
                 <input *ngIf="!showview" id="tlnumber" formControlName="tlnumber" class="form-control">
               </div>
               <div
                 *ngIf="((hidelist.indexOf('taxregistrationnumber') == -1) && (taxregistrationnumbervisible==undefined || taxregistrationnumbervisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="taxregistrationnumber" class="control-label">Tax Registration Number</label>
                 <label *ngIf="showview" class="labelview">{{f.taxregistrationnumber?.value}}</label>
                 <input *ngIf="!showview" id="taxregistrationnumber" type="number" formControlName="taxregistrationnumber"
@@ -150,7 +150,7 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('licensevalidto') == -1) && (licensevalidtovisible==undefined || licensevalidtovisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="licensevalidto" class="control-label">License Valid To</label>
                 <label *ngIf="showview"
                   class="labelview">{{ngbDateParserFormatter.format(f.licensevalidto?.value)}}</label>
@@ -178,7 +178,7 @@
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('userid') == -1) && (useridvisible==undefined || useridvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="userid" class="control-label">User</label>
                 <label *ngIf="showview" class="labelview">{{f.userid?.value}}</label>
                 <input *ngIf="!showview" id="userid" formControlName="userid" class="form-control">

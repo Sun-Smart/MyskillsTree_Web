@@ -233,11 +233,12 @@ import { AnyCnameRecord } from 'dns';
     }
     .dashboard-sidebar-content{
       height: 550px !important;
+      overflow: hidden !important;
       /* padding: 0rem !important; */
     }
     .container .mobile_col{
-    overflow-y: scroll !important;
-    height: 600px !important;
+      overflow-y: scroll !important;
+      height: 630px !important;
     }
   }
   `],
@@ -602,8 +603,6 @@ export class BODashboardViewerComponent implements OnInit {
   showDetails(get_id: any, category: any, remarks: any) {
 
     console.log("get_id", get_id);
-
-
 
     this.sub_categorydesc = category;
     this.remarks = remarks.replace(/['"]+/g, '');

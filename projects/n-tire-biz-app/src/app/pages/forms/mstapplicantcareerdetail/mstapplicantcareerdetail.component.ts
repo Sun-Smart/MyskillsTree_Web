@@ -700,6 +700,7 @@ export class mstapplicantcareerdetailComponent implements OnInit {
       }
     }
     this.formData.fromdate = new Date(this.mstapplicantcareerdetail_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('fromdate').value) + '  UTC' : null);
+    this.formData.fromdate = new Date(this.mstapplicantcareerdetail_Form.get('fromdate').value);
     // this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('todate').value) + '  UTC' : null);
     if (this.mstapplicantcareerdetail_Form.value.currentlyworking == true) {
       this.formData.fromdate = new Date()
@@ -707,6 +708,7 @@ export class mstapplicantcareerdetailComponent implements OnInit {
       console.log(this.formData.todate);
     } else {
       this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('todate').value) + '  UTC' : null);
+      this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value);
     }
     this.formData.skills = null;
 

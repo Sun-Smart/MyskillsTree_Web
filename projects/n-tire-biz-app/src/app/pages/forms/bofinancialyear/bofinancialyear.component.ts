@@ -46,7 +46,25 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
 @Component({
     selector: 'app-bofinancialyear',
     templateUrl: './bofinancialyear.component.html',
-    styles: [],
+    styles: [`
+    @media only screen and (max-width: 600px) {
+      .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+        h1.col-4.columns.mainheader.left{
+          /* margin-left: 65px !important; */
+        }
+        .custom_mobile_view{
+          padding: 4px 4px !important;
+          margin-left: -12px !important;
+          display: block !important;
+        }
+      }
+    `],
     providers: [KeyboardShortcutsService]
 })
 
@@ -303,7 +321,7 @@ export class bofinancialyearComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -320,7 +338,7 @@ export class bofinancialyearComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.bofinancialyear_service.getDefaultData().then(res => {
         }).catch((err) => { this.spinner.hide(); console.log(err); });
@@ -331,7 +349,7 @@ export class bofinancialyearComponent implements OnInit {
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        //setting the flag that the screen is not touched
         this.bofinancialyear_Form.markAsUntouched();
         this.bofinancialyear_Form.markAsPristine();
     }

@@ -170,6 +170,7 @@ input[type='file'] {
 }
 
 .ng2-smart-row {
+
   // height: 50px;
   td {
     padding: 0 !important;
@@ -369,7 +370,7 @@ h1 a {
   margin-right: 17rem;
 }
 
-a + a {
+a+a {
   margin-left: 10px;
 }
 
@@ -639,7 +640,7 @@ ng2-smart-table table > tbody > tr > td {
 }
 */
 /* headers grid color*/
-ng2-smart-table thead > tr > th {
+ng2-smart-table thead>tr>th {
   //border: 1px solid lightgrey!important ;
   text-align: center;
 }
@@ -1069,8 +1070,8 @@ table-cell-view-mode {
   // margin: 1px;
 }
 
-.p-datatable .p-datatable-thead > tr > th,
-.p-datatable .p-datatable-tfoot > tr > td {
+.p-datatable .p-datatable-thead>tr>th,
+.p-datatable .p-datatable-tfoot>tr>td {
   font-weight: bold;
   font-size: medium;
 }
@@ -1213,22 +1214,20 @@ $half: round($loops / 2);
 
   .progress--circle.progress--#{$i * $step}:after {
     @if $i < $half {
-      $nextDeg: 90deg+ ($increment * $i);
-      background-image: linear-gradient(
-          90deg,
+      $nextDeg: 90deg+($increment * $i);
+      background-image: linear-gradient(90deg,
           $backColor 50%,
           transparent 50%,
-          transparent
-        ),
+          transparent),
         linear-gradient($nextDeg, $themeColor 50%, $backColor 50%, $backColor);
-    } @else {
-      $nextDeg: -90deg+ ($increment * ($i - $half));
-      background-image: linear-gradient(
-          $nextDeg,
+    }
+
+    @else {
+      $nextDeg: -90deg+($increment * ($i - $half));
+      background-image: linear-gradient($nextDeg,
           $themeColor 50%,
           transparent 50%,
-          transparent
-        ),
+          transparent),
         linear-gradient(270deg, $themeColor 50%, $backColor 50%, $backColor);
     }
   }
@@ -1346,11 +1345,9 @@ button.btn.btn-primary.btn-sm.readMoreBtn {
   &::before {
     content: '★★★★★';
     letter-spacing: 3px;
-    background: linear-gradient(
-      90deg,
-      green var(--percent),
-      var(--frontcolor) var(--percent)
-    );
+    background: linear-gradient(90deg,
+        green var(--percent),
+        var(--frontcolor) var(--percent));
     font-weight: bolder;
     // font-size:x-large;
     -webkit-background-clip: text;
@@ -1556,11 +1553,9 @@ th {
         position: absolute;
         top: 0;
         left: 0;
-        background-image: linear-gradient(
-          90deg,
-          rgba(#fafbfc, 0) 0%,
-          #fafbfc 100%
-        );
+        background-image: linear-gradient(90deg,
+            rgba(#fafbfc, 0) 0%,
+            #fafbfc 100%);
         opacity: 0;
       }
 
@@ -2007,8 +2002,7 @@ dynamic-form-builder {
 }
 
 .defaultCountry {
-  background: url('https://demo.herbie.ai/attachment/flags_boi3c5.png')
-    no-repeat;
+  background: url('https://demo.herbie.ai/attachment/flags_boi3c5.png') no-repeat;
   display: inline-block;
   width: 15px;
   height: 15px;
@@ -2019,7 +2013,7 @@ dynamic-form-builder {
   margin: 0px !important;
 }
 
-.telephone > .form-control {
+.telephone>.form-control {
   border: none !important;
 }
 
@@ -2265,8 +2259,7 @@ p-accordion {
 }
 
 .p-dialog-content,
-.p-dynamicdialog {
-}
+.p-dynamicdialog {}
 
 /*
 .layout-menu-static:not(.layout-menu-active)
@@ -2797,7 +2790,7 @@ p-dynamicdialog {
   top: 0 !important;
 }
 
-.menu-wrapper + div {
+.menu-wrapper+div {
   margin-top: 2% !important;
 }
 
@@ -2911,9 +2904,7 @@ p-dynamicdialog,
   bottom: 0;
 }
 
-.p-accordion
-  .p-accordion-header:not(.p-disabled).p-highlight:hover
-  .p-accordion-header-link {
+.p-accordion .p-accordion-header:not(.p-disabled).p-highlight:hover .p-accordion-header-link {
   border-color: transparent;
   background: #6b431d !important;
   color: #fff !important;
@@ -2945,7 +2936,8 @@ iframe {
 }
 
 #contentArea1 //,#reportmaincontent
-{
+
+  {
   position: relative;
   height: 93% !important;
   width: 100% !important;
@@ -3172,9 +3164,7 @@ textarea#briefintroduction {
 //     margin-top: -11px;
 //     height: 31px;
 // }
-.p-accordion
-  .p-accordion-header:not(.p-disabled).p-highlight
-  .p-accordion-header-link {
+.p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
   /*background: #0BA4E1 !important;*/
   // background: #2fb8ef !important;
   background-color: #6b431d !important;
@@ -3637,7 +3627,7 @@ a {
   // color: black !important;
 }
 
-.p-menubar-root-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
+.p-menubar-root-list>.p-menuitem-active>p-menubarsub>.p-submenu-list {
   display: grid !important;
   grid-template-columns: 165px 1fr 1fr !important;
   right: 0px !important;
@@ -3754,14 +3744,15 @@ footer {
 }
 
 .form-list {
+
   .col-3,
   .col-12 {
     margin: 10px;
   }
 }
 
-.omega .p-datatable .p-datatable-thead > tr > th,
-.omega .p-datatable .p-datatable-tfoot > tr > td {
+.omega .p-datatable .p-datatable-thead>tr>th,
+.omega .p-datatable .p-datatable-tfoot>tr>td {
   background-color: #6b431d !important;
   border-color: #d9d9d9 !important;
 }
@@ -3868,6 +3859,7 @@ footer {
     display: none !important;
   }
 }
+
 .dashboard-sidebar {
   width: 20%;
   height: 100%;
@@ -3888,10 +3880,12 @@ footer {
     padding-left: 2.25rem !important;
   }
 }
+
 .main-dash-content {
   overflow-y: scroll;
   height: 500px !important;
   padding: 0 !important;
+
   .main-data {
     // display: flex;
     // justify-content: space-between;
@@ -3901,12 +3895,14 @@ footer {
     padding: 0px 0px 5px 0px !important;
   }
 }
+
 .skill-label {
   label:hover {
     cursor: pointer;
     text-decoration: underline;
   }
 }
+
 .dash_list {
   color: gray;
   margin: 5px;
@@ -3917,24 +3913,29 @@ footer {
   justify-content: space-between;
   align-items: center;
   width: 7rem;
+
   img {
     width: 15px;
   }
+
   label {
     font-size: 9px;
     margin: 0 !important;
   }
 }
-.dashboard-list_data{
+
+.dashboard-list_data {
   padding: 0 !important;
-  h5{
+
+  h5 {
     color: #000;
     font-size: 15px;
-    padding: 5px 0 5px 5px!important;
+    padding: 5px 0 5px 5px !important;
     font-weight: 600;
     background-color: #ebf3fc;
   }
-  hr{
+
+  hr {
     margin: 0px 0px 10px 0px !important;
   }
 }
@@ -3948,3 +3949,20 @@ footer {
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .p-datatable-wrapper table {
+    width: auto !important;
+  }
+
+  .custom_mobile_view {
+    display: none !important;
+  }
+
+  .mobile_view_report {
+    min-width: auto !important;
+  }
+  .mobile_close_result{
+    left: 50px !important;
+    top: 0% !important;
+  }
+}

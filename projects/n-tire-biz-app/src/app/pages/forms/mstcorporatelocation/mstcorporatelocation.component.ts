@@ -46,7 +46,28 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
 @Component({
     selector: 'app-mstcorporatelocation',
     templateUrl: './mstcorporatelocation.component.html',
-    styles: [],
+    styles: [`
+    @media only screen and (max-width: 600px) {
+      .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mst_cor_btn{
+          padding: 4px 6px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+        .mobile_viewsubmit{
+          margin-top: 4px !important;
+        }
+        .custom_mobile_view{
+          margin-right: 0px !important;
+          padding: 4px 5px !important;
+          display: block !important;
+        }
+    }
+    `],
     providers: [KeyboardShortcutsService]
 })
 
@@ -264,7 +285,7 @@ export class mstcorporatelocationComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -281,7 +302,7 @@ export class mstcorporatelocationComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.mstcorporatelocation_service.getDefaultData().then(res => {
             this.countryid_List = res.list_countryid.value;
@@ -295,7 +316,7 @@ export class mstcorporatelocationComponent implements OnInit {
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        //setting the flag that the screen is not touched
         this.mstcorporatelocation_Form.markAsUntouched();
         this.mstcorporatelocation_Form.markAsPristine();
     }
@@ -305,12 +326,12 @@ export class mstcorporatelocationComponent implements OnInit {
             this.mstcorporatelocation_Form.patchValue({
               country: countryidDetail.value,
               countrydesc: countryidDetail.label,
-      
+
             });
             this.mstcorporatelocation_service.getList_stateid(countryidDetail.value).then(res => {
               this.stateid_List = res as DropDownValues[]
             }).catch((err) => { this.spinner.hide(); console.log(err); });
-      
+
           }
 
         // if (countryidDetail.value && countryidDetail) {
@@ -328,12 +349,12 @@ export class mstcorporatelocationComponent implements OnInit {
             this.mstcorporatelocation_Form.patchValue({
               state: stateidDetail.value,
               statedesc: stateidDetail.label,
-      
+
             });
             this.mstcorporatelocation_service.getList_cityid(stateidDetail.value).then(res => {
               this.cityid_List = res as DropDownValues[]
             }).catch((err) => { this.spinner.hide(); console.log(err); });
-      
+
           }
 
 

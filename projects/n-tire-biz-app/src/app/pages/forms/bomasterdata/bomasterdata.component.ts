@@ -102,7 +102,7 @@ export class bomasterdataComponent implements OnInit {
     sourceKey: any;
 
 
-
+    masterdatatypeid1:any;
     bosubcategorymasters_visiblelist: any;
     bosubcategorymasters_hidelist: any;
 
@@ -127,6 +127,8 @@ export class bomasterdataComponent implements OnInit {
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
+debugger
+           
         this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
@@ -152,6 +154,7 @@ export class bomasterdataComponent implements OnInit {
             pk: [null],
             masterdataid: [null],
             masterdatatypeid: [null],
+            masterdataname: [null, Validators.compose([Validators.required])],
             masterdatatypeiddesc: [null],
             masterdatacode: [null],
             masterdatadescription: [null],
@@ -219,6 +222,10 @@ export class bomasterdataComponent implements OnInit {
 
     // initialize
     async ngOnInit() {
+        debugger
+        var xyz=this.bomasterdata_service.boarray
+        this.bomasterdata_Form.patchValue({masterdatatypeid:xyz[0]})
+        this.masterdatatypeid1 = localStorage.getItem("masterdataname")
         //session & theme
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
@@ -290,6 +297,10 @@ export class bomasterdataComponent implements OnInit {
         }
         this.bomasterdata_service.getDefaultData().then(res => {
             this.masterdatatypeid_List = res.list_masterdatatypeid.value;
+           let suma= localStorage.getItem("masterdataname")
+          console.log(suma)
+          this.masterdatatypeid1=suma
+          console.log(this.masterdatatypeid1)
         }).catch((err) => { this.spinner.hide(); console.log(err); });
 
         //autocomplete
@@ -439,8 +450,9 @@ export class bomasterdataComponent implements OnInit {
         //console.log(res.orderDetails);
         this.bomasterdata_Form.patchValue({
             masterdataid: res.bomasterdata.masterdataid,
-            masterdatatypeid: res.bomasterdata.masterdatatypeid,
-            masterdatatypeiddesc: res.bomasterdata.masterdatatypeiddesc,
+            masterdatatypeid: localStorage.getItem("masterdataname"),
+            masterdatatypeiddesc: localStorage.getItem("masterdataname"),
+            masterdataname: res.bomasterdatatype.masterdataname,
             masterdatacode: res.bomasterdata.masterdatacode,
             masterdatadescription: res.bomasterdata.masterdatadescription,
             orderno: res.bomasterdata.orderno,
@@ -458,6 +470,8 @@ export class bomasterdataComponent implements OnInit {
         //Child Tables if any
         this.Set_bosubcategorymasters_TableConfig();
         this.bosubcategorymasters_LoadTable(res.bosubcategorymasters);
+
+        // suneel
     }
 
     validate() {

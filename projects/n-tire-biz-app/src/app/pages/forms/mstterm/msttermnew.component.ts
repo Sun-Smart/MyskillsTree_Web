@@ -49,7 +49,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
     selector: 'app-msttermnew',
     templateUrl: './msttermnew.component.html',
-    styles: [],
+    styles: [`
+    @media only screen and (max-width: 600px) {
+      button#checkbutton{
+        width: 100% !important;
+        margin: 0px !important;
+      }
+      #mstaccept{
+        position: relative;
+        right: 26px !important;
+        font-size: 10px !important;
+      }
+      button#cancelBtn{
+        width: 100% !important;
+      }
+    }
+
+
+    `],
     providers: [KeyboardShortcutsService]
 })
 
@@ -91,7 +108,7 @@ export class msttermnewComponent implements OnInit {
         public dialog: DialogService, private spinner: NgxSpinnerService
     ) {
         this.Authorization_token=localStorage.getItem('token');
-        
+
         this.mstterm_Form = fb.group({
             terms: [""],
             currentterm: [""],
@@ -99,7 +116,7 @@ export class msttermnewComponent implements OnInit {
         })
     }
     ngOnInit() {
-        document.getElementById('checkbutton').style.display = 'none';  
+        document.getElementById('checkbutton').style.display = 'none';
         this.termsContent =localStorage.getItem('terms');
     }
     onSubmit() {

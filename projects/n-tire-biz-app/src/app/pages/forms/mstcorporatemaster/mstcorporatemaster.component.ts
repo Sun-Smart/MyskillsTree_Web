@@ -71,6 +71,9 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
         .mobile_view_btn{
           display: none !important;
         }
+        .mobile_viewsubmit{
+          margin-top: 4px !important;
+        }
     }
     `],
     providers: [KeyboardShortcutsService, CorporateDashboardComponent]
@@ -914,7 +917,7 @@ export class mstcorporatemasterComponent implements OnInit {
                 confirmCreate: true,
             },
             edit: {
-                editButtonContent: '<i class="nb-edit"></i>',
+                editButtonContent: '<i class="fa fa-edit"></i>',
                 saveButtonContent: '<i class="nb-checkmark"></i>',
                 cancelButtonContent: '<i class="nb-close"></i>',
                 confirmSave: true,
@@ -927,11 +930,11 @@ export class mstcorporatemasterComponent implements OnInit {
                 confirmDelete: false,
             },
             columns: {
-                branchid: {
-                    title: 'Branch',
-                    type: 'number',
-                    filter: true,
-                },
+                // branchid: {
+                //     title: '',
+
+                //     filter: false,
+                // },
                 countryiddesc: {
                     title: 'Country',
                     type: 'html',
@@ -1148,9 +1151,10 @@ export class mstcorporatemasterComponent implements OnInit {
                 width: '300px',
                 add: !this.showview,
                 edit: true, // true,
-                delete: !this.showview,
+                // delete: !this.showview,
                 position: 'left',
-                custom: this.mstjobrequirement_menuactions
+                // custom: this.mstjobrequirement_menuactions
+                custom: ""
             },
             add: {
                 addButtonContent: '<i class="nb-plus"></i>',
@@ -1159,7 +1163,7 @@ export class mstcorporatemasterComponent implements OnInit {
                 confirmCreate: true,
             },
             edit: {
-                editButtonContent: '<i class="nb-edit"></i>',
+                editButtonContent: '<i class="fa fa-edit"></i>',
                 saveButtonContent: '<i class="nb-checkmark"></i>',
                 cancelButtonContent: '<i class="nb-close"></i>',
                 confirmSave: true,
@@ -1448,7 +1452,7 @@ export class mstcorporatemasterComponent implements OnInit {
                 confirmCreate: true,
             },
             edit: {
-                editButtonContent: '<i class="nb-edit"></i>',
+                editButtonContent: '<i class="fa fa-edit"></i>',
                 saveButtonContent: '<i class="nb-checkmark"></i>',
                 cancelButtonContent: '<i class="nb-close"></i>',
                 confirmSave: true,

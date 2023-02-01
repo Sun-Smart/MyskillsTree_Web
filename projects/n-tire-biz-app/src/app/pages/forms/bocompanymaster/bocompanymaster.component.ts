@@ -59,7 +59,17 @@ import { DynamicFormBuilderComponent } from '../../../../../../n-tire-biz-app/sr
 @Component({
     selector: 'app-bocompanymaster',
     templateUrl: './bocompanymaster.component.html',
-    styles: [],
+    styles: [`
+    @media only screen and (max-width: 600px) {
+      .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+      }
+    `],
     providers: [KeyboardShortcutsService]
 })
 
@@ -424,7 +434,7 @@ export class bocompanymasterComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -452,7 +462,7 @@ export class bocompanymasterComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.bocompanymaster_service.getDefaultData().then(res => {
             this.companytype_List = res.list_companytype.value;
@@ -476,7 +486,7 @@ export class bocompanymasterComponent implements OnInit {
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        //setting the flag that the screen is not touched
         this.bocompanymaster_Form.markAsUntouched();
         this.bocompanymaster_Form.markAsPristine();
     }
@@ -671,9 +681,9 @@ export class bocompanymasterComponent implements OnInit {
         this.dialogRef.close(this.objvalues);
     }
     goBack(){
-        
+
         this.router.navigate(['/home/boreportviewer/whwfe']);
-        
+
     }
     onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.companyname != null) {
@@ -1312,7 +1322,7 @@ export class bocompanymasterComponent implements OnInit {
     break;
     }
     }
-    
+
     */
     bocompanyholidays_route(event: any, action: any) {
         var addparam = "";
@@ -1518,7 +1528,7 @@ export class bocompanymasterComponent implements OnInit {
     break;
     }
     }
-    
+
     */
     bofinancialyears_route(event: any, action: any) {
         var addparam = "";

@@ -27,6 +27,7 @@ import { mstapplicantsocialmediagridComponent } from '../../forms/mstapplicantso
 import { mstapplicantlanuagegridComponent } from '../../forms/mstapplicantlanguagedetail/mstapplicantlanguagegrid.component';
 import { ReportViewerCtrlComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/boreportviewer/reportviewerctrl.component';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
+import { mstcorporatemasterService } from '../../../service/mstcorporatemaster.service';
 
 @Component({
   selector: 'app-header',
@@ -75,6 +76,7 @@ export class HeaderComponent implements OnInit {
   usersource: any;
   showmobilenumber: boolean;
   isrelease: boolean;
+  pkcorporateid : any;
 
 
   constructor(
@@ -90,7 +92,7 @@ export class HeaderComponent implements OnInit {
     private sharedService: SharedService,
     private bousermasterservice: bousermasterService,
     private toastService: ToastService,
-    private pageroute: Router,
+    private pageroute: Router,private mstcorporatemasterservice: mstcorporatemasterService
   ) {
     //debugger;
     this.displayNotifications = false;
@@ -550,7 +552,13 @@ export class HeaderComponent implements OnInit {
 
   corporate_data() {
     this.menuhide = false;
-    this.router.navigate(['home/mstcorporatemasters/mstcorporatemasters/edit/' + this.usersource])
+
+    this.mstcorporatemasterservice.getListBy_userid(0 + this.sessionService.getItem("userid")).then(res => {
+      debugger;
+      this.pkcorporateid = res[0].pkcol;
+      this.router.navigate(['/home/mstcorporatemasters/mstcorporatemasters/edit/' + this.pkcorporateid])
+  });
+
   };
 
   dashboard() {
