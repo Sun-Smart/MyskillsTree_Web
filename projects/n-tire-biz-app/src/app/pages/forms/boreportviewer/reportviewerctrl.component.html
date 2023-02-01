@@ -720,20 +720,20 @@
                   (click)="filter(itemcol.datatype,itemcol.field)">
                   <option
                     *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'  && itemcol.datatype!='date' "
-                    value="contains">contains</option>
+                    value="contains">Contains</option>
                   <option
                     *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'   && itemcol.datatype!='date'  "
-                    value="startsWith">startsWith</option>
+                    value="startsWith">Starts With</option>
                   <option
                     *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'  && itemcol.datatype!='date'   "
-                    value="endsWith">endsWith</option>
+                    value="endsWith">Ends With</option>
                   <option
                     *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms'  && itemcol.datatype!='n'   && itemcol.datatype!='date' "
-                    value="equals">equals</option>
+                    value="equals">Equals</option>
                   <option
                     *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'   && itemcol.datatype!='date'  "
-                    value="notEquals">notEquals</option>
-                  <option
+                    value="notEquals">Not Equals</option>
+                  <!-- <option
                     *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'  && itemcol.datatype!='date'   "
                     value="in">in</option>
                   <option
@@ -747,7 +747,7 @@
                     value="gt">gt</option>
                   <option
                     *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms'  && itemcol.datatype!='n'   && itemcol.datatype!='date' "
-                    value="gte">gte</option>
+                    value="gte">gte</option> -->
                   <option *ngIf="itemcol.datatype=='n' || itemcol.datatype=='date'" value="null">Null
                   </option>
                   <option *ngIf="itemcol.datatype=='n'" value="b">Between</option>

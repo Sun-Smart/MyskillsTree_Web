@@ -618,7 +618,10 @@ export class mstapplicantcareergridComponent implements OnInit {
     this.isSubmitted = true;
     let strError = "";
     // this.getData()
-
+    if (!this.mstapplicantcareerdetail_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    }
     this.formData = this.mstapplicantcareerdetail_Form.getRawValue();
 
     this.formData.fromdate = new Date(this.mstapplicantcareerdetail_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('fromdate').value) + '  UTC' : null);

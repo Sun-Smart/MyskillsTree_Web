@@ -380,7 +380,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
   fromyear: Date;
   toyear: Date;
   skills: null;
-  myDate:any;
+  myDate: any;
 
   constructor(
     private nav: Location,
@@ -397,7 +397,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
     private sharedService: SharedService,
     private sessionService: SessionService,
     private toastr: ToastService,
-    private sanitizer: DomSanitizer,private datePipe: DatePipe,
+    private sanitizer: DomSanitizer, private datePipe: DatePipe,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
     private mstapplicantachivement_service: mstapplicantachievementdetailService,
   ) {
@@ -677,21 +677,16 @@ export class mstapplicantachivementgridComponent implements OnInit {
   Edit_mstapplicantachievementdetail(event: any, achievementid: any, applicantid: any) {
     debugger
     this.showSkillDetails_input = true;
-    // let add = false;
-    // if (event == null) add = true;
+    let add = false;
+    if (event == null) add = true;
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-    this.getdata();
     console.log(event, achievementid, applicantid);
-
     this.mstapplicantachievementdetail_service.get_mstapplicantachievementdetails_ByEID(event.data.pkcol).then(res => {
-      console.log(res);
-
       this.formData = res.mstapplicantachievementdetail;
-      // this.formid = res.mstapplicantachievementdetail.achievementid;
+      this.formid = res.mstapplicantachievementdetail.achievementid;
       this.pkcol = res.mstapplicantachievementdetail.pkcol;
 
-      debugger
       this.mstapplicantachievementdetail_Form.patchValue({
         applicantid: res.mstapplicantachievementdetail.applicantid,
         applicantiddesc: res.mstapplicantachievementdetail.applicantiddesc,
@@ -708,11 +703,16 @@ export class mstapplicantachivementgridComponent implements OnInit {
         skilldesc: res.mstapplicantachievementdetail.skilldesc,
         fromyear: this.ngbDateParserFormatter.parse(res.mstapplicantachievementdetail.fromyear),
         toyear: this.ngbDateParserFormatter.parse(res.mstapplicantachievementdetail.toyear),
-        attachment: "[]",
         status: res.mstapplicantachievementdetail.status,
         statusdesc: res.mstapplicantachievementdetail.statusdesc,
       });
-      debugger
+
+      setTimeout(() => {
+        this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
+          this.masterdataid_List = res.list_masterdataid.value;
+          this.skill_list = res.list_skills.value;
+        });
+      })
     })
   }
 

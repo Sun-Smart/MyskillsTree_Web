@@ -70,12 +70,16 @@ export class mstapplicantmasterService {
     }
   }
 
-  get_dashboardAll_details(body){
+  get_corporateDashboardAll_details(id: any) {
+    debugger
+    return this.http.get(AppConstants.ntirebizURL + '/bodashboard/getcorporatedashboarddata/' + id).toPromise();
+  }
 
-debugger
-    return this.http.get(AppConstants.ntirebizURL + '/bodashboard/getapplicantdashboarddata/' +body.applicantid + '/' + body.skillid).toPromise();
-  
-    }
+  get_dashboardAll_details(body) {
+
+    return this.http.get(AppConstants.ntirebizURL + '/bodashboard/getapplicantdashboarddata/' + body.applicantid + '/' + body.skillid).toPromise();
+
+  }
 
 
   get_mstapplicantmasters_List(): any {

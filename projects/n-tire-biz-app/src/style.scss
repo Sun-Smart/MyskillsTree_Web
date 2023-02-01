@@ -2699,7 +2699,7 @@ ng2-smart-table {
     //overflow: scroll !important;
     overflow: auto !important;
     //position: absolute;
-    height: 88% !important;
+    height: auto !important;
     width: 99% !important;
     max-width: 100% !important;
     //  width:auto!important;
@@ -3942,7 +3942,7 @@ footer {
   .details-label{
   color: #000;
   font-size: small;
-  width: 35%;
+  width: 25%;
   vertical-align: top;
   padding-right: 10px;
   }

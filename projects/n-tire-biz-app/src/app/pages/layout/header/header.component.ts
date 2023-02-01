@@ -454,13 +454,14 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(mstapplicantgeographygrid,
       {
         width: '100% !important',
-        height: 'auto !important',
+        height: '250px !important',
         data: { ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   uploadmethod() {
     debugger
     this.dialog.open(mstresumeapplicantComponent,
@@ -470,16 +471,17 @@ export class HeaderComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
   showcareer() {
     this.dialog.open(mstapplicantcareergridComponent, {
       width: '100% !important',
-      height: 'auto !important',
+      height: '350px !important',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showWorkRef() {
     this.dialog.open(mstapplicantworkrefgridComponent, {
       width: '100% !important',
@@ -488,7 +490,8 @@ export class HeaderComponent implements OnInit {
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showEducation() {
     this.dialog.open(mstapplicanteducationdetailgridComponent, {
       width: '100% !important',
@@ -497,17 +500,19 @@ export class HeaderComponent implements OnInit {
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showAchievement() {
     this.dialog.open(mstapplicantachivementgridComponent, {
       width: '100% !important',
-      height: 'auto !important',
+      height: '350px !important',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
 
-  }
+  };
+
   showSocial() {
     this.dialog.open(mstapplicantsocialmediagridComponent, {
       width: '100% !important',
@@ -516,7 +521,8 @@ export class HeaderComponent implements OnInit {
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   edit_fullpagemstapplicantmasters() {
     debugger
     this.dialog.open(mstapplicantmastermainComponent,
@@ -526,7 +532,8 @@ export class HeaderComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showLanguage() {
     this.dialog.open(mstapplicantlanuagegridComponent, {
       width: '100% !important',
@@ -535,10 +542,11 @@ export class HeaderComponent implements OnInit {
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   closeNotify() {
     this.showNotify = false;
-  }
+  };
 
   corporate_data() {
     this.menuhide = false;
@@ -547,19 +555,19 @@ export class HeaderComponent implements OnInit {
 
   dashboard() {
     debugger;
-    this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("usersource")]);
+    if (this.sessionService.getItem('role') == '1') {
+      this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("usersource")]);
+    }
+    else if (this.sessionService.getItem('role') == '3') {
+      this.router.navigate(['/home/corporatedashboard' + this.sessionService.getItem("usersource")]);
+    }
   }
 
   releasemethod(e: any) {
-
-
     let obj = {
       "applicantid": this.applicantid,
       "ReleaseStatus": e
-    }
-
-
-
+    };
     this.mstapplicantmaster_service.release_method(obj).subscribe(res => {
 
       //need ngoninit api result need to arrange release status

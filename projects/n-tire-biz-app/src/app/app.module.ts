@@ -103,6 +103,8 @@ import { SkillenhancerComponent } from './pages/skillenhancer/skillenhancer.comp
 import { CertifierComponent } from './pages/certifier/certifier.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -165,6 +167,7 @@ export function tokenGetter() {
         // and `ping` is 120 (2 minutes).
         UserIdleModule.forRoot({ idle: 6000, timeout: 3000, ping: 1200 }),
         Ng2SearchPipeModule,
+        NgApexchartsModule,
 
         //WebcamModule,
         JwtModule.forRoot({

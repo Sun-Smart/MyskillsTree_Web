@@ -16,11 +16,10 @@ import { DynamicDialogRef } from 'primeng/dynamicDialog';
         </button>
     </div>
     <div class="col-12" style="margin-top:1rem;">
-    <iframe [src]="url" frameBorder="0" width="700px!important" height="750px!important">
+    <iframe [src]="url" frameBorder="0" width="700px!important" height="750px!important" class = "open_file-pop-up">
     </iframe>
     </div>
     </div>`,
-
 })
 
 export class openfileComponent implements OnInit {

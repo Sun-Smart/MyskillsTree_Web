@@ -172,6 +172,7 @@ import { SkillenhancerComponent } from './pages/skillenhancer/skillenhancer.comp
 import { CertifierComponent } from './pages/certifier/certifier.component';
 import { RegisterUserComponent } from './pages/register-user/register-user.component';
 import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -396,6 +397,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         CalendarModule,
         NgxBarcodeModule,
         QueryBuilderModule,
+        NgApexchartsModule,
         CalendarAGModule.forRoot({
             provide: DateAdapter,
             useFactory: adapterFactory

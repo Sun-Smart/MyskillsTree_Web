@@ -440,11 +440,10 @@ export class LoginComponent implements OnInit {
     CheckAgreeOk(user) {
         debugger;
         if (user.token != '') {
-            // localStorage.setItem('token', user.token)
+            this.login_validation = false;
             this.toastService.addSingle("success", "", "Login successfully.");
         }
         else {
-
             this.toastService.addSingle("error", "", "Invalid Login Credentials");
             return;
         }
@@ -560,26 +559,10 @@ export class LoginComponent implements OnInit {
                 this.toastService.addSingle('error', '', 'Invalid user.');
                 return;
             }
-
         }).catch((err) => {
-            //
-            //console.log(err);
-
-            this.spinner.hide();
             this.toastService.addSingle("error", "", err.error);
         });
-
-
-    }
-    // saveRemember(event) {
-    //     console.log('rememberOption ', event.target.checked);
-    //     if (event.target.checked) {
-    //         localStorage.setItem('email', this.bologinForm.get('email').value);
-    //     }
-
-    // }
-
-
+    };
 
     rememberme(Remember) {
         debugger

@@ -147,21 +147,28 @@
           </div>
 
           <div class="col-12">
-            <label style="color:#000;font-weight: 600;width: 25%;">Company</label>
-            <label style="color:#000;font-weight: 600;width: 35%;">Details</label>
+            <label style="color:#000;font-weight: 600;width: 20%;">Company</label>
+            <label style="color:#000;font-weight: 600;width: 20%;">Designation</label>
+            <label style="color:#000;font-weight: 600;width: 25%;">Details</label>
             <label style="color:#000;font-weight: 600;width: 20%;">From</label>
             <label style="color:#000;font-weight: 600;">To</label>
           </div>
 
+          <div class="col-12" style="text-align: center;margin: 10px auto;" *ngIf="dashboard_employementdetails.length == 0">
+            <label style="color: #000;font-size: small;">No Records Mapped..</label>
+          </div>
+
           <div class="col-12 emp-resp" *ngFor="let item of dashboard_employementdetails">
-            <label style="color: #000;font-size: small;width: 25%;">{{item.companyname}}</label>
+            <label style="color: #000;font-size: small;width: 20%;">{{item.companyname}}</label>
+            <label style="color: #000;font-size: small;width: 20%;">{{item.designation}}</label>
             <label class="details-label">{{item.details}}</label>
             <label style="color: #000;font-size: small;width: 20%;">{{item.fromdate | date : 'dd-MM-yyyy'}}</label>
-            <label style="color: #000;font-size: small;">{{item.todate |  date : 'dd-MM-yyyy'}}</label>
+            <label style="color: #000;font-size: small;">{{item.todate | date : 'dd-MM-yyyy'}}</label>
           </div>
 
         </div>
       </div>
+
       <!-- Projects -->
 
       <div class="main-data">
@@ -176,6 +183,10 @@
             <label style="color:#000;font-weight: 600;width: 25%;">Company</label>
             <label style="color:#000;font-weight: 600;width: 25%;">Work Topic</label>
             <label style="color:#000;font-weight: 600;width: 25%;">Work Description </label>
+          </div>
+
+          <div class="col-12" style="text-align: center;margin: 10px auto;" *ngIf="dashboard_projectdetails.length == 0">
+            <label style="color: #000;font-size: small;">No Records Mapped..</label>
           </div>
 
           <div class="col-12" *ngFor="let item of dashboard_projectdetails">
@@ -201,6 +212,10 @@
             <label for="" style="color:#000;font-weight: 600;width: 25%;">Category</label>
             <label for="" style="color:#000;font-weight: 600;width: 25%;">Skill</label>
             <label for="" style="color:#000;font-weight: 600;width: 25%;">Details</label>
+          </div>
+ 
+          <div class="col-12" style="text-align: center;margin: 10px auto;" *ngIf="dashboard_achievementdetails.length == 0">
+            <label style="color: #000;font-size: small;">No Records Mapped..</label>
           </div>
 
           <div class="col-12" *ngFor="let item of dashboard_achievementdetails">
@@ -228,11 +243,15 @@
             <label for="" style="color:#000;font-weight: 600;width: 25%;">To Year</label>
           </div>
 
-          <div class="col-12" *ngFor="let item of get_educationd_data">
-            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.coursename}}</label>
-            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.institutionname}}</label>
-            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.fromyear}}</label>
-            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.toyear}}</label>
+          <div class="col-12" style="text-align: center;margin: 10px auto;" *ngIf="dashboard_educationdetails.length == 0">
+            <label style="color: #000;font-size: small;">No Records Mapped..</label>
+          </div>
+
+          <div class="col-12" *ngFor="let item of dashboard_educationdetails">
+            <label style="color: #000;font-size: small;width: 25%;">{{item.coursename}}</label>
+            <label style="color: #000;font-size: small;width: 25%;">{{item.institutionname}}</label>
+            <label style="color: #000;font-size: small;width: 25%;">{{item.fromyear}}</label>
+            <label style="color: #000;font-size: small;width: 25%;">{{item.toyear}}</label>
           </div>
 
         </div>
@@ -249,16 +268,21 @@
 
           <div class="col-12">
             <label for="" style="color:#000;font-weight: 600;width: 25%;">Date</label>
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">Referred To</label>
+            <label for="" style="color:#000;font-weight: 600;width: 25%;">Refered To</label>
             <label for="" style="color:#000;font-weight: 600;width: 25%;">Response</label>
             <label for="" style="color:#000;font-weight: 600;width: 25%;">Remarks</label>
           </div>
 
+          <div class="col-12" style="text-align: center;margin: 10px auto;" *ngIf="dashboard_reffreq_details.length == 0">
+            <label style="color: #000;font-size: small;">No Records Mapped..</label>
+          </div>
+
           <div class="col-12" *ngFor="let item of dashboard_reffreq_details">
-            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.date |  date : 'dd-MM-yyyy'}}</label>
+            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.date | date : 'dd-MM-yyyy'}}</label>
             <label for="" style="color: #000;font-size: small;width: 25%;">{{item.reffered_to}}</label>
             <label for="" style="color: #000;font-size: small;width: 25%;">{{item.response}}</label>
-            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.referenceremarks}}</label>
+            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.referenceremarks
+            }}</label>
           </div>
 
         </div>
