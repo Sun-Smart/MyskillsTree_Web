@@ -124,12 +124,15 @@
                 *ngIf="((hidelist.indexOf('masterdatatypeid') == -1) && (masterdatatypeidvisible==undefined || masterdatatypeidvisible==true))"
                 style='' class="col-4"><label for="masterdatatypeid" class="control-label"
                   (click)="AddOrEdit_masterdatatypeid(null)">Master Datatype</label>
-                <select *ngIf="!showview" id="masterdatatypeid" (change)="masterdatatypeid_onChange($event.target)"
+                <!-- <select *ngIf="!showview " id="masterdatatypeid" (change)="masterdatatypeid_onChange($event.target)"
                   formControlName="masterdatatypeid" class="form-control">
-                  <option [ngValue]="null" selected>-Select-</option>
+                  <option>-Select-</option>
                   <option *ngFor="let item of masterdatatypeid_List" value="{{item.value}}">{{item.label}}</option>
-                </select>
-                <label *ngIf="showview" class="labelview">{{f.masterdatatypeiddesc?.value}}</label>
+                </select> -->
+
+                <input *ngIf="!showview" id="masterdatatypeid" formControlName="masterdatatypeid" class="form-control">
+
+                <!-- <label *ngIf="showview" class="labelview">{{f.masterdatatypeiddesc?.value}}</label> -->
               </div>
               <div
                 *ngIf="((hidelist.indexOf('masterdatacode') == -1) && (masterdatacodevisible==undefined || masterdatacodevisible==true))"

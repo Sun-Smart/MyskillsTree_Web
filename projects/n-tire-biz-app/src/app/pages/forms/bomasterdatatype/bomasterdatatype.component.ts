@@ -1,6 +1,6 @@
 import { bomasterdatatypeService } from './../../../service/bomasterdatatype.service';
 import { bomasterdatatype } from './../../../model/bomasterdatatype.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { ElementRef, Component, OnInit, Inject, Optional,Input, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -109,6 +109,8 @@ export class bomasterdatatypeComponent implements OnInit {
     Deleted_bomasterdata_IDs: string = "";
     bomasterdatas_ID: string = "1";
     bomasterdatas_selectedindex: any;
+    masterdatatypeid1: string;
+    mdata: any;
 
 
     constructor(
@@ -438,7 +440,9 @@ export class bomasterdatatypeComponent implements OnInit {
         if ((res.bomasterdatatype as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
         console.log(res);
         //console.log(res.order);
-        //console.log(res.orderDetails);
+        //console.log(res.orderDetails);.
+        this.mdata=res.bomasterdatatype.masterdataname
+       
         this.bomasterdatatype_Form.patchValue({
             datatypeid: res.bomasterdatatype.datatypeid,
             code: res.bomasterdatatype.code,
@@ -463,6 +467,7 @@ export class bomasterdatatypeComponent implements OnInit {
         //Child Tables if any
         this.Set_bomasterdatas_TableConfig();
         this.bomasterdatas_LoadTable(res.bomasterdatas);
+        
     }
 
     validate() {
@@ -614,6 +619,9 @@ export class bomasterdatatypeComponent implements OnInit {
     }
 
     AddOrEdit_bomasterdata(event: any, masterdataid: any, datatypeid: any) {
+        debugger
+        this.bomasterdata_service.boarray.push( this.mdata)
+        this.masterdatatypeid1 = localStorage.getItem("masterdataname")
         let add = false;
         if (event == null) add = true;
         let childsave = false;
@@ -811,11 +819,12 @@ export class bomasterdatatypeComponent implements OnInit {
     
     */
     bomasterdatas_route(event: any, action: any) {
+        
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
             addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
         }
-
+debugger
         switch (action) {
             case 'create':
                 this.AddOrEdit_bomasterdata(event, null, this.formid);
@@ -832,6 +841,9 @@ export class bomasterdatatypeComponent implements OnInit {
                 }
                 break;
         }
+    }
+    masterdataname(event: any, arg1: null, formid: any, masterdataname: any) {
+        throw new Error('Method not implemented.');
     }
     bomasterdatas_onDelete(obj) {
         let masterdataid = obj.data.masterdataid;
