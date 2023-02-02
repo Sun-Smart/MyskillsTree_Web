@@ -20,7 +20,7 @@ export type ChartOptions = {
 
     <ng-container *ngIf="isadmin">
    <div  id='contentAreanoscroll' style="overflow-y:">
-    <div class="second row" 
+    <div class="second row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <h1>Job Requirements</h1>
     </div>
@@ -41,7 +41,7 @@ export type ChartOptions = {
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="arrA" custommenuid="544"></ngx-reportviewer>
     </div>
-    
+
     </div>
     </ng-container>
 
@@ -100,18 +100,18 @@ export type ChartOptions = {
 
     <div  id='contentAreanoscroll' style="display:none;">
 
-    <div class="second row" 
+    <div class="second row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <h1>Job Requirements</h1>
     </div>
 
-    <div class="row" 
+    <div class="row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="jobqc" custommenuid="544"></ngx-reportviewer>
     </div>
- 
+
     <hr>
- 
+
     <div class="second row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <h1>Reference Requests</h1>
@@ -212,6 +212,9 @@ export class CorporateDashboardComponent implements OnInit {
 
     debugger
     this.coporate_id = this.sessionService.getItem("coporateid");
+
+    console.log("this.coporate_id", this.coporate_id);
+
 
     this.mstapplicantmaster_service.get_corporateDashboardAll_details(this.coporate_id).then((res: any) => {
       debugger

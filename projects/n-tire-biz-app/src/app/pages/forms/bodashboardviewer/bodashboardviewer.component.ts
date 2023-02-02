@@ -240,6 +240,9 @@ import { AnyCnameRecord } from 'dns';
       overflow-y: scroll !important;
       height: 630px !important;
     }
+    .mobileView{
+      word-break: break-word !important;
+    }
   }
   `],
   templateUrl: './bodashboardviewer.component.html',
@@ -619,7 +622,7 @@ export class BODashboardViewerComponent implements OnInit {
       this.dashboard_details.push(res);
 
       for(var i=0; i > this.dashboard_details.length; i++){
-        
+
       }
 
       this.dashboard_reffreq_details = this.dashboard_details[0].list_dashboardreff.value;

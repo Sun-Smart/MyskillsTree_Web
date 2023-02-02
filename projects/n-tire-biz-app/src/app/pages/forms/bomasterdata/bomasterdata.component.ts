@@ -102,13 +102,14 @@ export class bomasterdataComponent implements OnInit {
     sourceKey: any;
 
 
-    masterdatatypeid1:any;
+    masterdatatypeid1: any;
     bosubcategorymasters_visiblelist: any;
     bosubcategorymasters_hidelist: any;
 
     Deleted_bosubcategorymaster_IDs: string = "";
     bosubcategorymasters_ID: string = "1";
     bosubcategorymasters_selectedindex: any;
+    masterdatatypeid: any;
 
 
     constructor(
@@ -127,8 +128,8 @@ export class bomasterdataComponent implements OnInit {
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-debugger
-           
+        debugger
+
         this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
@@ -150,6 +151,7 @@ debugger
                 preventDefault: true
             }
         ]);
+        this.masterdatatypeid=[];
         this.bomasterdata_Form = this.fb.group({
             pk: [null],
             masterdataid: [null],
@@ -223,9 +225,17 @@ debugger
     // initialize
     async ngOnInit() {
         debugger
-        var xyz=this.bomasterdata_service.boarray
-        this.bomasterdata_Form.patchValue({masterdatatypeid:xyz[0]})
-        this.masterdatatypeid1 = localStorage.getItem("masterdataname")
+        
+        this.masterdatatypeid = this.bomasterdata_service.boarray
+        this.bomasterdata_Form.patchValue({ masterdatatypeid: this.masterdatatypeid[0] })
+        // this.masterdatatypeid="";
+        // this.masterdatatypeid = sessionStorage.getItem("masterdataname")
+
+        // let suma = localStorage.getItem("masterdataname")
+        // console.log(suma)
+        // this.masterdatatypeid1 = suma
+        console.log(this.masterdatatypeid)
+
         //session & theme
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
@@ -297,10 +307,7 @@ debugger
         }
         this.bomasterdata_service.getDefaultData().then(res => {
             this.masterdatatypeid_List = res.list_masterdatatypeid.value;
-           let suma= localStorage.getItem("masterdataname")
-          console.log(suma)
-          this.masterdatatypeid1=suma
-          console.log(this.masterdatatypeid1)
+
         }).catch((err) => { this.spinner.hide(); console.log(err); });
 
         //autocomplete
@@ -384,10 +391,10 @@ debugger
     }
 
 
-    goBack(){
-        
+    goBack() {
+
         this.router.navigate(['/home/boreportviewer/aj5qt']);
-        
+
     }
     onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.masterdatadescription != null) {
@@ -630,7 +637,7 @@ debugger
         this.dialog.open(bosubcategorymasterComponent,
             {
                 // data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, subcategoryid, masterdataid, visiblelist: this.bosubcategorymasters_visiblelist, hidelist: this.bosubcategorymasters_hidelist, ScreenType: 2 },
-                data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, subcategoryid, categoryid:masterdataid, visiblelist: this.bosubcategorymasters_visiblelist, hidelist: this.bosubcategorymasters_hidelist, ScreenType: 2 },
+                data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, subcategoryid, categoryid: masterdataid, visiblelist: this.bosubcategorymasters_visiblelist, hidelist: this.bosubcategorymasters_hidelist, ScreenType: 2 },
             }
         ).onClose.subscribe(res => {
             if (res) {

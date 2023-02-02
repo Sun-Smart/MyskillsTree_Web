@@ -111,6 +111,7 @@ export class bomasterdatatypeComponent implements OnInit {
     bomasterdatas_selectedindex: any;
     masterdatatypeid1: string;
     mdata: any;
+    boarray: any[];
 
 
     constructor(
@@ -284,7 +285,6 @@ export class bomasterdatatypeComponent implements OnInit {
         if (this.pkcol == null) {
             this.Set_bomasterdatas_TableConfig();
             setTimeout(() => {
-                //this.Set_bomasterdatas_TableDropDownConfig();
             });
 
             this.resetForm();
@@ -620,8 +620,9 @@ export class bomasterdatatypeComponent implements OnInit {
 
     AddOrEdit_bomasterdata(event: any, masterdataid: any, datatypeid: any) {
         debugger
-        this.bomasterdata_service.boarray.push( this.mdata)
-        this.masterdatatypeid1 = localStorage.getItem("masterdataname")
+        let getData = this.mdata;
+        this.bomasterdata_service.boarray = getData;
+        // this.masterdatatypeid1 = localStorage.getItem("masterdataname")
         let add = false;
         if (event == null) add = true;
         let childsave = false;
