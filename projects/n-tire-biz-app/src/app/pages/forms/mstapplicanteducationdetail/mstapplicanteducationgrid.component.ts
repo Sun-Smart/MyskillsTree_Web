@@ -300,7 +300,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 <div class="col-md-12">
   <label>Skills</label><br/>
   <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
-                    (completeMethod)="search_skills($event)"></p-autoComplete>
+                    (completeMethod)="search_skills($event)"></p-autoComplete><br/>
+                    <label style="color:blue;font-size: 9px;"> (Optional)</label>
 <!-- <select  id="skill" required (change)="skill_onchange($event.target)" formControlName="skill"
                     class="form-control">
                       <option [ngValue]="null" selected>-Select-</option>
