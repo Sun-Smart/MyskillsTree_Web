@@ -130,7 +130,7 @@
                   <option *ngFor="let item of masterdatatypeid_List" value="{{item.value}}">{{item.label}}</option>
                 </select> -->
 
-                <input *ngIf="!showview" id="masterdatatypeid" formControlName="masterdatatypeid" class="form-control">
+                <input *ngIf="!showview" id="masterdatatypeid" [(ngModel)]="masterdatatypeid" formControlName="masterdatatypeid" class="form-control">
 
                 <!-- <label *ngIf="showview" class="labelview">{{f.masterdatatypeiddesc?.value}}</label> -->
               </div>
