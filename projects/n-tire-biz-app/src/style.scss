@@ -640,9 +640,12 @@ ng2-smart-table table > tbody > tr > td {
 }
 */
 /* headers grid color*/
-ng2-smart-table thead>tr>th {
+ng2-smart-table {
   //border: 1px solid lightgrey!important ;
-  text-align: center;
+  text-align: left;
+}
+ng2-smart-table thead>tr>th {
+  text-align: left ;
 }
 
 /*font size*/

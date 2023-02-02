@@ -45,6 +45,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
 //custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { read } from 'fs';
 
 @Component({
     selector: 'app-bomasterdata',
@@ -151,7 +152,6 @@ export class bomasterdataComponent implements OnInit {
                 preventDefault: true
             }
         ]);
-        this.masterdatatypeid=[];
         this.bomasterdata_Form = this.fb.group({
             pk: [null],
             masterdataid: [null],
@@ -234,7 +234,7 @@ export class bomasterdataComponent implements OnInit {
         // let suma = localStorage.getItem("masterdataname")
         // console.log(suma)
         // this.masterdatatypeid1 = suma
-        console.log(this.masterdatatypeid)
+        // console.log(this.masterdatatypeid)
 
         //session & theme
         this.themeService.theme.subscribe((val: string) => {
@@ -543,6 +543,7 @@ export class bomasterdataComponent implements OnInit {
 
     async onSubmitData(bclear: any) {
         debugger;
+        console.log("Hello")
         this.isSubmitted = true;
         let strError = "";
         // Object.keys(this.bomasterdata_Form.controls).forEach(key => {
