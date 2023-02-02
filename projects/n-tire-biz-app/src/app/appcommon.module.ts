@@ -173,6 +173,7 @@ import { CertifierComponent } from './pages/certifier/certifier.component';
 import { RegisterUserComponent } from './pages/register-user/register-user.component';
 import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -398,6 +399,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         NgxBarcodeModule,
         QueryBuilderModule,
         NgApexchartsModule,
+        NgxDatatableModule,
         CalendarAGModule.forRoot({
             provide: DateAdapter,
             useFactory: adapterFactory
