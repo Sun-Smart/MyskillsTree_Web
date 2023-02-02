@@ -542,7 +542,7 @@ export class bomasterdatatypeComponent implements OnInit {
         //         });
         //     }
         // });
-        if (strError != "") return this.sharedService.alert(strError);
+        if (strError = "") return this.sharedService.alert(strError);
 
 
         if (!this.bomasterdatatype_Form.valid) {

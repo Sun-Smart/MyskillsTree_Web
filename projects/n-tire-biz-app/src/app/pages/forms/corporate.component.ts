@@ -47,8 +47,8 @@ export type ChartOptions = {
 
     <ng-container *ngIf="!isadmin">
 
-    <div class="row" style="margin-top: 6rem !important;">
-    <div class="col-6">
+    <div class="row" style="margin-top: 2rem;">
+    <div class="col-12 col-sm-12 col-xs-12 mobile_view">
     <div id="chart" style="width: 100%;border: 1px solid #e7dcdc;box-shadow: 0px 0px 1px 0px #b7b7b7;">
     <apx-chart
       [series]="chartOptions.series"
@@ -66,26 +66,13 @@ export type ChartOptions = {
   </div>
     </div>
 
-    <div class="col-6">
-
-    <div  style="display:none;">
-    <ngx-datatable
-    class="bootsrap" 
-    [columns]="columns"
-    [rows]="tabledata | async" 
-    [headerHeight]="50"
-    [rowHeight]="50"
-    [columnMode]="'force'"
-    [headerHeight]="50"
-    [footerHeight]="50"
-    [scrollbarV]="true"
-    [scrollbarH]="true"
-    [limit]="10">
-    </ngx-datatable>
-    </div>
-
-    <div>
-    <table class="table table-bordered" style = "margin: 0;">
+    <div class="col-6 col-sm-12 col-xs-12 mobile_view">
+<div style="display:none;">
+    <ngx-datatable tableClass="table table-striped table-bordered table-hover" [tableId]="'basic'" [data]="data" [options]="options"
+    [columns]="columns">
+  </ngx-datatable>
+  </div>
+    <table class="table table-bordered" >
     <thead>
     <tr>
     <th>S.No</th>
@@ -139,7 +126,25 @@ export type ChartOptions = {
 
     </div>
     </ng-container>
-    `
+    `,
+    styles:[`
+    @media only screen and (max-width: 600px) {
+    div#apexchartsql0rl9sui{
+      width: 100% !important;
+    }
+    table.table.table-bordered{
+      display: block!important;
+      height: 300px!important;
+      overflow: scroll!important;
+      margin-top: 10px !important;
+      max-width: fit-content !important;
+      width: 320px !important;
+    }
+    .mobile_view{
+      height: 350px !important;
+    }
+    }
+    `]
 })
 export class CorporateDashboardComponent implements OnInit {
   username: any;

@@ -49,7 +49,12 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
 @Component({
     selector: 'app-bocountry',
     templateUrl: './bocountry.component.html',
-    styles: [],
+    styles: [`
+
+    .ng-star-inserted{
+        text-align:center !important;
+    }
+    `],
     providers: [KeyboardShortcutsService]
 })
 
@@ -81,7 +86,7 @@ export class bocountryComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-    applicantid:any;
+    applicantid: any;
     bfilterPopulate_bocountries: boolean = false;
     bfilterPopulate_bostates: boolean = false;
     bocountry_menuactions: any = []
@@ -363,10 +368,10 @@ export class bocountryComponent implements OnInit {
     onClose() {
         this.dialogRef.close(this.objvalues);
     }
-    goBack(){
-        
+    goBack() {
+
         this.router.navigate(['/home/boreportviewer/wc9rn']);
-        
+
     }
     onSubmitAndWait() {
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.name != null) {
@@ -596,17 +601,17 @@ export class bocountryComponent implements OnInit {
     //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, stateid, countryid, visiblelist: this.bostates_visiblelist, hidelist: this.bostates_hidelist, ScreenType: 2 },
     //         }
 
-    AddOrEdit_bostate(event:any,stateid:any,countryid:any) {
-      let add = false;
-      if (event == null) add = true;
-      let childsave = true;
-      if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-      this.dialog.open(bostateComponent,
-        {
-           width: "90% !important",
+    AddOrEdit_bostate(event: any, stateid: any, countryid: any) {
+        let add = false;
+        if (event == null) add = true;
+        let childsave = true;
+        if (this.pkcol != undefined && this.pkcol != null) childsave = true;
+        this.dialog.open(bostateComponent,
+            {
+                width: "90% !important",
 
-          data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, stateid, countryid, visiblelist: this.bostates_visiblelist, hidelist: this.bostates_hidelist, ScreenType: 2 },
-        }
+                data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, stateid, countryid, visiblelist: this.bostates_visiblelist, hidelist: this.bostates_hidelist, ScreenType: 2 },
+            }
 
 
         ).onClose.subscribe(res => {
@@ -678,7 +683,8 @@ export class bocountryComponent implements OnInit {
             mode: 'external',
             selectMode: 'single',
             actions: {
-                columnTitle: '',
+
+                columnTitle: 'Action',
                 width: '300px',
                 add: !this.showview,
                 edit: true, // true,
@@ -703,6 +709,7 @@ export class bocountryComponent implements OnInit {
                 confirmDelete: false,
             },
             columns: {
+
                 code: {
                     title: 'Code',
                     type: '',
@@ -762,7 +769,7 @@ export class bocountryComponent implements OnInit {
 
     */
     bostates_route(event: any, action: any) {
-      debugger
+        debugger
         // var addparam = "";
         // if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
         //     addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
@@ -770,7 +777,7 @@ export class bocountryComponent implements OnInit {
 
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
-          addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
+            addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
         }
 
         switch (action) {
