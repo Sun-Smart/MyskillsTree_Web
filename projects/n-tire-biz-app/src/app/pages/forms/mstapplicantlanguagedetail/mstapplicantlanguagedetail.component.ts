@@ -122,6 +122,7 @@ export class mstapplicantlanguagedetailComponent implements OnInit {
 
     sessionData: any;
     sourceKey: any;
+  showAttachment: boolean=false;
 
 
 
@@ -237,6 +238,11 @@ export class mstapplicantlanguagedetailComponent implements OnInit {
 
     // initialize
     async ngOnInit() {
+      if((localStorage.getItem('role') == '1')  || (localStorage.getItem('role') == '3')){
+        this.showAttachment = true;
+      }else {
+        this.showAttachment = false;
+      }
         //session & theme
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;

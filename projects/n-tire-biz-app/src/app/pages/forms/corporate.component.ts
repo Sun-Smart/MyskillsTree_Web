@@ -47,8 +47,8 @@ export type ChartOptions = {
 
     <ng-container *ngIf="!isadmin">
 
-    <div class="row">
-    <div class="col-12" style="">
+    <div class="row" style="margin-top: 2rem;">
+    <div class="col-12 col-sm-12 col-xs-12 mobile_view">
     <div id="chart" style="width: 100%;border: 1px solid #e7dcdc;box-shadow: 0px 0px 1px 0px #b7b7b7;">
     <apx-chart
       [series]="chartOptions.series"
@@ -65,7 +65,36 @@ export type ChartOptions = {
     ></apx-chart>
   </div>
     </div>
-    <div class="col-12"></div>
+
+    <div class="col-6 col-sm-12 col-xs-12 mobile_view">
+<div style="display:none;">
+    <ngx-datatable tableClass="table table-striped table-bordered table-hover" [tableId]="'basic'" [data]="data" [options]="options"
+    [columns]="columns">
+  </ngx-datatable>
+  </div>
+    <table class="table table-bordered" >
+    <thead>
+    <tr>
+    <th>S.No</th>
+    <th>Job Name</th>
+    <th>No Of Position</th>
+    <th>No Of Intrested</th>
+    <th>No Of Rejected</th>
+    <th>No Of Pending</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let item of job_detailsData; let i = index">
+    <tr>
+    <td>{{i+1}}</td>
+    <td>{{item.jobdesc_label}}</td>
+    <td>{{item.no_of_position}}</td>
+    <td>{{item.no_of_intrested}}</td>
+    <td>{{item.no_of_notIntrested}}</td>
+    <td>{{item.no_of_intrestPending}}</td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
     </div>
 
 
@@ -95,7 +124,25 @@ export type ChartOptions = {
 
     </div>
     </ng-container>
-    `
+    `,
+    styles:[`
+    @media only screen and (max-width: 600px) {
+    div#apexchartsql0rl9sui{
+      width: 100% !important;
+    }
+    table.table.table-bordered{
+      display: block!important;
+      height: 300px!important;
+      overflow: scroll!important;
+      margin-top: 10px !important;
+      max-width: fit-content !important;
+      width: 320px !important;
+    }
+    .mobile_view{
+      height: 350px !important;
+    }
+    }
+    `]
 })
 export class CorporateDashboardComponent implements OnInit {
   username: any;
@@ -107,10 +154,16 @@ export class CorporateDashboardComponent implements OnInit {
   menuvisible: boolean = true;
 
   @ViewChild("chart") chart: any;
+
+  options = {}
+  data = [];
+  columns: any = {};
+
   chartOptions: any
   pkcorporateid: any;
   coporate_id: any;
   jobData: any = [];
+  index = 1;
   job_detailsData: any = [];
   jobdesc_label: any = [];
 
@@ -121,6 +174,8 @@ export class CorporateDashboardComponent implements OnInit {
   no_of_intrested: any = [];
   no_of_notIntrested: any = [];
   no_of_intrestPending: any = [];
+
+  labelList_data: any = []
 
   constructor(private sessionService: SessionService,
     private mstapplicantmaster_service: mstapplicantmasterService,
@@ -151,6 +206,15 @@ export class CorporateDashboardComponent implements OnInit {
 
     this.get_coporateid();
     this.corporate_dashboard();
+
+    this.columns = [
+      { key: 'id', title: "ID" },
+      { key: 'name', title: 'Name' },
+      { key: 'phone', title: 'Phone' },
+      { key: 'company', title: 'Company' },
+      { key: 'date', title: 'Date' },
+      { key: 'phone', title: 'Phone' },
+    ]
   };
 
   get_coporateid() {
@@ -162,6 +226,8 @@ export class CorporateDashboardComponent implements OnInit {
   }
 
   corporate_dashboard() {
+
+
     debugger
     this.coporate_id = this.sessionService.getItem("coporateid");
 
@@ -175,12 +241,11 @@ export class CorporateDashboardComponent implements OnInit {
 
       console.log("this.jobData", this.jobData);
 
-      // i got 72 data from => console.log("this.jobData", this.jobData);
-
       for (var i = 0; i < this.jobData.length; i++) {
 
         this.job_detailsData.push({
           jobdesc_label: this.jobData[i].jobdescription,
+          no_of_position: this.jobData[i].numberofpositions,
           no_of_intrested: this.jobData[i].numofintrested,
           no_of_notIntrested: this.jobData[i].numofnotintrested,
           no_of_intrestPending: this.jobData[i].numofintrestpending,
@@ -200,7 +265,6 @@ export class CorporateDashboardComponent implements OnInit {
         this.no_of_pending.push(this.jobData[i].numberofpending);
       };
 
-      // i Push the data what i need to bind to charts
 
       this.jobdesc_label.splice(6);
       this.no_of_selected.splice(6);
@@ -214,25 +278,22 @@ export class CorporateDashboardComponent implements OnInit {
       console.log("no_of_rejected", this.no_of_rejected);
       console.log("no_of_pending", this.no_of_pending);
 
+      this.labelList_data = ['testing new', 'DevelpmentFirst', 'Angular1', 'C###', 'Admining', 'finance']
 
-      // but i couldn't get any data from that
 
       this.chartOptions = {
         series: [
           {
             name: "Selected",
-            // data: [this.no_of_selected]
-            data: [44, 55, 57, 56, 61, 58]
+            data: this.no_of_selected
           },
           {
             name: "Rejected",
-            // data: [this.no_of_rejected]
-            data: [76, 85, 101, 98, 87, 105]
+            data: this.no_of_rejected
           },
           {
             name: "Pending",
-            // data: [this.no_of_pending]
-            data: [35, 41, 36, 26, 45, 48]
+            data: this.no_of_pending
           }
         ],
         chart: {
@@ -256,8 +317,7 @@ export class CorporateDashboardComponent implements OnInit {
           colors: ["transparent"]
         },
         xaxis: {
-          categories: [this.jobdesc_label]
-          // categories: ['testing new', 'DevelpmentFirst', 'Angular1', 'C###', 'Admining', 'finance']
+          categories: this.jobdesc_label
         },
         yaxis: {
           title: {
@@ -275,6 +335,7 @@ export class CorporateDashboardComponent implements OnInit {
           }
         }
       };
+
     })
   }
 }

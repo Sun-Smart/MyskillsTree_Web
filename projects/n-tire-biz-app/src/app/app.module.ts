@@ -96,7 +96,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { NgxSpinnerModule } from "ngx-spinner";
 
-import {AutoCompleteModule} from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ApplicantregisterComponent } from './pages/forms/applicantregister/applicantregister.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SkillenhancerComponent } from './pages/skillenhancer/skillenhancer.component';
@@ -104,6 +104,7 @@ import { CertifierComponent } from './pages/certifier/certifier.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -168,6 +169,7 @@ export function tokenGetter() {
         UserIdleModule.forRoot({ idle: 6000, timeout: 3000, ping: 1200 }),
         Ng2SearchPipeModule,
         NgApexchartsModule,
+        NgxDatatableModule,
 
         //WebcamModule,
         JwtModule.forRoot({

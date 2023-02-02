@@ -1007,7 +1007,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantlanguagedetails");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantlanguagedetails") {
-    
+
       let add = false;
       if (event == null) add = true;
       let childsave = true;
