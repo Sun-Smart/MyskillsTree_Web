@@ -16,8 +16,6 @@ export type ChartOptions = {
 @Component({
   selector: 'app-corporate',
   template: `
-
-
     <ng-container *ngIf="isadmin">
    <div  id='contentAreanoscroll' style="overflow-y:">
     <div class="second row"
@@ -47,7 +45,7 @@ export type ChartOptions = {
 
     <ng-container *ngIf="!isadmin">
 
-    <div class="row" style="margin-top: 2rem;">
+    <div class="row" style="margin-top: 5rem !important;">
     <div class="col-12 col-sm-12 col-xs-12 mobile_view">
     <div id="chart" style="width: 100%;border: 1px solid #e7dcdc;box-shadow: 0px 0px 1px 0px #b7b7b7;">
     <apx-chart
@@ -96,7 +94,7 @@ export type ChartOptions = {
     </table>
     </div>
 
-    </div>
+    
     </div>
 
 
@@ -127,7 +125,7 @@ export type ChartOptions = {
     </div>
     </ng-container>
     `,
-    styles:[`
+  styles: [`
     @media only screen and (max-width: 600px) {
     div#apexchartsql0rl9sui{
       width: 100% !important;
@@ -261,7 +259,7 @@ export class CorporateDashboardComponent implements OnInit {
       };
 
 
-  
+
 
       console.log("job_detailsData", this.job_detailsData);
 

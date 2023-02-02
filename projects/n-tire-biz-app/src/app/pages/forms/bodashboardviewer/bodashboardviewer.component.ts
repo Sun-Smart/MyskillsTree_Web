@@ -675,7 +675,6 @@ export class BODashboardViewerComponent implements OnInit {
   }
   // suneel2
   showmyProfile() {
-    ;
     var showmyproid = "showMyPro";
     localStorage.setItem('showprofile', showmyproid);
     this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')]);

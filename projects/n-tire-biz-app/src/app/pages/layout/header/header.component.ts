@@ -76,7 +76,7 @@ export class HeaderComponent implements OnInit {
   usersource: any;
   showmobilenumber: boolean;
   isrelease: boolean;
-  pkcorporateid : any;
+  pkcorporateid: any;
 
 
   constructor(
@@ -92,7 +92,7 @@ export class HeaderComponent implements OnInit {
     private sharedService: SharedService,
     private bousermasterservice: bousermasterService,
     private toastService: ToastService,
-    private pageroute: Router,private mstcorporatemasterservice: mstcorporatemasterService
+    private pageroute: Router, private mstcorporatemasterservice: mstcorporatemasterService
   ) {
     //debugger;
     this.displayNotifications = false;
@@ -557,18 +557,25 @@ export class HeaderComponent implements OnInit {
       debugger;
       this.pkcorporateid = res[0].pkcol;
       this.router.navigate(['/home/mstcorporatemasters/mstcorporatemasters/edit/' + this.pkcorporateid])
-  });
+    });
 
   };
 
   dashboard() {
     debugger;
-    if (this.sessionService.getItem('role') == '1') {
+    if (this.sessionService.getItem('role') == '2') {
       this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("usersource")]);
     }
     else {
       this.router.navigate(['/home/corporatedashboard']);
     }
+  }
+
+  showmyProfile() {
+    debugger
+    var showmyproid = "showMyPro";
+    localStorage.setItem('showprofile', showmyproid);
+    this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')]);
   }
 
   releasemethod(e: any) {
@@ -592,4 +599,5 @@ export class HeaderComponent implements OnInit {
 
     })
   }
+
 }
