@@ -120,6 +120,7 @@ export class mstapplicantgeographypreferenceComponent implements OnInit {
     sessionData: any;
     sourceKey: any;
     cityList: bocity[];
+    showAttachment: boolean = false;
 
 
 
@@ -235,6 +236,11 @@ export class mstapplicantgeographypreferenceComponent implements OnInit {
 
     // initialize
     async ngOnInit() {
+      if((localStorage.getItem('role') == '1')  || (localStorage.getItem('role') == '3')){
+        this.showAttachment = true;
+      }else {
+        this.showAttachment = false;
+      }
         //session & theme
         debugger
         this.themeService.theme.subscribe((val: string) => {
