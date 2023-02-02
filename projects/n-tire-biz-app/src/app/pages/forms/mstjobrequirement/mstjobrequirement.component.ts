@@ -131,7 +131,7 @@ export class mstjobrequirementComponent implements OnInit {
     sessionData: any;
     sourceKey: any;
 
-    userrole:any;
+    userrole: any;
     showApplicantmenu: boolean = false;
     showAdminMenuaccess: boolean = false;
     showCorporateMenuaccess: boolean = false;
@@ -271,23 +271,23 @@ export class mstjobrequirementComponent implements OnInit {
 
     // initialize
     async ngOnInit() {
-debugger
+        debugger
         if (this.sessionService.getItem('role') == '1') {
             this.userrole = 'Admin';
             this.showAdminMenuaccess = true;
             this.showApplicantmenu = false;
             this.showCorporateMenuaccess = false;
-          } else if (this.sessionService.getItem('role') == '2') {
+        } else if (this.sessionService.getItem('role') == '2') {
             this.userrole = 'Applicant';
             this.showApplicantmenu = true;
             this.showAdminMenuaccess = false;
             this.showCorporateMenuaccess = false;
-          } else if (this.sessionService.getItem('role') == '3') {
+        } else if (this.sessionService.getItem('role') == '3') {
             this.userrole = 'Corporate';
             this.showCorporateMenuaccess = true;
             this.showApplicantmenu = false;
             this.showAdminMenuaccess = false;
-          }
+        }
 
         //session & theme
         this.themeService.theme.subscribe((val: string) => {
@@ -375,9 +375,9 @@ debugger
             this.pkoptionsEvent.emit(this.pkList);
 
             this.showedu = res.mstjobrequirement.educationdesc,
-            this.showlan = res.mstjobrequirement.languagedesc,
-            this.showloc = res.mstjobrequirement.locationdesc,
-            this.showskill = res.mstjobrequirement.skilldesc
+                this.showlan = res.mstjobrequirement.languagedesc,
+                this.showloc = res.mstjobrequirement.locationdesc,
+                this.showskill = res.mstjobrequirement.skilldesc
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
         //setting the flag that the screen is not touched
@@ -472,7 +472,7 @@ debugger
     onClose() {
         this.dialogRef.close(this.objvalues);
     }
-    goBack(){
+    goBack() {
 
         this.router.navigate(['/home/boreportviewer/jobq']);
 
@@ -553,7 +553,7 @@ debugger
         this.spinner.show();
         this.mstjobrequirement_service.get_mstjobrequirements_ByEID(pkcol).then(res => {
             this.spinner.hide();
-debugger
+            debugger
             this.formData = res.mstjobrequirement;
             let formproperty = res.mstjobrequirement.formproperty;
             if (formproperty && formproperty.edit == false) this.showview = true;
@@ -582,7 +582,7 @@ debugger
         console.log('res ', res.mstjobrequirement.skilldesc);
         // //console.log(res.order);
         // console.log('res.mstjobrequirement ', res.mstjobrequirement);
-debugger
+        debugger
         this.mstjobrequirement_Form.patchValue({
             jobid: res.mstjobrequirement.jobid,
             corporateid: res.mstjobrequirement.corporateid,
@@ -889,11 +889,13 @@ debugger
     }
 
     AddOrEdit_mstjobstatus(event: any, viewid: any, jobid: any) {
+        debugger;
         let add = false;
         if (event == null) add = true;
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(mstjobstatusComponent,
+            
             {
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, viewid, jobid, visiblelist: this.mstjobstatuses_visiblelist, hidelist: this.mstjobstatuses_hidelist, ScreenType: 2 },
             }
@@ -1133,6 +1135,7 @@ debugger
 
     */
     mstjobstatuses_route(event: any, action: any) {
+        debugger;
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
             addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');

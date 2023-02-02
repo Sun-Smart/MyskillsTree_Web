@@ -566,8 +566,8 @@ export class HeaderComponent implements OnInit {
     if (this.sessionService.getItem('role') == '1') {
       this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("usersource")]);
     }
-    else if (this.sessionService.getItem('role') == '3') {
-      this.router.navigate(['/home/corporatedashboard' + this.sessionService.getItem("usersource")]);
+    else {
+      this.router.navigate(['/home/corporatedashboard']);
     }
   }
 

@@ -47,7 +47,7 @@ export type ChartOptions = {
 
     <ng-container *ngIf="!isadmin">
 
-    <div class="row" style="margin-top: 2rem;">
+    <div class="row" style="margin-top: 6rem !important;">
     <div class="col-6">
     <div id="chart" style="width: 100%;border: 1px solid #e7dcdc;box-shadow: 0px 0px 1px 0px #b7b7b7;">
     <apx-chart
@@ -67,12 +67,25 @@ export type ChartOptions = {
     </div>
 
     <div class="col-6">
-<div style="display:none;">
-    <ngx-datatable tableClass="table table-striped table-bordered table-hover" [tableId]="'basic'" [data]="data" [options]="options"
-    [columns]="columns">
-  </ngx-datatable>
-  </div>
-    <table class="table table-bordered" >
+
+    <div  style="display:none;">
+    <ngx-datatable
+    class="bootsrap" 
+    [columns]="columns"
+    [rows]="tabledata | async" 
+    [headerHeight]="50"
+    [rowHeight]="50"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [scrollbarV]="true"
+    [scrollbarH]="true"
+    [limit]="10">
+    </ngx-datatable>
+    </div>
+
+    <div>
+    <table class="table table-bordered" style = "margin: 0;">
     <thead>
     <tr>
     <th>S.No</th>
@@ -94,6 +107,8 @@ export type ChartOptions = {
     </tr>
     </tbody>
     </table>
+    </div>
+
     </div>
     </div>
 
@@ -139,7 +154,7 @@ export class CorporateDashboardComponent implements OnInit {
 
   options = {}
   data = [];
-  columns: any = {};
+  columns: any = [];
 
   chartOptions: any
   pkcorporateid: any;
@@ -157,7 +172,7 @@ export class CorporateDashboardComponent implements OnInit {
   no_of_notIntrested: any = [];
   no_of_intrestPending: any = [];
 
-  labelList_data: any = []
+  tabledata: any = []
 
   constructor(private sessionService: SessionService,
     private mstapplicantmaster_service: mstapplicantmasterService,
@@ -189,14 +204,7 @@ export class CorporateDashboardComponent implements OnInit {
     this.get_coporateid();
     this.corporate_dashboard();
 
-    this.columns = [
-      { key: 'id', title: "ID" },
-      { key: 'name', title: 'Name' },
-      { key: 'phone', title: 'Phone' },
-      { key: 'company', title: 'Company' },
-      { key: 'date', title: 'Date' },
-      { key: 'phone', title: 'Phone' },
-    ]
+
   };
 
   get_coporateid() {
@@ -248,10 +256,7 @@ export class CorporateDashboardComponent implements OnInit {
       };
 
 
-      this.jobdesc_label.splice(6);
-      this.no_of_selected.splice(6);
-      this.no_of_rejected.splice(6);
-      this.no_of_pending.splice(6);
+  
 
       console.log("job_detailsData", this.job_detailsData);
 
@@ -259,8 +264,6 @@ export class CorporateDashboardComponent implements OnInit {
       console.log("no_of_selected", this.no_of_selected);
       console.log("no_of_rejected", this.no_of_rejected);
       console.log("no_of_pending", this.no_of_pending);
-
-      this.labelList_data = ['testing new', 'DevelpmentFirst', 'Angular1', 'C###', 'Admining', 'finance']
 
 
       this.chartOptions = {
@@ -319,5 +322,14 @@ export class CorporateDashboardComponent implements OnInit {
       };
 
     })
+
+    this.columns = [
+      { prop: 'jobdesc_label', name: 'Job Name' },
+      { prop: 'no_of_position', name: 'No Of Position' },
+      { prop: 'no_of_intrested', name: 'No Of Intrested' },
+      { prop: 'no_of_notIntrested', name: 'No Of Not Intrested' },
+      { prop: 'no_of_intrestPending', name: 'No Of Intrested Pending' }
+    ];
+    this.tabledata = this.job_detailsData;
   }
 }

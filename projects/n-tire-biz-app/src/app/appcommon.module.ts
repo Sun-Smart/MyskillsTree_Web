@@ -400,6 +400,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         QueryBuilderModule,
         NgApexchartsModule,
         NgxDatatableModule,
+        TranslateModule,
+
         CalendarAGModule.forRoot({
             provide: DateAdapter,
             useFactory: adapterFactory

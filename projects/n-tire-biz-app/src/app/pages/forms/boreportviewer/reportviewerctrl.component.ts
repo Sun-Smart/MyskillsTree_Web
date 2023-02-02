@@ -1972,11 +1972,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                         }
                     }
 
-            }
-
-
-
-            //////////debugger;
+            };
             console.log(this.menuactions);
 
 
@@ -2274,7 +2270,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         debugger
         alert("hi")
     }
-    onChangeAction(val) {
+    onChangeAction(val:any) {
         debugger;
         if (val == "") return;
         if (this.menuactions != null) {

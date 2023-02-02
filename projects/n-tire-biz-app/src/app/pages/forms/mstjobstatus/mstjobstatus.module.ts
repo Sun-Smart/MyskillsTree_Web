@@ -3,13 +3,15 @@ import { NgCommonModule } from '../../../../../../n-tire-biz-app/src/app/appcomm
 import { boreportviewerModule } from '../../../../../../n-tire-biz-app/src/app/pages/forms/boreportviewer/boreportviewer.module';
 import { routing } from './mstjobstatus.routing';
 import { mstjobstatusComponent } from './mstjobstatus.component';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   exports: [
     NgCommonModule
   ],
   imports: [boreportviewerModule,
     routing,
-    NgCommonModule
+    NgCommonModule,
+    TranslateModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [mstjobstatusComponent]

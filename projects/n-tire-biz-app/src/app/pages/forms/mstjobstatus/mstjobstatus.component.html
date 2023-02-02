@@ -1,11 +1,15 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstjobstatus_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <div class="row second">
-    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Job Statuses' | translate}}</a></h1>
-    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
+  <div class="row">
+
+    <div class="col-4">
+      <h1 class="columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Job Statuses'}}</a></h1>
+    </div>
+
+    <div class='col-4  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
-      <div class='col'></div>
+
       <div class='dropdown d-inline-block btn-dropdown show'>
 
         <ul class='nav nav-pills  input-group'>
@@ -58,23 +62,34 @@
             <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
-          <li class='nav-item actionheader' *ngIf="!showview">
-            <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
-              Submit</a>
-            <a class="alert-primary popup-add-button mobileshowview" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
-            <app-action *ngIf="f.viewid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
-              [value]="f.viewid.value" [status]="f.status.value"></app-action>
-          </li>
-          <li class='nav-item actionheader'
-            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger popup-add-button" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-          </li>
-
         </ul>
       </div>
     </div>
+
+    <div class="col-4">
+      <ul>
+        <li class='nav-item actionheader' *ngIf="!showview">
+          <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i
+              class="fa fa-database"></i>
+            Submit</a>
+          <a class="alert-primary popup-add-button mobileshowview" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            [routerLink]='' (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+          <app-action *ngIf="f.viewid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
+            [value]="f.viewid.value" [status]="f.status.value"></app-action>
+        </li>
+        <li class='nav-item actionheader'
+          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+          <a class="alert-danger popup-add-button" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i>
+            Close</a>
+        </li>
+
+      </ul>
+    </div>
+
   </div>
+
+
+
   <div class="container"
     id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
     <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
@@ -130,8 +145,7 @@
         <div class="columnchk">
           <label for="intereststatus" class="control-label">Interest Status</label>
           <label *ngIf="showview" class="labelview">{{f.intereststatus?.value}}</label>
-          <input type="checkbox" *ngIf="!showview" id="intereststatus" formControlName="intereststatus"
-            class="">
+          <input type="checkbox" *ngIf="!showview" id="intereststatus" formControlName="intereststatus" class="">
         </div>
       </div>
     </div>
@@ -160,7 +174,8 @@
 
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('jobid') == -1) && (jobidvisible==undefined || jobidvisible==true))" style=''
-        class="col-3 applicantfield"><label for="jobid" class="control-label" (click)="AddOrEdit_jobid(null)">Job</label>
+        class="col-3 applicantfield"><label for="jobid" class="control-label"
+          (click)="AddOrEdit_jobid(null)">Job</label>
         <input readonly id="jobiddesc" formControlName="jobiddesc" class="form-control">
         <label *ngIf="showview" class="labelview">{{f.jobiddesc?.value}}</label>
       </div>
@@ -170,8 +185,7 @@
         <div class="columnchk">
           <label for="hiringstatus" class="control-label">Hiring Status</label>
           <label *ngIf="showview" class="labelview">{{f.hiringstatus?.value}}</label>
-          <input type="checkbox" *ngIf="!showview" id="hiringstatus" formControlName="hiringstatus"
-            class="">
+          <input type="checkbox" *ngIf="!showview" id="hiringstatus" formControlName="hiringstatus" class="">
         </div>
       </div>
       <div *ngIf="((hidelist.indexOf('ctcoffered') == -1) && (ctcofferedvisible==undefined || ctcofferedvisible==true))"
