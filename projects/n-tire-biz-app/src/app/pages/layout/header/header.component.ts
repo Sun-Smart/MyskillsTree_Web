@@ -456,7 +456,8 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(mstapplicantgeographygrid,
       {
         width: '100% !important',
-        height: '250px !important',
+        height: '250px',
+      contentStyle: 'mobileView',
         data: { ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {
@@ -477,7 +478,7 @@ export class HeaderComponent implements OnInit {
   showcareer() {
     this.dialog.open(mstapplicantcareergridComponent, {
       width: '100% !important',
-      height: '350px !important',
+      height: '350px',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -507,7 +508,7 @@ export class HeaderComponent implements OnInit {
   showAchievement() {
     this.dialog.open(mstapplicantachivementgridComponent, {
       width: '100% !important',
-      height: '350px !important',
+      height: '350px',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
