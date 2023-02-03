@@ -2885,16 +2885,11 @@ p-dynamicdialog {
 
 }*/
 #contentAreaLayout {
-  // position: absolute;
-  // top: 49px;
+  position: absolute;
+  top: 49px;
   height: 100% !important;
   width: 100% !important;
   max-width: 100% !important;
-  margin: 47px 0 !important;
-  /* bottom: 0px; */
-  /* overflow-x: auto !important;
- overflow-y: auto !important;*/
-  //padding:20px!important;
 }
 
 p-dynamicdialog,
@@ -3968,4 +3963,14 @@ footer {
     left: 50px !important;
     top: 0% !important;
   }
+}
+.releaseBtn{
+  background-color: aliceblue !important;
+    border-radius: 5px !important;
+    color: #000 !important;
+}
+.releaseBtn:hover{
+  background-color: rgb(25, 133, 228) !important;
+    border-radius: 5px !important;
+    color: #fff !important;
 }

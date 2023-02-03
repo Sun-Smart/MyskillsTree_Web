@@ -54,6 +54,11 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
     selector: 'app-mstjobrequirement',
     templateUrl: './mstjobrequirement.component.html',
     styles: [`
+
+    ng2-smart-table-title a{
+        font-size:13px;
+    }
+
     @media only screen and (max-width: 600px) {
       .education_view_mobile{
           min-width: 100% !important;
@@ -986,7 +991,7 @@ export class mstjobrequirementComponent implements OnInit {
             mode: 'external',
             selectMode: 'single',
             actions: {
-                columnTitle: '',
+                columnTitle: 'Action',
                 width: '300px',
                 add: !this.showview,
                 edit: true, // true,
@@ -1022,7 +1027,7 @@ export class mstjobrequirementComponent implements OnInit {
                     filter: true,
                 },
                 viewdatetime: {
-                    title: 'View Date Time',
+                    title: 'View Date',
                     type: 'custom',
                     renderComponent: SmartTableDatepickerRenderComponent,
                     editor: {
@@ -1050,14 +1055,14 @@ export class mstjobrequirementComponent implements OnInit {
                         },
                     },
                 },
-                comments: {
-                    title: 'Comments',
-                    type: 'html',
-                    filter: true,
-                    editor: {
-                        type: 'textarea',
-                    },
-                },
+                // comments: {
+                //     title: 'Comments',
+                //     type: 'html',
+                //     filter: true,
+                //     editor: {
+                //         type: 'textarea',
+                //     },
+                // },
                 allcomments: {
                     title: 'All Comments',
                     type: 'html',

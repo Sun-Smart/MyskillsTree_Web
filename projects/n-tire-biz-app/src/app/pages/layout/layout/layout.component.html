@@ -1,21 +1,11 @@
 <ng-container *ngIf="loggedIn">
-    <div [ngClass]="theme">
+    <div [ngClass]="theme" >
         <p-toast position="bottom-right"></p-toast>
-        <app-header *ngIf="!menuhide" (toggleMenubar)="toggleMenu()" [menuItems]="menuItems"></app-header>
-        <div style="margin-top:40px">
-            <!--
-            <div class="menu-wrapper" *ngIf="menuItems.length>0">
-                <div class="layout-menu-container">
-                    <app-menu (closeClicked)="isMobileResolution && isMenuVisible=$event" [items]="menuItems">
-                    </app-menu>
-                </div>
+        <div class="row">
+            <div class="col-12">
+                <app-header *ngIf="!menuhide" (toggleMenubar)="toggleMenu()" [menuItems]="menuItems"></app-header>
             </div>
-            -->
-            <div id="contentAreaLayout">
-
-                <!--    id="contentArea1"  
-        style="overflow-y:scroll!important;overflow-x:scroll!important;scrollbar-width: thin;"
-        class="layout-main main" onscroll="scrollFunction()"-->
+            <div class="col-12" id="contentAreaLayout">
                 <ngx-spinner></ngx-spinner>
                 <router-outlet (activate)="topFunction()"></router-outlet>
                 <button onclick="topFunction()" id="scrollBtn" title="Go to top" style="display:none">Top</button>

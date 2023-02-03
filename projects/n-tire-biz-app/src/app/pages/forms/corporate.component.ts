@@ -45,7 +45,7 @@ export type ChartOptions = {
 
     <ng-container *ngIf="!isadmin">
 
-    <div class="row" style="margin-top: 5rem !important;">
+    <div class="row" style="margin-top: 1rem !important;">
     <div class="col-12 col-sm-12 col-xs-12 mobile_view">
     <div id="chart" style="width: 100%;border: 1px solid #e7dcdc;box-shadow: 0px 0px 1px 0px #b7b7b7;">
     <apx-chart

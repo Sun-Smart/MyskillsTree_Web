@@ -1,13 +1,29 @@
-<div class="container">
+<div class="container" style="position: fixed;top: 49px;">
   <div class="row" style="background-color: #6b431d;padding: 10px;display: flex;color: #fff;">
     <div class="col-3">
       <h6 style="font-weight: 600;"> Dashboard</h6>
+    </div>
+
+    <div class="col-4"></div>
+
+    <div class="col-5" style="display: flex;justify-content: end;align-items: center;">
+
+      <label *ngIf="isrelease==false" style="margin: 0;">Click to release your profile</label> &nbsp;&nbsp;
+      <button class="btn btn-outline-secondary releaseBtn" *ngIf="isrelease==false"
+      (click)="releasemethod(true)">Release</button>
+
+      <label *ngIf="isrelease==true" style="margin: 0;">Click to hide your profile </label>&nbsp;&nbsp;
+      <button class="btn btn-outline-secondary releaseBtn" *ngIf="isrelease==true"
+        (click)="releasemethod(false)"> Hide</button>
+
     </div>
   </div>
 
   <div class="row mobile_col">
 
-    <div class="dashboard-sidebar col-3">
+    <!-- SideNav -->
+
+    <div class="dashboard-sidebar col-3" style="height: auto;">
       <!-- Skill list -->
       <div class="dashboard-sidebar-content">
 
@@ -154,7 +170,8 @@
             <label style="color:#000;font-weight: 600;">To</label>
           </div>
 
-          <div class="col-12" style="text-align: center;margin: 10px auto;" *ngIf="dashboard_employementdetails.length == 0">
+          <div class="col-12" style="text-align: center;margin: 10px auto;"
+            *ngIf="dashboard_employementdetails.length == 0">
             <label style="color: #000;font-size: small;">No Records Mapped..</label>
           </div>
 
@@ -185,7 +202,8 @@
             <label style="color:#000;font-weight: 600;width: 25%;">Work Description </label>
           </div>
 
-          <div class="col-12" style="text-align: center;margin: 10px auto;" *ngIf="dashboard_projectdetails.length == 0">
+          <div class="col-12" style="text-align: center;margin: 10px auto;"
+            *ngIf="dashboard_projectdetails.length == 0">
             <label style="color: #000;font-size: small;">No Records Mapped..</label>
           </div>
 
@@ -214,7 +232,8 @@
             <label for="" style="color:#000;font-weight: 600;width: 25%;">Details</label>
           </div>
 
-          <div class="col-12" style="text-align: center;margin: 10px auto;" *ngIf="dashboard_achievementdetails.length == 0">
+          <div class="col-12" style="text-align: center;margin: 10px auto;"
+            *ngIf="dashboard_achievementdetails.length == 0">
             <label style="color: #000;font-size: small;">No Records Mapped..</label>
           </div>
 
@@ -243,7 +262,8 @@
             <label for="" style="color:#000;font-weight: 600;width: 25%;">To Year</label>
           </div>
 
-          <div class="col-12" style="text-align: center;margin: 10px auto;" *ngIf="dashboard_educationdetails.length == 0">
+          <div class="col-12" style="text-align: center;margin: 10px auto;"
+            *ngIf="dashboard_educationdetails.length == 0">
             <label style="color: #000;font-size: small;">No Records Mapped..</label>
           </div>
 
@@ -273,16 +293,18 @@
             <label for="" style="color:#000;font-weight: 600;width: 25%;">Remarks</label>
           </div>
 
-          <div class="col-12" style="text-align: center;margin: 10px auto;" *ngIf="dashboard_reffreq_details.length == 0">
+          <div class="col-12" style="text-align: center;margin: 10px auto;"
+            *ngIf="dashboard_reffreq_details.length == 0">
             <label style="color: #000;font-size: small;">No Records Mapped..</label>
           </div>
 
           <div class="col-12" *ngFor="let item of dashboard_reffreq_details">
             <label for="" style="color: #000;font-size: small;width: 25%;">{{item.date | date : 'dd-MM-yyyy'}}</label>
-            <label for="" style="color: #000;font-size: small;width: 25%;" class="mobileView">{{item.reffered_to}}</label>
+            <label for="" style="color: #000;font-size: small;width: 25%;"
+              class="mobileView">{{item.reffered_to}}</label>
             <label for="" style="color: #000;font-size: small;width: 25%;">{{item.response}}</label>
             <label for="" style="color: #000;font-size: small;width: 25%;">{{item.referenceremarks
-            }}</label>
+              }}</label>
           </div>
 
         </div>
@@ -896,3 +918,4 @@
       </div>
     </div>
   </div>
+</div>

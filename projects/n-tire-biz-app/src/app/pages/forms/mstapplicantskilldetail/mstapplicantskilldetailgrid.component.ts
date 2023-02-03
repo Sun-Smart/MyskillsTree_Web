@@ -1307,8 +1307,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   }
   //end of Grid Codes mstapplicantskilldetails
   onClose() {
-    window.location.reload();
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // window.location.reload();
+    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.dialogRef.close();
   }
 

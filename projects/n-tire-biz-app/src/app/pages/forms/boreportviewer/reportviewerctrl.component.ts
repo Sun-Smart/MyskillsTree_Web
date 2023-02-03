@@ -2246,7 +2246,10 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
     ExecuteAction() {
 
         let val = this.action;
-        this.onChangeAction(val);
+        this.onChangeAction1(val);
+    }
+    justclick(val:any){
+        alert("Hi Its Working");        
     }
     onChangeFilterType(val) {
         if (val == 'FF')
@@ -2270,7 +2273,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         debugger
         alert("hi")
     }
-    onChangeAction(val:any) {
+    onChangeAction1(val:any) {
         debugger;
         if (val == "") return;
         if (this.menuactions != null) {

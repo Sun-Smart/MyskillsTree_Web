@@ -264,7 +264,8 @@ export class BODashboardViewerComponent implements OnInit {
   datalabel: any = [];
   datacolour: any = [];
   dataod: any[] = [];
-  datacount: any[] = []; getdata: any;
+  datacount: any[] = [];
+   getdata: any;
   isskillcompleted: boolean;
   isresumecompleted: boolean;
   isprojectcompleted: boolean;
@@ -837,13 +838,10 @@ export class BODashboardViewerComponent implements OnInit {
 
   releasemethod(e: any) {
 
-
     let obj = {
       "applicantid": this.applicantid,
       "ReleaseStatus": e
     }
-
-
 
     this.mstapplicantmaster_service.release_method(obj).subscribe(res => {
 

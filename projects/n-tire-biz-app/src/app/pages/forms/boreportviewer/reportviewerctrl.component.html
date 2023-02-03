@@ -1,6 +1,6 @@
 <!--<form  [formGroup]="boreportviewerForm" [ngClass]="theme" >-->
-<div class="mobile_view_report" style="min-width:1200px;min-height:100px!important;width:100%!important;height:100%!important"
-  [ngClass]="theme">
+<div class="mobile_view_report"
+  style="min-width:1200px;min-height:100px!important;width:100%!important;height:100%!important" [ngClass]="theme">
   <ngx-spinner></ngx-spinner>
   <!--class="row" style='width: 100%;left: 0;position: absolute;'-->
   <!--margin-left: 16%;width:84%!important;-->
@@ -26,7 +26,7 @@
 
 
       <div *ngIf="showmenu" class="row" id="header"
-      [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
+        [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
 
         <div class="reportheader col-3  nomargin nowrap">
           <h1 style="color:gray !important;">{{reportheader}}</h1>
@@ -66,8 +66,7 @@
 
         <div class="col-3  input-group  nomargin nowrap">
 
-          <a [routerLink]='' (click)="onChangeAction('Add')" *ngIf="showAddJobs"><i class="fa fa-plus-circle"
-            style="color:#6B431D!important;vertical-align: middle;margin-top: 8px;
+          <a [routerLink]='' (click)="onChangeAction('Add')" *ngIf="showAddJobs"><i class="fa fa-plus-circle" style="color:#6B431D!important;vertical-align: middle;margin-top: 8px;
             font-size: 18px;"></i></a>
 
           <nav class="right navbar navbar-default">
@@ -170,8 +169,9 @@
           </ng-container>
 
           <button type="button" style="margin: 6px 0;font-size: 10px; border-bottom-left-radius: 30px;
-                    border-top-left-radius: 30px;" class="nav-link  border personal-info-btn-liftRadius custom_mobile_view"
-            (click)="ExecuteAction()"><i class="fa fa-caret-right "></i></button>
+                    border-top-left-radius: 30px;"
+            class="nav-link  border personal-info-btn-liftRadius custom_mobile_view" (click)="ExecuteAction()"><i
+              class="fa fa-caret-right "></i></button>
           <select [(ngModel)]="filtertype" class="border personal-info-btn-rightRadius custom_mobile_view"
             (change)="onChangeFilterType($event.target.value)" style="margin: 6px 0;font-size: 14px;  border-bottom-right-radius: 30px;
                     border-top-right-radius:30px;">
@@ -187,7 +187,8 @@
 
           <a class="" [routerLink]='' (click)="onClose()"
             *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)">
-            <i class="fa fa-times-circle close_common_icon mobile_close_result" style="top: 5% !important; left: 10px;"></i></a>
+            <i class="fa fa-times-circle close_common_icon mobile_close_result"
+              style="top: 5% !important; left: 10px;"></i></a>
           <!-- <a class="nav-link active right alert-success" [routerLink]='' (click)="onClose()"
                       *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)"><i
                           class="fa fa-close"></i></a> -->
@@ -1108,8 +1109,9 @@
         style="white-space: pre-wrap; background-color: transparent;line-height: 2px;">
         {{rowData.header1}}
       </div>
-      <div class="row">
-        <div class="col-3">
+      <div class="row" style="align-items:center;">
+
+        <div class="col-3" style="text-align: center;">
           <ng-container *ngIf="showcheckbox && !showgroupcheckbox">
             <p-checkbox [value]="rowData" [(ngModel)]="selecteddata" (click)="CheckboxSelect(rowData,$event)">
             </p-checkbox>
@@ -1117,29 +1119,25 @@
         </div>
 
 
-        <div class="col-3" style="display: flex !important;">
+        <div class="col-5" style="display: flex !important;justify-content: space-between;padding: 0 8px;">
           <ng-container *ngFor="let action of menuactions">
-            <div *ngIf="action.actionbutton==true && action.actionbuttonlocation=='B'">
-              <!-- <div class="row"> -->
-              <span *ngIf="action.description == 'Selected'">
-                <i class="fa fa-check-circle" style="font-size:30px;color: green;"
-                  (click)="onChangeAction(action.actionid)"></i>
-              </span>&nbsp;&nbsp;
-              <span *ngIf="action.description == 'Rejected'">
-                <i class="fa fa-times-circle" style="font-size:30px;color: red;"
-                  (click)="onChangeAction(action.actionid)"></i>
-              </span>
 
-              <!-- </div> -->
-              <!-- <button *ngIf="action.actionbutton==true && action.actionbuttonlocation=='B'" type="button" class="btn-success"
-                        (click)="onChangeAction(action.actionid)"><i
-                            class="fa fa-new"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</button> -->
+            <div *ngIf="action.actionbutton==true && action.actionbuttonlocation=='B'">
+              <span *ngIf="action.description == 'Selected'">
+                <i class="fa fa-check-circle" style="font-size:25px;color: green;cursor: pointer;"
+                  (click)="onChangeAction1(action.actionid)"></i>
+              </span>
+              
+              <span *ngIf="action.description == 'Rejected'">
+                <i class="fa fa-times-circle" style="font-size:25px;color: red;cursor: pointer;"
+                  (click)="onChangeAction1(action.actionid)"></i>
+              </span>
             </div>
+
           </ng-container>
         </div>
-        <div class="col-2"></div>
-        <div class="col-3">
-          <i class="fa fa-eye" style="font-size: 20px !important; margin-top: 7px;"
+        <div class="col-3" style="text-align: center;">
+          <i class="fa fa-eye" style="font-size: 20px !important;"
             (click)='opendialog1(null,rowData)'></i>
           <!-- <a [routerLink]='' (click)='opendialog1(null,rowData)'>View</a> -->
         </div>

@@ -59,6 +59,8 @@ export class HeaderComponent implements OnInit {
   showmenulist: boolean = false;
   showhideProfile: boolean = false;
   applicantid: any;
+  getdata: any;
+  datarelease: any = [];
   showApplicantmenu: boolean = false;
   showAdminMenuaccess: boolean = false;
   showCorporateMenuaccess: boolean = false;
@@ -286,8 +288,10 @@ export class HeaderComponent implements OnInit {
       this.hideCorporatePage = false;
     } else {
       this.hideCorporatePage = true;
-    }
-  }
+    };
+
+  };
+
   delteNotify(value) {
     this.botaskservice.deleteNotification(value).subscribe(((res) => {
       this.toastService.addSingle('Success', '', 'Notification Deleted');

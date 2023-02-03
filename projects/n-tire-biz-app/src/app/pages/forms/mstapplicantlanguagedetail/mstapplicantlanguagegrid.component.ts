@@ -491,17 +491,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
       return;
     }
     var obj = this.mstapplicantlanguagedetail_Form.getRawValue();
-    // if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-    // obj.fileAttachmentList = this.fileattachment.getAllFiles();
-    // console.log(obj);
-    // await this.sharedService.upload(this.fileAttachmentList);
-    // this.attachmentlist = [];
-    // if (this.fileattachment) this.fileattachment.clear();
-    // this.objvalues.push(obj);
-    // this.dialogRef.close(this.objvalues);
-    // setTimeout(() => {
-    //     //this.dialogRef.destroy();
-    // }, 200);
   }
   async onSubmitData(bclear: any) {
     debugger
@@ -516,17 +505,13 @@ export class mstapplicantlanuagegridComponent implements OnInit {
       return;
     }
     this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
-    // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-    // this.fileAttachmentList = this.fileattachment.getAllFiles();
+
     console.log(this.formData);
     this.spinner.show();;
     this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe((res: any) => {
       debugger;
       console.log(res);
 
-      // await this.sharedService.upload(this.fileAttachmentList);
-      // this.attachmentlist = [];
-      // if (this.fileattachment) this.fileattachment.clear();
       this.spinner.hide();
 
       this.toastr.addSingle("success", "", "Successfully saved");
@@ -552,7 +537,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
           this.dialogRef.close(this.objvalues);
         }
         else {
-          // this.FillData(res);
+          this.FillData();
         }
       }
       this.mstapplicantlanguagedetail_Form.markAsUntouched();
@@ -644,41 +629,11 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     return ret;
   }
   FillData() {
-
     this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByApplicantID(this.applicantid).then(res => {
       this.mstapplicantlanguagedetail_menuactions = res.mstapplicantlanguagedetail_menuactions
       this.Set_mstapplicantlanguagedetails_TableConfig();
       this.mstapplicantlanguagedetails_LoadTable(res.mstapplicantlanguagedetail);
     });
-
-
-    // this.formData = res.mstapplicantlanguagedetail;
-    // this.formid = res.mstapplicantlanguagedetail.languageid;
-    // this.pkcol = res.mstapplicantlanguagedetail.pkcol;
-    // this.bmyrecord = false;
-    // if ((res.mstapplicantlanguagedetail as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-    // console.log(res);
-    // //console.log(res.order);
-    // //console.log(res.orderDetails);
-    // this.mstapplicantlanguagedetail_Form.patchValue({
-    //     applicantid: res.mstapplicantlanguagedetail.applicantid,
-    //     applicantiddesc: res.mstapplicantlanguagedetail.applicantiddesc,
-    //     languageid: res.mstapplicantlanguagedetail.languageid,
-    //     language: res.mstapplicantlanguagedetail.language,
-    //     languagedesc: res.mstapplicantlanguagedetail.languagedesc,
-    //     readproficiency: res.mstapplicantlanguagedetail.readproficiency,
-    //     writeproficiency: res.mstapplicantlanguagedetail.writeproficiency,
-    //     speakproficiency: res.mstapplicantlanguagedetail.speakproficiency,
-    //     overallrating: res.mstapplicantlanguagedetail.overallrating,
-    //     remarks: res.mstapplicantlanguagedetail.remarks,
-    //     attachment: JSON.parse(res.mstapplicantlanguagedetail.attachment),
-    //     status: res.mstapplicantlanguagedetail.status,
-    //     statusdesc: res.mstapplicantlanguagedetail.statusdesc,
-    // });
-    // this.mstapplicantlanguagedetail_menuactions = res.mstapplicantlanguagedetail_menuactions;
-    // if (this.mstapplicantlanguagedetail_Form.get('attachment').value != null && this.mstapplicantlanguagedetail_Form.get('attachment').value != "" && this.fileattachment != null && this.fileattachment != undefined) this.fileattachment.setattachmentlist(this.mstapplicantlanguagedetail_Form.get('attachment').value);
-    // //Child Tables if any
-
   }
   //start of Grid Codes mstapplicantlanguagedetails
   mstapplicantlanguagedetails_settings: any;
@@ -757,6 +712,37 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         confirmDelete: true,
       },
       columns: {
+
+        languagedesc: {
+          title: 'Language',
+          type: 'html',
+          filter: true,
+        },
+        readproficiency: {
+          title: 'Read Proficiency',
+          type: 'html',
+          filter: true,
+        },
+        writeproficiency: {
+          title: 'Write Proficiency',
+          type: 'html',
+          filter: true,
+        },
+        speakproficiency: {
+          title: 'Speak Proficiency',
+          type: 'html',
+          filter: true,
+        },
+        overallrating: {
+          title: 'Rating',
+          type: 'html',
+          filter: true,
+        },
+        remarks: {
+          title: 'Remarks',
+          type: 'html',
+          filter: true,
+        },
         colhtml:
         {
           title: '',
@@ -767,8 +753,11 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
+            console.log('row count response', row);
+
             //debugger;;
-            cell = this.mstapplicantlanguagedetailshtml();
+            // cell = this.mstapplicantlanguagedetailshtml();
+
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
               cell = this.mstapplicantlanguagedetailshtml1();
@@ -829,7 +818,13 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             } else if (divrow.overallrating == 5) {
               overallrating = '★★★★★';
             }
-
+            // divrow["speakproficiency"] = "<div class='Stars'  style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + speakproficiency + "</div>";
+            // divrow["readproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + readproficiency + "</div>";
+            // divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + writeproficiency + "</div>";
+            // divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + overallrating + "</div>";
+              cell+= `
+              <div class='Stars'  style='font-size: large !important;color:green;float: left;margin-left: 6%;'>##speakproficiency##</div>
+              `
 
             // if (divrow.speakproficiency == 1 || row.readproficiency == 1 || row.writeproficiency == 1 || row.overallrating == 1) {
             //     showstr = '★';
@@ -842,10 +837,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             // } else if (row.speakproficiency == 5 || row.readproficiency == 5 || row.writeproficiency == 5 || row.overallrating == 5) {
             //     showstr = '★★★★★';
             // }
-            divrow["speakproficiency"] = "<div class='Stars'  style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + speakproficiency + "</div>";
-            divrow["readproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + readproficiency + "</div>";
-            divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + writeproficiency + "</div>";
-            divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + overallrating + "</div>";
+            
 
             this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (this.isMobile) {
