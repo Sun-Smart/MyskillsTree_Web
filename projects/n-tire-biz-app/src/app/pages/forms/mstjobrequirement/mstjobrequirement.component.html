@@ -178,8 +178,6 @@
                   errorMsg="Enter {{'Number Of Positions' | translate}}">
                 </app-field-error-display>
               </div>
-            </div>
-            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('tobefilledbefore') == -1) && (tobefilledbeforevisible==undefined || tobefilledbeforevisible==true))"
                 style='' class="col-3 education_view_mobile">
@@ -194,6 +192,9 @@
                     type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
                 </div>
               </div>
+            </div>
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+
               <div
                 *ngIf="((hidelist.indexOf('experiencefrom') == -1) && (experiencefromvisible==undefined || experiencefromvisible==true))"
                 style='' class="col-3 education_view_mobile">
@@ -223,12 +224,6 @@
                 <label *ngIf="showview" class="labelview">{{f.locations?.label}}</label>
                 <label class="labelview alignment_label" *ngIf="showview">{{mstjobrequirement.locationdesc}}</label>
               </div>
-            </div>
-
-
-            <!--skills-->
-
-            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('skills') == -1) && (skillsvisible==undefined || skillsvisible==true))"
                 style='' class="col-3 education_view_mobile"><label for="skills" class="control-label"
                   (click)="AddOrEdit_skills(null)">Skills</label>&nbsp;&nbsp; <br />
@@ -246,6 +241,13 @@
                 <label *ngIf="showview" class="labelview">{{f.skills?.label}}</label>
                 <label class="labelview alignment_label" *ngIf="showview">{{mstjobrequirement.skilldesc}}</label>
               </div>
+            </div>
+
+
+            <!--skills-->
+
+            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+
 
               <!--education-->
               <div
