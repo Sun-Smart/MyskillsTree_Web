@@ -78,6 +78,7 @@ export class bosubcategorymasterComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
+    subcategoryname:any;
 
     bfilterPopulate_bosubcategorymasters: boolean = false;
     bosubcategorymaster_menuactions: any = []
@@ -365,7 +366,7 @@ export class bosubcategorymasterComponent implements OnInit {
         
     }
     onSubmitAndWait() {
-        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.subcategoryname != null) {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.bosubcategorymaster_Form.value.subcategoryname != null) {
             this.onSubmitData(false);
         }
         else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
@@ -376,7 +377,7 @@ export class bosubcategorymasterComponent implements OnInit {
         }
     }
     onSubmit() {
-        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.subcategoryname != null) {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.bosubcategorymaster_Form.value.subcategoryname != null) {
             this.onSubmitData(true);
         }
         else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
@@ -474,7 +475,7 @@ export class bosubcategorymasterComponent implements OnInit {
         setTimeout(() => {
             //this.dialogRef.destroy();
         }, 200);
-        
+
     }
 
     //This has to come from bomenuactions & procedures
