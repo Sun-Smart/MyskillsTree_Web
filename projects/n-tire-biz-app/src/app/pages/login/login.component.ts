@@ -342,6 +342,15 @@ label{
     color: #000 !important;
     font-weight: bold !important;
   }
+  .mobileViewText{
+    position: relative;
+    line-height: 0;
+    margin:0px !important;
+    bottom: 20px;
+  }
+  .mobileViewRemem{
+    margin: 0px !important;
+  }
 }
     `]
 })
