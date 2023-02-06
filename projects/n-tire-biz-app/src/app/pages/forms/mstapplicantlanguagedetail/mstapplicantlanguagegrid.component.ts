@@ -713,36 +713,36 @@ export class mstapplicantlanuagegridComponent implements OnInit {
       },
       columns: {
 
-        languagedesc: {
-          title: 'Language',
-          type: 'html',
-          filter: true,
-        },
-        readproficiency: {
-          title: 'Read Proficiency',
-          type: 'html',
-          filter: true,
-        },
-        writeproficiency: {
-          title: 'Write Proficiency',
-          type: 'html',
-          filter: true,
-        },
-        speakproficiency: {
-          title: 'Speak Proficiency',
-          type: 'html',
-          filter: true,
-        },
-        overallrating: {
-          title: 'Rating',
-          type: 'html',
-          filter: true,
-        },
-        remarks: {
-          title: 'Remarks',
-          type: 'html',
-          filter: true,
-        },
+        // languagedesc: {
+        //   title: 'Language',
+        //   type: 'html',
+        //   filter: true,
+        // },
+        // readproficiency: {
+        //   title: 'Read Proficiency',
+        //   type: 'html',
+        //   filter: true,
+        // },
+        // writeproficiency: {
+        //   title: 'Write Proficiency',
+        //   type: 'html',
+        //   filter: true,
+        // },
+        // speakproficiency: {
+        //   title: 'Speak Proficiency',
+        //   type: 'html',
+        //   filter: true,
+        // },
+        // overallrating: {
+        //   title: 'Rating',
+        //   type: 'html',
+        //   filter: true,
+        // },
+        // remarks: {
+        //   title: 'Remarks',
+        //   type: 'html',
+        //   filter: true,
+        // },
         colhtml:
         {
           title: '',
@@ -756,7 +756,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             console.log('row count response', row);
 
             //debugger;;
-            // cell = this.mstapplicantlanguagedetailshtml();
+            cell = this.mstapplicantlanguagedetailshtml();
 
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
@@ -837,7 +837,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             // } else if (row.speakproficiency == 5 || row.readproficiency == 5 || row.writeproficiency == 5 || row.overallrating == 5) {
             //     showstr = '★★★★★';
             // }
-            
+
 
             this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (this.isMobile) {
@@ -846,10 +846,10 @@ export class mstapplicantlanuagegridComponent implements OnInit {
               divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative !important;right: -40px !important;bottom: 5px;'>" + writeproficiency + "</div>";
               divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative;right: -40px !important;bottom: 5px;'>" + overallrating + "</div>";
             }
-            // divrow["speakproficiency"] = "<div class='Stars' style='--rating:" + row['speakproficiency'] + "'></div>";
-            // divrow["readproficiency"] = "<div class='Stars' style='--rating:" + row['readproficiency'] + "'></div>";
-            // divrow["writeproficiency"] = "<div class='Stars' style='--rating:" + row['writeproficiency'] + "'></div>";
-            // divrow["overallrating"] = "<div class='Stars' style='--rating:" + row['overallrating'] + "'></div>";
+            divrow["speakproficiency"] = "<div class='Stars' style='--rating:" + row['speakproficiency'] + "'></div>";
+            divrow["readproficiency"] = "<div class='Stars' style='--rating:" + row['readproficiency'] + "'></div>";
+            divrow["writeproficiency"] = "<div class='Stars' style='--rating:" + row['writeproficiency'] + "'></div>";
+            divrow["overallrating"] = "<div class='Stars' style='--rating:" + row['overallrating'] + "'></div>";
             return this.sharedService.HtmlValue(divrow, cell);
           },
         },

@@ -8,13 +8,13 @@
 
     <div class="col-5" style="display: flex;justify-content: end;align-items: center;">
 
-      <label *ngIf="isrelease==false" style="margin: 0;">Click to release your profile</label> &nbsp;&nbsp;
+      <label *ngIf="isrelease==false" style="margin: 0;" class="mob_profile_release">Click to release your profile</label> &nbsp;&nbsp;
       <button class="btn btn-outline-secondary releaseBtn" *ngIf="isrelease==false"
       (click)="releasemethod(true)">Release</button>
 
-      <label *ngIf="isrelease==true" style="margin: 0;">Click to hide your profile </label>&nbsp;&nbsp;
+      <label *ngIf="isrelease==true" style="margin: 0;" class="mob_profile_release">Click to hide your profile </label>&nbsp;&nbsp;
       <button class="btn btn-outline-secondary releaseBtn" *ngIf="isrelease==true"
-        (click)="releasemethod(false)"> Hide</button>
+        (click)="releasemethod(false)">Hide</button>
 
     </div>
   </div>
