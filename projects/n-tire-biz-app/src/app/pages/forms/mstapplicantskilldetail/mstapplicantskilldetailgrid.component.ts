@@ -140,7 +140,8 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
 
     <!-- <i  [routerLink]='' (click)="onClose()" class="fa fa-times-circle close_common_icon"></i> -->
 
-    <img (click)="onClose()" src="assets/mainmenuicons/icons_close.png" class="closeButton" />
+    <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
+
 
   </div>
 </div>
@@ -168,8 +169,8 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
     <!-- <button type="button"  [routerLink]='' (click)="addSkills()"  class="btn btn-outline-primary" style="border-color: #000 !important; color: #000; margin-right:15px;">Add</button> -->
     <button type="button" class="btn btn-outline-primary popup-add-button"
       (click)="mstapplicantskilldetails_route(null, 'create')">Add</button>
-    <!-- <i  [routerLink]='' (click)="onClose()" class="fa fa-times-circle close_common_icon"></i> -->
-    <img (click)="onClose()" src="assets/mainmenuicons/icons_close.png" class="closeButton" />
+      <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
+
 
   </div>
 </div>
@@ -1307,8 +1308,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   }
   //end of Grid Codes mstapplicantskilldetails
   onClose() {
-    // window.location.reload();
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.dialogRef.close();
   }
 

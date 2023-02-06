@@ -81,10 +81,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <button type="button" class="btn btn-outline-primary"  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"
     class="popup-add-button heightbtn" title = "Add Details">Add</button>
 
-    <!-- <button type="button"  class="popup-add-button heightbtn" (click)="addSkills()">Add</button> -->
-    <!-- </a> -->
-    <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-
     <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
 
 
