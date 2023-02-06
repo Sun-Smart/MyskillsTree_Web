@@ -62,14 +62,14 @@
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.configid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.configid.value" [status]="f.status.value"></app-action>
           </li>
           <li class='nav-item actionheader'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+            <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li>
 
         </ul>
@@ -96,27 +96,27 @@
           <p-accordion [multiple]='true'>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('param') == -1) && (paramvisible==undefined || paramvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="param" class="control-label">Param</label>
                 <label *ngIf="showview" class="labelview">{{f.param?.value}}</label>
                 <input *ngIf="!showview" id="param" formControlName="param" class="form-control">
               </div>
               <div
                 *ngIf="((hidelist.indexOf('configkey') == -1) && (configkeyvisible==undefined || configkeyvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="configkey" class="control-label">Config Key</label>
                 <label *ngIf="showview" class="labelview">{{f.configkey?.value}}</label>
                 <input *ngIf="!showview" id="configkey" formControlName="configkey" class="form-control">
               </div>
               <div
                 *ngIf="((hidelist.indexOf('configtext') == -1) && (configtextvisible==undefined || configtextvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="configtext" class="control-label">Config Text</label>
                 <label *ngIf="showview" class="labelview">{{f.configtext?.value}}</label>
                 <input *ngIf="!showview" id="configtext" formControlName="configtext" class="form-control">
               </div>
               <div *ngIf="((hidelist.indexOf('orderno') == -1) && (ordernovisible==undefined || ordernovisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="orderno" class="control-label">Order No</label>
                 <label *ngIf="showview" class="labelview">{{f.orderno?.value}}</label>
                 <input *ngIf="!showview" id="orderno" formControlName="orderno" class="form-control">
@@ -125,19 +125,19 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('htmlcode') == -1) && (htmlcodevisible==undefined || htmlcodevisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="htmlcode" class="control-label">H T M L Code</label>
                 <label *ngIf="showview" class="labelview">{{f.htmlcode?.value}}</label>
                 <input *ngIf="!showview" id="htmlcode" formControlName="htmlcode" class="form-control">
               </div>
               <div *ngIf="((hidelist.indexOf('param1') == -1) && (param1visible==undefined || param1visible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="param1" class="control-label">Param1</label>
                 <label *ngIf="showview" class="labelview">{{f.param1?.value}}</label>
                 <input *ngIf="!showview" id="param1" formControlName="param1" class="form-control">
               </div>
               <div *ngIf="((hidelist.indexOf('param2') == -1) && (param2visible==undefined || param2visible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="param2" class="control-label">Param2</label>
                 <label *ngIf="showview" class="labelview">{{f.param2?.value}}</label>
                 <input *ngIf="!showview" id="param2" formControlName="param2" class="form-control">
@@ -156,7 +156,7 @@
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('flag') == -1) && (flagvisible==undefined || flagvisible==true))" style=''
-                class="col-3 ">
+                class="col-3 education_view_mobile">
                 <label for="flag" class="control-label">Flag</label>
                 <label *ngIf="showview" class="labelview">{{f.flag?.value}}</label>
                 <input *ngIf="!showview" id="flag" formControlName="flag" class="form-control">
