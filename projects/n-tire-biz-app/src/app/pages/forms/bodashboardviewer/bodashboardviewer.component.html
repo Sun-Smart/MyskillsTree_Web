@@ -29,20 +29,24 @@
       <!-- Skill list -->
       <div class="dashboard-sidebar-content">
 
-        <h6 style="font-weight: 600;"> Skills</h6>
 
-        <div class="row" *ngFor="let item of finalarray" style="display: flex;justify-content: space-evenly;">
+        <div class="sidenav-skill-card">
+          <label style="font-weight: 600;"> Skills</label>
 
-          <div class="col-3">
-            <label style="color: rgb(8, 111, 8);">
-              {{item.showstr}}
-            </label>
+
+          <div class="row" *ngFor="let item of finalarray" style="display: flex;justify-content: space-evenly;">
+
+            <div class="col-3">
+              <label style="color: rgb(8, 111, 8);">
+                {{item.showstr}}
+              </label>
+            </div>
+
+            <div class="col-8 skill-label">
+              <label (click)="showDetails(item.skillId, item.subCategory, item.remarks)">{{item.subCategory}}</label>
+            </div>
+
           </div>
-
-          <div class="col-8 skill-label">
-            <label (click)="showDetails(item.skillId, item.subCategory, item.remarks)">{{item.subCategory}}</label>
-          </div>
-
         </div>
 
         <!-- User Profile -->
@@ -154,7 +158,7 @@
         </div>
       </div>
 
-      <div >
+      <div>
         <!-- Employment -->
 
         <div class="main-data">
@@ -165,16 +169,15 @@
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
-            <div class="col-12 dashboard-card-header" >
+            <div class="col-12 dashboard-card-header">
               <label style="width: 20%;">Company</label>
               <label style="width: 20%;">Designation</label>
               <label style="width: 25%;">Details</label>
               <label style="width: 20%;">From</label>
-              <label >To</label>
+              <label>To</label>
             </div>
 
-            <div class="col-12" style="text-align: left;margin: 10px;"
-              *ngIf="dashboard_employementdetails.length == 0">
+            <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_employementdetails.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
 
@@ -199,14 +202,13 @@
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
-            <div class="col-12 dashboard-card-header" >
+            <div class="col-12 dashboard-card-header">
               <label style="width: 25%;">Company</label>
               <label style="width: 25%;">Work Topic</label>
               <label style="width: 25%;">Work Description </label>
             </div>
 
-            <div class="col-12" style="text-align: left;margin: 10px;"
-              *ngIf="dashboard_projectdetails.length == 0">
+            <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_projectdetails.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
 
@@ -227,18 +229,17 @@
           <div class="row">
             <div class="col-12 dashboard-list_data">
               <label>Achievements</label>
-            
+
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
-            <div class="col-12 dashboard-card-header" >
+            <div class="col-12 dashboard-card-header">
               <label style="width: 25%;">Category</label>
               <label style="width: 25%;">Skill</label>
               <label style="width: 25%;">Details</label>
             </div>
 
-            <div class="col-12" style="text-align: left;margin: 10px;"
-              *ngIf="dashboard_achievementdetails.length == 0">
+            <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_achievementdetails.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
 
@@ -260,15 +261,14 @@
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
-            <div class="col-12 dashboard-card-header" >
+            <div class="col-12 dashboard-card-header">
               <label style="width: 25%;">Course</label>
               <label style="width: 25%;">Institution</label>
               <label style="width: 25%;">From Year</label>
               <label style="width: 25%;">To Year</label>
             </div>
 
-            <div class="col-12" style="text-align: left;margin: 10px;"
-              *ngIf="dashboard_educationdetails.length == 0">
+            <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_educationdetails.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
 
@@ -291,15 +291,14 @@
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
-            <div class="col-12 dashboard-card-header" >
+            <div class="col-12 dashboard-card-header">
               <label style="width: 25%;">Date</label>
               <label style="width: 25%;">Refered To</label>
               <label style="width: 25%;">Response</label>
               <label style="width: 25%;">Remarks</label>
             </div>
 
-            <div class="col-12" style="text-align: left;margin: 10px;"
-              *ngIf="dashboard_reffreq_details.length == 0">
+            <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_reffreq_details.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
 
@@ -325,7 +324,7 @@
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
-            <div class="col-12 dashboard-card-header" >
+            <div class="col-12 dashboard-card-header">
               <table style="width: 100%;">
                 <thead>
                   <tr>
