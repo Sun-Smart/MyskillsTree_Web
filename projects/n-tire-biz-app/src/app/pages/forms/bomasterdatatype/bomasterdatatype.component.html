@@ -115,7 +115,7 @@
 
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('code') == -1) && (codevisible==undefined || codevisible==true))" style=''
-                class="col-3"><label for="code" class="control-label">Code</label>
+                class="col-3 education_view_mobile"><label for="code" class="control-label">Code</label>
                 <input type="number" id="code" formControlName="code" class="form-control" *ngIf="!showview" />
                 <!-- <select *ngIf="!showview" id="code" (change)="code_onChange($event.target)" formControlName="code"
                   class="form-control">
@@ -126,7 +126,7 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('masterdataname') == -1) && (masterdatanamevisible==undefined || masterdatanamevisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="masterdataname" class="control-label required">Master Data Name</label>
                 <label *ngIf="showview" class="labelview">{{f.masterdataname?.value}}</label>
                 <input *ngIf="!showview" id="masterdataname" required formControlName="masterdataname"
@@ -137,7 +137,7 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('hassubcategory') == -1) && (hassubcategoryvisible==undefined || hassubcategoryvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <div class="columnchk">
                   <label for="hassubcategory" class="control-label">Has Subcategory</label>
                   <label *ngIf="showview" class="labelview">{{f.hassubcategory?.value}}</label>
@@ -146,7 +146,7 @@
                 </div>
               </div>
               <div *ngIf="((hidelist.indexOf('canadd') == -1) && (canaddvisible==undefined || canaddvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <div class="columnchk">
                   <label for="canadd" class="control-label">Can Add</label>
                   <label *ngIf="showview" class="labelview">{{f.canadd?.value}}</label>
@@ -156,7 +156,7 @@
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('canedit') == -1) && (caneditvisible==undefined || caneditvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <div class="columnchk">
                   <label for="canedit" class="control-label">Can Edit</label>
                   <label *ngIf="showview" class="labelview">{{f.canedit?.value}}</label>
@@ -165,7 +165,7 @@
               </div>
               <div
                 *ngIf="((hidelist.indexOf('candelete') == -1) && (candeletevisible==undefined || candeletevisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <div class="columnchk">
                   <label for="candelete" class="control-label">Can Delete</label>
                   <label *ngIf="showview" class="labelview">{{f.candelete?.value}}</label>

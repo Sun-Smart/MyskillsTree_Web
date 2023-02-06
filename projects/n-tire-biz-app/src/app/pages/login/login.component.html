@@ -125,7 +125,11 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12" style="margin: 10px 0;">
+                <div class="col" style="margin: 5px 0;">
+                    <input formControlName="rememberMe" [(ngModel)]="this.remem" type="checkbox">
+                    <label for="remember-me" style="font-weight: normal !important;margin-left: 10px;">Remember Me</label>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6" style="margin: 10px 0;">
                   <div class="form-group forgot_label">
                     <a href="javascript:void(0);" (click)="forgetPassword()"
                       style="float: right;text-decoration: none;">Forgot Password</a>
