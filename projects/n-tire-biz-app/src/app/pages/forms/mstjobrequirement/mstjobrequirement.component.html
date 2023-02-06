@@ -336,7 +336,7 @@
             <!-- child table mstjobstatuses-->
             <div [ngClass]="Is_mstjobstatuses_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Job Statuses' | translate}}
+              <h4 class="form-group sticky1  columns left" style="font-size: inherit;margin: 6px 10px !important;">{{'Job Statuses' | translate}}
                 <select class='child' id="mstjobstatusesPagingdropdown"
                   (change)="mstjobstatuses_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

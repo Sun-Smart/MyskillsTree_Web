@@ -290,6 +290,11 @@ export class mstjobstatusComponent implements OnInit {
             //get the record from api
             //foreign keys
         }
+               //setting the flag that the screen is not touched
+        this.mstjobstatus_Form.markAsUntouched();
+        this.mstjobstatus_Form.markAsPristine();
+
+
         this.mstjobstatus_service.getDefaultData().then(res => {
             this.applicantid_List = res.list_applicantid.value;
             this.corporateid_List = res.list_corporateid.value;
@@ -302,10 +307,11 @@ export class mstjobstatusComponent implements OnInit {
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched
-        this.mstjobstatus_Form.markAsUntouched();
-        this.mstjobstatus_Form.markAsPristine();
-    }
+ 
+    };
+
+
+
     onSelected_applicantid(applicantidDetail: any) {
         if (applicantidDetail.value && applicantidDetail) {
             this.mstjobstatus_Form.patchValue({

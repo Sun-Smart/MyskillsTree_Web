@@ -272,23 +272,23 @@ export class CorporateDashboardComponent implements OnInit {
       this.chartOptions = {
         series: [
           {
+            name: "No Of Interested",
+            data: this.no_of_intrested
+          },
+          {
             name: "Selected",
             data: this.no_of_selected
           },
           {
             name: "Rejected",
             data: this.no_of_rejected
-          },
-          {
-            name: "Pending",
-            data: this.no_of_pending
           }
         ],
         chart: {
           type: "bar",
           height: 350
         },
-        colors: ['#a2c568', '#e95845', '#f5f3e4'],
+        colors: ['#00BFFF', '#a2c568', '#e95845'],
         plotOptions: {
           bar: {
             horizontal: false,
@@ -329,9 +329,9 @@ export class CorporateDashboardComponent implements OnInit {
     this.columns = [
       { prop: 'jobdesc_label', name: 'Job Name' },
       { prop: 'no_of_position', name: 'No Of Position' },
-      { prop: 'no_of_intrested', name: 'No Of Intrested' },
-      { prop: 'no_of_notIntrested', name: 'No Of Not Intrested' },
-      { prop: 'no_of_intrestPending', name: 'No Of Intrested Pending' }
+      { prop: 'no_of_intrested', name: 'No Of Interested' },
+      { prop: 'no_of_notIntrested', name: 'No Of Not Interested' },
+      { prop: 'no_of_intrestPending', name: 'No Of Interested Pending' }
     ];
     this.tabledata = this.job_detailsData;
   }

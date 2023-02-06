@@ -164,8 +164,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('subcategoryid') == -1) && (subcategoryidvisible==undefined || subcategoryidvisible==true))"
-        style='' class="col-4"><label for="subcategoryid" class="control-label required">Sub
-          Category</label>&nbsp;&nbsp;
+        style='' class="col-4"><label for="subcategoryid" class="control-label required">Sub Category</label>&nbsp;&nbsp;
         <!-- <a [routerLink]='' (click)="AddOrEditskillsubcategory(null)"> Add Sub Category</a> -->
         <select *ngIf="!showview" id="subcategoryid" required (change)="subcategoryid_onChange($event.target)"
           formControlName="subcategoryid" class="form-control">
