@@ -641,6 +641,9 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       if(this.mstapplicanteducationdetail_Form.value.percentage == 100 || this.mstapplicanteducationdetail_Form.value.percentage < 100){
         this.show_percentageError = false;
       }
+      if(this.mstapplicanteducationdetail_Form.value.fromyear < this.mstapplicanteducationdetail_Form.value.toyear){
+        this.show_YearError = false;
+      }
       return
     }
     // else if (this.mstapplicanteducationdetail_Form.value.percentage > 100) {
