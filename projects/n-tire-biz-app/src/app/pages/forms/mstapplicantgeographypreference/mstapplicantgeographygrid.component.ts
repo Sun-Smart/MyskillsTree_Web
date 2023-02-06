@@ -315,26 +315,7 @@ export class mstapplicantgeographygrid implements OnInit {
       this.data = this.data.data;
     }
     this.pkcol = this.data.maindatapkcol;
-    this.applicantid = this.data.applicantid;
-
-    this.mstapplicantgeographypreference_Form = this.fb.group({
-      pk: [null],
-      ImageName: [null],
-      // applicantid: [null],
-      applicantid: this.sessionService.getItem('applicantid'),
-      applicantiddesc: [null],
-      geographypreferenceid: [null],
-      country: ['', Validators.required],
-      countrydesc: [null],
-      city: ['', Validators.required],
-      // city: [''],
-      citydesc: [null],
-      remarks: [null],
-      status: [null],
-      statusdesc: [null],
-      attachment: [null],
-    });
-
+   
   }
   ngOnInit() {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -348,20 +329,18 @@ export class mstapplicantgeographygrid implements OnInit {
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
 
-    this.pkcol = this.data.maindatapkcol;
-    this.applicantid = this.data.applicantid;
 
+    this.applicantid = this.data.applicantid;
+    
     this.mstapplicantgeographypreference_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      // applicantid: [null],
-      applicantid: this.sessionService.getItem('applicantid'),
+      applicantid:[this.applicantid],
       applicantiddesc: [null],
       geographypreferenceid: [null],
       country: ['', Validators.required],
       countrydesc: [null],
       city: ['', Validators.required],
-      // city: [''],
       citydesc: [null],
       remarks: [null],
       status: [null],
@@ -374,10 +353,6 @@ export class mstapplicantgeographygrid implements OnInit {
       debugger
       this.applicantid_List = res.list_applicantid.value;
       this.country_List = res.list_country.value;
-      console.log('this.applicantid_List ', this.applicantid_List);
-      console.log('this.country_List ', this.country_List);
-
-
     }).catch((err) => { this.spinner.hide(); console.log(err); });
 
     //autocomplete
@@ -407,11 +382,6 @@ export class mstapplicantgeographygrid implements OnInit {
     this.mstapplicantgeographypreference_Form.reset();
     this.showSkillDetails_input = false;
   };
-  // addSkills() {
-  //     debugger
-  //     this.showSkillDetails_input = true;
-  //     // this.getData();
-  // };
 
   PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
     if (mainscreendata != null) {
@@ -447,7 +417,6 @@ export class mstapplicantgeographygrid implements OnInit {
       this.onSubmitData(false);
     }
     else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-      // this.onSubmitDataDlg(false);
       this.onSubmitData(false);
     }
     else {
@@ -466,8 +435,6 @@ export class mstapplicantgeographygrid implements OnInit {
     }
     this.formData = this.mstapplicantgeographypreference_Form.getRawValue();
 
-    // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-    // this.fileAttachmentList = this.fileattachment.getAllFiles();
     console.log(this.formData);
     this.spinner.show();
     this.mstapplicantgeographypreference_service.saveOrUpdate_mstapplicantgeographypreferences(this.formData).subscribe((res: any) => {
@@ -478,7 +445,6 @@ export class mstapplicantgeographygrid implements OnInit {
       this.toastr.addSingle("success", "", "Successfully saved");
       this.sessionService.setItem("attachedsaved", "true")
       this.objvalues.push((res as any).mstapplicantgeographypreference);
-      this.ngOnInit();
       this.mstapplicantgeographypreference_Form.reset();
       if (!bclear) this.showview = true;
       if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;

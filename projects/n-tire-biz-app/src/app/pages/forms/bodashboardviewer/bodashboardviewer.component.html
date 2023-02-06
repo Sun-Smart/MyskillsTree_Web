@@ -1,4 +1,4 @@
-<div class="container" style="position: fixed;top: 49px;">
+<div class="container" style="position: fixed;top: 49px;height: 100%;">
   <div class="row" style="background-color: #6b431d;padding: 10px;display: flex;color: #fff;">
     <div class="col-3">
       <h6 style="font-weight: 600;"> Dashboard</h6>
@@ -8,18 +8,20 @@
 
     <div class="col-5" style="display: flex;justify-content: end;align-items: center;">
 
-      <label *ngIf="isrelease==false" style="margin: 0;" class="mob_profile_release">Click to release your profile</label> &nbsp;&nbsp;
+      <label *ngIf="isrelease==false" style="margin: 0;" class="mob_profile_release">Click to release your
+        profile</label> &nbsp;&nbsp;
       <button class="btn btn-outline-secondary releaseBtn" *ngIf="isrelease==false"
-      (click)="releasemethod(true)">Release</button>
+        (click)="releasemethod(true)">Release</button>
 
-      <label *ngIf="isrelease==true" style="margin: 0;" class="mob_profile_release">Click to hide your profile </label>&nbsp;&nbsp;
+      <label *ngIf="isrelease==true" style="margin: 0;" class="mob_profile_release">Click to hide your profile
+      </label>&nbsp;&nbsp;
       <button class="btn btn-outline-secondary releaseBtn" *ngIf="isrelease==true"
         (click)="releasemethod(false)">Hide</button>
 
     </div>
   </div>
 
-  <div class="row mobile_col">
+  <div class="row mobile_col" style="height: 100%;">
 
     <!-- SideNav -->
 
@@ -152,216 +154,219 @@
         </div>
       </div>
 
-      <!-- Employment -->
+      <div >
+        <!-- Employment -->
 
-      <div class="main-data">
+        <div class="main-data">
 
-        <div class="row">
-          <div class="col-12 dashboard-list_data">
-            <h5>Employment</h5>
-            <hr>
-          </div>
+          <div class="row">
+            <div class="col-12 dashboard-list_data">
+              <h5>Employment</h5>
+              <hr>
+            </div>
 
-          <div class="col-12">
-            <label style="color:#000;font-weight: 600;width: 20%;">Company</label>
-            <label style="color:#000;font-weight: 600;width: 20%;">Designation</label>
-            <label style="color:#000;font-weight: 600;width: 25%;">Details</label>
-            <label style="color:#000;font-weight: 600;width: 20%;">From</label>
-            <label style="color:#000;font-weight: 600;">To</label>
-          </div>
+            <div class="col-12">
+              <label style="color:#000;font-weight: 600;width: 20%;">Company</label>
+              <label style="color:#000;font-weight: 600;width: 20%;">Designation</label>
+              <label style="color:#000;font-weight: 600;width: 25%;">Details</label>
+              <label style="color:#000;font-weight: 600;width: 20%;">From</label>
+              <label style="color:#000;font-weight: 600;">To</label>
+            </div>
 
-          <div class="col-12" style="text-align: center;margin: 10px auto;"
-            *ngIf="dashboard_employementdetails.length == 0">
-            <label style="color: #000;font-size: small;">No Records Mapped..</label>
-          </div>
+            <div class="col-12" style="text-align: center;margin: 10px auto;"
+              *ngIf="dashboard_employementdetails.length == 0">
+              <label style="color: #000;font-size: small;">No Records Mapped..</label>
+            </div>
 
-          <div class="col-12 emp-resp" *ngFor="let item of dashboard_employementdetails">
-            <label style="color: #000;font-size: small;width: 20%;">{{item.companyname}}</label>
-            <label style="color: #000;font-size: small;width: 20%;">{{item.designation}}</label>
-            <label class="details-label">{{item.details}}</label>
-            <label style="color: #000;font-size: small;width: 20%;">{{item.fromdate | date : 'dd-MM-yyyy'}}</label>
-            <label style="color: #000;font-size: small;">{{item.todate | date : 'dd-MM-yyyy'}}</label>
-          </div>
+            <div class="col-12 emp-resp" *ngFor="let item of dashboard_employementdetails">
+              <label style="color: #000;font-size: small;width: 20%;">{{item.companyname}}</label>
+              <label style="color: #000;font-size: small;width: 20%;">{{item.designation}}</label>
+              <label class="details-label">{{item.details}}</label>
+              <label style="color: #000;font-size: small;width: 20%;">{{item.fromdate | date : 'dd-MM-yyyy'}}</label>
+              <label style="color: #000;font-size: small;">{{item.todate | date : 'dd-MM-yyyy'}}</label>
+            </div>
 
-        </div>
-      </div>
-
-      <!-- Projects -->
-
-      <div class="main-data">
-
-        <div class="row">
-          <div class="col-12 dashboard-list_data">
-            <h5>Projects</h5>
-            <hr>
-          </div>
-
-          <div class="col-12">
-            <label style="color:#000;font-weight: 600;width: 25%;">Company</label>
-            <label style="color:#000;font-weight: 600;width: 25%;">Work Topic</label>
-            <label style="color:#000;font-weight: 600;width: 25%;">Work Description </label>
-          </div>
-
-          <div class="col-12" style="text-align: center;margin: 10px auto;"
-            *ngIf="dashboard_projectdetails.length == 0">
-            <label style="color: #000;font-size: small;">No Records Mapped..</label>
-          </div>
-
-          <div class="col-12" *ngFor="let item of dashboard_projectdetails">
-            <label style="color: #000;font-size: small;width: 25%;">{{item.companyname}}</label>
-            <label style="color: #000;font-size: small;width: 25%;">{{item.worktopic}}</label>
-            <label style="color: #000;font-size: small;width: 35%;vertical-align: top;">{{item.workdescription}}</label>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Achievement Details -->
-
-      <div class="main-data">
-
-        <div class="row">
-          <div class="col-12 dashboard-list_data">
-            <h5>Achievements</h5>
-            <hr>
-          </div>
-
-          <div class="col-12">
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">Category</label>
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">Skill</label>
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">Details</label>
-          </div>
-
-          <div class="col-12" style="text-align: center;margin: 10px auto;"
-            *ngIf="dashboard_achievementdetails.length == 0">
-            <label style="color: #000;font-size: small;">No Records Mapped..</label>
-          </div>
-
-          <div class="col-12" *ngFor="let item of dashboard_achievementdetails">
-            <label style="color: #000;font-size: small;width: 25%;">{{item.masterdataiddesc}}</label>
-            <label style="color: #000;font-size: small;width: 25%;">{{item.skilldesc}}</label>
-            <label style="color: #000;font-size: small;width: 25%;">{{item.achievementdetails}}</label>
           </div>
         </div>
-      </div>
 
-      <!-- Education -->
+        <!-- Projects -->
 
-      <div class="main-data">
+        <div class="main-data">
 
-        <div class="row">
-          <div class="col-12 dashboard-list_data">
-            <h5>Education</h5>
-            <hr>
-          </div>
+          <div class="row">
+            <div class="col-12 dashboard-list_data">
+              <h5>Projects</h5>
+              <hr>
+            </div>
 
-          <div class="col-12">
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">Course</label>
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">Institution</label>
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">From Year</label>
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">To Year</label>
-          </div>
+            <div class="col-12">
+              <label style="color:#000;font-weight: 600;width: 25%;">Company</label>
+              <label style="color:#000;font-weight: 600;width: 25%;">Work Topic</label>
+              <label style="color:#000;font-weight: 600;width: 25%;">Work Description </label>
+            </div>
 
-          <div class="col-12" style="text-align: center;margin: 10px auto;"
-            *ngIf="dashboard_educationdetails.length == 0">
-            <label style="color: #000;font-size: small;">No Records Mapped..</label>
-          </div>
+            <div class="col-12" style="text-align: center;margin: 10px auto;"
+              *ngIf="dashboard_projectdetails.length == 0">
+              <label style="color: #000;font-size: small;">No Records Mapped..</label>
+            </div>
 
-          <div class="col-12" *ngFor="let item of dashboard_educationdetails">
-            <label style="color: #000;font-size: small;width: 25%;">{{item.coursename}}</label>
-            <label style="color: #000;font-size: small;width: 25%;">{{item.institutionname}}</label>
-            <label style="color: #000;font-size: small;width: 25%;">{{item.fromyear}}</label>
-            <label style="color: #000;font-size: small;width: 25%;">{{item.toyear}}</label>
-          </div>
+            <div class="col-12" *ngFor="let item of dashboard_projectdetails">
+              <label style="color: #000;font-size: small;width: 25%;">{{item.companyname}}</label>
+              <label style="color: #000;font-size: small;width: 25%;">{{item.worktopic}}</label>
+              <label
+                style="color: #000;font-size: small;width: 35%;vertical-align: top;">{{item.workdescription}}</label>
+            </div>
 
-        </div>
-      </div>
-
-      <!-- References -->
-
-      <div class="main-data">
-        <div class="row">
-          <div class="col-12 dashboard-list_data">
-            <h5>References</h5>
-            <hr>
-          </div>
-
-          <div class="col-12">
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">Date</label>
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">Refered To</label>
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">Response</label>
-            <label for="" style="color:#000;font-weight: 600;width: 25%;">Remarks</label>
-          </div>
-
-          <div class="col-12" style="text-align: center;margin: 10px auto;"
-            *ngIf="dashboard_reffreq_details.length == 0">
-            <label style="color: #000;font-size: small;">No Records Mapped..</label>
-          </div>
-
-          <div class="col-12" *ngFor="let item of dashboard_reffreq_details">
-            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.date | date : 'dd-MM-yyyy'}}</label>
-            <label for="" style="color: #000;font-size: small;width: 25%;"
-              class="mobileView">{{item.reffered_to}}</label>
-            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.response}}</label>
-            <label for="" style="color: #000;font-size: small;width: 25%;">{{item.referenceremarks
-              }}</label>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- New Knowlwdge -->
-
-      <div class=" main-data">
-
-        <div class="row">
-          <div class="col-12 dashboard-list_data">
-            <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">Knowledge</h5>
-            <hr>
-          </div>
-
-          <div class="col-12">
-            <table style="width: 100%;">
-              <thead>
-                <tr>
-                  <th>
-                    <label for="" style="color:#000;font-weight: 600;">Date</label>
-                  </th>
-                  <th>
-                    <label for="" style="color:#000;font-weight: 600;">Knowledge-base Name</label>
-                  </th>
-                  <th>
-                    <label for="" style="color:#000;font-weight: 600;">Knowledge-base Details</label>
-                  </th>
-                  <th>
-                    <label for="" style="color:#000;font-weight: 600;">View Details</label>
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr>
-                  <td>
-                    <label for="" style="color: #000;font-size: small;"> - </label>
-                  </td>
-                  <td>
-                    <label for="" style="color: #000;font-size: small;"> - </label>
-                  </td>
-                  <td>
-                    <label for="" style="color: #000;font-size: small;"> - </label>
-                  </td>
-                  <td>
-                    <label for="" style="color: #000;font-size: small;"> - </label>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
+
+        <!-- Achievement Details -->
+
+        <div class="main-data">
+
+          <div class="row">
+            <div class="col-12 dashboard-list_data">
+              <h5>Achievements</h5>
+              <hr>
+            </div>
+
+            <div class="col-12">
+              <label for="" style="color:#000;font-weight: 600;width: 25%;">Category</label>
+              <label for="" style="color:#000;font-weight: 600;width: 25%;">Skill</label>
+              <label for="" style="color:#000;font-weight: 600;width: 25%;">Details</label>
+            </div>
+
+            <div class="col-12" style="text-align: center;margin: 10px auto;"
+              *ngIf="dashboard_achievementdetails.length == 0">
+              <label style="color: #000;font-size: small;">No Records Mapped..</label>
+            </div>
+
+            <div class="col-12" *ngFor="let item of dashboard_achievementdetails">
+              <label style="color: #000;font-size: small;width: 25%;">{{item.masterdataiddesc}}</label>
+              <label style="color: #000;font-size: small;width: 25%;">{{item.skilldesc}}</label>
+              <label style="color: #000;font-size: small;width: 25%;">{{item.achievementdetails}}</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+
+        <div class="main-data">
+
+          <div class="row">
+            <div class="col-12 dashboard-list_data">
+              <h5>Education</h5>
+              <hr>
+            </div>
+
+            <div class="col-12">
+              <label for="" style="color:#000;font-weight: 600;width: 25%;">Course</label>
+              <label for="" style="color:#000;font-weight: 600;width: 25%;">Institution</label>
+              <label for="" style="color:#000;font-weight: 600;width: 25%;">From Year</label>
+              <label for="" style="color:#000;font-weight: 600;width: 25%;">To Year</label>
+            </div>
+
+            <div class="col-12" style="text-align: center;margin: 10px auto;"
+              *ngIf="dashboard_educationdetails.length == 0">
+              <label style="color: #000;font-size: small;">No Records Mapped..</label>
+            </div>
+
+            <div class="col-12" *ngFor="let item of dashboard_educationdetails">
+              <label style="color: #000;font-size: small;width: 25%;">{{item.coursename}}</label>
+              <label style="color: #000;font-size: small;width: 25%;">{{item.institutionname}}</label>
+              <label style="color: #000;font-size: small;width: 25%;">{{item.fromyear}}</label>
+              <label style="color: #000;font-size: small;width: 25%;">{{item.toyear}}</label>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- References -->
+
+        <div class="main-data">
+          <div class="row">
+            <div class="col-12 dashboard-list_data">
+              <h5>References</h5>
+              <hr>
+            </div>
+
+            <div class="col-12">
+              <label for="" style="color:#000;font-weight: 600;width: 25%;">Date</label>
+              <label for="" style="color:#000;font-weight: 600;width: 25%;">Refered To</label>
+              <label for="" style="color:#000;font-weight: 600;width: 25%;">Response</label>
+              <label for="" style="color:#000;font-weight: 600;width: 25%;">Remarks</label>
+            </div>
+
+            <div class="col-12" style="text-align: center;margin: 10px auto;"
+              *ngIf="dashboard_reffreq_details.length == 0">
+              <label style="color: #000;font-size: small;">No Records Mapped..</label>
+            </div>
+
+            <div class="col-12" *ngFor="let item of dashboard_reffreq_details">
+              <label for="" style="color: #000;font-size: small;width: 25%;">{{item.date | date : 'dd-MM-yyyy'}}</label>
+              <label for="" style="color: #000;font-size: small;width: 25%;"
+                class="mobileView">{{item.reffered_to}}</label>
+              <label for="" style="color: #000;font-size: small;width: 25%;">{{item.response}}</label>
+              <label for="" style="color: #000;font-size: small;width: 25%;">{{item.referenceremarks
+                }}</label>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- New Knowlwdge -->
+
+        <div class=" main-data">
+
+          <div class="row">
+            <div class="col-12 dashboard-list_data">
+              <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">Knowledge</h5>
+              <hr>
+            </div>
+
+            <div class="col-12">
+              <table style="width: 100%;">
+                <thead>
+                  <tr>
+                    <th>
+                      <label for="" style="color:#000;font-weight: 600;">Date</label>
+                    </th>
+                    <th>
+                      <label for="" style="color:#000;font-weight: 600;">Knowledge-base Name</label>
+                    </th>
+                    <th>
+                      <label for="" style="color:#000;font-weight: 600;">Knowledge-base Details</label>
+                    </th>
+                    <th>
+                      <label for="" style="color:#000;font-weight: 600;">View Details</label>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      <label for="" style="color: #000;font-size: small;"> - </label>
+                    </td>
+                    <td>
+                      <label for="" style="color: #000;font-size: small;"> - </label>
+                    </td>
+                    <td>
+                      <label for="" style="color: #000;font-size: small;"> - </label>
+                    </td>
+                    <td>
+                      <label for="" style="color: #000;font-size: small;"> - </label>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-
     </div>
+
   </div>
 
   <div id="contentArea1" class="main container full-height">

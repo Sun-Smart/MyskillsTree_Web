@@ -522,11 +522,6 @@ export class mstapplicantcareergridComponent implements OnInit {
     }
   }
 
-  // addSkills() {
-  //     debugger
-  //     this.showSkillDetails_input = true;
-  //     this.getData();
-  // };
 
   getData() {
     this.mstapplicantcareerdetail_service.getDefaultData().then(res => {
@@ -794,7 +789,7 @@ export class mstapplicantcareergridComponent implements OnInit {
 
     debugger;
     this.showSkillDetails_input = true;
-    this.ngOnInit();
+    this.mstapplicantcareerdetail_Form.reset();
     this.getData();
     let add = false;
     if (event == null) add = true;
@@ -805,8 +800,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     debugger;
     this.showSkillDetails_input = true;
     this.getData();
-    let add = false;
-    if (event == null) add = true;
+
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
     console.log("careerid", careerid);
@@ -814,24 +808,25 @@ export class mstapplicantcareergridComponent implements OnInit {
       debugger
       console.log(res);
       this.mstapplicantcareerdetail_Form.patchValue({
-        applicantid: res.mstapplicantcareerdetail.applicantid,
-        applicantiddesc: res.mstapplicantcareerdetail.applicantiddesc,
-        careerid: res.mstapplicantcareerdetail.careerid,
+        // applicantid: res.mstapplicantcareerdetail.applicantid,
+        // applicantiddesc: res.mstapplicantcareerdetail.applicantiddesc,
+        // careerid: res.mstapplicantcareerdetail.careerid,
         category: res.mstapplicantcareerdetail.category,
         categorydesc: res.mstapplicantcareerdetail.categorydesc,
         companyname: res.mstapplicantcareerdetail.companyname,
         designation: res.mstapplicantcareerdetail.designation,
-        keyproject: res.mstapplicantcareerdetail.keyproject,
+        // keyproject: res.mstapplicantcareerdetail.keyproject,
         fromdate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.fromdate),
         todate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.todate),
-        currentlyworking: res.mstapplicantcareerdetail.currentlyworking,
+        // currentlyworking: res.mstapplicantcareerdetail.currentlyworking,
         requestid: res.mstapplicantcareerdetail.requestid,
         skills: res.mstapplicantcareerdetail.skills,
         string_agg: res.mstapplicantcareerdetail.string_agg,
         remarks: res.mstapplicantcareerdetail.remarks,
-        status: res.mstapplicantcareerdetail.status,
-        statusdesc: res.mstapplicantcareerdetail.statusdesc,
-        attachment: "[]",
+        // status: res.mstapplicantcareerdetail.status,
+        // statusdesc: res.mstapplicantcareerdetail.statusdesc,
+        // attachment: "[]",
+        
       });
       setTimeout(() => {
         this.getSkillsDescription();
@@ -840,7 +835,7 @@ export class mstapplicantcareergridComponent implements OnInit {
       this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
     })
 
-  }
+  };
 
   // Old Code
 

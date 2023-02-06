@@ -433,6 +433,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             /* your code here */
         }
         this.Set_mstapplicantworkreferences_TableConfig();
+   
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
         this.FillData();
@@ -600,8 +601,9 @@ export class mstapplicantworkrefgridComponent implements OnInit {
                 debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.sessionService.setItem("attachedsaved", "true")
-                this.ngOnInit();
+                this.mstapplicantworkreference_Form.reset();
                 this.objvalues.push((res as any).mstapplicantworkreference);
+                this.ngOnInit();
                 if (!bclear) this.showview = true;
                 if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
@@ -729,6 +731,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     Add_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
         debugger;
         this.showSkillDetails_input = true;
+        this.mstapplicantworkreference_Form.reset();
         let add = false;
         if (event == null) add = true;
         let childsave = true;
@@ -1062,7 +1065,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             let childsave = true;
             this.dialog.open(mstapplicantworkreferenceComponent,
                 {
-                    width: '75% !important',
+                    width: '75% ',
                     data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, workreferenceid, applicantid, visiblelist: this.mstapplicantworkreferences_visiblelist, hidelist: this.mstapplicantworkreferences_hidelist, ScreenType: 2 },
                 }
             ).onClose.subscribe(res => {
