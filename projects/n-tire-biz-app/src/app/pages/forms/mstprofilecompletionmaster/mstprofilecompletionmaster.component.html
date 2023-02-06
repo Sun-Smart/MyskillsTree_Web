@@ -22,7 +22,7 @@
           </li>
           <li class='nav-item actionheader'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+            <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li>
 
         </ul>
@@ -40,25 +40,25 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('generalinformation') == -1) && (generalinformationvisible==undefined || generalinformationvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="generalinformation" class="control-label">General Information</label>
         <label *ngIf="showview" class="labelview">{{f.generalinformation?.value}}</label>
         <input *ngIf="!showview" id="generalinformation" formControlName="generalinformation" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('education') == -1) && (educationvisible==undefined || educationvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="education" class="control-label">Education</label>
         <label *ngIf="showview" class="labelview">{{f.education?.value}}</label>
         <input *ngIf="!showview" id="education" formControlName="education" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('career') == -1) && (careervisible==undefined || careervisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="career" class="control-label">Career</label>
         <label *ngIf="showview" class="labelview">{{f.career?.value}}</label>
         <input *ngIf="!showview" id="career" formControlName="career" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('skill') == -1) && (skillvisible==undefined || skillvisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="skill" class="control-label">Skill</label>
         <label *ngIf="showview" class="labelview">{{f.skill?.value}}</label>
         <input *ngIf="!showview" id="skill" formControlName="skill" class="form-control">
@@ -66,26 +66,26 @@
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('photo') == -1) && (photovisible==undefined || photovisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="photo" class="control-label">Photo</label>
         <label *ngIf="showview" class="labelview">{{f.photo?.value}}</label>
         <input *ngIf="!showview" id="photo" formControlName="photo" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('language') == -1) && (languagevisible==undefined || languagevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="language" class="control-label">Language</label>
         <label *ngIf="showview" class="labelview">{{f.language?.value}}</label>
         <input *ngIf="!showview" id="language" formControlName="language" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('geography') == -1) && (geographyvisible==undefined || geographyvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="geography" class="control-label">Geography</label>
         <label *ngIf="showview" class="labelview">{{f.geography?.value}}</label>
         <input *ngIf="!showview" id="geography" formControlName="geography" class="form-control">
       </div>
       <div
         *ngIf="((hidelist.indexOf('achievements') == -1) && (achievementsvisible==undefined || achievementsvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="achievements" class="control-label">Achievements</label>
         <label *ngIf="showview" class="labelview">{{f.achievements?.value}}</label>
         <input *ngIf="!showview" id="achievements" formControlName="achievements" class="form-control">
@@ -94,26 +94,26 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('displayprofile') == -1) && (displayprofilevisible==undefined || displayprofilevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="displayprofile" class="control-label">Display Profile</label>
         <label *ngIf="showview" class="labelview">{{f.displayprofile?.value}}</label>
         <input *ngIf="!showview" id="displayprofile" formControlName="displayprofile" class="form-control">
       </div>
       <div
         *ngIf="((hidelist.indexOf('statuscrimp') == -1) && (statuscrimpvisible==undefined || statuscrimpvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="statuscrimp" class="control-label">Status Crimp</label>
         <label *ngIf="showview" class="labelview">{{f.statuscrimp?.value}}</label>
         <input *ngIf="!showview" id="statuscrimp" formControlName="statuscrimp" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('reference') == -1) && (referencevisible==undefined || referencevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="reference" class="control-label">Reference</label>
         <label *ngIf="showview" class="labelview">{{f.reference?.value}}</label>
         <input *ngIf="!showview" id="reference" formControlName="reference" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('worksdone') == -1) && (worksdonevisible==undefined || worksdonevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="worksdone" class="control-label">Works Done</label>
         <label *ngIf="showview" class="labelview">{{f.worksdone?.value}}</label>
         <input *ngIf="!showview" id="worksdone" formControlName="worksdone" class="form-control">
@@ -122,7 +122,7 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('socialmedia') == -1) && (socialmediavisible==undefined || socialmediavisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="socialmedia" class="control-label">Social Media</label>
         <label *ngIf="showview" class="labelview">{{f.socialmedia?.value}}</label>
         <input *ngIf="!showview" id="socialmedia" formControlName="socialmedia" class="form-control">

@@ -243,6 +243,9 @@ import { AnyCnameRecord } from 'dns';
     .mobileView{
       word-break: break-word !important;
     }
+    .mob_profile_release{
+      white-space: nowrap !important;
+    }
   }
   `],
   templateUrl: './bodashboardviewer.component.html',

@@ -46,7 +46,17 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
 @Component({
     selector: 'app-mstprofilecompletionmaster',
     templateUrl: './mstprofilecompletionmaster.component.html',
-    styles: [],
+    styles: [`
+     @media only screen and (max-width: 600px) {
+        .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+      }
+    `],
     providers: [KeyboardShortcutsService]
 })
 
@@ -219,7 +229,7 @@ export class mstprofilecompletionmasterComponent implements OnInit {
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        //setting the flag that the screen is not touched
         this.mstprofilecompletionmaster_Form.markAsUntouched();
         this.mstprofilecompletionmaster_Form.markAsPristine();
     }

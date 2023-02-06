@@ -107,7 +107,7 @@
                                         <select name="gender" formControlName="category" [(ngModel)]="category"  class="form-control" (change)="opendrop(category)">
                                             <!-- <option [ngValue]="null" selected></option> -->
                                             <option  [Value]="G" [selected]="true">General</option>
-                                            <option  [Value]="S">Special</option>
+                                            <option  [Value]="S">Special</option>s
                                         </select>
 
                                     </div>
@@ -154,7 +154,9 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <button class="btn btn-info btn-block register_btn"
-                                (click)="onSubmitAndWait()" [disabled]="!bocompanyregistration_Form.valid">Register</button>
+                                (click)="onSubmitAndWait()" [disabled]="bocompanyregistration_Form.value.companyname== null || bocompanyregistration_Form.value.companytype== null||bocompanyregistration_Form.value.firstname== null||bocompanyregistration_Form.value.lastname== null||bocompanyregistration_Form.value.designation== null
+                                ||bocompanyregistration_Form.value.emailid== null||bocompanyregistration_Form.value.mobilenumber== null
+                                ">Register</button>
                         </div>
                     </form>
 
