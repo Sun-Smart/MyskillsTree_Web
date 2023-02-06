@@ -61,7 +61,7 @@
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.subcategoryid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.subcategoryid.value" [status]="f.status.value"></app-action>
@@ -89,7 +89,7 @@
 
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('configkey') == -1) && (configkeyvisible==undefined || configkeyvisible==true))"
-        style='' class="col-3"><label for="configkey" class="control-label">Config Key</label>
+        style='' class="col-3 education_view_mobile"><label for="configkey" class="control-label">Config Key</label>
         <select *ngIf="!showview" id="configkey" (change)="configkey_onChange($event.target)"
           formControlName="configkey" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -103,7 +103,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('subconfigcode') == -1) && (subconfigcodevisible==undefined || subconfigcodevisible==true))"
-        style='' class="col-3"><label for="subconfigcode" class="control-label">Sub Config Code</label>
+        style='' class="col-3 education_view_mobile"><label for="subconfigcode" class="control-label">Sub Config Code</label>
         <select *ngIf="!showview" id="subconfigcode" (change)="subconfigcode_onChange($event.target)"
           formControlName="subconfigcode" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -113,13 +113,13 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('subcategoryname') == -1) && (subcategorynamevisible==undefined || subcategorynamevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="subcategoryname" class="control-label">Sub Category Name</label>
         <label *ngIf="showview" class="labelview">{{f.subcategoryname?.value}}</label>
         <input *ngIf="!showview" id="subcategoryname" formControlName="subcategoryname" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('orderno') == -1) && (ordernovisible==undefined || ordernovisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="orderno" class="control-label">Order No</label>
         <label *ngIf="showview" class="labelview">{{f.orderno?.value}}</label>
         <input *ngIf="!showview" id="orderno" formControlName="orderno" class="form-control">

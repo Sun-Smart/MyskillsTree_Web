@@ -79,7 +79,7 @@ export class SharedService {
     //debugger;
     //alert(message);
     // this.messageService.add({ severity: 'success', summary: message, detail: message });
-    this.messageService.add({ severity: 'success', summary: "Alert", detail: message, life: 300000 });
+    this.messageService.add({ severity: 'success', summary: "Alert", detail: message, life: 2000 });
   }
   async FillData() {
     await this.bousermasterservice.get_bousermasters_List().then((res: any) => {
@@ -304,7 +304,7 @@ export class SharedService {
         let comments = JSON.parse(cell);
         for (let comment of comments) {
           //if (ret != "") ret += "\r\n";
-          let dt = this.ngbDateParserFormatter.parse(comment.currentDate);// 
+          let dt = this.ngbDateParserFormatter.parse(comment.currentDate);//
           ret += "<p class='nogap'><span class='frontcolor'>" + dt.year + "-" + dt.month + "-" + dt.day + "</span> : " + comment.commentTxt + "</p>";
           //replyComment
         }
@@ -385,9 +385,9 @@ export class SharedService {
   };
   /*
   getList(key:string) {
-  
+
       return this.http.get(AppConstants.ntireboURL + '/umssectionmaster'+'/param/'+key).toPromise();
-  
+
     }
   */
   dataURItoBlob(dataURI) {
@@ -463,7 +463,7 @@ export class SharedService {
             return url;
             window.open(url);
 
-            // });  
+            // });
           });
           //url= window.URL.createObjectURL( file._data );
 

@@ -73,19 +73,19 @@
       <ul>
         <li class='nav-item actionheader' *ngIf="!showview">
 
-          <a class="alert-primary popup-add-button" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
+          <a class="alert-primary popup-add-button mobile_view_btn" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
             Back</a>
-          <a class="alert-primary popup-add-button " [routerLink]='' (click)="onSubmitAndWait()"><i
+          <a class="alert-primary popup-add-button mobile_btn" [routerLink]='' (click)="onSubmitAndWait()"><i
               class="fa fa-database"></i>
             Submit</a>
-          <a class="alert-primary popup-add-button " *ngIf='data.pkcol==null || maindata.ScreenType==null'
+          <a class="alert-primary popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
             [routerLink]='' (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
           <app-action *ngIf="f.datatypeid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
             [value]="f.datatypeid.value" [status]="f.status.value"></app-action>
         </li>
         <li class='nav-item actionheader'
           *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-          <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+          <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
         </li>
 
       </ul>

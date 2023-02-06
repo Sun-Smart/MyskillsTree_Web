@@ -46,7 +46,17 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
 @Component({
     selector: 'app-bosubconfigvalue',
     templateUrl: './bosubconfigvalue.component.html',
-    styles: [],
+    styles: [`
+    @media only screen and (max-width: 600px) {
+        .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+      }
+    `],
     providers: [KeyboardShortcutsService]
 })
 
@@ -205,7 +215,7 @@ export class bosubconfigvalueComponent implements OnInit {
 
     // initialize
     async ngOnInit() {
-        
+
         //session & theme
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
@@ -251,7 +261,7 @@ export class bosubconfigvalueComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -268,7 +278,7 @@ export class bosubconfigvalueComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.bosubconfigvalue_service.getDefaultData().then(res => {
             this.configkey_List = res.list_configkey.value;
@@ -281,7 +291,7 @@ export class bosubconfigvalueComponent implements OnInit {
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        //setting the flag that the screen is not touched
         this.bosubconfigvalue_Form.markAsUntouched();
         this.bosubconfigvalue_Form.markAsPristine();
     }

@@ -66,7 +66,7 @@
 
         <div class="col-3  input-group  nomargin nowrap">
 
-          <a [routerLink]='' (click)="onChangeAction('Add')" *ngIf="showAddJobs"><i class="fa fa-plus-circle reportMobileViewCommon"
+          <a [routerLink]='' (click)="onChangeAction1('Add')" *ngIf="showAddJobs"><i class="fa fa-plus-circle reportMobileViewCommon"
             style="color:#6B431D!important;vertical-align: middle;margin-top: 8px;
             font-size: 18px;"></i></a>
 
@@ -77,59 +77,59 @@
                   <!-- <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
                                         aria-haspopup='true' aria-expanded='false'> <span class='caret'></span></a> -->
                   <ul class="dropdown-menu">
-                    <li *ngIf="canadd"><a class="dropdown-item" [routerLink]='' (click)="onChangeAction('Add')"><i
+                    <li *ngIf="canadd"><a class="dropdown-item" [routerLink]='' (click)="onChangeAction1('Add')"><i
                           class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Add</a></li>
                     <ng-container *ngFor="let action of menuactions">
-                      <li><a class="dropdown-item" [routerLink]='' (click)="onChangeAction(action.actionid)"><i
+                      <li><a class="dropdown-item" [routerLink]='' (click)="onChangeAction1(action.actionid)"><i
                             class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a>
                       </li>
                     </ng-container>
                     <!--
                                         <li *ngIf="canedit"><a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('Edit')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('Edit')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Edit</a></li>
 
                                         <li *ngIf="checkboxavailable"><a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('ShowCheckbox')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('ShowCheckbox')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Show Checkbox</a></li>
                                         <li><a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('BulkEdit')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('BulkEdit')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Bulk Edit</a></li>
                                         <li><a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('Upload')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('Upload')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Upload</a></li>
                                         <li><a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('Print')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('Print')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Print</a></li>
                                         <li><a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('Export')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('Export')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Export</a></li>
 
                                         <li
                                             *ngIf="configdata!=null && configdata['alternateview']!=null  && configdata['alternateview']!=undefined && configdata['alternateview']!=''">
-                                            <a class="dropdown-item" [routerLink]='' (click)="onChangeAction('List')"><i
+                                            <a class="dropdown-item" [routerLink]='' (click)="onChangeAction1('List')"><i
                                                     class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;List</a>
                                         </li>
                                         <li
                                             *ngIf="configdata!=null && configdata['alternateview']!=null  && configdata['alternateview']!=undefined && configdata['alternateview']!=''">
                                             <a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('AlternateView')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('AlternateView')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Alternate View</a>
                                         </li>
                                         <li><a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('ShowAll')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('ShowAll')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Show All</a></li>
                                         <li><a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('Filter')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('Filter')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Filter</a></li>
                                         <li><a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('ClearFilter')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('ClearFilter')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Clear Filter</a></li>
                                         <li><a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('SideFilter')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('SideFilter')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Side Filter</a></li>
                                         <li><a class="dropdown-item" [routerLink]=''
-                                                (click)="onChangeAction('Email')"><i class="fa fa-new"
+                                                (click)="onChangeAction1('Email')"><i class="fa fa-new"
                                                     aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Email</a></li>
 -->
                   </ul>
@@ -138,7 +138,7 @@
             </div>
           </nav>
           <!--
-                        <select [(ngModel)]="action" class="" (change)="onChangeAction($event.target.value)">
+                        <select [(ngModel)]="action" class="" (change)="onChangeAction1($event.target.value)">
                             <option value="">Select Action</option>
                             <option *ngIf="canadd" value="Add">Add</option>
                             <ng-container *ngFor="let action of menuactions">
@@ -165,7 +165,7 @@
                     -->
           <ng-container *ngFor="let action of menuactions">
             <button *ngIf="action.actionbutton==true && action.actionbuttonlocation!='B'" type="button" class=" border"
-              (click)="onChangeAction(action.actionid)" style="color: #dee2e6!important;"><i
+              (click)="onChangeAction1(action.actionid)" style="color: #dee2e6!important;"><i
                 class="fa fa-new"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</button>
           </ng-container>
 
@@ -1128,7 +1128,7 @@
                 <i class="fa fa-check-circle" style="font-size:25px;color: green;cursor: pointer;"
                   (click)="onChangeAction1(action.actionid)"></i>
               </span>
-              
+
               <span *ngIf="action.description == 'Rejected'">
                 <i class="fa fa-times-circle" style="font-size:25px;color: red;cursor: pointer;"
                   (click)="onChangeAction1(action.actionid)"></i>
