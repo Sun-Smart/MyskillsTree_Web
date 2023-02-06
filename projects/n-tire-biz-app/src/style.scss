@@ -3888,9 +3888,20 @@ footer {
     // display: flex;
     // justify-content: space-between;
     box-shadow: 0px 0px 10px 0px #e2e0e0;
-    border-radius: 5px;
-    margin: 11px !important;
+    border-radius: 19px;
+    margin: 5px 10px !important;
     padding: 0px 0px 5px 0px !important;
+  }
+};
+
+.dashboard-card-header{
+  background-color: #eaeaea;
+  label{
+    color: #666;
+    font-weight: 600;
+    font-size: 12px;
+    margin: 0;
+    padding: 5px;
   }
 }
 
@@ -3924,19 +3935,20 @@ footer {
 
 .dashboard-list_data {
   padding: 0 !important;
+  background-color: #666666; 
+  border-top-left-radius: 19px;
+  border-top-right-radius: 19px;
 
-  h5 {
-    color: #000;
-    font-size: 15px;
-    padding: 5px 0 5px 5px !important;
+  label {
+    
+    font-size: 12px;
     font-weight: 600;
-    background-color: #ebf3fc;
+    margin: 0 20px !important;
+    color: #fff;
   }
 
-  hr {
-    margin: 0px 0px 10px 0px !important;
-  }
 }
+
 .emp-resp{
   .details-label{
   color: #000;
