@@ -1485,7 +1485,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
             //     console.log('result ', resultarrA);
             //     if (resultjobq[0] == "jobq" || resultarrA[0] == "arrA") {
             //         this.canedit = true;
-            //     } 
+            //     }
 
         }
 
@@ -1950,7 +1950,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
             if (localStorage.getItem('role') == '3') {
 
-                // if (this.reportcode == "jobq" || this.reportcode == "arrA") 
+                // if (this.reportcode == "jobq" || this.reportcode == "arrA")
 
                 // let resultASMD = this.router.routerState.snapshot.url.match("ASMD");
 
@@ -2249,7 +2249,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
         this.onChangeAction1(val);
     }
     justclick(val:any){
-        alert("Hi Its Working");        
+        alert("Hi Its Working");
     }
     onChangeFilterType(val) {
         if (val == 'FF')
