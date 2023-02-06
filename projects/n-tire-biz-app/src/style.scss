@@ -3878,7 +3878,7 @@ footer {
 .dashboard-sidebar-content {
   padding: 1rem;
   overflow-y: scroll;
-  height: 500px !important;
+  height: 550px !important;
 
   .form-check {
     font-size: 12px;
@@ -3890,7 +3890,7 @@ footer {
 
 .main-dash-content {
   overflow-y: scroll;
-  height: 100% !important;
+  height: 530px !important;
   padding: 0 !important;
 
   .main-data {
@@ -3945,8 +3945,8 @@ footer {
 .dashboard-list_data {
   padding: 0 !important;
   background-color: #666666;
-  border-top-left-radius: 19px;
-  border-top-right-radius: 19px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 
   label {
     font-size: 12px;
@@ -3956,19 +3956,20 @@ footer {
   }
 }
 .sidenav-skill-card {
-  border-top-left-radius: 19px;
-  font-weight: 600;
-  background-color: #666666;
-  width: 100%;
-  border-top-right-radius: 19px;
-  padding: 5px 21px;
-  color: #fff;
-  text-align: inherit;
+  border: 0px solid;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px 0px #e2e0e0;
 
-  label {
-    border: 0px solid;
-    border-radius: 19px;
-    box-shadow: 0px 0px 10px 0px #e2e0e0;
+  .head-label {
+    border-top-left-radius: 15px;
+    font-weight: 600;
+    background-color: #666666;
+    font-size: 12px;
+    width: 100%;
+    border-top-right-radius: 15px;
+    padding: 0px 20px;
+    color: #fff;
+    text-align: inherit;
   }
 }
 

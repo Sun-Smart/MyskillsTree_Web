@@ -31,8 +31,9 @@
 
 
         <div class="sidenav-skill-card">
-          <label style="font-weight: 600;"> Skills</label>
-
+          <div>
+            <label class="head-label"> Skills</label>
+          </div>
 
           <div class="row" *ngFor="let item of finalarray" style="display: flex;justify-content: space-evenly;">
 
@@ -48,10 +49,11 @@
 
           </div>
         </div>
+        <br>
 
         <!-- User Profile -->
-        <div class="row">
-          <h6 style="font-weight: 600;"> User Profile</h6>
+        <div class="row sidenav-skill-card">
+          <label class="head-label"> Profile Status</label>
           <div class="col-12">
             <img src="assets/User Profile/status.png" width="90%" style="margin-left:6%;">
             <div><canvas id="canvas" width="500px" height="500px"></canvas></div>
@@ -307,8 +309,7 @@
               <label for="" style="color: #000;font-size: small;width: 25%;"
                 class="mobileView">{{item.reffered_to}}</label>
               <label for="" style="color: #000;font-size: small;width: 25%;">{{item.response}}</label>
-              <label for="" style="color: #000;font-size: small;width: 25%;">{{item.referenceremarks
-                }}</label>
+              <label for="" style="color: #000;font-size: small;width: 25%;">{{item.referenceremarks}}</label>
             </div>
 
           </div>
@@ -320,46 +321,20 @@
 
           <div class="row">
             <div class="col-12 dashboard-list_data">
-              <label style="color: #000;font-size: 15px;padding: 5px 0!important;">Knowledge</label>
+              <label>Knowledge</label>
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
             <div class="col-12 dashboard-card-header">
-              <table style="width: 100%;">
-                <thead>
-                  <tr>
-                    <th>
-                      <label for="" style="color:#000;font-weight: 600;">Date</label>
-                    </th>
-                    <th>
-                      <label for="" style="color:#000;font-weight: 600;">Knowledge-base Name</label>
-                    </th>
-                    <th>
-                      <label for="" style="color:#000;font-weight: 600;">Knowledge-base Details</label>
-                    </th>
-                    <th>
-                      <label for="" style="color:#000;font-weight: 600;">View Details</label>
-                    </th>
-                  </tr>
-                </thead>
+              <label style="width: 25%;">Date</label>
+              <label style="width: 25%;">Knowledge-base Name</label>
+              <label style="width: 25%;">Knowledge-base Details</label>
+              <label style="width: 25%;">View Details</label>
+             
+            </div>
 
-                <tbody>
-                  <tr>
-                    <td>
-                      <label for="" style="color: #000;font-size: small;"> - </label>
-                    </td>
-                    <td>
-                      <label for="" style="color: #000;font-size: small;"> - </label>
-                    </td>
-                    <td>
-                      <label for="" style="color: #000;font-size: small;"> - </label>
-                    </td>
-                    <td>
-                      <label for="" style="color: #000;font-size: small;"> - </label>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div style="text-align: left;margin: 10px;">
+              <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
           </div>
         </div>
