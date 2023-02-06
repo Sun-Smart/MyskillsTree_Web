@@ -82,7 +82,7 @@
               color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
             <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-            <button type="button" class="btn btn-outline-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
               style="border-color: #fff !important;
               color: #fff;margin: 5px;
     padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
@@ -107,20 +107,20 @@
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('categoryid') == -1) && (categoryidvisible==undefined || categoryidvisible==true))"
-        style='' class="col-4 ">
+        style='' class="col-4 education_view_mobile">
         <label for="categoryid" class="control-label">Category</label>
         <label *ngIf="showview" class="labelview">{{f.categoryid?.value}}</label>
         <input *ngIf="!showview" id="categoryid" type="number" formControlName="categoryid" class="form-control">
       </div>
       <div
         *ngIf="((hidelist.indexOf('subcategoryname') == -1) && (subcategorynamevisible==undefined || subcategorynamevisible==true))"
-        style='' class="col-4 ">
+        style='' class="col-4 education_view_mobile">
         <label for="subcategoryname" class="control-label">Subcategory Name</label>
         <label *ngIf="showview" class="labelview">{{f.subcategoryname?.value}}</label>
         <input *ngIf="!showview" id="subcategoryname" formControlName="subcategoryname" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('orderno') == -1) && (ordernovisible==undefined || ordernovisible==true))" style=''
-        class="col-4 ">
+        class="col-4 education_view_mobile">
         <label for="orderno" class="control-label">Order No</label><br/>
         <label *ngIf="showview" class="labelview">{{f.orderno?.value}}</label>
         <input *ngIf="!showview" id="orderno" formControlName="orderno" class="form-control">

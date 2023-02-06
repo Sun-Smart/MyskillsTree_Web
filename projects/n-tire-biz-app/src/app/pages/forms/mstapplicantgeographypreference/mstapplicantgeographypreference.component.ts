@@ -60,6 +60,9 @@ import { bocity } from '../../../model/bocity.model';
         .mobile_view_btn{
           display: none !important;
         }
+        .mobileView{
+          bottom: 6px !important;
+        }
       }
     `],
     providers: [KeyboardShortcutsService]

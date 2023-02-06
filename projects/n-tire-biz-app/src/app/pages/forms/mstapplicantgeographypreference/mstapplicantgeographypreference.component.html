@@ -84,7 +84,7 @@
           <app-action *ngIf="f.geographypreferenceid.value != null" (afterAction)="afterAction($event)"
             [menuid]="p_menuid" [value]="f.geographypreferenceid.value" [status]="f.status.value"></app-action>
         </li>
-        <i class='nav-item actionheader common_title_style'
+        <i class='nav-item actionheader common_title_style mobileView'
           *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
           class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
       </ul>
@@ -154,14 +154,14 @@
       </div>
     </div>
 
-    <!-- <div *ngIf="(viewHtml == '' || !showview) && showAttachment" class="form-group row"> -->
+    <div *ngIf="(viewHtml == '' || !showview) && showAttachment" class="form-group row">
       <div *ngIf="((hidelist.indexOf('remarks') == -1) && (remarksvisible==undefined || remarksvisible==true))"
         class="col-12 ">
         <label for="remarks" class="control-label">Remarks</label>
         <label *ngIf="showview" class="labelview">{{f.remarks?.value}}</label>
         <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>
       </div>
-    <!-- </div> -->
+    </div>
 
 
     <div class='full-width' *ngIf="attachmentVisible">

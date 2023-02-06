@@ -225,14 +225,14 @@ import { AnyCnameRecord } from 'dns';
       width: 35px !important;
     }
     .dashboard-sidebar{
-      height: 90% !important;
+      height: 95% !important;
     }
     .main-dash-content{
       width: 100% !important;
       min-width: fit-content !important;
     }
     .dashboard-sidebar-content{
-      height: 550px !important;
+      height: 600px !important;
       overflow: hidden !important;
       /* padding: 0rem !important; */
     }
