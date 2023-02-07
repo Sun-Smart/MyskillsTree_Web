@@ -61,7 +61,7 @@
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.cityid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.cityid.value" [status]="f.status.value"></app-action>
@@ -95,7 +95,7 @@
           <p-accordion [multiple]='true'>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('code') == -1) && (codevisible==undefined || codevisible==true))" style=''
-                class="col-3 ">
+                class="col-3 education_view_mobile">
                 <label for="code" class="control-label required">Code</label>
                 <label *ngIf="showview" class="labelview">{{f.code?.value}}</label>
                 <input *ngIf="!showview" id="code" required formControlName="code" class="form-control">
@@ -104,7 +104,7 @@
                 </app-field-error-display>
               </div>
               <div *ngIf="((hidelist.indexOf('name') == -1) && (namevisible==undefined || namevisible==true))" style=''
-                class="col-3 ">
+                class="col-3 education_view_mobile">
                 <label for="name" class="control-label required">Name</label>
                 <label *ngIf="showview" class="labelview">{{f.name?.value}}</label>
                 <input *ngIf="!showview" id="name" required formControlName="name" class="form-control">
@@ -113,7 +113,7 @@
                 </app-field-error-display>
               </div>
               <div *ngIf="((hidelist.indexOf('stateid') == -1) && (stateidvisible==undefined || stateidvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="stateid" class="control-label">State</label>
                 <label *ngIf="showview" class="labelview">{{f.stateid?.value}}</label>
                 <input *ngIf="!showview" id="stateid" formControlName="stateid" class="form-control">
@@ -136,7 +136,7 @@
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('metro') == -1) && (metrovisible==undefined || metrovisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <div class="columnchk">
                   <label for="metro" class="control-label">Metro</label>
                   <label *ngIf="showview" class="labelview">{{f.metro?.value}}</label>

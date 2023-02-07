@@ -51,9 +51,15 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
     templateUrl: './bocountry.component.html',
     styles: [`
 
-    .ng-star-inserted{
-        text-align:center !important;
-    }
+    @media only screen and (max-width: 600px) {
+        .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+      }
     `],
     providers: [KeyboardShortcutsService]
 })
