@@ -49,7 +49,21 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
 @Component({
     selector: 'app-bodashboard',
     templateUrl: './bodashboard.component.html',
-    styles: [],
+    styles: [`
+    @media only screen and (max-width: 600px) {
+        .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+        .mobile_btn{
+          position: relative !important;
+          bottom: 5px !important;
+        }
+      }
+    `],
     providers: [KeyboardShortcutsService]
 })
 
@@ -265,7 +279,7 @@ export class bodashboardComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -287,7 +301,7 @@ export class bodashboardComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.bodashboard_service.getDefaultData().then(res => {
             this.dashboardid_List = res.list_dashboardid.value;
@@ -299,7 +313,7 @@ export class bodashboardComponent implements OnInit {
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        //setting the flag that the screen is not touched
         this.bodashboard_Form.markAsUntouched();
         this.bodashboard_Form.markAsPristine();
     }
@@ -947,7 +961,7 @@ export class bodashboardComponent implements OnInit {
     break;
     }
     }
-    
+
     */
     bodashboarddetails_route(event: any, action: any) {
         var addparam = "";

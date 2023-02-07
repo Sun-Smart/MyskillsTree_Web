@@ -64,7 +64,7 @@
   padding: 3px;
   color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
 
-            <button type="button" class="btn btn-outline-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
               style="border-color: #fff !important;
   color: #fff;margin: 5px;
      padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
@@ -102,7 +102,7 @@
       </app-field-error-display>
   </div> -->
       <div *ngIf="((hidelist.indexOf('name') == -1) && (namevisible==undefined || namevisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="name" class="control-label required">Name</label>
         <label *ngIf="showview" class="labelview">{{f.name?.value}}</label>
         <input *ngIf="!showview" id="name" required formControlName="name" class="form-control">
@@ -110,7 +110,7 @@
         </app-field-error-display>
       </div>
       <div *ngIf="((hidelist.indexOf('categoryid') == -1) && (categoryidvisible==undefined || categoryidvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="categoryid" class="control-label">Category</label>
         <label *ngIf="showview" class="labelview">{{f.categoryid?.value}}</label>
         <input *ngIf="!showview" id="categoryid" formControlName="categoryid" class="form-control">

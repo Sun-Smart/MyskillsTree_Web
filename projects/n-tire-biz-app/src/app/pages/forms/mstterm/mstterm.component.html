@@ -59,11 +59,11 @@
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
           <li class='nav-item actionheader' *ngIf="!showview">
-            <a class="alert-success" [routerLink]='' [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
+            <a class="alert-success mobile_view_btn" [routerLink]='' [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
               Back</a>
             <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.termid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.termid.value" [status]="f.status.value"></app-action>
@@ -88,14 +88,14 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('versionnumber') == -1) && (versionnumbervisible==undefined || versionnumbervisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="versionnumber" class="control-label">Version Number</label>
         <label *ngIf="showview" class="labelview">{{f.versionnumber?.value}}</label>
         <input *ngIf="!showview" id="versionnumber" formControlName="versionnumber" class="form-control">
       </div>
       <div
         *ngIf="((hidelist.indexOf('versiondate') == -1) && (versiondatevisible==undefined || versiondatevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="versiondate" class="control-label">Version Date</label>
         <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.versiondate?.value)}}</label>
         <div class="input-group" *ngIf="!showview">
@@ -122,7 +122,7 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('currentterm') == -1) && (currenttermvisible==undefined || currenttermvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <div class="columnchk">
           <label for="currentterm" class="control-label">Current Term</label>
           <label *ngIf="showview" class="labelview">{{f.currentterm?.value}}</label>

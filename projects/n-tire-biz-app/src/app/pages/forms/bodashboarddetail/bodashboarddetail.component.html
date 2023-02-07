@@ -9,7 +9,7 @@
       <div class='col'></div>
       <div class='dropdown d-inline-block btn-dropdown show'>
 
-        <ul class='nav nav-pills  input-group'>
+        <ul class='nav nav-pills  input-group mobile_view'>
           <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bodashboarddetails()"><i
                 class="nb-edit"></i>Edit</a></li>
           <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
@@ -60,9 +60,9 @@
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
           <li class='nav-item actionheader' *ngIf="!showview">
-            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
+            <a class="alert-success mobile_btn_submit" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.dashboarddetailid.value != null" (afterAction)="afterAction($event)"
               [menuid]="p_menuid" [value]="f.dashboarddetailid.value" [status]="f.status.value"></app-action>
@@ -91,7 +91,7 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('dashboardid') == -1) && (dashboardidvisible==undefined || dashboardidvisible==true))"
-        style='' class="col-3"><label for="dashboardid" class="control-label"
+        style='' class="col-3 education_view_mobile"><label for="dashboardid" class="control-label"
           (click)="AddOrEdit_dashboardid(null)">Dashboard</label>
         <app-popupselect *ngIf="!showview" [options]="dashboardid_List" [optionsEvent]="dashboardid_optionsEvent"
           [form]="bodashboard" (selectItem)="onSelected_dashboardid($event)" [reportid]='ybg3p' [menuid]='ybg3p'
@@ -102,19 +102,19 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('dashboardname') == -1) && (dashboardnamevisible==undefined || dashboardnamevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="dashboardname" class="control-label">Dashboard Name</label>
         <label *ngIf="showview" class="labelview">{{f.dashboardname?.value}}</label>
         <input *ngIf="!showview" id="dashboardname" formControlName="dashboardname" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('title') == -1) && (titlevisible==undefined || titlevisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="title" class="control-label">Title</label>
         <label *ngIf="showview" class="labelview">{{f.title?.value}}</label>
         <input *ngIf="!showview" id="title" formControlName="title" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('row') == -1) && (rowvisible==undefined || rowvisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="row" class="control-label">Row</label>
         <label *ngIf="showview" class="labelview">{{f.row?.value}}</label>
         <input *ngIf="!showview" id="row" formControlName="row" class="form-control">
@@ -122,7 +122,7 @@
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('col') == -1) && (colvisible==undefined || colvisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="col" class="control-label">Col</label>
         <label *ngIf="showview" class="labelview">{{f.col?.value}}</label>
         <input *ngIf="!showview" id="col" formControlName="col" class="form-control">
@@ -132,7 +132,7 @@
       <!--charttype-->
 
       <div *ngIf="((hidelist.indexOf('charttype') == -1) && (charttypevisible==undefined || charttypevisible==true))"
-        style='' class="col-3"><label for="charttype" class="control-label">Chart Type</label>
+        style='' class="col-3 education_view_mobile"><label for="charttype" class="control-label">Chart Type</label>
         <select *ngIf="!showview" id="charttype" (change)="charttype_onChange($event.target)"
           formControlName="charttype" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -141,13 +141,13 @@
         <label *ngIf="showview" class="labelview">{{f.charttypedesc?.value}}</label>
       </div>
       <div *ngIf="((hidelist.indexOf('tablename') == -1) && (tablenamevisible==undefined || tablenamevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="tablename" class="control-label">Table Name</label>
         <label *ngIf="showview" class="labelview">{{f.tablename?.value}}</label>
         <input *ngIf="!showview" id="tablename" formControlName="tablename" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('recordname') == -1) && (recordnamevisible==undefined || recordnamevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="recordname" class="control-label">Record Name</label>
         <label *ngIf="showview" class="labelview">{{f.recordname?.value}}</label>
         <input *ngIf="!showview" id="recordname" formControlName="recordname" class="form-control">
@@ -165,20 +165,20 @@
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('name') == -1) && (namevisible==undefined || namevisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="name" class="control-label">Name</label>
         <label *ngIf="showview" class="labelview">{{f.name?.value}}</label>
         <input *ngIf="!showview" id="name" formControlName="name" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('value') == -1) && (valuevisible==undefined || valuevisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="value" class="control-label">Value</label>
         <label *ngIf="showview" class="labelview">{{f.value?.value}}</label>
         <input *ngIf="!showview" id="value" formControlName="value" class="form-control">
       </div>
       <div
         *ngIf="((hidelist.indexOf('parameter1variable') == -1) && (parameter1variablevisible==undefined || parameter1variablevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="parameter1variable" class="control-label">Parameter1 Variable</label>
         <label *ngIf="showview" class="labelview">{{f.parameter1variable?.value}}</label>
         <input *ngIf="!showview" id="parameter1variable" formControlName="parameter1variable" class="form-control">
@@ -189,7 +189,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('parameter1type') == -1) && (parameter1typevisible==undefined || parameter1typevisible==true))"
-        style='' class="col-3"><label for="parameter1type" class="control-label"
+        style='' class="col-3 education_view_mobile"><label for="parameter1type" class="control-label"
           (click)="AddOrEdit_parameter1type(null)">Parameter1 Type</label>
         <select *ngIf="!showview" id="parameter1type" (change)="parameter1type_onChange($event.target)"
           formControlName="parameter1type" class="form-control">
@@ -206,7 +206,7 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('parameter1datetype') == -1) && (parameter1datetypevisible==undefined || parameter1datetypevisible==true))"
-        style='' class="col-3"><label for="parameter1datetype" class="control-label">Parameter1 Date Type</label>
+        style='' class="col-3 education_view_mobile"><label for="parameter1datetype" class="control-label">Parameter1 Date Type</label>
         <select *ngIf="!showview" id="parameter1datetype" (change)="parameter1datetype_onChange($event.target)"
           formControlName="parameter1datetype" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -216,7 +216,7 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('parameter2variable') == -1) && (parameter2variablevisible==undefined || parameter2variablevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="parameter2variable" class="control-label">Parameter2 Variable</label>
         <label *ngIf="showview" class="labelview">{{f.parameter2variable?.value}}</label>
         <input *ngIf="!showview" id="parameter2variable" formControlName="parameter2variable" class="form-control">
@@ -227,7 +227,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('parameter2type') == -1) && (parameter2typevisible==undefined || parameter2typevisible==true))"
-        style='' class="col-3"><label for="parameter2type" class="control-label"
+        style='' class="col-3 education_view_mobile"><label for="parameter2type" class="control-label"
           (click)="AddOrEdit_parameter2type(null)">Parameter2 Type</label>
         <select *ngIf="!showview" id="parameter2type" (change)="parameter2type_onChange($event.target)"
           formControlName="parameter2type" class="form-control">
@@ -242,7 +242,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('parameter2datetype') == -1) && (parameter2datetypevisible==undefined || parameter2datetypevisible==true))"
-        style='' class="col-3"><label for="parameter2datetype" class="control-label">Parameter2 Date Type</label>
+        style='' class="col-3 education_view_mobile"><label for="parameter2datetype" class="control-label">Parameter2 Date Type</label>
         <select *ngIf="!showview" id="parameter2datetype" (change)="parameter2datetype_onChange($event.target)"
           formControlName="parameter2datetype" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -254,7 +254,7 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('parameter3variable') == -1) && (parameter3variablevisible==undefined || parameter3variablevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="parameter3variable" class="control-label">Parameter3 Variable</label>
         <label *ngIf="showview" class="labelview">{{f.parameter3variable?.value}}</label>
         <input *ngIf="!showview" id="parameter3variable" formControlName="parameter3variable" class="form-control">
@@ -265,7 +265,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('parameter3type') == -1) && (parameter3typevisible==undefined || parameter3typevisible==true))"
-        style='' class="col-3"><label for="parameter3type" class="control-label"
+        style='' class="col-3 education_view_mobile"><label for="parameter3type" class="control-label"
           (click)="AddOrEdit_parameter3type(null)">Parameter3 Type</label>
         <select *ngIf="!showview" id="parameter3type" (change)="parameter3type_onChange($event.target)"
           formControlName="parameter3type" class="form-control">
@@ -280,7 +280,7 @@
 
       <div
         *ngIf="((hidelist.indexOf('parameter3datetype') == -1) && (parameter3datetypevisible==undefined || parameter3datetypevisible==true))"
-        style='' class="col-3"><label for="parameter3datetype" class="control-label">Parameter3 Date Type</label>
+        style='' class="col-3 education_view_mobile"><label for="parameter3datetype" class="control-label">Parameter3 Date Type</label>
         <select *ngIf="!showview" id="parameter3datetype" (change)="parameter3datetype_onChange($event.target)"
           formControlName="parameter3datetype" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -290,7 +290,7 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('backgroundcolor') == -1) && (backgroundcolorvisible==undefined || backgroundcolorvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="backgroundcolor" class="control-label">Background Color</label>
         <label *ngIf="showview" class="labelview">{{f.backgroundcolor?.value}}</label>
         <input *ngIf="!showview" id="backgroundcolor" formControlName="backgroundcolor" class="form-control">
@@ -299,14 +299,14 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('hoverbackgroundcolor') == -1) && (hoverbackgroundcolorvisible==undefined || hoverbackgroundcolorvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="hoverbackgroundcolor" class="control-label">Hover Background Color</label>
         <label *ngIf="showview" class="labelview">{{f.hoverbackgroundcolor?.value}}</label>
         <input *ngIf="!showview" id="hoverbackgroundcolor" formControlName="hoverbackgroundcolor" class="form-control">
       </div>
       <div
         *ngIf="((hidelist.indexOf('bordercolor') == -1) && (bordercolorvisible==undefined || bordercolorvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="bordercolor" class="control-label">Border Color</label>
         <label *ngIf="showview" class="labelview">{{f.bordercolor?.value}}</label>
         <input *ngIf="!showview" id="bordercolor" formControlName="bordercolor" class="form-control">
@@ -316,7 +316,7 @@
       <!--menuid-->
 
       <div *ngIf="((hidelist.indexOf('menuid') == -1) && (menuidvisible==undefined || menuidvisible==true))" style=''
-        class="col-3"><label for="menuid" class="control-label" (click)="AddOrEdit_menuid(null)">Menu</label>
+        class="col-3 education_view_mobile"><label for="menuid" class="control-label" (click)="AddOrEdit_menuid(null)">Menu</label>
         <app-popupselect *ngIf="!showview" [options]="menuid_List" [optionsEvent]="menuid_optionsEvent"
           [form]="bomenumaster" (selectItem)="onSelected_menuid($event)" [reportid]='urtra' [menuid]='urtra'
           formControlName="menuid" id="value" desc="label"></app-popupselect>
@@ -329,7 +329,7 @@
       <!--reportid-->
 
       <div *ngIf="((hidelist.indexOf('reportid') == -1) && (reportidvisible==undefined || reportidvisible==true))"
-        style='' class="col-3"><label for="reportid" class="control-label">Report</label>
+        style='' class="col-3 education_view_mobile"><label for="reportid" class="control-label">Report</label>
         <select *ngIf="!showview" id="reportid" (change)="reportid_onChange($event.target)" formControlName="reportid"
           class="form-control">
           <option [ngValue]="null" selected>-Select-</option>

@@ -46,7 +46,21 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
 @Component({
   selector: 'app-mstsubcategory',
   templateUrl: './mstsubcategory.component.html',
-  styles: [],
+  styles: [`
+  @media only screen and (max-width: 600px) {
+        .education_view_mobile{
+          min-width: 100% !important;
+          margin: 0px !important;
+        }
+        .mobile_view_btn{
+          display: none !important;
+        }
+        .mobile_btn{
+          position: relative !important;
+          bottom: 5px !important;
+        }
+      }
+  `],
   providers: [KeyboardShortcutsService]
 })
 
