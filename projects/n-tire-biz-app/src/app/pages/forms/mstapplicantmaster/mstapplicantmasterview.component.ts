@@ -206,6 +206,10 @@ export class mstapplicantmasterviewComponent implements OnInit {
 
   mstapplicantskilldetails_visiblelist: any;
   mstapplicantskilldetails_hidelist: any;
+  mstapplicantskilldetails:any = [];
+  skill_data:any = [];
+  skillarray:any = [];
+  skill_selfrating:any;
 
   mstapplicantworkreferences_visiblelist: any;
   mstapplicantworkreferences_hidelist: any;
@@ -1085,6 +1089,43 @@ return false;
     this.mstapplicantworkreferences = res.mstapplicantworkreferences;
     this.mstapplicantsocialmediadetails = res.mstapplicantsocialmediadetails;
 
+    this.mstapplicantskilldetails = res.mstapplicantskilldetails;
+
+    for (let i = 0; i < this.mstapplicantskilldetails.length; i++) {
+      this.skill_data.push({
+        skillDescription: this.mstapplicantlanguagedetails[i].skillcategorydesc,
+        subCategory: this.mstapplicantlanguagedetails[i].subcategoryiddesc,
+        selfRating: this.mstapplicantlanguagedetails[i].selfrating,
+        remarks: this.mstapplicantlanguagedetails[i].remarks,
+      });
+    };
+
+    for (let i = 0; i < this.skill_data.length; i++) {
+      if (this.skill_data[i].selfRating == 1) {
+        this.skill_selfrating = '★'
+      } else if (this.skill_data[i].selfRating == 2) {
+        this.skill_selfrating = '★★'
+      } else if (this.skill_data[i].selfRating == 3) {
+        this.skill_selfrating = '★★★'
+      } else if (this.skill_data[i].selfRating == 4) {
+        this.skill_selfrating = '★★★★'
+      } else if (this.skill_data[i].selfRating == 5) {
+        this.skill_selfrating = '★★★★★'
+      }
+
+
+      this.skillarray.push({
+        skillDescription: this.skill_data[i].skillDescription,
+        subCategory: this.skill_data[i].subCategory,
+        remarks: this.skill_data[i].remarks,
+        showstr : this.skill_selfrating
+
+      })
+    }
+
+
+
+
     this.mstapplicantlanguagedetails = res.mstapplicantlanguagedetails;
 
     for (let i = 0; i < this.mstapplicantlanguagedetails.length; i++) {
@@ -1096,7 +1137,7 @@ return false;
         overallrating: this.mstapplicantlanguagedetails[i].overallrating,
       });
     };
-    console.log("this.language_data", this.language_data);
+
 
     for (let i = 0; i < this.language_data.length; i++) {
 
