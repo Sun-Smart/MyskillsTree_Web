@@ -58,6 +58,11 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
         .mobile_view_btn{
           display: none !important;
         }
+        .mobile_btn{
+          position: relative !important;
+          right: 100px !important;
+          width: auto !important;
+        }
       }
     `],
     providers: [KeyboardShortcutsService]

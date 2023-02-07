@@ -3,7 +3,7 @@
 <form [formGroup]="bomasterdatatype_Form" (ngSubmit)="onSubmit()" [ngClass]="theme" style="background-color: #f5f3e4;">
   <div class="row second">
 
-    <div class="col-10 columns mainheader left">
+    <div class="col-6 columns mainheader left">
       <h1 class=" "><a href='#/home/{{p_currenturl}}'>{{'Master DataTypes' | translate}}</a></h1>
     </div>
 
@@ -70,7 +70,9 @@
     </div>
 
     <div class="col-4 ">
+
       <ul>
+
         <li class='nav-item actionheader' *ngIf="!showview">
 
           <a class="alert-primary popup-add-button mobile_view_btn" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
