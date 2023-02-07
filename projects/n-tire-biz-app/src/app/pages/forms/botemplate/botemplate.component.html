@@ -61,7 +61,7 @@
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.templateid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.templateid.value" [status]="f.status.value"></app-action>
@@ -90,7 +90,7 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('templatetype') == -1) && (templatetypevisible==undefined || templatetypevisible==true))"
-        style='' class="col-3"><label for="templatetype" class="control-label">Type</label>
+        style='' class="col-3 education_view_mobile"><label for="templatetype" class="control-label">Type</label>
         <select *ngIf="!showview" id="templatetype" (change)="templatetype_onChange($event.target)"
           formControlName="templatetype" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -100,7 +100,7 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('templatecode') == -1) && (templatecodevisible==undefined || templatecodevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="templatecode" class="control-label">Template Code</label>
         <label *ngIf="showview" class="labelview">{{f.templatecode?.value}}</label>
         <input *ngIf="!showview" id="templatecode" formControlName="templatecode" class="form-control">

@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="bostate_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second bgcolor">
-    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'states'}}</a></h1>
+    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'States'}}</a></h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -60,10 +60,10 @@
           </ng-container>
 
           <li class='nav-item actionheader common_title_style' *ngIf="!showview">
-            <button type="button" class="btn btn-outline-primary popup-add-button " style="border-color: #fff !important;margin: 5px;
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_btn" style="border-color: #fff !important;margin: 5px;
               padding: 3px;
               color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
-            <button type="button" class="btn btn-outline-primary popup-add-button " *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
               style="border-color: #fff !important;
               color: #fff;margin: 5px;
     padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
@@ -111,7 +111,7 @@
           <p-accordion [multiple]='true'>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('code') == -1) && (codevisible==undefined || codevisible==true))" style=''
-                class="col-3 ">
+                class="col-3 education_view_mobile">
                 <label for="code" class="control-label required">Code</label>
                 <label *ngIf="showview" class="labelview">{{f.code?.value}}</label>
                 <input *ngIf="!showview" id="code" required formControlName="code" class="form-control">
@@ -137,7 +137,7 @@
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
                 *ngIf="((hidelist.indexOf('countryid') == -1) && (countryidvisible==undefined || countryidvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="countryid" class="control-label">Country</label>
                 <label *ngIf="showview" class="labelview">{{f.countryid?.value}}</label>
                 <input *ngIf="!showview" id="countryid" formControlName="countryid" class="form-control">

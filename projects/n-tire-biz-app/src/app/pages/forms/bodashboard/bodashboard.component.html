@@ -61,7 +61,7 @@
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.dashboardid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.dashboardid.value" [status]="f.status.value"></app-action>
@@ -106,13 +106,13 @@
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('rows') == -1) && (rowsvisible==undefined || rowsvisible==true))" style=''
-                class="col-3 ">
+                class="col-3 education_view_mobile">
                 <label for="rows" class="control-label">Rows</label>
                 <label *ngIf="showview" class="labelview">{{f.rows?.value}}</label>
                 <input *ngIf="!showview" id="rows" formControlName="rows" class="form-control">
               </div>
               <div *ngIf="((hidelist.indexOf('cols') == -1) && (colsvisible==undefined || colsvisible==true))" style=''
-                class="col-3 ">
+                class="col-3 education_view_mobile">
                 <label for="cols" class="control-label">Cols</label>
                 <label *ngIf="showview" class="labelview">{{f.cols?.value}}</label>
                 <input *ngIf="!showview" id="cols" formControlName="cols" class="form-control">
@@ -142,13 +142,13 @@
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('userid') == -1) && (useridvisible==undefined || useridvisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="userid" class="control-label">User</label>
                 <label *ngIf="showview" class="labelview">{{f.userid?.value}}</label>
                 <input *ngIf="!showview" id="userid" formControlName="userid" class="form-control">
               </div>
               <div *ngIf="((hidelist.indexOf('module') == -1) && (modulevisible==undefined || modulevisible==true))"
-                style='' class="col-3 ">
+                style='' class="col-3 education_view_mobile">
                 <label for="module" class="control-label">Module</label>
                 <label *ngIf="showview" class="labelview">{{f.module?.value}}</label>
                 <input *ngIf="!showview" id="module" formControlName="module" class="form-control">

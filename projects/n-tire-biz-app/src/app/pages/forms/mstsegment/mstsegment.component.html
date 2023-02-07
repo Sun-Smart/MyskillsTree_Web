@@ -61,14 +61,14 @@
           <li class='nav-item actionheader' *ngIf="!showview">
             <!-- <a class="alert-success" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a> -->
             <!-- <a class="alert-primary"  *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-            <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #fff !important;margin: 5px;
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #fff !important;margin: 5px;
             padding: 3px;
             color: #fff;" [routerLink]=''(click)="goBack()" >Back</button>&nbsp;
             <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #fff !important;margin: 5px;
     padding: 3px;
     color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
 
-            <button type="button" class="btn btn-outline-primary popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null'
+            <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
               style="border-color: #fff !important;
     color: #fff;margin: 5px;
        padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
@@ -117,7 +117,7 @@
                 </app-field-error-display>
               </div> -->
               <div *ngIf="((hidelist.indexOf('name') == -1) && (namevisible==undefined || namevisible==true))" style=''
-                class="col-3 ">
+                class="col-3 education_view_mobile">
                 <label for="name" class="control-label required">Name</label>
                 <label *ngIf="showview" class="labelview">{{f.name?.value}}</label>
                 <input *ngIf="!showview" id="name" required formControlName="name" class="form-control">

@@ -47,6 +47,9 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
     selector: 'app-mstjobstatus',
     templateUrl: './mstjobstatus.component.html',
     styles: [`
+    .mobileshowview{
+      display: none;
+    }
     @media only screen and (max-width: 600px) {
       .applicantfield{
         min-width: 100% !important;
@@ -307,7 +310,7 @@ export class mstjobstatusComponent implements OnInit {
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => { this.spinner.hide(); console.log(err); });
- 
+
     };
 
 

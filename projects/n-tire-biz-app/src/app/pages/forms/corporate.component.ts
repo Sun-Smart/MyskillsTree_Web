@@ -94,7 +94,7 @@ export type ChartOptions = {
     </table>
     </div>
 
-    
+
     </div>
 
 
@@ -281,7 +281,7 @@ export class CorporateDashboardComponent implements OnInit {
           },
           {
             name: "Rejected",
-            data: this.no_of_rejected
+            data: this.no_of_notIntrested
           }
         ],
         chart: {

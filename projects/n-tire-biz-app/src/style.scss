@@ -3212,6 +3212,9 @@ footer {
   p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
     height: auto !important;
   }
+  #contentAreaLayout{
+    overflow: hidden !important;
+  }
 }
 .releaseBtn {
   background-color: aliceblue !important;
