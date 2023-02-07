@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f1541b5b-6fb9-4f66-9ad7-ecf0db908b27" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/capacitor.build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/getcapacitor/myapp/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/ionic/starter/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-hdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-mdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-hdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-mdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/file_paths.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/getcapacitor/myapp/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/capacitor.settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/variables.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../projects/n-tire-biz-app/src/app/pages/forms/corporate.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../projects/n-tire-biz-app/src/app/pages/forms/corporate.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../projects/n-tire-biz-app/src/app/pages/forms/mstjobrequirement/mstjobrequirement.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../projects/n-tire-biz-app/src/app/pages/forms/mstjobrequirement/mstjobrequirement.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../projects/n-tire-biz-app/src/app/pages/forms/mstjobstatus/mstjobstatus.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../projects/n-tire-biz-app/src/app/pages/forms/mstjobstatus/mstjobstatus.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../projects/n-tire-biz-app/src/app/pages/forms/mstjobstatus/mstjobstatus.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../projects/n-tire-biz-app/src/app/pages/forms/mstjobstatus/mstjobstatus.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/common.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/common.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bobranchmaster_bobranchmaster_component_t-9a16c7.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bobranchmaster_bobranchmaster_component_t-9a16c7.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bobranchmaster_bobranchmaster_component_t-9a16c7.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bobranchmaster_bobranchmaster_component_t-9a16c7.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bocity_bocity_component_ts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bocity_bocity_component_ts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bocity_bocity_component_ts.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bocity_bocity_component_ts.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bofinancialyear_bofinancialyear_module_ts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bofinancialyear_bofinancialyear_module_ts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bofinancialyear_bofinancialyear_module_ts.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bofinancialyear_bofinancialyear_module_ts.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bomasterdata_bomasterdata_module_ts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bomasterdata_bomasterdata_module_ts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bomasterdata_bomasterdata_module_ts.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bomasterdata_bomasterdata_module_ts.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bosubcategorymaster_bosubcategorymaster_m-7439c2.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bosubcategorymaster_bosubcategorymaster_m-7439c2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bosubcategorymaster_bosubcategorymaster_m-7439c2.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_bosubcategorymaster_bosubcategorymaster_m-7439c2.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstcorporatelocation_mstcorporatelocation-299f66.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstcorporatelocation_mstcorporatelocation-299f66.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstcorporatelocation_mstcorporatelocation-299f66.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstcorporatelocation_mstcorporatelocation-299f66.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstjobrequirement_mstjobrequirement_compo-b12bcb.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstjobrequirement_mstjobrequirement_compo-b12bcb.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstjobrequirement_mstjobrequirement_compo-b12bcb.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstjobrequirement_mstjobrequirement_compo-b12bcb.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstjobstatus_mstjobstatus_component_ts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstjobstatus_mstjobstatus_component_ts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstjobstatus_mstjobstatus_component_ts.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/default-projects_n-tire-biz-app_src_app_pages_forms_mstjobstatus_mstjobstatus_component_ts.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../www/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/main.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/main.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bocompanymaster_bocompanymaster_module_ts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bocompanymaster_bocompanymaster_module_ts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bocompanymaster_bocompanymaster_module_ts.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bocompanymaster_bocompanymaster_module_ts.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_boconfigvalue_boconfigvalue_module_ts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_boconfigvalue_boconfigvalue_module_ts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_boconfigvalue_boconfigvalue_module_ts.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_boconfigvalue_boconfigvalue_module_ts.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bocountry_bocountry_module_ts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bocountry_bocountry_module_ts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bocountry_bocountry_module_ts.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bocountry_bocountry_module_ts.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bomasterdatatype_bomasterdatatype_module_ts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bomasterdatatype_bomasterdatatype_module_ts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bomasterdatatype_bomasterdatatype_module_ts.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_bomasterdatatype_bomasterdatatype_module_ts.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstapplicantmaster_mstapplicantmaster_module_ts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstapplicantmaster_mstapplicantmaster_module_ts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstapplicantmaster_mstapplicantmaster_module_ts.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstapplicantmaster_mstapplicantmaster_module_ts.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstcorporatemaster_mstcorporatemaster_module_ts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstcorporatemaster_mstcorporatemaster_module_ts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstcorporatemaster_mstcorporatemaster_module_ts.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstcorporatemaster_mstcorporatemaster_module_ts.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstprofileaccessdetail_mstprofileaccessdetail_module_ts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstprofileaccessdetail_mstprofileaccessdetail_module_ts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstprofileaccessdetail_mstprofileaccessdetail_module_ts.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstprofileaccessdetail_mstprofileaccessdetail_module_ts.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstprofilecompletionmaster_mstprofilecompletionma-279546.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstprofilecompletionmaster_mstprofilecompletionma-279546.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstprofilecompletionmaster_mstprofilecompletionma-279546.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/projects_n-tire-biz-app_src_app_pages_forms_mstprofilecompletionmaster_mstprofilecompletionma-279546.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../www/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/styles.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/styles.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/vendor.js" beforeDir="false" afterPath="$PROJECT_DIR$/../www/vendor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../www/vendor.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/../www/vendor.js.map" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2LOZ8DgUCWrp3RPwB5OoeBkMlmc" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="android.app.main" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f1541b5b-6fb9-4f66-9ad7-ecf0db908b27" name="Changes" comment="" />
+      <created>1675743937420</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1675743937420</updated>
+    </task>
+    <servers />
+  </component>
+</project>
