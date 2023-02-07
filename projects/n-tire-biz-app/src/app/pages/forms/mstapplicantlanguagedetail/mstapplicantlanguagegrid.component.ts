@@ -846,10 +846,10 @@ export class mstapplicantlanuagegridComponent implements OnInit {
               divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative !important;right: -40px !important;bottom: 5px;'>" + writeproficiency + "</div>";
               divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative;right: -40px !important;bottom: 5px;'>" + overallrating + "</div>";
             }
-            divrow["speakproficiency"] = "<div class='Stars' style='--rating:" + row['speakproficiency'] + "'></div>";
-            divrow["readproficiency"] = "<div class='Stars' style='--rating:" + row['readproficiency'] + "'></div>";
-            divrow["writeproficiency"] = "<div class='Stars' style='--rating:" + row['writeproficiency'] + "'></div>";
-            divrow["overallrating"] = "<div class='Stars' style='--rating:" + row['overallrating'] + "'></div>";
+            // divrow["speakproficiency"] = "<div class='Stars' style='--rating:" + row['speakproficiency'] + "'></div>";
+            // divrow["readproficiency"] = "<div class='Stars' style='--rating:" + row['readproficiency'] + "'></div>";
+            // divrow["writeproficiency"] = "<div class='Stars' style='--rating:" + row['writeproficiency'] + "'></div>";
+            // divrow["overallrating"] = "<div class='Stars' style='--rating:" + row['overallrating'] + "'></div>";
             return this.sharedService.HtmlValue(divrow, cell);
           },
         },
