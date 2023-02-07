@@ -1,5 +1,5 @@
 <div class="container" style="position: fixed;top: 49px;height: 100%;">
-  <div class="row" style="background-color: #8dba4d;padding: 10px;display: flex;color: #fff;">
+  <div class="row" style="background-color: #cbf29f;padding: 10px;display: flex;color: #fff;">
     <div class="col-3">
       <h6 style="font-weight: 600;"> Dashboard</h6>
     </div>
@@ -55,7 +55,6 @@
           </div>
         </div>
         <br>
-
         <!-- User Profile -->
         <div class="row sidenav-skill-card">
           <label class="head-label"> Profile Status</label>
@@ -176,7 +175,28 @@
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
-            <div class="col-12 dashboard-card-header">
+            <table style="width: 100%;">
+              <thead class="dashboard-card-header">
+                <tr>
+                  <th style="padding-left: 20px !important  ;">Company</th>
+                  <th>Designation</th>
+                  <th>Details</th>
+                  <th>From</th>
+                  <th>To</th>
+                </tr>
+              </thead>
+              <tbody class="dashboard-table-data">
+                <tr *ngFor="let item of dashboard_employementdetails">
+                  <td style="padding-left: 20px;">{{item.companyname}}</td>
+                  <td>{{item.designation}}</td>
+                  <td>{{item.details}}</td>
+                  <td>{{item.fromdate | date : 'dd-MM-yyyy'}}</td>
+                  <td>{{item.todate | date : 'dd-MM-yyyy'}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="col-12 dashboard-card-header" style="display: none;">
               <label style="width: 20%;">Company</label>
               <label style="width: 20%;">Designation</label>
               <label style="width: 25%;">Details</label>
@@ -188,7 +208,7 @@
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
 
-            <div class="col-12 emp-resp" *ngFor="let item of dashboard_employementdetails">
+            <div class="col-12 emp-resp" *ngFor="let item of dashboard_employementdetails" style="display: none;">
               <label style="color: #000;font-size: small;width: 20%;">{{item.companyname}}</label>
               <label style="color: #000;font-size: small;width: 20%;">{{item.designation}}</label>
               <label class="details-label">{{item.details}}</label>
@@ -209,23 +229,26 @@
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
-            <div class="col-12 dashboard-card-header">
-              <label style="width: 25%;">Company</label>
-              <label style="width: 25%;">Work Topic</label>
-              <label style="width: 25%;">Work Description </label>
-            </div>
+            <table style="width: 100%;">
+              <thead class="dashboard-card-header">
+                <tr>
+                  <th style="padding-left: 20px !important  ;">Company</th>
+                  <th>Work Topic</th>
+                  <th>Work Description</th>
+                </tr>
+              </thead>
+              <tbody class="dashboard-table-data">
+                <tr *ngFor="let item of dashboard_projectdetails">
+                  <td style="padding-left: 20px;">{{item.companyname}}</td>
+                  <td>{{item.worktopic}}</td>
+                  <td>{{item.workdescription}}</td>
+                </tr>
+              </tbody>
+            </table>
 
             <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_projectdetails.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
-
-            <div class="col-12" *ngFor="let item of dashboard_projectdetails">
-              <label style="color: #000;font-size: small;width: 25%;">{{item.companyname}}</label>
-              <label style="color: #000;font-size: small;width: 25%;">{{item.worktopic}}</label>
-              <label
-                style="color: #000;font-size: small;width: 35%;vertical-align: top;">{{item.workdescription}}</label>
-            </div>
-
           </div>
         </div>
 
@@ -236,25 +259,30 @@
           <div class="row">
             <div class="col-12 dashboard-list_data">
               <label>Achievements</label>
-
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
-            <div class="col-12 dashboard-card-header">
-              <label style="width: 25%;">Category</label>
-              <label style="width: 25%;">Skill</label>
-              <label style="width: 25%;">Details</label>
-            </div>
+            <table style="width: 100%;">
+              <thead class="dashboard-card-header">
+                <tr>
+                  <th style="padding-left: 20px !important;">Category</th>
+                  <th>Skill</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody class="dashboard-table-data">
+                <tr  *ngFor="let item of dashboard_achievementdetails">
+                  <td style="padding-left: 20px;">{{item.masterdataiddesc}}</td>
+                  <td>{{item.skilldesc}}</td>
+                  <td>{{item.achievementdetails}}</td>
+                </tr>
+              </tbody>
+            </table>
 
             <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_achievementdetails.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
 
-            <div class="col-12" *ngFor="let item of dashboard_achievementdetails">
-              <label style="color: #000;font-size: small;width: 25%;">{{item.masterdataiddesc}}</label>
-              <label style="color: #000;font-size: small;width: 25%;">{{item.skilldesc}}</label>
-              <label style="color: #000;font-size: small;width: 25%;">{{item.achievementdetails}}</label>
-            </div>
           </div>
         </div>
 
@@ -298,25 +326,28 @@
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
-            <div class="col-12 dashboard-card-header">
-              <label style="width: 25%;">Date</label>
-              <label style="width: 25%;">Refered To</label>
-              <label style="width: 25%;">Response</label>
-              <label style="width: 25%;">Remarks</label>
-            </div>
+            <table style="width: 100%;">
+              <thead class="dashboard-card-header">
+                <tr>
+                  <th style="padding-left: 20px !important;">Date</th>
+                  <th>Refered To</th>
+                  <th>Response</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+              <tbody class="dashboard-table-data">
+                <tr  *ngFor="let item of dashboard_reffreq_details">
+                  <td style="padding-left: 20px;">{{item.date | date : 'dd-MM-yyyy'}}</td>
+                  <td>{{item.reffered_to}}</td>
+                  <td>{{item.response}}</td>
+                  <td>{{item.referenceremarks}}</td>
+                </tr>
+              </tbody>
+            </table>
 
             <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_reffreq_details.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
-
-            <div class="col-12" *ngFor="let item of dashboard_reffreq_details">
-              <label for="" style="color: #000;font-size: small;width: 25%;">{{item.date | date : 'dd-MM-yyyy'}}</label>
-              <label for="" style="color: #000;font-size: small;width: 25%;"
-                class="mobileView">{{item.reffered_to}}</label>
-              <label for="" style="color: #000;font-size: small;width: 25%;">{{item.response}}</label>
-              <label for="" style="color: #000;font-size: small;width: 25%;">{{item.referenceremarks}}</label>
-            </div>
-
           </div>
         </div>
 
@@ -330,17 +361,25 @@
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
 
-            <div class="col-12 dashboard-card-header">
-              <label style="width: 25%;">Date</label>
-              <label style="width: 25%;">Knowledge-base Name</label>
-              <label style="width: 25%;">Knowledge-base Details</label>
-              <label style="width: 25%;">View Details</label>
-
-            </div>
-
-            <div style="text-align: left;margin: 10px;">
-              <label style="color: red;font-size: small;">No Records Mapped..</label>
-            </div>
+            <table style="width: 100%;">
+              <thead class="dashboard-card-header">
+                <tr>
+                  <th style="padding-left: 20px !important;">Date</th>
+                  <th>Knowledge-base Name</th>
+                  <th>Knowledge-base Details</th>
+                  <th>View Details</th>
+                </tr>
+              </thead>
+              <tbody class="dashboard-table-data">
+                <tr>
+                  <td style="padding-left: 20px;">--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 

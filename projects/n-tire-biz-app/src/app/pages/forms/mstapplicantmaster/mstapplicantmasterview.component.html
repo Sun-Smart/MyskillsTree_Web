@@ -5,7 +5,7 @@
     <form [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
       <div class="row second">
         <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'
-        [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
+          [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
           <!--btn-toolbar-->
           <div class='col'></div>
           <div class='dropdown d-inline-block btn-dropdown show'>
@@ -80,7 +80,8 @@
         </div>
       </div>
       <div class="container"
-        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}" style="height: 89% !important;">
+        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}"
+        style="height: 89% !important;">
         <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
           <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
         </div>
@@ -111,8 +112,33 @@
             </div>
 
           </div>
-          <div class='row designrow'>
+
+          <!-- Geography -->
+
+          <div class="show-Pfl-card">
+
+            <div class="show-prfl-card-hdr">
+              <h5 style="padding: 0 10px !important;">{{'Geography Preferences' | translate}}</h5>
+            </div>
+
+            <div class="show-locaion-card" *ngFor="let item of mstapplicantgeographypreferences">
+              <div class="location-inside-card">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <label>City : {{item.citydesc}}</label> | <label>Country : {{item.countrydesc}}</label>
+                <br>
+                <label style="margin: 5px 0 0 34px;">Remarks : </label> <label>{{item.remarks}}</label>
+              </div>
+            </div>
+
+
+          </div>
+          <br>
+
+          <!-- Old Geography -->
+
+          <div class='row designrow' style="display: none;">
             <!-- child table mstapplicantgeographypreferences-->
+
             <div [ngClass]="Is_mstapplicantgeographypreferences_Visible()">
               <!--End-->
               <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Geography Preferences' | translate}}
@@ -146,7 +172,35 @@
             <!--End of child table mstapplicantgeographypreferences-->
 
           </div>
-          <div class='row designrow'>
+
+          <!-- Education -->
+
+          <div class="show-Pfl-card">
+
+            <div class="show-prfl-card-hdr">
+              <h5 style="padding: 0 10px !important;">{{'Education Details' | translate}}</h5>
+            </div>
+
+            <div class="show-locaion-card" *ngFor="let item of mstapplicanteducationdetails">
+              <div class="location-inside-card">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                <label>Course : {{item.coursename}}</label> |
+                <i class="fa fa-university" aria-hidden="true"></i>
+                <label>Institute : {{item.institutionname}}</label>
+                <br>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <label style="margin: 0 10px;">From : {{item.fromyear}}</label> <label>Upto : {{item.toyear}}</label>
+                <br>
+                <label style="margin: 5px 0 0 44px;">Remarks : </label> <label>{{item.remarks}}</label>
+              </div>
+            </div>
+
+          </div>
+          <br>
+
+          <!-- Old Education -->
+
+          <div class='row designrow' style="display: none;">
             <!-- child table mstapplicanteducationdetails-->
             <div [ngClass]="Is_mstapplicanteducationdetails_Visible()">
               <!--End-->
@@ -154,7 +208,7 @@
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-                     aria-expanded='false'> <span class='caret'></span></a>
+                      aria-expanded='false'> <span class='caret'></span></a>
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" [routerLink]=''
                           (click)="mstapplicanteducationdetailtoggleOption();mstapplicanteducationdetails_route(null, 'create')"><i
@@ -181,7 +235,34 @@
             <!--End of child table mstapplicanteducationdetails-->
 
           </div>
-          <div class='row designrow'>
+
+          <!-- Achievement Details -->
+
+          <div class="show-Pfl-card">
+
+            <div class="show-prfl-card-hdr">
+              <h5 style="padding: 0 10px !important;">{{'Achievement Details' | translate}}</h5>
+            </div>
+
+            <div class="show-locaion-card" *ngFor="let item of mstapplicantachievementdetails">
+              <div class="location-inside-card">
+                <i class="fa fa-certificate" aria-hidden="true"></i>
+                <label>Category : {{item.masterdataiddesc}}</label> |
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                <label>Skill : {{item.skill}}</label>
+                <br>
+
+                <i class="fa fa-trophy" aria-hidden="true"></i>
+                <label>Achievement : {{item.achievementdetails}}</label>
+
+              </div>
+            </div>
+          </div>
+          <br>
+
+          <!-- Old Achievement Details -->
+
+          <div class='row designrow' style="display: none;">
             <!-- child table mstapplicantachievementdetails-->
             <div [ngClass]="Is_mstapplicantachievementdetails_Visible()">
               <!--End-->
@@ -217,7 +298,35 @@
 
           </div>
 
-          <div class='row designrow'>
+          <!-- Language Details -->
+
+          <div class="show-Pfl-card">
+
+            <div class="show-prfl-card-hdr">
+              <h5 style="padding: 0 10px !important;">{{'Language Details' | translate}}</h5>
+            </div>
+
+            <div class="show-locaion-card" *ngFor="let item of language_star_rating">
+              <div class="location-inside-card">
+                <i class="fa fa-certificate" aria-hidden="true"></i>
+                <label>Language : {{item.language}}</label> |
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                <label>Overall Rating : <span>{{item.overallStar}}</span></label>
+                <br>
+
+                <i class="fa fa-trophy" aria-hidden="true"></i>
+                <label>Read : <span>{{item.readStar}}</span></label> |
+                <label>Speak : <span>{{item.speakStar}}</span></label> |
+                <label>Write : <span>{{item.writeStar}}</span></label>
+
+
+              </div>
+            </div>
+          </div>
+          <br>
+          <!-- Old Language Details -->
+
+          <div class='row designrow' style="display: none;">
             <!-- child table mstapplicantlanguagedetails-->
             <div [ngClass]="Is_mstapplicantlanguagedetails_Visible()">
               <!--End-->
@@ -293,13 +402,33 @@
 
             </div>
 
+            <div class="show-Pfl-card">
+              <div class="show-prfl-card-hdr">
+                <h5 style="padding: 0 10px !important;">{{'Career Details' | translate}}</h5>
+              </div>
+
+              <div class="show-locaion-card" *ngFor="let item of mstapplicantcareerdetails">
+                <div class="location-inside-card">
+                  <i class="fa fa-briefcase" aria-hidden="true"></i>
+                  <label>{{item.designation}}</label> |
+                  <i class="fa fa-building" aria-hidden="true"></i>
+                  <label>{{item.companyname}}</label>
+                  <br>
+
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                  <label>From : {{item.fromdate | date : 'dd-MM-yyyy'}}</label>
+                  <label>Upto : {{item.todate | date : 'dd-MM-yyyy'}}</label>
+                  <label>Remarks : {{item.remarks}}</label>
 
 
+                </div>
+              </div>
+            </div>
+            <br>
 
+            <!-- Old Career Details -->
 
-
-
-            <div class='row designrow'>
+            <div class='row designrow' style="display: none;">
               <!-- child table mstapplicantcareerdetails-->
               <div [ngClass]="Is_mstapplicantcareerdetails_Visible()">
                 <!--End-->
@@ -334,7 +463,32 @@
               <!--End of child table mstapplicantcareerdetails-->
 
             </div>
-            <div class='row designrow'>
+
+            <!-- Projects -->
+            <div class="show-Pfl-card">
+              <div class="show-prfl-card-hdr">
+                <h5 style="padding: 0 10px !important;">{{'Projects' | translate}}</h5>
+              </div>
+
+              <div class="show-locaion-card" *ngFor="let item of mstapplicantworkreferences">
+                <div class="location-inside-card">
+                  <i class="fa fa-briefcase" aria-hidden="true"></i>
+                  <label>{{item.worktopic}}</label> <br>
+                  <i class="fa fa-building" aria-hidden="true"></i>
+                  <label>{{item.companyname}}</label><br>
+                  <i class="fa fa-building" aria-hidden="true"></i>
+                  <label>{{item.referenceurl}}</label><br>
+
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                  <label>Work Description : {{item.workdescription}}</label> <br><br>
+                  <label><span>Remarks :</span> {{item.remarks}}</label>
+                </div>
+              </div>
+            </div>
+            <br>
+
+            <!-- Old Projects -->
+            <div class='row designrow' style="display:none">
               <!-- child table mstapplicantworkreferences-->
               <div [ngClass]="Is_mstapplicantworkreferences_Visible()">
                 <!--End-->
@@ -369,6 +523,33 @@
               <!--End of child table mstapplicantworkreferences-->
 
             </div>
+
+            <!-- Social Media -->
+            <div class="show-Pfl-card">
+
+              <div class="show-prfl-card-hdr">
+                <h5 style="padding: 0 10px !important;">{{'Social Media' | translate}}</h5>
+              </div>
+  
+              <div class="show-locaion-card" *ngFor="let item of mstapplicantsocialmediadetails">
+                <div class="location-inside-card">
+                  <i class="fa fa-certificate" aria-hidden="true"></i>
+                  <label>Social Media : {{item.socialmedianamedesc}}</label> |
+                  <i class="fa fa-shield" aria-hidden="true"></i>
+                  <label>Handle Name : {{item.handlename}}</label>
+                  <br>
+                  <i class="fa fa-trophy" aria-hidden="true"></i>
+                  <label>URL : {{item.url}}</label> <br>
+                  <label>Remarks : {{item.remarks}}</label>
+
+  
+  
+                </div>
+              </div>
+            </div>
+            <br>
+
+            <!-- Old Social Media -->
             <div class='designrow'>
               <!-- child table mstapplicantsocialmediadetails-->
               <div [ngClass]="Is_mstapplicantsocialmediadetails_Visible()">

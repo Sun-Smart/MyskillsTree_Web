@@ -186,25 +186,48 @@ export class mstapplicantmasterviewComponent implements OnInit {
 
   profilecompletionvisible: boolean = false;
 
+  read_str: any;
+  speak_str: any;
+  write_str: any;
+  overall_str: any;
+  language_star_rating: any = [];
+
 
   mstapplicantgeographypreferences_visiblelist: any;
   mstapplicantgeographypreferences_hidelist: any;
+  mstapplicantgeographypreferences: any = [];
+
   mstapplicantcareerdetails_visiblelist: any;
   mstapplicantcareerdetails_hidelist: any;
+  mstapplicantcareerdetails:any = [];
+
   mstapplicantreferencedetails_visiblelist: any;
   mstapplicantreferencedetails_hidelist: any;
+
   mstapplicantskilldetails_visiblelist: any;
   mstapplicantskilldetails_hidelist: any;
+
   mstapplicantworkreferences_visiblelist: any;
   mstapplicantworkreferences_hidelist: any;
+  mstapplicantworkreferences:any = [];
+
   mstapplicantsocialmediadetails_visiblelist: any;
   mstapplicantsocialmediadetails_hidelist: any;
+  mstapplicantsocialmediadetails:any = [];
+
   mstapplicantachievementdetails_visiblelist: any;
   mstapplicantachievementdetails_hidelist: any;
+  mstapplicantachievementdetails: any = [];
+
   mstapplicantlanguagedetails_visiblelist: any;
   mstapplicantlanguagedetails_hidelist: any;
+  mstapplicantlanguagedetails: any = [];
+  language_data: any = [];
+
   mstapplicanteducationdetails_visiblelist: any;
   mstapplicanteducationdetails_hidelist: any;
+  mstapplicanteducationdetails: any = [];
+
   mstjobstatuses_visiblelist: any;
   mstjobstatuses_hidelist: any;
   mstapplicantreferencerequests_visiblelist: any;
@@ -249,6 +272,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
   isadmin: boolean;
   iseditbuttonshow: boolean;
   userrole: string;
+
   constructor(
     private nav: Location,
     private translate: TranslateService,
@@ -1030,6 +1054,7 @@ return false;
 
 
 
+
   async PopulateScreen(pkcol: any) {
     this.spinner.show();
     this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(pkcol).then(res => {
@@ -1037,13 +1062,106 @@ return false;
       this.spinner.hide();
 
       this.formData = res.mstapplicantmaster;
+
+
       let formproperty = res.mstapplicantmaster.formproperty;
       if (formproperty && formproperty.edit == false) this.showview = true;
       this.showview = true;
       this.pkcol = res.mstapplicantmaster.pkcol;
       this.formid = res.mstapplicantmaster.applicantid;
       this.FillData(res);
+      this.getProfile_data(res);
     }).catch((err) => { console.log(err); });
+  };
+
+  getProfile_data(res: any) {
+
+    console.log("Response", res);
+
+    this.mstapplicantgeographypreferences = res.mstapplicantgeographypreferences;
+    this.mstapplicantachievementdetails = res.mstapplicantachievementdetails;
+    this.mstapplicanteducationdetails = res.mstapplicanteducationdetails;
+    this.mstapplicantcareerdetails = res.mstapplicantcareerdetails;
+    this.mstapplicantworkreferences = res.mstapplicantworkreferences;
+    this.mstapplicantsocialmediadetails = res.mstapplicantsocialmediadetails;
+
+    this.mstapplicantlanguagedetails = res.mstapplicantlanguagedetails;
+
+    for (let i = 0; i < this.mstapplicantlanguagedetails.length; i++) {
+      this.language_data.push({
+        language: this.mstapplicantlanguagedetails[i].languagedesc,
+        speakproficiency: this.mstapplicantlanguagedetails[i].speakproficiency,
+        readproficiency: this.mstapplicantlanguagedetails[i].readproficiency,
+        writeproficiency: this.mstapplicantlanguagedetails[i].writeproficiency,
+        overallrating: this.mstapplicantlanguagedetails[i].overallrating,
+      });
+    };
+    console.log("this.language_data", this.language_data);
+
+    for (let i = 0; i < this.language_data.length; i++) {
+
+      // Rating For Speak
+      if (this.language_data[i].speakproficiency == 1) {
+        this.speak_str = '★'
+      } else if (this.language_data[i].speakproficiency == 2) {
+        this.speak_str = '★★'
+      } else if (this.language_data[i].speakproficiency == 3) {
+        this.speak_str = '★★★'
+      } else if (this.language_data[i].speakproficiency == 4) {
+        this.speak_str = '★★★★'
+      } else if (this.language_data[i].speakproficiency == 5) {
+        this.speak_str = '★★★★★'
+      }
+
+      // Rating For Reading
+      if (this.language_data[i].readproficiency == 1) {
+        this.read_str = '★'
+      } else if (this.language_data[i].readproficiency == 2) {
+        this.read_str = '★★'
+      } else if (this.language_data[i].readproficiency == 3) {
+        this.read_str = '★★★'
+      } else if (this.language_data[i].readproficiency == 4) {
+        this.read_str = '★★★★'
+      } else if (this.language_data[i].readproficiency == 5) {
+        this.read_str = '★★★★★'
+      }
+      
+      // Rating For Writing
+      if (this.language_data[i].writeproficiency == 1) {
+        this.write_str = '★'
+      } else if (this.language_data[i].writeproficiency == 2) {
+        this.write_str = '★★'
+      } else if (this.language_data[i].writeproficiency == 3) {
+        this.write_str = '★★★'
+      } else if (this.language_data[i].writeproficiency == 4) {
+        this.write_str = '★★★★'
+      } else if (this.language_data[i].writeproficiency == 5) {
+        this.write_str = '★★★★★'
+      }
+
+        // Rating For Overall 
+      if (this.language_data[i].overallrating == 1) {
+        this.overall_str = '★'
+      } else if (this.language_data[i].overallrating == 2) {
+        this.overall_str = '★★'
+      } else if (this.language_data[i].overallrating == 3) {
+        this.overall_str = '★★★'
+      } else if (this.language_data[i].overallrating == 4) {
+        this.overall_str = '★★★★'
+      } else if (this.language_data[i].overallrating == 5) {
+        this.overall_str = '★★★★★'
+      }
+
+
+      this.language_star_rating.push({
+        language : this.language_data[i].language,
+        readStar : this.read_str,
+        writeStar : this.write_str,
+        speakStar : this.speak_str,
+        overallStar : this.overall_str
+      })
+    }
+
   }
 
   FillData(res: any) {
@@ -1103,8 +1221,10 @@ return false;
     if (res.visiblelist != undefined && res.visiblelist.indexOf("profilecompletion") >= 0) this.profilecompletionvisible = true;
     if (res.hidelist != undefined && res.hidelist.indexOf("profilecompletion") >= 0) this.profilecompletionvisible = false;
     this.mstapplicantmaster_menuactions = res.mstapplicantmaster_menuactions;
+
     this.mstapplicantgeographypreference_menuactions = res.mstapplicantgeographypreference_menuactions;
     this.mstapplicantgeographypreferences_visiblelist = res.mstapplicantgeographypreferences_visiblelist;
+
     this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
     this.mstapplicantcareerdetails_visiblelist = res.mstapplicantcareerdetails_visiblelist;
     this.mstapplicantreferencedetail_menuactions = res.mstapplicantreferencedetail_menuactions;

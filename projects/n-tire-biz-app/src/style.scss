@@ -2240,7 +2240,7 @@ p-dynamicdialog {
 
 p-dynamicdialog,
 .p-dialog {
-   bottom: 0;
+  bottom: 0;
 }
 
 .p-accordion
@@ -2271,7 +2271,6 @@ p-dynamicdialog,
   height: 93% !important;
   width: 100% !important;
   max-width: 100% !important;
-
 }
 
 .p-datatable-wrapper {
@@ -3094,7 +3093,6 @@ footer {
   padding: 0 !important;
 
   .main-data {
-
     box-shadow: 0px 0px 10px 0px #e2e0e0;
     border-radius: 19px;
     margin: 5px 10px !important;
@@ -3104,12 +3102,21 @@ footer {
 
 .dashboard-card-header {
   background-color: #eaeaea;
-  label {
+  tr,
+  th {
     color: #666;
     font-weight: 600;
     font-size: 12px;
     margin: 0;
-    padding: 5px;
+    padding: 5px !important;
+  }
+}
+.dashboard-table-data {
+  tr {
+    line-height: 3;
+  }
+  tr:nth-child(even) {
+    background: #f1f1f1;
   }
 }
 
@@ -3218,4 +3225,42 @@ footer {
 }
 .p-autocomplete-items {
   height: 50px !important;
+}
+
+.show-Pfl-card {
+  border: 1px;
+  width: auto !important;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 0px #cbcbcf;
+  padding-bottom: 5px;
+
+  .show-prfl-card-hdr {
+    padding: 10px !important;
+    background-color: #cbf29f;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+}
+
+.show-locaion-card {
+  border: 1px;
+  width: auto !important;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 0px #cbcbcf;
+  padding: 10px;
+  margin: 1rem 2rem;
+
+  .location-inside-card {
+    i {
+      margin: 5px 10px;
+      color:#8f9b99;
+    }
+    label {
+      margin: 0 5px;
+      // color:#8f9b99;
+    }
+    span{
+      color: green;
+    }
+  }
 }
