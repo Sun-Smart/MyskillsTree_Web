@@ -818,13 +818,13 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             } else if (divrow.overallrating == 5) {
               overallrating = '★★★★★';
             }
-            // divrow["speakproficiency"] = "<div class='Stars'  style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + speakproficiency + "</div>";
-            // divrow["readproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + readproficiency + "</div>";
-            // divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + writeproficiency + "</div>";
-            // divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + overallrating + "</div>";
-              cell+= `
-              <div class='Stars'  style='font-size: large !important;color:green;float: left;margin-left: 6%;'>##speakproficiency##</div>
-              `
+            divrow["speakproficiency"] = "<div class='Stars'  style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + speakproficiency + "</div>";
+            divrow["readproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + readproficiency + "</div>";
+            divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + writeproficiency + "</div>";
+            divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + overallrating + "</div>";
+              // cell+= `
+              // <div class='Stars'  style='font-size: large !important;color:green;float: left;margin-left: 6%;'>##speakproficiency##</div>
+              // `
 
             // if (divrow.speakproficiency == 1 || row.readproficiency == 1 || row.writeproficiency == 1 || row.overallrating == 1) {
             //     showstr = '★';

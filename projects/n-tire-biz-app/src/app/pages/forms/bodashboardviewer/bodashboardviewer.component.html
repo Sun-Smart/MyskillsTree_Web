@@ -30,23 +30,28 @@
       <div class="dashboard-sidebar-content">
 
 
-        <div class="sidenav-skill-card">
-          <div>
-            <label class="head-label"> Skills</label>
+        <div class="row sidenav-skill-card">
+
+          <label class="head-label"> Skills</label>
+
+
+          <div class="col-12" *ngIf="finalarray.length == 0" style="text-align: center;">
+            <label> Please Wait...</label>
           </div>
 
-          <div class="row" *ngFor="let item of finalarray" style="display: flex;justify-content: space-evenly;">
+          <div class="col-12">
+            <div class="row" *ngFor="let item of finalarray" style="display: flex;justify-content: space-evenly;">
 
-            <div class="col-3">
-              <label style="color: rgb(8, 111, 8);">
-                {{item.showstr}}
-              </label>
+              <div class="col-3">
+                <label style="color: rgb(8, 111, 8);">
+                  {{item.showstr}}
+                </label>
+              </div>
+
+              <div class="col-8 skill-label">
+                <label (click)="showDetails(item.skillId, item.subCategory, item.remarks)">{{item.subCategory}}</label>
+              </div>
             </div>
-
-            <div class="col-8 skill-label">
-              <label (click)="showDetails(item.skillId, item.subCategory, item.remarks)">{{item.subCategory}}</label>
-            </div>
-
           </div>
         </div>
         <br>
@@ -330,7 +335,7 @@
               <label style="width: 25%;">Knowledge-base Name</label>
               <label style="width: 25%;">Knowledge-base Details</label>
               <label style="width: 25%;">View Details</label>
-             
+
             </div>
 
             <div style="text-align: left;margin: 10px;">
