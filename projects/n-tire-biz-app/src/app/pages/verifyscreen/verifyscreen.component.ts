@@ -85,11 +85,11 @@ export class VerifyscreenComponent implements OnInit {
     this.mobile = this.validation_Form.value.mobileotp;
     this.email = this.validation_Form.value.emailotp;
 
-    if ((this.mobile == this.verifyMob_Otp1) && (this.email == this.verifyEmail_Otp1)) {
+    if ((this.mobile == this.verifyMob_Otp) && (this.email == this.verifyEmail_Otp)) {
       debugger;
 
       
-      this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + this.verifyEmail_data1 + '&otpm=' + this.verifyMob_Otp1 + '&otpe=' + this.verifyEmail_Otp1)
+      this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + this.verifyEmail_data + '&otpm=' + this.verifyMob_Otp + '&otpe=' + this.verifyEmail_Otp)
         .subscribe((resp: any) => {
           debugger
           this.showSpinner = false;

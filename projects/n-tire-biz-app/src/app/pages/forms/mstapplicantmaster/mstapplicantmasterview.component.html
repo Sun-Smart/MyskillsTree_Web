@@ -121,6 +121,10 @@
               <h5 style="padding: 0 10px !important;">{{'Geography Preferences' | translate}}</h5>
             </div>
 
+            <div *ngIf="mstapplicantgeographypreferences.length == 0" style="text-align: center;">
+              <label> Please Wait...</label>
+            </div>
+
             <div class="show-locaion-card" *ngFor="let item of mstapplicantgeographypreferences">
               <div class="location-inside-card">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -179,6 +183,11 @@
 
             <div class="show-prfl-card-hdr">
               <h5 style="padding: 0 10px !important;">{{'Education Details' | translate}}</h5>
+            </div>
+
+            
+            <div *ngIf="mstapplicanteducationdetails.length == 0" style="text-align: center;">
+              <label> Please Wait...</label>
             </div>
 
             <div class="show-locaion-card" *ngFor="let item of mstapplicanteducationdetails">
@@ -244,6 +253,10 @@
               <h5 style="padding: 0 10px !important;">{{'Achievement Details' | translate}}</h5>
             </div>
 
+            <div *ngIf="mstapplicantachievementdetails.length == 0" style="text-align: center;">
+              <label> Please Wait...</label>
+            </div>
+
             <div class="show-locaion-card" *ngFor="let item of mstapplicantachievementdetails">
               <div class="location-inside-card">
                 <i class="fa fa-certificate" aria-hidden="true"></i>
@@ -306,6 +319,10 @@
               <h5 style="padding: 0 10px !important;">{{'Language Details' | translate}}</h5>
             </div>
 
+            <div *ngIf="language_star_rating.length == 0" style="text-align: center;">
+              <label> Please Wait...</label>
+            </div>
+
             <div class="show-locaion-card" *ngFor="let item of language_star_rating">
               <div class="location-inside-card">
                 <i class="fa fa-certificate" aria-hidden="true"></i>
@@ -366,13 +383,17 @@
 
         <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12 designcol'>
 
-          <div class='row designrow fullwidth'>
+
 
             <!-- Skill Details -->
             <div class="show-Pfl-card">
 
               <div class="show-prfl-card-hdr">
                 <h5 style="padding: 0 10px !important;">{{'Skill Details' | translate}}</h5>
+              </div>
+
+              <div *ngIf="skillarray.length == 0" style="text-align: center;">
+                <label> Please Wait...</label>
               </div>
   
               <div class="show-locaion-card" *ngFor="let item of skillarray">
@@ -394,7 +415,7 @@
             <br>
 
             <!-- Old Skill Details -->
-            <div class='row designrow'>
+            <div class='row designrow' style="display: none;">
               <!-- child table mstapplicantskilldetails-->
               <div [ngClass]="Is_mstapplicantskilldetails_Visible()">
                 <!--End-->
@@ -430,9 +451,14 @@
 
             </div>
 
+            <!-- Career Details -->
             <div class="show-Pfl-card">
               <div class="show-prfl-card-hdr">
                 <h5 style="padding: 0 10px !important;">{{'Career Details' | translate}}</h5>
+              </div>
+
+              <div *ngIf="mstapplicantcareerdetails.length == 0" style="text-align: center;">
+                <label> Please Wait...</label>
               </div>
 
               <div class="show-locaion-card" *ngFor="let item of mstapplicantcareerdetails">
@@ -498,6 +524,10 @@
                 <h5 style="padding: 0 10px !important;">{{'Projects' | translate}}</h5>
               </div>
 
+              <div *ngIf="mstapplicantworkreferences.length == 0" style="text-align: center;">
+                <label> Please Wait...</label>
+              </div>
+
               <div class="show-locaion-card" *ngFor="let item of mstapplicantworkreferences">
                 <div class="location-inside-card">
                   <i class="fa fa-briefcase" aria-hidden="true"></i>
@@ -557,6 +587,10 @@
 
               <div class="show-prfl-card-hdr">
                 <h5 style="padding: 0 10px;">{{'Social Media' | translate}}</h5>
+              </div>
+
+              <div *ngIf="mstapplicantsocialmediadetails.length == 0" style="text-align: center;">
+                <label> Please Wait...</label>
               </div>
   
               <div class="show-locaion-card" *ngFor="let item of mstapplicantsocialmediadetails">
@@ -715,7 +749,7 @@
 
             </div>
 
-          </div>
+
         </div>
       </div>
     </form>

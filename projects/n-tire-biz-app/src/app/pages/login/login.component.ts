@@ -699,8 +699,8 @@ export class LoginComponent implements OnInit {
                     console.log("this.verifyMob_Otp", this.verifyMob_Otp);
                     console.log("this.verifyEmail_Otp", this.verifyEmail_Otp);
 
-                    localStorage.setItem('verifyMob_Otp', this.verifyMob_Otp)
-                    localStorage.setItem("verifyEmail_Otp", this.verifyEmail_Otp);
+                    // localStorage.setItem('verifyMob_Otp', this.verifyMob_Otp)
+                    // localStorage.setItem("verifyEmail_Otp", this.verifyEmail_Otp);
                     this.router.navigate(['verify']);
 
                     if (this.verify_outputstring == "OTP has send to your registered mail id and Mobilenumber") {
