@@ -233,7 +233,7 @@ import { AnyCnameRecord } from 'dns';
     }
     .dashboard-sidebar-content{
       height: 600px !important;
-      overflow: hidden !important;
+      overflow-y: scroll !important;
       /* padding: 0rem !important; */
     }
     .container .mobile_col{
