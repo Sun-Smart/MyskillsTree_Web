@@ -104,7 +104,8 @@ import { CertifierComponent } from './pages/certifier/certifier.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
-    import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 
 
 export function HttpLoaderFactory(http: HttpClient) {

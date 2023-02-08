@@ -1,9 +1,9 @@
 <div class="content">
   <div class="header row">
-    <div class="col-8 mobileview_search"
+    <div class="col-8 mobileview_search" id="searchInput" *ngIf="isSearchInput"
       style="display: flex;justify-content: center;align-items: center;padding: 0rem 12rem;position: absolute;top: 5px;z-index: 9999;">
       <i class="fa fa-search search-icon" aria-hidden="true"></i>
-      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="term"
+      <input type="text"  class="form-control"  placeholder="Search" [(ngModel)]="term"
         style="border-radius:30px !important;padding: 0 40px;" multiple>
       <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
     </div>

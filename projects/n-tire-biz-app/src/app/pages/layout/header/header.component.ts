@@ -28,6 +28,7 @@ import { mstapplicantlanuagegridComponent } from '../../forms/mstapplicantlangua
 import { ReportViewerCtrlComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/boreportviewer/reportviewerctrl.component';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 import { mstcorporatemasterService } from '../../../service/mstcorporatemaster.service';
+import { NewskillsearchComponent } from '../../forms/newskillsearch/newskillsearch.component';
 
 @Component({
   selector: 'app-header',
@@ -49,7 +50,8 @@ export class HeaderComponent implements OnInit {
   menuvisible: boolean = true;
   loggedIn: boolean = false;
   @Output() toggleMenubar: EventEmitter<any> = new EventEmitter();
-  @ViewChild('globalSearch', { static: false }) globalSearch: ReportViewerCtrlComponent;
+
+  @ViewChild('searchInput') searchInput: NewskillsearchComponent;
   theme: string;
   _start: boolean;
   actionid: any;

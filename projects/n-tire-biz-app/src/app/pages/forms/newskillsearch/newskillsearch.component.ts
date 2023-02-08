@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { mstapplicantskilldetail } from '../../../model/mstapplicantskilldetail.model';
 import { mstapplicantskilldetailService } from '../../../service/mstapplicantskilldetail.service';
@@ -23,6 +23,10 @@ import { mstcategoryComponent } from '../mstcategory/mstcategory.component';
   styleUrls: ['./newskillsearch.component.scss']
 })
 export class NewskillsearchComponent implements OnInit {
+
+
+  @Input() isSearchInput: boolean = true;
+
   showList: boolean = true;
   showGrid: boolean = false;
   showCard: boolean = false;
