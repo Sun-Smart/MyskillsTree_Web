@@ -246,6 +246,10 @@ import { AnyCnameRecord } from 'dns';
     .mob_profile_release{
       white-space: nowrap !important;
     }
+    td{
+      white-space: initial !important;
+      word-break: break-word !important;
+    }
   }
   `],
   templateUrl: './bodashboardviewer.component.html',
