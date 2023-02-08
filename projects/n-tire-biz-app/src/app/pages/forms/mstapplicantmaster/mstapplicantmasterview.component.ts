@@ -510,7 +510,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
     // </div>
     // `;
     //New code
-    this.viewHtml = `<div class="" style="background-image:url('assets/images/E.png')!important;background-repeat: no-repeat !important;border-radius: 5px !important;">
+    this.viewHtml = `
 <div class="designrow">
     <div class="row designrow main-box" style="background-image:url('assets/images/##applicanttype##.png')!important;background-repeat: no-repeat !important;border-radius: 5px !important;">
         <div class="designrow main-content">
@@ -529,9 +529,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
                 </div>
                 <div class="col-1 right top">##profilecompletion##</div>
             </div>
-            <div class="row designrow">
-            <!--  <font color='white'><h4>##statuscrimp##</h4></font> -->
-        </div>
         </div>
     </div>
 </div>

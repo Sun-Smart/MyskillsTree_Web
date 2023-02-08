@@ -8,7 +8,7 @@ import { AppConstants, DropDownValues } from '../../../../n-tire-biz-app/src/app
   providedIn: 'root'
 })
 export class OtpvalidationService {
-otparray:any[]=[]
+otparray:any = [];
   readonly rootURL = AppConstants.baseURL;
   Authorization_token: string;
 

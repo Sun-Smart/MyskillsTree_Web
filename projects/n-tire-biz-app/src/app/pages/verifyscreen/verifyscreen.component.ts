@@ -18,17 +18,17 @@ export class VerifyscreenComponent implements OnInit {
   validation_Form: FormGroup;
   submitted = false;
   sub: any;
-  data: any;
-  otp_data: any;
+  data: any = [];
+  otp_data: any = [];
   verifyMob_Otp: any;
   verifyEmail_Otp: any;
   verifyEmail_data: any;
-  mobileotp:any;
+  mobileotp: any;
   confirmation_otp: any;
   mobile: any;
   email: any;
   theme: string;
-  showSpinner:boolean = false;
+  showSpinner: boolean = false;
   verifyEmail_Otp1: string;
   verifyMob_Otp1: string;
   verifyEmail_data1: string;
@@ -47,37 +47,27 @@ export class VerifyscreenComponent implements OnInit {
   }
   ngOnInit() {
 
-    debugger
-    this.sub = this.route.params.subscribe((params: any) => {
-      this.data = params;
-      console.log(this.data);
+    
+    this.sub = this.route.queryParams.subscribe((params: any) => {
 
-      if (this.data.id == 'otp') {
+      const data1 = params['mobotp'];
+      const data2 = params['emailotp']
+      const data3 = params['email']
 
-        this.otp_data = this.otpService.otparray;
-        console.log("this.otp_data", this.otp_data);
+      this.verifyMob_Otp = data1.toString();
+      this.verifyEmail_Otp = data2.toString();
+      this.verifyEmail_data = data3;
 
-        this.verifyMob_Otp = this.otp_data[0].mobileotp.toString();
-        this.verifyEmail_Otp = this.otp_data[0].emailotp.toString();
-        this.verifyEmail_data = this.otp_data[1].email;
-      }
     });
 
-    
-    this.verifyMob_Otp1= localStorage.getItem("verifyMob_Otp");
-    this.verifyEmail_Otp1 = localStorage.getItem("verifyEmail_Otp");
-    this.verifyEmail_data1 = localStorage.getItem("verifyEmail_data");
-
-    console.log("this.verifyMob_Otp", this.verifyMob_Otp1);
-    console.log("this.verifyEmail_Otp", this.verifyEmail_Otp1);
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.validation_Form.controls; }
 
 
-  onSubmit(data:any) {
-    debugger
+  onSubmit(data: any) {
+    
 
     this.submitted = true;
     this.showSpinner = true;
@@ -86,33 +76,33 @@ export class VerifyscreenComponent implements OnInit {
     this.email = this.validation_Form.value.emailotp;
 
     if ((this.mobile == this.verifyMob_Otp) && (this.email == this.verifyEmail_Otp)) {
-      debugger;
+      ;
 
-      
+
       this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + this.verifyEmail_data + '&otpm=' + this.verifyMob_Otp + '&otpe=' + this.verifyEmail_Otp)
         .subscribe((resp: any) => {
-          debugger
+          
           this.showSpinner = false;
           this.confirmation_otp = resp;
 
           this.toastService.addSingle("success", "", "Otp Validated Successfully.");
           let user: any = resp;
-            localStorage.setItem('login', 'true')
-            localStorage.removeItem('token');
-            localStorage.setItem('token', user.token)
-            this.CheckAgreeOk(user);
+          localStorage.setItem('login', 'true')
+          localStorage.removeItem('token');
+          localStorage.setItem('token', user.token)
+          this.CheckAgreeOk(user);
         })
-    } else{
+    } else {
       this.toastService.addSingle("success", "", "Email and Mobile OTP mismatch.");
       this.showSpinner = false;
     }
   };
 
-  CheckAgreeOk(user:any) {
-    debugger;
+  CheckAgreeOk(user: any) {
+    ;
     if (user.token != '') {
-        // localStorage.setItem('token', user.token)
-        this.toastService.addSingle("success", "", "Login successfully.");
+      // localStorage.setItem('token', user.token)
+      this.toastService.addSingle("success", "", "Login successfully.");
     }
 
     this.userContextService.setUser(user.token);
@@ -120,14 +110,14 @@ export class VerifyscreenComponent implements OnInit {
     console.log(user);
     var language = user.language;
     if (language != null && language.length > 0) {
-        // the lang to use, if the lang isn't available, it will use the current loader to get them
-        this.sharedService.translate.use(language);
+      // the lang to use, if the lang isn't available, it will use the current loader to get them
+      this.sharedService.translate.use(language);
 
     } else {
-        this.sessionService.setItem("ng-prime-language", "en");
+      this.sessionService.setItem("ng-prime-language", "en");
     }
 
-    debugger;
+    ;
     let loginuser = this.sessionService.getSession();
     this.sessionService.setItem("userid", loginuser.userid);
     this.sessionService.setItem("username", loginuser.username);
@@ -143,18 +133,18 @@ export class VerifyscreenComponent implements OnInit {
     //this.themeService.selectTheme(this.theme);
 
     if (loginuser.nextloginchangepassword == 'True') {
-        this.router.navigate(['/resetpassword']);
-        return;
+      this.router.navigate(['/resetpassword']);
+      return;
     }
     // if (user.terms.terms) {
     if (loginuser.defaultpage == null || !loginuser.defaultpage) {
-        //this.routeStateService.add("Home", '/home/showdashboard/1', null, true);
-        this.router.navigate(['/home']);
-        // return;
+      //this.routeStateService.add("Home", '/home/showdashboard/1', null, true);
+      this.router.navigate(['/home']);
+      // return;
     }
     //
     else {
-        this.router.navigate(['/home']);
+      this.router.navigate(['/home']);
     }
     //this.routeStateService.add("Home", loginuser.defaultpage, null, true);
 
@@ -162,9 +152,9 @@ export class VerifyscreenComponent implements OnInit {
     //
     return;
     // }
-}
+  }
 
-backLogin(){
-  this.router.navigate(['/login']);
-}
+  backLogin() {
+    this.router.navigate(['/login']);
+  }
 }

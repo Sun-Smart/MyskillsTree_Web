@@ -459,12 +459,8 @@ export class mstapplicantachivementgridComponent implements OnInit {
       this.pkoptionsEvent.emit(this.pkList);
     }
     ).catch((err) => { this.spinner.hide(); console.log(err); });
-  }
-  addSkills() {
-    debugger
-    this.showSkillDetails_input = true;
-    this.getdata();
   };
+
 
   getdata() {
     this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
@@ -477,6 +473,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
   }
   skillClose() {
     this.showSkillDetails_input = false;
+    this.mstapplicantachievementdetail_Form.reset();
   };
   masterdataid_onChange(evt: any) {
     let e = evt.value;
@@ -618,14 +615,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
   FillData() {
     debugger
-
-    //   this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.applicantid).then(res => {
-    //     this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
-    //     this.Set_mstapplicantachievementdetails_TableConfig();
-    //     this.mstapplicantachievementdetails_LoadTable(res.mstapplicantskilldetails);
-
-    // });
-
     this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {
       debugger
       this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
@@ -708,10 +697,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
       });
 
       setTimeout(() => {
-        this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
-          this.masterdataid_List = res.list_masterdataid.value;
-          this.skill_list = res.list_skills.value;
-        });
+      this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
+        this.masterdataid_List = res.list_masterdataid.value;
+        this.skill_list = res.list_skills.value;
+      });
       })
     })
   }

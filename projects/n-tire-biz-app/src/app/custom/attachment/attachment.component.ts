@@ -132,23 +132,21 @@ const URL = AppConstants.UploadURL;
     </div>
 </div>
 
-        <div class="row" style="margin-bottom: 40px" *ngIf="isAttachment">
+    <div class="row" style="margin-bottom: 40px" *ngIf="isAttachment">
 
-            <table class="table" *ngIf="!isMobileView" style="
-            max-width: 100%;
-            overflow-x: scroll;">
+        <div class="col-12">
+            <table class="table"  
+                style="max-width: 100%;overflow-x: scroll;display: inherit;">
                 <thead>
                 <tr>
                 <th>Category</th>
                 <th>Description</th>
                 <th>URL</th>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th *ngFor="let attachmentfield of attachmentfields">
-                        {{attachmentfield.label}}
-                    </th>
-                    <th><i class='fa fa-thumbs-up'></i></th>
-                    <th *ngIf='showremove' >&nbsp;</th>
+                <th>Name</th>
+                <th>Size</th>
+                <th *ngFor="let attachmentfield of attachmentfields">{{attachmentfield.label}}</th>
+                <th><i class='fa fa-thumbs-up'></i></th>
+                <th *ngIf='showremove' >&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -165,35 +163,28 @@ const URL = AppConstants.UploadURL;
                 <th><i class='fa fa-thumbs-up backcolor' (click)='updateRatings(uploadedfile)'>&nbsp;{{uploadedfile.ratings}}</i>&nbsp;&nbsp;<i class='fa fa-eye backcolor'>&nbsp;{{uploadedfile.views}}</i>&nbsp;&nbsp;<i class='fa fa-comment backcolor'  (click)='opencomment(uploadedfile)'>&nbsp;{{getCount(uploadedfile.comments)}}</i></th>
                 <td *ngIf='showremove' ><button type="button" class="btn btn-danger btn-xs"
                 (click)="delete(uploadedfile.filekey)"> <span class="glyphicon glyphicon-trash"></span> Remove </button></td>
-
                 </tr>
-
                 </tbody>
             </table>
-
         </div>
+    </div>
 
 
 
         <div class="row" style="margin-bottom: 40px;width: 100% !important;overflow:hidden;" *ngIf="isAttachment">
 
-
-
-            <table class="table" *ngIf="isMobileView" style="
-            max-width: 100%;display: list-item !important;
-            overflow-x: scroll;">
+            <table class="table" *ngIf="isMobileView" 
+                style="max-width: 100%;display: list-item !important;overflow-x: scroll;">
                 <thead>
                 <tr>
                 <th>Category</th>
                 <th>Description</th>
                 <th>URL</th>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th *ngFor="let attachmentfield of attachmentfields">
-                        {{attachmentfield.label}}
-                    </th>
-                    <th><i class='fa fa-thumbs-up'></i></th>
-                    <th *ngIf='showremove' >&nbsp;</th>
+                <th>Name</th>
+                <th>Size</th>
+                <th *ngFor="let attachmentfield of attachmentfields">{{attachmentfield.label}}</th>
+                <th><i class='fa fa-thumbs-up'></i></th>
+                <th *ngIf='showremove' >&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -210,14 +201,10 @@ const URL = AppConstants.UploadURL;
                 <th><i class='fa fa-thumbs-up backcolor' (click)='updateRatings(uploadedfile)'>&nbsp;{{uploadedfile.ratings}}</i>&nbsp;&nbsp;<i class='fa fa-eye backcolor'>&nbsp;{{uploadedfile.views}}</i>&nbsp;&nbsp;<i class='fa fa-comment backcolor'  (click)='opencomment(uploadedfile)'>&nbsp;{{getCount(uploadedfile.comments)}}</i></th>
                 <td *ngIf='showremove' ><button type="button" class="btn btn-danger btn-xs"
                 (click)="delete(uploadedfile.filekey)"> <span class="glyphicon glyphicon-trash"></span> Remove </button></td>
-
                 </tr>
-
                 </tbody>
             </table>
-
         </div>
-
     </div>
 
     </form>

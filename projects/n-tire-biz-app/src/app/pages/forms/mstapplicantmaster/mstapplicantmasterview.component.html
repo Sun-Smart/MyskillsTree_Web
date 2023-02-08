@@ -4,16 +4,16 @@
     <ngx-spinner></ngx-spinner>
     <form [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
       <div class="row second">
-        <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'
+        <div class='col-12  sticky1 second' role='toolbar' aria-label='Toolbar with button groups' style="align-items: center !important;;justify-content: end;"
           [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
           <!--btn-toolbar-->
-          <div class='col'></div>
-          <div class='dropdown d-inline-block btn-dropdown show'>
 
-            <ul class='nav nav-pills  input-group' style="margin-right: 68px !important;">
-              <li *ngIf="iseditbuttonshow"><a class='alert-info  popup-add-button' [routerLink]='' *ngIf='showview'
-                  (click)="edit_mstapplicantmasters()"><i class="nb-edit"></i>Edit</a></li>
-              <li class='nav-item actionheader col' *ngIf='(maindata==null || maindata==undefined)  && !bSingleRecord'>
+          <button *ngIf="iseditbuttonshow || showview"class='alert-info  popup-add-button'
+            (click)="edit_mstapplicantmasters()">Dashboard</button>
+
+          <div class='dropdown d-inline-block btn-dropdown show'>
+            <ul>
+              <!-- <li class='nav-item actionheader col' *ngIf='(maindata==null || maindata==undefined)  && !bSingleRecord'>
                 <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
                     aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
                     class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
@@ -25,8 +25,8 @@
                     aria-hidden='true'></i></a>&nbsp;&nbsp; <a [routerLink]='' (click)='last()'><i
                     class='fa fa-fast-forward' aria-hidden='true'></i></a>
 
-              </li>
-              <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dro`pdown  actionheader'>
+              </li> -->
+              <!-- <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dro`pdown  actionheader'>
                 <ul class="nav navbar-nav1">
                   <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -56,13 +56,13 @@
                     </ul>
                   </li>
                 </ul>
-              </li>
+              </li> -->
               <!--
               <ng-container *ngFor="let action of mstapplicantmaster_menuactions">
                 <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i
                       class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
               </ng-container>-->
-              <li class='nav-item actionheader' *ngIf="!showview">
+              <!-- <li class='nav-item actionheader' *ngIf="!showview">
                 <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
                   Submit</a>
                 <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
@@ -73,12 +73,13 @@
               <li class='nav-item actionheader'
                 *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
                 <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-              </li>
+              </li> -->
 
             </ul>
           </div>
         </div>
       </div>
+
       <div class="container"
         id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}"
         style="height: 89% !important;">
@@ -89,6 +90,7 @@
 
 
       </div>
+
       <div class='row full-height'
         id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
         <div class='col-lg-6 col-md-6 col-sm-12 col-xs-12 designcol'>
@@ -96,13 +98,12 @@
             <!---->
             <div class="col-12" *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'
               [ngClass]="{'limitTextHeight': isReadMore}" style="padding: 0;margin: 0;">
-
             </div>
             <a href="javascript:void(0);" id="showReadBtn" *ngIf="this.readMoreBtn" class="readMoreBtn"
               (click)="isReadMore=!isReadMore">
               {{ isReadMore ? 'Show More': 'Show Less' }}
             </a>
-            <div class='full-width' *ngIf="attachmentVisible">
+            <div class='col-12 full-width' *ngIf="attachmentVisible">
               <p-accordion [multiple]='true'>
                 <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
                   <app-attachment #fileattachment isAttachment=true formControlName="attachment"
@@ -130,7 +131,7 @@
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <label>City : {{item.citydesc}}</label> | <label>Country : {{item.countrydesc}}</label>
                 <br>
-                <label style="margin: 5px 0 0 34px;">Remarks : </label> <label>{{item.remarks}}</label>
+                <label style="margin: 5px 0 0 34px;"><span>Remarks :</span> </label> <label>{{item.remarks}}</label>
               </div>
             </div>
 
@@ -185,7 +186,7 @@
               <h5 style="padding: 0 10px !important;">{{'Education Details' | translate}}</h5>
             </div>
 
-            
+
             <div *ngIf="mstapplicanteducationdetails.length == 0" style="text-align: center;">
               <label> Please Wait...</label>
             </div>
@@ -200,7 +201,7 @@
                 <i class="fa fa-calendar" aria-hidden="true"></i>
                 <label style="margin: 0 10px;">From : {{item.fromyear}}</label> <label>Upto : {{item.toyear}}</label>
                 <br>
-                <label style="margin: 5px 0 0 44px;">Remarks : </label> <label>{{item.remarks}}</label>
+                <label style="margin: 5px 0 0 44px;"><span>Remarks :</span> </label> <label>{{item.remarks}}</label>
               </div>
             </div>
 
@@ -335,8 +336,6 @@
                 <label>Read : <span>{{item.readStar}}</span></label> |
                 <label>Speak : <span>{{item.speakStar}}</span></label> |
                 <label>Write : <span>{{item.writeStar}}</span></label>
-
-
               </div>
             </div>
           </div>
@@ -385,369 +384,369 @@
 
 
 
-            <!-- Skill Details -->
-            <div class="show-Pfl-card">
+          <!-- Skill Details -->
+          <br>
+          <div class="show-Pfl-card">
 
-              <div class="show-prfl-card-hdr">
-                <h5 style="padding: 0 10px !important;">{{'Skill Details' | translate}}</h5>
-              </div>
+            <div class="show-prfl-card-hdr">
+              <h5 style="padding: 0 10px !important;">{{'Skill Details' | translate}}</h5>
+            </div>
 
-              <div *ngIf="skillarray.length == 0" style="text-align: center;">
-                <label> Please Wait...</label>
-              </div>
-  
-              <div class="show-locaion-card" *ngFor="let item of skillarray">
-                <div class="location-inside-card">
-                  <i class="fa fa-certificate" aria-hidden="true"></i>
-                  <label>Description : {{item.skillDescription}}</label> |
-                  <i class="fa fa-shield" aria-hidden="true"></i>
-                  <label>Sub Category : <span>{{item.subCategory}}</span></label>
-                  <br>
-  
-                  <i class="fa fa-trophy" aria-hidden="true"></i>
-                  <label>Self Rating : <span>{{item.showstr}}</span></label> <br>
-                  <label>Remarks : <span>{{item.remarks}}</span></label> 
- 
-  
-                </div>
+            <div *ngIf="skillarray.length == 0" style="text-align: center;">
+              <label> Please Wait...</label>
+            </div>
+
+            <div class="show-locaion-card" *ngFor="let item of skillarray">
+              <div class="location-inside-card">
+                <i class="fa fa-certificate" aria-hidden="true"></i>
+                <label>Description : {{item.skillDescription}}</label> |
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                <label>Sub Category : <span>{{item.subCategory}}</span></label>
+                <br>
+
+                <i class="fa fa-trophy" aria-hidden="true"></i>
+                <label>Self Rating : <span>{{item.showstr}}</span></label> <br>
+                <label><span>Remarks :</span> {{item.remarks}}</label>
+
+
               </div>
             </div>
-            <br>
+          </div>
+          <br>
 
-            <!-- Old Skill Details -->
-            <div class='row designrow' style="display: none;">
-              <!-- child table mstapplicantskilldetails-->
-              <div [ngClass]="Is_mstapplicantskilldetails_Visible()">
-                <!--End-->
-                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Skill Details' | translate}}
-                  <ul class="nav navbar-nav1" style='display:none'>
-                    <li class="dropdown">
-                      <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
-                        aria-haspopup='true' aria-expanded='false'> <span class='caret'></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" [routerLink]=''
-                            (click)="mstapplicantskilldetailtoggleOption();mstapplicantskilldetails_route(null, 'create')"><i
-                              class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
+          <!-- Old Skill Details -->
+          <div class='row designrow' style="display: none;">
+            <!-- child table mstapplicantskilldetails-->
+            <div [ngClass]="Is_mstapplicantskilldetails_Visible()">
+              <!--End-->
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Skill Details' | translate}}
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstapplicantskilldetailtoggleOption();mstapplicantskilldetails_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
                       class="fa fa-plus"></i></a> -->
-                </h4>
-                <ng2-smart-table #tbl_mstapplicantskilldetails
-                  (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
-                  [settings]="mstapplicantskilldetails_settings"
-                  (custom)="onCustom_mstapplicantskilldetails_Action($event)"
-                  [source]="tbl_mstapplicantskilldetails?.source?.data"
-                  (delete)="mstapplicantskilldetails_route($event,'delete')"
-                  (deleteConfirm)="mstapplicantskilldetails_route($event,'delete')"
-                  (create)="mstapplicantskilldetails_route($event,'create')"
-                  (createConfirm)="mstapplicantskilldetails_beforesave($event)"
-                  (edit)="mstapplicantskilldetails_route($event,'edit')"
-                  (editConfirm)="mstapplicantskilldetails_beforesave($event)">
-                </ng2-smart-table>
-              </div>
-              <!--End of child table mstapplicantskilldetails-->
+              </h4>
+              <ng2-smart-table #tbl_mstapplicantskilldetails
+                (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
+                [settings]="mstapplicantskilldetails_settings"
+                (custom)="onCustom_mstapplicantskilldetails_Action($event)"
+                [source]="tbl_mstapplicantskilldetails?.source?.data"
+                (delete)="mstapplicantskilldetails_route($event,'delete')"
+                (deleteConfirm)="mstapplicantskilldetails_route($event,'delete')"
+                (create)="mstapplicantskilldetails_route($event,'create')"
+                (createConfirm)="mstapplicantskilldetails_beforesave($event)"
+                (edit)="mstapplicantskilldetails_route($event,'edit')"
+                (editConfirm)="mstapplicantskilldetails_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table mstapplicantskilldetails-->
 
+          </div>
+
+          <!-- Career Details -->
+          <div class="show-Pfl-card">
+            <div class="show-prfl-card-hdr">
+              <h5 style="padding: 0 10px !important;">{{'Career Details' | translate}}</h5>
             </div>
 
-            <!-- Career Details -->
-            <div class="show-Pfl-card">
-              <div class="show-prfl-card-hdr">
-                <h5 style="padding: 0 10px !important;">{{'Career Details' | translate}}</h5>
-              </div>
+            <div *ngIf="mstapplicantcareerdetails.length == 0" style="text-align: center;">
+              <label> Please Wait...</label>
+            </div>
 
-              <div *ngIf="mstapplicantcareerdetails.length == 0" style="text-align: center;">
-                <label> Please Wait...</label>
-              </div>
+            <div class="show-locaion-card" *ngFor="let item of mstapplicantcareerdetails">
+              <div class="location-inside-card">
+                <i class="fa fa-briefcase" aria-hidden="true"></i>
+                <label>{{item.designation}}</label> |
+                <i class="fa fa-building" aria-hidden="true"></i>
+                <label>{{item.companyname}}</label>
+                <br>
 
-              <div class="show-locaion-card" *ngFor="let item of mstapplicantcareerdetails">
-                <div class="location-inside-card">
-                  <i class="fa fa-briefcase" aria-hidden="true"></i>
-                  <label>{{item.designation}}</label> |
-                  <i class="fa fa-building" aria-hidden="true"></i>
-                  <label>{{item.companyname}}</label>
-                  <br>
-
-                  <i class="fa fa-calendar" aria-hidden="true"></i>
-                  <label>From : {{item.fromdate | date : 'dd-MM-yyyy'}}</label>
-                  <label>Upto : {{item.todate | date : 'dd-MM-yyyy'}}</label>
-                  <label>Remarks : {{item.remarks}}</label>
-
-
-                </div>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <label>From : {{item.fromdate | date : 'dd-MM-yyyy'}}</label>
+                <label>Upto : {{item.todate | date : 'dd-MM-yyyy'}}</label><br>
+                <label style="margin: 10px;"><span>Remarks :</span>{{item.remarks}}</label>
               </div>
             </div>
-            <br>
+          </div>
+          <br>
 
-            <!-- Old Career Details -->
+          <!-- Old Career Details -->
 
-            <div class='row designrow' style="display: none;">
-              <!-- child table mstapplicantcareerdetails-->
-              <div [ngClass]="Is_mstapplicantcareerdetails_Visible()">
-                <!--End-->
-                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Career Details' | translate}}
-                  <ul class="nav navbar-nav1" style='display:none'>
-                    <li class="dropdown">
-                      <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
-                        aria-haspopup='true' aria-expanded='false'> <span class='caret'></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" [routerLink]=''
-                            (click)="mstapplicantcareerdetailtoggleOption();mstapplicantcareerdetails_route(null, 'create')"><i
-                              class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
+          <div class='row designrow' style="display: none;">
+            <!-- child table mstapplicantcareerdetails-->
+            <div [ngClass]="Is_mstapplicantcareerdetails_Visible()">
+              <!--End-->
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Career Details' | translate}}
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstapplicantcareerdetailtoggleOption();mstapplicantcareerdetails_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
                       class="fa fa-plus"></i></a> -->
-                </h4>
-                <ng2-smart-table #tbl_mstapplicantcareerdetails
-                  (userRowSelect)="handle_mstapplicantcareerdetails_GridSelected($event)"
-                  [settings]="mstapplicantcareerdetails_settings"
-                  (custom)="onCustom_mstapplicantcareerdetails_Action($event)"
-                  [source]="tbl_mstapplicantcareerdetails?.source?.data"
-                  (delete)="mstapplicantcareerdetails_route($event,'delete')"
-                  (deleteConfirm)="mstapplicantcareerdetails_route($event,'delete')"
-                  (create)="mstapplicantcareerdetails_route($event,'create')"
-                  (createConfirm)="mstapplicantcareerdetails_beforesave($event)"
-                  (edit)="mstapplicantcareerdetails_route($event,'edit')"
-                  (editConfirm)="mstapplicantcareerdetails_beforesave($event)">
-                </ng2-smart-table>
-              </div>
-              <!--End of child table mstapplicantcareerdetails-->
+              </h4>
+              <ng2-smart-table #tbl_mstapplicantcareerdetails
+                (userRowSelect)="handle_mstapplicantcareerdetails_GridSelected($event)"
+                [settings]="mstapplicantcareerdetails_settings"
+                (custom)="onCustom_mstapplicantcareerdetails_Action($event)"
+                [source]="tbl_mstapplicantcareerdetails?.source?.data"
+                (delete)="mstapplicantcareerdetails_route($event,'delete')"
+                (deleteConfirm)="mstapplicantcareerdetails_route($event,'delete')"
+                (create)="mstapplicantcareerdetails_route($event,'create')"
+                (createConfirm)="mstapplicantcareerdetails_beforesave($event)"
+                (edit)="mstapplicantcareerdetails_route($event,'edit')"
+                (editConfirm)="mstapplicantcareerdetails_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table mstapplicantcareerdetails-->
 
+          </div>
+
+          <!-- Projects -->
+          <div class="show-Pfl-card">
+            <div class="show-prfl-card-hdr">
+              <h5 style="padding: 0 10px !important;">{{'Projects' | translate}}</h5>
             </div>
 
-            <!-- Projects -->
-            <div class="show-Pfl-card">
-              <div class="show-prfl-card-hdr">
-                <h5 style="padding: 0 10px !important;">{{'Projects' | translate}}</h5>
-              </div>
+            <div *ngIf="mstapplicantworkreferences.length == 0" style="text-align: center;">
+              <label> Please Wait...</label>
+            </div>
 
-              <div *ngIf="mstapplicantworkreferences.length == 0" style="text-align: center;">
-                <label> Please Wait...</label>
-              </div>
+            <div class="show-locaion-card" *ngFor="let item of mstapplicantworkreferences">
+              <div class="location-inside-card">
+                <i class="fa fa-briefcase" aria-hidden="true"></i>
+                <label>{{item.worktopic}}</label> <br>
+                <i class="fa fa-building" aria-hidden="true"></i>
+                <label>{{item.companyname}}</label><br>
+                <i class="fa fa-building" aria-hidden="true"></i>
+                <label>URL : <a style="color: blue;" href="{{item.referenceurl}}"
+                    target="_blank">{{item.referenceurl}}</a></label><br>
 
-              <div class="show-locaion-card" *ngFor="let item of mstapplicantworkreferences">
-                <div class="location-inside-card">
-                  <i class="fa fa-briefcase" aria-hidden="true"></i>
-                  <label>{{item.worktopic}}</label> <br>
-                  <i class="fa fa-building" aria-hidden="true"></i>
-                  <label>{{item.companyname}}</label><br>
-                  <i class="fa fa-building" aria-hidden="true"></i>
-                  <label>URL : <a style="color: blue;" href="{{item.referenceurl}}" target="_blank">{{item.referenceurl}}</a></label><br>
-
-                  <i class="fa fa-calendar" aria-hidden="true"></i>
-                  <label>Work Description : {{item.workdescription}}</label> <br><br>
-                  <label><span>Remarks :</span> {{item.remarks}}</label>
-                </div>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <label>Work Description : {{item.workdescription}}</label> <br>
+                <label style="margin: 10px;"><span>Remarks :</span> {{item.remarks}}</label>
               </div>
             </div>
-            <br>
+          </div>
+          <br>
 
-            <!-- Old Projects -->
-            <div class='row designrow' style="display:none">
-              <!-- child table mstapplicantworkreferences-->
-              <div [ngClass]="Is_mstapplicantworkreferences_Visible()">
-                <!--End-->
-                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Projects' | translate}}
-                  <ul class="nav navbar-nav1" style='display:none'>
-                    <li class="dropdown">
-                      <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
-                        aria-haspopup='true' aria-expanded='false'> <span class='caret'></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" [routerLink]=''
-                            (click)="mstapplicantworkreferencetoggleOption();mstapplicantworkreferences_route(null, 'create')"><i
-                              class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
+          <!-- Old Projects -->
+          <div class='row designrow' style="display:none">
+            <!-- child table mstapplicantworkreferences-->
+            <div [ngClass]="Is_mstapplicantworkreferences_Visible()">
+              <!--End-->
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Projects' | translate}}
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstapplicantworkreferencetoggleOption();mstapplicantworkreferences_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
                       class="fa fa-plus"></i></a> -->
-                </h4>
-                <ng2-smart-table #tbl_mstapplicantworkreferences
-                  (userRowSelect)="handle_mstapplicantworkreferences_GridSelected($event)"
-                  [settings]="mstapplicantworkreferences_settings"
-                  (custom)="onCustom_mstapplicantworkreferences_Action($event)"
-                  [source]="tbl_mstapplicantworkreferences?.source?.data"
-                  (delete)="mstapplicantworkreferences_route($event,'delete')"
-                  (deleteConfirm)="mstapplicantworkreferences_route($event,'delete')"
-                  (create)="mstapplicantworkreferences_route($event,'create')"
-                  (createConfirm)="mstapplicantworkreferences_beforesave($event)"
-                  (edit)="mstapplicantworkreferences_route($event,'edit')"
-                  (editConfirm)="mstapplicantworkreferences_beforesave($event)">
-                </ng2-smart-table>
-              </div>
-              <!--End of child table mstapplicantworkreferences-->
+              </h4>
+              <ng2-smart-table #tbl_mstapplicantworkreferences
+                (userRowSelect)="handle_mstapplicantworkreferences_GridSelected($event)"
+                [settings]="mstapplicantworkreferences_settings"
+                (custom)="onCustom_mstapplicantworkreferences_Action($event)"
+                [source]="tbl_mstapplicantworkreferences?.source?.data"
+                (delete)="mstapplicantworkreferences_route($event,'delete')"
+                (deleteConfirm)="mstapplicantworkreferences_route($event,'delete')"
+                (create)="mstapplicantworkreferences_route($event,'create')"
+                (createConfirm)="mstapplicantworkreferences_beforesave($event)"
+                (edit)="mstapplicantworkreferences_route($event,'edit')"
+                (editConfirm)="mstapplicantworkreferences_beforesave($event)">
+              </ng2-smart-table>
+            </div>
+            <!--End of child table mstapplicantworkreferences-->
 
+          </div>
+
+          <!-- Social Media -->
+          <div class="show-Pfl-card">
+
+            <div class="show-prfl-card-hdr">
+              <h5 style="padding: 0 10px;">{{'Social Media' | translate}}</h5>
             </div>
 
-            <!-- Social Media -->
-            <div class="show-Pfl-card">
+            <div *ngIf="mstapplicantsocialmediadetails.length == 0" style="text-align: center;">
+              <label> Please Wait...</label>
+            </div>
 
-              <div class="show-prfl-card-hdr">
-                <h5 style="padding: 0 10px;">{{'Social Media' | translate}}</h5>
-              </div>
+            <div class="show-locaion-card" *ngFor="let item of mstapplicantsocialmediadetails">
+              <div class="location-inside-card">
+                <i class="fa fa-certificate" aria-hidden="true"></i>
+                <label>Social Media : {{item.socialmedianamedesc}}</label> |
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                <label>Handle Name : {{item.handlename}}</label>
+                <br>
+                <i class="fa fa-trophy" aria-hidden="true"></i>
+                <label>URL : <a style="color: blue;" href="{{item.url}}" target="_blank">{{item.url}}</a></label> <br>
+                <label style="margin: 10px;"><span>Remarks</span> : {{item.remarks}}</label>
 
-              <div *ngIf="mstapplicantsocialmediadetails.length == 0" style="text-align: center;">
-                <label> Please Wait...</label>
-              </div>
-  
-              <div class="show-locaion-card" *ngFor="let item of mstapplicantsocialmediadetails">
-                <div class="location-inside-card">
-                  <i class="fa fa-certificate" aria-hidden="true"></i>
-                  <label>Social Media : {{item.socialmedianamedesc}}</label> |
-                  <i class="fa fa-shield" aria-hidden="true"></i>
-                  <label>Handle Name : {{item.handlename}}</label>
-                  <br>
-                  <i class="fa fa-trophy" aria-hidden="true"></i>
-                  <label>URL : <a style="color: blue;" href="{{item.url}}" target="_blank">{{item.url}}</a></label> <br>
-                  <label style="margin: 0 15px;"><span>Remarks</span> : {{item.remarks}}</label>
 
-  
-  
-                </div>
+
               </div>
             </div>
-            <br>
+          </div>
+          <br>
 
-            <!-- Old Social Media -->
-            <div class='designrow' style="display: none;">
-              <!-- child table mstapplicantsocialmediadetails-->
-              <div [ngClass]="Is_mstapplicantsocialmediadetails_Visible()">
-                <!--End-->
-                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'SocialMedia Details' | translate}}
-                  <ul class="nav navbar-nav1" style='display:none'>
-                    <li class="dropdown">
-                      <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
-                        aria-haspopup='true' aria-expanded='false'> <span class='caret'></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" [routerLink]=''
-                            (click)="mstapplicantsocialmediadetailtoggleOption();mstapplicantsocialmediadetails_route(null, 'create')"><i
-                              class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')"><i
+          <!-- Old Social Media -->
+          <div class='designrow' style="display: none;">
+            <!-- child table mstapplicantsocialmediadetails-->
+            <div [ngClass]="Is_mstapplicantsocialmediadetails_Visible()">
+              <!--End-->
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'SocialMedia Details' | translate}}
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstapplicantsocialmediadetailtoggleOption();mstapplicantsocialmediadetails_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')"><i
                       class="fa fa-plus"></i></a> -->
-                </h4>
-                <ng2-smart-table #tbl_mstapplicantsocialmediadetails
-                  (userRowSelect)="handle_mstapplicantsocialmediadetails_GridSelected($event)"
-                  [settings]="mstapplicantsocialmediadetails_settings"
-                  (custom)="onCustom_mstapplicantsocialmediadetails_Action($event)"
-                  [source]="tbl_mstapplicantsocialmediadetails?.source?.data"
-                  (delete)="mstapplicantsocialmediadetails_route($event,'delete')"
-                  (deleteConfirm)="mstapplicantsocialmediadetails_route($event,'delete')"
-                  (create)="mstapplicantsocialmediadetails_route($event,'create')"
-                  (createConfirm)="mstapplicantsocialmediadetails_beforesave($event)"
-                  (edit)="mstapplicantsocialmediadetails_route($event,'edit')"
-                  (editConfirm)="mstapplicantsocialmediadetails_beforesave($event)">
-                </ng2-smart-table>
-              </div>
-              <!--End of child table mstapplicantsocialmediadetails-->
-
+              </h4>
+              <ng2-smart-table #tbl_mstapplicantsocialmediadetails
+                (userRowSelect)="handle_mstapplicantsocialmediadetails_GridSelected($event)"
+                [settings]="mstapplicantsocialmediadetails_settings"
+                (custom)="onCustom_mstapplicantsocialmediadetails_Action($event)"
+                [source]="tbl_mstapplicantsocialmediadetails?.source?.data"
+                (delete)="mstapplicantsocialmediadetails_route($event,'delete')"
+                (deleteConfirm)="mstapplicantsocialmediadetails_route($event,'delete')"
+                (create)="mstapplicantsocialmediadetails_route($event,'create')"
+                (createConfirm)="mstapplicantsocialmediadetails_beforesave($event)"
+                (edit)="mstapplicantsocialmediadetails_route($event,'edit')"
+                (editConfirm)="mstapplicantsocialmediadetails_beforesave($event)">
+              </ng2-smart-table>
             </div>
-            
-            <div class='row designrow' style="display: none!important;">
-              <!-- child table mstapplicantreferencedetails-->
-              <div [ngClass]="Is_mstapplicantreferencedetails_Visible()">
-                <!--End-->
-                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Reference Details' | translate}}
-                  <ul class="nav navbar-nav1" style='display:none'>
-                    <li class="dropdown">
-                      <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
-                        aria-haspopup='true' aria-expanded='false'> <span class='caret'></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" [routerLink]=''
-                            (click)="mstapplicantreferencedetailtoggleOption();mstapplicantreferencedetails_route(null, 'create')"><i
-                              class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantreferencedetails_route(null, 'create')"><i
+            <!--End of child table mstapplicantsocialmediadetails-->
+
+          </div>
+
+          <div class='row designrow' style="display: none!important;">
+            <!-- child table mstapplicantreferencedetails-->
+            <div [ngClass]="Is_mstapplicantreferencedetails_Visible()">
+              <!--End-->
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Reference Details' | translate}}
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstapplicantreferencedetailtoggleOption();mstapplicantreferencedetails_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantreferencedetails_route(null, 'create')"><i
                       class="fa fa-plus"></i></a> -->
-                </h4>
-                <ng2-smart-table #tbl_mstapplicantreferencedetails
-                  (userRowSelect)="handle_mstapplicantreferencedetails_GridSelected($event)"
-                  [settings]="mstapplicantreferencedetails_settings"
-                  (custom)="onCustom_mstapplicantreferencedetails_Action($event)"
-                  [source]="tbl_mstapplicantreferencedetails?.source?.data"
-                  (delete)="mstapplicantreferencedetails_route($event,'delete')"
-                  (deleteConfirm)="mstapplicantreferencedetails_route($event,'delete')"
-                  (create)="mstapplicantreferencedetails_route($event,'create')"
-                  (createConfirm)="mstapplicantreferencedetails_beforesave($event)"
-                  (edit)="mstapplicantreferencedetails_route($event,'edit')"
-                  (editConfirm)="mstapplicantreferencedetails_beforesave($event)">
-                </ng2-smart-table>
-              </div>
-              <!--End of child table mstapplicantreferencedetails-->
-
+              </h4>
+              <ng2-smart-table #tbl_mstapplicantreferencedetails
+                (userRowSelect)="handle_mstapplicantreferencedetails_GridSelected($event)"
+                [settings]="mstapplicantreferencedetails_settings"
+                (custom)="onCustom_mstapplicantreferencedetails_Action($event)"
+                [source]="tbl_mstapplicantreferencedetails?.source?.data"
+                (delete)="mstapplicantreferencedetails_route($event,'delete')"
+                (deleteConfirm)="mstapplicantreferencedetails_route($event,'delete')"
+                (create)="mstapplicantreferencedetails_route($event,'create')"
+                (createConfirm)="mstapplicantreferencedetails_beforesave($event)"
+                (edit)="mstapplicantreferencedetails_route($event,'edit')"
+                (editConfirm)="mstapplicantreferencedetails_beforesave($event)">
+              </ng2-smart-table>
             </div>
-            <div class='row designrow' *ngIf="Ismstapplicantreferencerequests_div_Visible">
-              <!-- child table mstapplicantreferencerequests-->
-              <div [ngClass]="Is_mstapplicantreferencerequests_Visible()">
-                <!--End-->
-                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Reference Requests' | translate}}
-                  <ul class="nav navbar-nav1" style='display:none'>
-                    <li class="dropdown">
-                      <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
-                        aria-haspopup='true' aria-expanded='false'> <span class='caret'></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" [routerLink]=''
-                            (click)="mstapplicantreferencerequesttoggleOption();mstapplicantreferencerequests_route(null, 'create')"><i
-                              class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantreferencerequests_route(null, 'create')"><i
+            <!--End of child table mstapplicantreferencedetails-->
+
+          </div>
+          <div class='row designrow' *ngIf="Ismstapplicantreferencerequests_div_Visible">
+            <!-- child table mstapplicantreferencerequests-->
+            <div [ngClass]="Is_mstapplicantreferencerequests_Visible()">
+              <!--End-->
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Reference Requests' | translate}}
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstapplicantreferencerequesttoggleOption();mstapplicantreferencerequests_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantreferencerequests_route(null, 'create')"><i
                       class="fa fa-plus"></i></a> -->
-                </h4>
-                <ng2-smart-table #tbl_mstapplicantreferencerequests
-                  (userRowSelect)="handle_mstapplicantreferencerequests_GridSelected($event)"
-                  [settings]="mstapplicantreferencerequests_settings"
-                  (custom)="onCustom_mstapplicantreferencerequests_Action($event)"
-                  [source]="tbl_mstapplicantreferencerequests?.source?.data"
-                  (delete)="mstapplicantreferencerequests_route($event,'delete')"
-                  (deleteConfirm)="mstapplicantreferencerequests_route($event,'delete')"
-                  (create)="mstapplicantreferencerequests_route($event,'create')"
-                  (createConfirm)="mstapplicantreferencerequests_beforesave($event)"
-                  (edit)="mstapplicantreferencerequests_route($event,'edit')"
-                  (editConfirm)="mstapplicantreferencerequests_beforesave($event)">
-                </ng2-smart-table>
-              </div>
-              <!--End of child table mstapplicantreferencerequests-->
-
+              </h4>
+              <ng2-smart-table #tbl_mstapplicantreferencerequests
+                (userRowSelect)="handle_mstapplicantreferencerequests_GridSelected($event)"
+                [settings]="mstapplicantreferencerequests_settings"
+                (custom)="onCustom_mstapplicantreferencerequests_Action($event)"
+                [source]="tbl_mstapplicantreferencerequests?.source?.data"
+                (delete)="mstapplicantreferencerequests_route($event,'delete')"
+                (deleteConfirm)="mstapplicantreferencerequests_route($event,'delete')"
+                (create)="mstapplicantreferencerequests_route($event,'create')"
+                (createConfirm)="mstapplicantreferencerequests_beforesave($event)"
+                (edit)="mstapplicantreferencerequests_route($event,'edit')"
+                (editConfirm)="mstapplicantreferencerequests_beforesave($event)">
+              </ng2-smart-table>
             </div>
-            <div class='row designrow' *ngIf="Ismstjobstatuses_div_Visible">
-              <!-- child table mstjobstatuses-->
-              <div [ngClass]="Is_mstjobstatuses_Visible()">
-                <!--End-->
-                <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Job Statuses' | translate}}
-                  <ul class="nav navbar-nav1" style='display:none'>
-                    <li class="dropdown">
-                      <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
-                        aria-haspopup='true' aria-expanded='false'> <span class='caret'></span></a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" [routerLink]=''
-                            (click)="mstjobstatustoggleOption();mstjobstatuses_route(null, 'create')"><i
-                              class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <!-- <a class="rightside" [routerLink]='' (click)="mstjobstatuses_route(null, 'create')"><i
+            <!--End of child table mstapplicantreferencerequests-->
+
+          </div>
+          <div class='row designrow' *ngIf="Ismstjobstatuses_div_Visible">
+            <!-- child table mstjobstatuses-->
+            <div [ngClass]="Is_mstjobstatuses_Visible()">
+              <!--End-->
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Job Statuses' | translate}}
+                <ul class="nav navbar-nav1" style='display:none'>
+                  <li class="dropdown">
+                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+                      aria-expanded='false'> <span class='caret'></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" [routerLink]=''
+                          (click)="mstjobstatustoggleOption();mstjobstatuses_route(null, 'create')"><i
+                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <!-- <a class="rightside" [routerLink]='' (click)="mstjobstatuses_route(null, 'create')"><i
                       class="fa fa-plus"></i></a> -->
-                </h4>
-                <ng2-smart-table #tbl_mstjobstatuses (userRowSelect)="handle_mstjobstatuses_GridSelected($event)"
-                  [settings]="mstjobstatuses_settings" (custom)="onCustom_mstjobstatuses_Action($event)"
-                  [source]="tbl_mstjobstatuses?.source?.data" (delete)="mstjobstatuses_route($event,'delete')"
-                  (deleteConfirm)="mstjobstatuses_route($event,'delete')"
-                  (create)="mstjobstatuses_route($event,'create')" (createConfirm)="mstjobstatuses_beforesave($event)"
-                  (edit)="mstjobstatuses_route($event,'edit')" (editConfirm)="mstjobstatuses_beforesave($event)">
-                </ng2-smart-table>
-              </div>
-              <!--End of child table mstjobstatuses-->
-
+              </h4>
+              <ng2-smart-table #tbl_mstjobstatuses (userRowSelect)="handle_mstjobstatuses_GridSelected($event)"
+                [settings]="mstjobstatuses_settings" (custom)="onCustom_mstjobstatuses_Action($event)"
+                [source]="tbl_mstjobstatuses?.source?.data" (delete)="mstjobstatuses_route($event,'delete')"
+                (deleteConfirm)="mstjobstatuses_route($event,'delete')" (create)="mstjobstatuses_route($event,'create')"
+                (createConfirm)="mstjobstatuses_beforesave($event)" (edit)="mstjobstatuses_route($event,'edit')"
+                (editConfirm)="mstjobstatuses_beforesave($event)">
+              </ng2-smart-table>
             </div>
+            <!--End of child table mstjobstatuses-->
+
+          </div>
 
 
         </div>
