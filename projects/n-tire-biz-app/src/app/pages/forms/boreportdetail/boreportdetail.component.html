@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="boreportdetail_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second bgcolor">
-    <h1 class="col-4 columns mainheader left">{{'boreportdetails' | translate}}
+    <h1 class="col-4 columns mainheader left" style="color: #808080 !important;">{{'boreportdetails' | translate}}
     </h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
@@ -62,7 +62,7 @@
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.reportdetailid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.reportdetailid.value" [status]="f.status.value"></app-action>
@@ -86,13 +86,13 @@
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('reportid') == -1) && (reportidvisible==undefined || reportidvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="reportid" class="control-label">Report</label>
         <label *ngIf="showview" class="labelview">{{f.reportid?.value}}</label>
         <input *ngIf="!showview" id="reportid" formControlName="reportid" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('tablename') == -1) && (tablenamevisible==undefined || tablenamevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="tablename" class="control-label">Table Name</label>
         <label *ngIf="showview" class="labelview">{{f.tablename?.value}}</label>
         <input *ngIf="!showview" id="tablename" formControlName="tablename" class="form-control">
@@ -116,7 +116,7 @@
 
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('separator') == -1) && (separatorvisible==undefined || separatorvisible==true))"
-        style='' class="col-3"><label for="separator" class="control-label">Separator</label>
+        style='' class="col-3 education_view_mobile"><label for="separator" class="control-label">Separator</label>
         <select *ngIf="!showview" id="separator" (change)="separator_onChange($event.target)"
           formControlName="separator" class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
@@ -161,7 +161,7 @@
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('alias') == -1) && (aliasvisible==undefined || aliasvisible==true))" style=''
-        class="col-3 ">
+        class="col-3 education_view_mobile">
         <label for="alias" class="control-label">Alias</label>
         <label *ngIf="showview" class="labelview">{{f.alias?.value}}</label>
         <input *ngIf="!showview" id="alias" formControlName="alias" class="form-control">

@@ -25,7 +25,7 @@ export type ChartOptions = {
 
     <div class="row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
-    <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="jobq" custommenuid="544"></ngx-reportviewer>
+    <!-- <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="jobq" custommenuid="544"></ngx-reportviewer> -->
     </div>
 
     <hr>
@@ -37,11 +37,11 @@ export type ChartOptions = {
 
     <div class="row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
-    <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="arrA" custommenuid="544"></ngx-reportviewer>
+    <!-- <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="arrA" custommenuid="544"></ngx-reportviewer> -->
     </div>
 
     </div>
-    </ng-container>
+</ng-container>
 
     <ng-container *ngIf="!isadmin">
 
@@ -107,7 +107,7 @@ export type ChartOptions = {
 
     <div class="row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
-    <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="jobqc" custommenuid="544"></ngx-reportviewer>
+    <!-- <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="jobqc" custommenuid="544"></ngx-reportviewer> -->
     </div>
 
     <hr>
@@ -119,7 +119,7 @@ export type ChartOptions = {
 
     <div class="row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
-    <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="arrA" custommenuid="544"></ngx-reportviewer>
+    <!-- <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="arrA" custommenuid="544"></ngx-reportviewer> -->
     </div>
 
     </div>
