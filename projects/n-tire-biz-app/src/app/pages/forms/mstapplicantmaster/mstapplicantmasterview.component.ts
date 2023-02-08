@@ -199,25 +199,24 @@ export class mstapplicantmasterviewComponent implements OnInit {
 
   mstapplicantcareerdetails_visiblelist: any;
   mstapplicantcareerdetails_hidelist: any;
-  mstapplicantcareerdetails:any = [];
+  mstapplicantcareerdetails: any = [];
 
   mstapplicantreferencedetails_visiblelist: any;
   mstapplicantreferencedetails_hidelist: any;
 
   mstapplicantskilldetails_visiblelist: any;
   mstapplicantskilldetails_hidelist: any;
-  mstapplicantskilldetails:any = [];
-  skill_data:any = [];
-  skillarray:any = [];
-  skill_selfrating:any;
+  mstapplicantskilldetails: any = [];
+  skillarray: any = [];
+  skill_selfrating: any;
 
   mstapplicantworkreferences_visiblelist: any;
   mstapplicantworkreferences_hidelist: any;
-  mstapplicantworkreferences:any = [];
+  mstapplicantworkreferences: any = [];
 
   mstapplicantsocialmediadetails_visiblelist: any;
   mstapplicantsocialmediadetails_hidelist: any;
-  mstapplicantsocialmediadetails:any = [];
+  mstapplicantsocialmediadetails: any = [];
 
   mstapplicantachievementdetails_visiblelist: any;
   mstapplicantachievementdetails_hidelist: any;
@@ -1092,39 +1091,25 @@ return false;
     this.mstapplicantskilldetails = res.mstapplicantskilldetails;
 
     for (let i = 0; i < this.mstapplicantskilldetails.length; i++) {
-      this.skill_data.push({
-        skillDescription: this.mstapplicantlanguagedetails[i].skillcategorydesc,
-        subCategory: this.mstapplicantlanguagedetails[i].subcategoryiddesc,
-        selfRating: this.mstapplicantlanguagedetails[i].selfrating,
-        remarks: this.mstapplicantlanguagedetails[i].remarks,
-      });
-    };
-
-    for (let i = 0; i < this.skill_data.length; i++) {
-      if (this.skill_data[i].selfRating == 1) {
+      if (this.mstapplicantskilldetails[i].selfRating == 1) {
         this.skill_selfrating = '★'
-      } else if (this.skill_data[i].selfRating == 2) {
+      } else if (this.mstapplicantskilldetails[i].selfRating == 2) {
         this.skill_selfrating = '★★'
-      } else if (this.skill_data[i].selfRating == 3) {
+      } else if (this.mstapplicantskilldetails[i].selfRating == 3) {
         this.skill_selfrating = '★★★'
-      } else if (this.skill_data[i].selfRating == 4) {
+      } else if (this.mstapplicantskilldetails[i].selfRating == 4) {
         this.skill_selfrating = '★★★★'
-      } else if (this.skill_data[i].selfRating == 5) {
+      } else if (this.mstapplicantskilldetails[i].selfRating == 5) {
         this.skill_selfrating = '★★★★★'
-      }
-
+      };
 
       this.skillarray.push({
-        skillDescription: this.skill_data[i].skillDescription,
-        subCategory: this.skill_data[i].subCategory,
-        remarks: this.skill_data[i].remarks,
-        showstr : this.skill_selfrating
-
+        skillDescription: this.mstapplicantskilldetails[i].skillcategorydesc,
+        subCategory: this.mstapplicantskilldetails[i].subcategoryiddesc,
+        remarks: this.mstapplicantskilldetails[i].remarks,
+        showstr: this.skill_selfrating
       })
-    }
-
-
-
+    };
 
     this.mstapplicantlanguagedetails = res.mstapplicantlanguagedetails;
 
@@ -1166,7 +1151,7 @@ return false;
       } else if (this.language_data[i].readproficiency == 5) {
         this.read_str = '★★★★★'
       }
-      
+
       // Rating For Writing
       if (this.language_data[i].writeproficiency == 1) {
         this.write_str = '★'
@@ -1180,7 +1165,7 @@ return false;
         this.write_str = '★★★★★'
       }
 
-        // Rating For Overall 
+      // Rating For Overall 
       if (this.language_data[i].overallrating == 1) {
         this.overall_str = '★'
       } else if (this.language_data[i].overallrating == 2) {
@@ -1195,11 +1180,11 @@ return false;
 
 
       this.language_star_rating.push({
-        language : this.language_data[i].language,
-        readStar : this.read_str,
-        writeStar : this.write_str,
-        speakStar : this.speak_str,
-        overallStar : this.overall_str
+        language: this.language_data[i].language,
+        readStar: this.read_str,
+        writeStar: this.write_str,
+        speakStar: this.speak_str,
+        overallStar: this.overall_str
       })
     }
 
