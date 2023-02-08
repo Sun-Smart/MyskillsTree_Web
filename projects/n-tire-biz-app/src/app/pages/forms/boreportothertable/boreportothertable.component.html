@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="boreportothertable_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second bgcolor">
-    <h1 class="col-4 columns mainheader left">{{'boreportothertables' |
+    <h1 class="col-4 columns mainheader left" style="color: #808080 !important;">{{'boothertables' |
         translate}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
@@ -62,7 +62,7 @@
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-primary mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.othertableid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.othertableid.value" [status]="f.status.value"></app-action>
@@ -86,19 +86,19 @@
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('reportid') == -1) && (reportidvisible==undefined || reportidvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="reportid" class="control-label">Report</label>
         <label *ngIf="showview" class="labelview">{{f.reportid?.value}}</label>
         <input *ngIf="!showview" id="reportid" formControlName="reportid" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('tablename') == -1) && (tablenamevisible==undefined || tablenamevisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="tablename" class="control-label">Table Name</label>
         <label *ngIf="showview" class="labelview">{{f.tablename?.value}}</label>
         <input *ngIf="!showview" id="tablename" formControlName="tablename" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('tablealias') == -1) && (tablealiasvisible==undefined || tablealiasvisible==true))"
-        style='' class="col-3 ">
+        style='' class="col-3 education_view_mobile">
         <label for="tablealias" class="control-label">Table Alias</label>
         <label *ngIf="showview" class="labelview">{{f.tablealias?.value}}</label>
         <input *ngIf="!showview" id="tablealias" formControlName="tablealias" class="form-control">
@@ -108,7 +108,7 @@
       <!--jointype-->
 
       <div *ngIf="((hidelist.indexOf('jointype') == -1) && (jointypevisible==undefined || jointypevisible==true))"
-        style='' class="col-3"><label for="jointype" class="control-label">Join Type</label>
+        style='' class="col-3 education_view_mobile"><label for="jointype" class="control-label">Join Type</label>
         <select *ngIf="!showview" id="jointype" (change)="jointype_onChange($event.target)" formControlName="jointype"
           class="form-control">
           <option [ngValue]="null" selected>-Select-</option>
