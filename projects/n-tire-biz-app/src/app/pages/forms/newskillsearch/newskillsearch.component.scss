@@ -1,4 +1,3 @@
-
 .content {
   display: flex;
   flex-direction: column;
@@ -450,24 +449,36 @@ input.p-multiselect-filter.p-inputtext {
   .tab .tab-button {
     margin: 0px !important;
   }
-  .active{
+
+  .active {
     width: 100% !important;
   }
-  .cardView-content .card-view{
+
+  .cardView-content .card-view {
     display: block !important;
   }
-  .range span{
+
+  .range span {
     margin-left: 145px !important;
   }
-  .mobileview_search{
-    top: 55px !important;
+
+  .mobileview_search {
+    top: 5px !important;
     padding: 0rem 2rem !important;
     z-index: 1 !important;
   }
-  .grid-container{
+
+  .grid-container {
     width: 330px !important;
   }
-  .main-content{
+
+  .main-content {
     width: auto !important;
+  }
+}
+
+::ng-deep.selected-item {
+  a {
+    display: none !important;
   }
 }

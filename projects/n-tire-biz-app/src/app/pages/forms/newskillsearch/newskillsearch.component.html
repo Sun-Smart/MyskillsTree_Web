@@ -1,7 +1,7 @@
 <div class="content">
   <div class="header row">
     <div class="col-8 mobileview_search" id="searchInput" *ngIf="isSearchInput"
-      style="display: flex;justify-content: center;align-items: center;padding: 0rem 12rem;position: absolute;top: 5px;z-index: 9999;">
+      style="display: flex;justify-content: center;align-items: center;padding: 0rem 12rem;position: fixed !important;top: 5px;z-index: 9999;">
       <i class="fa fa-search search-icon" aria-hidden="true"></i>
       <input type="text"  class="form-control"  placeholder="Search" [(ngModel)]="term"
         style="border-radius:30px !important;padding: 0 40px;" multiple>
@@ -60,7 +60,7 @@
       <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Location</h6>
         <ng-multiselect-dropdown [placeholder]="'Select Location'" [settings]="locationSettings" [data]="location_List"
-          [(ngModel)]="value" (onSelect)="location_onChange($event,val)" (onSelectAll)="onSelectAll($event)">
+          [(ngModel)]="skilllocation" (onSelect)="location_onChange($event,val)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="location_DeSelect($event)">
         </ng-multiselect-dropdown>
         <!-- <input class="form-control" [(ngModel)]="location" (keyup)="valueChanged1($event)"> -->
       </div>

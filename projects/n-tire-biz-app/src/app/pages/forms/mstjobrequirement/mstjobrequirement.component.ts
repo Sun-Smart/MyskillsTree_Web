@@ -793,10 +793,10 @@ export class mstjobrequirementComponent implements OnInit {
         debugger;
         this.isSubmitted = true;
         let strError = "";
-        if (!this.mstjobrequirement_Form.valid) {
-            this.toastr.addSingle("error", "", "Enter the required fields");
-            return;
-        }
+        // if (!this.mstjobrequirement_Form.valid) {
+        //     this.toastr.addSingle("error", "", "Enter the required fields");
+        //     return;
+        // }
         // Object.keys(this.mstjobrequirement_Form.controls).forEach(key => {
         //     const controlErrors: ValidationErrors = this.mstjobrequirement_Form.get(key).errors;
         //     if (controlErrors != null) {
@@ -895,28 +895,29 @@ export class mstjobrequirementComponent implements OnInit {
 
     AddOrEdit_mstjobstatus(event: any, viewid: any, jobid: any) {
         debugger;
+        event.isInEditing = true;
         let add = false;
         if (event == null) add = true;
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        this.dialog.open(mstjobstatusComponent,
+        // this.dialog.open(mstjobstatusComponent,
 
-            {
-                data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, viewid, jobid, visiblelist: this.mstjobstatuses_visiblelist, hidelist: this.mstjobstatuses_hidelist, ScreenType: 2 },
-            }
-        ).onClose.subscribe(res => {
-            if (res) {
-                if (add) {
-                    for (let i = 0; i < res.length; i++) {
-                        this.tbl_mstjobstatuses.source.add(res[i]);
-                    }
-                    this.tbl_mstjobstatuses.source.refresh();
-                }
-                else {
-                    this.tbl_mstjobstatuses.source.update(event.data, res[0]);
-                }
-            }
-        });
+        //     {
+        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, viewid, jobid, visiblelist: this.mstjobstatuses_visiblelist, hidelist: this.mstjobstatuses_hidelist, ScreenType: 2 },
+        //     }
+        // ).onClose.subscribe(res => {
+        //     if (res) {
+        //         if (add) {
+        //             for (let i = 0; i < res.length; i++) {
+        //                 this.tbl_mstjobstatuses.source.add(res[i]);
+        //             }
+        //             this.tbl_mstjobstatuses.source.refresh();
+        //         }
+        //         else {
+        //             this.tbl_mstjobstatuses.source.update(event.data, res[0]);
+        //         }
+        //     }
+        // });
     }
 
     onDelete_mstjobstatus(event: any, childID: number, i: number) {
@@ -1029,6 +1030,7 @@ export class mstjobrequirementComponent implements OnInit {
                 viewdatetime: {
                     title: 'View Date',
                     type: 'custom',
+                    filter: false,
                     renderComponent: SmartTableDatepickerRenderComponent,
                     editor: {
                         type: 'custom',
@@ -1040,11 +1042,11 @@ export class mstjobrequirementComponent implements OnInit {
                     type: 'boolean',
                     editor: {
                         type: 'checkbox',
-                        config: {
-                            true: 'true',
-                            false: 'false',
-                            resetText: 'clear',
-                        },
+                        // config: {
+                        //     true: 'true',
+                        //     false: 'false',
+                        //     resetText: 'clear',
+                        // },
                     },
                     filter: {
                         type: 'checkbox',
@@ -1076,11 +1078,11 @@ export class mstjobrequirementComponent implements OnInit {
                     type: 'boolean',
                     editor: {
                         type: 'checkbox',
-                        config: {
-                            true: 'true',
-                            false: 'false',
-                            resetText: 'clear',
-                        },
+                        // config: {
+                        //     true: 'true',
+                        //     false: 'false',
+                        //     resetText: 'clear',
+                        // },
                     },
                     filter: {
                         type: 'checkbox',
