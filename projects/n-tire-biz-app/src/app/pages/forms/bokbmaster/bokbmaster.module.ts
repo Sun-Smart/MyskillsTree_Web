@@ -6,7 +6,9 @@ import { bokbmasterComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/
 
 
 @NgModule({
-
+  exports: [
+    NgCommonModule
+  ],
   imports: [
     NgCommonModule
   ],

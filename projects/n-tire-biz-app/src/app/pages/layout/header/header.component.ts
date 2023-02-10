@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
   loggedIn: boolean = false;
   @Output() toggleMenubar: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('searchInput') searchInput: NewskillsearchComponent;
+  @ViewChild('showsearchbar') showsearchbar: NewskillsearchComponent;
   theme: string;
   _start: boolean;
   actionid: any;
@@ -566,6 +566,24 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/home/mstcorporatemasters/mstcorporatemasters/edit/' + this.pkcorporateid])
     });
 
+  };
+
+  kbMaster(){
+    debugger
+    this.menuhide = false;
+    this.router.navigate(['/home/bokbmaster']);
+  };
+  kbForum(){
+    this.menuhide = false;
+    this.router.navigate(['/home/boforum']);
+  };
+  kbTopic(){
+    this.menuhide = false;
+    this.router.navigate(['/home/bokbtopic']);
+  };
+  kbFaq(){
+    this.menuhide = false;
+    this.router.navigate(['/home/bofaq']);
   };
 
   dashboard() {

@@ -113,11 +113,6 @@ export class mstjobstatusComponent implements OnInit {
     sessionData: any;
     sourceKey: any;
 
-
-
-
-
-
     constructor(
         private nav: Location,
         private translate: TranslateService,

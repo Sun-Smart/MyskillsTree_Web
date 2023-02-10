@@ -165,17 +165,16 @@ export const paths = [
                     { path: 'lmssecondarycontacts', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/lmssecondarycontact/lmssecondarycontact.module').then(m => m.lmssecondarycontactModule) },
                     { path: 'lmssubresponses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/lmssubresponse/lmssubresponse.module').then(m => m.lmssubresponseModule) },
                     { path: 'lmstaskresponses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/lmstaskresponse/lmstaskresponse.module').then(m => m.lmstaskresponseModule) },
-
                     { path: 'boexpenses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/boexpense/boexpense.module').then(m => m.boexpenseModule) },
 
                     // New Knowlwdge Base implementation 10/02/2023
 
                     // { path: 'bofaq', component: bofaqComponent },
 
-                    { path: 'bofaq', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bofaq/bofaq.module').then(m => m.BofaqModule) },
-                    { path: 'boexpenses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bokbmaster/bokbmaster.module').then(m => m.BokbmasterModule) },
-                    { path: 'boexpenses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bokbtopic/bokbtopic.module').then(m => m.BokbtopicModule) },
-                    { path: 'boexpenses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/boforum/boforum.module').then(m => m.BoforumModule) },
+                    { path: 'bofaq', pathMatch: 'prefix', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bofaq/bofaq.module').then(m => m.BofaqModule) },
+                    { path: 'bokbmaster', pathMatch: 'prefix', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bokbmaster/bokbmaster.module').then(m => m.BokbmasterModule) },
+                    { path: 'bokbtopic', pathMatch: 'prefix', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bokbtopic/bokbtopic.module').then(m => m.BokbtopicModule) },
+                    { path: 'boforum', pathMatch: 'prefix', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/boforum/boforum.module').then(m => m.BoforumModule) },
 
                 ]
             },
