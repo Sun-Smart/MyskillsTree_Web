@@ -568,24 +568,6 @@ export class HeaderComponent implements OnInit {
 
   };
 
-  kbMaster(){
-    debugger
-    this.menuhide = false;
-    this.router.navigate(['/home/bokbmaster']);
-  };
-  kbForum(){
-    this.menuhide = false;
-    this.router.navigate(['/home/boforum']);
-  };
-  kbTopic(){
-    this.menuhide = false;
-    this.router.navigate(['/home/bokbtopic']);
-  };
-  kbFaq(){
-    this.menuhide = false;
-    this.router.navigate(['/home/bofaq']);
-  };
-
   dashboard() {
     debugger;
     if (this.sessionService.getItem('role') == '2') {

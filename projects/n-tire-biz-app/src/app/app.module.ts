@@ -105,6 +105,10 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { bofaqComponent } from './pages/forms/bofaq/bofaq.component';
+import { bokbmasterComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/bokbmaster/bokbmaster.component';
+import { bokbtopicComponent } from './pages/forms/bokbtopic/bokbtopic.component';
+import { boforumComponent } from './pages/forms/boforum/boforum.component';
 
 
 
@@ -137,6 +141,8 @@ export function tokenGetter() {
         LayoutComponent,
         MenuComponent,
         //routedComponents
+
+        boforumComponent,bokbtopicComponent,bokbmasterComponent,bofaqComponent
     ],
     exports: [
         //NgCommonModule

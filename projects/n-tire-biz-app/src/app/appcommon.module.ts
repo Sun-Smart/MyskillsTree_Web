@@ -174,7 +174,11 @@ import { RegisterUserComponent } from './pages/register-user/register-user.compo
 import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 import { bofaqComponent } from './pages/forms/bofaq/bofaq.component';
+import { bokbmasterComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/bokbmaster/bokbmaster.component';
+import { bokbtopicComponent } from './pages/forms/bokbtopic/bokbtopic.component';
+import { boforumComponent } from './pages/forms/boforum/boforum.component';
 
 
 
@@ -226,7 +230,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         showdashboardComponent,
         BODashboardViewerComponent,
         NewskillsearchComponent,
-        bofaqComponent,
+        bofaqComponent,bokbmasterComponent,bokbtopicComponent,boforumComponent,
         ReportViewerCtrlComponent,
         AttachmentComponent, PopupSelectComponent, useraccessComponent, addressComponent, durationComponent, commentComponent, appmultipleentryComponent,
         openfileComponent, opencommentComponent,
@@ -317,7 +321,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         showdashboardComponent,
         BODashboardViewerComponent,
         NewskillsearchComponent,
-        bofaqComponent,
+        bofaqComponent,bokbmasterComponent,bokbtopicComponent,boforumComponent,
         RegisterComponent,
         SkillenhancerComponent,
         CertifierComponent,

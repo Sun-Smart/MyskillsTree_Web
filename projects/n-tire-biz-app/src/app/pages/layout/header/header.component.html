@@ -428,29 +428,32 @@
                 </div>
                 <!-- </div> -->
 
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="kbMaster()">
-                  <a routerLinkActive="router-link-active">
-                    <li class="li2"><i class="fa fa-rss" aria-hidden="true"></i><br /> Knowledge Base Master</li>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/bokbmaster']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-tachometer fa1" aria-hidden="true"></i><br /> Knowledge Base Master</li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="kbForum()">
-                  <a routerLinkActive="router-link-active">
-                    <li class="li2"><i class="fa fa-check-square-o" aria-hidden="true"></i><br /> Knowledge Base Forum</li>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boforum']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-tachometer fa1" aria-hidden="true"></i><br /> Knowledge Base Forum</li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="kbTopic()">
-                  <a  routerLinkActive="router-link-active">
-                    <li class="li2"><i class="fa fa-list-alt" aria-hidden="true"></i><br /> Knowledge Base Topic</li>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/bokbtopic']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-tachometer fa1" aria-hidden="true"></i><br /> Knowledge Base Topic</li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="kbFaq()">
-                  <a routerLinkActive="router-link-active">
-                    <li class="li2"><i class="fa fa-question-circle-o" aria-hidden="true"></i><br /> FAQ</li>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/bofaq']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-tachometer fa1" aria-hidden="true"></i><br /> FAQ</li>
                   </a>
                 </div>
+
+
+
               </div>
             </ul>
           </label>
