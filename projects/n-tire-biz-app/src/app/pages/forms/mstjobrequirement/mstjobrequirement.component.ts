@@ -895,29 +895,29 @@ export class mstjobrequirementComponent implements OnInit {
 
     AddOrEdit_mstjobstatus(event: any, viewid: any, jobid: any) {
         debugger;
-        event.isInEditing = true;
+        // event.isInEditing = true;
         let add = false;
         if (event == null) add = true;
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        // this.dialog.open(mstjobstatusComponent,
+        this.dialog.open(mstjobstatusComponent,
 
-        //     {
-        //         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, viewid, jobid, visiblelist: this.mstjobstatuses_visiblelist, hidelist: this.mstjobstatuses_hidelist, ScreenType: 2 },
-        //     }
-        // ).onClose.subscribe(res => {
-        //     if (res) {
-        //         if (add) {
-        //             for (let i = 0; i < res.length; i++) {
-        //                 this.tbl_mstjobstatuses.source.add(res[i]);
-        //             }
-        //             this.tbl_mstjobstatuses.source.refresh();
-        //         }
-        //         else {
-        //             this.tbl_mstjobstatuses.source.update(event.data, res[0]);
-        //         }
-        //     }
-        // });
+            {
+                data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, viewid, jobid, visiblelist: this.mstjobstatuses_visiblelist, hidelist: this.mstjobstatuses_hidelist, ScreenType: 2 },
+            }
+        ).onClose.subscribe(res => {
+            if (res) {
+                if (add) {
+                    for (let i = 0; i < res.length; i++) {
+                        this.tbl_mstjobstatuses.source.add(res[i]);
+                    }
+                    this.tbl_mstjobstatuses.source.refresh();
+                }
+                else {
+                    this.tbl_mstjobstatuses.source.update(event.data, res[0]);
+                }
+            }
+        });
     }
 
     onDelete_mstjobstatus(event: any, childID: number, i: number) {
@@ -1042,11 +1042,11 @@ export class mstjobrequirementComponent implements OnInit {
                     type: 'boolean',
                     editor: {
                         type: 'checkbox',
-                        // config: {
-                        //     true: 'true',
-                        //     false: 'false',
-                        //     resetText: 'clear',
-                        // },
+                        config: {
+                            true: 'true',
+                            false: 'false',
+                            resetText: 'clear',
+                        },
                     },
                     filter: {
                         type: 'checkbox',
@@ -1078,11 +1078,11 @@ export class mstjobrequirementComponent implements OnInit {
                     type: 'boolean',
                     editor: {
                         type: 'checkbox',
-                        // config: {
-                        //     true: 'true',
-                        //     false: 'false',
-                        //     resetText: 'clear',
-                        // },
+                        config: {
+                            true: 'true',
+                            false: 'false',
+                            resetText: 'clear',
+                        },
                     },
                     filter: {
                         type: 'checkbox',
