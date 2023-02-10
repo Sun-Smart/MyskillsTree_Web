@@ -39,6 +39,7 @@ export class SharedService {
   images: any[];
   blob: any;
   doc: any;
+  IsDebug: any;
 
   protected get useraccesslistusers(): any { return this.useraccesslistusersval; };
   protected get useraccesslistroles(): any { return this.useraccesslistrolesval; };
@@ -122,6 +123,24 @@ export class SharedService {
     }
     return ret;
   }
+
+  getValue(name,_List, val, field = "") {
+
+    // debugger;
+    // if(_List==undefined || _List==null || _List.length==0)
+    //   this.messageService.add({ severity: 'error', summary: name+" list length is 0", detail: _List, life: 3000 });
+   
+    try {
+      if(name=="" || name=="value")
+      
+      return (_List == undefined || _List == null || val == null || _List?.length == 0) ? null : _List?.find(v => v.value + "" === val + "")
+      else
+      return (_List == undefined || _List == null || val == null || _List?.length == 0) ? null : _List?.find(v => v[name] + "" === val + "")
+    } catch (e) {
+      return null;
+    }
+  }
+  
   public getUser(userid) {
     if (this.useraccesslistusersval == null || this.useraccesslistusersval == undefined) {
       this.FillData();

@@ -23,6 +23,7 @@ import { FieldErrorDisplayComponent } from '../../../n-tire-biz-app/src/app/page
 import { CorporateDashboardComponent } from '../../../n-tire-biz-app/src/app/pages/forms/corporate.component';
 import { galleryComponent } from '../../../n-tire-biz-app/src/app/pages/forms/gallery.component';
 import { NewskillsearchComponent } from './pages/forms/newskillsearch/newskillsearch.component';
+import { bofaqComponent } from './pages/forms/bofaq/bofaq.component';
 
 
 export const ENTRY_COMPONENTS = [];
@@ -167,6 +168,14 @@ export const paths = [
 
                     { path: 'boexpenses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/boexpense/boexpense.module').then(m => m.boexpenseModule) },
 
+                    // New Knowlwdge Base implementation 10/02/2023
+
+                    // { path: 'bofaq', component: bofaqComponent },
+
+                    { path: 'bofaq', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bofaq/bofaq.module').then(m => m.BofaqModule) },
+                    { path: 'boexpenses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bokbmaster/bokbmaster.module').then(m => m.BokbmasterModule) },
+                    { path: 'boexpenses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bokbtopic/bokbtopic.module').then(m => m.BokbtopicModule) },
+                    { path: 'boexpenses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/boforum/boforum.module').then(m => m.BoforumModule) },
 
                 ]
             },

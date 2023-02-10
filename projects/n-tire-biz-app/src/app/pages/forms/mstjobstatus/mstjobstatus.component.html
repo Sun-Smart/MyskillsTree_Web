@@ -7,6 +7,7 @@
       <h1 class="columns mainheader left">{{'Job Statuses'}}</h1>
     </div>
 
+
     <div class='col-5  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
 
@@ -95,9 +96,6 @@
     <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
       <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
     </div>
-    <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
-
-    </div>
 
 
     <!--applicantid-->
@@ -149,6 +147,8 @@
         </div>
       </div>
     </div>
+
+
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('comments') == -1) && (commentsvisible==undefined || commentsvisible==true))"
         style='width:1500px' class="col-12 ">
@@ -157,6 +157,7 @@
         <p-editor *ngIf="!showview" id="comments" formControlName="comments" [style]="{  height: '320' }"></p-editor>
       </div>
     </div>
+
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('allcomments') == -1) && (allcommentsvisible==undefined || allcommentsvisible==true))"
@@ -179,6 +180,7 @@
         <input readonly id="jobiddesc" formControlName="jobiddesc" class="form-control">
         <label *ngIf="showview" class="labelview">{{f.jobiddesc?.value}}</label>
       </div>
+
       <div
         *ngIf="((hidelist.indexOf('hiringstatus') == -1) && (hiringstatusvisible==undefined || hiringstatusvisible==true))"
         style='' class="col-3 applicantfield">
@@ -188,6 +190,7 @@
           <input type="checkbox" *ngIf="!showview" id="hiringstatus" formControlName="hiringstatus" class="">
         </div>
       </div>
+      
       <div *ngIf="((hidelist.indexOf('ctcoffered') == -1) && (ctcofferedvisible==undefined || ctcofferedvisible==true))"
         style='' class="col-3 applicantfield">
         <label for="ctcoffered" class="control-label">C T C Offered</label>

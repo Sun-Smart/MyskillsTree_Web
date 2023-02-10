@@ -127,6 +127,7 @@ export class botaskComponent implements OnInit {
     Deleted_botaskresponse_IDs: string = "";
     botaskresponses_ID: string = "1";
     botaskresponses_selectedindex: any;
+    userid: any;
 
 
     constructor(
@@ -333,7 +334,7 @@ export class botaskComponent implements OnInit {
         }).catch((err) => { this.spinner.hide(); console.log(err); });
 
         //autocomplete
-        this.botask_service.get_botasks_List().then(res => {
+        this.botask_service.get_botasks_List(this.userid).then(res => {
             this.pkList = res as botask[];
             this.pkoptionsEvent.emit(this.pkList);
         }

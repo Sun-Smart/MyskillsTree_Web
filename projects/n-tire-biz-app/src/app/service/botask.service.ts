@@ -37,7 +37,7 @@ export class botaskService {
       return this.http.get(AppConstants.ntirebizURL + '/botask' + '/getdefaultdata').toPromise();
     }
   }
-  get_botasks_List(userid): any {
+  get_botasks_List(userid:any): any {
     if (this.valid()) {
       debugger;
       // return this.http.get(AppConstants.ntirebizURL + '/botask').toPromise();
