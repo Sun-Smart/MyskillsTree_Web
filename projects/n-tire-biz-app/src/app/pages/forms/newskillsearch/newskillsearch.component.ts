@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { mstapplicantskilldetail } from '../../../model/mstapplicantskilldetail.model';
 import { mstapplicantskilldetailService } from '../../../service/mstapplicantskilldetail.service';
@@ -23,10 +23,6 @@ import { mstcategoryComponent } from '../mstcategory/mstcategory.component';
   styleUrls: ['./newskillsearch.component.scss']
 })
 export class NewskillsearchComponent implements OnInit {
-
-
-  @Input() isSearchInput: boolean = true;
-
   showList: boolean = true;
   showGrid: boolean = false;
   showCard: boolean = false;
@@ -59,8 +55,8 @@ export class NewskillsearchComponent implements OnInit {
   city_List: DropDownValues[];
   city_optionsEvent: EventEmitter<any> = new EventEmitter<any>();
   rangevalue = 0;
-  skillcategory: any;
-  subcategoryid:any;
+  skillcategory: any = [];
+  subcategoryid: any = [];
   label: any;
   skillcategoryarry: any = []
   skillcategory1: any;
@@ -78,6 +74,7 @@ export class NewskillsearchComponent implements OnInit {
   skillcategory1arry: any = [];
   skillcategory2arry: any = [];
   locationValue: any;
+  skilllocation: any = [];
   configdata: any;
   dialogdata: any;
   menuactions: any = [];
@@ -94,6 +91,17 @@ export class NewskillsearchComponent implements OnInit {
   term: string;
   location_arry: any = [];
   location_field: any;
+  segmentid: any = [];
+  deletesegment: any = [];
+  checkedItem: any = [];
+  desItem: any;
+  categorysetItem: any;
+  segmentsetItem: any;
+  checkSeg: any;
+  sub_categorysetItem: any;
+  locationsetitem: any;
+  technicalSkill: DropDownValues[];
+  nonTechskill: DropDownValues[];
   constructor(private http: HttpClient, public dialog: DialogService, private bomenumasterservice: bomenumasterService, public sessionService: SessionService, public dialogRef: DynamicDialogRef, private sharedService: SharedService, private router: Router, private boreportviewerservice: BOReportViewerService, private mstapplicantskilldetail_service: mstapplicantskilldetailService, private mstapplicantgeographypreference_service: mstapplicantgeographypreferenceService, private fb: FormBuilder) {
     this.mstapplicantgeographypreference_Form = this.fb.group({
       country: [null],
@@ -241,20 +249,30 @@ export class NewskillsearchComponent implements OnInit {
       console.log('split image', this.showData);
 
     });
-    this.getidd = e
+    // this.getidd = e
 
-    if (this.getidd == "166") {
-      this.showinput1 = true
-    } else {
-      this.showinput2 = false
-      this.showinput3 = false
-      this.showinput1 = false
-    }
+    // if (this.getidd == "166") {
+    //   this.showinput1 = true
+    // } else {
+    //   this.showinput2 = false
+    //   this.showinput3 = false
+    //   this.showinput1 = false
+    // }
     setTimeout(() => {
       //New code
       this.mstapplicantskilldetail_service.getMultipleCheckSegmentID(this.skillcategory1).then((res: any) => {
         debugger
-        this.skillcategory_List = res as DropDownValues[];
+        // if (this.skillcategory1 == "0,121") {
+        //   this.technicalSkill = res as DropDownValues[];
+        //   console.log('this.technicalSkill', this.technicalSkill);
+        // }
+        // else if (this.skillcategory1 == "0,122") {
+        //   this.nonTechskill = res as DropDownValues[];
+        //   console.log('this.technicalSkill', this.nonTechskill);
+        // }
+        // else {
+          this.skillcategory_List = res as DropDownValues[];
+        // }
       })
 
     }
@@ -387,7 +405,29 @@ export class NewskillsearchComponent implements OnInit {
       this.showGrid = true;
     });
   }
+  location_DeSelect(e: any) {
+    console.log(e.label);
+    this.locationsetitem = "0";
+    for (let i = 0; i < this.skilllocation.length; i++) {
+      this.locationsetitem = this.locationsetitem + ',' + this.skilllocation[i].label;
+    }
+    console.log('this.deletecategory ', this.locationsetitem);
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.sub_categorysetItem ? this.sub_categorysetItem : null, null, this.locationsetitem ? this.locationsetitem : null, null, null).then((res: any) => {
+      console.log('res ', res);
+      debugger
+      this.showData = res;
+      for (let z = 0; this.showData.length > 0; z++) {
+        this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
+        console.log(this.showData[z].useprofilephoto);
+      }
+      debugger
+      this.showData = res;
+      this.showGrid = true;
 
+
+    });
+
+  }
   opendialog1(applicantid: any, pkcol: any) {
     console.log('applicantid', applicantid);
     console.log('pkcol', pkcol);
@@ -401,55 +441,153 @@ export class NewskillsearchComponent implements OnInit {
     );
   }
 
-  category_DeSelect(item:any){
-    debugger;
-    console.log("category",item.value);
-      // this.skillcategory_List = [];
-      this.subcategoryid_List = [];
-      this.subcategoryid ='' || [];
-  }
-  subcategory_DeSelect(item:any){
-
-    console.log("subcategory",item.value);
-
-  }
   onItemDeSelect(item: any) {
     debugger;
+    console.log(item);
+    // if (item.value == "0,121") {
+    //   this.technicalSkill = [];
+    //   this.dropdownSettings.textField = "";
+    // } else if (item.value == "0,122") {
+    //   this.dropdownSettings.textField = "";
+    //   this.nonTechskill = [];
+    // }
+    this.segmentsetItem = "0";
+    for (let i = 0; i < this.segmentid.length; i++) {
+      this.segmentsetItem = this.segmentsetItem + ',' + this.segmentid[i].value;
+      this.checkSeg = this.segmentid[i].value;
+    }
+    console.log('this.deletesegment ', this.segmentsetItem);
+    console.log('this.checkSeg ', this.checkSeg);
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.segmentsetItem ? this.segmentsetItem : null, null, null, null, null, null, null).then((res: any) => {
+      console.log('res ', res);
+      debugger
+      this.showData = res;
+      for (let z = 0; this.showData.length > 0; z++) {
+        this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
+        console.log(this.showData[z].useprofilephoto);
+      }
+      debugger
+      this.showData = res;
+      this.showGrid = true;
+
+      console.log('split image', this.showData);
+
+    });
+    setTimeout(() => {
+      //New code
+      this.mstapplicantskilldetail_service.getMultipleCheckSegmentID(this.segmentsetItem).then((res: any) => {
+        debugger
+        this.skillcategory_List = res as DropDownValues[];
+      })
+
+    }
+    );
+    // this.checkedItem.push(this.deletesegment);
+
+    // console.log(this.deletesegment);
+    // let delectItem = this.segmentid;
+
+
     // this.segmentcategory_onChange(it);
 
-    this.skillcategoryarry.find(e=>{
-      debugger
-     if(e.segment==item.value){
-    this.skillcategoryarry.splice(item.value,1)
+    // this.skillcategoryarry.find(e=>{
+    //   debugger
+    //  if(e.segment==item.value){
+    // this.skillcategoryarry.splice(item.value,1)
 
-    this.skillcategory_List = [];
-    this.subcategoryid_List = [];
-     }else{
-      this.skillcategoryarry.push({ segment: item.value })
-     }
+    // this.skillcategory_List = [];
+    // this.subcategoryid_List = [];
+    //  }else{
+    //   this.skillcategoryarry.push({ segment: item.value })
+    //  }
 
-    })
-
-
-    console.log(item);
-    this.subcategoryid ='' || [];
-    this.skillcategory ='' || [];
-
-    if (item == "") {
-      this.skillcategory_List = [];
-      this.subcategoryid_List = [];
+    // })
 
 
-    }
+
+    // this.subcategoryid ='' || [];
+    // this.skillcategory ='' || [];
+
+    // if (item == "") {
+    //   this.skillcategory_List = [];
+    //   this.subcategoryid_List = [];
+
+
+    // }
 
     // console.log(this.AdminDropdown_Form.getRawValue());
-    const index: number = this.skillcategoryarry.indexOf(item.value);
-    console.log(index);
-    if (index !== -1) {
-      this.skillcategoryarry.splice(index, 1);
+    // const index: number = this.skillcategoryarry.indexOf(item.value);
+    // console.log(index);
+    // if (index !== -1) {
+    //   this.skillcategoryarry.splice(index, 1);
+    // }
+
+  };
+
+  category_DeSelect(item: any) {
+    debugger;
+    console.log(item);
+    // console.log('get chg',this.checkSeg);
+
+    this.categorysetItem = "0";
+    for (let i = 0; i < this.skillcategory.length; i++) {
+      this.categorysetItem = this.categorysetItem + ',' + this.skillcategory[i].categoryid;
     }
+    console.log('this.deletecategory ', this.categorysetItem);
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.categorysetItem ? this.categorysetItem : null, null, null, null, null, null).then((res: any) => {
+      console.log('res ', res);
+      debugger
+      this.showData = res;
+      for (let z = 0; this.showData.length > 0; z++) {
+        this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
+        console.log(this.showData[z].useprofilephoto);
+      }
+      debugger
+      this.showData = res;
+      this.showGrid = true;
+
+      console.log('split image', this.showData);
+      setTimeout(() => {
+        // if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
+        this.mstapplicantskilldetail_service.getList_subcategoryid2(this.categorysetItem).then(res =>
+          this.subcategoryid_List = res as DropDownValues[]);
+      });
+
+    });
+  };
+
+  subcategory_DeSelect(item: any) {
+
+    console.log("subcategory", item.subcategoryid);
+
+    this.sub_categorysetItem = "0";
+    for (let i = 0; i < this.subcategoryid.length; i++) {
+      this.sub_categorysetItem = this.sub_categorysetItem + ',' + this.subcategoryid[i].subcategoryid;
+    }
+    console.log('this.deletecategory ', this.sub_categorysetItem);
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.sub_categorysetItem ? this.sub_categorysetItem : null, null, null, null, null).then((res: any) => {
+      console.log('res ', res);
+      debugger
+      this.showData = res;
+      for (let z = 0; this.showData.length > 0; z++) {
+        this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
+        console.log(this.showData[z].useprofilephoto);
+      }
+      debugger
+      this.showData = res;
+      this.showGrid = true;
+
+      console.log('split image', this.showData);
+      setTimeout(() => {
+        // if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
+        this.mstapplicantskilldetail_service.getList_subcategoryid2(this.categorysetItem).then(res =>
+          this.subcategoryid_List = res as DropDownValues[]);
+      });
+
+    });
 
   }
+
   checktest() {
     const slideValue = document.querySelector("span");
     const inputSlider = document.querySelector("input");
