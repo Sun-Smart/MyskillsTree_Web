@@ -129,6 +129,10 @@ export class RegisterComponent implements OnInit {
           this.showSpinner = false;
           alert('Mobilenumber already exist');
           return;
+        } else if (error.error == 'Email already existMobilenumber already exist') {
+          this.showSpinner = false;
+          alert('Email or Mobilenumber already exist');
+          return;
         }
       });
 
