@@ -49,6 +49,11 @@ const URL = AppConstants.UploadURL;
       .mobileviewAttachment{
         width: 100% !important;
       }
+      .mobileTable{
+        max-width: 100% !important;
+        overflow-x: scroll !important;
+        display: block !important;
+      }
     }
   `],
     template: `
@@ -135,8 +140,8 @@ const URL = AppConstants.UploadURL;
     <div class="row" style="margin-bottom: 40px" *ngIf="isAttachment">
 
         <div class="col-12">
-            <table class="table"  
-                style="max-width: 100%;overflow-x: scroll;display: inherit;">
+            <table class="table" *ngIf="!isMobileView"
+                style="max-width: 100%;overflow-x: scroll;;">
                 <thead>
                 <tr>
                 <th>Category</th>
@@ -173,8 +178,8 @@ const URL = AppConstants.UploadURL;
 
         <div class="row" style="margin-bottom: 40px;width: 100% !important;overflow:hidden;" *ngIf="isAttachment">
 
-            <table class="table" *ngIf="isMobileView" 
-                style="max-width: 100%;display: list-item !important;overflow-x: scroll;">
+            <table class="table mobileTable" *ngIf="isMobileView"
+                style="">
                 <thead>
                 <tr>
                 <th>Category</th>
