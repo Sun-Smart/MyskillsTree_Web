@@ -6,13 +6,13 @@ export class DropDownValues {
 }
 export class AppConstants {//localhost:5000
 
-    // public static get baseURL(): string { return "https://demo.herbie.ai/MySkillTreeapi/api"; }
-    // public static get ntireboURL(): string { return "https://demo.herbie.ai/MySkillTreeapi/api"; }
-    // public static get ntirebizURL(): string { return "https://demo.herbie.ai/MySkillTreeapi/api"; }
-    // public static get UploadURL(): string { return "https://demo.herbie.ai/MySkillTreeapi/api/file/upload"; }
+    // public static get baseURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
+    // public static get ntireboURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
+    // public static get ntirebizURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
+    // public static get UploadURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api/file/upload"; }
     // public static get AttachmentURL(): string { return "https://demo.herbie.ai/attachment/"; }
-    // public static get ntirecrmURL(): string { return "https://demo.herbie.ai/MySkillTreeapi/api"; }
-    // public static get ntiredashboardsURL(): string { return "https://demo.herbie.ai/MySkillTreeapi/api"; }
+    // public static get ntirecrmURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
+    // public static get ntiredashboardsURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
 
 
     // public static get baseURL(): string { return "https://prod.herbie.ai/MySkillTree/api"; }

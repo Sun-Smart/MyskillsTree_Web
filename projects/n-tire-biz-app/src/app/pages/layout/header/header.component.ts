@@ -310,7 +310,7 @@ export class HeaderComponent implements OnInit {
     this.userIdle.stopWatching();
     this.routeStateService.removeAll();
     this.userContextService.logout();
-    // localStorage.clear();
+    localStorage.clear();
     localStorage.removeItem('applicantid')
     localStorage.removeItem('pkcol')
     localStorage.removeItem('countrycode')
