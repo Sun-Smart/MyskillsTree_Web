@@ -7,8 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./mst-certifications.component.scss']
 })
 export class MstCertificationsComponent implements OnInit{
-
-  constructor(private route : Router){ }
+  loginUser: any;
+  constructor(private route : Router){
+    this.loginUser = localStorage.getItem('username');
+   }
 
   ngOnInit() { }
 

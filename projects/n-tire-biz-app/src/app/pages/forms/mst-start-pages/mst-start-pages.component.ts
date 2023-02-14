@@ -112,6 +112,7 @@ export class MstStartPagesComponent implements OnInit {
 
   profilecompletionvisible: boolean = false;
   showOpenfile: boolean = false;
+  loginUser: any;
 
   constructor(
     private config: NgbDatepickerConfig,
@@ -141,6 +142,7 @@ export class MstStartPagesComponent implements OnInit {
     this.data = dynamicconfig;
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
+    this.loginUser = localStorage.getItem('username');
     this.mstapplicantmaster_Form = this.fb.group({
       pk: [null],
       ImageName: [null],

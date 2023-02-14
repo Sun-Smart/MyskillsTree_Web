@@ -7,8 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./mst-resume.component.scss']
 })
 export class MstResumeComponent implements OnInit{
-
-  constructor(private route : Router){ }
+loginUser:any;
+  constructor(private route : Router){
+    this.loginUser = localStorage.getItem('username');
+   }
 
   ngOnInit() {
   }
