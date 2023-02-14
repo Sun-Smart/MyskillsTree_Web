@@ -7,8 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./mst-skill-detsils.component.scss']
 })
 export class MstSkillDetsilsComponent implements OnInit {
-
-  constructor(private route:Router){}
+loginUser:any;
+  constructor(private route:Router){
+    this.loginUser = localStorage.getItem('username');
+  }
 
   ngOnInit() { }
 

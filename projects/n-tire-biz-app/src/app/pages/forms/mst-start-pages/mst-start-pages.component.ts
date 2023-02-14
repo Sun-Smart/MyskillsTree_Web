@@ -28,6 +28,7 @@ export class MstStartPagesComponent implements OnInit {
   data: any;
   p_menuid: any;
   p_currenturl: any;
+  loginUser: any;
 
   constructor(private route: Router, private fb: FormBuilder,
     private ngbDateParserFormatter: NgbDateParserFormatter,
@@ -54,6 +55,8 @@ export class MstStartPagesComponent implements OnInit {
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
 
+    this.loginUser = localStorage.getItem('username');
+    
     this.mstapplicantmaster_Form = this.fb.group({
       pk: [null],
       ImageName: [null],

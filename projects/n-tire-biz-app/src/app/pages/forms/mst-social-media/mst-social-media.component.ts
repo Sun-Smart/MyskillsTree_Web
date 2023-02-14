@@ -7,8 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./mst-social-media.component.scss']
 })
 export class MstSocialMediaComponent implements OnInit{
-
-  constructor(private route : Router){ }
+loginUser:any;
+  constructor(private route : Router){
+    this.loginUser = localStorage.getItem('username');
+   }
 
   ngOnInit() { }
 
