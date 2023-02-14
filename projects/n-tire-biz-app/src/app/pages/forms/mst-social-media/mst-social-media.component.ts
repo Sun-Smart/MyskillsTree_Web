@@ -13,8 +13,8 @@ export class MstSocialMediaComponent implements OnInit{
   ngOnInit() { }
 
   dashboard(){
-
-    this.route.navigate(['/home/ngx-dashboardviewer'])
+    let pkcol = localStorage.getItem('pkcol');
+    this.route.navigate(['/home/bodashboardviewer/' + pkcol]);
   }
 
 }
