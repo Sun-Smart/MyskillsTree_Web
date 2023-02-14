@@ -83,10 +83,10 @@
 
 .extra-header-box {
   height: 50px;
-  background-color: #ec6f6f;
+  width: 100px;
+  background-color: var(--white);
   position: fixed;
-  top: 0;
-  border-bottom-left-radius: 100%;
+  border-top-right-radius: 543px 292px;
 }
 
 .extra-box {
