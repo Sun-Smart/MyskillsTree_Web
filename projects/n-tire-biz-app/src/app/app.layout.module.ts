@@ -29,6 +29,8 @@ import { bokbtopicComponent } from './pages/forms/bokbtopic/bokbtopic.component'
 import { boforumComponent } from './pages/forms/boforum/boforum.component';
 import { FaqComponent } from './pages/forms/faq/faq.component';
 import { BonewbokbmasterComponent } from './pages/forms/bonewbokbmaster/bonewbokbmaster.component';
+import { ForumComponent } from './pages/forms/forum/forum.component';
+import { BonewtopicComponent } from './pages/forms/bonewtopic/bonewtopic.component';
 
 
 export const ENTRY_COMPONENTS = [];
@@ -177,8 +179,9 @@ export const paths = [
                     // New Knowlwdge Base implementation 10/02/2023
 
                     { path: 'faq', component: FaqComponent },
-                    { path: 'bokbmaster', component: BonewbokbmasterComponent, },
-                    // { path: 'bokbtopic', component: bokbtopicComponent },
+                    { path: 'bokbmaster', component: BonewbokbmasterComponent },
+                    { path: 'forum', component: ForumComponent },
+                    { path: 'topic', component: BonewtopicComponent },
                     // { path: 'boforum', component: boforumComponent },
 
                     // { path: 'faq', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/faq/faq.module').then(m => m.FaqModule) },

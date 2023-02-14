@@ -29,33 +29,33 @@ export class boforumService {
       };
       let filearray: any = [];
       filearray.push(attachmentfiles);
-      let res = await this.http.post(AppConstants.ntireboURL + '/boforum', body).toPromise();
+      let res = await this.http.post(AppConstants.ntireboURL + '/boforum', body);
       return res;
     }
   }
 
   async getDefaultData(): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/getdefaultdata').toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/getdefaultdata');
       return res;
     }
   }
   async get_boforums_List(): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/boforum').toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/boforum');
       return res;
     }
   }
   async getListBy_forumid(forumid: number): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/forumid/' + forumid).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/forumid/' + forumid);
       return res;
     }
   }
 
   async getList(key: string): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/param/' + key).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/param/' + key);
       return res;
     }
   }
@@ -63,7 +63,7 @@ export class boforumService {
 
   async getFullList(): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/fulllist').toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/fulllist');
       return res;
     }
   }
@@ -71,34 +71,34 @@ export class boforumService {
 
   async get_boforums_ByEID(id: any): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/e/' + id).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/e/' + id);
       return res;
     }
   }
   async get_boforums_ByID(id: number): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/' + id).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/boforum/' + id);
       return res;
     }
   }
 
   async delete_boforum(id: number): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.delete(AppConstants.ntireboURL + '/boforum/' + id).toPromise();
+      let res = await this.http.delete(AppConstants.ntireboURL + '/boforum/' + id);
       return res;
     }
   }
 
   getList_forumtype(): any {
-    return this.http.get(AppConstants.ntireboURL + '/boforum/getList_forumtype').toPromise();
+    return this.http.get(AppConstants.ntireboURL + '/boforum/getList_forumtype');
   }
 
   getList_forumaccess(): any {
-    return this.http.get(AppConstants.ntireboURL + '/boforum/getList_forumaccess').toPromise();
+    return this.http.get(AppConstants.ntireboURL + '/boforum/getList_forumaccess');
   }
 
   getList_forumstatus(): any {
-    return this.http.get(AppConstants.ntireboURL + '/boforum/getList_forumstatus').toPromise();
+    return this.http.get(AppConstants.ntireboURL + '/boforum/getList_forumstatus');
   }
 
 

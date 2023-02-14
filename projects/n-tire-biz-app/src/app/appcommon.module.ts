@@ -181,6 +181,8 @@ import { bokbtopicComponent } from './pages/forms/bokbtopic/bokbtopic.component'
 import { boforumComponent } from './pages/forms/boforum/boforum.component';
 import { FaqComponent } from './pages/forms/faq/faq.component';
 import { BonewbokbmasterComponent } from './pages/forms/bonewbokbmaster/bonewbokbmaster.component';
+import { ForumComponent } from './pages/forms/forum/forum.component';
+import { BonewtopicComponent } from './pages/forms/bonewtopic/bonewtopic.component';
 
 
 
@@ -231,7 +233,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         TimerComponent,
         showdashboardComponent,
         BODashboardViewerComponent,
-        NewskillsearchComponent,FaqComponent,BonewbokbmasterComponent,
+        NewskillsearchComponent,FaqComponent,BonewbokbmasterComponent,ForumComponent,
+        BonewtopicComponent,
         bofaqComponent,bokbmasterComponent,bokbtopicComponent,boforumComponent,
         ReportViewerCtrlComponent,
         AttachmentComponent, PopupSelectComponent, useraccessComponent, addressComponent, durationComponent, commentComponent, appmultipleentryComponent,
@@ -322,7 +325,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         ImgCompressorDirective,
         showdashboardComponent,
         BODashboardViewerComponent,
-        NewskillsearchComponent,FaqComponent,BonewbokbmasterComponent,
+        NewskillsearchComponent,FaqComponent,BonewbokbmasterComponent,ForumComponent,
+        BonewtopicComponent,
         bofaqComponent,bokbmasterComponent,bokbtopicComponent,boforumComponent,
         RegisterComponent,
         SkillenhancerComponent,
