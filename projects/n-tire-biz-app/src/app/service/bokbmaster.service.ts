@@ -31,75 +31,47 @@ export class bokbmasterService {
       };
       let filearray: any = [];
       filearray.push(attachmentfiles);
-<<<<<<< Updated upstream
-      let res = await this.http.post(AppConstants.ntireboURL + '/bokbmaster',body);
-=======
       let res = await this.http.post(AppConstants.ntireboURL + '/bokbmaster',body).toPromise();
->>>>>>> Stashed changes
       return res;
     }
   }
 
   async getDefaultData(): Promise<any> {
     if (this.valid()) {
-<<<<<<< Updated upstream
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/getdefaultdata');
-=======
       let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/getdefaultdata').toPromise();
->>>>>>> Stashed changes
       return res;
     }
   }
   async get_bokbmasters_List(): Promise<any> {
     if (this.valid()) {
-<<<<<<< Updated upstream
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster');
-=======
       let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster').toPromise();
->>>>>>> Stashed changes
       return res;
     }
   }
   async getListBy_kbid(kbid: number): Promise<any> {
     if (this.valid()) {
-<<<<<<< Updated upstream
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbid/' + kbid);
-=======
       let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbid/' + kbid).toPromise();
->>>>>>> Stashed changes
       return res;
     }
   }
 
   async getListBy_kbsubcategory(kbsubcategory: number): Promise<any> {
     if (this.valid()) {
-<<<<<<< Updated upstream
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbsubcategory/' + kbsubcategory);
-=======
       let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbsubcategory/' + kbsubcategory).toPromise();
->>>>>>> Stashed changes
       return res;
     }
   }
 
   async getListBy_kbcategory(kbcategory: number): Promise<any> {
     if (this.valid()) {
-<<<<<<< Updated upstream
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbcategory/' + kbcategory);
-=======
       let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbcategory/' + kbcategory).toPromise();
->>>>>>> Stashed changes
       return res;
     }
   }
 
   async getList(key: string): Promise<any> {
     if (this.valid()) {
-<<<<<<< Updated upstream
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/param/' + key);
-=======
       let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/param/' + key).toPromise();
->>>>>>> Stashed changes
       return res;
     }
   }
@@ -107,11 +79,7 @@ export class bokbmasterService {
 
   async getFullList(): Promise<any> {
     if (this.valid()) {
-<<<<<<< Updated upstream
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/fulllist');
-=======
       let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/fulllist').toPromise();
->>>>>>> Stashed changes
       return res;
     }
   }
@@ -119,32 +87,20 @@ export class bokbmasterService {
 
   async get_bokbmasters_ByEID(id: any): Promise<any> {
     if (this.valid()) {
-<<<<<<< Updated upstream
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/e/' + id);
-=======
       let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/e/' + id).toPromise();
->>>>>>> Stashed changes
       return res;
     }
   }
   async get_bokbmasters_ByID(id: number): Promise<any> {
     if (this.valid()) {
-<<<<<<< Updated upstream
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/' + id);
-=======
       let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/' + id).toPromise();
->>>>>>> Stashed changes
       return res;
     }
   }
 
   async delete_bokbmaster(id: number): Promise<any> {
     if (this.valid()) {
-<<<<<<< Updated upstream
-      let res = await this.http.delete(AppConstants.ntireboURL + '/bokbmaster/' + id);
-=======
       let res = await this.http.delete(AppConstants.ntireboURL + '/bokbmaster/' + id).toPromise();
->>>>>>> Stashed changes
       return res;
     }
   }
@@ -167,29 +123,6 @@ export class bokbmasterService {
 
 
   getList_kbcategory(): any {
-<<<<<<< Updated upstream
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_kbcategory');
-  }
-
-  getList_kbsubcategory(): any {
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_kbsubcategory');
-  }
-
-  getList_icon(): any {
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_icon');
-  }
-
-  getList_author(): any {
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_author');
-  }
-
-  getList_language(): any {
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_language');
-  }
-
-  getList_kbaccess(): any {
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_kbaccess');
-=======
     return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_kbcategory').toPromise();
   }
 
@@ -211,7 +144,6 @@ export class bokbmasterService {
 
   getList_kbaccess(): any {
     return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_kbaccess').toPromise();
->>>>>>> Stashed changes
   }
 
 
