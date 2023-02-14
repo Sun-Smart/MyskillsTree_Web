@@ -31,47 +31,47 @@ export class bokbmasterService {
       };
       let filearray: any = [];
       filearray.push(attachmentfiles);
-      let res = await this.http.post(AppConstants.ntireboURL + '/bokbmaster', this.sessionService.getFormData(body, filearray), this.sessionService.saveoptions()).toPromise();
+      let res = await this.http.post(AppConstants.ntireboURL + '/bokbmaster',body);
       return res;
     }
   }
 
   async getDefaultData(): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/getdefaultdata', this.sessionService.headeroptions()).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/getdefaultdata');
       return res;
     }
   }
   async get_bokbmasters_List(): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster', this.sessionService.headeroptions()).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster');
       return res;
     }
   }
   async getListBy_kbid(kbid: number): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbid/' + kbid, this.sessionService.headeroptions()).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbid/' + kbid);
       return res;
     }
   }
 
   async getListBy_kbsubcategory(kbsubcategory: number): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbsubcategory/' + kbsubcategory, this.sessionService.headeroptions()).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbsubcategory/' + kbsubcategory);
       return res;
     }
   }
 
   async getListBy_kbcategory(kbcategory: number): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbcategory/' + kbcategory, this.sessionService.headeroptions()).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/kbcategory/' + kbcategory);
       return res;
     }
   }
 
   async getList(key: string): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/param/' + key, this.sessionService.headeroptions()).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/param/' + key);
       return res;
     }
   }
@@ -79,7 +79,7 @@ export class bokbmasterService {
 
   async getFullList(): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/fulllist', this.sessionService.headeroptions()).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/fulllist');
       return res;
     }
   }
@@ -87,20 +87,20 @@ export class bokbmasterService {
 
   async get_bokbmasters_ByEID(id: any): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/e/' + id, this.sessionService.headeroptions()).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/e/' + id);
       return res;
     }
   }
   async get_bokbmasters_ByID(id: number): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/' + id, this.sessionService.headeroptions()).toPromise();
+      let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/' + id);
       return res;
     }
   }
 
   async delete_bokbmaster(id: number): Promise<any> {
     if (this.valid()) {
-      let res = await this.http.delete(AppConstants.ntireboURL + '/bokbmaster/' + id, this.sessionService.headeroptions()).toPromise();
+      let res = await this.http.delete(AppConstants.ntireboURL + '/bokbmaster/' + id);
       return res;
     }
   }
@@ -123,27 +123,27 @@ export class bokbmasterService {
 
 
   getList_kbcategory(): any {
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_kbcategory', this.sessionService.headeroptions()).toPromise();
+    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_kbcategory');
   }
 
   getList_kbsubcategory(): any {
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_kbsubcategory', this.sessionService.headeroptions()).toPromise();
+    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_kbsubcategory');
   }
 
   getList_icon(): any {
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_icon', this.sessionService.headeroptions()).toPromise();
+    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_icon');
   }
 
   getList_author(): any {
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_author', this.sessionService.headeroptions()).toPromise();
+    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_author');
   }
 
   getList_language(): any {
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_language', this.sessionService.headeroptions()).toPromise();
+    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_language');
   }
 
   getList_kbaccess(): any {
-    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_kbaccess', this.sessionService.headeroptions()).toPromise();
+    return this.http.get(AppConstants.ntireboURL + '/bokbmaster/getList_kbaccess');
   }
 
 
