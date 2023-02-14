@@ -1,0 +1,67 @@
+<div class="startpagecontent">
+    <div class="main-contentainer">
+
+        <div class="inline-curve">
+            <h4>Welcome...</h4>
+            <h6>MySkillsTree</h6>
+            <label>Hi...</label>
+            <label class="applicant-name-label">Dhanasekaran</label>
+
+            <p style="margin-left: 1rem;">Kindly Provide Your <br>Certification Details <i
+                    class="fa fa-arrow-circle-right" aria-hidden="true" style="margin-left: 1rem;"></i></p>
+        </div>
+        <div class="outline-curve">
+            <div class="header-bar">
+                <h6>Add Certification Details</h6>
+            </div>
+
+            <form>
+                <div class="row applicant-form">
+                    <div class="col-6">
+                        <label for="category" class="control-label required">Category</label>
+                        <select id="category" required formControlName="category" class="form-control">
+                            <option [ngValue]="null" selected>-Select-</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="skills" class="control-label">Skills</label>
+                        <input id="skills" required formControlName="skills" class="form-control">
+                    </div>
+
+
+                    <div class="col-6">
+                        <label for="fromdate" class="control-label required">From Date</label>
+                        <input name="fromdateformpicker" id="fromdate" required formControlName="fromdate"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-6">
+                        <label for="todate" class="control-label">To Date</label>
+                        <input name="todateformpicker" id="todate" required formControlName="todate"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="achievementdetails" class="control-label required">Achievement Details</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="achievementdetails" required
+                            formControlName="achievementdetails" class="form-control">
+                              </textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="remarks" class="control-label">Remarks</label>
+                        <textarea id="remarks" formControlName="remarks" [style]="{  height: '320' }"
+                            class="form-control"></textarea>
+                    </div>
+
+                    <div class="col-12 button-css">
+                        <button (click)="addresume()">Add Resume</button>
+                    </div>
+                </div>
+            </form>
+            <div class="extra-box"></div>
+            <div class="extra-box-overlap"></div>
+        </div>
+    </div>
+</div>

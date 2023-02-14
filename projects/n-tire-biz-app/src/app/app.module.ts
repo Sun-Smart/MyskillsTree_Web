@@ -109,7 +109,15 @@ import { bofaqComponent } from './pages/forms/bofaq/bofaq.component';
 import { bokbmasterComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/bokbmaster/bokbmaster.component';
 import { bokbtopicComponent } from './pages/forms/bokbtopic/bokbtopic.component';
 import { boforumComponent } from './pages/forms/boforum/boforum.component';
-
+import { MstCareerDetailsComponent } from './pages/forms/mst-career-details/mst-career-details.component';
+import { MstCertificationsComponent } from './pages/forms/mst-certifications/mst-certifications.component';
+import { MstEducationDetailsComponent } from './pages/forms/mst-education-details/mst-education-details.component';
+import { MstLanguageDetailsComponent } from './pages/forms/mst-language-details/mst-language-details.component';
+import { MstProjectDetailsComponent } from './pages/forms/mst-project-details/mst-project-details.component';
+import { MstResumeComponent } from './pages/forms/mst-resume/mst-resume.component';
+import { MstSkillDetsilsComponent } from './pages/forms/mst-skill-detsils/mst-skill-detsils.component';
+import { MstSocialMediaComponent } from './pages/forms/mst-social-media/mst-social-media.component';
+import { MstStartPagesComponent } from './pages/forms/mst-start-pages/mst-start-pages.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -135,7 +143,9 @@ export function tokenGetter() {
         RegisterUserComponent,
         VerifyscreenComponent,
         EmailVerificationComponent, ForgotpasswordComponent, ResendEmailVerificationComponent, ResetPasswordComponent,
-
+        MstCareerDetailsComponent,MstCertificationsComponent,MstEducationDetailsComponent,
+        MstLanguageDetailsComponent,MstProjectDetailsComponent,MstResumeComponent,
+        MstSkillDetsilsComponent,MstSocialMediaComponent,MstStartPagesComponent,
         //bokbmasterComponent,
         HeaderComponent, FooterComponent,
         LayoutComponent,

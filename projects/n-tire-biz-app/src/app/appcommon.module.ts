@@ -183,6 +183,15 @@ import { FaqComponent } from './pages/forms/faq/faq.component';
 import { BonewbokbmasterComponent } from './pages/forms/bonewbokbmaster/bonewbokbmaster.component';
 import { ForumComponent } from './pages/forms/forum/forum.component';
 import { BonewtopicComponent } from './pages/forms/bonewtopic/bonewtopic.component';
+import { MstCareerDetailsComponent } from './pages/forms/mst-career-details/mst-career-details.component';
+import { MstCertificationsComponent } from './pages/forms/mst-certifications/mst-certifications.component';
+import { MstEducationDetailsComponent } from './pages/forms/mst-education-details/mst-education-details.component';
+import { MstLanguageDetailsComponent } from './pages/forms/mst-language-details/mst-language-details.component';
+import { MstProjectDetailsComponent } from './pages/forms/mst-project-details/mst-project-details.component';
+import { MstResumeComponent } from './pages/forms/mst-resume/mst-resume.component';
+import { MstSkillDetsilsComponent } from './pages/forms/mst-skill-detsils/mst-skill-detsils.component';
+import { MstSocialMediaComponent } from './pages/forms/mst-social-media/mst-social-media.component';
+import { MstStartPagesComponent } from './pages/forms/mst-start-pages/mst-start-pages.component';
 
 
 
@@ -235,6 +244,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         BODashboardViewerComponent,
         NewskillsearchComponent,FaqComponent,BonewbokbmasterComponent,ForumComponent,
         BonewtopicComponent,
+        MstCareerDetailsComponent,MstCertificationsComponent,MstEducationDetailsComponent,
+        MstLanguageDetailsComponent,MstProjectDetailsComponent,MstResumeComponent,
+        MstSkillDetsilsComponent,MstSocialMediaComponent,MstStartPagesComponent,
         bofaqComponent,bokbmasterComponent,bokbtopicComponent,boforumComponent,
         ReportViewerCtrlComponent,
         AttachmentComponent, PopupSelectComponent, useraccessComponent, addressComponent, durationComponent, commentComponent, appmultipleentryComponent,
@@ -327,6 +339,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         BODashboardViewerComponent,
         NewskillsearchComponent,FaqComponent,BonewbokbmasterComponent,ForumComponent,
         BonewtopicComponent,
+        MstCareerDetailsComponent,MstCertificationsComponent,MstEducationDetailsComponent,
+        MstLanguageDetailsComponent,MstProjectDetailsComponent,MstResumeComponent,
+        MstSkillDetsilsComponent,MstSocialMediaComponent,MstStartPagesComponent,
         bofaqComponent,bokbmasterComponent,bokbtopicComponent,boforumComponent,
         RegisterComponent,
         SkillenhancerComponent,

@@ -489,7 +489,8 @@ export class LoginComponent implements OnInit {
         // if (user.terms.terms) {
         if (loginuser.defaultpage == null || !loginuser.defaultpage) {
             //this.routeStateService.add("Home", '/home/showdashboard/1', null, true);
-            this.router.navigate(['/home']);
+            // this.router.navigate(['/home']);
+            this.router.navigate(['/home/personaldetails']);
 
             if (this.rememberMe == false) {
                 // console.log(this.bologinForm.get('rememberMe').value);
@@ -502,7 +503,8 @@ export class LoginComponent implements OnInit {
         }
         //
         else {
-            this.router.navigate(['/home']);
+            // this.router.navigate(['/home']);
+            this.router.navigate(['/home/personaldetails']);
         }
         //this.routeStateService.add("Home", loginuser.defaultpage, null, true);
 
@@ -690,7 +692,7 @@ export class LoginComponent implements OnInit {
                     this.toastService.addSingle("success", "", "OTP has send to your registered mail id and Mobilenumber.");
 
                     if (this.verify_outputstring == "OTP has send to your registered mail id and Mobilenumber") {
-       
+
                         this.router.navigate(['verify'], { queryParams:  {mobotp: this.verifyMob_Otp,emailotp:this.verifyEmail_Otp,email: verify_data.email } , skipLocationChange: true});
                     };
                 })

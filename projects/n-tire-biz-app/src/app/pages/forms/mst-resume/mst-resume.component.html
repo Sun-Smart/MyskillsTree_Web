@@ -1,0 +1,52 @@
+<div class="startpagecontent">
+    <div class="main-contentainer">
+
+        <div class="inline-curve">
+            <h4>Welcome...</h4>
+            <h6>MySkillsTree</h6>
+            <label>Hi...</label>
+            <label class="applicant-name-label">Dhanasekaran</label>
+            <p style="margin-left: 1rem;">Kindly Upload Your Resume <i class="fa fa-arrow-circle-right"
+                    aria-hidden="true" style="margin-left: 1rem;"></i></p>
+        </div>
+        <div class="outline-curve">
+            <div class="header-bar">
+                <h6>Upload Resume</h6>
+            </div>
+
+            <form>
+                <div class="row applicant-form">
+                    <div class="col-12">
+                        <label for="briefintroduction" class="control-label">Brief Introduction</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="briefintroduction"
+                            formControlName="briefintroduction" class="form-control"> </textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="statuscrimp" class="control-label">Status Crimp</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="statuscrimp"
+                            formControlName="statuscrimp" class="form-control"></textarea>
+                    </div>
+
+
+                    <div class="col-6" style="margin-top: 15px;">
+                        <label for="availableforjob" class="control-label">Available For Job</label>
+                        <input type="checkbox" id="availableforjob" formControlName="availableforjob"
+                            style="margin-left: 20px;">
+                    </div>
+
+                    <div class="col-12" style="margin-top: 15px;">
+                        <label for="attachment" class="control-label">Upload Your Resume</label><br>
+                        <input type="file" id="attachment" formControlName="attachment" />
+                    </div>
+
+                    <div class="col-12 button-css">
+                        <button (click)="addlanguagedetails()">Add Language</button>
+                    </div>
+                </div>
+            </form>
+            <div class="extra-box"></div>
+            <div class="extra-box-overlap"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="startpagecontent">
+  <div class="main-contentainer">
+
+    <div class="inline-curve">
+      <h4>Welcome...</h4>
+      <h6>MySkillsTree</h6>
+      <label>Hi...</label>
+      <label class="applicant-name-label">Dhanasekaran</label>
+      <p style="margin-left: 1rem;">Kindly Provide Your Personal Details <i class="fa fa-arrow-circle-right"
+          aria-hidden="true" style="margin-left: 1rem;"></i></p>
+    </div>
+
+    <div class="outline-curve">
+      <div class="header-bar">
+        <h6>Add Personal Details</h6>
+      </div>
+
+      <form>
+        <div class="row applicant-form">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
+            <label class="control-label required">First Name</label>
+            <input id="firstname"  formControlName="firstname" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label for="lastname" class="control-label required">Last Name</label>
+            <input id="lastname"  formControlName="lastname" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label for="emailid" class="control-label required">Email</label>
+            <input type="email" [email]="true" id="emailid"  formControlName="emailid" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label for="mobilenumber" class="control-label required">Mobile Number</label>
+            <input type="number" id="mobilenumber"  formControlName="mobilenumber" class="form-control">
+            <!-- <int-phone-prefix id="mobilenumber" required
+                                formControlName="mobilenumber" [locale]="'en'" [defaultCountry]="'ae'"
+                                class="form-control telephone">
+                            </int-phone-prefix> -->
+          </div>
+          <div class="col-6">
+            <label for="emailid" class="control-label required">Applicant type</label>
+            <select id="applicanttype" required formControlName="applicanttype" class="form-control">
+                <option [ngValue]="null" selected>-Select-</option>
+                <option></option>
+            </select>
+        </div>
+          <div class="col-6">
+            <label for="dob" class="control-label">Date Of Birth</label>
+            <input [minDate]='{year: 1950, month:1, day: 1}' [maxDate]='{year: 2050, month:12, day: 31}' ngbDatepicker
+              name="dobformpicker" id="dob" formControlName="dob" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label for="address1" class="control-label">Address1</label>
+            <input id="address1" formControlName="address1" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label for="address2" class="control-label">Address2</label>
+            <input id="address2" formControlName="address2" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label for="address3" class="control-label">Country</label>
+            <input id="country" formControlName="country" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label for="state" class="control-label">State</label>
+            <input id="state" formControlName="state" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label for="city" class="control-label">City</label>
+            <input id="city" formControlName="city" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label for="zipcode" class="control-label">Zip Code</label>
+            <input id="zipcode" formControlName="zipcode" class="form-control">
+          </div>
+
+          <div class="col-12 button-css">
+            <button (click)="addSkills()">Add Skills</button>
+          </div>
+        </div>
+      </form>
+      <div class="extra-box"></div>
+      <div class="extra-box-overlap"></div>
+    </div>
+  </div>
+</div>

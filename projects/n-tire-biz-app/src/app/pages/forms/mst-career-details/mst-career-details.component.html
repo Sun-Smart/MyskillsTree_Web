@@ -1,0 +1,71 @@
+<div class="startpagecontent">
+    <div class="main-contentainer">
+
+        <div class="inline-curve">
+            <h4>Welcome...</h4>
+            <h6>MySkillsTree</h6>
+            <label>Hi...</label>
+            <label class="applicant-name-label">Dhanasekaran</label>
+            <p style="margin-left: 1rem;">Kindly Provide Your <br>Career Details <i class="fa fa-arrow-circle-right"
+                    aria-hidden="true" style="margin-left: 1rem;"></i></p>
+        </div>
+        <div class="outline-curve">
+
+            <div class="header-bar">
+                <h6>Add Career Details</h6>
+            </div>
+            <form>
+                <div class="row applicant-form">
+
+                    <div class="col-6">
+                        <label for="category" class="control-label required">Category</label>
+                        <select id="category" required formControlName="category" class="form-control">
+                            <option [ngValue]="null" selected>-Select-</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="companyname" class="control-label required">Company Name</label>
+                        <select id="companyname" required formControlName="companyname" class="form-control">
+                            <option [ngValue]="null" selected>-Select-</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="designation" class="control-label required">Designation</label>
+                        <input id="designation" required formControlName="designation" class="form-control">
+                    </div>
+
+                    <div class="col-6">
+                        <label for="fromdate" class="control-label required">From Date</label>
+                        <input name="fromdateformpicker" id="fromdate" required formControlName="fromdate"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-6">
+                        <label for="todate" class="control-label">To Date</label>
+                        <input name="todateformpicker" id="todate" required formControlName="todate"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-6">
+                        <label for="skills" class="control-label">Skills</label>
+                        <input id="skills" required formControlName="skills" class="form-control">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="remarks" class="control-label">Remarks</label>
+                        <textarea id="remarks" formControlName="remarks" [style]="{  height: '320' }"
+                            class="form-control"></textarea>
+                    </div>
+
+                    <div class="col-12 button-css">
+                        <button (click)="addproject()">Add Project</button>
+                    </div>
+                </div>
+            </form>
+            <div class="extra-box"></div>
+            <div class="extra-box-overlap"></div>
+        </div>
+    </div>
+</div>

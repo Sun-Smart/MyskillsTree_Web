@@ -1,0 +1,71 @@
+<div class="startpagecontent">
+    <div class="main-contentainer">
+
+
+        <div class="inline-curve">
+            <h4>Welcome...</h4>
+            <h6>MySkillsTree</h6>
+            <label>Hi...</label>
+            <label class="applicant-name-label">Dhanasekaran</label>
+            <p style="margin-left: 1rem;">Kindly Provide Your<br> langauge Details <i class="fa fa-arrow-circle-right"
+                    aria-hidden="true" style="margin-left: 1rem;"></i></p>
+        </div>
+        <div class="outline-curve">
+            <div class="header-bar">
+                <h6>Add langauge Details</h6>
+            </div>
+
+            <form>
+                <div class="row applicant-form">
+                    <div class="col-6">
+                        <label for="language" class="control-label required">Language</label>
+                        <select id="language" required formControlName="language" class="form-control">
+                            <option [ngValue]="null" selected>-Select-</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="readproficiency" class="control-label">Read Proficiency</label>
+                        <input id="readproficiency" required formControlName="readproficiency" class="form-control">
+                        <!-- <p-rating *ngIf="!showview" id="readproficiency" formControlName="readproficiency" class="form-control">
+                            </p-rating> -->
+                    </div>
+
+                    <div class="col-6">
+                        <label for="writeproficiency" class="control-label">Write Proficiency</label>
+                        <input id="writeproficiency" required formControlName="writeproficiency" class="form-control">
+                        <!-- <p-rating *ngIf="!showview" id="writeproficiency" formControlName="writeproficiency" class="form-control">
+                            </p-rating> -->
+                    </div>
+
+                    <div class="col-6">
+                        <label for="speakproficiency" class="control-label">Speak Proficiency</label>
+                        <input id="speakproficiency" required formControlName="speakproficiency" class="form-control">
+                        <!-- <p-rating *ngIf="!showview" id="speakproficiency" formControlName="speakproficiency" class="form-control">
+                            </p-rating> -->
+                    </div>
+
+                    <div class="col-6">
+                        <label for="overallrating" class="control-label">Over All Rating</label>
+                        <input id="overallrating" required formControlName="overallrating" class="form-control">
+                        <!-- <p-rating *ngIf="!showview" id="overallrating" formControlName="overallrating" class="form-control">
+                            </p-rating> -->
+                    </div>
+
+                    <div class="col-12">
+                        <label for="remarks" class="control-label">Remarks</label>
+                        <textarea id="remarks" formControlName="remarks" [style]="{  height: '320' }"
+                            class="form-control"></textarea>
+                    </div>
+
+                    <div class="col-12 button-css">
+                        <button (click)="addsocialmedia()">Add Social Media</button>
+                    </div>
+
+                </div>
+            </form>
+            <div class="extra-box"></div>
+            <div class="extra-box-overlap"></div>
+        </div>
+    </div>
+</div>

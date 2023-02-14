@@ -1,0 +1,64 @@
+<div class="startpagecontent">
+    <div class="main-contentainer">
+
+        <div class="inline-curve">
+            <h4>Welcome...</h4>
+            <h6>MySkillsTree</h6>
+            <label>Hi...</label>
+            <label class="applicant-name-label">Dhanasekaran</label>
+            <p style="margin-left: 1rem;">Kindly Provide Your <br>Personal Details <i class="fa fa-arrow-circle-right"
+                    aria-hidden="true" style="margin-left: 1rem;"></i></p>
+        </div>
+        <div class="outline-curve">
+            <div class="header-bar">
+                <h6>Add Skill Set Details</h6>
+            </div>
+            <form>
+                <div class="row  applicant-form">
+
+                    <div class="col-6">
+                        <label for="segmentid" class="control-label required">Segments</label>
+                        <select id="segmentid" required formControlName="segmentid" class="form-control">
+                            <!-- <option [ngValue]="null" disabled selected>-Select-</option> -->
+                            <option [ngValue]="null" [disabled]="true">-Select-</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="skillcategory" class="control-label required">Skill Category</label>
+                        <select id="skillcategory" required formControlName="skillcategory" class="form-control">
+                            <option [ngValue]="null" [disabled]="true">-Select-</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="subcategoryid" class="control-label required">Sub Category</label>
+                        <select id="subcategoryid" required formControlName="subcategoryid" class="form-control">
+                            <option [ngValue]="null" [disabled]="true">-Select-</option>
+                        </select>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="selfrating" class="control-label">Self Rating</label>
+                        <p-rating id="selfrating" formControlName="selfrating" class="form-control">
+                        </p-rating>
+                    </div>
+                    <div class="col-12">
+                        <label for="remarks" class="control-label">Remarks</label>
+                        <textarea id="remarks" formControlName="remarks" [style]="{  height: '320' }"
+                            class="form-control"></textarea>
+                    </div>
+
+                    <div class="col-12 button-css">
+                        <button (click)="addEducation()">Add Education</button>
+                    </div>
+
+                </div>
+            </form>
+            <div class="extra-box"></div>
+            <div class="extra-box-overlap"></div>
+        </div>
+
+    </div>
+
+</div>
