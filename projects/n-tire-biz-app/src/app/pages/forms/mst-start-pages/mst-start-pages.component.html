@@ -18,7 +18,7 @@
         <h6>Add Personal Details</h6>
       </div>
 
-      <form>
+      <form [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmit()">
         <div class="row applicant-form">
           <div class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
             <label class="control-label required">First Name</label>
@@ -68,17 +68,17 @@
 
           <div class="col-6">
             <label for="address3" class="control-label">Country</label>
-            <input id="country" formControlName="country" class="form-control">
+            <input type="number" id="country" formControlName="country" class="form-control">
           </div>
 
           <div class="col-6">
             <label for="state" class="control-label">State</label>
-            <input id="state" formControlName="state" class="form-control">
+            <input type="number" id="state" formControlName="state" class="form-control">
           </div>
 
           <div class="col-6">
             <label for="city" class="control-label">City</label>
-            <input id="city" formControlName="city" class="form-control">
+            <input type="number" id="city" formControlName="city" class="form-control">
           </div>
 
           <div class="col-6">
@@ -87,6 +87,7 @@
           </div>
 
           <div class="col-12 button-css">
+            <button type="submit">Save</button>
             <button (click)="addSkills()">Add Skills</button>
           </div>
         </div>

@@ -23,6 +23,7 @@
     padding-left: 15px !important;
     color: #000;
     font-size: 25px;
+    margin: 0;
   }
   label {
     margin-left: 1rem;
@@ -30,9 +31,9 @@
     color: rgb(135, 22, 22);
   }
   .applicant-name-label {
-    padding: 13px;
+    padding: 10px;
     color: var(--blue);
-    font-weight: 600;
+    margin: 0;
   }
   p {
     margin-left: 1rem;
