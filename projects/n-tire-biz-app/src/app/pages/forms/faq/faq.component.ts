@@ -179,6 +179,8 @@ export class FaqComponent implements OnInit {
     if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
   }
   async ngOnInit() {
+    debugger;
+    alert('hi');
     try {
       if (this.panelscroller != undefined) (this.panelscroller as any)?.scrollTop(0);
       //session & theme
@@ -247,6 +249,7 @@ export class FaqComponent implements OnInit {
         //foreign keys
       }
       this.bofaq_service.getDefaultData().then(res => {
+        debugger;
         this.sourcefield_List = res.list_sourcefield.value;
         if (this.formData?.sourcefield != undefined && this.formData?.sourcefield != null) {
           this.bofaq_Form.patchValue({

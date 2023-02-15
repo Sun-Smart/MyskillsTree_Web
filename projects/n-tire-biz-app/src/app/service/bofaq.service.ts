@@ -24,7 +24,7 @@ return true;
 
 }
   async save_bofaqs(formData):Promise<any> {
-  if (this.valid()){ 
+  if (this.valid()){
     var body = {
       data:formData
     };
@@ -35,33 +35,33 @@ return res;
   }
 
  async  getDefaultData():Promise<any> {
-  if (this.valid()){ 
+  if (this.valid()){
     let res=await  this.http.get(AppConstants.ntireboURL + '/bofaq/getdefaultdata').toPromise();
 return res;
   }
   }
   async  get_bofaqs_List():Promise<any> {
-  if (this.valid()){ 
+  if (this.valid()){
     let res=await  this.http.get(AppConstants.ntireboURL + '/bofaq').toPromise();
 return res;
   }
   }
   async  getListBy_faqid(faqid:number):Promise<any> {
-  if (this.valid()){ 
+  if (this.valid()){
     let res=await  this.http.get(AppConstants.ntireboURL + '/bofaq/faqid/'+faqid).toPromise();
 return res;
   }
   }
 
   async  getListBy_sourcereference(sourcereference:number):Promise<any> {
-  if (this.valid()){ 
+  if (this.valid()){
     let res=await  this.http.get(AppConstants.ntireboURL + '/bofaq/sourcereference/'+sourcereference).toPromise();
 return res;
   }
   }
 
  async getList(key:string):Promise<any> {
-  if (this.valid()){ 
+  if (this.valid()){
     let res=await  this.http.get(AppConstants.ntireboURL + '/bofaq/param/'+key).toPromise();
 return res;
   }
@@ -69,7 +69,7 @@ return res;
 
 
  async getFullList():Promise<any> {
-  if (this.valid()){ 
+  if (this.valid()){
     let res=await  this.http.get(AppConstants.ntireboURL + '/bofaq/fulllist').toPromise();
 return res;
   }
@@ -77,20 +77,20 @@ return res;
 
 
  async  get_bofaqs_ByEID(id:any):Promise<any> {
-  if (this.valid()){ 
+  if (this.valid()){
     let res=await  this.http.get(AppConstants.ntireboURL + '/bofaq/e/'+id).toPromise();
 return res;
   }
   }
  async   get_bofaqs_ByID(id:number):Promise<any> {
-  if (this.valid()){ 
+  if (this.valid()){
     let res=await  this.http.get(AppConstants.ntireboURL + '/bofaq/'+id).toPromise();
 return res;
   }
   }
 
   async  delete_bofaq(id:number):Promise<any> {
-  if (this.valid()){ 
+  if (this.valid()){
     let res=await  this.http.delete(AppConstants.ntireboURL + '/bofaq/'+id).toPromise();
 return res;
   }
