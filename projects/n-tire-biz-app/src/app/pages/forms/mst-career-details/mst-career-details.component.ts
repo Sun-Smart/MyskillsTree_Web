@@ -165,6 +165,7 @@ export class MstCareerDetailsComponent implements OnInit {
 
           this.spinner.hide();
           this.toastr.addSingle("success", "", "Successfully saved");
+          this.route.navigate(['/home/newproject']);
           this.showDateError = false;
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicantcareerdetail);
@@ -174,7 +175,48 @@ export class MstCareerDetailsComponent implements OnInit {
         })
     };
   }
+  AddmoreSubmitData(){
+    this.isSubmitted = true;
 
+    if (!this.mstapplicantcareerdetail_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    }
+    this.formData = this.mstapplicantcareerdetail_Form.getRawValue();
+
+    this.formData.fromdate = new Date(this.mstapplicantcareerdetail_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('fromdate').value) + '  UTC' : null);
+
+    if (this.mstapplicantcareerdetail_Form.value.currentlyworking == true) {
+      this.formData.todate = new Date()
+      console.log(this.formData.todate);
+    } else {
+      this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('todate').value) + '  UTC' : null);
+    }
+    this.formData.skills = null;
+
+    if (this.formData.fromdate > this.formData.todate) {
+      this.showDateError = true;
+      return;
+    } else {
+
+      if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
+      this.spinner.show();
+
+      this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
+        (res: any) => {
+
+
+          this.spinner.hide();
+          this.toastr.addSingle("success", "", "Successfully saved");
+          this.showDateError = false;
+          this.sessionService.setItem("attachedsaved", "true")
+          this.objvalues.push((res as any).mstapplicantcareerdetail);
+
+
+          this.mstapplicantcareerdetail_Form.reset();
+        })
+    };
+  }
   addproject() {
     this.route.navigate(['/home/newproject']);
   }
