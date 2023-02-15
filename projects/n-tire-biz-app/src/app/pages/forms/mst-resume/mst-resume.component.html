@@ -16,7 +16,7 @@
                 <h6>Upload Resume</h6>
             </div>
 
-            <form  [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmitData()" style="overflow-y: scroll;height: 480px;">
+            <form  [formGroup]="mstapplicantmaster_Form" style="overflow-y: scroll;height: 480px;">
                 <div class="row applicant-form">
                     <div class="col-12">
                         <label for="briefintroduction" class="control-label">Brief Introduction</label>
@@ -55,8 +55,7 @@
                     </div>
 
                     <div class="col-6 button-css">
-                        <button type="submit">Add Language</button>
-                        <img src="assets/newstartup/next_button.png" alt="" (click)="addlanguagedetails()">
+                        <img src="assets/newstartup/AddLanguage.png" alt="" (click)="onSubmitData()">
                     </div>
                 </div>
             </form>
