@@ -382,8 +382,6 @@ export class mstapplicantmastermainComponent implements OnInit {
   }
 
 
-
-
   getprofilephoto() {
     debugger
 
