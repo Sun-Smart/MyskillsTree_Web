@@ -103,5 +103,7 @@ export class MstSocialMediaComponent implements OnInit {
   //   let pkcol = localStorage.getItem('pkcol');
   //   this.route.navigate(['/home/bodashboardviewer/' + pkcol]);
   // }
-
+  back() {
+    this.route.navigate(['/home/newlanguage'])
+  }
 }

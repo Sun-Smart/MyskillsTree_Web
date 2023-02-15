@@ -149,4 +149,7 @@ export class MstProjectDetailsComponent implements OnInit {
   addcertification() {
     this.route.navigate(['/home/newcertification']);
   }
+  back() {
+    this.route.navigate(['/home/newcareerdetails'])
+  }
 }
