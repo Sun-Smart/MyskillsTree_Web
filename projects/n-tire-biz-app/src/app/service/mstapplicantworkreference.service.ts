@@ -40,6 +40,7 @@ export class mstapplicantworkreferenceService {
   }
 
   get_mstapplicantworkreferences_companyList(id:any){
+    id = localStorage.getItem('applicantid');
     debugger;
     if (this.valid()) {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference' + '/companydetails/' + id).toPromise();
