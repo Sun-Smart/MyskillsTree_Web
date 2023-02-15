@@ -6,59 +6,73 @@
             <h6>MySkillsTree</h6>
             <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
 
-            <p style="margin-left: 1rem;">Kindly Provide Your Certification Details <i
-                    class="fa fa-arrow-circle-right" aria-hidden="true" style="margin-left: 1rem;"></i></p>
+            <p style="margin-left: 1rem;">Kindly Provide Your Certification Details <i class="fa fa-arrow-circle-right"
+                    aria-hidden="true" style="margin-left: 1rem;"></i></p>
 
-                    <img src="assets/newstartup/infography_Certifications.png" alt=""
-                    style="margin: 7%;width: 86%;">
-                </div>
+            <img src="assets/newstartup/infography_Certifications.png" alt="" style="margin: 7%;width: 86%;">
+        </div>
         <div class="outline-curve">
             <div class="extra-header-box"></div>
             <div class="header-bar">
                 <h6>Add Certification Details</h6>
             </div>
 
-            <form>
+            <form [formGroup]="mstapplicantachievementdetail_Form" (ngSubmit)="onSubmitData()">
                 <div class="row applicant-form">
                     <div class="col-6">
                         <label for="category" class="control-label required">Category</label>
-                        <select id="category" required formControlName="category" class="form-control">
+                        <select id="masterdataid" required (change)="masterdataid_onChange($event.target)"
+                            formControlName="masterdataid" class="form-control">
                             <option [ngValue]="null" selected>-Select-</option>
+                            <option *ngFor="let item of masterdataid_List" value="{{item.value}}">{{item.label}}
+                            </option>
                         </select>
                     </div>
 
                     <div class="col-6">
-                        <label for="skills" class="control-label">Skills</label>
-                        <input id="skills" required formControlName="skills" class="form-control">
+                        <label for="skills" class="control-label required">Skills</label>
+                        <select id="skill" required (change)="skill_onchange($event.target)" formControlName="skill"
+                            class="form-control">
+                            <option [ngValue]="null" selected>-Select-</option>
+                            <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
+                        </select>
                     </div>
 
 
                     <div class="col-6">
                         <label for="fromdate" class="control-label required">From Date</label>
-                        <input name="fromdateformpicker" id="fromdate" required formControlName="fromdate"
-                            class="form-control">
+                        <div class="input-group" style="display: flex;width: 100%;">
+                            <input #d="ngbDatepicker" readonly ngbDatepicker name="fromyearformpicker" id="fromyear"
+                                required formControlName="fromyear" style="margin-right: 5px;" class="form-control">
+                            <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                <i class="fa fa-calendar" aria-hidden="true"></i></button>
+                        </div>
                     </div>
 
                     <div class="col-6">
-                        <label for="todate" class="control-label">To Date</label>
-                        <input name="todateformpicker" id="todate" required formControlName="todate"
-                            class="form-control">
+                        <label for="todate" class="control-label required">To Date</label>
+                        <div  class="input-group" style="display: flex;width: 100%;">
+                            <input #t="ngbDatepicker" readonly ngbDatepicker name="toyearformpicker" id="toyear"
+                                formControlName="toyear" class="form-control" style="margin-right: 5px;">
+
+                            <button class="input-group-addon" (click)="t.toggle()" type="button">
+                                <i class="fa fa-calendar" aria-hidden="true"></i></button>
+                        </div>
+                        <div *ngIf="showDateError" style="color: red;font-size: 12px;">
+                            To date is greater than From date
+                        </div>
                     </div>
 
                     <div class="col-12">
                         <label for="achievementdetails" class="control-label required">Achievement Details</label>
-                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="achievementdetails" required
-                            formControlName="achievementdetails" class="form-control">
-                              </textarea>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="remarks" class="control-label">Remarks</label>
-                        <textarea id="remarks" formControlName="remarks" [style]="{  height: '320' }"
-                            class="form-control"></textarea>
+                        <textarea autosize rows="1" cols="10" onlyGrow="true"  id="achievementdetails" required
+                        formControlName="achievementdetails" class="form-control">
+                        </textarea>
                     </div>
 
                     <div class="col-12 button-css">
+                        <button type="submit">Next</button>
+
                         <button (click)="addresume()">Add Resume</button>
                     </div>
                 </div>

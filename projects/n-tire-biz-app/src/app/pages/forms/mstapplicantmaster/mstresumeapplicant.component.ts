@@ -482,6 +482,7 @@ export class mstresumeapplicantComponent implements OnInit {
     let e = evt.value;
   }
   attachmentuploader(e: any) {
+    debugger;
     for (let i = 0; i < e.files.length; i++) {
       this.fileAttachmentList.push(e.files[i]);
       let max = 0;

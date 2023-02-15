@@ -186,7 +186,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
          formControlName="fromdate" style="margin-right: 5px;" class="form-control">
        <button class="input-group-addon" (click)="d.toggle()" type="button"><i
            class="fa fa-calendar" aria-hidden="true"></i></button>
-
      </div>
 
     <!-- <app-field-error-display [displayError]="f.fromdate.errors?.required"
