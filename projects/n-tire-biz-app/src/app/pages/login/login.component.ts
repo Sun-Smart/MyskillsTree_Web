@@ -489,9 +489,11 @@ export class LoginComponent implements OnInit {
         // if (user.terms.terms) {
         if (loginuser.defaultpage == null || !loginuser.defaultpage) {
             //this.routeStateService.add("Home", '/home/showdashboard/1', null, true);
-            // this.router.navigate(['/home']);
-            this.router.navigate(['/home/personaldetails']);
-
+            if(localStorage.getItem('role') == '3' || localStorage.getItem('role') == '1'){
+              this.router.navigate(['/home']);
+            }else{
+              this.router.navigate(['/home/personaldetails']);
+            }
             if (this.rememberMe == false) {
                 // console.log(this.bologinForm.get('rememberMe').value);
                 this.rememberMe = false;
@@ -503,8 +505,8 @@ export class LoginComponent implements OnInit {
         }
         //
         else {
-            // this.router.navigate(['/home']);
-            this.router.navigate(['/home/personaldetails']);
+            this.router.navigate(['/home']);
+            // this.router.navigate(['/home/personaldetails']);
         }
         //this.routeStateService.add("Home", loginuser.defaultpage, null, true);
 
