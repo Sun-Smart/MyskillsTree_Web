@@ -20,18 +20,18 @@
     font-size: 25px;
   }
   h6 {
-    padding-left: 15px !important;
-    color: #000;
-    font-size: 25px;
+    padding-left: 40px !important;
+    color: rgb(135, 22, 22);
+    font-size: 20px;
   }
   label {
     margin-left: 1rem;
     font-size: 25px;
-    color: rgb(135, 22, 22);
+    color: var(--blue);
   }
   .applicant-name-label {
     padding: 13px;
-    color: var(--blue);
+    color: rgb(135, 22, 22);
     font-weight: 600;
   }
   p {
@@ -47,12 +47,16 @@
     margin: 1rem;
   }
   .header-bar {
-    height: 50px;
+    height: 35px;
     background-color: #cbf29f;
     border-bottom-left-radius: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    h6 {
+      color: #871616;
+      font-weight: 600;
+    }
   }
 }
 
@@ -124,4 +128,21 @@
   bottom: 0;
   right: 0;
   border-bottom-right-radius: 100%;
+}
+.personal-calender {
+  position: absolute;
+  right: 20px;
+  bottom: 3px;
+  border: none;
+  background-color: transparent;
+  color: #871616;
+}
+
+.telephone {
+  div {
+    input {
+      height: 32px;
+      border: none !important;
+    }
+  }
 }

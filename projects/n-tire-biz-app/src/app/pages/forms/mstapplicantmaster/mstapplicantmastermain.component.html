@@ -10,7 +10,7 @@
         </div>
 
         <div class='col-4  sticky1 second' style="margin: auto;" role='toolbar' aria-label='Toolbar with button groups'>
-         
+
           <ng-container *ngFor="let action of mstapplicantmaster_menuactions">
             <!-- <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i
                   class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li> -->
@@ -19,7 +19,7 @@
 
         <div class='col-4' style="margin: auto;">
 
-           <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
+          <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
             <li class='nav-item actionheader ' *ngIf="!showview" style="padding:0 !important;font-size: 12px;">
               <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()">
                 Submit</a>
@@ -114,7 +114,7 @@
                 *ngIf="((hidelist.indexOf('applicanttype') == -1) && (applicanttypevisible==undefined || applicanttypevisible==true))"
                 class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="applicanttype"
                   class="control-label required">Type</label>
-                
+
                 <select *ngIf="!showview" id="applicanttype" required (change)="applicanttype_onChange($event.target)"
                   formControlName="applicanttype" class="form-control">
                   <option [ngValue]="null" selected>-Select-</option>
@@ -213,7 +213,8 @@
             <!--city-->
 
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-              <div *ngIf="((hidelist.indexOf('city') == -1) && (cityvisible==undefined || cityvisible==true))"                 class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="city" class="control-label"
+              <div *ngIf="((hidelist.indexOf('city') == -1) && (cityvisible==undefined || cityvisible==true))"
+                class="col-lg-6 col-md-6 col-sm-12 col-sm-12"><label for="city" class="control-label"
                   (click)="AddOrEdit_city(null)">City</label>
                 <app-popupselect *ngIf="!showview" [formControl]="mstapplicantmaster_Form.controls['city']"
                   [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
@@ -249,7 +250,7 @@
 
               <!-- sowmi -->
 
-              
+
               <div
                 *ngIf="((hidelist.indexOf('profilephoto') == -1) && (profilephotovisible==undefined || profilephotovisible==true))"
                 class="col-lg-6 col-md-6 col-sm-12 col-sm-12">
@@ -266,8 +267,7 @@
                 <label for="briefintroduction" class="control-label">Brief Introduction</label>
                 <label *ngIf="showview" class="labelview">{{f.briefintroduction?.value}}</label>
                 <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="briefintroduction"
-                  formControlName="briefintroduction" class="form-control">
-</textarea>
+                  formControlName="briefintroduction" class="form-control"></textarea>
               </div>
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
@@ -277,8 +277,7 @@
                 <label for="statuscrimp" class="control-label">Status Crimp</label>
                 <label *ngIf="showview" class="labelview">{{f.statuscrimp?.value}}</label>
                 <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="statuscrimp"
-                  formControlName="statuscrimp" class="form-control">
-</textarea>
+                  formControlName="statuscrimp" class="form-control"></textarea>
               </div>
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
