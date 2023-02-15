@@ -47,12 +47,16 @@
     margin: 1rem;
   }
   .header-bar {
-    height: 50px;
+    height: 35px;
     background-color: #cbf29f;
     border-bottom-left-radius: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    h6{
+      color: #871616;
+      font-weight: 700;
+    }
   }
 }
 
@@ -110,14 +114,14 @@
 
 .extra-box {
   width: 55px;
-  height: 87px;
+  height: 60px;
   background-color: #cbf29f;
   position: fixed;
   bottom: 0;
 }
 
 .extra-box-overlap {
-  height: 87px;
+  height: 60px;
   width: 55px;
   background-color: #fff;
   position: fixed;
