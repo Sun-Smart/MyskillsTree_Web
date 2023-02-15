@@ -192,6 +192,7 @@ export class MstCertificationsComponent implements OnInit {
 
     }
   }
+
   addresume() {
     this.route.navigate(['/home/newresume'])
   }
