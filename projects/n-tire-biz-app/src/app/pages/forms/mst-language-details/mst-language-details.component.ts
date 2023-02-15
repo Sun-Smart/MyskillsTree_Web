@@ -95,5 +95,7 @@ export class MstLanguageDetailsComponent implements OnInit {
   addsocialmedia() {
     this.route.navigate(['/home/newsocial'])
   }
-
+  back() {
+    this.route.navigate(['/home/newresume'])
+  }
 }

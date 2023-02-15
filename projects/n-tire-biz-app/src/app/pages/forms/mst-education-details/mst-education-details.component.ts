@@ -220,5 +220,8 @@ export class MstEducationDetailsComponent implements OnInit {
   addCareer() {
     this.route.navigate(['/home/newcareerdetails']);
   }
+  back() {
+    this.route.navigate(['/home/newskilldetails'])
+  }
 
 }

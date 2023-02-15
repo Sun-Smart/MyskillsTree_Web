@@ -27,7 +27,7 @@ export class MstResumeComponent implements OnInit {
 
   mstapplicantmaster_Form: FormGroup;
   formData: mstapplicantmaster;
-  
+
   loginUser: any;
   formid: any;
   pkcol: any;
@@ -113,7 +113,7 @@ export class MstResumeComponent implements OnInit {
 
   ngOnInit() {
 
-    
+
     this.sessionData = this.sessionService.getSession();
     if (this.sessionData != null) {
       this.SESSIONUSERID = this.sessionData.userid;
@@ -191,7 +191,7 @@ export class MstResumeComponent implements OnInit {
       async (res:any) => {
 
         console.log("Response", res);
-        
+
         await this.sharedService.upload(this.fileAttachmentList);
         this.attachmentlist = [];
         if (this.fileattachment) this.fileattachment.clear();
@@ -199,7 +199,7 @@ export class MstResumeComponent implements OnInit {
         debugger;
         this.toastr.addSingle("success", "", "Successfully saved");
         this.objvalues.push((res as any).mstapplicantmaster);
-        
+
       });
 
 
@@ -223,5 +223,7 @@ export class MstResumeComponent implements OnInit {
   addlanguagedetails() {
     this.route.navigate(['/home/newlanguage'])
   }
-
+  back() {
+    this.route.navigate(['/home/newcertification'])
+  }
 }

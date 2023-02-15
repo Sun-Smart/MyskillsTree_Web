@@ -178,4 +178,7 @@ export class MstCareerDetailsComponent implements OnInit {
   addproject() {
     this.route.navigate(['/home/newproject']);
   }
+  back() {
+    this.route.navigate(['/home/neweducation'])
+  }
 }

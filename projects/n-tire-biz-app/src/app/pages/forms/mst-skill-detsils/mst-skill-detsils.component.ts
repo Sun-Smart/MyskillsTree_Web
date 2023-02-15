@@ -212,5 +212,8 @@ export class MstSkillDetsilsComponent implements OnInit {
   addEducation() {
     this.route.navigate(['/home/neweducation'])
   }
+  back() {
+    this.route.navigate(['/home/personaldetails'])
+  }
 
 }
