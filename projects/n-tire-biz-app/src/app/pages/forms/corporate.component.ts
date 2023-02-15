@@ -222,7 +222,7 @@ export class CorporateDashboardComponent implements OnInit {
 
 
     debugger
-    this.coporate_id = this.sessionService.getItem("coporateid");
+    this.coporate_id = localStorage.getItem("coporateid");
 
     console.log("this.coporate_id", this.coporate_id);
 
