@@ -6,8 +6,7 @@
       <h6>MySkillsTree</h6>
       <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
       <!-- <label class="applicant-name-label"></label> -->
-      <p style="margin-left: 1rem;">Kindly Provide Your Personal Details <i class="fa fa-arrow-circle-right"
-          aria-hidden="true" style="margin-left: 1rem;"></i></p>
+      <p style="margin-left: 1rem;">Kindly Provide Your Personal Details </p>
       <img src="assets/newstartup/infography_personal.png" alt="" style="margin: 7%;width: 86%;">
     </div>
 
@@ -17,7 +16,7 @@
         <h6>Add Personal Details</h6>
       </div>
 
-      <form [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmit()">
+      <form [formGroup]="mstapplicantmaster_Form" >
         <div class="row applicant-form">
 
           <div class="col-4">
@@ -124,13 +123,13 @@
 
           <div class="col-4">
             <!-- <label for="profilephoto" class="control-label">Photo</label> -->
-            <div  style="display: flex;align-items: center;justify-content: end;">
+            <div  style="display: flex;align-items: center;justify-content: end;display: none;">
             <app-attachment #profilephoto formControlName="profilephoto" [showremove]='bmyrecord'
             [SessionData]="sessionData"  ></app-attachment>
           </div>
           </div>
           <div class="col-4"></div>
-          <br>
+          <br><br>
 
           <div class="col-6">
             <label for="briefintroduction" class="control-label">Brief Introduction</label>
@@ -146,8 +145,8 @@
 
 
           <div class="col-12 button-css">
-            <button type="submit">Add Skills</button>
-            <img src="assets/newstartup/next_button.png" alt="" (click)="addskill()">
+           
+            <img src="assets/newstartup/Add Skills.png" alt=""  (click)="onSubmit()">
           </div>
 
         </div>

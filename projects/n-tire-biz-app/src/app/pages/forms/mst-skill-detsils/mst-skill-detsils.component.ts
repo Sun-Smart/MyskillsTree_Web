@@ -143,8 +143,7 @@ export class MstSkillDetsilsComponent implements OnInit {
     }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
     debugger
-    // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-    // this.fileAttachmentList = this.fileattachment.getAllFiles();
+
     console.log(this.formData);
     debugger
     this.spinner.show();
@@ -152,10 +151,8 @@ export class MstSkillDetsilsComponent implements OnInit {
       async (res: any) => {
         console.log(res);
 
-        debugger
-        // await this.sharedService.upload(this.fileAttachmentList);
-        // this.attachmentlist = [];
-        // if (this.fileattachment) this.fileattachment.clear();
+
+
         this.spinner.hide();
 
         this.toastr.addSingle("success", "", "Successfully saved");
@@ -172,26 +169,54 @@ export class MstSkillDetsilsComponent implements OnInit {
         let getapp = parseInt(localStorage.getItem('applicantid'));
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(getapp);
         this.objvalues.push((res as any).mstapplicantskilldetail);
-        // if (!bclear) this.showview = true;
-        // if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        // if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-        //   this.dialogRef.close(this.objvalues);
-        //   return;
-        // } else {
-        //   if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        // }
-        if (bclear) {
-          this.resetForm();
-        }
-        else {
-          // if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-          //   this.objvalues.push((res as any).mstapplicantskilldetail);
-          //   this.dialogRef.close(this.objvalues);
-          // }
-          // else {
-          //   // this.FillData();
-          // }
-        }
+        this.route.navigate(['/home/neweducation'])
+
+        this.mstapplicantskilldetail_Form.markAsUntouched();
+        this.mstapplicantskilldetail_Form.markAsPristine();
+      },
+      err => {
+        debugger;
+        this.spinner.hide();
+        this.toastr.addSingle("error", "", err.error);
+        console.log(err);
+      });
+  }
+
+  async AddmoreSubmitData(bclear: any) {
+    debugger
+    this.isSubmitted = true;
+    let strError = "";
+    if (strError != "") return this.sharedService.alert(strError);
+    if (!this.mstapplicantskilldetail_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    }
+    this.formData = this.mstapplicantskilldetail_Form.getRawValue();
+    debugger
+
+    console.log(this.formData);
+    debugger
+    this.spinner.show();
+    this.mstapplicantskilldetail_service.saveOrUpdate_mstapplicantskilldetails(this.formData).subscribe(
+      async (res: any) => {
+        console.log(res);
+
+        this.spinner.hide();
+
+        this.toastr.addSingle("success", "", "Successfully saved");
+        this.skillcategory_List = [];
+        this.subcategoryid_List = [];
+        this.Segmentcategory_list = [];
+        this.mstapplicantskilldetail_Form.markAsUntouched();
+        this.mstapplicantskilldetail_Form.markAsPristine();
+        this.ngOnInit();
+        this.mstapplicantskilldetail_Form.reset();
+        // this.showSkillDetails_input = false;
+        this.sessionService.setItem("attachedsaved", "true");
+        // this.ngAfterViewInit();
+        let getapp = parseInt(localStorage.getItem('applicantid'));
+        this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(getapp);
+        this.objvalues.push((res as any).mstapplicantskilldetail);
 
         this.mstapplicantskilldetail_Form.markAsUntouched();
         this.mstapplicantskilldetail_Form.markAsPristine();

@@ -6,11 +6,8 @@
       <h4>Welcome...</h4>
       <h6>MySkillsTree</h6>
       <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
-
-            <img src="assets/newstartup/infography_Education.png" alt="" style="margin: 7%;width: 86%;">
-
-      <img src="assets/newstartup/infography_education.png" alt="" style="margin: 7%;width: 86%;">
-
+      <p style="margin-left: 1rem;">Kindly Provide Your Education Details </p>
+      <img src="assets/newstartup/infography_Education.png" alt="" style="margin: 7%;width: 86%;">
     </div>
     <div class="outline-curve">
       <div>
@@ -42,16 +39,17 @@
           </div>
           <div class="col-4">
             <label for="institutionname" class="control-label">Institution Name</label>
-            <input  id="institutionname" formControlName="institutionname" class="form-control" required>
+            <input id="institutionname" formControlName="institutionname" class="form-control" required>
           </div>
           <div class="col-4">
             <label for="coursename" class="control-label required">Course Name</label>
-            <input  id="coursename" required formControlName="coursename" class="form-control">
+            <input id="coursename" required formControlName="coursename" class="form-control">
           </div>
           <div class="col-4">
             <label for="percentage" class="control-label required">Percentage</label>
-            <input  id="percentage" formControlName="percentage" type="number"  class="form-control" required >
-            <span *ngIf="show_percentageError" style = "color:red; font-size:10px;"> Percentage value should be below 100</span>
+            <input id="percentage" formControlName="percentage" type="number" class="form-control" required>
+            <span *ngIf="show_percentageError" style="color:red; font-size:10px;"> Percentage value should be below
+              100</span>
           </div>
 
           <div class="col-4">
@@ -61,26 +59,28 @@
           <div class="col-4">
             <label for="percentage" class="control-label required">To Year</label>
             <input type="number" id="toyear" formControlName="toyear" class="form-control" required>
-            <span *ngIf = "show_YearError" style = "color:red; font-size:10px;"> To year should not be greater than from year</span>
+            <span *ngIf="show_YearError" style="color:red; font-size:10px;"> To year should not be greater than from
+              year</span>
           </div>
           <div class="col-4">
-            <label for="percentage" class="control-label">Skills</label><br/>
+            <label for="percentage" class="control-label">Skills</label><br />
             <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
-                    (completeMethod)="search_skills($event)"></p-autoComplete><br/>
-                    <label style="color:blue;font-size: 9px;"> (Optional)</label>
+              (completeMethod)="search_skills($event)"></p-autoComplete><br />
+            <label style="color:blue;font-size: 9px;"> (Optional)</label>
           </div>
           <div class="col-12">
             <label for="remarks" class="control-label">Remarks</label>
-            <textarea name="w3review" rows="1" cols="10" style="height: 70px;" class="form-control" formControlName="remarks"></textarea>
+            <textarea name="w3review" rows="1" cols="10" style="height: 70px;" class="form-control"
+              formControlName="remarks"></textarea>
           </div>
 
           <div class="col-6 back-button">
             <img src="assets/newstartup/back_button.png" alt="" (click)="back()">
-        </div>
+          </div>
 
           <div class="col-6 button-css">
-            <button type="submit">Add Career</button>
-            <img src="assets/newstartup/next_button.png" alt="" (click)="addCareer()">
+            <img src="assets/newstartup/AddMoreEducation.png" alt="" (click)="AddmoreSubmitData()">
+            <img src="assets/newstartup/AddCareer.png" alt="" (click)="onSubmitData()">
 
           </div>
         </div>

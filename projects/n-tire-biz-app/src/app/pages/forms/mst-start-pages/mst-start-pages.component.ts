@@ -187,10 +187,10 @@ export class MstStartPagesComponent implements OnInit {
     debugger;
     console.log("this.mstapplicantmaster_Form", this.mstapplicantmaster_Form);
 
-    // if (!this.mstapplicantmaster_Form.valid) {
-    //   this.toastr.addSingle("error", "", "Enter the required fields");
-    //   return;
-    // };
+    if (!this.mstapplicantmaster_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    };
 
     this.formData = this.mstapplicantmaster_Form.getRawValue();
     this.formData.dob = new Date(this.mstapplicantmaster_Form.get('dob').value ? this.ngbDateParserFormatter.format(this.mstapplicantmaster_Form.get('dob').value) + '  UTC' : null);
@@ -200,6 +200,7 @@ export class MstStartPagesComponent implements OnInit {
       debugger;
       console.log("response",res);
       this.spinner.hide();
+      this.route.navigate(['/home/newskilldetails']);
     });
   };
 addskill(){

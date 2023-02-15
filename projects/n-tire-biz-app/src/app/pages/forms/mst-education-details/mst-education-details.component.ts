@@ -167,9 +167,6 @@ export class MstEducationDetailsComponent implements OnInit {
       this.spinner.show();
       this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
         async res => {
-          // await this.sharedService.upload(this.fileAttachmentList);
-          // this.attachmentlist = [];
-          // if (this.fileattachment) this.fileattachment.clear();
           this.spinner.hide();
 
           this.toastr.addSingle("success", "", "Successfully saved");
@@ -179,27 +176,9 @@ export class MstEducationDetailsComponent implements OnInit {
           this.ngOnInit();
           this.show_percentageError = false;
           this.show_YearError = false;
-          // if (!bclear) this.showview = true;
-          // if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-          // if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-          //   this.dialogRef.close(this.objvalues);
-          //   return;
-          // }
-          // else {
-          //   if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-          // }
           if (bclear) {
             this.resetForm();
           }
-          // else {
-          //   if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-          //     this.objvalues.push((res as any).mstapplicanteducationdetail);
-          //     this.dialogRef.close(this.objvalues);
-          //   }
-          //   else {
-          //     this.FillData();
-          //   }
-          // }
           this.mstapplicanteducationdetail_Form.markAsUntouched();
           this.mstapplicanteducationdetail_Form.markAsPristine();
         },
@@ -211,6 +190,76 @@ export class MstEducationDetailsComponent implements OnInit {
         })
     };
   };
+
+  AddmoreSubmitData(){
+    this.isSubmitted = true;
+    let strError = "";
+    console.log(this.mstapplicanteducationdetail_Form.value)
+
+    if (strError != "") return this.sharedService.alert(strError);
+
+    if (!this.mstapplicanteducationdetail_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    }
+    this.formValue = this.mstapplicanteducationdetail_Form.value;
+
+    if (this.mstapplicanteducationdetail_Form.value.coursename == null ||
+      this.mstapplicanteducationdetail_Form.value.educationcategory == null || this.mstapplicanteducationdetail_Form.value.educationsubcategory == null ||
+      this.mstapplicanteducationdetail_Form.value.institutionname == null || this.mstapplicanteducationdetail_Form.value.percentage == null ||
+      this.mstapplicanteducationdetail_Form.value.remarks == null || this.mstapplicanteducationdetail_Form.value.fromyear == null || this.mstapplicanteducationdetail_Form.value.toyear == null) {
+
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    } else if (this.mstapplicanteducationdetail_Form.value.fromyear >= this.mstapplicanteducationdetail_Form.value.toyear || this.mstapplicanteducationdetail_Form.value.percentage > 100) {
+      this.show_YearError = true;
+      this.show_percentageError = true;
+      if(this.mstapplicanteducationdetail_Form.value.percentage == 100 || this.mstapplicanteducationdetail_Form.value.percentage < 100){
+        this.show_percentageError = false;
+      }
+      if(this.mstapplicanteducationdetail_Form.value.fromyear < this.mstapplicanteducationdetail_Form.value.toyear){
+        this.show_YearError = false;
+      }
+      return
+    }
+    // else if (this.mstapplicanteducationdetail_Form.value.percentage > 100) {
+    //   this.show_percentageError = true;
+    //   return
+    // }
+    else {
+      this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
+      this.formData.skills = null;
+      this.showDateError = false;
+      this.showPercentError = false;
+      this.show_YearError = false;
+      this.show_percentageError = false;
+      if (this.mstapplicanteducationdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicanteducationdetail_Form.get('skills').value));
+
+      console.log(this.formData);
+      this.spinner.show();
+      this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
+        async res => {
+          this.spinner.hide();
+
+          this.toastr.addSingle("success", "", "Successfully saved");
+          this.sessionService.setItem("attachedsaved", "true")
+          this.objvalues.push((res as any).mstapplicanteducationdetail);
+          this.mstapplicanteducationdetail_Form.reset();
+          this.ngOnInit();
+          this.show_percentageError = false;
+          this.show_YearError = false;
+
+          this.mstapplicanteducationdetail_Form.markAsUntouched();
+          this.mstapplicanteducationdetail_Form.markAsPristine();
+        },
+        err => {
+
+          this.spinner.hide();
+          this.toastr.addSingle("error", "", err.error);
+          console.log(err);
+        })
+    };
+  }
   resetForm() {
     if (this.mstapplicanteducationdetail_Form != null)
       this.mstapplicanteducationdetail_Form.reset();
