@@ -122,6 +122,7 @@ export class MstProjectDetailsComponent implements OnInit {
         this.spinner.hide();
         debugger;
         this.toastr.addSingle("success", "", "Successfully saved");
+        this.route.navigate(['/home/newcertification']);
         this.sessionService.setItem("attachedsaved", "true")
         this.mstapplicantworkreference_Form.reset();
         this.objvalues.push((res as any).mstapplicantworkreference);
@@ -148,6 +149,40 @@ export class MstProjectDetailsComponent implements OnInit {
   }
   addcertification() {
     this.route.navigate(['/home/newcertification']);
+  }
+  AddmoreSubmitData(){
+    debugger;
+    this.isSubmitted = true;
+    let strError = "";
+    if (!this.mstapplicantworkreference_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    }
+    this.formData = this.mstapplicantworkreference_Form.getRawValue();
+    this.formData.skills = null;
+
+    if (this.mstapplicantworkreference_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantworkreference_Form.get('skills').value));
+    console.log(this.formData);
+    this.spinner.show();
+    this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(
+      async res => {
+        this.spinner.hide();
+        debugger;
+        this.toastr.addSingle("success", "", "Successfully saved");
+        this.sessionService.setItem("attachedsaved", "true")
+        this.mstapplicantworkreference_Form.reset();
+        this.objvalues.push((res as any).mstapplicantworkreference);
+        this.ngOnInit();
+        this.mstapplicantworkreference_Form.markAsUntouched();
+        this.mstapplicantworkreference_Form.markAsPristine();
+      },
+      err => {
+        debugger;
+        this.spinner.hide();
+        this.toastr.addSingle("error", "", err.error);
+        console.log(err);
+      }
+    )
   }
   back() {
     this.route.navigate(['/home/newcareerdetails'])

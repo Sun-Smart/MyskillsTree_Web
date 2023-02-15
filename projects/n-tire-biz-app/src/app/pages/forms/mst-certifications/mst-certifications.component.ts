@@ -139,6 +139,7 @@ export class MstCertificationsComponent implements OnInit {
           console.log("Response", res);
           this.spinner.hide();
           this.toastr.addSingle("success", "", "Successfully saved");
+          this.route.navigate(['/home/newresume'])
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicantachievementdetail);
           this.mstapplicantachievementdetail_Form.reset();
@@ -148,7 +149,49 @@ export class MstCertificationsComponent implements OnInit {
     }
 
   }
+  AddmoreSubmitData() {
+    debugger
+    this.isSubmitted = true;
 
+    let strError = "";
+    if (strError != "") return this.sharedService.alert(strError);
+
+    if (!this.mstapplicantachievementdetail_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    };
+    this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
+    console.log(this.formData);
+
+    this.formData.fromyear = new Date(this.mstapplicantachievementdetail_Form.get('fromyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('fromyear').value) + '  UTC' : null);
+
+    if (this.mstapplicantachievementdetail_Form.value.currentlyworking == true) {
+      this.formData.toyear = new Date()
+      console.log(this.formData.toyear);
+    } else {
+      this.formData.toyear = new Date(this.mstapplicantachievementdetail_Form.get('toyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('toyear').value) + '  UTC' : null);
+    }
+    this.formData.skills = null;
+
+    if (this.formData.fromyear > this.formData.toyear) {
+      this.showDateError = true;
+      return;
+    } else {
+      this.spinner.show();
+      this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
+        (res: any) => {
+
+          console.log("Response", res);
+          this.spinner.hide();
+          this.toastr.addSingle("success", "", "Successfully saved");
+          this.sessionService.setItem("attachedsaved", "true")
+          this.objvalues.push((res as any).mstapplicantachievementdetail);
+          this.mstapplicantachievementdetail_Form.reset();
+        })
+
+
+    }
+  }
   addresume() {
     this.route.navigate(['/home/newresume'])
   }
