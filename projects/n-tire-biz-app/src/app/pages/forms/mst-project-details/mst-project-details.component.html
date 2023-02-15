@@ -1,67 +1,84 @@
 <div class="startpagecontent">
-    <div class="main-contentainer">
+  <div class="main-contentainer">
 
-        <div class="inline-curve">
-            <h4>Welcome...</h4>
-            <h6>MySkillsTree</h6>
-            <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
-            <p style="margin-left: 1rem;">Kindly Provide Your Project Details <i class="fa fa-arrow-circle-right"
-                    aria-hidden="true" style="margin-left: 1rem;"></i></p>
 
-            <img src="assets/newstartup/infography_project.png" alt="" style="margin: 7%;width: 86%;">
-        </div>
-        <div class="outline-curve">
-            <div class="extra-header-box"></div>
-            <div class="header-bar">
-                <h6>Add Project Details</h6>
-            </div>
-            <form>
-                <div class="row applicant-form">
+    <div class="inline-curve">
+      <h4>Welcome...</h4>
+      <h6>MySkillsTree</h6>
+      <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
+      <p style="margin-left: 1rem;">Kindly Provide Your Project Details <i class="fa fa-arrow-circle-right"
+          aria-hidden="true" style="margin-left: 1rem;"></i></p>
 
-                    <div class="col-6">
-                        <label for="companyname" class="control-label required">Company Name</label>
-                        <select id="companyname" required formControlName="companyname" class="form-control">
-                            <option [ngValue]="null" selected>-Select-</option>
-                        </select>
-                    </div>
-
-                    <div class="col-6">
-                        <label for="worktopic" class="control-label required">Work Topic</label>
-                        <input id="worktopic" required formControlName="worktopic" class="form-control">
-                    </div>
-
-                    <div class="col-6">
-                        <label for="referenceurl" class="control-label">Reference URL</label>
-                        <input id="referenceurl" formControlName="referenceurl" class="form-control">
-                    </div>
-
-                    <div class="col-6">
-                        <label for="skills" class="control-label">Skills</label>
-                        <input id="skills" required formControlName="skills" class="form-control">
-                    </div>
-
-                    <div class="col-12">
-                        <label for="workdescription" class="control-label required">Work Description</label>
-                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="workdescription" required
-                            formControlName="workdescription" class="form-control"> </textarea>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="remarks" class="control-label">Remarks</label>
-                        <textarea id="remarks" formControlName="remarks" [style]="{  height: '320' }"
-                            class="form-control"></textarea>
-                    </div>
-
-                    <div class="col-12 button-css">
-                        <button (click)="addcertification()">Add Certification</button>
-                    </div>
-
-                </div>
-            </form>
-            <div class="extra-box"></div>
-            <div class="extra-box-overlap"></div>
-            <div class="extra-right-box"></div>
-            <div class="extra-right-box-overlap"></div>
-        </div>
+      <img src="assets/newstartup/infography_project.png" alt="" style="margin: 7%;width: 86%;">
     </div>
+    <div class="outline-curve">
+      <div class="extra-header-box"></div>
+      <div class="header-bar">
+        <h6>Add Project Details</h6>
+      </div>
+      <form [formGroup]="mstapplicantworkreference_Form">
+        <div class="row applicant-form">
+
+          <div class="col-6">
+            <label for="companyname" class="control-label required">Company Name</label>
+            <select id="companyname" (change)="onChange_companyList($event.target.value)" formControlName="companyname"
+              class="form-control">
+              <option value="null" selected>-Select-</option>
+              <option *ngFor="let item of companyList" value="{{item.companyname}}">{{item.companyname}}</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <label for="worktopic" class="control-label required">Work Topic</label>
+            <input id="worktopic" required formControlName="worktopic" class="form-control">
+
+            <div *ngIf="mstapplicantworkreference_Form.get('worktopic').errors  && isSubmitted"
+              class="invalid-feedback">
+              <span *ngIf="mstapplicantworkreference_Form.get('worktopic').hasError('required')">worktopic is
+                required</span>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <label for="referenceurl" class="control-label">Reference URL</label>
+            <input id="referenceurl" formControlName="referenceurl" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label for="skills" class="control-label">Skills</label><br/>
+            <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
+              (completeMethod)="search_skills($event)"></p-autoComplete>
+          </div>
+
+          <div class="col-12">
+            <label for="workdescription" class="control-label required">Work Description</label>
+            <textarea autosize rows="1" style="height: 70px" cols="10" onlyGrow="true" id="workdescription" required
+              formControlName="workdescription" class="form-control">
+            </textarea>
+
+            <div *ngIf="mstapplicantworkreference_Form.get('workdescription').errors  && isSubmitted"
+              class="invalid-feedback">
+              <span *ngIf="mstapplicantworkreference_Form.get('workdescription').hasError('required')">workdescription
+                is required</span>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="remarks" class="control-label">Remarks</label>
+            <textarea name="w3review"  style="height: 70px" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+          </div>
+
+          <div class="col-12 button-css">
+            <button (click)="onSubmitData(mstapplicantworkreference_Form)">Save</button>
+            <button (click)="addcertification()">Add Certification</button>
+          </div>
+
+        </div>
+      </form>
+      <div class="extra-box"></div>
+      <div class="extra-box-overlap"></div>
+      <div class="extra-right-box"></div>
+      <div class="extra-right-box-overlap"></div>
+    </div>
+  </div>
 </div>
