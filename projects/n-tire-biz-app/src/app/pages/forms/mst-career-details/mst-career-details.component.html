@@ -15,7 +15,7 @@
             <div class="header-bar">
                 <h6>Add Career Details</h6>
             </div>
-            <form [formGroup]="mstapplicantcareerdetail_Form" (ngSubmit)="onSubmitData()">
+            <form [formGroup]="mstapplicantcareerdetail_Form" >
                 <div class="row applicant-form">
 
                     <div class="col-6">
@@ -83,8 +83,10 @@
                     </div>
 
                     <div class="col-6 button-css">
-                        <button type="submit">Add Project</button>
-                        <img src="assets/newstartup/next_button.png" alt="" (click)="addproject()">
+
+                        <img src="assets/newstartup/AddMoreCareer.png" alt="" (click)="AddmoreSubmitData()">
+                        <img src="assets/newstartup/AddCareer.png" alt="" (click)="onSubmitData()">
+
                     </div>
                 </div>
             </form>
