@@ -8,7 +8,7 @@
             <p style="margin-left: 1rem;">Kindly Provide Your Personal Details <i class="fa fa-arrow-circle-right"
                     aria-hidden="true" style="margin-left: 1rem;"></i></p>
 
-                    <img src="assets/newstartup/infography_skillset.png" alt="" style="margin: 7%;width: 86%;">
+            <img src="assets/newstartup/infography_Skillset.png" alt="" style="margin: 7%;width: 86%;">
 
         </div>
         <div class="outline-curve">
@@ -16,39 +16,45 @@
             <div class="header-bar">
                 <h6>Add Skill Set Details</h6>
             </div>
-            <form  [formGroup]="mstapplicantskilldetail_Form" (ngSubmit)="onSubmitData(mstapplicantskilldetail_Form)">
+            <form [formGroup]="mstapplicantskilldetail_Form" (ngSubmit)="onSubmitData(mstapplicantskilldetail_Form)">
                 <div class="row  applicant-form">
 
                     <div class="col-6">
                         <label for="segmentid" class="control-label required">Segments</label>
-                        <select formControlName="segmentid" class="form-control" (change)="segmentcategory_onChange($event.target)">
-                          <option [ngValue]="null" [disabled]="true">-Select-</option>
-                          <option *ngFor="let item of Segmentcategory_list" value="{{item.value}}">{{item.label}}</option>
+                        <select formControlName="segmentid" class="form-control"
+                            (change)="segmentcategory_onChange($event.target)">
+                            <option [ngValue]="null" [disabled]="true">-Select-</option>
+                            <option *ngFor="let item of Segmentcategory_list" value="{{item.value}}">{{item.label}}
+                            </option>
                         </select>
-                        <input *ngIf="showinput1" class="form-control" id="segmentid" formControlName="segmentcategoryothers"
-                        type="text" style="margin: 5px 0">
+                        <input *ngIf="showinput1" class="form-control" id="segmentid"
+                            formControlName="segmentcategoryothers" type="text" style="margin: 5px 0">
                     </div>
 
                     <div class="col-6">
                         <label for="skillcategory" class="control-label required">Skill Category</label>
-                        <select class="form-control" formControlName="skillcategory" (change)="skillcategory_onChange($event.target)">
-                          <option value=null [disabled]="true">-Select-</option>
-                          <option *ngFor="let item of skillcategory_List" value="{{item.categoryid}}">{{item.name}}</option>
+                        <select class="form-control" formControlName="skillcategory"
+                            (change)="skillcategory_onChange($event.target)">
+                            <option value=null [disabled]="true">-Select-</option>
+                            <option *ngFor="let item of skillcategory_List" value="{{item.categoryid}}">{{item.name}}
+                            </option>
                         </select>
 
-                        <input *ngIf="showinput2" class="form-control" id="skillcategory" formControlName="skillcategoryothers"
-                        type="text" style="margin: 5px 0">
+                        <input *ngIf="showinput2" class="form-control" id="skillcategory"
+                            formControlName="skillcategoryothers" type="text" style="margin: 5px 0">
                     </div>
 
                     <div class="col-6">
                         <label for="subcategoryid" class="control-label required">Sub Category</label>
-                        <select class="form-control" formControlName="subcategoryid" (change)="subcategoryid_onChange($event.target)">
-                          <option value=null [disabled]="true">-Select-</option>
-                          <option *ngFor="let item of subcategoryid_List" value="{{item.subcategoryid}}">{{item.name}}</option>
+                        <select class="form-control" formControlName="subcategoryid"
+                            (change)="subcategoryid_onChange($event.target)">
+                            <option value=null [disabled]="true">-Select-</option>
+                            <option *ngFor="let item of subcategoryid_List" value="{{item.subcategoryid}}">{{item.name}}
+                            </option>
                         </select>
 
-                        <input *ngIf="showinput3" id="subcategoryid" class="form-control" formControlName="subcategoryidothers"
-                        type="text" style="margin: 5px 0">
+                        <input *ngIf="showinput3" id="subcategoryid" class="form-control"
+                            formControlName="subcategoryidothers" type="text" style="margin: 5px 0">
                     </div>
 
                     <div class="col-6">
@@ -61,9 +67,14 @@
                         <textarea id="remarks" formControlName="remarks" [style]="{  height: '320' }"
                             class="form-control"></textarea>
                     </div>
-                    <div class="col-12 button-css">
-                      <button type="submit">Save</button>
-                        <button (click)="addEducation()">Add Education</button>
+
+                    <div class="col-6 back-button">
+                        <img src="assets/newstartup/back_button.png" alt="">
+                    </div>
+
+                    <div class="col-6 button-css">
+                        <button type="submit">Add Education</button>
+                        <img src="assets/newstartup/next_button.png" alt="" (click)="addEducation()">
                     </div>
 
                 </div>

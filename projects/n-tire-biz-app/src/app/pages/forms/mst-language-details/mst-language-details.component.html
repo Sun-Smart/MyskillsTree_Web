@@ -54,14 +54,19 @@
 
           <div class="col-12">
             <label for="remarks" class="control-label">Remarks</label>
-            <textarea style="height: 70px;" autosize rows="1" cols="10" class="form-control"  id="achievementdetails"
-            formControlName="remarks">
+            <textarea style="height: 70px;" autosize rows="1" cols="10" class="form-control" id="achievementdetails"
+              formControlName="remarks">
             </textarea>
           </div>
 
-          <div class="col-12 button-css">
-            <button (click)="onSubmitData()">Save</button>
-            <button (click)="addsocialmedia()">Add Social Media</button>
+          <div class="col-6 back-button">
+            <img src="assets/newstartup/back_button.png" alt="">
+          </div>
+
+          <div class="col-6 button-css">
+            <button (click)="onSubmitData()">Add Social Media</button>
+
+            <img src="assets/newstartup/next_button.png" alt="" (click)="addsocialmedia()">
           </div>
 
         </div>

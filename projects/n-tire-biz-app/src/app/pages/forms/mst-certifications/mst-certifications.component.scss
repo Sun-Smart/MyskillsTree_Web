@@ -11,7 +11,7 @@
   height: 100%;
   float: left;
   background-color: #cbf29f;
-  border-top-right-radius: 320px 220px;
+  border-top-right-radius: 212px 220px;
 
   h4 {
     padding-left: 15px !important;
@@ -21,17 +21,17 @@
   }
   h6 {
     padding-left: 15px !important;
-    color: #000;
+    color: rgb(135, 22, 22);
     font-size: 25px;
   }
   label {
     margin-left: 1rem;
     font-size: 25px;
-    color: rgb(135, 22, 22);
+    color: var(--blue);
   }
   .applicant-name-label {
     padding: 13px;
-    color: var(--blue);
+    color: #000;
     font-weight: 600;
   }
   p {
@@ -69,7 +69,10 @@
 
 .button-css {
   text-align: end;
-  margin-top: 10px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  z-index: 1;
   button {
     border: 0px;
     background-color: rgb(135, 22, 22);
@@ -78,6 +81,22 @@
     padding: 5px 10px;
     border-radius: 4px;
     box-shadow: 1px 1px 2px 0px #000;
+  };
+  img{
+    width: 100px;
+    height: 70px;
+    margin: 15px;
+    margin-top: 23px;
+  }
+
+};
+
+.back-button{
+  img{
+    width: 100px;
+    height: 70px;
+    margin: 15px;
+    margin-top: 23px;
   }
 }
 
@@ -90,16 +109,16 @@
 }
 
 .extra-box {
-  width: 200px;
-  height: 100px;
+  width: 55px;
+  height: 87px;
   background-color: #cbf29f;
   position: fixed;
   bottom: 0;
 }
 
 .extra-box-overlap {
-  height: 100px;
-  width: 200px;
+  height: 87px;
+  width: 55px;
   background-color: #fff;
   position: fixed;
   bottom: 0;
@@ -124,3 +143,33 @@
   right: 0;
   border-bottom-right-radius: 100%;
 }
+
+// ::ng-deep .skill-auto-complete {
+//   .p-autocomplete {
+//     display: block;
+//     position: relative;
+//     bottom: 5px;
+//   }
+//   .p-inputtext {
+//     padding: 0;
+//     border: none;
+//     height: 32px;
+//   }
+// }
+.personal-calender {
+  position: absolute;
+  right: 20px;
+  bottom: 3px;
+  border: none;
+  background-color: transparent;
+  color: #871616;
+}
+
+.telephone {
+  div {
+    input {
+      height: 32px;
+      border: none !important;
+    }
+  }
+};

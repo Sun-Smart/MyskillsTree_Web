@@ -200,7 +200,6 @@ export class MstStartPagesComponent implements OnInit {
       debugger;
       console.log("response",res);
       this.spinner.hide();
-      // this.route.navigate(['/home/newskilldetails']);
     });
   };
 addskill(){

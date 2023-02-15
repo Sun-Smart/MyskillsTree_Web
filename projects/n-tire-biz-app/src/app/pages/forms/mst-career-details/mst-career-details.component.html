@@ -9,8 +9,7 @@
             <p style="margin-left: 1rem;">Kindly Provide Your Career Details <i class="fa fa-arrow-circle-right"
                     aria-hidden="true" style="margin-left: 1rem;"></i></p>
 
-                    <img src="assets/newstartup/infography_career.png" alt=""
-                    style="margin: 7%;width: 86%;">
+            <img src="assets/newstartup/infography_career.png" alt="" style="margin: 7%;width: 86%;">
         </div>
         <div class="outline-curve">
             <div class="extra-header-box"></div>
@@ -71,20 +70,22 @@
                     <div class="col-6">
                         <label for="skills" class="control-label">Skills</label><br>
                         <p-autoComplete formControlName="skills" field="label" [multiple]="true"
-                            [suggestions]="skills_results" (completeMethod)="search_skills($event)"
-                           ></p-autoComplete>
+                            [suggestions]="skills_results" (completeMethod)="search_skills($event)"></p-autoComplete>
                     </div>
 
                     <div class="col-12">
                         <label for="remarks" class="control-label">Remarks</label>
                         <textarea name="w3review" rows="1" cols="10" class="form-control"
-                        formControlName="remarks"></textarea>
+                            formControlName="remarks"></textarea>
                     </div>
 
-                    <div class="col-12 button-css">
-                        <button type="submit">Next</button>
+                    <div class="col-6 back-button">
+                        <img src="assets/newstartup/back_button.png" alt="">
+                    </div>
 
-                        <button (click)="addproject()">Add Project</button>
+                    <div class="col-6 button-css">
+                        <button type="submit">Add Project</button>
+                        <img src="assets/newstartup/next_button.png" alt="" (click)="addproject()">
                     </div>
                 </div>
             </form>

@@ -68,9 +68,15 @@
             <textarea name="w3review"  style="height: 70px" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
           </div>
 
-          <div class="col-12 button-css">
-            <button (click)="onSubmitData(mstapplicantworkreference_Form)">Save</button>
-            <button (click)="addcertification()">Add Certification</button>
+          
+          <div class="col-6 back-button">
+            <img src="assets/newstartup/back_button.png" alt="">
+        </div>
+
+          <div class="col-6 button-css">
+            <button (click)="onSubmitData(mstapplicantworkreference_Form)">Add Certification</button>
+
+            <img src="assets/newstartup/next_button.png" alt="" (click)="addcertification()">
           </div>
 
         </div>

@@ -82,6 +82,9 @@ export class MstSocialMediaComponent implements OnInit {
         }
         this.mstapplicantsocialmediadetail_Form.markAsUntouched();
         this.mstapplicantsocialmediadetail_Form.markAsPristine();
+
+        let pkcol = localStorage.getItem('pkcol');
+        this.route.navigate(['/home/bodashboardviewer/' + pkcol]);
       },
       err => {
         debugger;
@@ -96,9 +99,9 @@ export class MstSocialMediaComponent implements OnInit {
     this.mstapplicantsocialmediadetail_Form.patchValue({
     });
   }
-  dashboard() {
-    let pkcol = localStorage.getItem('pkcol');
-    this.route.navigate(['/home/bodashboardviewer/' + pkcol]);
-  }
+  // dashboard() {
+  //   let pkcol = localStorage.getItem('pkcol');
+  //   this.route.navigate(['/home/bodashboardviewer/' + pkcol]);
+  // }
 
 }

@@ -51,7 +51,7 @@
 
                     <div class="col-6">
                         <label for="todate" class="control-label required">To Date</label>
-                        <div  class="input-group" style="display: flex;width: 100%;">
+                        <div class="input-group" style="display: flex;width: 100%;">
                             <input #t="ngbDatepicker" readonly ngbDatepicker name="toyearformpicker" id="toyear"
                                 formControlName="toyear" class="form-control" style="margin-right: 5px;">
 
@@ -65,15 +65,18 @@
 
                     <div class="col-12">
                         <label for="achievementdetails" class="control-label required">Achievement Details</label>
-                        <textarea autosize rows="1" cols="10" onlyGrow="true"  id="achievementdetails" required
-                        formControlName="achievementdetails" class="form-control">
+                        <textarea autosize rows="1" cols="10" onlyGrow="true" id="achievementdetails" required
+                            formControlName="achievementdetails" class="form-control">
                         </textarea>
                     </div>
 
-                    <div class="col-12 button-css">
-                        <button type="submit">Next</button>
+                    <div class="col-6 back-button">
+                        <img src="assets/newstartup/back_button.png" alt="">
+                    </div>
 
-                        <button (click)="addresume()">Add Resume</button>
+                    <div class="col-6 button-css">
+                        <button type="submit">Add Resume</button>
+                        <img src="assets/newstartup/next_button.png" alt="" (click)="addresume()">
                     </div>
                 </div>
             </form>

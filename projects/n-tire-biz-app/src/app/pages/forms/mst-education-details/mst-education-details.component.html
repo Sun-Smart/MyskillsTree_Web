@@ -73,9 +73,15 @@
             <label for="remarks" class="control-label">Remarks</label>
             <textarea name="w3review" rows="1" cols="10" style="height: 70px;" class="form-control" formControlName="remarks"></textarea>
           </div>
-          <div class="col-12 button-css">
-            <button type="submit">Save</button>
-            <button (click)="addCareer()">Add Career</button>
+
+          <div class="col-6 back-button">
+            <img src="assets/newstartup/back_button.png" alt="">
+        </div>
+
+          <div class="col-6 button-css">
+            <button type="submit">Add Career</button>
+            <img src="assets/newstartup/next_button.png" alt="" (click)="addCareer()">
+
           </div>
         </div>
       </form>
