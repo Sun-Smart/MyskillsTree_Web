@@ -17,10 +17,11 @@
                 <h6>Upload Resume</h6>
             </div>
 
-            <form>
+            <form  [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmitData()">
                 <div class="row applicant-form">
                     <div class="col-12">
                         <label for="briefintroduction" class="control-label">Brief Introduction</label>
+
                         <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" id="briefintroduction"
                             formControlName="briefintroduction" class="form-control"
                             style="height:100px !important;"> </textarea>
@@ -42,11 +43,18 @@
 
                     <div class="col-12" style="margin-top: 15px;">
                         <label for="attachment" class="control-label">Upload Your Resume</label><br>
-                        <input type="file" id="attachment" formControlName="attachment" />
+                        <p-accordion [multiple]='true'>
+                            <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+                              <app-attachment #fileattachment isAttachment=true formControlName="attachment"
+                                [SessionData]="sessionData"></app-attachment>
+                            </p-accordionTab>
+                          </p-accordion>
                     </div>
 
                     <div class="col-12 button-css">
                         <button (click)="addlanguagedetails()">Add Language</button>
+
+                        <button type="submit">Next</button>
                     </div>
                 </div>
             </form>

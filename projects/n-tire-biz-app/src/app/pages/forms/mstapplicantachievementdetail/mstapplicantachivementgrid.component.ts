@@ -540,6 +540,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
           this.toastr.addSingle("success", "", "Successfully saved");
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicantachievementdetail);
+          this.mstapplicantachievementdetail_Form.reset();
           this.ngOnInit();
           if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
           if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {

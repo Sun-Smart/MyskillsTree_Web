@@ -563,6 +563,7 @@ export class AttachmentComponent implements ControlValueAccessor {
         return this.attachedfiles;
     }
     async onFileSelect(e: any) {
+        debugger;
 
         ////debugger;
         //this.attachedfiles = [];

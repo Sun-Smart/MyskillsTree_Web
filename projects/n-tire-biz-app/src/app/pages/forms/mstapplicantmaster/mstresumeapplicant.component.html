@@ -304,8 +304,7 @@
                 <label for="statuscrimp" class="control-label">Status Crimp</label>
                 <label *ngIf="showview" class="labelview">{{f.statuscrimp?.value}}</label>
                 <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="statuscrimp"
-                  formControlName="statuscrimp" class="form-control">
-  </textarea>
+                  formControlName="statuscrimp" class="form-control"> </textarea>
               </div>
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">

@@ -9,29 +9,28 @@
             <p style="margin-left: 1rem;">Kindly Provide Your Career Details <i class="fa fa-arrow-circle-right"
                     aria-hidden="true" style="margin-left: 1rem;"></i></p>
 
-                    <img src="assets/newstartup/infography_Career.png" alt=""
-                    style="margin: 7%;width: 86%;">
+            <img src="assets/newstartup/infography_Career.png" alt="" style="margin: 7%;width: 86%;">
         </div>
         <div class="outline-curve">
             <div class="extra-header-box"></div>
             <div class="header-bar">
                 <h6>Add Career Details</h6>
             </div>
-            <form>
+            <form [formGroup]="mstapplicantcareerdetail_Form" (ngSubmit)="onSubmitData()">
                 <div class="row applicant-form">
 
                     <div class="col-6">
                         <label for="category" class="control-label required">Category</label>
-                        <select id="category" required formControlName="category" class="form-control">
-                            <option [ngValue]="null" selected>-Select-</option>
+                        <select id="category" (change)="category_onChange($event.target)" formControlName="category"
+                            class="form-control">
+                            <option value="null" selected>-Select-</option>
+                            <option *ngFor="let item of category_List" value="{{item.value}}">{{item.label}}</option>
                         </select>
                     </div>
 
                     <div class="col-6">
                         <label for="companyname" class="control-label required">Company Name</label>
-                        <select id="companyname" required formControlName="companyname" class="form-control">
-                            <option [ngValue]="null" selected>-Select-</option>
-                        </select>
+                        <input id="companyname" required formControlName="companyname" class="form-control">
                     </div>
 
                     <div class="col-6">
@@ -41,28 +40,49 @@
 
                     <div class="col-6">
                         <label for="fromdate" class="control-label required">From Date</label>
-                        <input name="fromdateformpicker" id="fromdate" required formControlName="fromdate"
-                            class="form-control">
+                        <div class="input-group" style="display: flex;width: 100%;">
+                            <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+                                [maxDate]="maxDate" name="fromdateformpicker" id="fromdate" required
+                                formControlName="fromdate" style="margin-right: 5px;" class="form-control">
+                            <button class="input-group-addon" (click)="d.toggle()" type="button">
+                                <i class="fa fa-calendar" aria-hidden="true"></i></button>
+                        </div>
                     </div>
 
                     <div class="col-6">
-                        <label for="todate" class="control-label">To Date</label>
-                        <input name="todateformpicker" id="todate" required formControlName="todate"
-                            class="form-control">
+                        <label for="todate" class="control-label required">To Date</label>
+                        <div>
+                            <div style="display: flex;width: 80%;">
+                                <input #t="ngbDatepicker" readonly ngbDatepicker
+                                    [minDate]='{year: 1950, month:1, day: 1}' [maxDate]="maxDate"
+                                    name="todateformpicker" id="todate" formControlName="todate" class="form-control"
+                                    style="margin-right: 5px;">
+
+                                <button class="input-group-addon" (click)="t.toggle()" type="button"><i
+                                        class="fa fa-calendar" aria-hidden="true"></i></button>
+                            </div>
+                            <div *ngIf="showDateError" style="color: red;font-size: 12px;">
+                                To date is greater than From date
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-6">
-                        <label for="skills" class="control-label">Skills</label>
-                        <input id="skills" required formControlName="skills" class="form-control">
+                        <label for="skills" class="control-label">Skills</label><br>
+                        <p-autoComplete formControlName="skills" field="label" [multiple]="true"
+                            [suggestions]="skills_results" (completeMethod)="search_skills($event)"
+                           ></p-autoComplete>
                     </div>
 
                     <div class="col-12">
                         <label for="remarks" class="control-label">Remarks</label>
-                        <textarea id="remarks" formControlName="remarks" [style]="{  height: '320' }"
-                            class="form-control"></textarea>
+                        <textarea name="w3review" rows="1" cols="10" class="form-control"
+                        formControlName="remarks"></textarea>
                     </div>
 
                     <div class="col-12 button-css">
+                        <button type="submit">Next</button>
+
                         <button (click)="addproject()">Add Project</button>
                     </div>
                 </div>
