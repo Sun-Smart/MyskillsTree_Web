@@ -1,57 +1,61 @@
 <div class="startpagecontent">
-    <div class="main-contentainer">
+  <div class="main-contentainer">
 
-        <div class="inline-curve">
-            <h4>Welcome...</h4>
-            <h6>MySkillsTree</h6>
-            <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
-            <p>Kindly Provide Your Social Network <i class="fa fa-arrow-circle-right" aria-hidden="true"
-                    style="margin-left: 1rem;"></i></p>
+    <div class="inline-curve">
+      <h4>Welcome...</h4>
+      <h6>MySkillsTree</h6>
+      <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
+      <p>Kindly Provide Your Social Media <i class="fa fa-arrow-circle-right" aria-hidden="true"
+          style="margin-left: 1rem;"></i></p>
 
-            <img src="assets/newstartup/mst_infography.png" alt="" style="margin: 7%;width: 86%;">
+      <img src="assets/newstartup/mst_infography.png" alt="" style="margin: 7%;width: 86%;">
 
-        </div>
-        <div class="outline-curve">
-            <div class="extra-header-box"></div>
-            <div class="header-bar">
-                <h6>Add Social Network Details</h6>
-            </div>
-            <form>
-                <div class="row applicant-form">
-                    <div class="col-6">
-                        <label for="socialmedianame" class="control-label required">Social Media</label>
-                        <select id="category" required formControlName="category" class="form-control">
-                            <option [ngValue]="null" selected>-Select-</option>
-                        </select>
-                    </div>
-
-                    <div class="col-6">
-                        <label for="handlename" class="control-label">Handle Name</label>
-                        <input id="handlename" formControlName="handlename" class="form-control">
-                    </div>
-
-
-                    <div class="col-6">
-                        <label for="url" class="control-label required">Social Network URL</label>
-                        <input id="url" required formControlName="url" class="form-control">
-                    </div>
-
-                    <div class="col-12">
-                        <label for="remarks" class="control-label">Remarks</label>
-                        <textarea id="remarks" formControlName="remarks" [style]="{  height: '320' }"
-                            class="form-control"></textarea>
-                    </div>
-
-                    <div class="col-12 button-css">
-                        <button (click)="dashboard()">Continue</button>
-                    </div>
-
-                </div>
-            </form>
-            <div class="extra-box"></div>
-            <div class="extra-box-overlap"></div>
-            <div class="extra-right-box"></div>
-            <div class="extra-right-box-overlap"></div>
-        </div>
     </div>
+    <div class="outline-curve">
+      <div class="extra-header-box"></div>
+      <div class="header-bar">
+        <h6>Add Social Media Details</h6>
+      </div>
+      <form [formGroup]="mstapplicantsocialmediadetail_Form">
+        <div class="row applicant-form">
+          <div class="col-6">
+            <label for="socialmedianame" class="control-label required">Social Media</label>
+            <select *ngIf="!showview" id="socialmedianame" required (change)="socialmedianame_onChange($event.target)"
+              formControlName="socialmedianame" class="form-control">
+              <option [ngValue]="null" selected>-Select-</option>
+              <option *ngFor="let item of socialmedianame_List" value="{{item.value}}">{{item.label}}</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <label for="handlename" class="control-label required">Handle Name</label>
+            <input id="handlename" required formControlName="handlename" class="form-control">
+          </div>
+
+
+          <div class="col-6">
+            <label for="url" class="control-label ">URL</label>
+            <input id="url" formControlName="url" class="form-control">
+          </div>
+
+          <div class="col-12">
+            <label for="remarks" class="control-label">Remarks</label>
+            <textarea style="height: 70px;" autosize rows="1" cols="10" onlyGrow="true" formControlName="remarks"
+              class="form-control">
+        </textarea>
+          </div>
+
+          <div class="col-12 button-css">
+            <button (click)="onSubmitData();">Save</button>
+            <button (click)="dashboard();">Continue</button>
+          </div>
+
+        </div>
+      </form>
+      <div class="extra-box"></div>
+      <div class="extra-box-overlap"></div>
+      <div class="extra-right-box"></div>
+      <div class="extra-right-box-overlap"></div>
+    </div>
+  </div>
 </div>
