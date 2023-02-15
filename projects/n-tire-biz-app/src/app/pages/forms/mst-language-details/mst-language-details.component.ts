@@ -75,6 +75,7 @@ export class MstLanguageDetailsComponent implements OnInit {
       this.spinner.hide();
 
       this.toastr.addSingle("success", "", "Successfully saved");
+      this.route.navigate(['/home/newsocial'])
       this.sessionService.setItem("attachedsaved", "true")
       this.objvalues.push((res as any).mstapplicantlanguagedetail);
       this.ngOnInit();
@@ -94,6 +95,33 @@ export class MstLanguageDetailsComponent implements OnInit {
   }
   addsocialmedia() {
     this.route.navigate(['/home/newsocial'])
+  }
+  addMoresocialmedia(){
+    debugger
+    this.isSubmitted = true;
+
+    if (!this.mstapplicantlanguagedetail_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    }
+    this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
+
+    console.log(this.formData);
+    this.spinner.show();;
+    this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe((res: any) => {
+      debugger;
+      console.log(res);
+
+      this.spinner.hide();
+
+      this.toastr.addSingle("success", "", "Successfully saved");
+      this.sessionService.setItem("attachedsaved", "true")
+      this.objvalues.push((res as any).mstapplicantlanguagedetail);
+      this.ngOnInit();
+      this.mstapplicantlanguagedetail_Form.reset();
+      this.mstapplicantlanguagedetail_Form.markAsUntouched();
+      this.mstapplicantlanguagedetail_Form.markAsPristine();
+    });
   }
   back() {
     this.route.navigate(['/home/newresume'])

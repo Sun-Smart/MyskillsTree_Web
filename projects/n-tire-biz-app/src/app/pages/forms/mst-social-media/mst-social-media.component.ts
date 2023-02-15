@@ -103,6 +103,41 @@ export class MstSocialMediaComponent implements OnInit {
   //   let pkcol = localStorage.getItem('pkcol');
   //   this.route.navigate(['/home/bodashboardviewer/' + pkcol]);
   // }
+  AddMoreSocial(){
+    debugger;
+    this.isSubmitted = true;
+    let strError = "";
+    if (!this.mstapplicantsocialmediadetail_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    };
+
+    this.formData = this.mstapplicantsocialmediadetail_Form.getRawValue();
+
+    console.log(this.formData);
+    this.spinner.show();
+
+    this.mstapplicantsocialmediadetail_service.saveOrUpdate_mstapplicantsocialmediadetails(this.formData).subscribe(
+      async res => {
+        // await this.sharedService.upload(this.fileAttachmentList);
+        // this.attachmentlist = [];
+        // if (this.fileattachment) this.fileattachment.clear();
+        this.spinner.hide();
+        this.toastr.addSingle("success", "", "Successfully saved");
+        // this.sessionService.setItem("attachedsaved", "true")
+        this.objvalues.push((res as any).mstapplicantsocialmediadetail);
+        this.mstapplicantsocialmediadetail_Form.reset();
+        this.ngOnInit();
+        this.mstapplicantsocialmediadetail_Form.markAsUntouched();
+        this.mstapplicantsocialmediadetail_Form.markAsPristine();
+      },
+      err => {
+        debugger;
+        this.spinner.hide();
+        this.toastr.addSingle("error", "", err.error);
+        console.log(err);
+      });
+  }
   back() {
     this.route.navigate(['/home/newlanguage'])
   }
