@@ -170,6 +170,7 @@ export class MstEducationDetailsComponent implements OnInit {
           this.spinner.hide();
 
           this.toastr.addSingle("success", "", "Successfully saved");
+          this.route.navigate(['/home/newcareerdetails']);
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicanteducationdetail);
           this.mstapplicanteducationdetail_Form.reset();

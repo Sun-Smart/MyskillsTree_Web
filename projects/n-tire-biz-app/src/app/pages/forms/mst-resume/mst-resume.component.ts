@@ -198,6 +198,7 @@ export class MstResumeComponent implements OnInit {
         this.spinner.hide();
         debugger;
         this.toastr.addSingle("success", "", "Successfully saved");
+        this.route.navigate(['/home/newlanguage'])
         this.objvalues.push((res as any).mstapplicantmaster);
 
       });

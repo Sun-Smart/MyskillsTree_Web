@@ -126,12 +126,6 @@ const URL = AppConstants.UploadURL;
 
     </div>
 
-    <!-- <div class="col-5">
-
-    </div> -->
-
-
-
     <div class="col-2">
     <!-- <div  *ngIf="!isAttachment && src!=null && src!=undefined"><img [src]="src" style="width:200px;height:200px"></div> -->
     </div>

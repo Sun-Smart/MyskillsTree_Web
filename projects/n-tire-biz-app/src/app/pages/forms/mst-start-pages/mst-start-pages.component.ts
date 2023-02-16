@@ -124,12 +124,11 @@ export class MstStartPagesComponent implements OnInit {
   get f() { return this.mstapplicantmaster_Form.controls; }
 
   ngOnInit() {
-
+    this.sessionService.setItem("choosefileforprofile", "ok");
     this.sessionData = this.sessionService.getSession();
     if (this.sessionData != null) {
       this.SESSIONUSERID = this.sessionData.userid;
     }
-
     // getdefault Data
     this.mstapplicantmaster_service.getDefaultData().then(res => {
       this.applicanttype_List = res.list_applicanttype.value;
@@ -218,9 +217,9 @@ export class MstStartPagesComponent implements OnInit {
 
     this.formData = this.mstapplicantmaster_Form.getRawValue();
     this.formData.dob = new Date(this.mstapplicantmaster_Form.get('dob').value ? this.ngbDateParserFormatter.format(this.mstapplicantmaster_Form.get('dob').value) + '  UTC' : null);
-    if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+    // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     if (this.profilephoto.getAttachmentList() != null) this.formData.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
-    this.fileAttachmentList = this.fileattachment.getAllFiles();
+    // this.fileAttachmentList = this.fileattachment.getAllFiles();
     console.log("this.formData", this.formData);
     this.spinner.show();
     this.mstapplicantmaster_service.saveOrUpdate_mstapplicantmastermains(this.formData).subscribe(
