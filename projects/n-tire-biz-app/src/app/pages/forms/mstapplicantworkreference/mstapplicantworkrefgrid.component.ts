@@ -409,7 +409,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         this.mstapplicantworkreference_Form = this.fb.group({
             pk: [null],
             ImageName: [null],
-            applicantid: this.sessionService.getItem('applicantid'),
+            applicantid: this.applicantid,
             applicantiddesc: [null],
             workreferenceid: [null],
             companyname: [null],

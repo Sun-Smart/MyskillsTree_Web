@@ -14,6 +14,7 @@ export class AppConstants {//localhost:5000
     // public static get ntirecrmURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
     // public static get ntiredashboardsURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
 
+
     // public static get baseURL(): string { return "https://demo.herbie.ai/devMySkillsTreeapi/api"; }
     // public static get ntireboURL(): string { return "https://demo.herbie.ai/devMySkillsTreeapi/api"; }
     // public static get ntirebizURL(): string { return "https://demo.herbie.ai/devMySkillsTreeapi/api"; }

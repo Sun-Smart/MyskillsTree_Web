@@ -28,6 +28,7 @@ export class MstStartPagesComponent implements OnInit {
 
   formData: mstapplicantmaster;
   bmyrecord: boolean = false;
+  showview: boolean = false;
   maxDate = undefined;
   data: any;
   p_menuid: any;
@@ -42,11 +43,15 @@ export class MstStartPagesComponent implements OnInit {
   country_List: DropDownValues[];
   state_List: DropDownValues[];
   city_List: DropDownValues[];
+  objvalues: any = [];
 
   country_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
   state_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
   city_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
   @ViewChild('profilephoto', { static: false }) profilephoto: AttachmentComponent;
+  @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
+  readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
+
 
 
   constructor(private route: Router, private fb: FormBuilder,
@@ -137,6 +142,23 @@ export class MstStartPagesComponent implements OnInit {
     this.mstapplicantmaster_Form.patchValue({ applicanttypedesc: evt.options[evt.options.selectedIndex].text });
   };
 
+  getprofilephoto() {
+    debugger
+
+    if (this.profilephoto.getAttachmentList().length > 0) {
+      debugger
+      let file = this.profilephoto.getAttachmentList()[0];
+      this.sharedService.geturl(file.filekey, file.type);
+    }
+  }
+
+  edit_mstapplicantmasters() {
+    this.showview = false;
+    setTimeout(() => {
+      if (this.profilephoto != null && this.profilephoto != undefined) this.profilephoto.setattachmentlist(this.mstapplicantmaster_Form.get('profilephoto').value);
+    });
+    return false;
+  }
   // Gender
 
   gender_onChange(evt: any) {
@@ -194,12 +216,23 @@ export class MstStartPagesComponent implements OnInit {
 
     this.formData = this.mstapplicantmaster_Form.getRawValue();
     this.formData.dob = new Date(this.mstapplicantmaster_Form.get('dob').value ? this.ngbDateParserFormatter.format(this.mstapplicantmaster_Form.get('dob').value) + '  UTC' : null);
+    if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+    if (this.profilephoto.getAttachmentList() != null) this.formData.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
+    this.fileAttachmentList = this.fileattachment.getAllFiles();
     console.log("this.formData", this.formData);
     this.spinner.show();
-    this.mstapplicantmaster_service.saveOrUpdate_mstapplicantmastermains(this.formData).subscribe((res:any) => {
-      debugger;
+    this.mstapplicantmaster_service.saveOrUpdate_mstapplicantmastermains(this.formData).subscribe(
+      async (res:any) => {
+
       console.log("response",res);
+      await this.sharedService.upload(this.profilephoto.getAllFiles());
+      await this.sharedService.upload(this.fileAttachmentList);
+      this.attachmentlist = [];
+      if (this.fileattachment) this.fileattachment.clear();
       this.spinner.hide();
+      this.toastr.addSingle("success", "", "Successfully saved");
+      localStorage.removeItem("choosefileforprofile")
+      this.objvalues.push((res as any).mstapplicantmaster);
       this.route.navigate(['/home/newskilldetails']);
     });
   };

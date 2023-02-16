@@ -122,14 +122,14 @@
           </div>
 
           <div class="col-4">
-            <!-- <label for="profilephoto" class="control-label">Photo</label> -->
-            <div  style="display: flex;align-items: center;justify-content: end;display: none;">
+            <label for="profilephoto" class="control-label">Photo</label>
+            <!-- <label *ngIf="showview" class="labelview">{{f.profilephoto?.value[0]?.name}}</label> -->
             <app-attachment #profilephoto formControlName="profilephoto" [showremove]='bmyrecord'
-            [SessionData]="sessionData"  ></app-attachment>
+              [SessionData]="sessionData"></app-attachment>
           </div>
-          </div>
-          <div class="col-4"></div>
           <br><br>
+          <div class="col-4"></div>
+        
 
           <div class="col-6">
             <label for="briefintroduction" class="control-label">Brief Introduction</label>

@@ -447,8 +447,19 @@ export class mstapplicantcareergridComponent implements OnInit {
     this.data = dynamicconfig;
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
-    }
-  }
+    };
+
+    
+    this.pkcol = this.data.maindatapkcol;
+    this.applicantid = this.data.applicantid;
+
+    console.log(" dedmekf this.applicantid",  this.applicantid);
+    
+
+    // let app_id = localStorage.getItem('applicantid')
+
+  };
+
   async ngOnInit() {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
@@ -461,21 +472,14 @@ export class mstapplicantcareergridComponent implements OnInit {
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
 
     this.pkcol = this.data.maindatapkcol;
-    this.applicantid = this.data.applicantid
+    this.applicantid = this.data.applicantid;
 
-
-    const current = new Date();
-    this.maxDate = {
-      year: current.getFullYear(),
-      month: current.getMonth() + 1,
-      day: current.getDate()
-    };
+    console.log(" dedmekf this.applicantid",  this.applicantid);
 
     this.mstapplicantcareerdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: [this.applicantid],
-      // applicantid: this.sessionService.getItem('applicantid'),
+      applicantid:  this.applicantid,
       applicantiddesc: [null],
       careerid: [null],
       category: [null],
@@ -494,16 +498,16 @@ export class mstapplicantcareergridComponent implements OnInit {
       statusdesc: [null],
       attachment: [null],
     });
+
+
+    const current = new Date();
+    this.maxDate = {
+      year: current.getFullYear(),
+      month: current.getMonth() + 1,
+      day: current.getDate()
+    };
+
     this.FillData();
-    //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
-    // if (this.pkcol == null) {
-    //     this.resetForm();
-    //   }
-    //   else {
-    //     if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
-    //     //get the record from api
-    //     //foreign keys
-    //   }
   };
 
   get f() { return this.mstapplicantcareerdetail_Form.controls; };
@@ -784,11 +788,10 @@ export class mstapplicantcareergridComponent implements OnInit {
 
     debugger;
     this.showSkillDetails_input = true;
-    this.mstapplicantcareerdetail_Form.reset();
     this.getData();
     let add = false;
     if (event == null) add = true;
-
+    // this.mstapplicantcareerdetail_Form.reset();
   }
 
   Edit_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {

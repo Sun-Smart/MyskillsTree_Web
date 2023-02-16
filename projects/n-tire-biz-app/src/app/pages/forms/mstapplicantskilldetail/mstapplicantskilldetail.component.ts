@@ -544,7 +544,7 @@ export class mstapplicantskilldetailComponent implements OnInit {
     debugger
     let e = evt.value;
     this.getdata2 = e
-    if (this.getdata2 == "411") {
+    if (this.getdata2 == "512") {
       this.showinput3 = true
     } else {
       this.showinput3 = false

@@ -493,8 +493,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     }
 
     this.mstapplicantskilldetail_Form.patchValue({
-      subcategoryid:null,
-      skillcategory:null
+      subcategoryid: null,
+      skillcategory: null
     });
     this.mstapplicantskilldetail_service.getList_skillcategory2(e).then((res: any) => {
       debugger;
@@ -513,7 +513,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.showinput2 = false
     }
     this.mstapplicantskilldetail_Form.patchValue({
-      subcategoryid:null
+      subcategoryid: null
     });
     debugger
     this.mstapplicantskilldetail_service.getList_subcategoryid2(e).then((res: any) => {
@@ -526,7 +526,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     debugger
     let e = evt.value;
     this.getdata2 = e
-    if (this.getdata2 == "411") {
+    if (this.getdata2 == "512") {
       this.showinput3 = true
     } else {
       this.showinput3 = false
@@ -700,19 +700,21 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         this.subcategoryid_List = res as DropDownValues[];
       }).catch((err) => { console.log(err); });
 
+      if (this.f.segmentid.value && this.f.segmentid.value != "" && this.f.segmentid.value != null) this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res => {
+        this.skillcategory_List = res as DropDownValues[];
+      }).catch((err) => { console.log(err); });
+
       if (this.f.segmentid.value == "166") {
         this.showinput1 = true
       };
       if (this.f.skillcategory.value == "262") {
         this.showinput2 = true
       };
-      if (this.f.subcategoryid.value == "411") {
+      if (this.f.subcategoryid.value == "512") {
         this.showinput3 = true
       };
 
-      if (this.f.segmentid.value && this.f.segmentid.value != "" && this.f.segmentid.value != null) this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res => {
-        this.skillcategory_List = res as DropDownValues[];
-      }).catch((err) => { console.log(err); });
+
     });
   };
 
@@ -795,6 +797,21 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         // }, 3000);
 
         setTimeout(() => {
+          if (this.f.segmentid.value == "166") {
+            this.showinput1 = true
+          } else {
+            this.showinput1 = false;
+          }
+          if (this.f.skillcategory.value == "262") {
+            this.showinput2 = true
+          }else {
+            this.showinput2 = false;
+          }
+          if (this.f.subcategoryid.value == "512") {
+            this.showinput3 = true
+          } else{ 
+            this.showinput3 = false
+          }
           this.mstapplicantskilldetail_service.getList_subcategoryid2(this.skillsubcategory_Code).then(res => {
             debugger
             this.subcategoryid_List = res as DropDownValues[];
@@ -805,8 +822,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
                 subcategoryiddesc: this.formData.subcategoryiddesc,
               });
             }
-          }
-          );
+          });
+
         }, 1000)
       }).catch((err) => {
         //console.log(err);
