@@ -25,6 +25,8 @@ import { msttermnewComponent } from '../forms/mstterm/msttermnew.component';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { AppConstants } from '../../shared/helper';
 import { OtpvalidationService } from '../../service/otpvalidation.service';
+import { mstcorporatemasterService } from '../../service/mstcorporatemaster.service';
+import { mstapplicantskilldetailService } from '../../service/mstapplicantskilldetail.service';
 
 @Component({
     selector: 'app-login',
@@ -365,6 +367,7 @@ export class LoginComponent implements OnInit {
     password: any;
     loggedIn: boolean = false;
     sessiondata: any;
+    pkcorporateid: any;
     fieldTextType: boolean;
     rememberMe: boolean = false;
     password2: string;
@@ -395,6 +398,8 @@ export class LoginComponent implements OnInit {
         private router: Router, public dialogRef: DynamicDialogRef,
         public dialog: DialogService, private spinner: NgxSpinnerService,
         private http: HttpClient,
+        private mstcorporatemasterservice: mstcorporatemasterService,
+        private mstapplicantskilldetail_service: mstapplicantskilldetailService,
     ) {
 
         this.bologinForm = this.fb.group({
@@ -488,7 +493,22 @@ export class LoginComponent implements OnInit {
         }
         // if (user.terms.terms) {
         if (loginuser.defaultpage == null || !loginuser.defaultpage) {
-          this.router.navigate(['/home']);
+            this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID( loginuser.applicantid).then((res: any) => {
+                console.log("response", res.mstapplicantskilldetail);
+                if(res.mstapplicantskilldetail.length > 0){
+                    this.router.navigate(['/home']);
+                }else{
+              this.router.navigate(['/home/personaldetails']);        
+                }
+            });
+            if(loginuser.role == '1' || loginuser.role == '3'){
+                this.mstcorporatemasterservice.getListBy_userid(0 + this.sessionService.getItem("userid")).then(res => {
+                    this.pkcorporateid = res[0].corporateid;
+                    localStorage.setItem("coporateid", this.pkcorporateid);
+                    this.router.navigate(['/home']);
+                  });
+            }
+
             //this.routeStateService.add("Home", '/home/showdashboard/1', null, true);
             // if(localStorage.getItem('role') == '3' || localStorage.getItem('role') == '1'){
             //   this.router.navigate(['/home']);

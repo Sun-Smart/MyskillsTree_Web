@@ -45,7 +45,7 @@ export type ChartOptions = {
 
     <ng-container *ngIf="!isadmin">
 
-    <div class="row" style="margin-top: 1rem !important;">
+    <div class="row" style="margin-top: 1rem !important;overflow-y: scroll;height: 500px;">
     <div class="col-12 col-sm-12 col-xs-12 mobile_view">
     <div id="chart" style="width: 100%;border: 1px solid #e7dcdc;box-shadow: 0px 0px 1px 0px #b7b7b7;">
     <apx-chart
@@ -161,7 +161,6 @@ export class CorporateDashboardComponent implements OnInit {
 
   chartOptions: any
   pkcorporateid: any;
-  coporate_id: any;
   jobData: any = [];
   index = 1;
   job_detailsData: any = [];
@@ -180,7 +179,6 @@ export class CorporateDashboardComponent implements OnInit {
   constructor(private sessionService: SessionService,
     private mstapplicantmaster_service: mstapplicantmasterService,
     private mstcorporatemasterservice: mstcorporatemasterService) {
-
   }
 
   ngOnInit() {
@@ -191,6 +189,7 @@ export class CorporateDashboardComponent implements OnInit {
       this.showAdminMenuaccess = true;
       this.showApplicantmenu = false;
       this.showCorporateMenuaccess = false;
+      this.corporate_dashboard();
     } else if (this.sessionService.getItem('role') == '2') {
       this.userrole = 'Applicant';
       this.showApplicantmenu = true;
@@ -201,39 +200,20 @@ export class CorporateDashboardComponent implements OnInit {
       this.showCorporateMenuaccess = true;
       this.showApplicantmenu = false;
       this.showAdminMenuaccess = false;
+      this.corporate_dashboard();
     }
     if (this.sessionService.getItem('role') == '2') this.menuvisible = false;
 
-    this.get_coporateid();
-    this.corporate_dashboard();
 
 
   };
 
-  get_coporateid() {
-    debugger
-    this.mstcorporatemasterservice.getListBy_userid(0 + this.sessionService.getItem("userid")).then(res => {
-      this.pkcorporateid = res[0].corporateid;
-      localStorage.setItem("coporateid", this.pkcorporateid);
-    });
-  }
-
   corporate_dashboard() {
 
+    let coporate_id = localStorage.getItem("coporateid");
+    this.mstapplicantmaster_service.get_corporateDashboardAll_details(coporate_id).then((res: any) => {
 
-    debugger
-    this.coporate_id = localStorage.getItem("coporateid");
-
-    console.log("this.coporate_id", this.coporate_id);
-
-
-    this.mstapplicantmaster_service.get_corporateDashboardAll_details(this.coporate_id).then((res: any) => {
-      debugger
       this.jobData = res.list_dashboardalljobs.value;
-
-
-      console.log("this.jobData", this.jobData);
-
       for (var i = 0; i < this.jobData.length; i++) {
 
         this.job_detailsData.push({
@@ -258,21 +238,10 @@ export class CorporateDashboardComponent implements OnInit {
         this.no_of_pending.push(this.jobData[i].numberofpending);
       };
 
-
-
-
-      console.log("job_detailsData", this.job_detailsData);
-
-      console.log("jobdesc_label", this.jobdesc_label);
-      console.log("no_of_selected", this.no_of_selected);
-      console.log("no_of_rejected", this.no_of_rejected);
-      console.log("no_of_pending", this.no_of_pending);
-
-
       this.chartOptions = {
         series: [
           {
-            name: "No Of Interested",
+            name: "Total Required",
             data: this.no_of_intrested
           },
           {
