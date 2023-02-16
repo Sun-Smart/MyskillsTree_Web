@@ -175,6 +175,8 @@ export class CorporateDashboardComponent implements OnInit {
   no_of_intrestPending: any = [];
 
   tabledata: any = []
+  coporate_id: string;
+  employeeid: string;
 
   constructor(private sessionService: SessionService,
     private mstapplicantmaster_service: mstapplicantmasterService) {
@@ -206,8 +208,12 @@ export class CorporateDashboardComponent implements OnInit {
 
   corporate_dashboard() {
 
-    let coporate_id = localStorage.getItem("coporateid");
-    this.mstapplicantmaster_service.get_corporateDashboardAll_details(coporate_id).then((res: any) => {
+    if(this.sessionService.getItem('role') == '3'){
+      this.coporate_id = localStorage.getItem("coporateid");
+    }else if(this.sessionService.getItem('role') == '1'){
+      this.employeeid = localStorage.getItem("employeeid");
+    }
+    this.mstapplicantmaster_service.get_corporateDashboardAll_details(this.coporate_id ? this.coporate_id : this.employeeid).then((res: any) => {
 
       this.jobData = res.list_dashboardalljobs.value;
       for (var i = 0; i < this.jobData.length; i++) {
