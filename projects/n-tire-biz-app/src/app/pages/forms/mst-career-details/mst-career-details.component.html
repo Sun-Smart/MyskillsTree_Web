@@ -15,7 +15,7 @@
             <div class="header-bar">
                 <h6>Add Career Details</h6>
             </div>
-            <form [formGroup]="mstapplicantcareerdetail_Form" >
+            <form [formGroup]="mstapplicantcareerdetail_Form">
                 <div class="row applicant-form">
 
                     <div class="col-6">
@@ -39,31 +39,30 @@
 
                     <div class="col-6">
                         <label for="fromdate" class="control-label required">From Date</label>
-                        <div class="input-group" style="display: flex;width: 100%;">
+                        <div style="display: flex;width: 100%;">
                             <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
                                 [maxDate]="maxDate" name="fromdateformpicker" id="fromdate" required
                                 formControlName="fromdate" style="margin-right: 5px;" class="form-control">
-                            <button class="input-group-addon" (click)="d.toggle()" type="button">
+                            <button class="input-group-addon personal-calender" (click)="d.toggle()" type="button">
                                 <i class="fa fa-calendar" aria-hidden="true"></i></button>
                         </div>
                     </div>
 
                     <div class="col-6">
                         <label for="todate" class="control-label required">To Date</label>
-                        <div>
-                            <div style="display: flex;width: 80%;">
-                                <input #t="ngbDatepicker" readonly ngbDatepicker
-                                    [minDate]='{year: 1950, month:1, day: 1}' [maxDate]="maxDate"
-                                    name="todateformpicker" id="todate" formControlName="todate" class="form-control"
-                                    style="margin-right: 5px;">
 
-                                <button class="input-group-addon" (click)="t.toggle()" type="button"><i
-                                        class="fa fa-calendar" aria-hidden="true"></i></button>
-                            </div>
-                            <div *ngIf="showDateError" style="color: red;font-size: 12px;">
-                                To date is greater than From date
-                            </div>
+                        <div style="display: flex;width: 100%;">
+                            <input #t="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+                                [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate"
+                                class="form-control" style="margin-right: 5px;">
+
+                            <button class="input-group-addon personal-calender" (click)="t.toggle()" type="button"><i
+                                    class="fa fa-calendar" aria-hidden="true"></i></button>
                         </div>
+                        <div *ngIf="showDateError" style="color: red;font-size: 12px;">
+                            To date is greater than From date
+                        </div>
+
                     </div>
 
                     <div class="col-6">

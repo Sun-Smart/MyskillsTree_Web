@@ -177,8 +177,7 @@ export class CorporateDashboardComponent implements OnInit {
   tabledata: any = []
 
   constructor(private sessionService: SessionService,
-    private mstapplicantmaster_service: mstapplicantmasterService,
-    private mstcorporatemasterservice: mstcorporatemasterService) {
+    private mstapplicantmaster_service: mstapplicantmasterService) {
   }
 
   ngOnInit() {
@@ -203,9 +202,6 @@ export class CorporateDashboardComponent implements OnInit {
       this.corporate_dashboard();
     }
     if (this.sessionService.getItem('role') == '2') this.menuvisible = false;
-
-
-
   };
 
   corporate_dashboard() {
