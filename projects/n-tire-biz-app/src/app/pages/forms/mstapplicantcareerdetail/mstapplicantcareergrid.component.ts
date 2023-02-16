@@ -449,15 +449,15 @@ export class mstapplicantcareergridComponent implements OnInit {
       this.data = this.data.data;
     };
 
-    
+
     this.pkcol = this.data.maindatapkcol;
     this.applicantid = this.data.applicantid;
 
-    console.log(" dedmekf this.applicantid",  this.applicantid);
-    
+    // console.log(" dedmekf this.applicantid",  this.applicantid);
+
 
     // let app_id = localStorage.getItem('applicantid')
-
+    this.applicantid = localStorage.getItem('applicantid');
   };
 
   async ngOnInit() {
@@ -628,13 +628,16 @@ export class mstapplicantcareergridComponent implements OnInit {
     }
     this.formData.skills = null;
 
+
     if (this.formData.fromdate > this.formData.todate) {
       this.showDateError = true;
       return;
     } else {
 
       if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
-  
+      this.formData.applicantid = this.applicantid;
+      console.log('this.formData above',this.formData.applicantid);
+
       console.log(this.formData);
       this.spinner.show();
       this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
@@ -824,7 +827,7 @@ export class mstapplicantcareergridComponent implements OnInit {
         // status: res.mstapplicantcareerdetail.status,
         // statusdesc: res.mstapplicantcareerdetail.statusdesc,
         // attachment: "[]",
-        
+
       });
       setTimeout(() => {
         this.getSkillsDescription();
