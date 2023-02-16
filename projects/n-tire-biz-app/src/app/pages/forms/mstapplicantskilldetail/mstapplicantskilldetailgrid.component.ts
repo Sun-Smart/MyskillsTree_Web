@@ -736,9 +736,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   Edit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
     debugger
     this.showSkillDetails_input = true;
-
-    // let add = true;
-    // if (event == null) add = true;
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
     console.log(event, event.data.skillid, event.data.applicantid);
@@ -789,29 +786,36 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
             skillcategorydesc: this.formData.skillcategorydesc,
           });
         }
-        //to null subcategory
-        // setTimeout(() => {
-        //   if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
-        this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res =>
-          this.subcategoryid_List = res as DropDownValues[]);
-        // }, 3000);
 
         setTimeout(() => {
-          if (this.f.segmentid.value == "166") {
+          if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
+        this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res =>
+          this.subcategoryid_List = res as DropDownValues[]);
+        }, 3000);
+
+        setTimeout(() => {
+
+                    if (this.f.segmentid.value == "166") {
             this.showinput1 = true
+
           } else {
             this.showinput1 = false;
-          }
+            // this.mstapplicantskilldetail_Form.controls.segmentcategoryothers = null;
+          };
+
           if (this.f.skillcategory.value == "262") {
             this.showinput2 = true
-          }else {
+          } else {
             this.showinput2 = false;
-          }
+            // this.mstapplicantskilldetail_Form.controls.skillcategoryothers = null;
+          };
+
           if (this.f.subcategoryid.value == "512") {
             this.showinput3 = true
-          } else{ 
+          } else {
             this.showinput3 = false
-          }
+            // this.mstapplicantskilldetail_Form.controls.subcategoryidothers = null;
+          };
           this.mstapplicantskilldetail_service.getList_subcategoryid2(this.skillsubcategory_Code).then(res => {
             debugger
             this.subcategoryid_List = res as DropDownValues[];
@@ -823,7 +827,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
               });
             }
           });
-
         }, 1000)
       }).catch((err) => {
         //console.log(err);

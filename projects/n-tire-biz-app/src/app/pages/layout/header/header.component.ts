@@ -585,6 +585,10 @@ export class HeaderComponent implements OnInit {
     this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')]);
   }
 
+  showNewApplicantDetails(){
+    this.router.navigate(['/home/personaldetails']);
+  }
+
   releasemethod(e: any) {
     let obj = {
       "applicantid": this.applicantid,

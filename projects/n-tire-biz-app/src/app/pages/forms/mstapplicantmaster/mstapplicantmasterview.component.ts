@@ -537,11 +537,11 @@ export class mstapplicantmasterviewComponent implements OnInit {
 <h3>##applicantreference## | ##applicanttypedesc## </h3>
 <h3><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;##citydesc##</h3>
 </div>
-<div class="row">
-<h4>##statuscrimp##</h4><br>
+<div class="row showprfl-contents">
+<p>##statuscrimp##</p><br>
 </div>
-<div class="row">
-<h5>##briefintroduction##</h5>
+<div class="row showprfl-contents">
+<p>##briefintroduction##</p>
 </div>
 `;
 
@@ -1085,18 +1085,18 @@ return false;
     this.mstapplicantworkreferences = res.mstapplicantworkreferences;
     this.mstapplicantsocialmediadetails = res.mstapplicantsocialmediadetails;
 
-    this.mstapplicantskilldetails = res.mstapplicantskilldetails;
+    this.mstapplicantskilldetails = res.mstapplicantskilldetails;    
 
     for (let i = 0; i < this.mstapplicantskilldetails.length; i++) {
-      if (this.mstapplicantskilldetails[i].selfRating == 1) {
+      if (this.mstapplicantskilldetails[i].selfrating == 1) {
         this.skill_selfrating = '★'
-      } else if (this.mstapplicantskilldetails[i].selfRating == 2) {
+      } else if (this.mstapplicantskilldetails[i].selfrating == 2) {
         this.skill_selfrating = '★★'
-      } else if (this.mstapplicantskilldetails[i].selfRating == 3) {
+      } else if (this.mstapplicantskilldetails[i].selfrating == 3) {
         this.skill_selfrating = '★★★'
-      } else if (this.mstapplicantskilldetails[i].selfRating == 4) {
+      } else if (this.mstapplicantskilldetails[i].selfrating == 4) {
         this.skill_selfrating = '★★★★'
-      } else if (this.mstapplicantskilldetails[i].selfRating == 5) {
+      } else if (this.mstapplicantskilldetails[i].selfrating == 5) {
         this.skill_selfrating = '★★★★★'
       };
 
@@ -1107,6 +1107,10 @@ return false;
         showstr: this.skill_selfrating
       })
     };
+
+    console.log("skillarray", this.skillarray);
+    console.log("skillarray", this.skillarray.skillDescription);
+    
 
     this.mstapplicantlanguagedetails = res.mstapplicantlanguagedetails;
 
@@ -1199,11 +1203,9 @@ return false;
     //console.log(res.order);
     //console.log(res.orderDetails);
 
-    if (res.mstapplicantmaster.briefintroduction.length > 0 || res.mstapplicantmaster.statuscrimp.length > 0) {
+    if (res.mstapplicantmaster.briefintroduction != null || res.mstapplicantmaster.statuscrimp != null) {
       this.readMoreBtn = true;
     }
-    // if(res.mstapplicantmaster.briefintroduction.length > 0){
-    //     this.readMoreBtn = true;
     else {
       this.readMoreBtn = false;
     }

@@ -2621,7 +2621,14 @@ span.p-toast-icon-close-icon.pi.pi-times {
 }
 
 a#showReadBtn {
-  margin-left: 18px;
+  margin: 10px 15px;
+}
+
+.showprfl-contents{
+  p{
+    line-height: 1.5 !important;
+    margin: 15px !important;
+  }
 }
 
 .designrow {

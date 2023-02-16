@@ -48,6 +48,8 @@ export class MstStartPagesComponent implements OnInit {
   country_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
   state_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
   city_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
+
+  readonly AttachmentURL = AppConstants.AttachmentURL;
   @ViewChild('profilephoto', { static: false }) profilephoto: AttachmentComponent;
   @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
   readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
