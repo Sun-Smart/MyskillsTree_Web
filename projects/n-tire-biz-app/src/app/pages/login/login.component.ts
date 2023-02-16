@@ -29,10 +29,10 @@ import { mstcorporatemasterService } from '../../service/mstcorporatemaster.serv
 import { mstapplicantskilldetailService } from '../../service/mstapplicantskilldetail.service';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    // styleUrls: ['./style.css']
-    styles: [`
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  // styleUrls: ['./style.css']
+  styles: [`
 
 .container {
     width: 100% !important;
@@ -357,368 +357,382 @@ label{
     `]
 })
 export class LoginComponent implements OnInit {
-    username: any;
-    bologinForm: FormGroup;
-    private readonly minlengthemail = 5;
-    private readonly minlengthPassword = 10;
-    locale: string;
-    theme: string;
-    email: any;
-    password: any;
-    loggedIn: boolean = false;
-    sessiondata: any;
-    pkcorporateid: any;
-    fieldTextType: boolean;
-    rememberMe: boolean = false;
-    password2: string;
-    email2: string;
-    remem: any;
-    applicantid: any;
-    login_validation: boolean = false;
-    emailvalidation: boolean = false;
-    passvalidation: boolean = false;
-    userData: any;
-    verifyMob_Otp: any;
-    verifyEmail_Otp: any;
-    otp_resp: any = [];
-    otparray:any = [];
-    p12: any;
-    verify_outputstring: any;
+  username: any;
+  bologinForm: FormGroup;
+  private readonly minlengthemail = 5;
+  private readonly minlengthPassword = 10;
+  locale: string;
+  theme: string;
+  email: any;
+  password: any;
+  loggedIn: boolean = false;
+  sessiondata: any;
+  pkcorporateid: any;
+  fieldTextType: boolean;
+  rememberMe: boolean = false;
+  password2: string;
+  email2: string;
+  remem: any;
+  applicantid: any;
+  login_validation: boolean = false;
+  emailvalidation: boolean = false;
+  passvalidation: boolean = false;
+  userData: any;
+  verifyMob_Otp: any;
+  verifyEmail_Otp: any;
+  otp_resp: any = [];
+  otparray: any = [];
+  p12: any;
+  verify_outputstring: any;
+  employeeid: string;
 
-    constructor(private sharedService: SharedService, private translate: TranslateService,
-        private fb: FormBuilder,
-        private userService: bousermasterService,
-        private toastService: ToastService,
-        private routeStateService: RouteStateService,
-        public sessionService: SessionService,
-        public otpService: OtpvalidationService,
-        //public translate: TranslateService,
-        private themeService: ThemeService,
-        private userContextService: UserContextService,
-        private router: Router, public dialogRef: DynamicDialogRef,
-        public dialog: DialogService, private spinner: NgxSpinnerService,
-        private http: HttpClient,
-        private mstcorporatemasterservice: mstcorporatemasterService,
-        private mstapplicantskilldetail_service: mstapplicantskilldetailService,
-    ) {
+  constructor(private sharedService: SharedService, private translate: TranslateService,
+    private fb: FormBuilder,
+    private userService: bousermasterService,
+    private toastService: ToastService,
+    private routeStateService: RouteStateService,
+    public sessionService: SessionService,
+    public otpService: OtpvalidationService,
+    //public translate: TranslateService,
+    private themeService: ThemeService,
+    private userContextService: UserContextService,
+    private router: Router, public dialogRef: DynamicDialogRef,
+    public dialog: DialogService, private spinner: NgxSpinnerService,
+    private http: HttpClient,
+    private mstcorporatemasterservice: mstcorporatemasterService,
+    private mstapplicantskilldetail_service: mstapplicantskilldetailService,
+  ) {
 
-        this.bologinForm = this.fb.group({
-            // email: [null],
-            // password: [null],
-            username: [null],
-            email: [null, [Validators.required, Validators.pattern(/^(\d{10}|\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}))$/)]],
-            password: [null, [Validators.required]],
-            rememberMe: [null]
-        });
-        this.translate.setDefaultLang('en');
-        this.theme = "omega";
-        this.sessionService.setItem("selected-theme", this.theme);
+    this.bologinForm = this.fb.group({
+      // email: [null],
+      // password: [null],
+      username: [null],
+      email: [null, [Validators.required, Validators.pattern(/^(\d{10}|\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}))$/)]],
+      password: [null, [Validators.required]],
+      rememberMe: [null]
+    });
+    this.translate.setDefaultLang('en');
+    this.theme = "omega";
+    this.sessionService.setItem("selected-theme", this.theme);
+  }
+  ngOnInit() {
+    debugger
+    this.spinner.show();
+    this.locale = this.sessionService.getItem("ng-prime-language");
+    this.email = localStorage.getItem("email");
+    this.password = localStorage.getItem("password");
+    this.remem = localStorage.getItem("rememberMe");
+    this.sessionService.setItem("attachedsaved", "true");
+
+    // if (this.email2 != null || this.email2 != '' && this.password2 != null || this.password2 != '') {
+    //     this.email = localStorage.getItem("email");
+    //     this.password = localStorage.getItem("password");
+
+    // }
+    // if (this.remem === false) {
+    //     this.rememberMe = true;
+    // }
+    /*
+    this.sessiondata = this.sessionService.getSession();
+    if(this.sessiondata!="")this.loggedIn=true;
+    if(this.loggedIn)this.router.navigate(['/home']);
+    */
+    this.spinner.hide();
+  }
+  forgetPassword() {
+    this.router.navigate(['forgotpassword']);
+  }
+
+  CheckAgreeOk(user: any) {
+    debugger;
+    if (user.token != '') {
+      this.login_validation = false;
+      this.toastService.addSingle("success", "", "Login successfully.");
     }
-    ngOnInit() {
-        debugger
-        this.spinner.show();
-        this.locale = this.sessionService.getItem("ng-prime-language");
-        this.email = localStorage.getItem("email");
-        this.password = localStorage.getItem("password");
-        this.remem = localStorage.getItem("rememberMe");
-        this.sessionService.setItem("attachedsaved", "true");
-
-        // if (this.email2 != null || this.email2 != '' && this.password2 != null || this.password2 != '') {
-        //     this.email = localStorage.getItem("email");
-        //     this.password = localStorage.getItem("password");
-
-        // }
-        // if (this.remem === false) {
-        //     this.rememberMe = true;
-        // }
-        /*
-        this.sessiondata = this.sessionService.getSession();
-        if(this.sessiondata!="")this.loggedIn=true;
-        if(this.loggedIn)this.router.navigate(['/home']);
-        */
-        this.spinner.hide();
-    }
-    forgetPassword() {
-        this.router.navigate(['forgotpassword']);
+    else {
+      this.toastService.addSingle("error", "", "Invalid Login Credentials");
+      return;
     }
 
-    CheckAgreeOk(user:any) {
-        debugger;
-        if (user.token != '') {
-            this.login_validation = false;
-            this.toastService.addSingle("success", "", "Login successfully.");
-        }
-        else {
-            this.toastService.addSingle("error", "", "Invalid Login Credentials");
-            return;
-        }
+    this.userContextService.setUser(user.token);
+    // this language will be used as a fallback when a translation isn't found in the current language
+    console.log(user);
+    var language = user.language;
+    if (language != null && language.length > 0) {
+      // the lang to use, if the lang isn't available, it will use the current loader to get them
+      this.sharedService.translate.use(language);
 
-        this.userContextService.setUser(user.token);
-        // this language will be used as a fallback when a translation isn't found in the current language
-        console.log(user);
-        var language = user.language;
-        if (language != null && language.length > 0) {
-            // the lang to use, if the lang isn't available, it will use the current loader to get them
-            this.sharedService.translate.use(language);
+    } else {
+      this.sessionService.setItem("ng-prime-language", "en");
+    }
 
-        } else {
-            this.sessionService.setItem("ng-prime-language", "en");
-        }
+    debugger;
+    let loginuser = this.sessionService.getSession();
+    console.log('loginuser ', loginuser);
 
-        debugger;
-        let loginuser = this.sessionService.getSession();
-        console.log('loginuser ', loginuser);
+    this.sessionService.setItem("userid", loginuser.userid);
+    this.sessionService.setItem("username", loginuser.username);
+    this.sessionService.setItem("role", loginuser.role);
+    this.sessionService.setItem("countrycode", loginuser.countrycode);
+    this.sessionService.setItem("usersource", loginuser.usersource);
+    this.sessionService.setItem("applicantid", loginuser.applicantid);
+    this.sessionService.setItem("selected-theme", this.theme);
+    this.sessionService.setItem("selected-layout", loginuser.layoutpage);
+    this.sessionService.setItem("applicantid", loginuser.key);
+    this.sessionService.setItem("user_type", loginuser.user_type);
+    this.sessionService.setItem("email", loginuser.email);
+    this.sessionService.setItem("mobilenumber", loginuser.mobilenumber);
+    this.sessionService.setItem("emailid", loginuser.emailid);
+    this.sessionService.setItem("employeeid", loginuser.employeeid);
+    // localStorage.setItem("termid", user.terms.termid);
 
-        this.sessionService.setItem("userid", loginuser.userid);
-        this.sessionService.setItem("username", loginuser.username);
-        this.sessionService.setItem("role", loginuser.role);
-        this.sessionService.setItem("countrycode", loginuser.countrycode);
-        this.sessionService.setItem("usersource", loginuser.usersource);
-        this.sessionService.setItem("applicantid", loginuser.applicantid);
-        this.sessionService.setItem("selected-theme", this.theme);
-        this.sessionService.setItem("selected-layout", loginuser.layoutpage);
-        this.sessionService.setItem("applicantid", loginuser.key);
-        this.sessionService.setItem("user_type", loginuser.user_type);
-        this.sessionService.setItem("email", loginuser.email);
-        this.sessionService.setItem("mobilenumber", loginuser.mobilenumber);
-        this.sessionService.setItem("emailid", loginuser.emailid);
-        // localStorage.setItem("termid", user.terms.termid);
-
-        //this.themeService.selectTheme(this.theme);
+    //this.themeService.selectTheme(this.theme);
 
 
-        if (loginuser.nextloginchangepassword == 'True') {
-            this.router.navigate(['/resetpassword']);
-            return;
-        }
-        // if (user.terms.terms) {
-        if (loginuser.defaultpage == null || !loginuser.defaultpage) {
-            this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID( loginuser.applicantid).then((res: any) => {
-                console.log("response", res.mstapplicantskilldetail);
-                if(res.mstapplicantskilldetail.length > 0){
-                    this.router.navigate(['/home']);
-                }else{
-              this.router.navigate(['/home/personaldetails']);        
-                }
-            });
-            if(loginuser.role == '1' || loginuser.role == '3'){
-                this.mstcorporatemasterservice.getListBy_userid(0 + this.sessionService.getItem("userid")).then(res => {
-                    this.pkcorporateid = res[0].corporateid;
-                    localStorage.setItem("coporateid", this.pkcorporateid);
-                    this.router.navigate(['/home']);
-                  });
-            }
-
-            //this.routeStateService.add("Home", '/home/showdashboard/1', null, true);
-            // if(localStorage.getItem('role') == '3' || localStorage.getItem('role') == '1'){
-            //   this.router.navigate(['/home']);
-            // }else{
-            //   this.router.navigate(['/home/personaldetails']);
-            // }
-            if (this.rememberMe == false) {
-                // console.log(this.bologinForm.get('rememberMe').value);
-                this.rememberMe = false;
-                this.email = localStorage.removeItem("email");
-                this.password = localStorage.removeItem("password");
-                this.remem = localStorage.removeItem("rememberMe");
-            }
-            // return;
-        }
-        //
-        else {
+    if (loginuser.nextloginchangepassword == 'True') {
+      this.router.navigate(['/resetpassword']);
+      return;
+    }
+    // if (user.terms.terms) {
+    if (loginuser.defaultpage == null || !loginuser.defaultpage) {
+      if (loginuser.role == "2") {
+        this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(loginuser.applicantid).then((res: any) => {
+          console.log("response", res.mstapplicantskilldetail);
+          if (res.mstapplicantskilldetail.length > 0) {
             this.router.navigate(['/home']);
-            // this.router.navigate(['/home/personaldetails']);
-        }
-        //this.routeStateService.add("Home", loginuser.defaultpage, null, true);
-
-        //this.router.navigate([loginuser.defaultpage]);
-        //
-        return;
-        // }
-    }
-    test() {
-        this.emailvalidation = false
-    }
-    test1() {
-        this.passvalidation = false
-    }
-
-    onSubmit() {
-        debugger
-        this.login_validation = true;
-
-        this.rememberme(this.bologinForm.get('rememberMe').value);
-        if (this.bologinForm.invalid) {
-            this.emailvalidation = !this.emailvalidation;
-            this.passvalidation = !this.passvalidation
-        }
-        this.spinner.show();
-        //let user: bousermaster = this.userService.getUserByemailAndPassword(this.bologinForm.get('email').value, this.bologinForm.get('password').value);
-        this.userService.login(this.bologinForm.get('email').value, this.bologinForm.get('password').value, this.bologinForm.get('rememberMe').value).then((res: any) => {
-            this.spinner.hide();
-            let user: any = res;
-            localStorage.setItem('login', 'true')
-            localStorage.removeItem('token');
-            localStorage.setItem('token', user.token)
-            if (user) {
-                if (user.terms != null) {
-                    localStorage.setItem('terms', user.terms.terms);
-                    this.dialog.open(msttermnewComponent,
-                        {
-                            width: '100% !important',
-                            height: 'auto !important',
-                            data: { ScreenType: 2, save: true },
-                            contentStyle: { "padding": "0px" },
-                        }
-                    ).onClose.subscribe(res => {
-                        debugger
-                        if (res) {
-                            this.CheckAgreeOk(user);
-                        }
-                    });
-                } else {
-                    // return;
-                    this.CheckAgreeOk(user);
-                }
-            } else {
-                this.toastService.addSingle('error', '', 'Invalid user.');
-                return;
-            }
-        }).catch((err) => {
-            this.toastService.addSingle("error", "", err.error);
+          } else {
+            this.router.navigate(['/home/personaldetails']);
+          }
         });
-    };
+      }
+      if (loginuser.role == '3') {
+        this.mstcorporatemasterservice.getListBy_userid(0 + this.sessionService.getItem("userid")).then(res => {
+          debugger;
+          console.log('resresres',res);
+          this.pkcorporateid = res[0].corporateid;
+          localStorage.setItem("coporateid", this.pkcorporateid);
+          this.router.navigate(['/home']);
+        });
+      }else if(loginuser.role == '1'){
+        this.mstcorporatemasterservice.getListBy_userid(0 + this.sessionService.getItem("userid")).then(res => {
+          debugger;
+          console.log('resresres',res);
+          this.employeeid = res[0].employeeid;
+          localStorage.setItem("employeeid", this.employeeid);
+          this.router.navigate(['/home']);
+        });
+      }
 
-    rememberme(Remember) {
-        debugger
-        console.log('Remember ', Remember)
-        if (Remember) {
-            localStorage.setItem("email", this.bologinForm.get('email').value);
-            localStorage.setItem('rememberMe', this.bologinForm.get('rememberMe').value)
-            localStorage.setItem("password", this.bologinForm.get('password').value);
-            this.rememberMe = true;
-        } else if (this.rememberMe == false) {
-            console.log(this.bologinForm.get('rememberMe').value);
-            this.rememberMe = false;
-            // this.email = localStorage.removeItem("email");
-            // this.password = localStorage.removeItem("password");
-            // this.remem = localStorage.removeItem("rememberMe");
-        }
+      //this.routeStateService.add("Home", '/home/showdashboard/1', null, true);
+      // if(localStorage.getItem('role') == '3' || localStorage.getItem('role') == '1'){
+      //   this.router.navigate(['/home']);
+      // }else{
+      //   this.router.navigate(['/home/personaldetails']);
+      // }
+      if (this.rememberMe == false) {
+        // console.log(this.bologinForm.get('rememberMe').value);
+        this.rememberMe = false;
+        this.email = localStorage.removeItem("email");
+        this.password = localStorage.removeItem("password");
+        this.remem = localStorage.removeItem("rememberMe");
+      }
+      // return;
     }
-    selectTheme(theme: string) {
-        this.sessionService.setItem("selected-theme", theme);
-        this.themeService.selectTheme(theme);
+    //
+    else {
+      this.router.navigate(['/home']);
+      // this.router.navigate(['/home/personaldetails']);
     }
-    onLanguageChange($event) {
-        this.locale = $event.target.value;
-        if (this.locale == undefined || this.locale == null || this.locale.length == 0) {
-            this.locale = "en";
-        }
-        // the lang to use, if the lang isn't available, it will use the current loader to get them
-        //this.translate.use(this.locale);
-        this.sessionService.setItem("ng-prime-language", this.locale);
-    }
-    private onValueChanged(data?: any): void {
-        if (!this.bologinForm) { return; }
+    //this.routeStateService.add("Home", loginuser.defaultpage, null, true);
 
-        for (const field in this.formErrors) {
-            // clear previous error message (if any)
-            this.formErrors[field] = '';
-            const control = this.bologinForm.get(field);
+    //this.router.navigate([loginuser.defaultpage]);
+    //
+    return;
+    // }
+  }
+  test() {
+    this.emailvalidation = false
+  }
+  test1() {
+    this.passvalidation = false
+  }
 
-            if (control && control.dirty && !control.valid) {
-                const messages = this.validationMessages[field];
-                for (const key in control.errors) {
-                    this.formErrors[field] += messages[key] + ' ';
-                }
-            }
-        }
+  onSubmit() {
+    debugger
+    this.login_validation = true;
+
+    this.rememberme(this.bologinForm.get('rememberMe').value);
+    if (this.bologinForm.invalid) {
+      this.emailvalidation = !this.emailvalidation;
+      this.passvalidation = !this.passvalidation
     }
-    get f() { return this.bologinForm.controls; }
-    UserSignin() {
-        /*
-        this.dialog.open(bouserregistrationComponent,
+    this.spinner.show();
+    //let user: bousermaster = this.userService.getUserByemailAndPassword(this.bologinForm.get('email').value, this.bologinForm.get('password').value);
+    this.userService.login(this.bologinForm.get('email').value, this.bologinForm.get('password').value, this.bologinForm.get('rememberMe').value).then((res: any) => {
+      this.spinner.hide();
+      let user: any = res;
+      localStorage.setItem('login', 'true')
+      localStorage.removeItem('token');
+      localStorage.setItem('token', user.token)
+      if (user) {
+        if (user.terms != null) {
+          localStorage.setItem('terms', user.terms.terms);
+          this.dialog.open(msttermnewComponent,
             {
-                data: { save: true, ScreenType: 1 },
+              width: '100% !important',
+              height: 'auto !important',
+              data: { ScreenType: 2, save: true },
+              contentStyle: { "padding": "0px" },
             }
-        )
-        */
-        this.dialog.open(bouserregistrationComponent,
-            {
-                data: { save: true, ScreenType: 2, formtemplate: '' },
+          ).onClose.subscribe(res => {
+            debugger
+            if (res) {
+              this.CheckAgreeOk(user);
             }
-        )
-        return false;
-    }
-    CompanySignin() {
-        this.dialog.open(bocompanyregistrationComponent,
-            {
-                data: { save: true, ScreenType: 2, formtemplate: 'login' },
-            }
-        )
-        return false;
-    }
-
-    formErrors = {
-        'email': '',
-        'password': ''
-    };
-
-    toggleFieldTextType() {
-        this.fieldTextType = !this.fieldTextType;
-    }
-    validationMessages = {
-        'email': {
-            'required': 'email is required.',
-            'minlength': 'email must be at least ' + this.minlengthemail + ' characters long.',
-            'email': 'Enter valid email'
-        },
-        'password': {
-            'required': 'Password is required.',
-            'minlength': 'Password must be at least ' + this.minlengthPassword + ' characters long.'
-        }
-    };
-    gotoRegister() {
-        this.router.navigate(['registernew']);
-    };
-
-
-
-    loginOtp(data: any) {
-        this.password = "";
-        this.spinner.show();
-
-
-
-        if (data.value.email == null) {
-            this.toastService.addSingle("success", " ", "Please Enter Email or Mobile Number.");
-            this.spinner.hide();
+          });
         } else {
-            let verify_data = {
-                email: data.value.email,
-                otpm: null,
-                otpe: null,
-            }
+          // return;
+          this.CheckAgreeOk(user);
+        }
+      } else {
+        this.toastService.addSingle('error', '', 'Invalid user.');
+        return;
+      }
+    }).catch((err) => {
+      this.toastService.addSingle("error", "", err.error);
+    });
+  };
 
-            console.log(verify_data);
-            let options = new HttpHeaders().set('Content-Type', 'application/json');
-            return this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + verify_data.email + '&otpm=' + verify_data.otpm + '&otpe=' + verify_data.otpe)
-                .subscribe((resp: any) => {
-                    this.spinner.hide();
-
-
-                    this.otp_resp = resp;
-                    this.verifyMob_Otp = this.otp_resp.mobileotp;
-                    this.verifyEmail_Otp = this.otp_resp.emailotp;
-                    this.verify_outputstring = this.otp_resp.outputstring;
-
-                    this.toastService.addSingle("success", "", "OTP has send to your registered mail id and Mobilenumber.");
-
-                    if (this.verify_outputstring == "OTP has send to your registered mail id and Mobilenumber") {
-
-                        this.router.navigate(['verify'], { queryParams:  {mobotp: this.verifyMob_Otp,emailotp:this.verifyEmail_Otp,email: verify_data.email } , skipLocationChange: true});
-                    };
-                })
-        };
+  rememberme(Remember) {
+    debugger
+    console.log('Remember ', Remember)
+    if (Remember) {
+      localStorage.setItem("email", this.bologinForm.get('email').value);
+      localStorage.setItem('rememberMe', this.bologinForm.get('rememberMe').value)
+      localStorage.setItem("password", this.bologinForm.get('password').value);
+      this.rememberMe = true;
+    } else if (this.rememberMe == false) {
+      console.log(this.bologinForm.get('rememberMe').value);
+      this.rememberMe = false;
+      // this.email = localStorage.removeItem("email");
+      // this.password = localStorage.removeItem("password");
+      // this.remem = localStorage.removeItem("rememberMe");
     }
+  }
+  selectTheme(theme: string) {
+    this.sessionService.setItem("selected-theme", theme);
+    this.themeService.selectTheme(theme);
+  }
+  onLanguageChange($event) {
+    this.locale = $event.target.value;
+    if (this.locale == undefined || this.locale == null || this.locale.length == 0) {
+      this.locale = "en";
+    }
+    // the lang to use, if the lang isn't available, it will use the current loader to get them
+    //this.translate.use(this.locale);
+    this.sessionService.setItem("ng-prime-language", this.locale);
+  }
+  private onValueChanged(data?: any): void {
+    if (!this.bologinForm) { return; }
+
+    for (const field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = this.bologinForm.get(field);
+
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+  get f() { return this.bologinForm.controls; }
+  UserSignin() {
+    /*
+    this.dialog.open(bouserregistrationComponent,
+        {
+            data: { save: true, ScreenType: 1 },
+        }
+    )
+    */
+    this.dialog.open(bouserregistrationComponent,
+      {
+        data: { save: true, ScreenType: 2, formtemplate: '' },
+      }
+    )
+    return false;
+  }
+  CompanySignin() {
+    this.dialog.open(bocompanyregistrationComponent,
+      {
+        data: { save: true, ScreenType: 2, formtemplate: 'login' },
+      }
+    )
+    return false;
+  }
+
+  formErrors = {
+    'email': '',
+    'password': ''
+  };
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
+  validationMessages = {
+    'email': {
+      'required': 'email is required.',
+      'minlength': 'email must be at least ' + this.minlengthemail + ' characters long.',
+      'email': 'Enter valid email'
+    },
+    'password': {
+      'required': 'Password is required.',
+      'minlength': 'Password must be at least ' + this.minlengthPassword + ' characters long.'
+    }
+  };
+  gotoRegister() {
+    this.router.navigate(['registernew']);
+  };
+
+
+
+  loginOtp(data: any) {
+    this.password = "";
+    this.spinner.show();
+
+
+
+    if (data.value.email == null) {
+      this.toastService.addSingle("success", " ", "Please Enter Email or Mobile Number.");
+      this.spinner.hide();
+    } else {
+      let verify_data = {
+        email: data.value.email,
+        otpm: null,
+        otpe: null,
+      }
+
+      console.log(verify_data);
+      let options = new HttpHeaders().set('Content-Type', 'application/json');
+      return this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + verify_data.email + '&otpm=' + verify_data.otpm + '&otpe=' + verify_data.otpe)
+        .subscribe((resp: any) => {
+          this.spinner.hide();
+
+
+          this.otp_resp = resp;
+          this.verifyMob_Otp = this.otp_resp.mobileotp;
+          this.verifyEmail_Otp = this.otp_resp.emailotp;
+          this.verify_outputstring = this.otp_resp.outputstring;
+
+          this.toastService.addSingle("success", "", "OTP has send to your registered mail id and Mobilenumber.");
+
+          if (this.verify_outputstring == "OTP has send to your registered mail id and Mobilenumber") {
+
+            this.router.navigate(['verify'], { queryParams: { mobotp: this.verifyMob_Otp, emailotp: this.verifyEmail_Otp, email: verify_data.email }, skipLocationChange: true });
+          };
+        })
+    };
+  }
 }
