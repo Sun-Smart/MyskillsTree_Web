@@ -22,7 +22,7 @@
 
         </div>
 
-                         
+
         <!--kbid-->
 
         <div *ngIf="hidelist.indexOf('kbid')<0" class=" p-float-label  p-col-12 p-md-3">
@@ -53,7 +53,7 @@
             errorMsg="{{'Enter'| translate}} {{'Description' | translate}}">
           </app-field-error-display>
         </div>
-        <div *ngIf="hidelist.indexOf('sequence')<0" class="  p-float-label  p-col-12 p-md-3">
+        <div *ngIf="hidelist.indexOf('sequence')<0" class="p-float-label  p-col-12 p-md-3" style="position: relative;right: 370px;">
 
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.sequence?.value}}</label>
           <input type="text" pInputText *ngIf="!showview" id="sequence"
