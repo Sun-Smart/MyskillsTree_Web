@@ -273,8 +273,10 @@ export class mstapplicantmasterviewComponent implements OnInit {
   readMoreBtn: boolean = true;
   applicantid: any;
   isadmin: boolean;
-  iseditbuttonshow: boolean;
+  iseditbuttonshow: boolean = false;
   userrole: string;
+  sub: any;
+  checkdata: any;
 
   constructor(
     private nav: Location,
@@ -427,11 +429,23 @@ export class mstapplicantmasterviewComponent implements OnInit {
       this.isadmin = true;
     } else if (localStorage.getItem("role") == '3') {
       this.userrole = 'Corporate';
-      this.iseditbuttonshow = false;
     } else if (localStorage.getItem("role") == '2') {
       this.userrole = 'Applicant';
-      this.iseditbuttonshow = true;
-    }
+    };
+
+    this.sub = this.currentRoute.queryParams.subscribe((params: any) => {
+      this.checkdata = params;
+
+      console.log("this.checkdata",this.checkdata.show);
+
+      if(this.checkdata.show == "true"){
+        this.iseditbuttonshow = true;
+      }else{
+        this.iseditbuttonshow = false;
+      }
+      
+    });
+
     //session & theme
     this.themeService.theme.subscribe((val: string) => {
       this.theme = val;

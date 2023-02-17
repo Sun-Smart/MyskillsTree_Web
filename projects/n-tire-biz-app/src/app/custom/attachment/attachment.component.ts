@@ -115,7 +115,7 @@ const URL = AppConstants.UploadURL;
     </ng-container>
 
     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="top:8px;">
-    <label>Select</label> <br>
+    <!-- <label>Select</label> <br> -->
 
      <!-- <input type="file"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" /> -->
      <input type="file" style="" #myImageInput formControlName="ImageName"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="mobileviewAttachment" />

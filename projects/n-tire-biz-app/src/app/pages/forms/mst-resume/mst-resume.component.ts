@@ -202,9 +202,6 @@ export class MstResumeComponent implements OnInit {
         this.objvalues.push((res as any).mstapplicantmaster);
 
       });
-
-
-
   }
 
   attachmentuploader(e: any) {

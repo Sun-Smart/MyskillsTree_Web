@@ -103,11 +103,6 @@ export class BonewtopicComponent implements OnInit {
   sessionData: any;
   sourceKey: any;
 
-
-
-
-
-
   constructor(
       private nav: Location,
       private translate: TranslateService, private router: Router,
@@ -204,6 +199,8 @@ export class BonewtopicComponent implements OnInit {
 
   // initialize
   async ngOnInit() {
+    this.sessionService.setItem("choosefileforprofile", "ok");
+    this.sessionData = this.sessionService.getSession();
       try {
           if (this.panelscroller != undefined) (this.panelscroller as any)?.scrollTop(0);
 

@@ -81,6 +81,7 @@ export class HeaderComponent implements OnInit {
   showmobilenumber: boolean;
   isrelease: boolean;
   pkcorporateid: any;
+  show_dashboard: boolean = true;
 
 
   constructor(
@@ -463,7 +464,7 @@ export class HeaderComponent implements OnInit {
       {
         width: '100% !important',
         height: '250px',
-      contentStyle: 'mobileView',
+        contentStyle: 'mobileView',
         data: { ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {
@@ -582,10 +583,11 @@ export class HeaderComponent implements OnInit {
     debugger
     var showmyproid = "showMyPro";
     localStorage.setItem('showprofile', showmyproid);
-    this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')]);
+
+    this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')], { queryParams: { show: this.show_dashboard } });
   }
 
-  showNewApplicantDetails(){
+  showNewApplicantDetails() {
     this.router.navigate(['/home/personaldetails']);
   }
 

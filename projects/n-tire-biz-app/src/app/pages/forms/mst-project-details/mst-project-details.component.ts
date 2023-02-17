@@ -161,9 +161,7 @@ export class MstProjectDetailsComponent implements OnInit {
     this.mstapplicantworkreference_Form.patchValue({
     });
   }
-  addcertification() {
-    this.route.navigate(['/home/newcertification']);
-  }
+
   AddmoreSubmitData(){
     debugger;
     this.isSubmitted = true;
@@ -198,7 +196,12 @@ export class MstProjectDetailsComponent implements OnInit {
         console.log(err);
       }
     )
+  };
+
+  addcertification() {
+    this.route.navigate(['/home/newcertification']);
   }
+
   back() {
     this.route.navigate(['/home/newcareerdetails'])
   }
