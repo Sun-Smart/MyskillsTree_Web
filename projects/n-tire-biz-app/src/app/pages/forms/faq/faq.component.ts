@@ -180,7 +180,6 @@ export class FaqComponent implements OnInit {
   }
   async ngOnInit() {
     debugger;
-    alert('hi');
     try {
       if (this.panelscroller != undefined) (this.panelscroller as any)?.scrollTop(0);
       //session & theme
