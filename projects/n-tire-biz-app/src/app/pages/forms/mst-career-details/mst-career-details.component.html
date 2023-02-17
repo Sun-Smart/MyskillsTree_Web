@@ -39,7 +39,7 @@
 
                     <div class="col-6">
                         <label for="fromdate" class="control-label required">From Date</label>
-                        <div style="display: flex;width: 100%;">
+                        <div style="display: flex;width: 95%;">
                             <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
                                 [maxDate]="maxDate" name="fromdateformpicker" id="fromdate" required
                                 formControlName="fromdate" style="margin-right: 5px;" class="form-control">
@@ -51,7 +51,7 @@
                     <div class="col-6">
                         <label for="todate" class="control-label required">To Date</label>
 
-                        <div style="display: flex;width: 100%;">
+                        <div style="display: flex;width: 95%;">
                             <input #t="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
                                 [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate"
                                 class="form-control" style="margin-right: 5px;">

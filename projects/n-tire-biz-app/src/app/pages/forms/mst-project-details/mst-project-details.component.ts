@@ -7,6 +7,8 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
+import { DatePipe } from '@angular/common';
+import { DynamicDialogConfig } from 'primeng/dynamicDialog';
 
 @Component({
   selector: 'app-mst-project-details',
@@ -21,6 +23,7 @@ export class MstProjectDetailsComponent implements OnInit {
   applicantid: any;
   pkcol: any;
   data: any;
+  myDate: any;
   applicantid_List: DropDownValues[];
   skills_results: DropDownValues[];
   skills_List: any[] = [];
@@ -28,14 +31,24 @@ export class MstProjectDetailsComponent implements OnInit {
   objvalues: any = [];
   constructor(private route: Router, private mstapplicantworkreference_service: mstapplicantworkreferenceService,
     private sessionService: SessionService, private fb: FormBuilder, private spinner: NgxSpinnerService,
-    private toastr: ToastService,) {
+    private toastr: ToastService,  private datePipe: DatePipe,  public dynamicconfig: DynamicDialogConfig) {
+
+      var date = new Date()
+      this.myDate = this.datePipe.transform(date);
+      this.data = dynamicconfig;
+      if (this.data != null && this.data.data != null) {
+        this.data = this.data.data;
+      }
     this.loginUser = localStorage.getItem('username');
-    // this.pkcol = this.data.maindatapkcol;
-    // this.applicantid = this.data.applicantid;
+
+    this.pkcol = this.data.maindatapkcol;
+    this.applicantid = localStorage.getItem('applicantid');
+
+
     this.mstapplicantworkreference_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: this.sessionService.getItem('applicantid'),
+      applicantid: this.applicantid,
       applicantiddesc: [null],
       workreferenceid: [null],
       companyname: [null],
@@ -113,6 +126,7 @@ export class MstProjectDetailsComponent implements OnInit {
     }
     this.formData = this.mstapplicantworkreference_Form.getRawValue();
     this.formData.skills = null;
+    this.formData.applicantid = this.applicantid;
 
     if (this.mstapplicantworkreference_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantworkreference_Form.get('skills').value));
     console.log(this.formData);
@@ -160,6 +174,7 @@ export class MstProjectDetailsComponent implements OnInit {
     }
     this.formData = this.mstapplicantworkreference_Form.getRawValue();
     this.formData.skills = null;
+    this.formData.applicantid = this.applicantid;
 
     if (this.mstapplicantworkreference_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantworkreference_Form.get('skills').value));
     console.log(this.formData);
