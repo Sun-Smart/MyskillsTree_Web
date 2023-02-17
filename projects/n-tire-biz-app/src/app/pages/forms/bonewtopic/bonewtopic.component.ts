@@ -12,7 +12,7 @@ import { ReportViewerCtrlComponent } from '../../../../../../n-tire-bo-app/src/a
 import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../shared/general.validator';
 
 //child table
-
+                    
 //Custom control
 import { durationComponent } from '../../../custom/duration.component';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';

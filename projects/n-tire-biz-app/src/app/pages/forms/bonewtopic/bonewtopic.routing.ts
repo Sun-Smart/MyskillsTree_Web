@@ -8,3 +8,4 @@ const routes: Routes = [
 ];
 
 export const BonewtopicRoutes = RouterModule.forChild(routes);
+                    

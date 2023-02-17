@@ -13,3 +13,4 @@ import { SharedService } from 'projects/n-tire-bo-app/src/app/service/shared.ser
   providers: [bokbtopicService, SharedService]
 })
 export class BonewtopicModule { }
+             
