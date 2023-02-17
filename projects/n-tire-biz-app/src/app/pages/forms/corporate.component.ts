@@ -180,6 +180,7 @@ export class CorporateDashboardComponent implements OnInit {
 
   constructor(private sessionService: SessionService,
     private mstapplicantmaster_service: mstapplicantmasterService) {
+        this.coporate_id = localStorage.getItem("coporateid");
   }
 
   ngOnInit() {
@@ -207,7 +208,6 @@ export class CorporateDashboardComponent implements OnInit {
   };
 
   corporate_dashboard() {
-
     if(this.sessionService.getItem('role') == '3'){
       this.coporate_id = localStorage.getItem("coporateid");
     }else if(this.sessionService.getItem('role') == '1'){

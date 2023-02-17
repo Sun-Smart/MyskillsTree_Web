@@ -37,6 +37,7 @@ export class bokbmasterService {
   }
 
   async getDefaultData(): Promise<any> {
+    debugger;
     if (this.valid()) {
       let res = await this.http.get(AppConstants.ntireboURL + '/bokbmaster/getdefaultdata').toPromise();
       return res;

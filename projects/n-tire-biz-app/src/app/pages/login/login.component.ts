@@ -495,6 +495,7 @@ export class LoginComponent implements OnInit {
     }
     // if (user.terms.terms) {
     if (loginuser.defaultpage == null || !loginuser.defaultpage) {
+
       if (loginuser.role == "2") {
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(loginuser.applicantid).then((res: any) => {
           console.log("response", res.mstapplicantskilldetail);
@@ -513,7 +514,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("coporateid", this.pkcorporateid);
           this.router.navigate(['/home']);
         });
-      }else if(loginuser.role == '1'){
+      }else  if(loginuser.role == '1'){
         this.mstcorporatemasterservice.getListBy_userid(0 + this.sessionService.getItem("userid")).then(res => {
           debugger;
           console.log('resresres',res);
@@ -525,7 +526,8 @@ export class LoginComponent implements OnInit {
 
       //this.routeStateService.add("Home", '/home/showdashboard/1', null, true);
       // if(localStorage.getItem('role') == '3' || localStorage.getItem('role') == '1'){
-      //   this.router.navigate(['/home']);
+        // this.router.navigate(['/home']);
+      // this.router.navigate(['/home']);
       // }else{
       //   this.router.navigate(['/home/personaldetails']);
       // }

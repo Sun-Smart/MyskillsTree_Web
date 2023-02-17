@@ -1,6 +1,7 @@
 .startpagecontent {
   // margin-top: 50px;
 }
+
 .main-contentainer {
   width: 100%;
   height: 100vh;
@@ -19,21 +20,25 @@
     color: rgb(135, 22, 22);
     font-size: 25px;
   }
+
   h6 {
     padding-left: 15px !important;
     color: rgb(135, 22, 22);
     font-size: 25px;
   }
+
   label {
     margin-left: 1rem;
     font-size: 25px;
     color: var(--blue);
   }
+
   .applicant-name-label {
     padding: 13px;
     color: #000;
     font-weight: 600;
   }
+
   p {
     margin-left: 1rem;
   }
@@ -43,9 +48,11 @@
   width: 75%;
   height: 100%;
   float: left;
+
   form {
     margin: 1rem;
   }
+
   .header-bar {
     height: 35px;
     background-color: #cbf29f;
@@ -53,7 +60,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    h6{
+
+    h6 {
       color: #871616;
       font-weight: 700;
     }
@@ -62,10 +70,12 @@
 
 .applicant-form {
   margin: 10px;
+
   label {
     font-size: 12px;
     margin-bottom: 0px;
   }
+
   select {
     font-size: 11px;
   }
@@ -77,6 +87,7 @@
   justify-content: end;
   align-items: center;
   z-index: 1;
+
   button {
     border: 0px;
     background-color: rgb(135, 22, 22);
@@ -85,18 +96,23 @@
     padding: 5px 10px;
     border-radius: 4px;
     box-shadow: 1px 1px 2px 0px #000;
-  };
-  img{
+  }
+
+  ;
+
+  img {
     width: 100px;
     height: 70px;
     margin: 15px;
     margin-top: 23px;
   }
 
-};
+}
 
-.back-button{
-  img{
+;
+
+.back-button {
+  img {
     width: 100px;
     height: 70px;
     margin: 15px;
@@ -176,4 +192,31 @@
       border: none !important;
     }
   }
-};
+}
+
+;
+
+@media only screen and (max-width: 600px) {
+  .inline-curve {
+    width: 100% !important;
+    height: auto !important;
+    border-top-right-radius: 1310px 340px !important;
+  }
+
+  .outline-curve {
+    width: 100% !important;
+  }
+  .main-contentainer {
+    overflow-y: scroll !important;
+    height: 695px !important;
+  }
+  .extra-header-box{
+    display: none !important;
+  }
+  .extra-right-box{
+    display: none !important;
+  }
+  .extra-right-box-overlap{
+    display: none !important;
+  }
+}

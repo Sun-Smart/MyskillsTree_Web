@@ -19,7 +19,7 @@
       <form [formGroup]="mstapplicantmaster_Form" >
         <div class="row applicant-form">
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="applicanttype" class="control-label required">Type</label>
             <select id="applicanttype" required (change)="applicanttype_onChange($event.target)"
               formControlName="applicanttype" class="form-control">
@@ -28,17 +28,17 @@
             </select>
           </div>
 
-          <div class="col-lg-4 col-md-4 col-sm-12 col-sm-12">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label class="control-label required">First Name</label>
             <input id="firstname" formControlName="firstname" class="form-control">
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="lastname" class="control-label required">Last Name</label>
             <input id="lastname" formControlName="lastname" class="form-control">
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="gender" class="control-label">Gender</label>
             <select id="gender" (change)="gender_onChange($event.target)" formControlName="gender" class="form-control">
               <option [ngValue]="null" selected>-Select-</option>
@@ -46,19 +46,19 @@
             </select>
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="emailid" class="control-label required">Email</label>
             <input type="email" [email]="true" id="emailid" formControlName="emailid" class="form-control">
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="mobilenumber" class="control-label required">Mobile Number</label>
             <int-phone-prefix id="mobilenumber" required formControlName="mobilenumber" [locale]="'en'"
               class="form-control telephone">
             </int-phone-prefix>
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="dob" class="control-label">Date Of Birth</label>
             <div style="display: flex;">
               <input #dobformpicker="ngbDatepicker" [minDate]="{year: 1950, month: 1, day: 1}" [maxDate]="maxDate"
@@ -68,31 +68,31 @@
             </div>
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="emailid" class="control-label required">Recovery Email</label>
             <input type="email" [email]="true" id="recoveryemailid" formControlName="recoveryemailid" class="form-control">
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="address1" class="control-label">Address 1</label>
             <input id="address1" formControlName="address1" class="form-control">
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="address2" class="control-label">Address 2</label>
             <input id="address2" formControlName="address2" class="form-control">
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="address3" class="control-label">Address 3</label>
             <input id="address3" formControlName="address3" class="form-control">
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="address3" class="control-label">Country</label>
 
             <app-popupselect [formControl]="mstapplicantmaster_Form.controls['country']" [options]="country_List"
@@ -100,7 +100,7 @@
               [reportid]='wc9rn' [menuid]='wc9rn' formControlName="country" id="value" desc="label"></app-popupselect>
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="state" class="control-label">State</label>
 
             <app-popupselect [formControl]="mstapplicantmaster_Form.controls['state']" [options]="state_List"
@@ -108,7 +108,7 @@
               [reportid]='tyo5r' [menuid]='tyo5r' formControlName="state" id="value" desc="label"></app-popupselect>
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="city" class="control-label">City</label>
 
             <app-popupselect [formControl]="mstapplicantmaster_Form.controls['city']" [options]="city_List"
@@ -116,28 +116,28 @@
               [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value" desc="label"></app-popupselect>
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="zipcode" class="control-label">Zip Code</label>
             <input id="zipcode" formControlName="zipcode" class="form-control">
           </div>
 
-          <div class="col-4">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="profilephoto" class="control-label">Photo</label>
             <!-- <label *ngIf="showview" class="labelview">{{f.profilephoto?.value[0]?.name}}</label> -->
             <app-attachment #profilephoto formControlName="profilephoto" [showremove]='bmyrecord'
               [SessionData]="sessionData"></app-attachment>
           </div>
           <br><br>
-          <div class="col-4"></div>
-        
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
 
-          <div class="col-6">
+
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <label for="briefintroduction" class="control-label">Brief Introduction</label>
             <textarea autosize onlyGrow="true" id="briefintroduction"
             formControlName="briefintroduction" class="form-control" style="height: 50px !important;"></textarea>
           </div>
 
-          <div class="col-6">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <label for="statuscrimp" class="control-label">Status Crimp</label>
             <textarea autosize onlyGrow="true" id="statuscrimp"
             formControlName="statuscrimp" class="form-control" style="height: 50px !important;"></textarea>
@@ -145,7 +145,7 @@
 
 
           <div class="col-12 button-css">
-           
+
             <img src="assets/newstartup/AddSkills1.png" alt=""  (click)="onSubmit()">
           </div>
 

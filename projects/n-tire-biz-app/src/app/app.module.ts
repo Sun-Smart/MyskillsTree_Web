@@ -118,7 +118,8 @@ import { MstResumeComponent } from './pages/forms/mst-resume/mst-resume.componen
 import { MstSkillDetsilsComponent } from './pages/forms/mst-skill-detsils/mst-skill-detsils.component';
 import { MstSocialMediaComponent } from './pages/forms/mst-social-media/mst-social-media.component';
 import { MstStartPagesComponent } from './pages/forms/mst-start-pages/mst-start-pages.component';
-
+import {PickListModule} from 'primeng/picklist';
+import {InputSwitchModule} from 'primeng/inputswitch';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -177,7 +178,7 @@ export function tokenGetter() {
         NgbDatepickerModule,
         OverlayPanelModule,
         HttpClientModule,
-        NgScrollbarModule,
+        NgScrollbarModule,PickListModule,InputSwitchModule,
         AppRoutingModule,
         AutoCompleteModule,
         // Optionally you can set time for `idle`, `timeout` and `ping` in seconds.

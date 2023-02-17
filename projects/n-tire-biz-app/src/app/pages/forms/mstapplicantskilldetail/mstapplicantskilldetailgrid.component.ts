@@ -270,16 +270,22 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
   <option [ngValue]="null" [disabled]="true">-Select-</option>
   <option *ngFor="let item of Segmentcategory_list" value="{{item.value}}">{{item.label}}</option>
 </select>
+<input *ngIf="showinput1" class="form-control" id="segmentid" formControlName="segmentcategoryothers"
+          type="text" style="margin: 5px 0">
 <label>Skill Category</label>
           <select class="form-control" formControlName="skillcategory" (change)="skillcategory_onChange($event.target)">
             <option value=null [disabled]="true">-Select-</option>
             <option *ngFor="let item of skillcategory_List" value="{{item.categoryid}}">{{item.name}}</option>
           </select>
+          <input *ngIf="showinput2" class="form-control" id="skillcategory" formControlName="skillcategoryothers"
+          type="text" style="margin: 5px 0">
           <label>Sub Category</label>
           <select class="form-control" formControlName="subcategoryid" (change)="subcategoryid_onChange($event.target)">
             <option value=null [disabled]="true">-Select-</option>
             <option *ngFor="let item of subcategoryid_List" value="{{item.subcategoryid}}">{{item.name}}</option>
           </select>
+          <input *ngIf="showinput3" id="subcategoryid" class="form-control" formControlName="subcategoryidothers"
+          type="text" style="margin: 5px 0">
           <label>Self Rating</label>
         <!-- <label *ngIf="showview" class="labelview">{{f.selfrating?.value}}</label> -->
         <p-rating  id="selfrating" formControlName="selfrating" class="form-control">
