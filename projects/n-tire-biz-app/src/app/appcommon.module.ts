@@ -384,7 +384,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         RouteStateService,
         SessionService,
         ThemeService, ApplicationStateService, UserDataService, UserContextService,
-        DynamicDialogRef, DynamicDialogConfig, DialogService
+        DynamicDialogRef, DynamicDialogConfig, DialogService,
         //SharedService
     ],
 

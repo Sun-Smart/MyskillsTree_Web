@@ -43,7 +43,7 @@ import { AppConstants, DropDownValues } from '../../../shared/helper';
     selector: 'app-bofaq',
     templateUrl: './bofaq.component.html',
     styles: [],
-    providers: [KeyboardShortcutsService]
+    providers: [KeyboardShortcutsService,SharedService]
 })
 
 
@@ -270,7 +270,7 @@ export class bofaqComponent implements OnInit {
                 this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
                 this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
             }
-            //copy the data from previous dialog 
+            //copy the data from previous dialog
             this.viewHtml = ``;
             this.formData = new bofaq();
             this.PopulateFromMainScreen(this.data, false);
@@ -288,7 +288,7 @@ export class bofaqComponent implements OnInit {
             else {
                 if (this.maindata == undefined || this.maindata == null || this.pkcol != null) await this.PopulateScreen(this.pkcol);
                 //get the record from api
-                //foreign keys 
+                //foreign keys
             }
             this.bofaq_service.getDefaultData().then(res => {
                 this.sourcefield_List = res.list_sourcefield.value;
@@ -328,7 +328,7 @@ export class bofaqComponent implements OnInit {
                 if (this.sharedService.IsDebug) console.log(err);
                 this.toastr.addSingle("error", "", 'bofaqsList ' + err);
             });
-            //setting the flag that the screen is not touched 
+            //setting the flag that the screen is not touched
             this.blockedDocument = false;
             this.bofaq_Form.markAsUntouched();
             this.bofaq_Form.markAsPristine();

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AppConstants, DropDownValues } from '../shared/helper'
 import { SessionService } from '../pages/core/services/session.service';
-import { SharedService } from '../../../../n-tire-bo-app/src/app/service/shared.service';
+import { SharedService } from '../service/shared.service';
 @Injectable({
   providedIn: 'root'
 })
