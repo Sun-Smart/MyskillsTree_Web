@@ -53,12 +53,12 @@ export class MstCertificationsComponent implements OnInit {
     private mstapplicantachievementdetail_service: mstapplicantachievementdetailService,) {
     this.loginUser = localStorage.getItem('username');
 
-    let app_id = localStorage.getItem('applicantid');
+    this.applicantid = localStorage.getItem('applicantid');
 
     this.mstapplicantachievementdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: app_id,
+      applicantid: this.applicantid,
       applicantiddesc: [null],
       achievementid: [null],
       masterdataid: [null, Validators.compose([Validators.required])],
@@ -127,7 +127,7 @@ export class MstCertificationsComponent implements OnInit {
       this.formData.toyear = new Date(this.mstapplicantachievementdetail_Form.get('toyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('toyear').value) + '  UTC' : null);
     }
     this.formData.skills = null;
-
+    this.formData.applicantid = this.applicantid;
     if (this.formData.fromyear > this.formData.toyear) {
       this.showDateError = true;
       return;
@@ -144,10 +144,7 @@ export class MstCertificationsComponent implements OnInit {
           this.objvalues.push((res as any).mstapplicantachievementdetail);
           this.mstapplicantachievementdetail_Form.reset();
         })
-
-
     }
-
   }
   AddmoreSubmitData() {
     debugger
@@ -172,7 +169,7 @@ export class MstCertificationsComponent implements OnInit {
       this.formData.toyear = new Date(this.mstapplicantachievementdetail_Form.get('toyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('toyear').value) + '  UTC' : null);
     }
     this.formData.skills = null;
-
+    this.formData.applicantid = this.applicantid;
     if (this.formData.fromyear > this.formData.toyear) {
       this.showDateError = true;
       return;

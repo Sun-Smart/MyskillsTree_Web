@@ -449,15 +449,8 @@ export class mstapplicantcareergridComponent implements OnInit {
       this.data = this.data.data;
     };
 
-
     this.pkcol = this.data.maindatapkcol;
     this.applicantid = this.data.applicantid;
-
-    // console.log(" dedmekf this.applicantid",  this.applicantid);
-
-
-    // let app_id = localStorage.getItem('applicantid')
-    this.applicantid = localStorage.getItem('applicantid');
   };
 
   async ngOnInit() {
@@ -479,7 +472,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     this.mstapplicantcareerdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid:  this.applicantid,
+      applicantid:this.applicantid,
       applicantiddesc: [null],
       careerid: [null],
       category: [null],
@@ -672,8 +665,6 @@ export class mstapplicantcareergridComponent implements OnInit {
               this.FillData();
             }
           }
-
-
           this.mstapplicantcareerdetail_Form.markAsUntouched();
           this.mstapplicantcareerdetail_Form.markAsPristine();
         },
@@ -682,8 +673,7 @@ export class mstapplicantcareergridComponent implements OnInit {
           this.spinner.hide();
           this.toastr.addSingle("error", "", err.error);
           console.log(err);
-        }
-      )
+        })
     }
 
   }

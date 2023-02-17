@@ -49,7 +49,7 @@ export class MstCareerDetailsComponent implements OnInit {
     public dynamicconfig: DynamicDialogConfig, private config: NgbDatepickerConfig,
     private mstapplicantcareerdetail_service: mstapplicantcareerdetailService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
-    private toastr: ToastService,private sessionService: SessionService,) {
+    private toastr: ToastService, private sessionService: SessionService,) {
 
     var date = new Date()
     this.myDate = this.datePipe.transform(date);
@@ -58,14 +58,16 @@ export class MstCareerDetailsComponent implements OnInit {
       this.data = this.data.data;
     }
 
+    this.pkcol = this.data.maindatapkcol;
+    this.applicantid = localStorage.getItem('applicantid');
 
     this.loginUser = localStorage.getItem('username');
-    let app_id = localStorage.getItem('applicantid');
+
 
     this.mstapplicantcareerdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: app_id,
+      applicantid: this.applicantid,
       // applicantid: this.sessionService.getItem('applicantid'),
       applicantiddesc: [null],
       careerid: [null],
@@ -91,8 +93,8 @@ export class MstCareerDetailsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.pkcol = this.data.maindatapkcol;
-    this.applicantid = this.data.applicantid;
+    // this.pkcol = this.data.maindatapkcol;
+    // this.applicantid = this.data.applicantid;
 
 
     const current = new Date();
@@ -150,7 +152,7 @@ export class MstCareerDetailsComponent implements OnInit {
       this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('todate').value) + '  UTC' : null);
     }
     this.formData.skills = null;
-
+    this.formData.applicantid = this.applicantid;
     if (this.formData.fromdate > this.formData.todate) {
       this.showDateError = true;
       return;
@@ -172,10 +174,16 @@ export class MstCareerDetailsComponent implements OnInit {
 
 
           this.mstapplicantcareerdetail_Form.reset();
+        },
+        err => {
+          debugger;
+          this.spinner.hide();
+          this.toastr.addSingle("error", "", err.error);
+          console.log(err);
         })
     };
   }
-  AddmoreSubmitData(){
+  AddmoreSubmitData() {
     this.isSubmitted = true;
 
     if (!this.mstapplicantcareerdetail_Form.valid) {
