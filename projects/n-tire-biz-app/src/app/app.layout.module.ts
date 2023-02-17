@@ -23,10 +23,10 @@ import { FieldErrorDisplayComponent } from '../../../n-tire-biz-app/src/app/page
 import { CorporateDashboardComponent } from '../../../n-tire-biz-app/src/app/pages/forms/corporate.component';
 import { galleryComponent } from '../../../n-tire-biz-app/src/app/pages/forms/gallery.component';
 import { NewskillsearchComponent } from './pages/forms/newskillsearch/newskillsearch.component';
-import { bofaqComponent } from './pages/forms/bofaq/bofaq.component';
+
 import { bokbmasterComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/bokbmaster/bokbmaster.component';
 import { bokbtopicComponent } from './pages/forms/bokbtopic/bokbtopic.component';
-import { boforumComponent } from './pages/forms/boforum/boforum.component';
+
 import { FaqComponent } from './pages/forms/faq/faq.component';
 import { BonewbokbmasterComponent } from './pages/forms/bonewbokbmaster/bonewbokbmaster.component';
 import { ForumComponent } from './pages/forms/forum/forum.component';
