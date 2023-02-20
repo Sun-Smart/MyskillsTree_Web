@@ -526,24 +526,13 @@ export class mstapplicantmasterviewComponent implements OnInit {
     //New code
     this.viewHtml = `
 <div class="designrow">
-    <div class="row designrow main-box" style="background-image:url('assets/images/##applicanttype##.png')!important;background-repeat: no-repeat !important;border-radius: 5px !important;">
-        <div class="designrow main-content">
-            <div class="row designrow">
-              <!--  <div class="dp-container col-2"><img class="dp" src="##profilephoto##"></div> -->
-                <div class="col">
-                <!--     <h2><b>##firstname## ##lastname##</b></h2>
-                    <br>
-                    <font color='green'>
-                        <h3>##emailid## | ##mobilenumber##</h3>
-                    </font>-->
-                    <font color='white'>
-                    <!-- <h3>##applicantreference## | ##applicanttypedesc## | ##applicanttype##.png</h3> -->
-                    </font>
-                    <!-- <h3><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;##citydesc##</h3> -->
-                </div>
-                <div class="col-1 right top">##profilecompletion##</div>
+    <div class="row designrow main-box" style="background-image:url('assets/images/##applicanttype##.png')!important;background-repeat: no-repeat !important;border-radius: 5px !important;padding-top:0 !important;">
+    <div class="col-12" style = "display: flex;align-items: center;justify-content: end;margin:0 !important;padding:0 !important;">##profilecompletion##</div>
+    <div class="designrow">
+            <div class="row designrow" style="text-align:end;">
+                <!--<div class="col-12">##profilecompletion##</div>-->
             </div>
-        </div>
+      </div>
     </div>
 </div>
 </div>

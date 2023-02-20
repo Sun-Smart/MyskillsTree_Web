@@ -813,7 +813,7 @@ th {
 .p-datatable .p-datatable-thead > tr > th,
 .p-datatable .p-datatable-tfoot > tr > td {
   font-weight: bold;
-  font-size: medium;
+  font-size: 11px;
 }
 
 :host ::ng-deep .ui-table-scrollable-header {
@@ -2076,7 +2076,7 @@ ng2-smart-table {
   table {
     overflow: auto !important;
     height: auto !important;
-    width: 99% !important;
+    width: 100% !important;
     max-width: 100% !important;
   }
 }
@@ -2142,6 +2142,7 @@ label.required::after {
 
 table-cell-view-mode div div {
   line-height: 0 !important;
+  margin: 0 10px;
 }
 
 table tr td {
@@ -2941,7 +2942,8 @@ footer {
   height: 85px !important;
   bottom: -60px !important;
   width: 100% !important;
-  background: #fff;
+  background: #fff !important;
+  z-index: 1 !important;
   font-weight: 600;
 
   .container {

@@ -60,6 +60,11 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
     selector: 'app-mstcorporatemaster',
     templateUrl: './mstcorporatemaster.component.html',
     styles: [`
+
+    :host /deep/ ng2-smart-table tbody > tr:nth-child(even) {
+        background-color : #f4f4f4 !important;
+        }
+
     @media only screen and (max-width: 600px) {
       .education_view_mobile{
           min-width: 100% !important;
@@ -1178,7 +1183,7 @@ export class mstcorporatemasterComponent implements OnInit {
                 jobdescription: {
                     title: 'Job Description',
                     type: '',
-                    filter: true,
+                    filter: true, 
                 },
                 jobrequirement: {
                     title: 'Job Requirement',
@@ -1269,18 +1274,18 @@ export class mstcorporatemasterComponent implements OnInit {
                         },
                     },
                 },
-                attachment: {
-                    title: 'Attachment',
-                    type: 'html',
-                    filter: true,
-                    editor: {
-                        type: 'textarea',
-                    },
-                    valuePrepareFunction: (cell, row) => {
-                        let ret = this.sharedService.getAttachmentValue(cell);
-                        return ret;
-                    },
-                },
+                // attachment: {
+                //     title: 'Attachment',
+                //     type: 'html',
+                //     filter: true,
+                //     editor: {
+                //         type: 'textarea',
+                //     },
+                //     valuePrepareFunction: (cell, row) => {
+                //         let ret = this.sharedService.getAttachmentValue(cell);
+                //         return ret;
+                //     },
+                // },
             },
         };
     }

@@ -4,7 +4,7 @@
     <div class="col-8 mobileview_search" id="showsearchbar"
       style="display: flex;justify-content: center;align-items: center;padding: 0rem 12rem;position: fixed !important;top: 5px;z-index: 9999;">
       <i class="fa fa-search search-icon" aria-hidden="true"></i>
-      <input type="text"  class="form-control"  placeholder="Search" [(ngModel)]="term"
+      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="term"
         style="border-radius:30px !important;padding: 0 40px;" multiple>
       <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
     </div>
@@ -62,7 +62,8 @@
       <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Location</h6>
         <ng-multiselect-dropdown [placeholder]="'Select Location'" [settings]="locationSettings" [data]="location_List"
-          [(ngModel)]="skilllocation" (onSelect)="location_onChange($event,val)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="location_DeSelect($event)">
+          [(ngModel)]="skilllocation" (onSelect)="location_onChange($event,val)" (onSelectAll)="onSelectAll($event)"
+          (onDeSelect)="location_DeSelect($event)">
         </ng-multiselect-dropdown>
         <!-- <input class="form-control" [(ngModel)]="location" (keyup)="valueChanged1($event)"> -->
       </div>
@@ -158,6 +159,10 @@
         <label for="">Matching profile</label>
         <div class="card-view">
           <div *ngFor="let item of showData | filter:term">
+            <div style="padding: 0;margin: 0;border: none;width: auto;    position: relative;right: 0px;bottom: 0px;"> 
+              <i class="fa fa-eye" title="View Profile"
+                style="font-size: 1.7rem;position: relative;color: #000;left: 110px;cursor: pointer;"
+                (click)='opendialog1(item.applicant,item.pkcol)'></i></div>
             <img *ngIf="item.useprofilephoto" src="https://demo.herbie.ai/attachment/{{item.useprofilephoto}}"
               alt="">&nbsp;&nbsp;
             <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="">&nbsp;&nbsp;
@@ -170,10 +175,8 @@
               <li>Experience : {{item.experience ? item.experience : '-'}}</li>
               <li>Skills : {{item.skills ? item.skills : '-'}}</li>
               <li>Category : {{item.segment}} - {{item.category}} - {{item.subcategory}}</li>
-              <li><i class="fa fa-eye" title="View Profile"
-                  style="font-size: 1.7rem;position: relative;color: #000;left: 110px;cursor: pointer;"
-                  (click)='opendialog1(item.applicant,item.pkcol)'></i></li>
             </ul>
+
           </div>
         </div>
       </div>
