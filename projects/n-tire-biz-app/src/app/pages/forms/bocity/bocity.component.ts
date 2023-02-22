@@ -1,49 +1,26 @@
 import { bocityService } from './../../../service/bocity.service';
 import { bocity } from './../../../model/bocity.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { bolocation } from './../../../model/bolocation.model';
 import { bolocationComponent } from './../../../pages/forms/bolocation/bolocation.component';
 import { bolocationService } from './../../../service/bolocation.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
@@ -63,8 +40,7 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
           bottom: 5px !important;
         }
       }
-    `],
-    providers: [KeyboardShortcutsService]
+    `]
 })
 
 
@@ -75,15 +51,14 @@ export class bocityComponent implements OnInit {
     bmyrecord: boolean = false;
     hidelist: any = [];
     objvalues: any = [];
-    viewHtml: any = '';//stores html view of the screen
-    showview: boolean = false;//view or edit mode
-    theme: string = "";//current theme
-    //formdata: any;//current form data
-    shortcuts: ShortcutInput[] = [];//keyboard keys
-    showSubmit: boolean = true;//button to show
+    viewHtml: any = '';
+    showview: boolean = false;
+    theme: string = "";
+    shortcuts: ShortcutInput[] = [];
+    showSubmit: boolean = true;
     showGoWorkFlow: boolean = false;
-    pkList: any;//stores values - used in search, prev, next
-    pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
+    pkList: any;
+    pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();
     toolbarVisible: boolean = true;
     customFieldServiceList: any;
     CustomFormName: string = "";
@@ -95,75 +70,40 @@ export class bocityComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
     bfilterPopulate_bocities: boolean = false;
     bfilterPopulate_bolocations: boolean = false;
     bocity_menuactions: any = []
     bolocation_menuactions: any = []
     @ViewChild('tbl_bolocations', { static: false }) tbl_bolocations: Ng2SmartTableComponent;
-
     bocity_Form: FormGroup;
-
     countryid_List: DropDownValues[];
     countryid_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
-
     private exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
     showFormType: any;
     formid: any;
     pkcol: any;
     SESSIONUSERID: any;//current user
-
     sessionData: any;
     sourceKey: any;
-
-
-
     bolocations_visiblelist: any;
     bolocations_hidelist: any;
-
     Deleted_bolocation_IDs: string = "";
     bolocations_ID: string = "1";
     bolocations_selectedindex: any;
-
-
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private bocity_service: bocityService,
-        private bolocation_service: bolocationService,
         private fb: FormBuilder,
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.bocity_Form = this.fb.group({
             pk: [null],
             cityid: [null],
@@ -177,16 +117,10 @@ export class bocityComponent implements OnInit {
             statusdesc: [null],
         });
     }
-
     get f() { return this.bocity_Form.controls; }
-
-
-    //when child screens are clicked - it will be made invisible
     ToolBar(prop) {
         this.toolbarVisible = prop;
     }
-
-    //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
         debugger;
         if (this.bocity_Form.dirty && this.bocity_Form.touched) {
@@ -199,39 +133,12 @@ export class bocityComponent implements OnInit {
         return Observable.of(true);
     }
 
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.cityid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.cityid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
-    }
-
-    //on searching in pk autocomplete
     onSelectedpk(pkDetail: any) {
         if (pkDetail.cityid && pkDetail) {
             this.PopulateScreen(pkDetail.pkcol);
         }
     }
-
-    // initialize
     async ngOnInit() {
-        //session & theme
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
         });
@@ -242,10 +149,6 @@ export class bocityComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
-        //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
             this.maindata = this.data;
@@ -259,12 +162,9 @@ export class bocityComponent implements OnInit {
             this.sourceKey = this.currentRoute.snapshot.paramMap.get('sourceKey');
         }
         let bocityid = null;
-
-        //if view button(eye) is clicked
         if (this.currentRoute.snapshot.paramMap.get('viewid') != null) {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('viewid');
             this.showview = true;
-            //this.viewHtml=this.sessionService.getViewHtml();
         }
         else if (this.currentRoute.snapshot.paramMap.get('usersource') != null) {
             this.pkcol = this.sessionService.getItem('usersource');
@@ -276,7 +176,6 @@ export class bocityComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -284,33 +183,23 @@ export class bocityComponent implements OnInit {
             this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
         }
         this.formid = bocityid;
-        //alert(bocityid);
-
-        //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.Set_bolocations_TableConfig();
-            setTimeout(() => {
-                //this.Set_bolocations_TableDropDownConfig();
-            });
-
             this.resetForm();
         }
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
-            //get the record from api
-            //foreign keys
         }
         this.bocity_service.getDefaultData().then(res => {
             this.countryid_List = res.list_countryid.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide(); });
 
         //autocomplete
         this.bocity_service.get_bocities_List().then(res => {
             this.pkList = res as bocity[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched
+        ).catch((err) => { this.spinner.hide();});
         this.bocity_Form.markAsUntouched();
         this.bocity_Form.markAsPristine();
     }
@@ -319,15 +208,9 @@ export class bocityComponent implements OnInit {
             this.bocity_Form.patchValue({
                 countryid: countryidDetail.value,
                 countryiddesc: countryidDetail.label,
-
             });
-
         }
     }
-
-
-
-
     resetForm() {
         if (this.bocity_Form != null)
             this.bocity_Form.reset();
@@ -347,7 +230,7 @@ export class bocityComponent implements OnInit {
                 this.bocity_service.delete_bocity(cityid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -427,21 +310,17 @@ export class bocityComponent implements OnInit {
         });
         return false;
     }
-
-
-
     async PopulateScreen(pkcol: any) {
         this.spinner.show();
         this.bocity_service.get_bocities_ByEID(pkcol).then(res => {
             this.spinner.hide();
-
             this.formData = res.bocity;
             let formproperty = res.bocity.formproperty;
             if (formproperty && formproperty.edit == false) this.showview = true;
             this.pkcol = res.bocity.pkcol;
             this.formid = res.bocity.cityid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -450,9 +329,6 @@ export class bocityComponent implements OnInit {
         this.pkcol = res.bocity.pkcol;
         this.bmyrecord = false;
         if ((res.bocity as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.bocity_Form.patchValue({
             cityid: res.bocity.cityid,
             code: res.bocity.code,
@@ -467,7 +343,6 @@ export class bocityComponent implements OnInit {
         this.bocity_menuactions = res.bocity_menuactions;
         this.bolocation_menuactions = res.bolocation_menuactions;
         this.bolocations_visiblelist = res.bolocations_visiblelist;
-        //Child Tables if any
         this.Set_bolocations_TableConfig();
         this.bolocations_LoadTable(res.bolocations);
     }
@@ -515,12 +390,7 @@ export class bocityComponent implements OnInit {
         }
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
-
-    //This has to come from bomenuactions & procedures
     afterAction(mode: any) {
         let formname = "";
         let query = "";
@@ -530,23 +400,10 @@ export class bocityComponent implements OnInit {
             this.router.navigate(['/home/' + formname + '/' + formname + '/edit/' + this.formid + query]);
     }
 
-
-
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.bocity_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.bocity_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
-
         if (!this.bocity_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
             return;
@@ -565,7 +422,6 @@ export class bocityComponent implements OnInit {
             }
         }
         this.formData.Deleted_bolocation_IDs = this.Deleted_bolocation_IDs;
-        console.log(this.formData);
         this.spinner.show();
         this.bocity_service.saveOrUpdate_bocities(this.formData, this.tbl_bolocations?.source?.data,).subscribe(
             async res => {
@@ -575,7 +431,6 @@ export class bocityComponent implements OnInit {
                     }
                 }
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).bocity);
                 if (!bclear) this.showview = true;
@@ -604,18 +459,11 @@ export class bocityComponent implements OnInit {
                 this.bocity_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
-
-
-
-
-    //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
         this.tbl_bolocations.source = new LocalDataSource();
     }
@@ -648,20 +496,16 @@ export class bocityComponent implements OnInit {
         if (childID != null)
             this.Deleted_bolocation_IDs += childID + ",";
         this.tbl_bolocations.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
-
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");
         let prevform = this.sessionService.getItem("prevform");
         this.router.navigate(["/home/" + prevform + "/" + prevform + "/edit/" + formid]);
     }
-    //start of Grid Codes bolocations
     bolocations_settings: any;
 
     show_bolocations_Checkbox() {
-        debugger;
         if (this.tbl_bolocations.source.settings['selectMode'] == 'multi') this.tbl_bolocations.source.settings['selectMode'] = 'single';
         else
             this.tbl_bolocations.source.settings['selectMode'] = 'multi';
@@ -671,15 +515,8 @@ export class bocityComponent implements OnInit {
         this.tbl_bolocations.source.settings['selectMode'] = 'single';
     }
     show_bolocations_Filter() {
-        setTimeout(() => {
-            //  this.Set_bolocations_TableDropDownConfig();
-        });
         if (this.tbl_bolocations.source.settings != null) this.tbl_bolocations.source.settings['hideSubHeader'] = !this.tbl_bolocations.source.settings['hideSubHeader'];
         this.tbl_bolocations.source.initGrid();
-    }
-    show_bolocations_InActive() {
-    }
-    enable_bolocations_InActive() {
     }
     async Set_bolocations_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_bolocations) {
@@ -700,9 +537,6 @@ export class bocityComponent implements OnInit {
     }
     async bolocations_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_bolocations_TableConfig() {
         this.bolocations_settings = {
@@ -847,39 +681,6 @@ export class bocityComponent implements OnInit {
             if (this.tbl_bolocations != undefined) this.tbl_bolocations.source.setPaging(1, 20, true);
         }
     }
-
-    //external to inline
-    /*
-    bolocations_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.bocity_service.bolocations.length == 0)
-    {
-        this.tbl_bolocations.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new bolocation();
-        this.bocity_service.bolocations.push(obj);
-        this.tbl_bolocations.source.refresh();
-        if ((this.bocity_service.bolocations.length / this.tbl_bolocations.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_bolocations.source.getPaging().page)
-        {
-            this.tbl_bolocations.source.setPage((this.bocity_service.bolocations.length / this.tbl_bolocations.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_bolocations.source.grid.edit(this.tbl_bolocations.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_bolocations.source.data.indexOf(event.data);
-    this.onDelete_bolocation(event,event.data.locationid,((this.tbl_bolocations.source.getPaging().page-1) *this.tbl_bolocations.source.getPaging().perPage)+index);
-    this.tbl_bolocations.source.refresh();
-    break;
-    }
-    }
-
-    */
     bolocations_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -912,16 +713,10 @@ export class bocityComponent implements OnInit {
     async onCustom_bolocations_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "bolocations");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     bolocations_Paging(val) {
-        debugger;
         this.tbl_bolocations.source.setPaging(1, val, true);
     }
-
     handle_bolocations_GridSelected(event: any) {
         this.bolocations_selectedindex = this.tbl_bolocations.source.findIndex(i => i.locationid === event.data.locationid);
     }
@@ -933,7 +728,6 @@ export class bocityComponent implements OnInit {
             return "hide";
         }
     }
-    //end of Grid Codes bolocations
 
 }
 
