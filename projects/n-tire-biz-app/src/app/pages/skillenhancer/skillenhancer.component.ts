@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AppConstants } from '../../shared/helper';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -33,7 +33,6 @@ export class SkillenhancerComponent implements OnInit {
       category: ['', Validators.required]
     })
   }
-
   ngOnInit(): void {
     this.category = "G";
   }
@@ -41,14 +40,12 @@ export class SkillenhancerComponent implements OnInit {
     this.router.navigate(['login']);
   }
   onItemChange(value) {
-    console.log(" Value is : ", value);
     if (value == "provider" || value == "") {
       this.router.navigate(['registernew']);
       this.type = "P";
       this.category = this.category;
     } else if (value == "availer") {
       this.router.navigate(['applicantregister']);
-
     } else if (value == "enhancer") {
       this.router.navigate(['registernew']);
       this.type = "E";
@@ -61,8 +58,6 @@ export class SkillenhancerComponent implements OnInit {
     }
   }
   onSubmit() {
-    debugger
-    // this.spinner.show();
     this.showSpinner = true;
     if (!this.bouserregistration_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the fields");
@@ -82,18 +77,13 @@ export class SkillenhancerComponent implements OnInit {
         specialcategory: null,
         statusdesc: null
       }
-      console.log(data);
       let options = new HttpHeaders().set('Content-Type', 'application/json');
       return this.http.post(AppConstants.ntirebizURL + '/bouserregistration', data, {
         headers: options, responseType: 'text'
       }).subscribe((res: any) => {
-        console.log(res);
-        // this.spinner.hide();
         this.showSpinner = false;
-        debugger;
         if (res == 'Email already exist') {
           this.showSpinner = false;
-          // this.toastr.addSingle("error", "", "Email already exist");
           alert("Email already exist");
           return;
         } else if (res == 'Mobilenumber already exist') {
@@ -102,7 +92,6 @@ export class SkillenhancerComponent implements OnInit {
           return;
         } else {
           this.showSpinner = false;
-          // this.toastr.addSingle("success", "", "Successfully Registered.Check your mail for the login credentials");
           alert("Successfully Registered.Check your mail for the login credentials");
           this.objvalues.push((res as any).bouserregistration)
           this.bouserregistration_Form.reset(this.bouserregistration_Form.value);
@@ -114,9 +103,7 @@ export class SkillenhancerComponent implements OnInit {
           this.bouserregistration_Form.value.mobilenumber = null;
           this.bouserregistration_Form.value.category = null;
         }
-        debugger
       }, (error: HttpErrorResponse) => {
-        console.log(error.error);
         if (error.error == "Email already exist") {
           this.showSpinner = false;
           alert('Email already exist');
@@ -135,19 +122,12 @@ export class SkillenhancerComponent implements OnInit {
     }
   }
   opendrop(ev: any) {
-    debugger;
-    console.log(ev)
     if (ev == 'S') {
       this.submenus = true;
     } else {
       this.submenus = false;
     }
-
-    //this.userRoleID = ev;
   }
   closedrop(data: any) {
-    debugger
-    console.log(data)
-
   }
 }

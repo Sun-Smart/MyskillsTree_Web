@@ -5,7 +5,6 @@ import { Component, OnInit, OnDestroy, Input, SimpleChanges } from '@angular/cor
   styleUrls: ['./timer.component.scss']
 })
 
-
 export class TimerComponent implements OnInit, OnDestroy {
   clock: any;
   minutes: any = '00';
@@ -16,11 +15,8 @@ export class TimerComponent implements OnInit, OnDestroy {
   @Input() showTimerControls: boolean;
 
   constructor() {
-
   }
   ngOnChanges(changes: SimpleChanges) {
-    //debugger;
-    console.log(changes['start']);
     if (changes['start'].currentValue == 1) {
       this.running = true;
       this.startTimer();
@@ -40,12 +36,7 @@ export class TimerComponent implements OnInit, OnDestroy {
   running: boolean = false;
   startText = 'Start';
 
-
   startTimer() {
-    debugger;
-    // const source = timer(0, Date.now());
-    // const subscribe = source.subscribe(val => console.log(val));
-
     if (this.running) {
       this.startText = 'Stop';
       const startTime = Date.now() - (this.counter || 0);
