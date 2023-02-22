@@ -27,15 +27,6 @@ import { defaultSpTokenResolver, Auth } from './../../service/auth.service';
 })
 @Injectable()
 export class EmailVerificationComponent implements OnInit {
-  /**
-   * A reference to a `<ng-template>` tag that if set will override this component's template. Use like so:
-   * ```
-   * <ng-template #customTemplate>
-   *   // custom HTML with login form
-   * </ng-template>
-   * ```
-   * Then pass customTemplate to the `email-verification` component like so `[customTemplate]="customTemplate"`
-   */
   @Input() customTemplate: TemplateRef<any>;
 
   protected error: string;
