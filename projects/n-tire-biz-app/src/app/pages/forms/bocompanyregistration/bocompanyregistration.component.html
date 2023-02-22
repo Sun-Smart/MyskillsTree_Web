@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="bocompanyregistration_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left"  style="margin-left: 70px !important;">{{'Registrations' | translate}}</h1>
+    <h1 class="col-4 columns mainheader left"  style="margin-left: 70px !important;">{{'Registrations'}}</h1>
   </div>
   <div class="container"
     id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
@@ -10,7 +10,6 @@
       <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
     </div>
     <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
-
     </div>
     <p-accordion [multiple]='true'>
       <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
