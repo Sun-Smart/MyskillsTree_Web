@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="boexpense_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left">{{'Expenses' | translate}}</h1>
+    <h1 class="col-4 columns mainheader left">{{'Expenses'}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -108,7 +108,7 @@
                     type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
                 </div>
                 <app-field-error-display [displayError]="f.expensedate.errors?.required"
-                  errorMsg="Enter {{'Expense Date' | translate}}">
+                  errorMsg="Enter {{'Expense Date'}}">
                 </app-field-error-display>
               </div>
               <div class="col"></div>
@@ -135,7 +135,7 @@
                   </div>
                   <label *ngIf="showview" class="labelview">{{f.requesteduseriddesc?.value}}</label>
                   <app-field-error-display [displayError]="f.requesteduserid.errors?.required"
-                    errorMsg="Enter {{'Requested User' | translate}}">
+                    errorMsg="Enter {{'Requested User'}}">
                   </app-field-error-display>
                 </div>
 
@@ -174,7 +174,7 @@
                   <input *ngIf="!showview" id="expensedescription" required formControlName="expensedescription"
                     class="form-control">
                   <app-field-error-display [displayError]="f.expensedescription.errors?.required"
-                    errorMsg="Enter {{'Description' | translate}}">
+                    errorMsg="Enter {{'Description'}}">
                   </app-field-error-display>
                 </div>
               </div>
@@ -203,7 +203,7 @@
                   <label *ngIf="showview" class="labelview">{{f.amount?.value}}</label>
                   <input *ngIf="!showview" id="amount" required formControlName="amount" class="form-control">
                   <app-field-error-display [displayError]="f.amount.errors?.required"
-                    errorMsg="Enter {{'Amount' | translate}}">
+                    errorMsg="Enter {{'Amount'}}">
                   </app-field-error-display>
                 </div>
                 <div *ngIf="((hidelist.indexOf('tax') == -1) && (taxvisible==undefined || taxvisible==true))" style=''
@@ -383,7 +383,7 @@
             <!-- child table boexpensedetails-->
             <div [ngClass]="Is_boexpensedetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Details' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Details'}}
                 <select class='child' id="boexpensedetailsPagingdropdown"
                   (change)="boexpensedetails_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
