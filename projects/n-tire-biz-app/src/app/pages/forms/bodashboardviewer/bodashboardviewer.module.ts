@@ -1,6 +1,4 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-// import { NgCommonModule } from '../../../../../../n-tire-biz-app/src/app/appcommon.module'
-
 import { NgCommonModule } from '../../../../../../n-tire-biz-app/src/app/appcommon.module';
 import { routing } from './bodashboardviewer.routing';
 import { ChartsModule } from 'ng2-charts';

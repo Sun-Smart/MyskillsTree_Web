@@ -1,256 +1,29 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { mstapplicantskilldetailgridComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetailgrid.component';
 import { mstapplicanteducationdetailgridComponent } from './../../../pages/forms/mstapplicanteducationdetail/mstapplicanteducationgrid.component';
 import { mstapplicantgeographygrid } from './../../../pages/forms/mstapplicantgeographypreference/mstapplicantgeographygrid.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicDialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { mstapplicantworkrefgridComponent } from '../mstapplicantworkreference/mstapplicantworkrefgrid.component';
 import { mstapplicantcareergridComponent } from '../mstapplicantcareerdetail/mstapplicantcareergrid.component';
 import { mstapplicantsocialmediagridComponent } from '../mstapplicantsocialmediadetail/mstapplicantsocialmediagrid.component';
 import { mstapplicantlanuagegridComponent } from '../mstapplicantlanguagedetail/mstapplicantlanguagegrid.component';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
-import { mstapplicantreferencerequestComponent } from '../mstapplicantreferencerequest/mstapplicantreferencerequest.component';
-// import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
-import ChartDataLabels from 'chartjs-plugin-datalabels'
-import { ChartConfiguration } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
-import { mstapplicantachievementdetailComponent } from '../mstapplicantachievementdetail/mstapplicantachievementdetail.component';
 import { mstapplicantachivementgridComponent } from '../mstapplicantachievementdetail/mstapplicantachivementgrid.component';
 import { ToastService } from '../../core/services/toast.service';
-import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { mstapplicantmastermainComponent } from '../mstapplicantmaster/mstapplicantmastermain.component';
 import { mstresumeapplicantComponent } from '../mstapplicantmaster/mstresumeapplicant.component';
 import { mstapplicantskilldetailService } from '../../../service/mstapplicantskilldetail.service';
-import { Rating } from 'primeng/rating';
-import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
-import { mstapplicantachievementdetailService } from '../../../service/mstapplicantachievementdetail.service';
-import { mstapplicantreferencerequestService } from '../../../service/mstapplicantreferencerequest.service';
 import { mstapplicanteducationdetailService } from '../../../service/mstapplicanteducationdetail.service';
 import { DatePipe } from '@angular/common';
-import { AnyCnameRecord } from 'dns';
-
-
 @Component({
   selector: 'ngx-dashboardviewer',
-  // template: `<div><canvas id="canvas"></canvas></div>`,
   styles: [`
-  /* #divChart {
-    display: block;
-    width: 400px;
-    height: 400px;
-  } */
-
-  .skill_btn {
-    width: 98%;
-    margin: 0px !important;
-    padding: 0px;
-    text-align: left !important;
-    border-radius: 0px !important;
-  }
-
-  .ref_btn2{
-    background-color: #5B9BD5;
-    color: #fff;
-    border-radius: 0px;
-  }
-  .ref_btn1{
-    background-color: #65AE12;
-    color: #fff;
-    border-radius: 0px;
-  }
-
-
-
-  .ref_btn {
-    background-color: #ed7d31;
-    color: #fff;
-    border-radius: 0px;
-  }
-
-  .res_ref_btn {
-    background-color: #a5a5a5;
-    color: #fff;
-    border-radius: 0px;
-  }
-
-  .pro_ref_btn {
-    background-color: #ECB50E;
-    color: #fff;
-    border-radius: 0px;
-  }
-
-  .edu_ref_btn {
-    background-color: #5B9BD5;
-    color: #fff;
-    border-radius: 0px;
-  }
-
-  .soc_ref_btn {
-    background-color: #65AE12;
-    color: #fff;
-    border-radius: 0px;
-  }
-
-  .per_ref_btn {
-    background-color: #ed7d31;
-    color: #fff;
-    border-radius: 0px;
-  }
-
-  .breadcrumb {
-    background-color: transparent !important;
-  }
-
-  .breadcrumb li {
-    display: inline-block;
-    padding: 0;
-    position: relative;
-    min-width: 50px;
-    height: fit-content;
-    text-decoration: none;
-    z-index: auto;
-    -webkit-clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 15px 50%);
-    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%, 15px 50%);
-    margin-right: -13px;
-  }
-
-  .breadcrumb li#last {
-    -webkit-clip-path: polygon(0 0, calc(100% - 0px) 0, 100% 50%, calc(100% - 0px) 100%, 0 100%, 15px 50%);
-    clip-path: polygon(0 0, calc(100% - 0px) 0, 100% 50%, calc(100% - 0px) 100%, 0 100%, 15px 50%);
-  }
-
-  .breadcrumb li:hover {
-    color: white;
-    background: #fff;
-  }
-
-  .breadcrumb li:first-child {
-    -webkit-clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
-    clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 50%, calc(100% - 15px) 100%, 0 100%);
-  }
-
-  .tabbed {
-    overflow-x: hidden;
-  }
-
-  .tabbed [type="radio"] {
-    display: none;
-  }
-
-  .tab {
-    margin-bottom: 1px !important;
-  }
-
-  .tabs {
-    display: flex;
-    align-items: stretch;
-    list-style: none;
-    padding: 0;
-    /* border-bottom: 1px solid #ccc; */
-  }
-
-  .tab>label {
-    display: block;
-    /* margin-bottom: -1px; */
-    padding: 12px 15px;
-    /* border: 1px solid #ccc; */
-    background: #eee;
-    color: #666;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    /* letter-spacing: 1px; */
-    cursor: pointer;
-    /* transition: all 3s; */
-  }
-
-  .tab:hover label {
-    /* border-top-color: gray; */
-    color: #333;
-  }
-
-  .tab-content {
-    display: none;
-    color: #777;
-  }
-
-  .tabbed [type="radio"]:nth-of-type(1):checked~.tabs .tab:nth-of-type(1) label,
-  .tabbed [type="radio"]:nth-of-type(2):checked~.tabs .tab:nth-of-type(2) label,
-  .tabbed [type="radio"]:nth-of-type(3):checked~.tabs .tab:nth-of-type(3) label,
-  .tabbed [type="radio"]:nth-of-type(4):checked~.tabs .tab:nth-of-type(4) label,
-  .tabbed [type="radio"]:nth-of-type(5):checked~.tabs .tab:nth-of-type(5) label,
-  .tabbed [type="radio"]:nth-of-type(6):checked~.tabs .tab:nth-of-type(6) label,
-  .tabbed [type="radio"]:nth-of-type(7):checked~.tabs .tab:nth-of-type(7) label {
-    /* border-bottom-color: #fff; */
-    /* border-top-color: gray; */
-    border-top: 5px solid green;
-    /* border-bottom: 5px solid green; */
-    /* line-height: 34px;
-    margin-bottom: 10px; */
-    /* border: 5px solid #000 !important; */
-    /* transform: scale(2); */
-    /* font-size: 10px; */
-    /* width: 140px; */
-    background: #fff;
-    color: #222;
-  }
-
-  .tabbed [type="radio"]:nth-of-type(1):checked~.tab-content:nth-of-type(1),
-  .tabbed [type="radio"]:nth-of-type(2):checked~.tab-content:nth-of-type(2),
-  .tabbed [type="radio"]:nth-of-type(3):checked~.tab-content:nth-of-type(3),
-  .tabbed [type="radio"]:nth-of-type(4):checked~.tab-content:nth-of-type(4),
-  .tabbed [type="radio"]:nth-of-type(5):checked~.tab-content:nth-of-type(5),
-  .tabbed [type="radio"]:nth-of-type(6):checked~.tab-content:nth-of-type(6),
-  .tabbed [type="radio"]:nth-of-type(7):checked~.tab-content:nth-of-type(7) {
-    display: block;
-  }
-  @media only screen and (max-width: 600px) {
-    #contentArea1 .container{
-      margin-top: -40px !important;
-      height: 630px !important;
-      overflow-y: scroll !important;
-      overflow-x: hidden !important;
-    }
-    .dashboard-sidebar{
-      width: 100% !important;
-      min-width: -webkit-fill-available !important;
-    }
-    .dash_list{
-      padding: 1px 1px !important;
-      width: 130px !important;
-    }
-    .dash_list img {
-      width: 35px !important;
-    }
-    .dashboard-sidebar{
-      height: 95% !important;
-    }
-    .main-dash-content{
-      width: 100% !important;
-      min-width: fit-content !important;
-    }
-    .dashboard-sidebar-content{
-      height: 600px !important;
-      overflow-y: scroll !important;
-      /* padding: 0rem !important; */
-    }
-    .container .mobile_col{
-      overflow-y: scroll !important;
-      height: 630px !important;
-    }
-    .mobileView{
-      word-break: break-word !important;
-    }
-    .mob_profile_release{
-      white-space: nowrap !important;
-    }
-    td{
-      white-space: initial !important;
-      word-break: break-word !important;
-    }
-  }
+  .skill_btn{width:98%;margin:0!important;padding:0;text-align:left!important;border-radius:0!important}.edu_ref_btn,.per_ref_btn,.pro_ref_btn,.ref_btn,.ref_btn1,.ref_btn2,.res_ref_btn,.soc_ref_btn{border-radius:0;color:#fff}.edu_ref_btn,.ref_btn2{background-color:#5b9bd5}.ref_btn1,.soc_ref_btn{background-color:#65ae12}.per_ref_btn,.ref_btn{background-color:#ed7d31}.res_ref_btn{background-color:#a5a5a5}.pro_ref_btn{background-color:#ecb50e}.breadcrumb{background-color:transparent!important}.breadcrumb li{display:inline-block;padding:0;position:relative;min-width:50px;height:fit-content;text-decoration:none;z-index:auto;-webkit-clip-path:polygon(0 0,calc(100% - 15px) 0,100% 50%,calc(100% - 15px) 100%,0 100%,15px 50%);clip-path:polygon(0 0,calc(100% - 15px) 0,100% 50%,calc(100% - 15px) 100%,0 100%,15px 50%);margin-right:-13px}.tab>label,.tabbed [type=radio]:first-of-type:checked~.tab-content:nth-of-type(1),.tabbed [type=radio]:nth-of-type(2):checked~.tab-content:nth-of-type(2),.tabbed [type=radio]:nth-of-type(3):checked~.tab-content:nth-of-type(3),.tabbed [type=radio]:nth-of-type(4):checked~.tab-content:nth-of-type(4),.tabbed [type=radio]:nth-of-type(5):checked~.tab-content:nth-of-type(5),.tabbed [type=radio]:nth-of-type(6):checked~.tab-content:nth-of-type(6),.tabbed [type=radio]:nth-of-type(7):checked~.tab-content:nth-of-type(7){display:block}.breadcrumb li#last{-webkit-clip-path:polygon(0 0,calc(100% - 0px) 0,100% 50%,calc(100% - 0px) 100%,0 100%,15px 50%);clip-path:polygon(0 0,calc(100% - 0px) 0,100% 50%,calc(100% - 0px) 100%,0 100%,15px 50%)}.breadcrumb li:hover{color:#fff;background:#fff}.breadcrumb li:first-child{-webkit-clip-path:polygon(0 0,calc(100% - 15px) 0,100% 50%,calc(100% - 15px) 100%,0 100%);clip-path:polygon(0 0,calc(100% - 15px) 0,100% 50%,calc(100% - 15px) 100%,0 100%)}.tabbed{overflow-x:hidden}.tabbed [type=radio]{display:none}.tab{margin-bottom:1px!important}.tabs{display:flex;align-items:stretch;list-style:none;padding:0}.tab>label{padding:12px 15px;background:#eee;color:#666;font-size:12px;font-weight:600;text-transform:uppercase;cursor:pointer}.tab:hover label{color:#333}.tab-content{display:none;color:#777}.tabbed [type=radio]:first-of-type:checked~.tabs .tab:nth-of-type(1) label,.tabbed [type=radio]:nth-of-type(2):checked~.tabs .tab:nth-of-type(2) label,.tabbed [type=radio]:nth-of-type(3):checked~.tabs .tab:nth-of-type(3) label,.tabbed [type=radio]:nth-of-type(4):checked~.tabs .tab:nth-of-type(4) label,.tabbed [type=radio]:nth-of-type(5):checked~.tabs .tab:nth-of-type(5) label,.tabbed [type=radio]:nth-of-type(6):checked~.tabs .tab:nth-of-type(6) label,.tabbed [type=radio]:nth-of-type(7):checked~.tabs .tab:nth-of-type(7) label{border-top:5px solid green;background:#fff;color:#222}@media only screen and (max-width:600px){#contentArea1 .container,.container .mobile_col{overflow-y:scroll!important;height:630px!important}.mobileView,td{word-break:break-word!important}#contentArea1 .container{margin-top:-40px!important;overflow-x:hidden!important}.dashboard-sidebar{width:100%!important;min-width:-webkit-fill-available!important;height:95%!important}.dash_list{padding:1px!important;width:130px!important}.dash_list img{width:35px!important}.main-dash-content{width:100%!important;min-width:fit-content!important}.dashboard-sidebar-content{height:600px!important;overflow-y:scroll!important}.mob_profile_release{white-space:nowrap!important}td{white-space:initial!important}}
   `],
   templateUrl: './bodashboardviewer.component.html',
 })
@@ -267,12 +40,11 @@ export class BODashboardViewerComponent implements OnInit {
   socialmediaapplicantid: any;
   isadmin = false;
   isrelease: boolean;
-  // labels: any = [];
   datalabel: any = [];
   datacolour: any = [];
   dataod: any[] = [];
   datacount: any[] = [];
-   getdata: any;
+  getdata: any;
   isskillcompleted: boolean;
   isresumecompleted: boolean;
   isprojectcompleted: boolean;
@@ -299,7 +71,6 @@ export class BODashboardViewerComponent implements OnInit {
   showOpenfile: boolean = false;
   showhearder_Details: boolean = false;
   nodata_found: boolean;
-
   appli_id: any;
   mst_skillDetails: any;
   sub_category: any = [];
@@ -309,23 +80,17 @@ export class BODashboardViewerComponent implements OnInit {
   showstr: any;
   str_rateCount: any;
   subCategory: any;
-
-
   r1: any;
   r2: any;
   r3: any;
   skill_desc: any;
   ratingarray: any = []
   ratingarray1: any = []
-
   career_array: any = [];
   project_array: any = [];
-
-
   career_detail: any = [];
   project_detail: any = [];
   employment_details: any = [];
-
   dashboard_details: any = [];
   dashboard_employementdetails: any = [];
   dashboard_reffreq_details: any = [];
@@ -333,7 +98,6 @@ export class BODashboardViewerComponent implements OnInit {
   dashboard_achievementdetails: any = [];
   dashboard_projectdetails: any = [];
   get_educationd_data: any = [];
-
   career_companyName: any;
   career_frDate: any;
   career_toDate: any;
@@ -352,19 +116,13 @@ export class BODashboardViewerComponent implements OnInit {
   end_date: any;
   ref_date: any
 
-
-  constructor(private sharedService: SharedService, public dialogRef: DynamicDialogRef,
+  constructor( public dialogRef: DynamicDialogRef,
     private toastr: ToastService,
-    public dialog: DialogService, private mstapplicantmaster_service: mstapplicantmasterService,
-    private currentRoute: ActivatedRoute, private pageroute: Router,
+    public dialog: DialogService, private mstapplicantmaster_service: mstapplicantmasterService, private pageroute: Router,
     private sessionService: SessionService,
     private mstapplicantskilldetail_service: mstapplicantskilldetailService,
-    private mstapplicantcareerdetail_service: mstapplicantcareerdetailService,
-    private mstapplicantachivement_service: mstapplicantachievementdetailService,
-    private mstapplicantreferencerequestService: mstapplicantreferencerequestService,
     private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,
-    private datepipe: DatePipe,
-
+    private datepipe: DatePipe
   ) {
     localStorage.removeItem("verifyMob_Otp")
     localStorage.removeItem("verifyEmail_Otp")
@@ -373,11 +131,8 @@ export class BODashboardViewerComponent implements OnInit {
     this.appli_id = this.sessionService.getItem("applicantid");
   }
   ngOnInit() {
-
     this.get_allData();
-    // this.get_employement();
     this.get_educationdata();
-
     this.isskillcompleted = false
     this.isresumecompleted = false
     this.isprojectcompleted = false
@@ -536,9 +291,7 @@ export class BODashboardViewerComponent implements OnInit {
               const datapoints = ctx.chart.data.datasets[0].data;
               const total = datapoints.reduce((total, datapoint) => total + datapoint, 0)
               const percentage = value / total * 100
-              // return this.datalabel[ctx.dataIndex].toUpperCase() + "\n" + this.datacount[ctx.dataIndex]
               return this.datalabel[ctx.dataIndex].toUpperCase() + "\n";
-              // [ctx.dataIndex].toUpperCase() + "\n" + percentage.toFixed(2) + "%";
             },
             color: '#fff',
             font: {
@@ -558,14 +311,12 @@ export class BODashboardViewerComponent implements OnInit {
       this.chart1 = new Chart(ctx, {
         type: 'pie',
         data: {
-          // labels: ['Completed', 'In-complete'],
           datasets: piedata,
         },
         options: options,
         plugins: [ChartDataLabels],
       });
-    }).catch((err) => { console.log(err); });
-    // this.applicantid = this.currentRoute.snapshot.paramMap.get('id');
+    }).catch((err) => { });
     this.applicantid = this.sessionService.getItem('applicantid');
     if (this.sessionService.getItem("role") == '1') {
       this.isadmin = true;
@@ -573,10 +324,8 @@ export class BODashboardViewerComponent implements OnInit {
   };
 
   get_allData() {
-
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
       this.sub_category = res.mstapplicantskilldetail;
-
       for (let i = 0; i < this.sub_category.length; i++) {
         this.skill_detail.push({
           strRating: this.sub_category[i].selfrating,
@@ -606,18 +355,12 @@ export class BODashboardViewerComponent implements OnInit {
         });
       }
       this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
-
-      // this.showhearder_Details = false;
     });
   };
 
   showDetails(get_id: any, category: any, remarks: any) {
-
-    console.log("get_id", get_id);
-
     this.sub_categorydesc = category;
     this.remarks = remarks.replace(/['"]+/g, '');
-
     let body = {
       "applicantid": this.applicantid,
       "skillid": get_id
@@ -628,19 +371,11 @@ export class BODashboardViewerComponent implements OnInit {
         this.dashboard_employementdetails = []
       this.expYrs = []
       this.dashboard_details.push(res);
-
-      for(var i=0; i > this.dashboard_details.length; i++){
-
-      }
-
       this.dashboard_reffreq_details = this.dashboard_details[0].list_dashboardreff.value;
       this.dashboard_employementdetails = this.dashboard_details[0].list_dashboardemployeement.value;
       this.dashboard_achievementdetails = this.dashboard_details[0].list_dashboarachievment.value;
       this.dashboard_projectdetails = this.dashboard_details[0].lis_dashboardproject.value;
       this.dashboard_educationdetails = this.dashboard_details[0].list_dashboareducation.value;
-
-      console.log("this.dashboard_employementdetails", this.dashboard_employementdetails);
-
 
       let StartDate = this.dashboard_employementdetails[0].fromdate;
       let EndDate = this.dashboard_employementdetails[0].todate;
@@ -668,8 +403,6 @@ export class BODashboardViewerComponent implements OnInit {
       this.get_educationd_data = res.mstapplicanteducationdetail
     });
   }
-
-
   showSkills() {
     this.dialog.open(mstapplicantskilldetailgridComponent,
       {
@@ -681,12 +414,10 @@ export class BODashboardViewerComponent implements OnInit {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
   }
-  // suneel2
   showmyProfile() {
     var showmyproid = "showMyPro";
     localStorage.setItem('showprofile', showmyproid);
     this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')]);
-    // this.pageroute.navigate(['/home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.applicantid]);
   }
   showAttachment() {
     this.dialog.open(mstapplicantmastermainComponent,
@@ -696,11 +427,6 @@ export class BODashboardViewerComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-    // var attachmentid = "attachmentTab";
-    // localStorage.setItem('attachmentTabname', attachmentid);
-    // this.pageroute.navigate(['/home/mstapplicantmasters/mstapplicantmasters/edit/' + this.sessionService.getItem('usersource')]);
-    // localStorage.removeItem('fullName');
-    // localStorage.removeItem('fullName');
   }
   showGeography() {
     this.dialog.open(mstapplicantgeographygrid,
@@ -777,20 +503,7 @@ export class BODashboardViewerComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-
-    // this.dialog.open(mstapplicantmastermainComponent,
-    //   {
-    //     width: '100% !important',
-    //     height: 'auto !important',
-    //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-    //   }
-    // )
-    // var fullpageid = "fullpage";
-    // localStorage.setItem('fullName', fullpageid);
-    // this.pageroute.navigate(['/home/mstapplicantmasters/mstapplicantmastersmain/edit/'  +  this.sharedService.pk_encode(this.sessionService.getItem('usersource'))]);
   }
-
-  // suneel1
   edit_briefmstapplicantmasterss() {
     this.dialog.open(mstapplicantmastermainComponent,
       {
@@ -799,11 +512,6 @@ export class BODashboardViewerComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-    // var resumeid = "resumeTab";
-    // localStorage.setItem('resumeTabname', resumeid);
-    // this.pageroute.navigate(['/home/mstapplicantmasters/mstapplicantmasters/edit/' + this.sharedService.pk_encode(this.sessionService.getItem('usersource'))]);
-    // localStorage.removeItem('fullName');
-    // localStorage.removeItem('attachmentTabname');
   }
   showRefreq() {
     this.dialog.open(mstapplicantreferencegridComponent, {
@@ -814,12 +522,6 @@ export class BODashboardViewerComponent implements OnInit {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
   }
-  ngAfterViewInit() {
-
-  }
-
-
-  //dhana
   uploadmethod() {
 
     this.dialog.open(mstresumeapplicantComponent,
@@ -829,17 +531,6 @@ export class BODashboardViewerComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-    // this.dialog.open(mstapplicantmastermainComponent,
-    //   {
-    //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-    //   }
-    // )
-    // var resumeid = "resumeTabupload";
-    // localStorage.setItem('resumeTabname', resumeid);
-
-    // this.pageroute.navigate(['/home/mstapplicantmasters/mstapplicantmasters/edit/' + this.applicantid]);
-    // localStorage.removeItem('fullName');
-    // localStorage.removeItem('attachmentTabname');
 
   }
 
@@ -852,9 +543,6 @@ export class BODashboardViewerComponent implements OnInit {
 
     this.mstapplicantmaster_service.release_method(obj).subscribe(res => {
 
-      //need ngoninit api result need to arrange release status
-      // need result for status=false
-
       if (res == "Released Successfully") {
         this.toastr.addSingle("success", "", "Successfully Released");
         this.isrelease = true
@@ -863,7 +551,6 @@ export class BODashboardViewerComponent implements OnInit {
         this.toastr.addSingle("success", "", "Your profile is successfully revoked");
         this.isrelease = false
       }
-
     })
   }
 }

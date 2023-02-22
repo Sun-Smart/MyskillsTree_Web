@@ -1,7 +1,5 @@
 @import '../../../@theme/styles/themes';
 
-
-
 .container {
   display: flex;
   flex-grow: 1;
@@ -13,12 +11,10 @@
   width: 20% !important;
   height: 100% !important;
   background-color: #f8f9fa;
-  // float: left;
 }
 
 .sidebar-content {
   padding: 1rem;
-
   .form-check {
     font-size: 12px;
     color: #9ba0a5;
@@ -26,7 +22,6 @@
     padding-left: 2.25rem !important;
   }
 }
-
 @include nb-install-component() {
   ngx-d3-bar,
   ngx-d3-pie,
@@ -69,7 +64,6 @@
   width: 20%;
   height: 100%;
   background-color: #f8f9fa;
-  // float: left;
 }
 
 .sidebar-content {
