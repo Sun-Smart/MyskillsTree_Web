@@ -17,7 +17,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   <img class="navbar-brand logo" src="assets/companylogo.png" id="logo_custom" alt="logo"
   style="width: 50px;">
 </div>
-<div class = "col-6 front-img">
+<div class = "col-6 register-left">
 <img src="assets/register.png" alt="MySkillTree" class="logo-img"/>
 </div>
 <div class = "col-6 reset-details">
@@ -76,6 +76,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
         </div>
       </form>
   </div>
+
+  <footer>
+    <div class="container">
+      <p class="text-muted ">Copyright © MySkillsTree Solutions Pvt Ltd.<label class="all_rights">All rights
+          reserved.</label></p>
+    </div>
+  </footer>
 </div>
 </ng-template>
 <ng-template
@@ -83,6 +90,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 </ng-template>`,
   styles: [`
 .custom-navbar{background-color:#ecf7fd;height:5rem}.reset-form{background-color:#f8f9fa;border:1px solid #b5adad;border-radius:30px}.logo-img{width:100%;height:100%}.reset-details{display:flex;align-items:center;justify-content:center;bottom:40px}@media only screen and (max-width:760px){.custom-navbar{background-color:#ecf7fd;height:5rem}.reset-form{background-color:#f8f9fa;border:1px solid #b5adad;border-radius:30px}.logo-img{width:100%;height:100%;display:flex!important;margin:10% 60%!important}.reset-details{display:flex;align-items:center;justify-content:center;position:absolute;margin:auto;left:6.5rem;bottom:3rem}}
+.register-left{
+  text-align:center;
+  margin-top: 4%;
+}
+.register-left img {
+  width: 90%;
+  height: 80vh;
+}
 `]
 })
 @Injectable()
