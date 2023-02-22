@@ -1,46 +1,21 @@
 import { bodashboarddetailService } from './../../../service/bodashboarddetail.service';
 import { bodashboarddetail } from './../../../model/bodashboarddetail.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
-import { LocalDataSource } from 'ng2-smart-table';
-import { Ng2SmartTableComponent } from 'ng2-smart-table';
+import { DomSanitizer } from "@angular/platform-browser";
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { switchMap, map, debounceTime } from 'rxjs/operators';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup} from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
@@ -63,11 +38,8 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
           margin-left: 30px !important;
         }
       }
-    `],
-    providers: [KeyboardShortcutsService]
+    `]
 })
-
-
 
 export class bodashboarddetailComponent implements OnInit {
     formData: bodashboarddetail;
@@ -75,15 +47,14 @@ export class bodashboarddetailComponent implements OnInit {
     bmyrecord: boolean = false;
     hidelist: any = [];
     objvalues: any = [];
-    viewHtml: any = '';//stores html view of the screen
-    showview: boolean = false;//view or edit mode
-    theme: string = "";//current theme
-    //formdata: any;//current form data
-    shortcuts: ShortcutInput[] = [];//keyboard keys
-    showSubmit: boolean = true;//button to show
+    viewHtml: any = '';
+    showview: boolean = false;
+    theme: string = "";
+    shortcuts: ShortcutInput[] = [];
+    showSubmit: boolean = true;
     showGoWorkFlow: boolean = false;
-    pkList: any;//stores values - used in search, prev, next
-    pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
+    pkList: any;
+    pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();
     toolbarVisible: boolean = true;
     customFieldServiceList: any;
     CustomFormName: string = "";
@@ -95,12 +66,9 @@ export class bodashboarddetailComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
     bfilterPopulate_bodashboarddetails: boolean = false;
     bodashboarddetail_menuactions: any = []
-
     bodashboarddetail_Form: FormGroup;
-
     dashboardid_List: DropDownValues[];
     dashboardid_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
     charttype_List: DropDownValues[];
@@ -113,27 +81,15 @@ export class bodashboarddetailComponent implements OnInit {
     menuid_List: DropDownValues[];
     menuid_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
     reportid_List: DropDownValues[];
-
     private exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
     showFormType: any;
     formid: any;
     pkcol: any;
     SESSIONUSERID: any;//current user
-
     sessionData: any;
     sourceKey: any;
-
-
-
-
-
-
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
@@ -142,29 +98,10 @@ export class bodashboarddetailComponent implements OnInit {
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.bodashboarddetail_Form = this.fb.group({
             pk: [null],
             dashboarddetailid: [null],
@@ -208,18 +145,12 @@ export class bodashboarddetailComponent implements OnInit {
             statusdesc: [null],
         });
     }
-
     get f() { return this.bodashboarddetail_Form.controls; }
-
-
-    //when child screens are clicked - it will be made invisible
     ToolBar(prop) {
         this.toolbarVisible = prop;
     }
 
-    //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.bodashboarddetail_Form.dirty && this.bodashboarddetail_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -229,54 +160,21 @@ export class bodashboarddetailComponent implements OnInit {
         }
         return Observable.of(true);
     }
-
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.dashboarddetailid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.dashboarddetailid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
-    }
-
-    //on searching in pk autocomplete
     onSelectedpk(pkDetail: any) {
         if (pkDetail.dashboarddetailid && pkDetail) {
             this.PopulateScreen(pkDetail.pkcol);
         }
     }
 
-    // initialize
     async ngOnInit() {
-        //session & theme
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
         });
-
         this.sessionData = this.sessionService.getSession();
         if (this.sessionData != null) {
             this.SESSIONUSERID = this.sessionData.userid;
         }
-
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
-        //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
             this.maindata = this.data;
@@ -291,11 +189,9 @@ export class bodashboarddetailComponent implements OnInit {
         }
         let bodashboarddetailid = null;
 
-        //if view button(eye) is clicked
         if (this.currentRoute.snapshot.paramMap.get('viewid') != null) {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('viewid');
             this.showview = true;
-            //this.viewHtml=this.sessionService.getViewHtml();
         }
         else if (this.currentRoute.snapshot.paramMap.get('usersource') != null) {
             this.pkcol = this.sessionService.getItem('usersource');
@@ -307,7 +203,6 @@ export class bodashboarddetailComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -315,16 +210,11 @@ export class bodashboarddetailComponent implements OnInit {
             this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
         }
         this.formid = bodashboarddetailid;
-        //alert(bodashboarddetailid);
-
-        //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.resetForm();
         }
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
-            //get the record from api
-            //foreign keys
         }
         this.bodashboarddetail_service.getDefaultData().then(res => {
             this.dashboardid_List = res.list_dashboardid.value;
@@ -337,15 +227,12 @@ export class bodashboarddetailComponent implements OnInit {
             this.parameter3datetype_List = res.list_parameter3datetype.value;
             this.menuid_List = res.list_menuid.value;
             this.reportid_List = res.list_reportid.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
-
-        //autocomplete
+        }).catch((err) => { this.spinner.hide();});
         this.bodashboarddetail_service.get_bodashboarddetails_List().then(res => {
             this.pkList = res as bodashboarddetail[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched
+        ).catch((err) => { this.spinner.hide(); });
         this.bodashboarddetail_Form.markAsUntouched();
         this.bodashboarddetail_Form.markAsPristine();
     }
@@ -354,26 +241,17 @@ export class bodashboarddetailComponent implements OnInit {
             this.bodashboarddetail_Form.patchValue({
                 dashboardid: dashboardidDetail.value,
                 dashboardiddesc: dashboardidDetail.label,
-
             });
-
         }
     }
-
     onSelected_menuid(menuidDetail: any) {
         if (menuidDetail.value && menuidDetail) {
             this.bodashboarddetail_Form.patchValue({
                 menuid: menuidDetail.value,
                 menuiddesc: menuidDetail.label,
-
             });
-
         }
     }
-
-
-
-
     resetForm() {
         if (this.bodashboarddetail_Form != null)
             this.bodashboarddetail_Form.reset();
@@ -390,7 +268,7 @@ export class bodashboarddetailComponent implements OnInit {
                 this.bodashboarddetail_service.delete_bodashboarddetail(dashboarddetailid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -509,14 +387,13 @@ export class bodashboarddetailComponent implements OnInit {
         this.spinner.show();
         this.bodashboarddetail_service.get_bodashboarddetails_ByEID(pkcol).then(res => {
             this.spinner.hide();
-
             this.formData = res.bodashboarddetail;
             let formproperty = res.bodashboarddetail.formproperty;
             if (formproperty && formproperty.edit == false) this.showview = true;
             this.pkcol = res.bodashboarddetail.pkcol;
             this.formid = res.bodashboarddetail.dashboarddetailid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -525,9 +402,6 @@ export class bodashboarddetailComponent implements OnInit {
         this.pkcol = res.bodashboarddetail.pkcol;
         this.bmyrecord = false;
         if ((res.bodashboarddetail as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.bodashboarddetail_Form.patchValue({
             dashboarddetailid: res.bodashboarddetail.dashboarddetailid,
             dashboardid: res.bodashboarddetail.dashboardid,
@@ -570,7 +444,6 @@ export class bodashboarddetailComponent implements OnInit {
             statusdesc: res.bodashboarddetail.statusdesc,
         });
         this.bodashboarddetail_menuactions = res.bodashboarddetail_menuactions;
-        //Child Tables if any
     }
 
     validate() {
@@ -610,12 +483,8 @@ export class bodashboarddetailComponent implements OnInit {
             return;
         }
         var obj = this.bodashboarddetail_Form.getRawValue();
-        console.log(obj);
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -631,19 +500,9 @@ export class bodashboarddetailComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.bodashboarddetail_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.bodashboarddetail_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.bodashboarddetail_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -662,12 +521,10 @@ export class bodashboarddetailComponent implements OnInit {
                 }
             }
         }
-        console.log(this.formData);
         this.spinner.show();
         this.bodashboarddetail_service.saveOrUpdate_bodashboarddetails(this.formData).subscribe(
             async res => {
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).bodashboarddetail);
                 if (!bclear) this.showview = true;
@@ -679,7 +536,6 @@ export class bodashboarddetailComponent implements OnInit {
                 else {
                     if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 }
-                this.clearList();
                 if (bclear) {
                     this.resetForm();
                 }
@@ -696,22 +552,11 @@ export class bodashboarddetailComponent implements OnInit {
                 this.bodashboarddetail_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
-
-
-
-
-    //dropdown edit from the screen itself -> One screen like Reportviewer
-    clearList() {
-    }
-
-
     PrevForm() {
         let formid = this.sessionService.getItem("key");
         let prevform = this.sessionService.getItem("prevform");

@@ -99,7 +99,7 @@
                 <label *ngIf="showview" class="labelview">{{f.companyname?.value}}</label>
                 <input *ngIf="!showview" id="companyname" required formControlName="companyname" class="form-control">
                 <app-field-error-display [displayError]="f.companyname.errors?.required"
-                  errorMsg="Enter {{'Company Name' | translate}}">
+                  errorMsg="Enter {{'Company Name'}}">
                 </app-field-error-display>
               </div>
               <div
@@ -110,7 +110,7 @@
                 <input *ngIf="!showview" id="registrationnumber" required formControlName="registrationnumber"
                   class="form-control">
                 <app-field-error-display [displayError]="f.registrationnumber.errors?.required"
-                  errorMsg="Enter {{'Registration Number' | translate}}">
+                  errorMsg="Enter {{'Registration Number'}}">
                 </app-field-error-display>
               </div>
               <div
@@ -158,7 +158,7 @@
                 <label *ngIf="showview" class="labelview">{{f.address1?.value}}</label>
                 <input *ngIf="!showview" id="address1" required formControlName="address1" class="form-control">
                 <app-field-error-display [displayError]="f.address1.errors?.required"
-                  errorMsg="Enter {{'Address1' | translate}}">
+                  errorMsg="Enter {{'Address1'}}">
                 </app-field-error-display>
               </div>
               <div
@@ -709,7 +709,7 @@
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
             <div [ngClass]="Is_bocompanyholidays_Visible()">
-              <h4 class="form-group sticky1  columns left">{{'Company Holidays' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Company Holidays'}}
                 <select class='child' id="bocompanyholidaysPagingdropdown"
                   (change)="bocompanyholidays_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
@@ -756,7 +756,7 @@
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
             <div [ngClass]="Is_bofinancialyears_Visible()">
-              <h4 class="form-group sticky1  columns left">{{'Financial Years' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Financial Years'}}
                 <select class='child' id="bofinancialyearsPagingdropdown"
                   (change)="bofinancialyears_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

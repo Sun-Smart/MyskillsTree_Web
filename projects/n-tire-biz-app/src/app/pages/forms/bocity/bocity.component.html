@@ -89,7 +89,7 @@
                 <label *ngIf="showview" class="labelview">{{f.code?.value}}</label>
                 <input *ngIf="!showview" id="code" required formControlName="code" class="form-control">
                 <app-field-error-display [displayError]="f.code.errors?.required"
-                  errorMsg="Enter {{'Code' | translate}}">
+                  errorMsg="Enter {{'Code'}}">
                 </app-field-error-display>
               </div>
               <div *ngIf="((hidelist.indexOf('name') == -1) && (namevisible==undefined || namevisible==true))" style=''
@@ -98,7 +98,7 @@
                 <label *ngIf="showview" class="labelview">{{f.name?.value}}</label>
                 <input *ngIf="!showview" id="name" required formControlName="name" class="form-control">
                 <app-field-error-display [displayError]="f.name.errors?.required"
-                  errorMsg="Enter {{'Name' | translate}}">
+                  errorMsg="Enter {{'Name'}}">
                 </app-field-error-display>
               </div>
               <div *ngIf="((hidelist.indexOf('stateid') == -1) && (stateidvisible==undefined || stateidvisible==true))"
@@ -130,7 +130,7 @@
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
             <div [ngClass]="Is_bolocations_Visible()">
-              <h4 class="form-group sticky1  columns left">{{'Locations' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Locations'}}
                 <select class='child' id="bolocationsPagingdropdown" (change)="bolocations_Paging($event.target.value)"
                   [value]='20'>
                   <option value='20'>20</option>
