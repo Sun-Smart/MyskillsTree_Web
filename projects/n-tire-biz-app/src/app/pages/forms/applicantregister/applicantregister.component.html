@@ -12,12 +12,9 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div style="margin: 10px;">
                         <h3 class="register-heading">Let's Get Started</h3>
-
                         <label class="custom_header">Already have an account? <a href="javascript:void(0);"
                                 (click)="gotoLogin()">Log in</a></label>
                     </div>
-
-
                     <div class="row">
                         <div class="col-sm reduce_radio">
                             <input type="radio" name="gender" (change)="onItemChange($event.target.value)"
@@ -100,18 +97,14 @@
                                             placeholder="Mobile Number">
                                     </div>
                                 </div>
-
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label for="loginPassword">Category</label>
                                         <select name="gender" formControlName="category" [(ngModel)]="category"  class="form-control" (change)="opendrop(category)">
-                                            <!-- <option [ngValue]="null" selected></option> -->
                                             <option  [Value]="G" [selected]="true">General</option>
                                             <option  [Value]="S">Special</option>s
                                         </select>
-
                                     </div>
-
                                 </div>
                                 <div class="row" *ngIf="submenus1" style="margin: 10px !important;
                                 line-height: 2;" (change)="closedrop()">
@@ -132,38 +125,18 @@
                                             value="certifier"> physically challenged
                                     </div>
                                 </div>
-
-                                <!-- <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group" style="accent-color: #ed4141;margin-bottom: 0px;">
-                                        <input type="checkbox" value="" id="flexCheckDefault" formControlName="agreement">
-                                        <label class="form-check-label" for="flexCheckDefault" style="color: #ed4141;">
-                                            &nbsp;&nbsp;I agree to the given terms & condition
-                                        </label>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
-                        <!-- <div class="row">
-                            <div class="col-sm reduce_radio">
-                                <input type="radio" name="gender" value="special"> Special Category
-                            </div>
-                            <div class="col-sm reduce_radio">
-                                <input type="radio" name="gender" value="stanard"> Standard Category
-                            </div>
-                            </div> -->
-
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <button class="btn btn-info btn-block register_btn"
-                                (click)="onSubmitAndWait()" [disabled]="bocompanyregistration_Form.value.companyname== null || bocompanyregistration_Form.value.companytype== null||bocompanyregistration_Form.value.firstname== null||bocompanyregistration_Form.value.lastname== null||bocompanyregistration_Form.value.designation== null
+                                (click)="onSubmitData()" [disabled]="bocompanyregistration_Form.value.companyname== null || bocompanyregistration_Form.value.companytype== null||bocompanyregistration_Form.value.firstname== null||bocompanyregistration_Form.value.lastname== null||bocompanyregistration_Form.value.designation== null
                                 ||bocompanyregistration_Form.value.emailid== null||bocompanyregistration_Form.value.mobilenumber== null
                                 ">Register</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
-
     </div>
     <footer>
       <div class="container">

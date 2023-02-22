@@ -1,75 +1,42 @@
 import { bobranchmasterService } from './../../../service/bobranchmaster.service';
 import { bobranchmaster } from './../../../model/bobranchmaster.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import {  Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
+import { DomSanitizer } from "@angular/platform-browser";
+import { KeyValuePair, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
 import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { bobranchholiday } from './../../../model/bobranchholiday.model';
 import { bobranchholidayComponent } from './../../../pages/forms/bobranchholiday/bobranchholiday.component';
 import { bobranchholidayService } from './../../../service/bobranchholiday.service';
-import { bouserbranchaccess } from './../../../model/bouserbranchaccess.model';
-import { bouserbranchaccessComponent } from './../../../pages/forms/bouserbranchaccess/bouserbranchaccess.component';
-import { bouserbranchaccessService } from './../../../service/bouserbranchaccess.service';
-import { bobranchlocation } from './../../../model/bobranchlocation.model';
 import { bobranchlocationComponent } from './../../../pages/forms/bobranchlocation/bobranchlocation.component';
 import { bousermasterComponent } from './../../../pages/forms/bousermaster/bousermaster.component';
-
 import { bobranchlocationService } from './../../../service/bobranchlocation.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
 import { customfieldconfigurationService } from '../../../../../../n-tire-biz-app/src/app/service/customfieldconfiguration.service';
-import { customfieldconfiguration } from '../../../../../../n-tire-biz-app/src/app/model/customfieldconfiguration.model';
 import { DynamicFormBuilderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/dynamic-form-builder/dynamic-form-builder.component';
 
 @Component({
   selector: 'app-bobranchmaster',
   templateUrl: './bobranchmaster.component.html',
-  styles: [],
-  providers: [KeyboardShortcutsService]
+  styles: []
 })
-
-
-
 export class bobranchmasterComponent implements OnInit {
   Insertbouserbranchaccesses: any;
   formData: bobranchmaster;
@@ -77,15 +44,14 @@ export class bobranchmasterComponent implements OnInit {
   bmyrecord: boolean = false;
   hidelist: any = [];
   objvalues: any = [];
-  viewHtml: any = '';//stores html view of the screen
-  showview: boolean = false;//view or edit mode
-  theme: string = "";//current theme
-  //formdata: any;//current form data
-  shortcuts: ShortcutInput[] = [];//keyboard keys
-  showSubmit: boolean = true;//button to show
+  viewHtml: any = '';
+  showview: boolean = false;
+  theme: string = "";
+  shortcuts: ShortcutInput[] = [];
+  showSubmit: boolean = true;
   showGoWorkFlow: boolean = false;
-  pkList: any;//stores values - used in search, prev, next
-  pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
+  pkList: any;
+  pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();
   toolbarVisible: boolean = true;
   customFieldServiceList: any;
   @ViewChild('customform', { static: false }) customform: DynamicFormBuilderComponent;
@@ -98,7 +64,6 @@ export class bobranchmasterComponent implements OnInit {
   ShowTableslist: string[] = [];
   data: any;
   maindata: any;
-
   bfilterPopulate_bobranchmasters: boolean = false;
   bfilterPopulate_bobranchholidays: boolean = false;
   bfilterPopulate_bouserbranchaccesses: boolean = false;
@@ -110,9 +75,7 @@ export class bobranchmasterComponent implements OnInit {
   @ViewChild('tbl_bouserbranchaccesses', { static: false }) tbl_bouserbranchaccesses: Ng2SmartTableComponent;
   bobranchlocation_menuactions: any = []
   @ViewChild('tbl_bobranchlocations', { static: false }) tbl_bobranchlocations: Ng2SmartTableComponent;
-
   bobranchmaster_Form: FormGroup;
-
   countryid_List: DropDownValues[];
   countryid_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
   stateid_List: DropDownValues[];
@@ -129,7 +92,6 @@ export class bobranchmasterComponent implements OnInit {
   salesdirector_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
   customersuccessdirector_List: DropDownValues[];
   customersuccessdirector_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
-
   private exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
   showFormType: any;
   formid: any;
@@ -142,19 +104,14 @@ export class bobranchmasterComponent implements OnInit {
   attachmentFieldJson: any[] = [];
   attachmentVisible: boolean = true;
   SESSIONUSERID: any;//current user
-
   sessionData: any;
   sourceKey: any;
-
-
-
   bobranchholidays_visiblelist: any;
   bobranchholidays_hidelist: any;
   bouserbranchaccesses_visiblelist: any;
   bouserbranchaccesses_hidelist: any;
   bobranchlocations_visiblelist: any;
   bobranchlocations_hidelist: any;
-
   Deleted_bobranchholiday_IDs: string = "";
   bobranchholidays_ID: string = "1";
   bobranchholidays_selectedindex: any;
@@ -164,49 +121,22 @@ export class bobranchmasterComponent implements OnInit {
   Deleted_bobranchlocation_IDs: string = "";
   bobranchlocations_ID: string = "3";
   bobranchlocations_selectedindex: any;
-
-
   constructor(
-    private nav: Location,
-    private translate: TranslateService,
     private keyboard: KeyboardShortcutsService, private router: Router,
     private themeService: ThemeService,
-    private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
     private bobranchmaster_service: bobranchmasterService,
-    private bobranchholiday_service: bobranchholidayService,
-    //private bousermaster_service: bousermasterService,
-    private bobranchlocation_service: bobranchlocationService,
     private fb: FormBuilder,
     private sharedService: SharedService,
     private sessionService: SessionService,
     private toastr: ToastService,
     private customfieldservice: customfieldconfigurationService,
-    private sanitizer: DomSanitizer,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-    this.translate = this.sharedService.translate;
     this.data = dynamicconfig;
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
-    this.keyboard.add([
-      {
-        key: 'cmd l',
-        command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-        preventDefault: true
-      },
-      {
-        key: 'cmd s',
-        command: () => this.onSubmitData(false),
-        preventDefault: true
-      },
-      {
-        key: 'cmd f',
-        command: () => this.resetForm(),
-        preventDefault: true
-      }
-    ]);
     this.bobranchmaster_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
@@ -250,18 +180,11 @@ export class bobranchmasterComponent implements OnInit {
       statusdesc: [null],
     });
   }
-
   get f() { return this.bobranchmaster_Form.controls; }
-
-
-  //when child screens are clicked - it will be made invisible
   ToolBar(prop) {
     this.toolbarVisible = prop;
   }
-
-  //function called when we navigate to other page.defined in routing
   canDeactivate(): Observable<boolean> | boolean {
-    debugger;
     if (this.bobranchmaster_Form.dirty && this.bobranchmaster_Form.touched) {
       if (confirm('Do you want to exit the page?')) {
         return Observable.of(true).delay(1000);
@@ -271,13 +194,8 @@ export class bobranchmasterComponent implements OnInit {
     }
     return Observable.of(true);
   }
-
-  //check Unique fields
-
   branchcodeexists(e: any) {
-    debugger;
     let pos = this.pkList.map(function (e: any) { return e.branchcode.toString().toLowerCase(); }).indexOf(e.target.value.toString().toLowerCase());
-
     if (pos >= 0 && this.pkList[pos].branchid.toString() != this.formid.toString()) {
       if (confirm("This Branch Code value exists in the database.Do you want to display the record ? ")) {
         this.PopulateScreen(this.pkList[pos].pkcol);
@@ -294,7 +212,6 @@ export class bobranchmasterComponent implements OnInit {
     return true;
   }
   branchnameexists(e: any) {
-    debugger;
     let pos = this.pkList.map(function (e: any) { return e.branchname.toString().toLowerCase(); }).indexOf(e.target.value.toString().toLowerCase());
 
     if (pos >= 0 && this.pkList[pos].branchid.toString() != this.formid.toString()) {
@@ -313,36 +230,12 @@ export class bobranchmasterComponent implements OnInit {
     return true;
   }
 
-
-  //navigation buttons
-  first() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-  }
-
-  last() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-  }
-
-  prev() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.branchid.toString(); }).indexOf(this.formid.toString());
-    if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-  }
-
-  next() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.branchid.toString(); }).indexOf(this.formid.toString());
-    if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
-  }
-
-  //on searching in pk autocomplete
   onSelectedpk(pkDetail: any) {
     if (pkDetail.branchid && pkDetail) {
       this.PopulateScreen(pkDetail.pkcol);
     }
   }
 
-  // initialize
   async ngOnInit() {
     //session & theme
     this.themeService.theme.subscribe((val: string) => {
@@ -355,9 +248,6 @@ export class bobranchmasterComponent implements OnInit {
     }
 
     this.theme = this.sessionService.getItem('selected-theme');
-    //this.viewHtml=this.sessionService.getViewHtml();
-
-    debugger;
     //getting data - from list page, from other screen through dialog
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -373,11 +263,9 @@ export class bobranchmasterComponent implements OnInit {
     }
     let bobranchmasterid = null;
 
-    //if view button(eye) is clicked
     if (this.currentRoute.snapshot.paramMap.get('viewid') != null) {
       this.pkcol = this.currentRoute.snapshot.paramMap.get('viewid');
       this.showview = true;
-      //this.viewHtml=this.sessionService.getViewHtml();
     }
     else if (this.currentRoute.snapshot.paramMap.get('usersource') != null) {
       this.pkcol = this.sessionService.getItem('usersource');
@@ -389,7 +277,6 @@ export class bobranchmasterComponent implements OnInit {
       this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
       this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
     }
-    //copy the data from previous dialog 
     this.viewHtml = ``;
     this.PopulateFromMainScreen(this.data, false);
     this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -397,32 +284,15 @@ export class bobranchmasterComponent implements OnInit {
       this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
     }
     this.formid = bobranchmasterid;
-    //alert(bobranchmasterid);
 
-    //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
     if (this.pkcol == null) {
       this.Set_bobranchholidays_TableConfig();
-      setTimeout(() => {
-        //this.Set_bobranchholidays_TableDropDownConfig();
-      });
-
       this.Set_bouserbranchaccesses_TableConfig();
-      setTimeout(() => {
-        //this.Set_bouserbranchaccesses_TableDropDownConfig();
-      });
-
-      this.Set_bobranchlocations_TableConfig();
-      setTimeout(() => {
-        //this.Set_bobranchlocations_TableDropDownConfig();
-      });
-
       this.FillCustomField();
       this.resetForm();
     }
     else {
       if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
-      //get the record from api
-      //foreign keys 
     }
     this.bobranchmaster_service.getDefaultData().then(res => {
       this.countryid_List = res.list_countryid.value;
@@ -432,15 +302,12 @@ export class bobranchmasterComponent implements OnInit {
       this.growthopportunity_List = res.list_growthopportunity.value;
       this.salesdirector_List = res.list_salesdirector.value;
       this.customersuccessdirector_List = res.list_customersuccessdirector.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
-
-    //autocomplete
+    }).catch((err) => { this.spinner.hide(); });
     this.bobranchmaster_service.get_bobranchmasters_List().then(res => {
       this.pkList = res as bobranchmaster[];
       this.pkoptionsEvent.emit(this.pkList);
     }
-    ).catch((err) => { this.spinner.hide(); console.log(err); });
-    //setting the flag that the screen is not touched 
+    ).catch((err) => { this.spinner.hide();  });
     this.bobranchmaster_Form.markAsUntouched();
     this.bobranchmaster_Form.markAsPristine();
   }
@@ -449,26 +316,21 @@ export class bobranchmasterComponent implements OnInit {
       this.bobranchmaster_Form.patchValue({
         countryid: countryidDetail.value,
         countryiddesc: countryidDetail.label,
-
       });
       this.bobranchmaster_service.getList_stateid(countryidDetail.value).then(res => {
         this.stateid_List = res as DropDownValues[]
       }).catch((err) => { this.spinner.hide(); console.log(err); });
-
     }
   }
-
   onSelected_stateid(stateidDetail: any) {
     if (stateidDetail.value && stateidDetail) {
       this.bobranchmaster_Form.patchValue({
         stateid: stateidDetail.value,
         stateiddesc: stateidDetail.label,
-
       });
       this.bobranchmaster_service.getList_cityid(stateidDetail.value).then(res => {
         this.cityid_List = res as DropDownValues[]
-      }).catch((err) => { this.spinner.hide(); console.log(err); });
-
+      }).catch((err) => { this.spinner.hide(); });
     }
   }
 
@@ -477,12 +339,10 @@ export class bobranchmasterComponent implements OnInit {
       this.bobranchmaster_Form.patchValue({
         cityid: cityidDetail.value,
         cityiddesc: cityidDetail.label,
-
       });
       this.bobranchmaster_service.getList_locationid(cityidDetail.value).then(res => {
         this.locationid_List = res as DropDownValues[]
-      }).catch((err) => { this.spinner.hide(); console.log(err); });
-
+      }).catch((err) => { this.spinner.hide(); });
     }
   }
 
@@ -491,9 +351,7 @@ export class bobranchmasterComponent implements OnInit {
       this.bobranchmaster_Form.patchValue({
         locationid: locationidDetail.value,
         locationiddesc: locationidDetail.label,
-
       });
-
     }
   }
 
@@ -502,26 +360,17 @@ export class bobranchmasterComponent implements OnInit {
       this.bobranchmaster_Form.patchValue({
         salesdirector: salesdirectorDetail.value,
         salesdirectordesc: salesdirectorDetail.label,
-
       });
-
     }
   }
-
   onSelected_customersuccessdirector(customersuccessdirectorDetail: any) {
     if (customersuccessdirectorDetail.value && customersuccessdirectorDetail) {
       this.bobranchmaster_Form.patchValue({
         customersuccessdirector: customersuccessdirectorDetail.value,
         customersuccessdirectordesc: customersuccessdirectorDetail.label,
-
       });
-
     }
   }
-
-
-
-
   resetForm() {
     if (this.bobranchmaster_Form != null)
       this.bobranchmaster_Form.reset();
@@ -685,30 +534,23 @@ export class bobranchmasterComponent implements OnInit {
       this.attachmentlist.push(attachmentobj);
     }
   }
-
-
-
   edit_bobranchmasters() {
     this.showview = false;
     setTimeout(() => {
     });
     return false;
   }
-
-
-
   async PopulateScreen(pkcol: any) {
     this.spinner.show();
     this.bobranchmaster_service.get_bobranchmasters_ByEID(pkcol).then(res => {
       this.spinner.hide();
-
       this.formData = res.bobranchmaster;
       let formproperty = res.bobranchmaster.formproperty;
       if (formproperty && formproperty.edit == false) this.showview = true;
       this.pkcol = res.bobranchmaster.pkcol;
       this.formid = res.bobranchmaster.branchid;
       this.FillData(res);
-    }).catch((err) => { console.log(err); });
+    }).catch((err) => {});
   }
 
   FillData(res: any) {
@@ -719,9 +561,6 @@ export class bobranchmasterComponent implements OnInit {
     if ((res.bobranchmaster as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
     var starttimeTime = new Time(res.bobranchmaster.starttime);
     var endtimeTime = new Time(res.bobranchmaster.endtime);
-    console.log(res);
-    //console.log(res.order);
-    //console.log(res.orderDetails);
     this.bobranchmaster_Form.patchValue({
       branchid: res.bobranchmaster.branchid,
       branchcode: res.bobranchmaster.branchcode,
@@ -787,7 +626,6 @@ export class bobranchmasterComponent implements OnInit {
         this.locationid_List = res as DropDownValues[];
       }).catch((err) => { console.log(err); });
     });
-    //Child Tables if any
     this.Set_bobranchholidays_TableConfig();
     this.bobranchholidays_LoadTable(res.bobranchholidays);
     this.Set_bouserbranchaccesses_TableConfig();
@@ -796,12 +634,10 @@ export class bobranchmasterComponent implements OnInit {
     this.Set_bobranchlocations_TableConfig();
     this.bobranchlocations_LoadTable(res.bobranchlocations);
   }
-
   validate() {
     let ret = true;
     return ret;
   }
-
   getHtml(html: any) {
     let ret = "";
     ret = html;
@@ -840,7 +676,6 @@ export class bobranchmasterComponent implements OnInit {
     if (customfields != null) obj.customfield = JSON.stringify(customfields);
     if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     obj.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log(obj);
     if (!confirm('Do you want to want to save?')) {
       return;
     }
@@ -849,9 +684,6 @@ export class bobranchmasterComponent implements OnInit {
     if (this.fileattachment) this.fileattachment.clear();
     this.objvalues.push(obj);
     this.dialogRef.close(this.objvalues);
-    setTimeout(() => {
-      //this.dialogRef.destroy();
-    }, 200);
   }
 
   //This has to come from bomenuactions & procedures
@@ -863,24 +695,10 @@ export class bobranchmasterComponent implements OnInit {
     else if (mode == "refresh")
       this.router.navigate(['/home/' + formname + '/' + formname + '/edit/' + this.formid + query]);
   }
-
-
-
   async onSubmitData(bclear: any) {
-    debugger;
     this.isSubmitted = true;
     let strError = "";
-    // Object.keys(this.bobranchmaster_Form.controls).forEach(key => {
-    //   const controlErrors: ValidationErrors = this.bobranchmaster_Form.get(key).errors;
-    //   if (controlErrors != null) {
-    //     Object.keys(controlErrors).forEach(keyError => {
-    //       strError += ' ' + key + '' + keyError + '';
-    //     });
-    //   }
-    // });
     if (strError != "") return this.sharedService.alert(strError);
-
-
     if (!this.bobranchmaster_Form.valid || (this.customform != undefined && this.customform.form != undefined && !this.customform.form.valid)) {
       this.toastr.addSingle("error", "", "Enter the required fields");
       return;
@@ -907,7 +725,6 @@ export class bobranchmasterComponent implements OnInit {
     this.formData.Deleted_bouserbranchaccess_IDs = this.Deleted_bouserbranchaccess_IDs;
     this.formData.Deleted_bobranchlocation_IDs = this.Deleted_bobranchlocation_IDs;
     this.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log(this.formData);
     this.spinner.show();
     this.bobranchmaster_service.saveOrUpdate_bobranchmasters(this.formData, this.tbl_bobranchholidays?.source?.data, this.tbl_bouserbranchaccesses?.source?.data, this.Insertbouserbranchaccesses, this.tbl_bobranchlocations?.source?.data,).subscribe(
       async res => {
@@ -930,7 +747,6 @@ export class bobranchmasterComponent implements OnInit {
           }
         }
         this.spinner.hide();
-        debugger;
         this.toastr.addSingle("success", "", "Successfully saved");
         this.objvalues.push((res as any).bobranchmaster);
         if (!bclear) this.showview = true;
@@ -959,18 +775,12 @@ export class bobranchmasterComponent implements OnInit {
         this.bobranchmaster_Form.markAsPristine();
       },
       err => {
-        debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       }
     )
   }
 
-
-
-
-  //dropdown edit from the screen itself -> One screen like Reportviewer
   clearList() {
     this.tbl_bobranchholidays.source = new LocalDataSource();
     this.tbl_bouserbranchaccesses.source = new LocalDataSource();
@@ -1005,7 +815,6 @@ export class bobranchmasterComponent implements OnInit {
     if (childID != null)
       this.Deleted_bobranchholiday_IDs += childID + ",";
     this.tbl_bobranchholidays.source.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
   AddOrEdit_bobranchlocation(event: any, locationid: any, branchid: any) {
@@ -1036,7 +845,6 @@ export class bobranchmasterComponent implements OnInit {
     if (childID != null)
       this.Deleted_bobranchlocation_IDs += childID + ",";
     this.tbl_bobranchlocations.source.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
 
@@ -1045,11 +853,9 @@ export class bobranchmasterComponent implements OnInit {
     let prevform = this.sessionService.getItem("prevform");
     this.router.navigate(["/home/" + prevform + "/" + prevform + "/edit/" + formid]);
   }
-  //start of Grid Codes bobranchholidays
   bobranchholidays_settings: any;
 
   show_bobranchholidays_Checkbox() {
-    debugger;
     if (this.tbl_bobranchholidays.source.settings['selectMode'] == 'multi') this.tbl_bobranchholidays.source.settings['selectMode'] = 'single';
     else
       this.tbl_bobranchholidays.source.settings['selectMode'] = 'multi';
@@ -1059,15 +865,8 @@ export class bobranchmasterComponent implements OnInit {
     this.tbl_bobranchholidays.source.settings['selectMode'] = 'single';
   }
   show_bobranchholidays_Filter() {
-    setTimeout(() => {
-      //  this.Set_bobranchholidays_TableDropDownConfig();
-    });
     if (this.tbl_bobranchholidays.source.settings != null) this.tbl_bobranchholidays.source.settings['hideSubHeader'] = !this.tbl_bobranchholidays.source.settings['hideSubHeader'];
     this.tbl_bobranchholidays.source.initGrid();
-  }
-  show_bobranchholidays_InActive() {
-  }
-  enable_bobranchholidays_InActive() {
   }
   async Set_bobranchholidays_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_bobranchholidays) {
@@ -1088,9 +887,6 @@ export class bobranchmasterComponent implements OnInit {
   }
   async bobranchholidays_beforesave(event: any) {
     event.confirm.resolve(event.newData);
-
-
-
   }
   Set_bobranchholidays_TableConfig() {
     this.bobranchholidays_settings = {
@@ -1101,7 +897,7 @@ export class bobranchmasterComponent implements OnInit {
         columnTitle: '',
         width: '300px',
         add: !this.showview,
-        edit: true, // true,
+        edit: true,
         delete: !this.showview,
         position: 'left',
         custom: this.bobranchholiday_menuactions
@@ -1157,39 +953,6 @@ export class bobranchmasterComponent implements OnInit {
       if (this.tbl_bobranchholidays != undefined) this.tbl_bobranchholidays.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  bobranchholidays_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.bobranchmaster_service.bobranchholidays.length == 0)
-  {
-      this.tbl_bobranchholidays.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new bobranchholiday();
-      this.bobranchmaster_service.bobranchholidays.push(obj);
-      this.tbl_bobranchholidays.source.refresh();
-      if ((this.bobranchmaster_service.bobranchholidays.length / this.tbl_bobranchholidays.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_bobranchholidays.source.getPaging().page)
-      {
-          this.tbl_bobranchholidays.source.setPage((this.bobranchmaster_service.bobranchholidays.length / this.tbl_bobranchholidays.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_bobranchholidays.source.grid.edit(this.tbl_bobranchholidays.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_bobranchholidays.source.data.indexOf(event.data);
-  this.onDelete_bobranchholiday(event,event.data.branchholidayid,((this.tbl_bobranchholidays.source.getPaging().page-1) *this.tbl_bobranchholidays.source.getPaging().perPage)+index);
-  this.tbl_bobranchholidays.source.refresh();
-  break;
-  }
-  }
-  
-  */
   bobranchholidays_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -1222,16 +985,10 @@ export class bobranchmasterComponent implements OnInit {
   async onCustom_bobranchholidays_Action(event: any) {
     let objbomenuaction = await this.sharedService.onCustomAction(event, "bobranchholidays");
     let formname = (objbomenuaction as any).actionname;
-
-
-
-
   }
   bobranchholidays_Paging(val) {
-    debugger;
     this.tbl_bobranchholidays.source.setPaging(1, val, true);
   }
-
   handle_bobranchholidays_GridSelected(event: any) {
     this.bobranchholidays_selectedindex = this.tbl_bobranchholidays.source.findIndex(i => i.branchholidayid === event.data.branchholidayid);
   }
@@ -1243,10 +1000,7 @@ export class bobranchmasterComponent implements OnInit {
       return "hide";
     }
   }
-  //end of Grid Codes bobranchholidays
-  //start of Grid Codes bouserbranchaccesses
   async onCustom_bouserbranchaccesses_Action(event: any) {
-    debugger;
     switch (event.action) {
       case 'viewrecord':
         let val = event.data.pkcol;
@@ -1265,7 +1019,6 @@ export class bobranchmasterComponent implements OnInit {
   bouserbranchaccesses_settings: any;
 
   show_bouserbranchaccesses_Checkbox() {
-    debugger;
     if (this.tbl_bouserbranchaccesses.source.settings['selectMode'] == 'multi') this.tbl_bouserbranchaccesses.source.settings['selectMode'] = 'single';
     else
       this.tbl_bouserbranchaccesses.source.settings['selectMode'] = 'multi';
@@ -1275,15 +1028,8 @@ export class bobranchmasterComponent implements OnInit {
     this.tbl_bouserbranchaccesses.source.settings['selectMode'] = 'single';
   }
   show_bouserbranchaccesses_Filter() {
-    setTimeout(() => {
-      //  this.Set_bouserbranchaccesses_TableDropDownConfig();
-    });
     if (this.tbl_bouserbranchaccesses.source.settings != null) this.tbl_bouserbranchaccesses.source.settings['hideSubHeader'] = !this.tbl_bouserbranchaccesses.source.settings['hideSubHeader'];
     this.tbl_bouserbranchaccesses.source.initGrid();
-  }
-  show_bouserbranchaccesses_InActive() {
-  }
-  enable_bouserbranchaccesses_InActive() {
   }
   async Set_bouserbranchaccesses_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_bouserbranchaccesses) {
@@ -1292,9 +1038,6 @@ export class bobranchmasterComponent implements OnInit {
   }
   async bouserbranchaccesses_beforesave(event: any) {
     event.confirm.resolve(event.newData);
-
-
-
   }
   Set_bouserbranchaccesses_TableConfig() {
     this.bouserbranchaccesses_settings = {
@@ -1349,46 +1092,11 @@ export class bobranchmasterComponent implements OnInit {
     }
   }
 
-  //external to inline
-  /*
-  bouserbranchaccesses_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.bobranchmaster_service.bouserbranchaccesses.length == 0)
-  {
-      this.tbl_bouserbranchaccesses.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new bouserbranchaccess();
-      this.bobranchmaster_service.bouserbranchaccesses.push(obj);
-      this.tbl_bouserbranchaccesses.source.refresh();
-      if ((this.bobranchmaster_service.bouserbranchaccesses.length / this.tbl_bouserbranchaccesses.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_bouserbranchaccesses.source.getPaging().page)
-      {
-          this.tbl_bouserbranchaccesses.source.setPage((this.bobranchmaster_service.bouserbranchaccesses.length / this.tbl_bouserbranchaccesses.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_bouserbranchaccesses.source.grid.edit(this.tbl_bouserbranchaccesses.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_bouserbranchaccesses.source.data.indexOf(event.data);
-  this.onDelete_bouserbranchaccess(event,event.data.accessid,((this.tbl_bouserbranchaccesses.source.getPaging().page-1) *this.tbl_bouserbranchaccesses.source.getPaging().perPage)+index);
-  this.tbl_bouserbranchaccesses.source.refresh();
-  break;
-  }
-  }
-  
-  */
   bouserbranchaccesses_Paging(val) {
-    debugger;
     this.tbl_bouserbranchaccesses.source.setPaging(1, val, true);
   }
 
   handle_bouserbranchaccesses_GridSelected(event: any) {
-    debugger;
-
     if (event.isSelected) {
       if (event.data.accessid == null || event.data.accessid == "") {
         var obj = { branchid: this.formid, userid: event.data.userid }
@@ -1419,12 +1127,9 @@ export class bobranchmasterComponent implements OnInit {
       return "hide";
     }
   }
-  //end of Grid Codes bouserbranchaccesses
-  //start of Grid Codes bobranchlocations
   bobranchlocations_settings: any;
 
   show_bobranchlocations_Checkbox() {
-    debugger;
     if (this.tbl_bobranchlocations.source.settings['selectMode'] == 'multi') this.tbl_bobranchlocations.source.settings['selectMode'] = 'single';
     else
       this.tbl_bobranchlocations.source.settings['selectMode'] = 'multi';
@@ -1434,19 +1139,11 @@ export class bobranchmasterComponent implements OnInit {
     this.tbl_bobranchlocations.source.settings['selectMode'] = 'single';
   }
   show_bobranchlocations_Filter() {
-    setTimeout(() => {
-      //  this.Set_bobranchlocations_TableDropDownConfig();
-    });
     if (this.tbl_bobranchlocations.source.settings != null) this.tbl_bobranchlocations.source.settings['hideSubHeader'] = !this.tbl_bobranchlocations.source.settings['hideSubHeader'];
     this.tbl_bobranchlocations.source.initGrid();
   }
-  show_bobranchlocations_InActive() {
-  }
-  enable_bobranchlocations_InActive() {
-  }
   async Set_bobranchlocations_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_bobranchlocations) {
-
       var clone = this.sharedService.clone(this.tbl_bobranchlocations.source.settings);
       if (clone.columns['locationcode'] != undefined) clone.columns['locationcode'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_bobranchlocations_locationcode.value)), }, };
       if (clone.columns['locationcode'] != undefined) clone.columns['locationcode'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_bobranchlocations_locationcode.value)), }, };
@@ -1457,9 +1154,6 @@ export class bobranchmasterComponent implements OnInit {
   }
   async bobranchlocations_beforesave(event: any) {
     event.confirm.resolve(event.newData);
-
-
-
   }
   Set_bobranchlocations_TableConfig() {
     this.bobranchlocations_settings = {
@@ -1470,7 +1164,7 @@ export class bobranchmasterComponent implements OnInit {
         columnTitle: '',
         width: '300px',
         add: !this.showview,
-        edit: true, // true,
+        edit: true,
         delete: !this.showview,
         position: 'left',
         custom: this.bobranchlocation_menuactions
@@ -1517,39 +1211,6 @@ export class bobranchmasterComponent implements OnInit {
       if (this.tbl_bobranchlocations != undefined) this.tbl_bobranchlocations.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  bobranchlocations_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.bobranchmaster_service.bobranchlocations.length == 0)
-  {
-      this.tbl_bobranchlocations.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new bobranchlocation();
-      this.bobranchmaster_service.bobranchlocations.push(obj);
-      this.tbl_bobranchlocations.source.refresh();
-      if ((this.bobranchmaster_service.bobranchlocations.length / this.tbl_bobranchlocations.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_bobranchlocations.source.getPaging().page)
-      {
-          this.tbl_bobranchlocations.source.setPage((this.bobranchmaster_service.bobranchlocations.length / this.tbl_bobranchlocations.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_bobranchlocations.source.grid.edit(this.tbl_bobranchlocations.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_bobranchlocations.source.data.indexOf(event.data);
-  this.onDelete_bobranchlocation(event,event.data.locationid,((this.tbl_bobranchlocations.source.getPaging().page-1) *this.tbl_bobranchlocations.source.getPaging().perPage)+index);
-  this.tbl_bobranchlocations.source.refresh();
-  break;
-  }
-  }
-  
-  */
   bobranchlocations_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -1582,13 +1243,8 @@ export class bobranchmasterComponent implements OnInit {
   async onCustom_bobranchlocations_Action(event: any) {
     let objbomenuaction = await this.sharedService.onCustomAction(event, "bobranchlocations");
     let formname = (objbomenuaction as any).actionname;
-
-
-
-
   }
   bobranchlocations_Paging(val) {
-    debugger;
     this.tbl_bobranchlocations.source.setPaging(1, val, true);
   }
 
@@ -1603,8 +1259,6 @@ export class bobranchmasterComponent implements OnInit {
       return "hide";
     }
   }
-  //end of Grid Codes bobranchlocations
-
 }
 
 

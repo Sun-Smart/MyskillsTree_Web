@@ -3,8 +3,6 @@ import { NgCommonModule } from '../../../../../../n-tire-biz-app/src/app/appcomm
 import { boreportviewerModule } from '../../../../../../n-tire-biz-app/src/app/pages/forms/boreportviewer/boreportviewer.module';
 import { routing } from './applicantdashboard.routing';
 import { applicantdashboardComponent } from './applicantdashboard.component';
-
-//import { mstapplicantskilldetailgridComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetailgrid.component';
 import { mstapplicantskilldetailModule } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.module';
 
 @NgModule({

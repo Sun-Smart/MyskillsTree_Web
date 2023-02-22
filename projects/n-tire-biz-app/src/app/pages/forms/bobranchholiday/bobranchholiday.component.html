@@ -2,13 +2,11 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="bobranchholiday_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left">{{'Branch Holidays' | translate}}
+    <h1 class="col-4 columns mainheader left">{{'Branch Holidays'}}
     </h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
-      <!--btn-toolbar-->
       <div class='col'></div>
       <div class='dropdown d-inline-block btn-dropdown show'>
-
         <ul class='nav nav-pills  input-group'>
           <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bobranchholidays()"><i
                 class="nb-edit"></i>Edit</a></li>
@@ -19,10 +17,8 @@
             <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
               (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
             </app-popupselect>
-
             <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
               [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
-
           </li>
           <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
             <ul class="nav navbar-nav1">
@@ -36,11 +32,9 @@
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
                   <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
-
                   <li role="separator" class="divider">
                     <hr>
                   </li>
-
                   <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
                   <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
@@ -49,8 +43,6 @@
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
                   <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
-
-
                 </ul>
               </li>
             </ul>
@@ -71,7 +63,6 @@
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
             <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li>
-
         </ul>
       </div>
     </div>
@@ -82,7 +73,6 @@
       <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
     </div>
     <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
-
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('branchid') == -1) && (branchidvisible==undefined || branchidvisible==true))"
@@ -91,10 +81,6 @@
         <label *ngIf="showview" class="labelview">{{f.branchid?.value}}</label>
         <input *ngIf="!showview" id="branchid" formControlName="branchid" class="form-control">
       </div>
-
-
-      <!--financialyearid-->
-
       <div
         *ngIf="((hidelist.indexOf('financialyearid') == -1) && (financialyearidvisible==undefined || financialyearidvisible==true))"
         style='' class="col-3"><label for="financialyearid" class="control-label"
@@ -119,10 +105,6 @@
               class="fa fa-calendar" aria-hidden="true"></i></button>
         </div>
       </div>
-
-
-      <!--holidayday-->
-
       <div *ngIf="((hidelist.indexOf('holidayday') == -1) && (holidaydayvisible==undefined || holidaydayvisible==true))"
         style='' class="col-3"><label for="holidayday" class="control-label">Holiday Day</label>
         <select *ngIf="!showview" id="holidayday" (change)="holidayday_onChange($event.target)"

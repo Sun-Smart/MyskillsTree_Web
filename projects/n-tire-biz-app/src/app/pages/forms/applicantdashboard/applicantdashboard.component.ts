@@ -8,16 +8,13 @@ import { Router, ActivatedRoute } from '@angular/router';
     templateUrl: './applicantdashboard.component.html',
 })
 export class applicantdashboardComponent implements OnInit {
-  //  @Input() applicantid;
     applicantid:any;
     isadmin = false;
     constructor(public dialog: DialogService,private currentRoute: ActivatedRoute, private sessionService: SessionService) {
-        debugger;
         this.applicantid=this.sessionService.getItem("applicantid");
     }
 
     ngOnInit() {
-        debugger;
         this.applicantid = this.currentRoute.snapshot.paramMap.get('id');
         if (this.sessionService.getItem("role") == '1') {
             this.isadmin = true;
@@ -25,11 +22,10 @@ export class applicantdashboardComponent implements OnInit {
     }
     showSkills()
     {
-        
         this.dialog.open(mstapplicantskilldetailgridComponent,
             {
               data: { ScreenType:2, applicantid: this.applicantid,save:true}
             }
           )
-    }    
+    }
 }

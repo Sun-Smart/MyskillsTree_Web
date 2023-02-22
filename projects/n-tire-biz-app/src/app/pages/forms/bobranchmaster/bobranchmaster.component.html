@@ -2,13 +2,11 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="bobranchmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left">{{'Branch Masters' | translate}}
+    <h1 class="col-4 columns mainheader left">{{'Branch Masters'}}
     </h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
-      <!--btn-toolbar-->
       <div class='col'></div>
       <div class='dropdown d-inline-block btn-dropdown show'>
-
         <ul class='nav nav-pills  input-group'>
           <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bobranchmasters()"><i
                 class="nb-edit"></i>Edit</a></li>
@@ -19,10 +17,8 @@
             <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
               (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
             </app-popupselect>
-
             <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
               [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
-
           </li>
           <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
             <ul class="nav navbar-nav1">
@@ -36,11 +32,9 @@
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
                   <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
-
                   <li role="separator" class="divider">
                     <hr>
                   </li>
-
                   <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
                   <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
@@ -49,8 +43,6 @@
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
                   <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
-
-
                 </ul>
               </li>
             </ul>
@@ -71,7 +63,6 @@
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
             <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li>
-
         </ul>
       </div>
     </div>
@@ -82,11 +73,9 @@
       <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
     </div>
     <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
-
     </div>
     <ngb-tabset class="tabset1" [destroyOnHide]="false">
       <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
-
       </div>
       <ngb-tab>
         <ng-template ngbTabTitle>
@@ -149,10 +138,6 @@
                   <label *ngIf="showview" class="labelview">{{f.address2?.value}}</label>
                   <input *ngIf="!showview" id="address2" formControlName="address2" class="form-control">
                 </div>
-
-
-                <!--countryid-->
-
                 <div
                   *ngIf="((hidelist.indexOf('countryid') == -1) && (countryidvisible==undefined || countryidvisible==true))"
                   style='' class="col-3"><label for="countryid" class="control-label"
@@ -164,10 +149,6 @@
                   </div>
                   <label *ngIf="showview" class="labelview">{{f.countryiddesc?.value}}</label>
                 </div>
-
-
-                <!--stateid-->
-
                 <div
                   *ngIf="((hidelist.indexOf('stateid') == -1) && (stateidvisible==undefined || stateidvisible==true))"
                   style='' class="col-3"><label for="stateid" class="control-label"
@@ -180,10 +161,6 @@
                   <label *ngIf="showview" class="labelview">{{f.stateiddesc?.value}}</label>
                 </div>
               </div>
-
-
-              <!--cityid-->
-
               <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
                 <div *ngIf="((hidelist.indexOf('cityid') == -1) && (cityidvisible==undefined || cityidvisible==true))"
                   style='' class="col-3"><label for="cityid" class="control-label"
@@ -195,10 +172,6 @@
                   </div>
                   <label *ngIf="showview" class="labelview">{{f.cityiddesc?.value}}</label>
                 </div>
-
-
-                <!--locationid-->
-
                 <div
                   *ngIf="((hidelist.indexOf('locationid') == -1) && (locationidvisible==undefined || locationidvisible==true))"
                   style='' class="col-3"><label for="locationid" class="control-label"
@@ -252,10 +225,6 @@
                     errorMsg="Enter {{'End Time' | translate}}">
                   </app-field-error-display>
                 </div>
-
-
-                <!--weekoff1-->
-
                 <div
                   *ngIf="((hidelist.indexOf('weekoff1') == -1) && (weekoff1visible==undefined || weekoff1visible==true))"
                   style='' class="col-3"><label for="weekoff1" class="control-label">Week Off1</label>
@@ -266,10 +235,6 @@
                   </select>
                   <label *ngIf="showview" class="labelview">{{f.weekoff1desc?.value}}</label>
                 </div>
-
-
-                <!--weekoff2-->
-
                 <div
                   *ngIf="((hidelist.indexOf('weekoff2') == -1) && (weekoff2visible==undefined || weekoff2visible==true))"
                   style='' class="col-3"><label for="weekoff2" class="control-label">Week Off2</label>
@@ -314,10 +279,6 @@
                   <label *ngIf="showview" class="labelview">{{f.salespeople?.value}}</label>
                   <input *ngIf="!showview" id="salespeople" formControlName="salespeople" class="form-control">
                 </div>
-
-
-                <!--resourceallocation-->
-
                 <div
                   *ngIf="((hidelist.indexOf('resourceallocation') == -1) && (resourceallocationvisible==undefined || resourceallocationvisible==true))"
                   style='' class="col-3"><label for="resourceallocation" class="control-label">Resource
@@ -331,10 +292,6 @@
                   <label *ngIf="showview" class="labelview">{{f.resourceallocationdesc?.value}}</label>
                 </div>
               </div>
-
-
-              <!--growthopportunity-->
-
               <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
                 <div
                   *ngIf="((hidelist.indexOf('growthopportunity') == -1) && (growthopportunityvisible==undefined || growthopportunityvisible==true))"
@@ -346,10 +303,6 @@
                   </select>
                   <label *ngIf="showview" class="labelview">{{f.growthopportunitydesc?.value}}</label>
                 </div>
-
-
-                <!--salesdirector-->
-
                 <div
                   *ngIf="((hidelist.indexOf('salesdirector') == -1) && (salesdirectorvisible==undefined || salesdirectorvisible==true))"
                   style='' class="col-3"><label for="salesdirector" class="control-label"
@@ -362,10 +315,6 @@
                   </div>
                   <label *ngIf="showview" class="labelview">{{f.salesdirectordesc?.value}}</label>
                 </div>
-
-
-                <!--customersuccessdirector-->
-
                 <div
                   *ngIf="((hidelist.indexOf('customersuccessdirector') == -1) && (customersuccessdirectorvisible==undefined || customersuccessdirectorvisible==true))"
                   style='' class="col-3"><label for="customersuccessdirector" class="control-label"
@@ -412,9 +361,7 @@
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
-            <!-- child table bobranchholidays-->
             <div [ngClass]="Is_bobranchholidays_Visible()">
-              <!--End-->
               <h4 class="form-group sticky1  columns left">{{'Branch Holidays' | translate}}
                 <select class='child' id="bobranchholidaysPagingdropdown"
                   (change)="bobranchholidays_Paging($event.target.value)" [value]='20'>
@@ -451,7 +398,6 @@
                 (edit)="bobranchholidays_route($event,'edit')" (editConfirm)="bobranchholidays_beforesave($event)">
               </ng2-smart-table>
             </div>
-            <!--End of child table bobranchholidays-->
           </p-accordion>
         </ng-template>
       </ngb-tab>
@@ -461,9 +407,7 @@
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
-            <!-- child table bouserbranchaccesses-->
             <div [ngClass]="Is_bouserbranchaccesses_Visible()">
-              <!--End-->
               <h4 class="form-group sticky1  columns left">{{'UserBranch Access' | translate}}
                 <select class='child' id="bouserbranchaccessesPagingdropdown"
                   (change)="bouserbranchaccesses_Paging($event.target.value)" [value]='20'>
@@ -493,7 +437,6 @@
                 [source]="tbl_bouserbranchaccesses?.source?.data">
               </ng2-smart-table>
             </div>
-            <!--End of child table bouserbranchaccesses-->
           </p-accordion>
         </ng-template>
       </ngb-tab>
@@ -503,9 +446,7 @@
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
-            <!-- child table bobranchlocations-->
             <div [ngClass]="Is_bobranchlocations_Visible()">
-              <!--End-->
               <h4 class="form-group sticky1  columns left">{{'Branch locations' | translate}}
                 <select class='child' id="bobranchlocationsPagingdropdown"
                   (change)="bobranchlocations_Paging($event.target.value)" [value]='20'>
@@ -543,7 +484,6 @@
                 (editConfirm)="bobranchlocations_beforesave($event)">
               </ng2-smart-table>
             </div>
-            <!--End of child table bobranchlocations-->
           </p-accordion>
         </ng-template>
       </ngb-tab>
