@@ -1,83 +1,43 @@
 import { bolmsbranchmasterService } from './../../../service/bolmsbranchmaster.service';
 import { bolmsbranchmaster } from './../../../model/bolmsbranchmaster.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
 import { boconfigvalue } from '../../../../../../n-tire-biz-app/src/app/model/boconfigvalue.model';
 import { boconfigvalueService } from '../../../../../../n-tire-biz-app/src/app/service/boconfigvalue.service';
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
-import { LocalDataSource } from 'ng2-smart-table';
-import { Ng2SmartTableComponent } from 'ng2-smart-table';
+import { KeyValuePair, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { bocountry } from './../../../model/bocountry.model';
-import { bocountryComponent } from './../../../pages/forms/bocountry/bocountry.component';
 import { bocountryService } from './../../../service/bocountry.service';
-//popups
 import { bostate } from './../../../model/bostate.model';
-import { bostateComponent } from './../../../pages/forms/bostate/bostate.component';
 import { bostateService } from './../../../service/bostate.service';
-//popups
 import { bocity } from './../../../model/bocity.model';
-import { bocityComponent } from './../../../pages/forms/bocity/bocity.component';
 import { bocityService } from './../../../service/bocity.service';
-//popups
 import { bolocation } from './../../../model/bolocation.model';
-import { bolocationComponent } from './../../../pages/forms/bolocation/bolocation.component';
 import { bolocationService } from './../../../service/bolocation.service';
-//popups
 import { bousermaster } from './../../../model/bousermaster.model';
-import { bousermasterComponent } from './../../../pages/forms/bousermaster/bousermaster.component';
 import { bousermasterService } from './../../../service/bousermaster.service';
-//popups
-//detail table services
-import { switchMap, map, debounceTime } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
 import { customfieldconfigurationService } from '../../../../../../n-tire-biz-app/src/app/service/customfieldconfiguration.service';
-import { customfieldconfiguration } from '../../../../../../n-tire-biz-app/src/app/model/customfieldconfiguration.model';
 import { DynamicFormBuilderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/dynamic-form-builder/dynamic-form-builder.component';
 
 @Component({
     selector: 'app-bolmsbranchmaster',
     templateUrl: './bolmsbranchmaster.component.html',
-    styles: [],
-    providers: [KeyboardShortcutsService]
+    styles: []
 })
-
-
 
 export class bolmsbranchmasterComponent implements OnInit {
     hidelist: any = [];
@@ -170,17 +130,8 @@ export class bolmsbranchmasterComponent implements OnInit {
     sessiondata: any;
     sourcekey: any;
 
-
-
-
-
-
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
@@ -189,7 +140,6 @@ export class bolmsbranchmasterComponent implements OnInit {
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        //private dialog: NbDialogService,
         private configservice: boconfigvalueService,
         private bocountryservice: bocountryService,
         private bostateservice: bostateService,
@@ -199,27 +149,9 @@ export class bolmsbranchmasterComponent implements OnInit {
         private customfieldservice: customfieldconfigurationService,
         private currentRoute: ActivatedRoute) {
         this.bobranchmasterservice.formData = null;
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.pmenuid = sharedService.menuid;
         this.pcurrenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.pcurrenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.bobranchmasterForm = this.fb.group({
             pk: [null],
             ImageName: [null],
@@ -265,16 +197,11 @@ export class bolmsbranchmasterComponent implements OnInit {
     }
 
     get f() { return this.bobranchmasterForm.controls; }
-
-
-    //when child screens are clicked - it will be made invisible
     ToolBar(prop) {
         this.toolbarvisible = prop;
     }
 
-    //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.bobranchmasterForm.dirty && this.bobranchmasterForm.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -285,9 +212,7 @@ export class bolmsbranchmasterComponent implements OnInit {
         return Observable.of(true);
     }
 
-    //check Unique fields
     branchcodeexists(e: any) {
-        debugger;
         let pos = this.pkList.map(function (e: any) { return e.branchcode.toString().toLowerCase(); }).indexOf(e.target.value.toString().toLowerCase());
 
         if (pos >= 0 && this.pkList[pos].branchid.toString() != this.formid.toString()) {
@@ -306,7 +231,6 @@ export class bolmsbranchmasterComponent implements OnInit {
         return true;
     }
     branchnameexists(e: any) {
-        debugger;
         let pos = this.pkList.map(function (e: any) { return e.branchname.toString().toLowerCase(); }).indexOf(e.target.value.toString().toLowerCase());
 
         if (pos >= 0 && this.pkList[pos].branchid.toString() != this.formid.toString()) {
@@ -325,28 +249,6 @@ export class bolmsbranchmasterComponent implements OnInit {
         return true;
     }
 
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.branchid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.branchid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
-    }
-
-    //on searching in pk autocomplete
     onSelectedpk(pkDetail: any) {
         if (pkDetail.branchid && pkDetail) {
             this.PopulateScreen(pkDetail.pkcol);
@@ -371,10 +273,6 @@ export class bolmsbranchmasterComponent implements OnInit {
             this.theme = val;
         });
 
-        //this.viewhtml = this.sessionService.getViewHtml();
-
-        debugger;
-        //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
             this.maindata = this.data;
@@ -389,11 +287,9 @@ export class bolmsbranchmasterComponent implements OnInit {
         }
         let bobranchmasterid = null;
 
-        //if view button(eye) is clicked
         if (this.currentRoute.snapshot.paramMap.get('viewid') != null) {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('viewid');
             this.showview = true;
-            ////this.viewhtml=this.sessionService.getViewHtml();
         }
         else if (this.currentRoute.snapshot.paramMap.get('usersource') != null) {
             this.pkcol = this.sessionService.getItem('usersource');
@@ -405,24 +301,18 @@ export class bolmsbranchmasterComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showformtype = this.currentRoute.snapshot.paramMap.get('showformtype');
         }
-        //copy the data from previous dialog 
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
             this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
         }
         this.formid = bobranchmasterid;
-        //alert(bobranchmasterid);
-
-        //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.FillCustomField();
             this.resetForm();
         }
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
-            //get the record from api
-            //foreign keys 
         }
         this.bocountryservice.get_bocountries_List().then(res => {
             this.countryidList = res as bocountry[];
@@ -442,7 +332,6 @@ export class bolmsbranchmasterComponent implements OnInit {
             }
         }
         ).catch((err) => {
-            //console.log(err);
         });
         this.countryid_bocountriesoptions = (text$: Observable<string>) =>
             text$.pipe(
@@ -461,7 +350,6 @@ export class bolmsbranchmasterComponent implements OnInit {
                     });
                 }
             }).catch((err) => {
-                //console.log(err);
             });
         });
         this.stateid_bostatesoptions = (text$: Observable<string>) =>
@@ -481,7 +369,6 @@ export class bolmsbranchmasterComponent implements OnInit {
                     });
                 }
             }).catch((err) => {
-                //console.log(err);
             });
         });
         this.cityid_bocitiesoptions = (text$: Observable<string>) =>
@@ -533,7 +420,6 @@ export class bolmsbranchmasterComponent implements OnInit {
             }
         }
         ).catch((err) => {
-            //console.log(err);
         });
         this.salesdirector_bousermastersoptions = (text$: Observable<string>) =>
             text$.pipe(
@@ -560,7 +446,6 @@ export class bolmsbranchmasterComponent implements OnInit {
             }
         }
         ).catch((err) => {
-            //console.log(err);
         });
         this.customersuccessdirector_bousermastersoptions = (text$: Observable<string>) =>
             text$.pipe(
@@ -576,7 +461,6 @@ export class bolmsbranchmasterComponent implements OnInit {
             this.pkoptionsEvent.emit(this.pkList);
         }
         ).catch((err) => {
-            //console.log(err);
         });
         this.pk_tbloptions = (text$: Observable<string>) =>
             text$.pipe(
@@ -586,7 +470,7 @@ export class bolmsbranchmasterComponent implements OnInit {
             );
         this.pk_tblformatter = (result: any) => result.branchname;
 
-        //setting the flag that the screen is not touched 
+        //setting the flag that the screen is not touched
         this.bobranchmasterForm.markAsUntouched();
         this.bobranchmasterForm.markAsPristine();
     }
@@ -600,7 +484,6 @@ export class bolmsbranchmasterComponent implements OnInit {
             this.bostateservice.getListBycountryid(countryidDetail.countryid).then(res => {
                 this.stateidList = res as bostate[]
             }).catch((err) => {
-                //console.log(err);
             });
 
         }
@@ -616,7 +499,6 @@ export class bolmsbranchmasterComponent implements OnInit {
             this.bocityservice.getListBystateid(stateidDetail.stateid).then(res => {
                 this.cityidList = res as bocity[]
             }).catch((err) => {
-                //console.log(err);
             });
 
         }
@@ -632,7 +514,6 @@ export class bolmsbranchmasterComponent implements OnInit {
             this.bolocationservice.getListBycityid(cityidDetail.cityid).then(res => {
                 this.locationidList = res as bolocation[]
             }).catch((err) => {
-                //console.log(err);
             });
 
         }
@@ -696,7 +577,6 @@ export class bolmsbranchmasterComponent implements OnInit {
                     this.resetForm();
                 }
                 ).catch((err) => {
-                    //console.log(err);
                 });
             }
         }
@@ -889,7 +769,6 @@ export class bolmsbranchmasterComponent implements OnInit {
 
     async PopulateScreen(pkcol: any) {
         this.bobranchmasterservice.getbobranchmastersByEID(pkcol).then(res => {
-
             this.bobranchmasterservice.formData = res.bobranchmaster;
             let formproperty = res.bobranchmaster.formproperty;
             if (formproperty && formproperty.edit == false) this.showview = true;
@@ -897,7 +776,6 @@ export class bolmsbranchmasterComponent implements OnInit {
             this.formid = res.bobranchmaster.branchid;
             this.FillData(res);
         }).catch((err) => {
-            //console.log(err);
         });
     }
 
@@ -907,9 +785,6 @@ export class bolmsbranchmasterComponent implements OnInit {
         this.pkcol = res.bobranchmaster.pkcol;
         var starttimeTime = new Time(res.bobranchmaster.starttime);
         var endtimeTime = new Time(res.bobranchmaster.endtime);
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.bobranchmasterForm.patchValue({
             branchid: res.bobranchmaster.branchid,
             branchcode: res.bobranchmaster.branchcode,
@@ -958,21 +833,18 @@ export class bolmsbranchmasterComponent implements OnInit {
             if (this.f.countryid.value && this.f.countryid.value != "" && this.f.countryid.value != null) this.bostateservice.getListBycountryid(this.f.countryid.value).then(res => {
                 this.stateidList = res as bostate[];
             }).catch((err) => {
-                //console.log(err);
             });
         });
         setTimeout(() => {
             if (this.f.stateid.value && this.f.stateid.value != "" && this.f.stateid.value != null) this.bocityservice.getListBystateid(this.f.stateid.value).then(res => {
                 this.cityidList = res as bocity[];
             }).catch((err) => {
-                //console.log(err);
             });
         });
         setTimeout(() => {
             if (this.f.cityid.value && this.f.cityid.value != "" && this.f.cityid.value != null) this.bolocationservice.getListBycityid(this.f.cityid.value).then(res => {
                 this.locationidList = res as bolocation[];
             }).catch((err) => {
-                //console.log(err);
             });
         });
         //Child Tables if any
@@ -1021,7 +893,6 @@ export class bolmsbranchmasterComponent implements OnInit {
         if (customfields != null) obj.customfield = JSON.stringify(customfields);
         if (this.fileattachment.getattachmentlist() != null) obj.attachment = JSON.stringify(this.fileattachment.getattachmentlist());
         obj.fileattachmentlist = this.fileattachment.getAllFiles();
-        console.log(obj);
         if (!confirm('Do you want to want to save?')) {
             return;
         }
@@ -1030,9 +901,6 @@ export class bolmsbranchmasterComponent implements OnInit {
         if (this.fileattachment) this.fileattachment.clear();
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -1052,17 +920,8 @@ export class bolmsbranchmasterComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.bobranchmasterForm.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.bobranchmasterForm.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += '<span>' + 'control: ' + key + ', Error: ' + keyError + '</span>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
 
 
@@ -1089,14 +948,12 @@ export class bolmsbranchmasterComponent implements OnInit {
         if (customfields != null) this.bobranchmasterservice.formData.customfield = JSON.stringify(customfields);
         if (this.fileattachment.getattachmentlist() != null) this.bobranchmasterservice.formData.attachment = JSON.stringify(this.fileattachment.getattachmentlist());
         this.fileattachmentlist = this.fileattachment.getAllFiles();
-        console.log(this.bobranchmasterservice.formData);
         this.bobranchmasterservice.formData = this.bobranchmasterForm.value;
         this.bobranchmasterservice.saveOrUpdatebobranchmasters().subscribe(
             async res => {
                 await this.sharedService.upload(this.fileattachmentlist);
                 this.attachmentlist = [];
                 if (this.fileattachment) this.fileattachment.clear();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).bobranchmaster);
                 if (!bclear) this.showview = true;
@@ -1125,87 +982,33 @@ export class bolmsbranchmasterComponent implements OnInit {
                 this.bobranchmasterForm.markAsPristine();
             },
             err => {
-                debugger;
-                //this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-
-                //console.log(err);
-
             }
         )
     }
 
-
-
-
-    //dropdown edit from the screen itself -> One screen like Reportviewer
-
     AddOrEditcountryid(countryid) {
-        /*let ScreenType='2';
-        this.dialog.open(bocountryComponent, 
-        {
-        data: {countryid:this.bobranchmasterForm.get('countryid').value, ScreenType:2 }
-        } 
-        ).onClose.subscribe(res => {
-        });*/
     }
 
 
     AddOrEditstateid(stateid) {
-        /*let ScreenType='2';
-        this.dialog.open(bostateComponent, 
-        {
-        data: {stateid:this.bobranchmasterForm.get('stateid').value, ScreenType:2 }
-        } 
-        ).onClose.subscribe(res => {
-        });*/
     }
 
 
     AddOrEditcityid(cityid) {
-        /*let ScreenType='2';
-        this.dialog.open(bocityComponent, 
-        {
-        data: {cityid:this.bobranchmasterForm.get('cityid').value, ScreenType:2 }
-        } 
-        ).onClose.subscribe(res => {
-        });*/
     }
 
 
     AddOrEditlocationid(locationid) {
-        /*let ScreenType='2';
-        this.dialog.open(bolocationComponent, 
-        {
-        data: {locationid:this.bobranchmasterForm.get('locationid').value, ScreenType:2 }
-        } 
-        ).onClose.subscribe(res => {
-        });*/
     }
 
 
     AddOrEditsalesdirector(userid) {
-        /*let ScreenType='2';
-        this.dialog.open(bousermasterComponent, 
-        {
-        data: {userid:this.bobranchmasterForm.get('salesdirector').value, ScreenType:2 }
-        } 
-        ).onClose.subscribe(res => {
-        });*/
     }
 
 
     AddOrEditcustomersuccessdirector(userid) {
-        /*let ScreenType='2';
-        this.dialog.open(bousermasterComponent, 
-        {
-        data: {userid:this.bobranchmasterForm.get('customersuccessdirector').value, ScreenType:2 }
-        } 
-        ).onClose.subscribe(res => {
-        });*/
     }
-
-
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");

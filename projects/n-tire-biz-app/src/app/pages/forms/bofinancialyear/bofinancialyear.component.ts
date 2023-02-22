@@ -1,47 +1,22 @@
 import { bofinancialyearService } from './../../../service/bofinancialyear.service';
 import { bofinancialyear } from './../../../model/bofinancialyear.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
-import { LocalDataSource } from 'ng2-smart-table';
-import { Ng2SmartTableComponent } from 'ng2-smart-table';
+import { DomSanitizer } from "@angular/platform-browser";
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { switchMap, map, debounceTime } from 'rxjs/operators';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { AppConstants } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
     selector: 'app-bofinancialyear',
@@ -64,11 +39,8 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
           display: block !important;
         }
       }
-    `],
-    providers: [KeyboardShortcutsService]
+    `]
 })
-
-
 
 export class bofinancialyearComponent implements OnInit {
     formData: bofinancialyear;
@@ -76,15 +48,14 @@ export class bofinancialyearComponent implements OnInit {
     bmyrecord: boolean = false;
     hidelist: any = [];
     objvalues: any = [];
-    viewHtml: any = '';//stores html view of the screen
-    showview: boolean = false;//view or edit mode
-    theme: string = "";//current theme
-    //formdata: any;//current form data
-    shortcuts: ShortcutInput[] = [];//keyboard keys
-    showSubmit: boolean = true;//button to show
+    viewHtml: any = '';
+    showview: boolean = false;
+    theme: string = "";
+    shortcuts: ShortcutInput[] = [];
+    showSubmit: boolean = true;
     showGoWorkFlow: boolean = false;
-    pkList: any;//stores values - used in search, prev, next
-    pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
+    pkList: any;
+    pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();
     toolbarVisible: boolean = true;
     customFieldServiceList: any;
     CustomFormName: string = "";
@@ -96,31 +67,17 @@ export class bofinancialyearComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
     bfilterPopulate_bofinancialyears: boolean = false;
     bofinancialyear_menuactions: any = []
-
     bofinancialyear_Form: FormGroup;
-
-
     private exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
     showFormType: any;
     formid: any;
     pkcol: any;
     SESSIONUSERID: any;//current user
-
     sessionData: any;
     sourceKey: any;
-
-
-
-
-
-
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
         private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
@@ -131,29 +88,10 @@ export class bofinancialyearComponent implements OnInit {
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.bofinancialyear_Form = this.fb.group({
             pk: [null],
             finyearid: [null],
@@ -168,15 +106,11 @@ export class bofinancialyearComponent implements OnInit {
 
     get f() { return this.bofinancialyear_Form.controls; }
 
-
-    //when child screens are clicked - it will be made invisible
     ToolBar(prop) {
         this.toolbarVisible = prop;
     }
 
-    //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.bofinancialyear_Form.dirty && this.bofinancialyear_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -189,7 +123,6 @@ export class bofinancialyearComponent implements OnInit {
 
     //check Unique fields
     enddateexists(e: any) {
-        debugger;
         let pos = this.pkList.map(function (e: any) { return e.enddate.toString().toLowerCase(); }).indexOf(e.target.value.toString().toLowerCase());
 
         if (pos >= 0 && this.pkList[pos].finyearid.toString() != this.formid.toString()) {
@@ -208,7 +141,6 @@ export class bofinancialyearComponent implements OnInit {
         return true;
     }
     finyearnameexists(e: any) {
-        debugger;
         let pos = this.pkList.map(function (e: any) { return e.finyearname.toString().toLowerCase(); }).indexOf(e.target.value.toString().toLowerCase());
 
         if (pos >= 0 && this.pkList[pos].finyearid.toString() != this.formid.toString()) {
@@ -227,7 +159,6 @@ export class bofinancialyearComponent implements OnInit {
         return true;
     }
     startdateexists(e: any) {
-        debugger;
         let pos = this.pkList.map(function (e: any) { return e.startdate.toString().toLowerCase(); }).indexOf(e.target.value.toString().toLowerCase());
 
         if (pos >= 0 && this.pkList[pos].finyearid.toString() != this.formid.toString()) {
@@ -245,38 +176,12 @@ export class bofinancialyearComponent implements OnInit {
         }
         return true;
     }
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.finyearid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.finyearid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
-    }
-
-    //on searching in pk autocomplete
     onSelectedpk(pkDetail: any) {
         if (pkDetail.finyearid && pkDetail) {
             this.PopulateScreen(pkDetail.pkcol);
         }
     }
-
-    // initialize
     async ngOnInit() {
-        //session & theme
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
         });
@@ -287,10 +192,6 @@ export class bofinancialyearComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
-        //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
             this.maindata = this.data;
@@ -305,11 +206,9 @@ export class bofinancialyearComponent implements OnInit {
         }
         let bofinancialyearid = null;
 
-        //if view button(eye) is clicked
         if (this.currentRoute.snapshot.paramMap.get('viewid') != null) {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('viewid');
             this.showview = true;
-            //this.viewHtml=this.sessionService.getViewHtml();
         }
         else if (this.currentRoute.snapshot.paramMap.get('usersource') != null) {
             this.pkcol = this.sessionService.getItem('usersource');
@@ -329,33 +228,24 @@ export class bofinancialyearComponent implements OnInit {
             this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
         }
         this.formid = bofinancialyearid;
-        //alert(bofinancialyearid);
-
-        //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.resetForm();
         }
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
-            //get the record from api
-            //foreign keys
         }
         this.bofinancialyear_service.getDefaultData().then(res => {
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide(); });
 
         //autocomplete
         this.bofinancialyear_service.get_bofinancialyears_List().then(res => {
             this.pkList = res as bofinancialyear[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched
+        ).catch((err) => { this.spinner.hide(); });
         this.bofinancialyear_Form.markAsUntouched();
         this.bofinancialyear_Form.markAsPristine();
     }
-
-
-
     resetForm() {
         if (this.bofinancialyear_Form != null)
             this.bofinancialyear_Form.reset();
@@ -457,14 +347,13 @@ export class bofinancialyearComponent implements OnInit {
         this.spinner.show();
         this.bofinancialyear_service.get_bofinancialyears_ByEID(pkcol).then(res => {
             this.spinner.hide();
-
             this.formData = res.bofinancialyear;
             let formproperty = res.bofinancialyear.formproperty;
             if (formproperty && formproperty.edit == false) this.showview = true;
             this.pkcol = res.bofinancialyear.pkcol;
             this.formid = res.bofinancialyear.finyearid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -473,9 +362,6 @@ export class bofinancialyearComponent implements OnInit {
         this.pkcol = res.bofinancialyear.pkcol;
         this.bmyrecord = false;
         if ((res.bofinancialyear as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.bofinancialyear_Form.patchValue({
             finyearid: res.bofinancialyear.finyearid,
             finyearname: res.bofinancialyear.finyearname,
@@ -486,7 +372,6 @@ export class bofinancialyearComponent implements OnInit {
             statusdesc: res.bofinancialyear.statusdesc,
         });
         this.bofinancialyear_menuactions = res.bofinancialyear_menuactions;
-        //Child Tables if any
     }
 
     validate() {
@@ -528,15 +413,10 @@ export class bofinancialyearComponent implements OnInit {
         var obj = this.bofinancialyear_Form.getRawValue();
         obj.startdate = new Date(this.bofinancialyear_Form.get('startdate').value ? this.ngbDateParserFormatter.format(this.bofinancialyear_Form.get('startdate').value) + '  UTC' : null);
         obj.enddate = new Date(this.bofinancialyear_Form.get('enddate').value ? this.ngbDateParserFormatter.format(this.bofinancialyear_Form.get('enddate').value) + '  UTC' : null);
-        console.log(obj);
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
-    //This has to come from bomenuactions & procedures
     afterAction(mode: any) {
         let formname = "";
         let query = "";
@@ -549,19 +429,9 @@ export class bofinancialyearComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.bofinancialyear_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.bofinancialyear_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.bofinancialyear_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -582,12 +452,10 @@ export class bofinancialyearComponent implements OnInit {
         }
         this.formData.startdate = new Date(this.bofinancialyear_Form.get('startdate').value ? this.ngbDateParserFormatter.format(this.bofinancialyear_Form.get('startdate').value) + '  UTC' : null);
         this.formData.enddate = new Date(this.bofinancialyear_Form.get('enddate').value ? this.ngbDateParserFormatter.format(this.bofinancialyear_Form.get('enddate').value) + '  UTC' : null);
-        console.log(this.formData);
         this.spinner.show();
         this.bofinancialyear_service.saveOrUpdate_bofinancialyears(this.formData).subscribe(
             async res => {
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).bofinancialyear);
                 if (!bclear) this.showview = true;
@@ -599,7 +467,6 @@ export class bofinancialyearComponent implements OnInit {
                 else {
                     if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 }
-                this.clearList();
                 if (bclear) {
                     this.resetForm();
                 }
@@ -616,21 +483,11 @@ export class bofinancialyearComponent implements OnInit {
                 this.bofinancialyear_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
-
-
-
-
-    //dropdown edit from the screen itself -> One screen like Reportviewer
-    clearList() {
-    }
-
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");

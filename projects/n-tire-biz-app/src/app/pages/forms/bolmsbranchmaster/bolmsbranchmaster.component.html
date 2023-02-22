@@ -1,7 +1,7 @@
 <i class="fa fa-step-backward" *ngIf="sourcekey" (click)="nav.back()"></i>
 <form [formGroup]="bobranchmasterForm" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left">{{'Branch Masters' | translate}}</h1>
+    <h1 class="col-4 columns mainheader left">{{'Branch Masters'}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -90,7 +90,7 @@
             <label *ngIf="showview" class="labelview">{{f.branchcode?.value}}</label>
             <input *ngIf="!showview" id="branchcode" required formControlName="branchcode" class="form-control">
             <app-field-error-display [displayError]="f.branchcode.errors?.required"
-              errorMsg="Enter {{'Branch Code' | translate}}">
+              errorMsg="Enter {{'Branch Code'}}">
             </app-field-error-display>
           </div>
           <div *ngIf="hidelist.indexOf('branchname') == -1" class="col-3 ">
@@ -98,7 +98,7 @@
             <label *ngIf="showview" class="labelview">{{f.branchname?.value}}</label>
             <input *ngIf="!showview" id="branchname" required formControlName="branchname" class="form-control">
             <app-field-error-display [displayError]="f.branchname.errors?.required"
-              errorMsg="Enter {{'Branch Name' | translate}}">
+              errorMsg="Enter {{'Branch Name'}}">
             </app-field-error-display>
           </div>
           <div *ngIf="hidelist.indexOf('thumbnail') == -1" class="col-3 ">
@@ -120,7 +120,7 @@
             <label *ngIf="showview" class="labelview">{{f.address1?.value}}</label>
             <input *ngIf="!showview" id="address1" required formControlName="address1" class="form-control">
             <app-field-error-display [displayError]="f.address1.errors?.required"
-              errorMsg="Enter {{'Address1' | translate}}">
+              errorMsg="Enter {{'Address1'}}">
             </app-field-error-display>
           </div>
           <div *ngIf="hidelist.indexOf('address2') == -1" class="col-3 ">
@@ -206,7 +206,7 @@
             <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="starttime" required>
             </ngb-timepicker>
             <app-field-error-display [displayError]="f.starttime.errors?.required"
-              errorMsg="Enter {{'Start Time' | translate}}">
+              errorMsg="Enter {{'Start Time'}}">
             </app-field-error-display>
           </div>
           <div *ngIf="hidelist.indexOf('endtime') == -1" class="col-3 ">
@@ -215,7 +215,7 @@
             <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="endtime" required>
             </ngb-timepicker>
             <app-field-error-display [displayError]="f.endtime.errors?.required"
-              errorMsg="Enter {{'End Time' | translate}}">
+              errorMsg="Enter {{'End Time'}}">
             </app-field-error-display>
           </div>
 

@@ -28,7 +28,7 @@
                         <div *ngIf="hidelist.indexOf('kbid')<0" class=" p-float-label  p-col-12 p-md-3">
                               <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
                                     class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
-                                    formControlName="kbid" pTooltip="{{'Enter' | translate}} {{'kbid' | translate}}"
+                                    formControlName="kbid" pTooltip="{{'Enter'}} {{'kbid'}}"
                                     field="label" [suggestions]="kbid_Suggestions" (onSelect)="onSelected_kbid($event)"
                                     (completeMethod)="onEntered_kbid($event)" [dropdown]="true">
                                     <ng-template let-kbid pTemplate="item">
@@ -37,10 +37,9 @@
                               </p-autoComplete>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.kbiddesc?.value}}</label>
-                              <label for="kbid" class="control-label required" (click)="AddOrEdit_kbid(null)">{{'K B' |
-                                    translate}}</label>
+                              <label for="kbid" class="control-label required" (click)="AddOrEdit_kbid(null)">{{'K B'}}</label>
                               <app-field-error-display [displayError]="f.kbid.errors?.required"
-                                    errorMsg="{{'Enter'| translate}} {{'K B' | translate}}">
+                                    errorMsg="{{'Enter'}} {{'K B' }}">
                               </app-field-error-display>
                         </div>
                         <div *ngIf="hidelist.indexOf('description')<0" class="  p-float-label  p-col-12 p-md-6">
@@ -48,12 +47,11 @@
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.description?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="description" required
-                                    pTooltip="{{'Enter' | translate}} {{'description' | translate}}"
+                                    pTooltip="{{'Enter' }} {{'description' }}"
                                     formControlName="description" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="description" class="control-label required">{{'Description' |
-                                    translate}}</label>
+                              <label for="description" class="control-label required">{{'Description'}}</label>
                               <app-field-error-display [displayError]="f.description.errors?.required"
-                                    errorMsg="{{'Enter'| translate}} {{'Description' | translate}}">
+                                    errorMsg="{{'Enter'}} {{'Description' }}">
                               </app-field-error-display>
                         </div>
                         <div *ngIf="hidelist.indexOf('sequence')<0" class="  p-float-label  p-col-12 p-md-3">
@@ -61,9 +59,9 @@
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.sequence?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="sequence"
-                                    pTooltip="{{'Enter' | translate}} {{'sequence' | translate}}"
+                                    pTooltip="{{'Enter' }} {{'sequence' }}"
                                     formControlName="sequence" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="sequence" class="control-label">{{'Sequence' | translate}}</label>
+                              <label for="sequence" class="control-label">{{'Sequence' }}</label>
                         </div>
 
 
@@ -73,7 +71,7 @@
                               <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
                                     class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
                                     formControlName="contenttype"
-                                    pTooltip="{{'Enter' | translate}} {{'contenttype' | translate}}" field="label"
+                                    pTooltip="{{'Enter' }} {{'contenttype' }}" field="label"
                                     [suggestions]="contenttype_Suggestions" (onSelect)="onSelected_contenttype($event)"
                                     (completeMethod)="onEntered_contenttype($event)" [dropdown]="true">
                                     <ng-template let-contenttype pTemplate="item">
@@ -82,22 +80,21 @@
                               </p-autoComplete>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.contenttypedesc?.value}}</label>
-                              <label for="contenttype" class="control-label required">{{'Content Type' |
-                                    translate}}</label>
+                              <label for="contenttype" class="control-label required">{{'Content Type'}}</label>
                               <app-field-error-display [displayError]="f.contenttype.errors?.required"
-                                    errorMsg="{{'Enter'| translate}} {{'Content Type' | translate}}">
+                                    errorMsg="{{'Enter'}} {{'Content Type' }}">
                               </app-field-error-display>
                         </div>
                         <div *ngIf="hidelist.indexOf('contenttext')<0" class="  p-col-12 p-md-12">
-                              <label for="contenttext" class="control-label required">{{'Content' | translate}}</label>
+                              <label for="contenttext" class="control-label required">{{'Content' }}</label>
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.contenttext?.value}}</label>
                               <p-editor *ngIf="!showview" id="contenttext"
-                                    pTooltip="{{'Enter' | translate}} {{'contenttext' | translate}}"
+                                    pTooltip="{{'Enter' }} {{'contenttext' }}"
                                     formControlName="contenttext" required [style]="{  height: '320' }"></p-editor>
                               <app-field-error-display [displayError]="f.contenttext.errors?.required"
-                                    errorMsg="{{'Enter'| translate}} {{'Content' | translate}}">
+                                    errorMsg="{{'Enter'}} {{'Content' }}">
                               </app-field-error-display>
                         </div>
                         <div *ngIf="hidelist.indexOf('contenturl')<0" class="  p-float-label  p-col-12 p-md-6">
@@ -109,9 +106,9 @@
                                     [SessionData]="sessionData"></app-attachment>
                               <button type="button" class="btn" *ngIf="contenturl?.getAttachmentList()?.length > 0"
                                     (click)="getcontenturl()">Open File</button>
-                              <label for="contenturl" class="control-label">{{'Document' | translate}}</label>
+                              <label for="contenturl" class="control-label">{{'Document' }}</label>
                               <app-field-error-display [displayError]="f.contenturl.errors?.pattern"
-                                    errorMsg="{{'Document' | translate}} {{'notvalid'| translate}}">
+                                    errorMsg="{{'Document' }} {{'notvalid'}}">
                               </app-field-error-display>
                         </div>
                   </div>
