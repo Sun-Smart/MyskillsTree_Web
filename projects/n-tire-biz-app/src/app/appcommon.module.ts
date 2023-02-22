@@ -192,6 +192,7 @@ import { MstSocialMediaComponent } from './pages/forms/mst-social-media/mst-soci
 import { MstStartPagesComponent } from './pages/forms/mst-start-pages/mst-start-pages.component';
 import {PickListModule} from 'primeng/picklist';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import { MstLocationDetailsComponent } from './pages/forms/mst-location-details/mst-location-details.component';
 
 
 
@@ -246,7 +247,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         BonewtopicComponent,
         MstCareerDetailsComponent,MstCertificationsComponent,MstEducationDetailsComponent,
         MstLanguageDetailsComponent,MstProjectDetailsComponent,MstResumeComponent,
-        MstSkillDetsilsComponent,MstSocialMediaComponent,MstStartPagesComponent,
+        MstSkillDetsilsComponent,MstSocialMediaComponent,MstStartPagesComponent,MstLocationDetailsComponent,
         bokbmasterComponent,bokbtopicComponent,
         ReportViewerCtrlComponent,
         AttachmentComponent, PopupSelectComponent, useraccessComponent, addressComponent, durationComponent, commentComponent, appmultipleentryComponent,
@@ -341,7 +342,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         BonewtopicComponent,
         MstCareerDetailsComponent,MstCertificationsComponent,MstEducationDetailsComponent,
         MstLanguageDetailsComponent,MstProjectDetailsComponent,MstResumeComponent,
-        MstSkillDetsilsComponent,MstSocialMediaComponent,MstStartPagesComponent,
+        MstSkillDetsilsComponent,MstSocialMediaComponent,MstStartPagesComponent,MstLocationDetailsComponent,
         bokbmasterComponent,bokbtopicComponent,
         RegisterComponent,
         SkillenhancerComponent,

@@ -67,6 +67,11 @@ export class MstStartPagesComponent implements OnInit {
   @ViewChild('profilephoto', { static: false }) profilephoto: AttachmentComponent;
   @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
   readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
+  applicantid: any;
+  usernumber: any;
+  usermail: any;
+  sub: any;
+  showLabel_data:boolean = false;
 
 
 
@@ -98,15 +103,17 @@ export class MstStartPagesComponent implements OnInit {
     this.p_currenturl = sharedService.currenturl;
 
     this.loginUser = localStorage.getItem('username');
-    let app_id = localStorage.getItem('applicantid');
+    this.applicantid = localStorage.getItem('applicantid');
+    this.usermail = localStorage.getItem('emailid');
+    this.usernumber = localStorage.getItem('mobilenumber');
     
     this.mstapplicantmaster_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: app_id,
+      applicantid: this.applicantid,
       firstname: [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)])],
       lastname: [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)])],
-      emailid: [null, Validators.compose([Validators.required])],
+      emailid: this.usermail,
       mobilenumber: [null, Validators.compose([Validators.required])],
       applicanttype: [null, Validators.compose([Validators.required])],
       applicanttypedesc: [null],
@@ -134,12 +141,26 @@ export class MstStartPagesComponent implements OnInit {
       status: [null],
       statusdesc: [null],
     });
+    
+    this.sub = this.currentRoute.queryParams.subscribe((params: any) => {
+
+      let label = params["updateProfile"];
+
+      if(label = true){
+        this.showLabel_data = false;
+      }
+
+      console.log("label", label);
+      
+    })
   }
 
   get f() { return this.mstapplicantmaster_Form.controls; }
 
   async ngOnInit() {
     this.sessionService.setItem("choosefileforprofile", "ok");
+
+
     //session & theme
     this.themeService.theme.subscribe((val: string) => {
       this.theme = val;

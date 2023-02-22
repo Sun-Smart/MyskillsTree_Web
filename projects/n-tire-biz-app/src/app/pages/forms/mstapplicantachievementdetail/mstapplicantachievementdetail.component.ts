@@ -180,14 +180,18 @@ export class mstapplicantachievementdetailComponent implements OnInit {
       masterdataid: [null, Validators.compose([Validators.required])],
       masterdataiddesc: [null],
       achievementdetails: [null, Validators.compose([Validators.required])],
+      fromyear: [null, Validators.compose([Validators.required])],
+      toyear: [null],
       selfrating: [null],
       remarks: [null],
       requestid: [null],
-      referenceacceptance: [null],
+      referenceacceptance: [null], 
       referenceacceptancedesc: [null],
       attachment: [null],
       status: [null],
       statusdesc: [null],
+      skill: [null],
+      skilldesc: [null],
     });
   }
 

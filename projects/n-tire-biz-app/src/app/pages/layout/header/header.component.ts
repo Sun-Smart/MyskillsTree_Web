@@ -535,14 +535,19 @@ export class HeaderComponent implements OnInit {
   };
 
   edit_fullpagemstapplicantmasters() {
-    debugger
-    this.dialog.open(mstapplicantmastermainComponent,
-      {
-        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-      }
-    ).onClose.subscribe(res => {
-      this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
-    })
+
+    let data = {
+      updateProfile : "yes"
+    }
+    this.router.navigate(['home/personaldetails'],{ queryParams : {updateProfile: true}})
+ 
+    // this.dialog.open(mstapplicantmastermainComponent,
+    //   {
+    //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+    //   }
+    // ).onClose.subscribe(res => {
+    //   this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
+    // })
   };
 
   showLanguage() {

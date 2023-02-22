@@ -190,8 +190,8 @@ export class MstCertificationsComponent implements OnInit {
     }
   }
 
-  addresume() {
-    this.route.navigate(['/home/newresume'])
+  addlocation() {
+    this.route.navigate(['/home/newlocation'])
   }
   back() {
     this.route.navigate(['/home/newproject'])

@@ -13,6 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { MstapplicantskilldetailsattachmentComponent } from './forms/mstapplicantskilldetailsattachment/mstapplicantskilldetailsattachment.component';
 import { CertifierComponent } from './certifier/certifier.component';
+import { MstLocationDetailsComponent } from './forms/mst-location-details/mst-location-details.component';
 // import { RegisterComponent } from './register/register.component';
 // import { NewskillsearchComponent } from './forms/newskillsearch/newskillsearch.component';
 
@@ -42,6 +43,7 @@ const PAGES_COMPONENTS = [
         ForgotpasswordComponent,
         MstapplicantskilldetailsattachmentComponent,
         CertifierComponent,
+        MstLocationDetailsComponent,
         // ApplicantregisterComponent,
         // RegisterComponent,
         // NewskillsearchComponent,

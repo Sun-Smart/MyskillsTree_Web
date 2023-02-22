@@ -597,7 +597,9 @@ export class boconfigvalueComponent implements OnInit {
         )
     }
 
-
+    back(){
+        this.router.navigate(['/home/boreportviewer/mfrqi']);
+    };
 
 
     //dropdown edit from the screen itself -> One screen like Reportviewer

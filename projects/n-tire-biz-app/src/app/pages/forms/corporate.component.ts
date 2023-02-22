@@ -63,7 +63,11 @@ export type ChartOptions = {
     ></apx-chart>
   </div>
     </div>
-
+<div>
+<img src="../../assets/newstartup/SkipButton.png" alt="" class="img-rounded"
+style="width: 23%;height:45px;border-radius: 50%;float: left;margin: 5px;">
+<h5>##firstname## ##lastname##</h5>
+</div>
     <div class="col-6 col-sm-12 col-xs-12 mobile_view">
 <div style="display:none;">
     <ngx-datatable tableClass="table table-striped table-bordered table-hover" [tableId]="'basic'" [data]="data" [options]="options"

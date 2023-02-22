@@ -291,7 +291,7 @@ export class mstapplicantgeographygrid implements OnInit {
   applicantid_List: DropDownValues[];
   hidelist: any = [];
   objvalues: any = [];
-
+ 
   applicantid: any;
   data: any;
   formid: any;
@@ -331,12 +331,12 @@ export class mstapplicantgeographygrid implements OnInit {
     this.applicantid = this.data.applicantid;
     this.pkcol = this.data.maindatapkcol;
 
-    let app_id = localStorage.getItem('applicantid');
+    this.applicantid = localStorage.getItem('applicantid');
 
     this.mstapplicantgeographypreference_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: app_id,
+      applicantid: this.applicantid,
       applicantiddesc: [null],
       geographypreferenceid: [null],
       country: ['', Validators.required],

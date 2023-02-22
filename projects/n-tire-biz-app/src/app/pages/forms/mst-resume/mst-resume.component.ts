@@ -224,6 +224,6 @@ export class MstResumeComponent implements OnInit {
     this.route.navigate(['/home/newlanguage'])
   }
   back() {
-    this.route.navigate(['/home/newcertification'])
+    this.route.navigate(['/home/newlocation'])
   }
 }

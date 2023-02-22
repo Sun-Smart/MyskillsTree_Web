@@ -791,16 +791,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
             skillcategory: this.formData.skillcategory,
             skillcategorydesc: this.formData.skillcategorydesc,
           });
-        }
-
+        };
         setTimeout(() => {
-          if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
-        this.mstapplicantskilldetail_service.getList_skillcategory2(this.f.segmentid.value).then(res =>
-          this.subcategoryid_List = res as DropDownValues[]);
-        }, 3000);
-
-        setTimeout(() => {
-
                     if (this.f.segmentid.value == "166") {
             this.showinput1 = true
 

@@ -24,6 +24,7 @@ import { MstProjectDetailsComponent } from './pages/forms/mst-project-details/ms
 import { MstResumeComponent } from './pages/forms/mst-resume/mst-resume.component';
 import { MstSkillDetsilsComponent } from './pages/forms/mst-skill-detsils/mst-skill-detsils.component';
 import { MstSocialMediaComponent } from './pages/forms/mst-social-media/mst-social-media.component';
+import { MstLocationDetailsComponent } from './pages/forms/mst-location-details/mst-location-details.component';
 
 
 export const ENTRY_COMPONENTS = [];
@@ -173,6 +174,7 @@ export const paths = [
           { path: "newresume",component: MstResumeComponent },
           { path: "newskilldetails",component: MstSkillDetsilsComponent },
           { path: "newsocial",component: MstSocialMediaComponent },
+          { path: "newlocation",component: MstLocationDetailsComponent },
 
 
         ]

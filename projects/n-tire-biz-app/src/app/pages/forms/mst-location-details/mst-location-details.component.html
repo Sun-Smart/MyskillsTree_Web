@@ -1,0 +1,66 @@
+<div class="startpagecontent">
+    <div class="main-contentainer">
+
+        <div class="inline-curve">
+            <h4>Welcome...</h4>
+            <h6>MySkillsTree</h6>
+            <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
+            <p style="margin-left: 1rem;">Kindly Provide Your Location Details </p>
+
+            <img src="assets/newstartup/infography.png" alt="" style="margin: 7%;width: 86%;">
+
+        </div>
+        <div class="outline-curve">
+            <div class="extra-header-box"></div>
+            <div class="header-bar">
+                <h6>Add Location Details</h6>
+            </div>
+
+            <form [formGroup]="mstapplicantgeographypreference_Form">
+                <div class="row applicant-form">
+
+                    <!-- Country -->
+                    <div class="col-6">
+                        <label for="country" class="control-label required">Country</label>
+
+                        <app-popupselect [options]="country_List" [optionsEvent]="country_optionsEvent"
+                            [form]="bocountry" (selectItem)="onSelected_country($event)" [reportid]='wc9rn'
+                            [menuid]='wc9rn' formControlName="country" id="value" desc="label"></app-popupselect>
+                    </div>
+
+                    <!-- City -->
+                    <div class="col-6">
+                        <label for="city" class="control-label required">City</label>
+
+                        <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
+                            (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n'
+                            formControlName="city" id="value" desc="label"></app-popupselect>
+                    </div>
+
+                    <!-- Remarks -->
+                    <div class="col-12">
+                        <label for="remarks" class="control-label">Remarks</label>
+
+                        <textarea name="w3review" rows="4" cols="10" class="form-control"
+                            formControlName="remarks"></textarea>
+                    </div>
+
+                    <div class="col-6 back-button">
+                        <img src="assets/newstartup/Backbutton.png" alt="" (click)="back()">
+                    </div>
+
+                    <div class="col-6 button-css">
+                        <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="skipResume()">
+                        <img src="assets/newstartup/AddMoreLocation.png" alt="" (click)="AddMorelocation()">
+                        <img src="assets/newstartup/AddResume.png" alt="" (click)="onSubmitData()">
+                    </div>
+
+                </div>
+            </form>
+            <div class="extra-box"></div>
+            <div class="extra-box-overlap"></div>
+            <div class="extra-right-box"></div>
+            <div class="extra-right-box-overlap"></div>
+        </div>
+    </div>
+</div>
