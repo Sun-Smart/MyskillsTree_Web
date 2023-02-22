@@ -191,7 +191,7 @@ export class MstCareerDetailsComponent implements OnInit {
       return;
     }
     this.formData = this.mstapplicantcareerdetail_Form.getRawValue();
-
+    this.formData.applicantid = this.applicantid;
     this.formData.fromdate = new Date(this.mstapplicantcareerdetail_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('fromdate').value) + '  UTC' : null);
 
     if (this.mstapplicantcareerdetail_Form.value.currentlyworking == true) {
@@ -206,6 +206,7 @@ export class MstCareerDetailsComponent implements OnInit {
       this.showDateError = true;
       return;
     } else {
+      this.formData.applicantid = this.applicantid;
 
       if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
       this.spinner.show();

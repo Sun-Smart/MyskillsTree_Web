@@ -321,9 +321,6 @@ export class mstjobstatusComponent implements OnInit {
         }
     }
 
-
-
-
     resetForm() {
         if (this.mstjobstatus_Form != null)
             this.mstjobstatus_Form.reset();

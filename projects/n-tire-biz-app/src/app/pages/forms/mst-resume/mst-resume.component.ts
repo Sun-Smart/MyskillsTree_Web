@@ -49,6 +49,7 @@ export class MstResumeComponent implements OnInit {
   data: any;
   p_menuid: any;
   p_currenturl: any;
+  applicantid: any;
 
 
 
@@ -66,7 +67,7 @@ export class MstResumeComponent implements OnInit {
 
 
     this.loginUser = localStorage.getItem('username');
-    let app_id = localStorage.getItem('applicantid');
+    this.applicantid = localStorage.getItem('applicantid');
 
     this.translate = this.sharedService.translate;
     this.data = dynamicconfig;
@@ -76,7 +77,7 @@ export class MstResumeComponent implements OnInit {
     this.mstapplicantmaster_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: app_id,
+      applicantid: this.applicantid,
       firstname: [null],
       lastname: [null],
       emailid: [null],
@@ -182,6 +183,7 @@ export class MstResumeComponent implements OnInit {
       return;
     };
     this.formData = this.mstapplicantmaster_Form.getRawValue();
+    this.formData.applicantid = this.applicantid;
 
     if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     this.fileAttachmentList = this.fileattachment.getAllFiles();

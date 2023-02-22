@@ -55,11 +55,16 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
     templateUrl: './mstjobrequirement.component.html',
     styles: [`
 
-    ng2-smart-table-title a{
+    ::ng-deep ng2-smart-table-title a{
         font-size:13px;
+        color:#fff !important;
     }
     .table{
         margin: auto !important;
+    }
+
+    ::ng-deep  .ng2-smart-row td {
+        vertical-align: middle;
     }
 
     @media only screen and (max-width: 600px) {
@@ -1023,12 +1028,12 @@ export class mstjobrequirementComponent implements OnInit {
                 applicantiddesc: {
                     title: 'Applicant',
                     type: 'html',
-                    filter: true,
+                    filter: false,
                 },
                 corporateiddesc: {
                     title: 'Corporate',
                     type: 'html',
-                    filter: true,
+                    filter: false,
                 },
                 viewdatetime: {
                     title: 'View Date',
@@ -1071,7 +1076,7 @@ export class mstjobrequirementComponent implements OnInit {
                 allcomments: {
                     title: 'All Comments',
                     type: 'html',
-                    filter: true,
+                    filter: false,
                     editor: {
                         type: 'textarea',
                     },
@@ -1099,7 +1104,7 @@ export class mstjobrequirementComponent implements OnInit {
                 ctcoffered: {
                     title: 'C T C Offered',
                     type: '',
-                    filter: true,
+                    filter: false,
                 },
             },
             attr: {

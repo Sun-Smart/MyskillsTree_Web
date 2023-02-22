@@ -27,17 +27,21 @@ export class MstEducationDetailsComponent implements OnInit {
   pkcol: any;
   data: any;
   applicantid: any;
-  isSubmitted: boolean =false;
+  isSubmitted: boolean = false;
   formValue: any;
-  show_YearError: boolean =false;
-  show_percentageError: boolean =false;
-  showDateError: boolean =false;
-  showPercentError: boolean=false;
+  show_YearError: boolean = false;
+  show_percentageError: boolean = false;
+  showDateError: boolean = false;
+  showPercentError: boolean = false;
   objvalues: any = [];
-  constructor(private route: Router, private spinner: NgxSpinnerService, private fb: FormBuilder,private sharedService: SharedService,
-    private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,private sessionService: SessionService,
+  constructor(private route: Router, private spinner: NgxSpinnerService, private fb: FormBuilder, private sharedService: SharedService,
+    private mstapplicanteducationdetail_service: mstapplicanteducationdetailService, private sessionService: SessionService,
     private toastr: ToastService,
-  ) { this.loginUser = localStorage.getItem('username'); }
+  ) {
+    this.loginUser = localStorage.getItem('username');
+
+    this.applicantid = localStorage.getItem('applicantid');
+  }
   get f() { return this.mstapplicanteducationdetail_Form.controls; }
   ngOnInit() {
     // this.pkcol = this.data.maindatapkcol;
@@ -46,7 +50,7 @@ export class MstEducationDetailsComponent implements OnInit {
       pk: [null],
       ImageName: [null],
       // applicantid: localStorage.getItem('applicantid'),
-      applicantid: this.sessionService.getItem('applicantid'),
+      applicantid: this.applicantid,
       applicantiddesc: [null],
       educationid: [null],
       educationcategory: [null, Validators.required],
@@ -142,10 +146,10 @@ export class MstEducationDetailsComponent implements OnInit {
     } else if (this.mstapplicanteducationdetail_Form.value.fromyear >= this.mstapplicanteducationdetail_Form.value.toyear || this.mstapplicanteducationdetail_Form.value.percentage > 100) {
       this.show_YearError = true;
       this.show_percentageError = true;
-      if(this.mstapplicanteducationdetail_Form.value.percentage == 100 || this.mstapplicanteducationdetail_Form.value.percentage < 100){
+      if (this.mstapplicanteducationdetail_Form.value.percentage == 100 || this.mstapplicanteducationdetail_Form.value.percentage < 100) {
         this.show_percentageError = false;
       }
-      if(this.mstapplicanteducationdetail_Form.value.fromyear < this.mstapplicanteducationdetail_Form.value.toyear){
+      if (this.mstapplicanteducationdetail_Form.value.fromyear < this.mstapplicanteducationdetail_Form.value.toyear) {
         this.show_YearError = false;
       }
       return
@@ -156,6 +160,7 @@ export class MstEducationDetailsComponent implements OnInit {
     // }
     else {
       this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
+      this.formData.applicantid = this.applicantid;
       this.formData.skills = null;
       this.showDateError = false;
       this.showPercentError = false;
@@ -192,7 +197,7 @@ export class MstEducationDetailsComponent implements OnInit {
     };
   };
 
-  AddmoreSubmitData(){
+  AddmoreSubmitData() {
     this.isSubmitted = true;
     let strError = "";
     console.log(this.mstapplicanteducationdetail_Form.value)
@@ -215,10 +220,10 @@ export class MstEducationDetailsComponent implements OnInit {
     } else if (this.mstapplicanteducationdetail_Form.value.fromyear >= this.mstapplicanteducationdetail_Form.value.toyear || this.mstapplicanteducationdetail_Form.value.percentage > 100) {
       this.show_YearError = true;
       this.show_percentageError = true;
-      if(this.mstapplicanteducationdetail_Form.value.percentage == 100 || this.mstapplicanteducationdetail_Form.value.percentage < 100){
+      if (this.mstapplicanteducationdetail_Form.value.percentage == 100 || this.mstapplicanteducationdetail_Form.value.percentage < 100) {
         this.show_percentageError = false;
       }
-      if(this.mstapplicanteducationdetail_Form.value.fromyear < this.mstapplicanteducationdetail_Form.value.toyear){
+      if (this.mstapplicanteducationdetail_Form.value.fromyear < this.mstapplicanteducationdetail_Form.value.toyear) {
         this.show_YearError = false;
       }
       return
@@ -229,6 +234,8 @@ export class MstEducationDetailsComponent implements OnInit {
     // }
     else {
       this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
+
+      this.formData.applicantid = this.applicantid;
       this.formData.skills = null;
       this.showDateError = false;
       this.showPercentError = false;
