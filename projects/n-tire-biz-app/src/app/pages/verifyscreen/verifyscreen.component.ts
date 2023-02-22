@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OtpvalidationService } from '../../service/otpvalidation.service';
 import { SharedService } from '../../service/shared.service';
@@ -46,45 +46,27 @@ export class VerifyscreenComponent implements OnInit {
     });
   }
   ngOnInit() {
-
-    
     this.sub = this.route.queryParams.subscribe((params: any) => {
-
       const data1 = params['mobotp'];
       const data2 = params['emailotp']
       const data3 = params['email']
-
       this.verifyMob_Otp = data1.toString();
       this.verifyEmail_Otp = data2.toString();
       this.verifyEmail_data = data3;
-
     });
-
   }
-
-  // convenience getter for easy access to form fields
   get f() { return this.validation_Form.controls; }
-
-
   onSubmit(data: any) {
-    
 
     this.submitted = true;
     this.showSpinner = true;
-
     this.mobile = this.validation_Form.value.mobileotp;
     this.email = this.validation_Form.value.emailotp;
-
     if ((this.mobile == this.verifyMob_Otp) && (this.email == this.verifyEmail_Otp)) {
-      ;
-
-
       this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + this.verifyEmail_data + '&otpm=' + this.verifyMob_Otp + '&otpe=' + this.verifyEmail_Otp)
         .subscribe((resp: any) => {
-          
           this.showSpinner = false;
           this.confirmation_otp = resp;
-
           this.toastService.addSingle("success", "", "Otp Validated Successfully.");
           let user: any = resp;
           localStorage.setItem('login', 'true')
@@ -99,25 +81,17 @@ export class VerifyscreenComponent implements OnInit {
   };
 
   CheckAgreeOk(user: any) {
-    ;
     if (user.token != '') {
-      // localStorage.setItem('token', user.token)
       this.toastService.addSingle("success", "", "Login successfully.");
     }
-
     this.userContextService.setUser(user.token);
-    // this language will be used as a fallback when a translation isn't found in the current language
-    console.log(user);
     var language = user.language;
     if (language != null && language.length > 0) {
-      // the lang to use, if the lang isn't available, it will use the current loader to get them
       this.sharedService.translate.use(language);
 
     } else {
       this.sessionService.setItem("ng-prime-language", "en");
     }
-
-    ;
     let loginuser = this.sessionService.getSession();
     this.sessionService.setItem("userid", loginuser.userid);
     this.sessionService.setItem("username", loginuser.username);
@@ -128,30 +102,18 @@ export class VerifyscreenComponent implements OnInit {
     this.sessionService.setItem("selected-theme", this.theme);
     this.sessionService.setItem("selected-layout", loginuser.layoutpage);
     this.sessionService.setItem("applicantid", loginuser.key);
-    // localStorage.setItem("termid", user.terms.termid);
-
-    //this.themeService.selectTheme(this.theme);
 
     if (loginuser.nextloginchangepassword == 'True') {
       this.router.navigate(['/resetpassword']);
       return;
     }
-    // if (user.terms.terms) {
     if (loginuser.defaultpage == null || !loginuser.defaultpage) {
-      //this.routeStateService.add("Home", '/home/showdashboard/1', null, true);
       this.router.navigate(['/home']);
-      // return;
     }
-    //
     else {
       this.router.navigate(['/home']);
     }
-    //this.routeStateService.add("Home", loginuser.defaultpage, null, true);
-
-    //this.router.navigate([loginuser.defaultpage]);
-    //
     return;
-    // }
   }
 
   backLogin() {

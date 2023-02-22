@@ -4,10 +4,8 @@
   <div class="row second bgcolor">
     <h1 class="col-4 columns mainheader left">{{'BOCountries'}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
-      <!--btn-toolbar-->
       <div class='col'></div>
       <div class='dropdown d-inline-block btn-dropdown show'>
-
         <ul class='nav nav-pills  input-group'>
           <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bocountries()"><i
                 class="nb-edit"></i>Edit</a></li>
@@ -18,10 +16,8 @@
             <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
               (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
             </app-popupselect>
-
             <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
               [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
-
           </li>
           <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
             <ul class="nav navbar-nav1">
@@ -35,11 +31,9 @@
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
                   <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
-
                   <li role="separator" class="divider">
                     <hr>
                   </li>
-
                   <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
                   <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
@@ -48,8 +42,6 @@
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
                   <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
-
-
                 </ul>
               </li>
             </ul>
@@ -72,7 +64,6 @@
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
             <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li>
-
         </ul>
       </div>
     </div>
@@ -83,11 +74,9 @@
       <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
     </div>
     <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
-
     </div>
     <ngb-tabset class="tabset1" [destroyOnHide]="false">
       <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
-
       </div>
       <ngb-tab>
         <ng-template ngbTabTitle>
@@ -124,10 +113,7 @@
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
-            <!-- child table bostates-->
             <div [ngClass]="Is_bostates_Visible()">
-              <!--End-->
-
               <h4 class="form-group sticky1  columns left">{{'states'}}
                 <select class='child' id="bostatesPagingdropdown" (change)="bostates_Paging($event.target.value)"
                   [value]='20'>
@@ -142,9 +128,6 @@
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" [routerLink]=''
                           (click)="bostates_route(null, 'create')"><i class="fa fa-plus"
-
-
-
                             aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
                       <li role="separator" class="divider">
                         <hr>
@@ -167,7 +150,6 @@
                 (editConfirm)="bostates_beforesave($event)">
               </ng2-smart-table>
             </div>
-            <!--End of child table bostates-->
           </p-accordion>
         </ng-template>
       </ngb-tab>

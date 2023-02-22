@@ -1,51 +1,25 @@
 import { bomasterdataService } from './../../../service/bomasterdata.service';
 import { bomasterdata } from './../../../model/bomasterdata.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import {  Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { bosubcategorymaster } from './../../../model/bosubcategorymaster.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { bosubcategorymasterComponent } from './../../../pages/forms/bosubcategorymaster/bosubcategorymaster.component';
-import { bosubcategorymasterService } from './../../../service/bosubcategorymaster.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { read } from 'fs';
 
 @Component({
     selector: 'app-bomasterdata',
@@ -60,11 +34,8 @@ import { read } from 'fs';
           display: none !important;
         }
       }
-    `],
-    providers: [KeyboardShortcutsService]
+    `]
 })
-
-
 
 export class bomasterdataComponent implements OnInit {
     formData: bomasterdata;
@@ -123,12 +94,8 @@ export class bomasterdataComponent implements OnInit {
     masterdatatypeid: any;
 
 
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
@@ -137,31 +104,10 @@ export class bomasterdataComponent implements OnInit {
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        debugger
-
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.bomasterdata_Form = this.fb.group({
             pk: [null],
             masterdataid: [null],
@@ -183,15 +129,10 @@ export class bomasterdataComponent implements OnInit {
 
     get f() { return this.bomasterdata_Form.controls; }
 
-
-    //when child screens are clicked - it will be made invisible
     ToolBar(prop) {
         this.toolbarVisible = prop;
     }
-
-    //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.bomasterdata_Form.dirty && this.bomasterdata_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -202,51 +143,15 @@ export class bomasterdataComponent implements OnInit {
         return Observable.of(true);
     }
 
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.masterdataid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.masterdataid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
-    }
-
-    //on searching in pk autocomplete
     onSelectedpk(pkDetail: any) {
         if (pkDetail.masterdataid && pkDetail) {
             this.PopulateScreen(pkDetail.pkcol);
         }
     }
 
-    // initialize
     async ngOnInit() {
-        debugger
-
         this.masterdatatypeid = this.bomasterdata_service.boarray
         this.bomasterdata_Form.patchValue({ masterdatatypeid: this.masterdatatypeid[0] })
-        // this.masterdatatypeid="";
-        // this.masterdatatypeid = sessionStorage.getItem("masterdataname")
-
-        // let suma = localStorage.getItem("masterdataname")
-        // console.log(suma)
-        // this.masterdatatypeid1 = suma
-        // console.log(this.masterdatatypeid)
-
-        //session & theme
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
         });
@@ -257,10 +162,7 @@ export class bomasterdataComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
 
-        debugger;
-        //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
             this.maindata = this.data;
@@ -275,11 +177,9 @@ export class bomasterdataComponent implements OnInit {
         }
         let bomasterdataid = null;
 
-        //if view button(eye) is clicked
         if (this.currentRoute.snapshot.paramMap.get('viewid') != null) {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('viewid');
             this.showview = true;
-            //this.viewHtml=this.sessionService.getViewHtml();
         }
         else if (this.currentRoute.snapshot.paramMap.get('usersource') != null) {
             this.pkcol = this.sessionService.getItem('usersource');
@@ -291,7 +191,6 @@ export class bomasterdataComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -299,39 +198,27 @@ export class bomasterdataComponent implements OnInit {
             this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
         }
         this.formid = bomasterdataid;
-        //alert(bomasterdataid);
 
-        //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.Set_bosubcategorymasters_TableConfig();
-            setTimeout(() => {
-                //this.Set_bosubcategorymasters_TableDropDownConfig();
-            });
-
             this.resetForm();
         }
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
-            //get the record from api
-            //foreign keys
         }
         this.bomasterdata_service.getDefaultData().then(res => {
             this.masterdatatypeid_List = res.list_masterdatatypeid.value;
 
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide(); });
 
-        //autocomplete
         this.bomasterdata_service.get_bomasterdatas_List().then(res => {
             this.pkList = res as bomasterdata[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched
+        ).catch((err) => { this.spinner.hide(); });
         this.bomasterdata_Form.markAsUntouched();
         this.bomasterdata_Form.markAsPristine();
     }
-
-
 
     resetForm() {
         if (this.bomasterdata_Form != null)
@@ -352,7 +239,7 @@ export class bomasterdataComponent implements OnInit {
                 this.bomasterdata_service.delete_bomasterdata(masterdataid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -446,14 +333,13 @@ export class bomasterdataComponent implements OnInit {
         this.spinner.show();
         this.bomasterdata_service.get_bomasterdatas_ByEID(pkcol).then(res => {
             this.spinner.hide();
-
             this.formData = res.bomasterdata;
             let formproperty = res.bomasterdata.formproperty;
             if (formproperty && formproperty.edit == false) this.showview = true;
             this.pkcol = res.bomasterdata.pkcol;
             this.formid = res.bomasterdata.masterdataid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -462,9 +348,6 @@ export class bomasterdataComponent implements OnInit {
         this.pkcol = res.bomasterdata.pkcol;
         this.bmyrecord = false;
         if ((res.bomasterdata as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.bomasterdata_Form.patchValue({
             masterdataid: res.bomasterdata.masterdataid,
             masterdatatypeid: localStorage.getItem("masterdataname"),
@@ -484,11 +367,8 @@ export class bomasterdataComponent implements OnInit {
         this.bomasterdata_menuactions = res.bomasterdata_menuactions;
         this.bosubcategorymaster_menuactions = res.bosubcategorymaster_menuactions;
         this.bosubcategorymasters_visiblelist = res.bosubcategorymasters_visiblelist;
-        //Child Tables if any
         this.Set_bosubcategorymasters_TableConfig();
         this.bosubcategorymasters_LoadTable(res.bosubcategorymasters);
-
-        // suneel
     }
 
     validate() {
@@ -528,18 +408,13 @@ export class bomasterdataComponent implements OnInit {
             return;
         }
         var obj = this.bomasterdata_Form.getRawValue();
-        console.log(obj);
         if (!confirm('Do you want to want to save?')) {
             return;
         }
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
-    //This has to come from bomenuactions & procedures
     afterAction(mode: any) {
         let formname = "";
         let query = "";
@@ -552,20 +427,9 @@ export class bomasterdataComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
-        console.log("Hello")
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.bomasterdata_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.bomasterdata_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.bomasterdata_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -585,7 +449,6 @@ export class bomasterdataComponent implements OnInit {
             }
         }
         this.formData.Deleted_bosubcategorymaster_IDs = this.Deleted_bosubcategorymaster_IDs;
-        console.log(this.formData);
         this.spinner.show();
         this.bomasterdata_service.saveOrUpdate_bomasterdatas(this.formData, this.tbl_bosubcategorymasters?.source?.data,).subscribe(
             async res => {
@@ -595,7 +458,6 @@ export class bomasterdataComponent implements OnInit {
                     }
                 }
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).bomasterdata);
                 if (!bclear) this.showview = true;
@@ -624,16 +486,11 @@ export class bomasterdataComponent implements OnInit {
                 this.bomasterdata_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
-
-
-
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
@@ -647,7 +504,6 @@ export class bomasterdataComponent implements OnInit {
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(bosubcategorymasterComponent,
             {
-                // data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, subcategoryid, masterdataid, visiblelist: this.bosubcategorymasters_visiblelist, hidelist: this.bosubcategorymasters_hidelist, ScreenType: 2 },
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, subcategoryid, categoryid: masterdataid, visiblelist: this.bosubcategorymasters_visiblelist, hidelist: this.bosubcategorymasters_hidelist, ScreenType: 2 },
             }
         ).onClose.subscribe(res => {
@@ -669,7 +525,6 @@ export class bomasterdataComponent implements OnInit {
         if (childID != null)
             this.Deleted_bosubcategorymaster_IDs += childID + ",";
         this.tbl_bosubcategorymasters.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
 
@@ -682,7 +537,6 @@ export class bomasterdataComponent implements OnInit {
     bosubcategorymasters_settings: any;
 
     show_bosubcategorymasters_Checkbox() {
-        debugger;
         if (this.tbl_bosubcategorymasters.source.settings['selectMode'] == 'multi') this.tbl_bosubcategorymasters.source.settings['selectMode'] = 'single';
         else
             this.tbl_bosubcategorymasters.source.settings['selectMode'] = 'multi';
@@ -692,15 +546,8 @@ export class bomasterdataComponent implements OnInit {
         this.tbl_bosubcategorymasters.source.settings['selectMode'] = 'single';
     }
     show_bosubcategorymasters_Filter() {
-        setTimeout(() => {
-            //  this.Set_bosubcategorymasters_TableDropDownConfig();
-        });
         if (this.tbl_bosubcategorymasters.source.settings != null) this.tbl_bosubcategorymasters.source.settings['hideSubHeader'] = !this.tbl_bosubcategorymasters.source.settings['hideSubHeader'];
         this.tbl_bosubcategorymasters.source.initGrid();
-    }
-    show_bosubcategorymasters_InActive() {
-    }
-    enable_bosubcategorymasters_InActive() {
     }
     async Set_bosubcategorymasters_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_bosubcategorymasters) {
@@ -709,9 +556,6 @@ export class bomasterdataComponent implements OnInit {
     }
     async bosubcategorymasters_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_bosubcategorymasters_TableConfig() {
         this.bosubcategorymasters_settings = {
@@ -764,39 +608,6 @@ export class bomasterdataComponent implements OnInit {
             if (this.tbl_bosubcategorymasters != undefined) this.tbl_bosubcategorymasters.source.setPaging(1, 20, true);
         }
     }
-
-    //external to inline
-    /*
-    bosubcategorymasters_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.bomasterdata_service.bosubcategorymasters.length == 0)
-    {
-        this.tbl_bosubcategorymasters.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new bosubcategorymaster();
-        this.bomasterdata_service.bosubcategorymasters.push(obj);
-        this.tbl_bosubcategorymasters.source.refresh();
-        if ((this.bomasterdata_service.bosubcategorymasters.length / this.tbl_bosubcategorymasters.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_bosubcategorymasters.source.getPaging().page)
-        {
-            this.tbl_bosubcategorymasters.source.setPage((this.bomasterdata_service.bosubcategorymasters.length / this.tbl_bosubcategorymasters.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_bosubcategorymasters.source.grid.edit(this.tbl_bosubcategorymasters.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_bosubcategorymasters.source.data.indexOf(event.data);
-    this.onDelete_bosubcategorymaster(event,event.data.subcategoryid,((this.tbl_bosubcategorymasters.source.getPaging().page-1) *this.tbl_bosubcategorymasters.source.getPaging().perPage)+index);
-    this.tbl_bosubcategorymasters.source.refresh();
-    break;
-    }
-    }
-
-    */
     bosubcategorymasters_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -829,13 +640,8 @@ export class bomasterdataComponent implements OnInit {
     async onCustom_bosubcategorymasters_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "bosubcategorymasters");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     bosubcategorymasters_Paging(val) {
-        debugger;
         this.tbl_bosubcategorymasters.source.setPaging(1, val, true);
     }
 
@@ -850,7 +656,6 @@ export class bomasterdataComponent implements OnInit {
             return "hide";
         }
     }
-    //end of Grid Codes bosubcategorymasters
 
 }
 

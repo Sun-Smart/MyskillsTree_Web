@@ -3,51 +3,33 @@
     <div class="col-3">
       <h6 style="font-weight: 600;"> Dashboard</h6>
     </div>
-
     <div class="col-4"></div>
-
     <div class="col-5" style="display: flex;justify-content: end;align-items: center;">
-
       <label *ngIf="isrelease==false" style="margin: 0;" class="mob_profile_release">Click to release your
         profile</label> &nbsp;&nbsp;
       <button class="btn btn-outline-secondary releaseBtn" *ngIf="isrelease==false"
         (click)="releasemethod(true)">Release</button>
-
       <label *ngIf="isrelease==true" style="margin: 0;" class="mob_profile_release">Click to hide your profile
       </label>&nbsp;&nbsp;
       <button class="btn btn-outline-secondary releaseBtn" *ngIf="isrelease==true"
         (click)="releasemethod(false)">Hide</button>
-
     </div>
   </div>
-
   <div class="row mobile_col" style="height: 100%;">
-
-    <!-- SideNav -->
-
     <div class="dashboard-sidebar col-3" style="height: auto;">
-      <!-- Skill list -->
       <div class="dashboard-sidebar-content">
-
-
         <div class="row sidenav-skill-card">
-
           <label class="head-label"> Skills</label>
-
-
           <div class="col-12" *ngIf="finalarray.length == 0" style="text-align: center;">
             <label> No records found</label>
           </div>
-
           <div class="col-12">
             <div class="row" *ngFor="let item of finalarray" style="display: flex;justify-content: space-evenly;">
-
               <div class="col-3">
                 <label style="color: rgb(8, 111, 8);">
                   {{item.showstr}}
                 </label>
               </div>
-
               <div class="col-8 skill-label">
                 <label (click)="showDetails(item.skillId, item.subCategory, item.remarks)">{{item.subCategory}}</label>
               </div>
@@ -55,126 +37,81 @@
           </div>
         </div>
         <br>
-        <!-- User Profile -->
         <div class="row sidenav-skill-card">
           <label class="head-label"> Profile Status</label>
           <div class="col-12">
             <img src="assets/User Profile/status.png" width="90%" style="margin-left:6%;">
             <div><canvas id="canvas" width="500px" height="500px"></canvas></div>
           </div>
-
-          <!-- Skill Labels -->
           <div class="row" style="justify-content: space-evenly;">
             <div class="col-5" style="padding: 0;">
               <ul class="list-group">
-
-                <!-- skillset -->
-
                 <li class="dash_list">
                   <img src="assets/User Profile/Skillsets.png" />
-
                   <label for="">1.SKILLSETS</label>
-
                   <img src="assets/User Profile/Complete.png" *ngIf="isskillcompleted" style="float: right;" />
                   <img src="assets/User Profile/Bending.png" *ngIf="isskillpending" style="float: right;" />
                   <img src="assets/User Profile/Not Started.png" *ngIf="isskillnotstarted" style="float: right;" />
                 </li>
-
-                <!-- Resume -->
-
                 <li id="#tab1" class="dash_list">
                   <img src="assets/User Profile/Sresum.png" width="30px" />
-
                   <label for=""> 2.RESUME</label>
-
                   <img src="assets/User Profile/Complete.png" *ngIf="isresumecompleted" style="float: right;" />
                   <img src="assets/User Profile/Bending.png" *ngIf="isresumepending" style="float: right;" />
                   <img src="assets/User Profile/Not Started.png" *ngIf="isresumenotstarted" style="float: right;" />
                 </li>
-
-                <!-- Project -->
-
                 <li class="dash_list">
                   <img src="assets/User Profile/Project.png" width="30px" />
-
                   <label for="">3.PROJECT</label>
-
                   <img src="assets/User Profile/Complete.png" *ngIf="isprojectcompleted" style="float: right;" />
                   <img src="assets/User Profile/Bending.png" *ngIf="isprojectpending" style="float: right;" />
                   <img src="assets/User Profile/Not Started.png" *ngIf="isprojectnotstarted" style="float: right;" />
                 </li>
               </ul>
             </div>
-
             <div class="col-5" style="padding: 0;">
               <ul class="list-group">
-
-                <!-- Education -->
-
                 <li class="dash_list">
                   <img src="assets/User Profile/education.png" width="30px" />
-
                   <label for=""> 4.EDUCATION</label>
-
                   <img src="assets/User Profile/Complete.png" *ngIf="iseducationcompleted" style="float: right;" />
                   <img src="assets/User Profile/Bending.png" *ngIf="iseducationpending" style="float: right;" />
                   <img src="assets/User Profile/Not Started.png" *ngIf="iseducationnotstarted" style="float: right;" />
                 </li>
-
-                <!-- Social Info -->
-
                 <li class="dash_list" style="white-space: pre;">
                   <img src="assets/User Profile/Social Info.png" width="30px" />
-
                   <label for="">5.SOCIAL INFO</label>
-
                   <img src="assets/User Profile/Complete.png" *ngIf="issocialcompleted" style="float: right;" />
                   <img src="assets/User Profile/Bending.png" *ngIf="issocialpending" style="float: right;" />
                   <img src="assets/User Profile/Not Started.png" *ngIf="issocialnotstarted" style="float: right;" />
                 </li>
-
-                <!-- Personal -->
-
                 <li class="dash_list">
                   <img src="assets/User Profile/Personal.png" width="30px" />
-
                   <label for="">6.PERSONAL</label>
-
                   <img src="assets/User Profile/Complete.png" *ngIf="ispersonalcompleted" style="float: right;" />
                   <img src="assets/User Profile/Bending.png" *ngIf="ispersonalpending" style="float: right;" />
                   <img src="assets/User Profile/Not Started.png" *ngIf="ispersonalnotstarted" style="float: right;" />
                 </li>
-
               </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Main Content -->
-
     <div class="main-dash-content col-9">
-
       <div class="row" style="background-color: #333333; color: #fff;" *ngIf="showhearder_Details">
         <div class="col-12">
           <h6 style="font-weight: 600;">{{sub_categorydesc}} - {{expYrs}}yrs ({{remarks}})
           </h6>
-
         </div>
       </div>
-
       <div>
-        <!-- Employment -->
-
         <div class="main-data">
-
           <div class="row">
             <div class="col-12 dashboard-list_data">
               <label>Employment</label>
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
-
             <table style="width: 100%;">
               <thead class="dashboard-card-header">
                 <tr>
@@ -195,7 +132,6 @@
                 </tr>
               </tbody>
             </table>
-
             <div class="col-12 dashboard-card-header" style="display: none;">
               <label style="width: 20%;">Company</label>
               <label style="width: 20%;">Designation</label>
@@ -203,11 +139,9 @@
               <label style="width: 20%;">From</label>
               <label>To</label>
             </div>
-
             <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_employementdetails.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
-
             <div class="col-12 emp-resp" *ngFor="let item of dashboard_employementdetails" style="display: none;">
               <label style="color: #000;font-size: small;width: 20%;">{{item.companyname}}</label>
               <label style="color: #000;font-size: small;width: 20%;">{{item.designation}}</label>
@@ -215,20 +149,14 @@
               <label style="color: #000;font-size: small;width: 20%;">{{item.fromdate | date : 'dd-MM-yyyy'}}</label>
               <label style="color: #000;font-size: small;">{{item.todate | date : 'dd-MM-yyyy'}}</label>
             </div>
-
           </div>
         </div>
-
-        <!-- Projects -->
-
         <div class="main-data">
-
           <div class="row">
             <div class="col-12 dashboard-list_data">
               <label>Projects</label>
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
-
             <table style="width: 100%;">
               <thead class="dashboard-card-header">
                 <tr>
@@ -245,23 +173,17 @@
                 </tr>
               </tbody>
             </table>
-
             <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_projectdetails.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
           </div>
         </div>
-
-        <!-- Achievement Details -->
-
         <div class="main-data">
-
           <div class="row">
             <div class="col-12 dashboard-list_data">
               <label>Achievements</label>
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
-
             <table style="width: 100%;">
               <thead class="dashboard-card-header">
                 <tr>
@@ -278,54 +200,40 @@
                 </tr>
               </tbody>
             </table>
-
             <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_achievementdetails.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
-
           </div>
         </div>
-
-        <!-- Education -->
-
         <div class="main-data">
-
           <div class="row">
             <div class="col-12 dashboard-list_data">
               <label>Education</label>
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
-
             <div class="col-12 dashboard-card-header">
               <label style="width: 25%;">Course</label>
               <label style="width: 25%;">Institution</label>
               <label style="width: 25%;">From Year</label>
               <label style="width: 25%;">To Year</label>
             </div>
-
             <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_educationdetails.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
-
             <div class="col-12" *ngFor="let item of dashboard_educationdetails">
               <label style="color: #000;font-size: small;width: 25%;">{{item.coursename}}</label>
               <label style="color: #000;font-size: small;width: 25%;">{{item.institutionname}}</label>
               <label style="color: #000;font-size: small;width: 25%;">{{item.fromyear}}</label>
               <label style="color: #000;font-size: small;width: 25%;">{{item.toyear}}</label>
             </div>
-
           </div>
         </div>
-
-        <!-- References -->
-
         <div class="main-data">
           <div class="row">
             <div class="col-12 dashboard-list_data">
               <label>References</label>
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
-
             <table style="width: 100%;">
               <thead class="dashboard-card-header">
                 <tr>
@@ -344,23 +252,17 @@
                 </tr>
               </tbody>
             </table>
-
             <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_reffreq_details.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
           </div>
         </div>
-
-        <!-- New Knowlwdge -->
-
         <div class=" main-data">
-
           <div class="row">
             <div class="col-12 dashboard-list_data">
               <label>Knowledge</label>
             </div>
             <hr style="margin: 5px 0px 5px 0px !important;">
-
             <table style="width: 100%;">
               <thead class="dashboard-card-header">
                 <tr>
@@ -382,162 +284,105 @@
             </table>
           </div>
         </div>
-
       </div>
     </div>
-
   </div>
 
   <div id="contentArea1" class="main container full-height">
-
-
     <div class="container" style="margin-top: 50px !important;display: none;">
       <div class="row" style="background-color: #6b431d;padding: 10px;display: flex;color: #fff;">
         <div class="col-3">
           <h6 style="font-weight: 600;"> Dashboard</h6>
         </div>
       </div>
-
       <div class="dashboard-sidebar">
-        <!-- Skill list -->
         <div class="dashboard-sidebar-content">
-
           <h6 style="font-weight: 600;"> Skills</h6>
-
           <div class="row" *ngFor="let item of finalarray" style="display: flex;justify-content: space-evenly;">
-
             <div class="col-3">
               <label style="color: rgb(8, 111, 8);">
                 {{item.showstr}}
               </label>
             </div>
-
             <div class="col-8 skill-label">
               <label (click)="showDetails(item.skillId, item.subCategory, item.remarks)">{{item.subCategory}}</label>
             </div>
-
           </div>
-
-          <!-- User Profile -->
           <div class="row">
             <h6 style="font-weight: 600;"> User Profile</h6>
             <div class="col-12">
               <img src="assets/User Profile/status.png" width="90%" style="margin-left:6%;">
               <div><canvas id="canvas" width="500px" height="500px"></canvas></div>
             </div>
-
-            <!-- Skill Labels -->
             <div class="row" style="justify-content: space-evenly;">
               <div class="col-5" style="padding: 0;">
                 <ul class="list-group">
-
-                  <!-- skillset -->
-
                   <li class="dash_list">
                     <img src="assets/User Profile/Skillsets.png" />
-
                     <label for="">1.SKILLSETS</label>
-
                     <img src="assets/User Profile/Complete.png" *ngIf="isskillcompleted" style="float: right;" />
                     <img src="assets/User Profile/Bending.png" *ngIf="isskillpending" style="float: right;" />
                     <img src="assets/User Profile/Not Started.png" *ngIf="isskillnotstarted" style="float: right;" />
                   </li>
-
-                  <!-- Resume -->
-
                   <li id="#tab1" class="dash_list">
                     <img src="assets/User Profile/Sresum.png" width="30px" />
-
                     <label for=""> 2.RESUME</label>
-
                     <img src="assets/User Profile/Complete.png" *ngIf="isresumecompleted" style="float: right;" />
                     <img src="assets/User Profile/Bending.png" *ngIf="isresumepending" style="float: right;" />
                     <img src="assets/User Profile/Not Started.png" *ngIf="isresumenotstarted" style="float: right;" />
                   </li>
-
-                  <!-- Project -->
-
                   <li class="dash_list">
                     <img src="assets/User Profile/Project.png" width="30px" />
-
                     <label for="">3.PROJECT</label>
-
                     <img src="assets/User Profile/Complete.png" *ngIf="isprojectcompleted" style="float: right;" />
                     <img src="assets/User Profile/Bending.png" *ngIf="isprojectpending" style="float: right;" />
                     <img src="assets/User Profile/Not Started.png" *ngIf="isprojectnotstarted" style="float: right;" />
                   </li>
                 </ul>
               </div>
-
               <div class="col-5" style="padding: 0;">
                 <ul class="list-group">
-
-                  <!-- Education -->
-
                   <li class="dash_list">
                     <img src="assets/User Profile/education.png" width="30px" />
-
                     <label for=""> 4.EDUCATION</label>
-
                     <img src="assets/User Profile/Complete.png" *ngIf="iseducationcompleted" style="float: right;" />
                     <img src="assets/User Profile/Bending.png" *ngIf="iseducationpending" style="float: right;" />
                     <img src="assets/User Profile/Not Started.png" *ngIf="iseducationnotstarted"
                       style="float: right;" />
                   </li>
-
-                  <!-- Social Info -->
-
                   <li class="dash_list" style="white-space: pre;">
                     <img src="assets/User Profile/Social Info.png" width="30px" />
-
                     <label for="">5.SOCIAL INFO</label>
-
                     <img src="assets/User Profile/Complete.png" *ngIf="issocialcompleted" style="float: right;" />
                     <img src="assets/User Profile/Bending.png" *ngIf="issocialpending" style="float: right;" />
                     <img src="assets/User Profile/Not Started.png" *ngIf="issocialnotstarted" style="float: right;" />
                   </li>
-
-                  <!-- Personal -->
-
                   <li class="dash_list">
                     <img src="assets/User Profile/Personal.png" width="30px" />
-
                     <label for="">6.PERSONAL</label>
-
                     <img src="assets/User Profile/Complete.png" *ngIf="ispersonalcompleted" style="float: right;" />
                     <img src="assets/User Profile/Bending.png" *ngIf="ispersonalpending" style="float: right;" />
                     <img src="assets/User Profile/Not Started.png" *ngIf="ispersonalnotstarted" style="float: right;" />
                   </li>
-
                 </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Main Content -->
-
       <div class="main-dash-content">
-
         <div class="row" style="background-color: #1E90FF; color: #fff;" *ngIf="showhearder_Details">
           <div class="col-12">
             <h6 style="font-weight: 600;">{{sub_categorydesc}} - {{expYrs}}yrs ({{remarks}})
             </h6>
-
           </div>
         </div>
-
-        <!-- Employment -->
-
         <div class="main-data">
-
           <div class="row">
             <div class="col-12">
               <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">Employment</h5>
             </div>
           </div>
-
           <div class="row">
             <div class="col-12">
               <label for="" style="color:#000;font-weight: 600;width: 200px;">Company</label>
@@ -546,7 +391,6 @@
               <label for="" style="color:#000;font-weight: 600;width: 200px;">From</label>
               <label for="" style="color:#000;font-weight: 600;">To</label>
             </div>
-
             <div class="col-12" *ngFor="let item of dashboard_employementdetails">
               <label for="" style="color: #000;font-size: small;width: 200px;">{{item.companyname}}</label>
               <label for="" style="color: #000;font-size: small;width: 200px;">{{item.project}}</label>
@@ -555,42 +399,29 @@
               <label for="" style="color: #000;font-size: small;">{{item.todate}}</label>
             </div>
           </div>
-
         </div>
-
-        <!-- Education -->
-
         <div class="main-data" style="display: none;">
-
           <div class="row">
             <div class="col-12">
               <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">Education</h5>
             </div>
           </div>
-
           <div class="row">
-
             <div class="col-12">
               <label for="" style="color:#000;font-weight: 600;width: 250px;">Course</label>
               <label for="" style="color:#000;font-weight: 600;width: 250px;">Institution</label>
               <label for="" style="color:#000;font-weight: 600;width: 250px;">From Year</label>
               <label for="" style="color:#000;font-weight: 600;">To Year</label>
             </div>
-
             <div class="col-12" *ngFor="let item of get_educationd_data">
               <label for="" style="color: #000;font-size: small;width: 250px;">{{item.coursename}}</label>
               <label for="" style="color: #000;font-size: small;width: 250px;">{{item.institutionname}}</label>
               <label for="" style="color: #000;font-size: small;width: 250px;">{{item.fromyear}}</label>
               <label for="" style="color: #000;font-size: small;">{{item.toyear}}</label>
             </div>
-
           </div>
         </div>
-
-        <!-- Achievement Details -->
-
         <div class="main-data">
-
           <div class="row">
             <div class="col-12">
               <h5 style="color: #000;font-size: 15px;padding: 5px 0!important;">Achievements</h5>
@@ -609,8 +440,6 @@
           </div>
 
         </div>
-
-        <!-- References -->
 
         <div class="main-data">
 
@@ -639,7 +468,6 @@
           </div>
         </div>
 
-        <!-- New Knowlwdge -->
 
         <div class="row main-data">
           <div class="col-12" style="text-align: initial;">
@@ -662,283 +490,6 @@
             <label for="" style="color: #000;font-size: small;"> - </label>
           </div>
         </div><br>
-      </div>
-    </div>
-
-
-
-    <!-- Old Dashboard -->
-
-    <div class="container" style="display: none;">
-      <div class="row">
-        <!-- User Profile -->
-        <div class="col">
-          <div class="card" style="background-color: white !important;
-                height: 100% !important;
-                padding: 0px !important;
-                color: black !important;width: 100% !important;">
-            <div class="card-header">
-              User Profile
-            </div>
-            <div class="card-body">
-              <div class="col-sm-12">
-                <div class="row">
-                  <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                    <img src="assets/User Profile/status.png" width="90%" style="margin-left:6%;">
-                    <div><canvas id="canvas" width="500px" height="500px"></canvas></div>
-                  </div>
-                  <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                    <ul class="list-group">
-                      <li class="list-group-item dash_list" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                        <img src="assets/User Profile/Skillsets.png" width="30px" /> 1.SKILLSETS
-
-                        <img src="assets/User Profile/Complete.png" *ngIf="isskillcompleted" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Bending.png" *ngIf="isskillpending" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Not Started.png" *ngIf="isskillnotstarted" width="27px"
-                          style="float: right;" />
-                      </li>
-                      <li id="#tab1" class="list-group-item" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                        <img src="assets/User Profile/Sresum.png" width="30px" /> 2.RESUME
-                        <img src="assets/User Profile/Complete.png" *ngIf="isresumecompleted" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Bending.png" *ngIf="isresumepending" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Not Started.png" *ngIf="isresumenotstarted" width="27px"
-                          style="float: right;" />
-                      </li>
-                      <li class="list-group-item" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                        <img src="assets/User Profile/Project.png" width="30px" /> 3.PROJECT
-                        <img src="assets/User Profile/Complete.png" *ngIf="isprojectcompleted" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Bending.png" *ngIf="isprojectpending" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Not Started.png" *ngIf="isprojectnotstarted" width="27px"
-                          style="float: right;" />
-                      </li>
-                      <li class="list-group-item" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                        <img src="assets/User Profile/education.png" width="30px" /> 4.EDUCATION
-                        <img src="assets/User Profile/Complete.png" *ngIf="iseducationcompleted" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Bending.png" *ngIf="iseducationpending" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Not Started.png" *ngIf="iseducationnotstarted" width="27px"
-                          style="float: right;" />
-                      </li>
-                      <li class="list-group-item" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                        <img src="assets/User Profile/Social Info.png" width="30px" /> 5.SOCIAL INFO
-                        <img src="assets/User Profile/Complete.png" *ngIf="issocialcompleted" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Bending.png" *ngIf="issocialpending" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Not Started.png" *ngIf="issocialnotstarted" width="27px"
-                          style="float: right;" />
-                      <li class="list-group-item" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                        <img src="assets/User Profile/Personal.png" width="30px" /> 6.PERSONAL
-                        <img src="assets/User Profile/Complete.png" *ngIf="ispersonalcompleted" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Bending.png" *ngIf="ispersonalpending" width="27px"
-                          style="float: right;" />
-                        <img src="assets/User Profile/Not Started.png" *ngIf="ispersonalnotstarted" width="27px"
-                          style="float: right;" />
-                      </li>
-                    </ul>
-                    <!-- <ul class="list-group">
-                    <li class="list-group-item dash_list" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                      <img src="assets/User Profile/Skillsets.png" width="30px" /> 1.SKILLSETS
-                      <img src="assets/User Profile/Complete.png" width="30px" style="float: right;" />
-                    </li>
-                    <li class="list-group-item" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                      <img src="assets/User Profile/Sresum.png" width="30px" /> 2.RESUME
-                      <img src="assets/User Profile/Complete.png" width="30px" style="float: right;" />
-                    </li>
-                    <li class="list-group-item" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                      <img src="assets/User Profile/Project.png" width="30px" /> 3.PROJECT
-                      <img src="assets/User Profile/Complete.png" width="30px" style="float: right;" />
-                    </li>
-                    <li class="list-group-item" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                      <img src="assets/User Profile/education.png" width="30px" /> 4.EDUCATION
-                      <img src="assets/User Profile/Bending.png" width="30px" style="float: right;" />
-                    </li>
-                    <li class="list-group-item" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                      <img src="assets/User Profile/Social Info.png" width="30px" /> 5. SOCIAL INFO
-                      <img src="assets/User Profile/Not Started.png" width="30px" style="float: right;" />
-                    </li>
-                    <li class="list-group-item" style="color: gray;
-                          margin: 5px;
-                          padding: 1px;
-                          border: 1px solid gray;
-                          border-radius: 0px;">
-                      <img src="assets/User Profile/Personal.png" width="30px" /> 6. PERSONAL
-                      <img src="assets/User Profile/Not Started.png" width="30px" style="float: right;" />
-                    </li>
-                  </ul> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="padding: 8px;"></div>
-
-        <!-- Show Pofile And Skillset Pop-up -->
-        <div class="col">
-          <div class="card" style="background-color: white !important;box-shadow: 0.5px;
-    height: 100% !important;
-    padding: 0px !important;
-    color: black !important;width: 100% !important;">
-            <div class="card-header">
-              <button type="button" class="btn btn-default popup-add-button" (click)="showmyProfile();"
-                style="position: absolute;right: 0px;">Show My Profile</button>
-            </div>
-
-            <div class="card-body">
-              <div>
-                <div class="tabbed">
-                  <input type="radio" id="tab1" name="css-tabs" checked>
-                  <input type="radio" id="tab2" name="css-tabs">
-                  <input type="radio" id="tab3" name="css-tabs">
-                  <input type="radio" id="tab4" name="css-tabs">
-                  <input type="radio" id="tab5" name="css-tabs">
-                  <input type="radio" id="tab6" name="css-tabs">
-                  <input type="radio" id="tab7" name="css-tabs">
-                  <ul class="tabs breadcrumb">
-                    <li class="tab"><label for="tab1"
-                        style="background-color: #ed7d31;color: white;margin-top: 10px;text-transform: unset;">&nbsp;
-                        Skill Sets</label></li>
-                    <li class="tab"><label for="tab2"
-                        style="background-color: #a5a5a5;color: white;margin-top: 10px;text-transform: unset;">&nbsp;
-                        Resume</label></li>
-                    <li class="tab"><label for="tab3"
-                        style="background-color: #ECB50E;color: white;margin-top: 10px;text-transform: unset;">&nbsp;
-                        Project</label></li>
-                    <li class="tab"><label for="tab4"
-                        style="background-color: #5B9BD5;color: white;margin-top: 10px;text-transform: unset;"> &nbsp;
-                        Education</label></li>
-                    <li class="tab"><label for="tab5"
-                        style="background-color: #65AE12;color: white;margin-top: 10px;text-transform: unset;"> &nbsp;
-                        Social Info</label></li>
-                    <li class="tab"><label for="tab6"
-                        style="background-color: #ED7D31;color: white;margin-top: 10px;text-transform: unset;"> &nbsp;
-                        Personal</label></li>
-                    <li class="tab"><label for="tab7"
-                        style="background-color: #32a9ee;color: white;margin-top: 10px;text-transform: unset;"> &nbsp;
-                        Release</label></li>
-                  </ul>
-                  <div class="tab-content">
-                    <button class="btn btn-outline-secondary skill_btn" (click)="showSkills()"><img
-                        src="assets/Skillsets/Skillsets.png" width="40px;" /> What are your relevant skill
-                      sets?</button><br /><br />
-                    <button class="btn btn-outline-secondary skill_btn" (click)="showGeography()"><img
-                        src="assets/Skillsets/Located.png" width="40px;" /> What is your locational
-                      preferences?</button><br /><br />
-                    <!-- <button class="btn btn-outline-secondary ref_btn">Release</button> -->
-                  </div>
-                  <div class="tab-content">
-                    <!-- <button class="btn btn-outline-secondary skill_btn" style="display: none;" (click)="edit_briefmstapplicantmasterss();"><img src="assets/Resume/About.png"
-                      width="40px;" /> Can you provide a elevated pitch about you in 100 words?</button><br /><br /> -->
-                    <button class="btn btn-outline-secondary skill_btn" (click)="uploadmethod()"><img
-                        src="assets/Resume/Resume.png" width="40px;" /> Upload your Resume</button>
-                  </div>
-                  <div class="tab-content">
-                    <button class="btn btn-outline-secondary skill_btn" (click)="showcareer()"><img
-                        src="assets/Project/Experince.png" width="40px;" /> Can you tell about your work
-                      experiences?</button><br /><br />
-                    <button class="btn btn-outline-secondary skill_btn" (click)="showWorkRef()"><img
-                        src="assets/Project/Key Project.png" width="40px;" /> Please provide details of Key Projects
-                    </button><br />
-                  </div>
-                  <div class="tab-content">
-                    <button class="btn btn-outline-secondary skill_btn" (click)="showEducation()"><img
-                        src="assets/Education/Education.png" width="40px;" /> What is your educational
-                      background?</button><br /><br />
-                    <button class="btn btn-outline-secondary skill_btn" (click)="showAchievement()"><img
-                        src="assets/Education/Additional Certificates.png" width="40px;" /> Any additional
-                      certifications
-                      or Achievements?</button>
-                  </div>
-                  <div class="tab-content">
-                    <button class="btn btn-outline-secondary skill_btn" (click)="showSocial();"><img
-                        src="assets/Social Info/Profile.png" width="40px;" /> Happy to have your Social Media Profile to
-                      connect?</button>
-                  </div>
-                  <div class="tab-content">
-                    <button class="btn btn-outline-secondary skill_btn"
-                      (click)="edit_fullpagemstapplicantmasters()"><img src="assets/personal/About you.png"
-                        width="40px;" /> Add a personal touch information about
-                      you?</button><br /><br />
-                    <button class="btn btn-outline-secondary skill_btn" (click)="showLanguage()"><img
-                        src="assets/personal/Language.png" width="40px;" /> Share your language
-                      proficiencies</button><br /><br />
-                    <!-- <button class="btn btn-outline-secondary ref_btn">Release</button> -->
-                  </div>
-
-
-                  <div class="tab-content">
-                    <!-- <button class="btn btn-outline-secondary skill_btn" ><img src="assets/personal/About you.png"
-                      width="40px;" /> Add a personal touch information about you?</button><br /><br /> -->
-                    <label *ngIf="isrelease==false">
-                      Your profile will be actively publishing to Corporate as per your skill match.<br>
-                      click to release </label>
-                    <label *ngIf="isrelease==true">
-                      Your profile was in released...<br>
-                      click to hide your profile ..!
-                    </label><br /><br />
-                    <button class="btn btn-outline-secondary ref_btn1" *ngIf="isrelease==false"
-                      (click)="releasemethod(true)">Release</button>
-                    <button class="btn btn-outline-secondary ref_btn2" *ngIf="isrelease==true"
-                      (click)="releasemethod(false)"> Hide</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

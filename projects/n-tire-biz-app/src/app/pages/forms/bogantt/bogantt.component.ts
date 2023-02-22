@@ -1,13 +1,11 @@
 import {
   Component, Input,
-  ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef, OnInit, forwardRef, ViewContainerRef
+  ViewChild, OnInit, ViewContainerRef
 } from '@angular/core';
-import { Validators, FormBuilder } from "@angular/forms";
+import {  FormBuilder } from "@angular/forms";
 import { GanttEditorComponent, GanttEditorOptions } from "ng-gantt";
 import { BOReportViewerService } from '../../../../../../n-tire-biz-app/src/app/service/boreportviewer.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import {  ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-bogantt",
@@ -28,7 +26,6 @@ export class boganttComponent implements OnInit {
 
   constructor(public fb: FormBuilder, private boreportviewerservice: BOReportViewerService,
     private currentRoute: ActivatedRoute) {
-    debugger;
     this.currentRoute.params.subscribe(params => {
       this.reportid = null;
       this.paramid = params.id;
@@ -39,7 +36,6 @@ export class boganttComponent implements OnInit {
   ngOnInit() {
     let id = this.currentRoute.snapshot.paramMap.get('id');
     this.Initialize(id);
-    //this.data = this.initialData();
     this.editorOptions = {
       vFormat: "day",
       vEditable: true,
@@ -52,7 +48,6 @@ export class boganttComponent implements OnInit {
   }
 
   paramsChange(id) {
-    debugger;
     if (this.container != undefined) this.container.clear();
     this.Initialize(id);
   }
@@ -66,25 +61,13 @@ export class boganttComponent implements OnInit {
       this.value = this.currentRoute.snapshot.paramMap.get('fk');
     }
 
-
-    debugger;
     if ((this.reportid == null || this.reportid == undefined) && (id != null && id != undefined)) this.reportid = id;
     if (this.reportid == null || this.reportid == undefined) this.reportid = 300;
     this.boreportviewerservice.getBOReportResultsByID((this.reportid), this.fkname, this.value, null, null, status, null, null, null).then((res: any) => {
-      //debugger;
       this.configdata = res.boreport;
       this.cols = res.boreportcolumn;
       let reportdata = res.results.Rows;
       this.data = [];
-
-      /*
-      select taskid as pID,description as pName,startdate as pStart, target as pEnd, 
-      startdate as pPlanStart, target as pPlanEnd, 'ggroupblack' as pClass,'' as pLink,
-      0 as pMile,assignedto as pRes,0 as pComp,0 as  pGroup,0 as pParent,1 as pOpen,
-      '' as  pDepend,'' as  pCaption,rate as pCost,remarks as pNotes,
-      taskcategory as category,tasktype as sector from legaltaskmasters
-      
-      */
 
       for (let i = 0; i < reportdata.length; i++) {
         var task = {

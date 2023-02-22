@@ -1,59 +1,31 @@
 import { bocompanymasterService } from './../../../service/bocompanymaster.service';
 import { bocompanymaster } from './../../../model/bocompanymaster.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import {  Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
+import { DomSanitizer } from "@angular/platform-browser";
+import { KeyValuePair, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { bocompanyholiday } from './../../../model/bocompanyholiday.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { bocompanyholidayComponent } from './../../../pages/forms/bocompanyholiday/bocompanyholiday.component';
 import { bocompanyholidayService } from './../../../service/bocompanyholiday.service';
-import { bofinancialyear } from './../../../model/bofinancialyear.model';
 import { bofinancialyearComponent } from './../../../pages/forms/bofinancialyear/bofinancialyear.component';
-import { bofinancialyearService } from './../../../service/bofinancialyear.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
 import { customfieldconfigurationService } from '../../../../../../n-tire-biz-app/src/app/service/customfieldconfiguration.service';
-import { customfieldconfiguration } from '../../../../../../n-tire-biz-app/src/app/model/customfieldconfiguration.model';
 import { DynamicFormBuilderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/dynamic-form-builder/dynamic-form-builder.component';
 
 @Component({
@@ -72,8 +44,7 @@ import { DynamicFormBuilderComponent } from '../../../../../../n-tire-biz-app/sr
       .financialyeariddesc{
         text-align: initial;
     }
-    `],
-    providers: [KeyboardShortcutsService]
+    `]
 })
 
 
@@ -84,15 +55,14 @@ export class bocompanymasterComponent implements OnInit {
     bmyrecord: boolean = false;
     hidelist: any = [];
     objvalues: any = [];
-    viewHtml: any = '';//stores html view of the screen
-    showview: boolean = false;//view or edit mode
-    theme: string = "";//current theme
-    //formdata: any;//current form data
-    shortcuts: ShortcutInput[] = [];//keyboard keys
-    showSubmit: boolean = true;//button to show
+    viewHtml: any = '';
+    showview: boolean = false;
+    theme: string = "";
+    shortcuts: ShortcutInput[] = [];
+    showSubmit: boolean = true;
     showGoWorkFlow: boolean = false;
-    pkList: any;//stores values - used in search, prev, next
-    pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
+    pkList: any;
+    pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();
     toolbarVisible: boolean = true;
     customFieldServiceList: any;
     @ViewChild('customform', { static: false }) customform: DynamicFormBuilderComponent;
@@ -105,7 +75,6 @@ export class bocompanymasterComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
     bfilterPopulate_bocompanymasters: boolean = false;
     bfilterPopulate_bocompanyholidays: boolean = false;
     bfilterPopulate_bofinancialyears: boolean = false;
@@ -114,9 +83,7 @@ export class bocompanymasterComponent implements OnInit {
     @ViewChild('tbl_bocompanyholidays', { static: false }) tbl_bocompanyholidays: Ng2SmartTableComponent;
     bofinancialyear_menuactions: any = []
     @ViewChild('tbl_bofinancialyears', { static: false }) tbl_bofinancialyears: Ng2SmartTableComponent;
-
     bocompanymaster_Form: FormGroup;
-
     companytype_List: DropDownValues[];
     countryid_List: DropDownValues[];
     countryid_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
@@ -140,7 +107,6 @@ export class bocompanymasterComponent implements OnInit {
     weekoff2_List: DropDownValues[];
     localization_List: DropDownValues[];
     timezone_List: DropDownValues[];
-
     private exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
     showFormType: any;
     formid: any;
@@ -153,64 +119,34 @@ export class bocompanymasterComponent implements OnInit {
     attachmentFieldJson: any[] = [];
     attachmentVisible: boolean = true;
     SESSIONUSERID: any;//current user
-
     sessionData: any;
     sourceKey: any;
-
-
-
     bocompanyholidays_visiblelist: any;
     bocompanyholidays_hidelist: any;
     bofinancialyears_visiblelist: any;
     bofinancialyears_hidelist: any;
-
     Deleted_bocompanyholiday_IDs: string = "";
     bocompanyholidays_ID: string = "1";
     bocompanyholidays_selectedindex: any;
     Deleted_bofinancialyear_IDs: string = "";
     bofinancialyears_ID: string = "2";
     bofinancialyears_selectedindex: any;
-
-
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
         private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private bocompanymaster_service: bocompanymasterService,
-        private bocompanyholiday_service: bocompanyholidayService,
         private fb: FormBuilder,
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private customfieldservice: customfieldconfigurationService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.bocompanymaster_Form = this.fb.group({
             pk: [null],
             ImageName: [null],
@@ -300,18 +236,11 @@ export class bocompanymasterComponent implements OnInit {
             statusdesc: [null],
         });
     }
-
     get f() { return this.bocompanymaster_Form.controls; }
-
-
-    //when child screens are clicked - it will be made invisible
     ToolBar(prop) {
         this.toolbarVisible = prop;
     }
-
-    //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.bocompanymaster_Form.dirty && this.bocompanymaster_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -322,9 +251,7 @@ export class bocompanymasterComponent implements OnInit {
         return Observable.of(true);
     }
 
-    //check Unique fields
     companynameexists(e: any) {
-        debugger;
         let pos = this.pkList.map(function (e: any) { return e.companyname.toString().toLowerCase(); }).indexOf(e.target.value.toString().toLowerCase());
 
         if (pos >= 0 && this.pkList[pos].companyid.toString() != this.formid.toString()) {
@@ -343,7 +270,6 @@ export class bocompanymasterComponent implements OnInit {
         return true;
     }
     registrationnumberexists(e: any) {
-        debugger;
         let pos = this.pkList.map(function (e: any) { return e.registrationnumber.toString().toLowerCase(); }).indexOf(e.target.value.toString().toLowerCase());
 
         if (pos >= 0 && this.pkList[pos].companyid.toString() != this.formid.toString()) {
@@ -362,35 +288,12 @@ export class bocompanymasterComponent implements OnInit {
         return true;
     }
 
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.companyid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.companyid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
-    }
-
-    //on searching in pk autocomplete
     onSelectedpk(pkDetail: any) {
         if (pkDetail.companyid && pkDetail) {
             this.PopulateScreen(pkDetail.pkcol);
         }
     }
 
-    // initialize
     async ngOnInit() {
         //session & theme
         this.themeService.theme.subscribe((val: string) => {
@@ -403,10 +306,6 @@ export class bocompanymasterComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
-        //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
             this.maindata = this.data;
@@ -421,11 +320,9 @@ export class bocompanymasterComponent implements OnInit {
         }
         let bocompanymasterid = null;
 
-        //if view button(eye) is clicked
         if (this.currentRoute.snapshot.paramMap.get('viewid') != null) {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('viewid');
             this.showview = true;
-            //this.viewHtml=this.sessionService.getViewHtml();
         }
         else if (this.currentRoute.snapshot.paramMap.get('usersource') != null) {
             this.pkcol = this.sessionService.getItem('usersource');
@@ -437,7 +334,6 @@ export class bocompanymasterComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -445,27 +341,14 @@ export class bocompanymasterComponent implements OnInit {
             this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
         }
         this.formid = bocompanymasterid;
-        //alert(bocompanymasterid);
-
-        //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.Set_bocompanyholidays_TableConfig();
-            setTimeout(() => {
-                //this.Set_bocompanyholidays_TableDropDownConfig();
-            });
-
             this.Set_bofinancialyears_TableConfig();
-            setTimeout(() => {
-                //this.Set_bofinancialyears_TableDropDownConfig();
-            });
-
             this.FillCustomField();
             this.resetForm();
         }
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
-            //get the record from api
-            //foreign keys
         }
         this.bocompanymaster_service.getDefaultData().then(res => {
             this.companytype_List = res.list_companytype.value;
@@ -481,15 +364,14 @@ export class bocompanymasterComponent implements OnInit {
             this.weekoff2_List = res.list_weekoff2.value;
             this.localization_List = res.list_localization.value;
             this.timezone_List = res.list_timezone.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide();});
 
         //autocomplete
         this.bocompanymaster_service.get_bocompanymasters_List().then(res => {
             this.pkList = res as bocompanymaster[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched
+        ).catch((err) => { this.spinner.hide();});
         this.bocompanymaster_Form.markAsUntouched();
         this.bocompanymaster_Form.markAsPristine();
     }
@@ -498,11 +380,10 @@ export class bocompanymasterComponent implements OnInit {
             this.bocompanymaster_Form.patchValue({
                 countryid: countryidDetail.value,
                 countryiddesc: countryidDetail.label,
-
             });
             this.bocompanymaster_service.getList_stateid(countryidDetail.value).then(res => {
                 this.stateid_List = res as DropDownValues[]
-            }).catch((err) => { this.spinner.hide(); console.log(err); });
+            }).catch((err) => { this.spinner.hide(); });
 
         }
     }
@@ -512,12 +393,10 @@ export class bocompanymasterComponent implements OnInit {
             this.bocompanymaster_Form.patchValue({
                 stateid: stateidDetail.value,
                 stateiddesc: stateidDetail.label,
-
             });
             this.bocompanymaster_service.getList_cityid(stateidDetail.value).then(res => {
                 this.cityid_List = res as DropDownValues[]
-            }).catch((err) => { this.spinner.hide(); console.log(err); });
-
+            }).catch((err) => { this.spinner.hide(); });
         }
     }
 
@@ -526,12 +405,10 @@ export class bocompanymasterComponent implements OnInit {
             this.bocompanymaster_Form.patchValue({
                 cityid: cityidDetail.value,
                 cityiddesc: cityidDetail.label,
-
             });
             this.bocompanymaster_service.getList_locationid(cityidDetail.value).then(res => {
                 this.locationid_List = res as DropDownValues[]
-            }).catch((err) => { this.spinner.hide(); console.log(err); });
-
+            }).catch((err) => { this.spinner.hide(); });
         }
     }
 
@@ -540,9 +417,7 @@ export class bocompanymasterComponent implements OnInit {
             this.bocompanymaster_Form.patchValue({
                 locationid: locationidDetail.value,
                 locationiddesc: locationidDetail.label,
-
             });
-
         }
     }
 
@@ -551,9 +426,7 @@ export class bocompanymasterComponent implements OnInit {
             this.bocompanymaster_Form.patchValue({
                 shippingcountryid: shippingcountryidDetail.value,
                 shippingcountryiddesc: shippingcountryidDetail.label,
-
             });
-
         }
     }
 
@@ -562,9 +435,7 @@ export class bocompanymasterComponent implements OnInit {
             this.bocompanymaster_Form.patchValue({
                 shippingstateid: shippingstateidDetail.value,
                 shippingstateiddesc: shippingstateidDetail.label,
-
             });
-
         }
     }
 
@@ -573,15 +444,9 @@ export class bocompanymasterComponent implements OnInit {
             this.bocompanymaster_Form.patchValue({
                 shippingcityid: shippingcityidDetail.value,
                 shippingcityiddesc: shippingcityidDetail.label,
-
             });
-
         }
     }
-
-
-
-
     resetForm() {
         if (this.bocompanymaster_Form != null)
             this.bocompanymaster_Form.reset();
@@ -612,7 +477,7 @@ export class bocompanymasterComponent implements OnInit {
                 this.bocompanymaster_service.delete_bocompanymaster(companyid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -677,14 +542,11 @@ export class bocompanymasterComponent implements OnInit {
             if (this.customFieldServiceList != undefined) this.customFieldVisible = (this.customFieldServiceList.fields.length > 0) ? true : false;
             return res;
         });
-
-
     }
     onClose() {
         this.dialogRef.close(this.objvalues);
     }
     goBack(){
-
         this.router.navigate(['/home/boreportviewer/whwfe']);
 
     }
@@ -781,8 +643,6 @@ export class bocompanymasterComponent implements OnInit {
         }
     }
 
-
-
     edit_bocompanymasters() {
         this.showview = false;
         setTimeout(() => {
@@ -790,20 +650,17 @@ export class bocompanymasterComponent implements OnInit {
         return false;
     }
 
-
-
     async PopulateScreen(pkcol: any) {
         this.spinner.show();
         this.bocompanymaster_service.get_bocompanymasters_ByEID(pkcol).then(res => {
             this.spinner.hide();
-
             this.formData = res.bocompanymaster;
             let formproperty = res.bocompanymaster.formproperty;
             if (formproperty && formproperty.edit == false) this.showview = true;
             this.pkcol = res.bocompanymaster.pkcol;
             this.formid = res.bocompanymaster.companyid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -814,9 +671,6 @@ export class bocompanymasterComponent implements OnInit {
         if ((res.bocompanymaster as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
         var starttimeTime = new Time(res.bocompanymaster.starttime);
         var endtimeTime = new Time(res.bocompanymaster.endtime);
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.bocompanymaster_Form.patchValue({
             companyid: res.bocompanymaster.companyid,
             code: res.bocompanymaster.code,
@@ -914,19 +768,18 @@ export class bocompanymasterComponent implements OnInit {
         setTimeout(() => {
             if (this.f.countryid.value && this.f.countryid.value != "" && this.f.countryid.value != null) this.bocompanymaster_service.getList_stateid(this.f.countryid.value).then(res => {
                 this.stateid_List = res as DropDownValues[];
-            }).catch((err) => { console.log(err); });
+            }).catch((err) => { });
         });
         setTimeout(() => {
             if (this.f.stateid.value && this.f.stateid.value != "" && this.f.stateid.value != null) this.bocompanymaster_service.getList_cityid(this.f.stateid.value).then(res => {
                 this.cityid_List = res as DropDownValues[];
-            }).catch((err) => { console.log(err); });
+            }).catch((err) => { });
         });
         setTimeout(() => {
             if (this.f.cityid.value && this.f.cityid.value != "" && this.f.cityid.value != null) this.bocompanymaster_service.getList_locationid(this.f.cityid.value).then(res => {
                 this.locationid_List = res as DropDownValues[];
-            }).catch((err) => { console.log(err); });
+            }).catch((err) => { });
         });
-        //Child Tables if any
         this.Set_bocompanyholidays_TableConfig();
         this.bocompanyholidays_LoadTable(res.bocompanyholidays);
         this.Set_bofinancialyears_TableConfig();
@@ -980,7 +833,6 @@ export class bocompanymasterComponent implements OnInit {
         if (customfields != null) obj.customfield = JSON.stringify(customfields);
         if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
         obj.fileAttachmentList = this.fileattachment.getAllFiles();
-        console.log(obj);
         if (!confirm('Do you want to want to save?')) {
             return;
         }
@@ -989,12 +841,7 @@ export class bocompanymasterComponent implements OnInit {
         if (this.fileattachment) this.fileattachment.clear();
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
-
-    //This has to come from bomenuactions & procedures
     afterAction(mode: any) {
         let formname = "";
         let query = "";
@@ -1003,24 +850,10 @@ export class bocompanymasterComponent implements OnInit {
         else if (mode == "refresh")
             this.router.navigate(['/home/' + formname + '/' + formname + '/edit/' + this.formid + query]);
     }
-
-
-
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.bocompanymaster_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.bocompanymaster_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
-
         if (!this.bocompanymaster_Form.valid || (this.customform != undefined && this.customform.form != undefined && !this.customform.form.valid)) {
             this.toastr.addSingle("error", "", "Enter the required fields");
             return;
@@ -1050,7 +883,6 @@ export class bocompanymasterComponent implements OnInit {
         this.formData.Deleted_bocompanyholiday_IDs = this.Deleted_bocompanyholiday_IDs;
         this.formData.Deleted_bofinancialyear_IDs = this.Deleted_bofinancialyear_IDs;
         this.fileAttachmentList = this.fileattachment.getAllFiles();
-        console.log(this.formData);
         this.spinner.show();
         this.bocompanymaster_service.saveOrUpdate_bocompanymasters(this.formData, this.tbl_bocompanyholidays?.source?.data, this.tbl_bofinancialyears?.source?.data,).subscribe(
             async res => {
@@ -1068,7 +900,6 @@ export class bocompanymasterComponent implements OnInit {
                     }
                 }
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).bocompanymaster);
                 if (!bclear) this.showview = true;
@@ -1097,18 +928,11 @@ export class bocompanymasterComponent implements OnInit {
                 this.bocompanymaster_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
-
-
-
-
-    //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
         this.tbl_bocompanyholidays.source = new LocalDataSource();
         this.tbl_bofinancialyears.source = new LocalDataSource();
@@ -1142,7 +966,6 @@ export class bocompanymasterComponent implements OnInit {
         if (childID != null)
             this.Deleted_bocompanyholiday_IDs += childID + ",";
         this.tbl_bocompanyholidays.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
     AddOrEdit_bofinancialyear(event: any, finyearid: any, companyid: any) {
@@ -1173,20 +996,16 @@ export class bocompanymasterComponent implements OnInit {
         if (childID != null)
             this.Deleted_bofinancialyear_IDs += childID + ",";
         this.tbl_bofinancialyears.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
-
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");
         let prevform = this.sessionService.getItem("prevform");
         this.router.navigate(["/home/" + prevform + "/" + prevform + "/edit/" + formid]);
     }
-    //start of Grid Codes bocompanyholidays
     bocompanyholidays_settings: any;
 
     show_bocompanyholidays_Checkbox() {
-        debugger;
         if (this.tbl_bocompanyholidays.source.settings['selectMode'] == 'multi') this.tbl_bocompanyholidays.source.settings['selectMode'] = 'single';
         else
             this.tbl_bocompanyholidays.source.settings['selectMode'] = 'multi';
@@ -1196,19 +1015,11 @@ export class bocompanymasterComponent implements OnInit {
         this.tbl_bocompanyholidays.source.settings['selectMode'] = 'single';
     }
     show_bocompanyholidays_Filter() {
-        setTimeout(() => {
-            //  this.Set_bocompanyholidays_TableDropDownConfig();
-        });
         if (this.tbl_bocompanyholidays.source.settings != null) this.tbl_bocompanyholidays.source.settings['hideSubHeader'] = !this.tbl_bocompanyholidays.source.settings['hideSubHeader'];
         this.tbl_bocompanyholidays.source.initGrid();
     }
-    show_bocompanyholidays_InActive() {
-    }
-    enable_bocompanyholidays_InActive() {
-    }
     async Set_bocompanyholidays_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_bocompanyholidays) {
-
             var clone = this.sharedService.clone(this.tbl_bocompanyholidays.source.settings);
             if (clone.columns['financialyearid'] != undefined) clone.columns['financialyearid'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_bocompanyholidays_financialyearid.value)), }, };
             if (clone.columns['financialyearid'] != undefined) clone.columns['financialyearid'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_bocompanyholidays_financialyearid.value)), }, };
@@ -1225,9 +1036,6 @@ export class bocompanymasterComponent implements OnInit {
     }
     async bocompanyholidays_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_bocompanyholidays_TableConfig() {
         this.bocompanyholidays_settings = {
@@ -1294,39 +1102,6 @@ export class bocompanymasterComponent implements OnInit {
             if (this.tbl_bocompanyholidays != undefined) this.tbl_bocompanyholidays.source.setPaging(1, 20, true);
         }
     }
-
-    //external to inline
-    /*
-    bocompanyholidays_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.bocompanymaster_service.bocompanyholidays.length == 0)
-    {
-        this.tbl_bocompanyholidays.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new bocompanyholiday();
-        this.bocompanymaster_service.bocompanyholidays.push(obj);
-        this.tbl_bocompanyholidays.source.refresh();
-        if ((this.bocompanymaster_service.bocompanyholidays.length / this.tbl_bocompanyholidays.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_bocompanyholidays.source.getPaging().page)
-        {
-            this.tbl_bocompanyholidays.source.setPage((this.bocompanymaster_service.bocompanyholidays.length / this.tbl_bocompanyholidays.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_bocompanyholidays.source.grid.edit(this.tbl_bocompanyholidays.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_bocompanyholidays.source.data.indexOf(event.data);
-    this.onDelete_bocompanyholiday(event,event.data.holidayid,((this.tbl_bocompanyholidays.source.getPaging().page-1) *this.tbl_bocompanyholidays.source.getPaging().perPage)+index);
-    this.tbl_bocompanyholidays.source.refresh();
-    break;
-    }
-    }
-
-    */
     bocompanyholidays_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -1359,13 +1134,8 @@ export class bocompanymasterComponent implements OnInit {
     async onCustom_bocompanyholidays_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "bocompanyholidays");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     bocompanyholidays_Paging(val) {
-        debugger;
         this.tbl_bocompanyholidays.source.setPaging(1, val, true);
     }
 
@@ -1380,12 +1150,9 @@ export class bocompanymasterComponent implements OnInit {
             return "hide";
         }
     }
-    //end of Grid Codes bocompanyholidays
-    //start of Grid Codes bofinancialyears
     bofinancialyears_settings: any;
 
     show_bofinancialyears_Checkbox() {
-        debugger;
         if (this.tbl_bofinancialyears.source.settings['selectMode'] == 'multi') this.tbl_bofinancialyears.source.settings['selectMode'] = 'single';
         else
             this.tbl_bofinancialyears.source.settings['selectMode'] = 'multi';
@@ -1395,15 +1162,8 @@ export class bocompanymasterComponent implements OnInit {
         this.tbl_bofinancialyears.source.settings['selectMode'] = 'single';
     }
     show_bofinancialyears_Filter() {
-        setTimeout(() => {
-            //  this.Set_bofinancialyears_TableDropDownConfig();
-        });
         if (this.tbl_bofinancialyears.source.settings != null) this.tbl_bofinancialyears.source.settings['hideSubHeader'] = !this.tbl_bofinancialyears.source.settings['hideSubHeader'];
         this.tbl_bofinancialyears.source.initGrid();
-    }
-    show_bofinancialyears_InActive() {
-    }
-    enable_bofinancialyears_InActive() {
     }
     async Set_bofinancialyears_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_bofinancialyears) {
@@ -1412,9 +1172,6 @@ export class bocompanymasterComponent implements OnInit {
     }
     async bofinancialyears_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_bofinancialyears_TableConfig() {
         this.bofinancialyears_settings = {
@@ -1500,39 +1257,6 @@ export class bocompanymasterComponent implements OnInit {
             if (this.tbl_bofinancialyears != undefined) this.tbl_bofinancialyears.source.setPaging(1, 20, true);
         }
     }
-
-    //external to inline
-    /*
-    bofinancialyears_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.bocompanymaster_service.bofinancialyears.length == 0)
-    {
-        this.tbl_bofinancialyears.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new bofinancialyear();
-        this.bocompanymaster_service.bofinancialyears.push(obj);
-        this.tbl_bofinancialyears.source.refresh();
-        if ((this.bocompanymaster_service.bofinancialyears.length / this.tbl_bofinancialyears.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_bofinancialyears.source.getPaging().page)
-        {
-            this.tbl_bofinancialyears.source.setPage((this.bocompanymaster_service.bofinancialyears.length / this.tbl_bofinancialyears.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_bofinancialyears.source.grid.edit(this.tbl_bofinancialyears.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_bofinancialyears.source.data.indexOf(event.data);
-    this.onDelete_bofinancialyear(event,event.data.finyearid,((this.tbl_bofinancialyears.source.getPaging().page-1) *this.tbl_bofinancialyears.source.getPaging().perPage)+index);
-    this.tbl_bofinancialyears.source.refresh();
-    break;
-    }
-    }
-
-    */
     bofinancialyears_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -1565,13 +1289,8 @@ export class bocompanymasterComponent implements OnInit {
     async onCustom_bofinancialyears_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "bofinancialyears");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     bofinancialyears_Paging(val) {
-        debugger;
         this.tbl_bofinancialyears.source.setPaging(1, val, true);
     }
 
@@ -1586,19 +1305,6 @@ export class bocompanymasterComponent implements OnInit {
             return "hide";
         }
     }
-    //end of Grid Codes bofinancialyears
-
-    // keyPressNumbers(event) {
-    //     var charCode = (event.which) ? event.which : event.keyCode;
-    //     // Only Numbers 0-9
-    //     if ((charCode < 48 || charCode > 57)) {
-    //       event.preventDefault();
-    //       return false;
-    //     } else {
-    //       return true;
-    //     }
-    //   }
-
 }
 
 

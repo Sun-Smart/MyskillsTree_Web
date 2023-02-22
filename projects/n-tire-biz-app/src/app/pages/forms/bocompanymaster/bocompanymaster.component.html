@@ -2,13 +2,11 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="bocompanymaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second bgcolor">
-    <h1 class="col-4 columns mainheader left">{{'Company Masters' | translate}}
+    <h1 class="col-4 columns mainheader left">{{'Company Masters'}}
     </h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
-      <!--btn-toolbar-->
       <div class='col'></div>
       <div class='dropdown d-inline-block btn-dropdown show'>
-
         <ul class='nav nav-pills  input-group'>
           <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bocompanymasters()"><i
                 class="nb-edit"></i>Edit</a></li>
@@ -19,10 +17,8 @@
             <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
               (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
             </app-popupselect>
-
             <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward' aria-hidden='true'></i></a>&nbsp;&nbsp; <a
               [routerLink]='' (click)='last()'><i class='fa fa-fast-forward' aria-hidden='true'></i></a>
-
           </li>
           <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dropdown  actionheader'>
             <ul class="nav navbar-nav1" style="display: none;">
@@ -36,11 +32,9 @@
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
                   <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
-
                   <li role="separator" class="divider">
                     <hr>
                   </li>
-
                   <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
                   <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
@@ -49,8 +43,6 @@
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
                   <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
                         aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
-
-
                 </ul>
               </li>
             </ul>
@@ -73,7 +65,6 @@
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
             <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li>
-
         </ul>
       </div>
     </div>
@@ -84,11 +75,9 @@
       <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
     </div>
     <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
-
     </div>
     <ngb-tabset class="tabset1" [destroyOnHide]="false">
       <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
-
       </div>
       <ngb-tab>
         <ng-template ngbTabTitle>
@@ -110,7 +99,7 @@
                 <label *ngIf="showview" class="labelview">{{f.companyname?.value}}</label>
                 <input *ngIf="!showview" id="companyname" required formControlName="companyname" class="form-control">
                 <app-field-error-display [displayError]="f.companyname.errors?.required"
-                  errorMsg="Enter {{'Company Name' | translate}}">
+                  errorMsg="Enter {{'Company Name'}}">
                 </app-field-error-display>
               </div>
               <div
@@ -121,13 +110,9 @@
                 <input *ngIf="!showview" id="registrationnumber" required formControlName="registrationnumber"
                   class="form-control">
                 <app-field-error-display [displayError]="f.registrationnumber.errors?.required"
-                  errorMsg="Enter {{'Registration Number' | translate}}">
+                  errorMsg="Enter {{'Registration Number'}}">
                 </app-field-error-display>
               </div>
-
-
-              <!--companytype-->
-
               <div
                 *ngIf="((hidelist.indexOf('companytype') == -1) && (companytypevisible==undefined || companytypevisible==true))"
                 style='' class="col-3 education_view_mobile"><label for="companytype" class="control-label">Company Type</label>
@@ -140,13 +125,6 @@
               </div>
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-              <!-- <div
-                *ngIf="((hidelist.indexOf('companylogo') == -1) && (companylogovisible==undefined || companylogovisible==true))"
-                style='' class="col-3 ">
-                <label for="companylogo" class="control-label">Company Logo</label>
-                <label *ngIf="showview" class="labelview">{{f.companylogo?.value}}</label>
-                <input *ngIf="!showview" id="companylogo" formControlName="companylogo" class="form-control">
-              </div> -->
               <div *ngIf="((hidelist.indexOf('website') == -1) && (websitevisible==undefined || websitevisible==true))"
                 style='' class="col-3 education_view_mobile">
                 <label for="website" class="control-label">Website</label>
@@ -180,7 +158,7 @@
                 <label *ngIf="showview" class="labelview">{{f.address1?.value}}</label>
                 <input *ngIf="!showview" id="address1" required formControlName="address1" class="form-control">
                 <app-field-error-display [displayError]="f.address1.errors?.required"
-                  errorMsg="Enter {{'Address1' | translate}}">
+                  errorMsg="Enter {{'Address1'}}">
                 </app-field-error-display>
               </div>
               <div
@@ -190,10 +168,6 @@
                 <label *ngIf="showview" class="labelview">{{f.address2?.value}}</label>
                 <input *ngIf="!showview" id="address2" formControlName="address2" class="form-control">
               </div>
-
-
-              <!--countryid-->
-
               <div
                 *ngIf="((hidelist.indexOf('countryid') == -1) && (countryidvisible==undefined || countryidvisible==true))"
                 style='' class="col-3 education_view_mobile"><label for="countryid" class="control-label"
@@ -205,10 +179,6 @@
                 </div>
                 <label *ngIf="showview" class="labelview">{{f.countryiddesc?.value}}</label>
               </div>
-
-
-              <!--stateid-->
-
               <div *ngIf="((hidelist.indexOf('stateid') == -1) && (stateidvisible==undefined || stateidvisible==true))"
                 style='' class="col-3 education_view_mobile"><label for="stateid" class="control-label"
                   (click)="AddOrEdit_stateid(null)">State</label>
@@ -220,10 +190,6 @@
                 <label *ngIf="showview" class="labelview">{{f.stateiddesc?.value}}</label>
               </div>
             </div>
-
-
-            <!--cityid-->
-
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div *ngIf="((hidelist.indexOf('cityid') == -1) && (cityidvisible==undefined || cityidvisible==true))"
                 style='' class="col-3 education_view_mobile"><label for="cityid" class="control-label"
@@ -235,10 +201,6 @@
                 </div>
                 <label *ngIf="showview" class="labelview">{{f.cityiddesc?.value}}</label>
               </div>
-
-
-              <!--locationid-->
-
               <div
                 *ngIf="((hidelist.indexOf('locationid') == -1) && (locationidvisible==undefined || locationidvisible==true))"
                 style='' class="col-3 education_view_mobile"><label for="locationid" class="control-label"
@@ -269,14 +231,6 @@
                   <label *ngIf="showview" class="labelview">{{f.contactname?.value}}</label>
                   <input *ngIf="!showview" id="contactname" formControlName="contactname" class="form-control">
                 </div>
-
-
-                <!--designation-->
-
-
-
-
-
                 <div
                   *ngIf="((hidelist.indexOf('designation') == -1) && (designationvisible==undefined || designationvisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="designation" class="control-label"
@@ -322,10 +276,6 @@
                       type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
                   </div>
                 </div>
-
-
-                <!--businesssegment-->
-
                 <div
                   *ngIf="((hidelist.indexOf('businesssegment') == -1) && (businesssegmentvisible==undefined || businesssegmentvisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="businesssegment" class="control-label">Business Segment</label>
@@ -420,10 +370,6 @@
                   <input *ngIf="!showview" id="shippingaddress2" formControlName="shippingaddress2"
                     class="form-control">
                 </div>
-
-
-                <!--shippingcountryid-->
-
                 <div
                   *ngIf="((hidelist.indexOf('shippingcountryid') == -1) && (shippingcountryidvisible==undefined || shippingcountryidvisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="shippingcountryid" class="control-label"
@@ -436,10 +382,6 @@
                   </div>
                   <label *ngIf="showview" class="labelview">{{f.shippingcountryiddesc?.value}}</label>
                 </div>
-
-
-                <!--shippingstateid-->
-
                 <div
                   *ngIf="((hidelist.indexOf('shippingstateid') == -1) && (shippingstateidvisible==undefined || shippingstateidvisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="shippingstateid" class="control-label"
@@ -453,10 +395,6 @@
                   <label *ngIf="showview" class="labelview">{{f.shippingstateiddesc?.value}}</label>
                 </div>
               </div>
-
-
-              <!--shippingcityid-->
-
               <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
                 <div
                   *ngIf="((hidelist.indexOf('shippingcityid') == -1) && (shippingcityidvisible==undefined || shippingcityidvisible==true))"
@@ -477,10 +415,6 @@
                   <label *ngIf="showview" class="labelview">{{f.shippingpincode?.value}}</label>
                   <input *ngIf="!showview" id="shippingpincode" formControlName="shippingpincode" class="form-control">
                 </div>
-
-
-                <!--basecurrency-->
-
                 <div
                   *ngIf="((hidelist.indexOf('basecurrency') == -1) && (basecurrencyvisible==undefined || basecurrencyvisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="basecurrency" class="control-label">Base Currency</label>
@@ -491,10 +425,6 @@
                   </select>
                   <label *ngIf="showview" class="labelview">{{f.basecurrencydesc?.value}}</label>
                 </div>
-
-
-                <!--gstregistrationtype-->
-
                 <div
                   *ngIf="((hidelist.indexOf('gstregistrationtype') == -1) && (gstregistrationtypevisible==undefined || gstregistrationtypevisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="gstregistrationtype" class="control-label">G S T Registration
@@ -612,10 +542,6 @@
                   <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="endtime">
                   </ngb-timepicker>
                 </div>
-
-
-                <!--weekoff1-->
-
                 <div
                   *ngIf="((hidelist.indexOf('weekoff1') == -1) && (weekoff1visible==undefined || weekoff1visible==true))"
                   style='' class="col-3 education_view_mobile"><label for="weekoff1" class="control-label">Week Off1</label>
@@ -626,10 +552,6 @@
                   </select>
                   <label *ngIf="showview" class="labelview">{{f.weekoff1desc?.value}}</label>
                 </div>
-
-
-                <!--weekoff2-->
-
                 <div
                   *ngIf="((hidelist.indexOf('weekoff2') == -1) && (weekoff2visible==undefined || weekoff2visible==true))"
                   style='' class="col-3 education_view_mobile"><label for="weekoff2" class="control-label">Week Off2</label>
@@ -733,10 +655,6 @@
                   <input *ngIf="!showview" id="mailingsendername" formControlName="mailingsendername"
                     class="form-control">
                 </div>
-
-
-                <!--localization-->
-
                 <div
                   *ngIf="((hidelist.indexOf('localization') == -1) && (localizationvisible==undefined || localizationvisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="localization" class="control-label">Localization</label>
@@ -747,10 +665,6 @@
                   </select>
                   <label *ngIf="showview" class="labelview">{{f.localizationdesc?.value}}</label>
                 </div>
-
-
-                <!--timezone-->
-
                 <div
                   *ngIf="((hidelist.indexOf('timezone') == -1) && (timezonevisible==undefined || timezonevisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="timezone" class="control-label">Time Zone</label>
@@ -794,10 +708,8 @@
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
-            <!-- child table bocompanyholidays-->
             <div [ngClass]="Is_bocompanyholidays_Visible()">
-              <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Company Holidays' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Company Holidays'}}
                 <select class='child' id="bocompanyholidaysPagingdropdown"
                   (change)="bocompanyholidays_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
@@ -834,7 +746,6 @@
                 (editConfirm)="bocompanyholidays_beforesave($event)">
               </ng2-smart-table>
             </div>
-            <!--End of child table bocompanyholidays-->
           </p-accordion>
         </ng-template>
       </ngb-tab>
@@ -844,10 +755,8 @@
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
-            <!-- child table bofinancialyears-->
             <div [ngClass]="Is_bofinancialyears_Visible()">
-              <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Financial Years' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Financial Years'}}
                 <select class='child' id="bofinancialyearsPagingdropdown"
                   (change)="bofinancialyears_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
@@ -883,7 +792,6 @@
                 (edit)="bofinancialyears_route($event,'edit')" (editConfirm)="bofinancialyears_beforesave($event)">
               </ng2-smart-table>
             </div>
-            <!--End of child table bofinancialyears-->
           </p-accordion>
         </ng-template>
       </ngb-tab>

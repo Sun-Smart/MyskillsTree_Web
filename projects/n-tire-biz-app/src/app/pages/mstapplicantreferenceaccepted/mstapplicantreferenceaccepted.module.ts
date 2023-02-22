@@ -3,7 +3,6 @@ import { NgCommonModule } from '../../../../../n-tire-biz-app/src/app/appcommon.
 import { boreportviewerModule } from '../../../../../n-tire-biz-app/src/app/pages/forms/boreportviewer/boreportviewer.module';
 import { routing } from './mstapplicantreferenceaccepted.routing';
 import { MstapplicantreferenceacceptedComponent } from './mstapplicantreferenceaccepted.component';
-// import { mstapplicantreferencegridComponent } from './mstapplicantreferencegrid.component';
 @NgModule({
   exports: [
     NgCommonModule

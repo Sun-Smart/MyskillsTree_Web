@@ -94,7 +94,7 @@
                   <label *ngIf="showview" class="labelview">{{f.branchcode?.value}}</label>
                   <input *ngIf="!showview" id="branchcode" required formControlName="branchcode" class="form-control">
                   <app-field-error-display [displayError]="f.branchcode.errors?.required"
-                    errorMsg="Enter {{'Branch Code' | translate}}">
+                    errorMsg="Enter {{'Branch Code'}}">
                   </app-field-error-display>
                 </div>
                 <div
@@ -104,7 +104,7 @@
                   <label *ngIf="showview" class="labelview">{{f.branchname?.value}}</label>
                   <input *ngIf="!showview" id="branchname" required formControlName="branchname" class="form-control">
                   <app-field-error-display [displayError]="f.branchname.errors?.required"
-                    errorMsg="Enter {{'Branch Name' | translate}}">
+                    errorMsg="Enter {{'Branch Name'}}">
                   </app-field-error-display>
                 </div>
                 <div
@@ -128,7 +128,7 @@
                   <label *ngIf="showview" class="labelview">{{f.address1?.value}}</label>
                   <input *ngIf="!showview" id="address1" required formControlName="address1" class="form-control">
                   <app-field-error-display [displayError]="f.address1.errors?.required"
-                    errorMsg="Enter {{'Address1' | translate}}">
+                    errorMsg="Enter {{'Address1'}}">
                   </app-field-error-display>
                 </div>
                 <div
@@ -211,7 +211,7 @@
                   <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="starttime"
                     required></ngb-timepicker>
                   <app-field-error-display [displayError]="f.starttime.errors?.required"
-                    errorMsg="Enter {{'Start Time' | translate}}">
+                    errorMsg="Enter {{'Start Time'}}">
                   </app-field-error-display>
                 </div>
                 <div
@@ -222,7 +222,7 @@
                   <ngb-timepicker *ngIf="!showview" class="form-control timepicker" formControlName="endtime" required>
                   </ngb-timepicker>
                   <app-field-error-display [displayError]="f.endtime.errors?.required"
-                    errorMsg="Enter {{'End Time' | translate}}">
+                    errorMsg="Enter {{'End Time'}}">
                   </app-field-error-display>
                 </div>
                 <div
@@ -362,7 +362,7 @@
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
             <div [ngClass]="Is_bobranchholidays_Visible()">
-              <h4 class="form-group sticky1  columns left">{{'Branch Holidays' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Branch Holidays'}}
                 <select class='child' id="bobranchholidaysPagingdropdown"
                   (change)="bobranchholidays_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
@@ -408,7 +408,7 @@
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
             <div [ngClass]="Is_bouserbranchaccesses_Visible()">
-              <h4 class="form-group sticky1  columns left">{{'UserBranch Access' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'UserBranch Access'}}
                 <select class='child' id="bouserbranchaccessesPagingdropdown"
                   (change)="bouserbranchaccesses_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
@@ -447,7 +447,7 @@
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
             <div [ngClass]="Is_bobranchlocations_Visible()">
-              <h4 class="form-group sticky1  columns left">{{'Branch locations' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Branch locations'}}
                 <select class='child' id="bobranchlocationsPagingdropdown"
                   (change)="bobranchlocations_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

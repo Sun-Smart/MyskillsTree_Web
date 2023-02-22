@@ -1,56 +1,25 @@
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-
-import { mstapplicantskilldetail } from './../../../model/mstapplicantskilldetail.model';
 import { mstapplicantskilldetailComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.component';
 import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
-
-import { mstapplicantreferencerequest } from './../../../model/mstapplicantreferencerequest.model';
 import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
-import { mstapplicantreferencerequestService } from './../../../service/mstapplicantreferencerequest.service';
-
-//primeng services
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
+import { DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 
 @Component({
     selector: 'app-applicantskilldetailgrid',
     template: `
-    <h4 class="form-group sticky1  columns left">{{'Skill Details' | translate}}
+    <h4 class="form-group sticky1  columns left">{{'Skill Details'}}
 
     <ul class="nav navbar-nav1" style='display:none'>
       <li class="dropdown">
@@ -60,14 +29,14 @@ import { Subject } from 'rxjs/Subject';
           <li><a class="dropdown-item" [routerLink]=''
               (click)="mstapplicantskilldetails_route(null, 'create')"><i class="fa fa-plus"
                 aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-          <li> </li>      
+          <li> </li>
         </ul>
       </li>
     </ul>
     <ul class="rightside">
     <a [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
         class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i></a>
-    </ul>    
+    </ul>
   </h4>
   <ng2-smart-table #tbl_mstapplicantskilldetails
     (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
@@ -98,7 +67,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     mstapplicantskilldetails_selectedindex: any;
     ShowTableslist:any;
     pkcol:any;
-    
+
     IsApplicant: boolean;
     IsAdmin: boolean;
     bSingleRecord: boolean;
@@ -109,23 +78,14 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     Segmentcategory_list: DropDownValues[];
     skillcategory_List: any[];
     constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        
-        private router: Router,
-        private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private sharedService: SharedService,
         private sessionService: SessionService,
-        private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
-        private mstapplicantskilldetail_service: mstapplicantskilldetailService,    
+        private mstapplicantskilldetail_service: mstapplicantskilldetailService,
         ) {
-            debugger;
             this.data = dynamicconfig;
             if (this.data != null && this.data.data != null) {
                 this.data = this.data.data;
@@ -136,14 +96,11 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
     ngOnInit() {
         this.Set_mstapplicantskilldetails_TableConfig();
-
         if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
         if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
         this.FillData();
     }
-  
 
-      
     mstapplicantskilldetailshtml() {
         let ret = "";
         ret += `<div class='card1'>
@@ -158,12 +115,11 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     FillData()
     {
         this.Set_mstapplicantskilldetails_TableConfig();
-        debugger;
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
         this.mstapplicantskilldetails_LoadTable(res);
         });
     }
-    
+
     AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
         let add = false;
         if (event == null) add = true;
@@ -193,14 +149,11 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         if (childID != null)
             this.Deleted_mstapplicantskilldetail_IDs += childID + ",";
         this.tbl_mstapplicantskilldetails.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
-        //start of Grid Codes mstapplicantskilldetails
         mstapplicantskilldetails_settings: any;
 
         show_mstapplicantskilldetails_Checkbox() {
-            //debugger;;
             if (this.tbl_mstapplicantskilldetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantskilldetails.source.settings['selectMode'] = 'single';
             else
                 this.tbl_mstapplicantskilldetails.source.settings['selectMode'] = 'multi';
@@ -210,31 +163,24 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
             this.tbl_mstapplicantskilldetails.source.settings['selectMode'] = 'single';
         }
         show_mstapplicantskilldetails_Filter() {
-            setTimeout(() => {
-                //  this.Set_mstapplicantskilldetails_TableDropDownConfig();
-            });
             if (this.tbl_mstapplicantskilldetails.source.settings != null) this.tbl_mstapplicantskilldetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantskilldetails.source.settings['hideSubHeader'];
             this.tbl_mstapplicantskilldetails.source.initGrid();
         }
-        show_mstapplicantskilldetails_InActive() {
-        }
-        enable_mstapplicantskilldetails_InActive() {
-        }
         async Set_mstapplicantskilldetails_TableDropDownConfig(res) {
             if (!this.bfilterPopulate_mstapplicantskilldetails) {
-    
+
                 var clone = this.sharedService.clone(this.tbl_mstapplicantskilldetails.source.settings);
                 if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantskilldetails_applicantid.value)), }, };
                 if (clone.columns['applicantid'] != undefined) clone.columns['applicantid'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantskilldetails_applicantid.value)), }, };
                 this.tbl_mstapplicantskilldetails.source.settings = clone;
                 this.tbl_mstapplicantskilldetails.source.initGrid();
-    
+
                 var clone = this.sharedService.clone(this.tbl_mstapplicantskilldetails.source.settings);
                 if (clone.columns['skillcategory'] != undefined) clone.columns['skillcategory'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantskilldetails_skillcategory.value)), }, };
                 if (clone.columns['skillcategory'] != undefined) clone.columns['skillcategory'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantskilldetails_skillcategory.value)), }, };
                 this.tbl_mstapplicantskilldetails.source.settings = clone;
                 this.tbl_mstapplicantskilldetails.source.initGrid();
-    
+
                 var clone = this.sharedService.clone(this.tbl_mstapplicantskilldetails.source.settings);
                 if (clone.columns['referenceacceptance'] != undefined) clone.columns['referenceacceptance'].filter = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantskilldetails_referenceacceptance.value)), }, };
                 if (clone.columns['referenceacceptance'] != undefined) clone.columns['referenceacceptance'].editor = { type: 'list', config: { selectText: 'Select...', list: JSON.parse(JSON.stringify(res.list_mstapplicantskilldetails_referenceacceptance.value)), }, };
@@ -245,9 +191,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         }
         async mstapplicantskilldetails_beforesave(event: any) {
             event.confirm.resolve(event.newData);
-    
-    
-    
         }
         Set_mstapplicantskilldetails_TableConfig() {
             this.mstapplicantskilldetails_settings = {
@@ -289,11 +232,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
                             type: 'textarea',
                         },
                         valuePrepareFunction: (cell, row) => {
-                            //debugger;;
                             cell = this.mstapplicantskilldetailshtml();
                             var divrow = JSON.parse(JSON.stringify(row));
-    
-    
                             divrow["selfrating"] = "<div class='Stars' style='--rating:" + row['selfrating'] + "'></div>";
                             return this.sharedService.HtmlValue(divrow, cell);
                         },
@@ -308,45 +248,13 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
                 if (this.tbl_mstapplicantskilldetails != undefined) this.tbl_mstapplicantskilldetails.source.setPaging(1, 20, true);
             }
         }
-    
-        //external to inline
-        /*
-        mstapplicantskilldetails_route(event:any,action:any) {
-        switch ( action) {
-        case 'create':
-        if (this.mstapplicantskilldetail_service.mstapplicantskilldetails.length == 0)
-        {
-            this.tbl_mstapplicantskilldetails.source.grid.createFormShown = true;
-        }
-        else
-        {
-            let obj = new mstapplicantskilldetail();
-            this.mstapplicantskilldetail_service.mstapplicantskilldetails.push(obj);
-            this.tbl_mstapplicantskilldetails.source.refresh();
-            if ((this.mstapplicantskilldetail_service.mstapplicantskilldetails.length / this.tbl_mstapplicantskilldetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantskilldetails.source.getPaging().page)
-            {
-                this.tbl_mstapplicantskilldetails.source.setPage((this.mstapplicantskilldetail_service.mstapplicantskilldetails.length / this.tbl_mstapplicantskilldetails.source.getPaging().perPage).toFixed(0) + 1);
-            }
-            setTimeout(() => {
-                this.tbl_mstapplicantskilldetails.source.grid.edit(this.tbl_mstapplicantskilldetails.source.grid.getLastRow());
-            });
-        }
-        break;
-        case 'delete':
-        let index = this.tbl_mstapplicantskilldetails.source.data.indexOf(event.data);
-        this.onDelete_mstapplicantskilldetail(event,event.data.skillid,((this.tbl_mstapplicantskilldetails.source.getPaging().page-1) *this.tbl_mstapplicantskilldetails.source.getPaging().perPage)+index);
-        this.tbl_mstapplicantskilldetails.source.refresh();
-        break;
-        }
-        }
-        
-        */
+
         mstapplicantskilldetails_route(event: any, action: any) {
             var addparam = "";
             if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
                 addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
             }
-    
+
             switch (action) {
                 case 'create':
                     this.AddOrEdit_mstapplicantskilldetail(event, null, this.applicantid);
@@ -382,16 +290,11 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
                 ).onClose.subscribe(res => {
                 });
             }
-    
-    
-    
-    
         }
         mstapplicantskilldetails_Paging(val) {
-            //debugger;;
             this.tbl_mstapplicantskilldetails.source.setPaging(1, val, true);
         }
-    
+
         handle_mstapplicantskilldetails_GridSelected(event: any) {
             this.mstapplicantskilldetails_selectedindex = this.tbl_mstapplicantskilldetails.source.findIndex(i => i.skillid === event.data.skillid);
         }
@@ -403,9 +306,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
                 return "hide";
             }
         }
-        //end of Grid Codes mstapplicantskilldetails
         onClose() {
             this.dialogRef.close();
           }
-         
+
 }

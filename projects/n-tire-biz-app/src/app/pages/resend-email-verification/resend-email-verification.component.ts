@@ -42,15 +42,6 @@ import { ResendEmailVerificationRequest, Auth } from './../../service/auth.servi
 })
 @Injectable()
 export class ResendEmailVerificationComponent implements OnInit {
-  /**
-   * A reference to a `<ng-template>` tag that if set will override this component's template. Use like so:
-   * ```
-   * <ng-template #customTemplate>
-   *   // custom HTML with login form
-   * </ng-template>
-   * ```
-   * Then pass customTemplate to the `resend-email-verification` component like so `[customTemplate]="customTemplate"`
-   */
   @Input() customTemplate: TemplateRef<any>;
   protected error: string;
   protected formModel: ResendEmailVerificationRequest;
