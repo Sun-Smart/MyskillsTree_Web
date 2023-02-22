@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="bomasterdata_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second common_title_style">
-    <h1 class="col-4 columns mainheader left">{{'MasterData' | translate}}</h1>
+    <h1 class="col-4 columns mainheader left">{{'MasterData'}}</h1>
     <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -212,7 +212,7 @@
             <!-- child table bosubcategorymasters-->
             <div [ngClass]="Is_bosubcategorymasters_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'SubCategory Masters' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'SubCategory Masters'}}
                 <select class='child' id="bosubcategorymastersPagingdropdown"
                   (change)="bosubcategorymasters_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
