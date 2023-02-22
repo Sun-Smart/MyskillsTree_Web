@@ -148,6 +148,7 @@ export class HeaderComponent implements OnInit {
 
       this.userData = res.bousermaster;
       console.log(this.userData)
+
       let jsonUser = JSON.parse(this.userData.userphoto);
       if (jsonUser.length > 0) this.userphoto = jsonUser[0].name;
     }).catch((err) => {

@@ -64,6 +64,11 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
     :host /deep/ ng2-smart-table tbody > tr:nth-child(even) {
         background-color : #f4f4f4 !important;
         }
+        .table thead tr {
+            background-color: #a89888 !important;
+            color: #fff !important;
+            border: #6b431d !important;
+        }
 
     @media only screen and (max-width: 600px) {
       .education_view_mobile{
@@ -141,7 +146,7 @@ export class mstcorporatemasterComponent implements OnInit {
 
     useridvisible: boolean = false;
 
-    userrole:any;
+    userrole: any;
     showApplicantmenu: boolean = false;
     showAdminMenuaccess: boolean = false;
     showCorporateMenuaccess: boolean = false;
@@ -279,17 +284,17 @@ export class mstcorporatemasterComponent implements OnInit {
             this.showAdminMenuaccess = true;
             this.showApplicantmenu = false;
             this.showCorporateMenuaccess = false;
-          } else if (this.sessionService.getItem('role') == '2') {
+        } else if (this.sessionService.getItem('role') == '2') {
             this.userrole = 'Applicant';
             this.showApplicantmenu = true;
             this.showAdminMenuaccess = false;
             this.showCorporateMenuaccess = false;
-          } else if (this.sessionService.getItem('role') == '3') {
+        } else if (this.sessionService.getItem('role') == '3') {
             this.userrole = 'Corporate';
             this.showCorporateMenuaccess = true;
             this.showApplicantmenu = false;
             this.showAdminMenuaccess = false;
-          }
+        }
 
         this.sessionService.setItem("choosefileforprofile", "ok");
         //session & theme
@@ -471,7 +476,7 @@ export class mstcorporatemasterComponent implements OnInit {
     onClose() {
         this.dialogRef.close(this.objvalues);
     }
-    goBack(){
+    goBack() {
         // this.router.navigate(["/home/ + CorporateDashboardComponent"])
         this.router.navigate(['/home/corporatedashboard']);
 
@@ -904,7 +909,7 @@ export class mstcorporatemasterComponent implements OnInit {
     Set_mstcorporatelocations_TableConfig() {
         this.mstcorporatelocations_settings = {
             hideSubHeader: true,
-            mode: 'internal',
+            mode: 'External',
             selectMode: 'single',
             actions: {
                 columnTitle: '',
@@ -1149,7 +1154,7 @@ export class mstcorporatemasterComponent implements OnInit {
     Set_mstjobrequirements_TableConfig() {
         this.mstjobrequirements_settings = {
             hideSubHeader: true,
-            mode: 'internal',
+            mode: 'external',
             selectMode: 'single',
             actions: {
                 columnTitle: '',
@@ -1183,7 +1188,7 @@ export class mstcorporatemasterComponent implements OnInit {
                 jobdescription: {
                     title: 'Job Description',
                     type: '',
-                    filter: true, 
+                    filter: true,
                 },
                 jobrequirement: {
                     title: 'Job Requirement',
@@ -1439,7 +1444,7 @@ export class mstcorporatemasterComponent implements OnInit {
     Set_mstjobstatuses_TableConfig() {
         this.mstjobstatuses_settings = {
             hideSubHeader: true,
-            mode: 'internal',
+            mode: 'external',
             selectMode: 'single',
             actions: {
                 columnTitle: '',
@@ -1503,14 +1508,14 @@ export class mstcorporatemasterComponent implements OnInit {
                         },
                     },
                 },
-                comments: {
-                    title: 'Comments',
-                    type: 'html',
-                    filter: true,
-                    editor: {
-                        type: 'textarea',
-                    },
-                },
+                // comments: {
+                //     title: 'Comments',
+                //     type: 'html',
+                //     filter: true,
+                //     editor: {
+                //         type: 'textarea',
+                //     },
+                // },
                 allcomments: {
                     title: 'All Comments',
                     type: 'html',
@@ -1549,6 +1554,9 @@ export class mstcorporatemasterComponent implements OnInit {
                     type: '',
                     filter: true,
                 },
+            },
+            attr: {
+                class: 'table table-bordered table-header'
             },
         };
     }

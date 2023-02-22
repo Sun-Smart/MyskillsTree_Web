@@ -4,6 +4,8 @@ import { boreportviewerModule } from '../../../../../../n-tire-biz-app/src/app/p
 import { routing } from './mstjobrequirement.routing';
 import { mstjobrequirementComponent } from './mstjobrequirement.component';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import { mstjobstatusComponent } from '../mstjobstatus/mstjobstatus.component';
+
 @NgModule({
   exports: [
     NgCommonModule
@@ -14,6 +16,6 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
     AutoCompleteModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [mstjobrequirementComponent]
+  declarations: [mstjobrequirementComponent, mstjobstatusComponent]
 })
 export class mstjobrequirementModule { }

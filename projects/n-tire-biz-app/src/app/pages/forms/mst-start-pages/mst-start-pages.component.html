@@ -16,7 +16,7 @@
         <h6>Add Personal Details</h6>
       </div>
 
-      <form [formGroup]="mstapplicantmaster_Form" >
+      <form [formGroup]="mstapplicantmaster_Form">
         <div class="row applicant-form">
 
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -28,15 +28,21 @@
             </select>
           </div>
 
+          <!-- First Name -->
+
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label class="control-label required">First Name</label>
             <input id="firstname" formControlName="firstname" class="form-control">
           </div>
 
+          <!-- Last Name -->
+
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="lastname" class="control-label required">Last Name</label>
             <input id="lastname" formControlName="lastname" class="form-control">
           </div>
+
+          <!-- Gender -->
 
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="gender" class="control-label">Gender</label>
@@ -46,10 +52,14 @@
             </select>
           </div>
 
+          <!-- Email -->
+
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="emailid" class="control-label required">Email</label>
             <input type="email" [email]="true" id="emailid" formControlName="emailid" class="form-control">
           </div>
+
+          <!-- Mobile Number -->
 
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="mobilenumber" class="control-label required">Mobile Number</label>
@@ -58,68 +68,84 @@
             </int-phone-prefix>
           </div>
 
+          <!-- Date Of Birth -->
+
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="dob" class="control-label">Date Of Birth</label>
             <div style="display: flex;">
               <input #dobformpicker="ngbDatepicker" [minDate]="{year: 1950, month: 1, day: 1}" [maxDate]="maxDate"
                 ngbDatepicker name="dobformpicker" id="dob" formControlName="dob" class="form-control">
-              <button class="input-group-addon personal-calender" (click)="dobformpicker.toggle()" type="button"><i class="fa fa-calendar"
-                  aria-hidden="true"></i></button>
+              <button class="input-group-addon personal-calender" (click)="dobformpicker.toggle()" type="button"><i
+                  class="fa fa-calendar" aria-hidden="true"></i></button>
             </div>
           </div>
 
+          <!-- Recovery Mail -->
+
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="emailid" class="control-label required">Recovery Email</label>
-            <input type="email" [email]="true" id="recoveryemailid" formControlName="recoveryemailid" class="form-control">
+            <input type="email" [email]="true" id="recoveryemailid" formControlName="recoveryemailid"
+              class="form-control">
           </div>
 
-          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"> </div>
 
-          </div>
+          <!-- Address - 1 -->
 
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="address1" class="control-label">Address 1</label>
             <input id="address1" formControlName="address1" class="form-control">
           </div>
 
+          <!-- Address - 2 -->
+
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="address2" class="control-label">Address 2</label>
             <input id="address2" formControlName="address2" class="form-control">
           </div>
+
+          <!-- Address - 3 -->
 
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="address3" class="control-label">Address 3</label>
             <input id="address3" formControlName="address3" class="form-control">
           </div>
 
+          <!-- Country -->
+
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="address3" class="control-label">Country</label>
-
             <app-popupselect [formControl]="mstapplicantmaster_Form.controls['country']" [options]="country_List"
               [optionsEvent]="country_optionsEvent" [form]="bocountry" (selectItem)="onSelected_country($event)"
               [reportid]='wc9rn' [menuid]='wc9rn' formControlName="country" id="value" desc="label"></app-popupselect>
           </div>
 
+          <!-- State -->
+
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="state" class="control-label">State</label>
-
             <app-popupselect [formControl]="mstapplicantmaster_Form.controls['state']" [options]="state_List"
               [optionsEvent]="state_optionsEvent" [form]="bostate" (selectItem)="onSelected_state($event)"
               [reportid]='tyo5r' [menuid]='tyo5r' formControlName="state" id="value" desc="label"></app-popupselect>
           </div>
 
+          <!-- City -->
+
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="city" class="control-label">City</label>
-
             <app-popupselect [formControl]="mstapplicantmaster_Form.controls['city']" [options]="city_List"
               [optionsEvent]="city_optionsEvent" [form]="bocity" (selectItem)="onSelected_city($event)"
               [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value" desc="label"></app-popupselect>
           </div>
 
+          <!-- Zip Code -->
+
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="zipcode" class="control-label">Zip Code</label>
             <input id="zipcode" formControlName="zipcode" class="form-control">
           </div>
+
+          <!-- Photo -->
 
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="profilephoto" class="control-label">Photo</label>
@@ -128,21 +154,26 @@
               [SessionData]="sessionData"></app-attachment>
           </div>
           <br><br>
+
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12"></div>
 
+          <!-- Brief Intoduction -->
 
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <label for="briefintroduction" class="control-label">Brief Introduction</label>
-            <textarea autosize onlyGrow="true" id="briefintroduction"
-            formControlName="briefintroduction" class="form-control" style="height: 50px !important;"></textarea>
+            <textarea autosize onlyGrow="true" id="briefintroduction" formControlName="briefintroduction"
+              class="form-control" style="height: 50px !important;"></textarea>
           </div>
+
+          <!-- Status Crimp -->
 
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <label for="statuscrimp" class="control-label">Status Crimp</label>
-            <textarea autosize onlyGrow="true" id="statuscrimp"
-            formControlName="statuscrimp" class="form-control" style="height: 50px !important;"></textarea>
+            <textarea autosize onlyGrow="true" id="statuscrimp" formControlName="statuscrimp" class="form-control"
+              style="height: 50px !important;"></textarea>
           </div>
 
+          <!-- Skip & Save -->
 
           <div class="col-12 button-css">
             <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="addskill()">

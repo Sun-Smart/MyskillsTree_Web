@@ -77,6 +77,10 @@
   justify-content: end;
   align-items: center;
   z-index: 1;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
   button {
     border: 0px;
     background-color: rgb(135, 22, 22);
@@ -91,16 +95,20 @@
     height: 70px;
     margin: 15px;
     margin-top: 23px;
-  }
-
+    cursor: pointer;
+  };
 };
 
 .back-button{
+  position: fixed;
+  bottom: 0;
+  left: 25rem;
   img{
     width: 100px;
     height: 70px;
     margin: 15px;
     margin-top: 23px;
+    cursor: pointer;
   }
 }
 

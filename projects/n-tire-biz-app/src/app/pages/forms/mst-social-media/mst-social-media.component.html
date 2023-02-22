@@ -7,7 +7,7 @@
       <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
       <p>Kindly Provide Your Social Media </p>
 
-      <img src="assets/newstartup/mst_infography.png" alt="" style="margin: 7%;width: 86%;">
+      <img src="assets/newstartup/infography.png" alt="" style="margin: 7%;width: 86%;">
 
     </div>
     <div class="outline-curve">
@@ -44,16 +44,17 @@
         </textarea>
           </div>
 
-          <div class="col-6 back-button">
-            <img src="assets/newstartup/Backbutton.png" alt="" (click)="back()">
-            <button class="check-button">Click</button>
-          </div>
+          <!-- <div class="row"> -->
+            <div class="col-6 back-button">
+              <img src="assets/newstartup/Backbutton.png" alt="" (click)="back()">
+            </div>
 
-          <div class="col-6 button-css">
-            <img src="assets/newstartup/AddMoreSocialmedia.png" alt="" (click)="onSubmitData()">
-            <button (click)="onSubmitData();">Continue</button>
-          </div>
-
+            <div class="col-6 button-css">
+              <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="skip()">
+              <img src="assets/newstartup/AddMoreSocialmedia.png" alt="" (click)="onSubmitData()">
+              <button (click)="onSubmitData();">Continue</button>
+            </div>
+          <!-- </div> -->
         </div>
       </form>
       <div class="extra-box"></div>

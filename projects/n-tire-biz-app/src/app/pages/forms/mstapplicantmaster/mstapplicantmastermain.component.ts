@@ -86,7 +86,7 @@ export class mstapplicantmastermainComponent implements OnInit {
   maindata: any;
 
   bfilterPopulate_mstapplicantmasters: boolean = false;
-  mstapplicantmaster_menuactions: any = []
+  mstapplicantmaster_menuactions: any = [];
 
   mstapplicantmaster_Form: FormGroup;
 

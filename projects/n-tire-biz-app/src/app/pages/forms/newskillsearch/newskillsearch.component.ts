@@ -444,13 +444,8 @@ export class NewskillsearchComponent implements OnInit {
   onItemDeSelect(item: any) {
     debugger;
     console.log(item);
-    // if (item.value == "0,121") {
-    //   this.technicalSkill = [];
-    //   this.dropdownSettings.textField = "";
-    // } else if (item.value == "0,122") {
-    //   this.dropdownSettings.textField = "";
-    //   this.nonTechskill = [];
-    // }
+    this.skillcategory = ''
+    this.subcategoryid = ''
     this.segmentsetItem = "0";
     for (let i = 0; i < this.segmentid.length; i++) {
       this.segmentsetItem = this.segmentsetItem + ',' + this.segmentid[i].value;
@@ -478,54 +473,13 @@ export class NewskillsearchComponent implements OnInit {
       this.mstapplicantskilldetail_service.getMultipleCheckSegmentID(this.segmentsetItem).then((res: any) => {
         debugger
         this.skillcategory_List = res as DropDownValues[];
-      })
-
-    }
-    );
-    // this.checkedItem.push(this.deletesegment);
-
-    // console.log(this.deletesegment);
-    // let delectItem = this.segmentid;
-
-
-    // this.segmentcategory_onChange(it);
-
-    // this.skillcategoryarry.find(e=>{
-    //   debugger
-    //  if(e.segment==item.value){
-    // this.skillcategoryarry.splice(item.value,1)
-
-    // this.skillcategory_List = [];
-    // this.subcategoryid_List = [];
-    //  }else{
-    //   this.skillcategoryarry.push({ segment: item.value })
-    //  }
-
-    // })
-
-
-
-    // this.subcategoryid ='' || [];
-    // this.skillcategory ='' || [];
-
-    // if (item == "") {
-    //   this.skillcategory_List = [];
-    //   this.subcategoryid_List = [];
-
-
-    // }
-
-    // console.log(this.AdminDropdown_Form.getRawValue());
-    // const index: number = this.skillcategoryarry.indexOf(item.value);
-    // console.log(index);
-    // if (index !== -1) {
-    //   this.skillcategoryarry.splice(index, 1);
-    // }
-
+      });
+    });
   };
 
   category_DeSelect(item: any) {
     debugger;
+    this.subcategoryid = ''
     console.log(item);
     // console.log('get chg',this.checkSeg);
 

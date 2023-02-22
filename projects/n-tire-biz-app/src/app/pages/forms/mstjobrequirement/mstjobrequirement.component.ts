@@ -58,6 +58,9 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
     ng2-smart-table-title a{
         font-size:13px;
     }
+    .table{
+        margin: auto !important;
+    }
 
     @media only screen and (max-width: 600px) {
       .education_view_mobile{
@@ -1098,6 +1101,9 @@ export class mstjobrequirementComponent implements OnInit {
                     type: '',
                     filter: true,
                 },
+            },
+            attr: {
+                class: 'table table-bordered table-header'
             },
         };
     }
