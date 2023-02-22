@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="bodynamicform_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left">{{'Dynamic Forms' | translate}}</h1>
+    <h1 class="col-4 columns mainheader left">{{'Dynamic Forms'}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -221,7 +221,7 @@
             <!-- child table bodynamicformdetails-->
             <div [ngClass]="Is_bodynamicformdetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Form Details' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Form Details'}}
                 <select class='child' id="bodynamicformdetailsPagingdropdown"
                   (change)="bodynamicformdetails_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
