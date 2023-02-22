@@ -20,18 +20,20 @@ export class MstSocialMediaComponent implements OnInit {
   applicantid_List: DropDownValues[];
   isSubmitted: boolean = false;
   objvalues: any = [];
+  applicantid: any;
   constructor(private route: Router, private toastr: ToastService,
     private fb: FormBuilder, private spinner: NgxSpinnerService,
     private mstapplicantsocialmediadetail_service: mstapplicantsocialmediadetailService,) {
     this.loginUser = localStorage.getItem('username');
+    this.applicantid = localStorage.getItem('applicantid');
   }
 
   ngOnInit() {
-    let app_id = localStorage.getItem('applicantid');
+
     this.mstapplicantsocialmediadetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: app_id,
+      applicantid: this.applicantid,
       applicantiddesc: [null],
       socialrefid: [null],
       socialmedianame: [null, Validators.compose([Validators.required])],
@@ -52,6 +54,7 @@ export class MstSocialMediaComponent implements OnInit {
     let e = evt.value;
     this.mstapplicantsocialmediadetail_Form.patchValue({ socialmedianamedesc: evt.options[evt.options.selectedIndex].text });
   };
+
   async onSubmitData(bclear: any) {
     debugger;
     this.isSubmitted = true;
@@ -63,6 +66,7 @@ export class MstSocialMediaComponent implements OnInit {
 
     this.formData = this.mstapplicantsocialmediadetail_Form.getRawValue();
 
+    this.formData.applicantid = this.applicantid;
     console.log(this.formData);
     this.spinner.show();
 
@@ -99,10 +103,7 @@ export class MstSocialMediaComponent implements OnInit {
     this.mstapplicantsocialmediadetail_Form.patchValue({
     });
   }
-  // dashboard() {
-  //   let pkcol = localStorage.getItem('pkcol');
-  //   this.route.navigate(['/home/bodashboardviewer/' + pkcol]);
-  // }
+
   AddMoreSocial(){
     debugger;
     this.isSubmitted = true;
@@ -113,18 +114,15 @@ export class MstSocialMediaComponent implements OnInit {
     };
 
     this.formData = this.mstapplicantsocialmediadetail_Form.getRawValue();
-
+    this.formData.applicantid = this.applicantid;
     console.log(this.formData);
     this.spinner.show();
 
     this.mstapplicantsocialmediadetail_service.saveOrUpdate_mstapplicantsocialmediadetails(this.formData).subscribe(
       async res => {
-        // await this.sharedService.upload(this.fileAttachmentList);
-        // this.attachmentlist = [];
-        // if (this.fileattachment) this.fileattachment.clear();
+
         this.spinner.hide();
         this.toastr.addSingle("success", "", "Successfully saved");
-        // this.sessionService.setItem("attachedsaved", "true")
         this.objvalues.push((res as any).mstapplicantsocialmediadetail);
         this.mstapplicantsocialmediadetail_Form.reset();
         this.ngOnInit();

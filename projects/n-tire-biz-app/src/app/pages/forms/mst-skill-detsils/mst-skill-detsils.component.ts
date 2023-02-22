@@ -38,6 +38,7 @@ export class MstSkillDetsilsComponent implements OnInit {
     private sessionService: SessionService,
      private mstapplicantskilldetail_service: mstapplicantskilldetailService) {
     this.loginUser = localStorage.getItem('username');
+    this.applicantid = localStorage.getItem('applicantid');
   }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class MstSkillDetsilsComponent implements OnInit {
 
       pk: [null],
       ImageName: [null],
-      applicantid: this.sessionService.getItem('applicantid'),
+      applicantid: this.applicantid,
       applicantiddesc: [null],
       skillid: [null],
       skillcategory: [null, Validators.compose([Validators.required])],
@@ -143,7 +144,7 @@ export class MstSkillDetsilsComponent implements OnInit {
     }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
     debugger
-
+    this.formData.applicantid = this.applicantid;
     console.log(this.formData);
     debugger
     this.spinner.show();
@@ -193,7 +194,7 @@ export class MstSkillDetsilsComponent implements OnInit {
     }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
     debugger
-
+    this.formData.applicantid = this.applicantid;
     console.log(this.formData);
     debugger
     this.spinner.show();

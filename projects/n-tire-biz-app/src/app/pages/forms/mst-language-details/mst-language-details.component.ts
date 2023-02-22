@@ -21,18 +21,20 @@ export class MstLanguageDetailsComponent implements OnInit {
   language_List: DropDownValues[];
   isSubmitted: boolean = false;
   objvalues: any = [];
+  applicantid: any;
+  
   constructor(private route: Router, private mstapplicantlanguagedetail_service: mstapplicantlanguagedetailService,
     private sessionService: SessionService, private toastr: ToastService,
     private fb: FormBuilder, private spinner: NgxSpinnerService) {
     this.loginUser = localStorage.getItem('username');
+    this.applicantid = localStorage.getItem('applicantid');
   }
 
   ngOnInit() {
     this.mstapplicantlanguagedetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: this.sessionService.getItem('applicantid'),
-      // applicantid: [this.applicantid],
+      applicantid: this.applicantid,
       applicantiddesc: [null],
       languageid: [null],
       language: [null, Validators.compose([Validators.required])],
@@ -65,7 +67,7 @@ export class MstLanguageDetailsComponent implements OnInit {
       return;
     }
     this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
-
+    this.formData.applicantid = this.applicantid;
     console.log(this.formData);
     this.spinner.show();;
     this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe((res: any) => {
@@ -105,7 +107,7 @@ export class MstLanguageDetailsComponent implements OnInit {
       return;
     }
     this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
-
+    this.formData.applicantid = this.applicantid;
     console.log(this.formData);
     this.spinner.show();;
     this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe((res: any) => {
