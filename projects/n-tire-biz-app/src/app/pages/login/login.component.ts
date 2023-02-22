@@ -1,28 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-
-//import { UserDataService } from '../core/services/user-data.service';
-import { bousermaster } from '../../../../../n-tire-biz-app/src/app/model/bousermaster.model';
 import { bousermasterService } from '../../../../../n-tire-biz-app/src/app/service/bousermaster.service';
-//import { User } from '../core/models/user.model';
 import { ToastService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { RouteStateService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/route-state.service';
 import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { ThemeService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//import { TranslateService } from '@ngx-translate/core';
 import { UserContextService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/user-context.service';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { SharedService } from '../../../../../n-tire-biz-app/src/app/service/shared.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { bouserregistrationComponent } from '../../../../../n-tire-biz-app/src/app/pages/forms/bouserregistration/bouserregistration.component';
-
 import { bocompanyregistrationComponent } from '../../../../../n-tire-biz-app/src/app/pages/forms/bocompanyregistration/bocompanyregistration.component';
-import { ForgotPasswordComponent } from '../../../../../n-tire-biz-app/src/app/pages/forgot-password/forgot-password.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicDialog';
 import { NgxSpinnerService } from "ngx-spinner";
-import { msttermComponent } from '../forms/mstterm/mstterm.component';
 import { msttermnewComponent } from '../forms/mstterm/msttermnew.component';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConstants } from '../../shared/helper';
 import { OtpvalidationService } from '../../service/otpvalidation.service';
 import { mstcorporatemasterService } from '../../service/mstcorporatemaster.service';
@@ -31,7 +23,6 @@ import { mstapplicantskilldetailService } from '../../service/mstapplicantskilld
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  // styleUrls: ['./style.css']
   styles: [`
 
 .container {
@@ -176,11 +167,6 @@ import { mstapplicantskilldetailService } from '../../service/mstapplicantskilld
     font-weight: 600;
 }
 
-#myTabContent {
-     /* margin: 20px; */
-}
-
-/* navbar */
 .custom-navbar {
     background-color: #ecf7fd;
 }
@@ -220,7 +206,6 @@ import { mstapplicantskilldetailService } from '../../service/mstapplicantskilld
     }
 }
 
-/* logo */
 .logo {
     width: 50px;
     height: 50px;
@@ -238,15 +223,10 @@ import { mstapplicantskilldetailService } from '../../service/mstapplicantskilld
 
 input[type=checkbox],
 input[type=radio] {
-    /* Double-sized Checkboxes */
     -ms-transform: scale(1.3);
-    /* IE */
     -moz-transform: scale(1.3);
-    /* FF */
     -webkit-transform: scale(1.3);
-    /* Safari and Chrome */
     -o-transform: scale(1.3);
-    /* Opera */
     transform: scale(1.3);
     padding: 10px;
 }
@@ -294,10 +274,6 @@ label{
     font-weight: 100 !important;
 }
 
-
-
-
-/* code added by dhana jan-13-2023 */
 @media only screen and (max-width: 600px) {
   #logo_custom {
     width: 13% !important;
@@ -329,7 +305,6 @@ label{
   }
   footer{
     height: 35px !important;
-    /* top: 570px !important; */
     text-align:center;
     bottom: 0px !important;
   }
@@ -390,10 +365,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private userService: bousermasterService,
     private toastService: ToastService,
-    private routeStateService: RouteStateService,
     public sessionService: SessionService,
     public otpService: OtpvalidationService,
-    //public translate: TranslateService,
     private themeService: ThemeService,
     private userContextService: UserContextService,
     private router: Router, public dialogRef: DynamicDialogRef,
@@ -402,10 +375,7 @@ export class LoginComponent implements OnInit {
     private mstcorporatemasterservice: mstcorporatemasterService,
     private mstapplicantskilldetail_service: mstapplicantskilldetailService,
   ) {
-
     this.bologinForm = this.fb.group({
-      // email: [null],
-      // password: [null],
       username: [null],
       email: [null, [Validators.required, Validators.pattern(/^(\d{10}|\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3}))$/)]],
       password: [null, [Validators.required]],
@@ -416,27 +386,12 @@ export class LoginComponent implements OnInit {
     this.sessionService.setItem("selected-theme", this.theme);
   }
   ngOnInit() {
-    debugger
     this.spinner.show();
     this.locale = this.sessionService.getItem("ng-prime-language");
     this.email = localStorage.getItem("email");
     this.password = localStorage.getItem("password");
     this.remem = localStorage.getItem("rememberMe");
     this.sessionService.setItem("attachedsaved", "true");
-
-    // if (this.email2 != null || this.email2 != '' && this.password2 != null || this.password2 != '') {
-    //     this.email = localStorage.getItem("email");
-    //     this.password = localStorage.getItem("password");
-
-    // }
-    // if (this.remem === false) {
-    //     this.rememberMe = true;
-    // }
-    /*
-    this.sessiondata = this.sessionService.getSession();
-    if(this.sessiondata!="")this.loggedIn=true;
-    if(this.loggedIn)this.router.navigate(['/home']);
-    */
     this.spinner.hide();
   }
   forgetPassword() {
@@ -444,7 +399,6 @@ export class LoginComponent implements OnInit {
   }
 
   CheckAgreeOk(user: any) {
-    debugger;
     if (user.token != '') {
       this.login_validation = false;
       this.toastService.addSingle("success", "", "Login successfully.");
@@ -455,20 +409,14 @@ export class LoginComponent implements OnInit {
     }
 
     this.userContextService.setUser(user.token);
-    // this language will be used as a fallback when a translation isn't found in the current language
-    console.log(user);
     var language = user.language;
     if (language != null && language.length > 0) {
-      // the lang to use, if the lang isn't available, it will use the current loader to get them
       this.sharedService.translate.use(language);
-
     } else {
       this.sessionService.setItem("ng-prime-language", "en");
     }
 
-    debugger;
     let loginuser = this.sessionService.getSession();
-    console.log('loginuser ', loginuser);
 
     this.sessionService.setItem("userid", loginuser.userid);
     this.sessionService.setItem("username", loginuser.username);
@@ -484,21 +432,13 @@ export class LoginComponent implements OnInit {
     this.sessionService.setItem("mobilenumber", loginuser.mobilenumber);
     this.sessionService.setItem("emailid", loginuser.emailid);
     this.sessionService.setItem("employeeid", loginuser.employeeid);
-    // localStorage.setItem("termid", user.terms.termid);
-
-    //this.themeService.selectTheme(this.theme);
-
-
     if (loginuser.nextloginchangepassword == 'True') {
       this.router.navigate(['/resetpassword']);
       return;
     }
-    // if (user.terms.terms) {
     if (loginuser.defaultpage == null || !loginuser.defaultpage) {
-
       if (loginuser.role == "2") {
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(loginuser.applicantid).then((res: any) => {
-          console.log("response", res.mstapplicantskilldetail);
           if (res.mstapplicantskilldetail.length > 0) {
             this.router.navigate(['/home']);
           } else {
@@ -508,49 +448,28 @@ export class LoginComponent implements OnInit {
       }
       if (loginuser.role == '3') {
         this.mstcorporatemasterservice.getListBy_userid(0 + this.sessionService.getItem("userid")).then(res => {
-          debugger;
-          console.log('resresres',res);
           this.pkcorporateid = res[0].corporateid;
           localStorage.setItem("coporateid", this.pkcorporateid);
           this.router.navigate(['/home']);
         });
       }else  if(loginuser.role == '1'){
         this.mstcorporatemasterservice.getListBy_userid(0 + this.sessionService.getItem("userid")).then(res => {
-          debugger;
-          console.log('resresres',res);
           this.employeeid = res[0].employeeid;
           localStorage.setItem("employeeid", this.employeeid);
           this.router.navigate(['/home']);
         });
       }
-
-      //this.routeStateService.add("Home", '/home/showdashboard/1', null, true);
-      // if(localStorage.getItem('role') == '3' || localStorage.getItem('role') == '1'){
-        // this.router.navigate(['/home']);
-      // this.router.navigate(['/home']);
-      // }else{
-      //   this.router.navigate(['/home/personaldetails']);
-      // }
       if (this.rememberMe == false) {
-        // console.log(this.bologinForm.get('rememberMe').value);
         this.rememberMe = false;
         this.email = localStorage.removeItem("email");
         this.password = localStorage.removeItem("password");
         this.remem = localStorage.removeItem("rememberMe");
       }
-      // return;
     }
-    //
     else {
       this.router.navigate(['/home']);
-      // this.router.navigate(['/home/personaldetails']);
     }
-    //this.routeStateService.add("Home", loginuser.defaultpage, null, true);
-
-    //this.router.navigate([loginuser.defaultpage]);
-    //
     return;
-    // }
   }
   test() {
     this.emailvalidation = false
@@ -560,16 +479,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger
     this.login_validation = true;
-
     this.rememberme(this.bologinForm.get('rememberMe').value);
     if (this.bologinForm.invalid) {
       this.emailvalidation = !this.emailvalidation;
       this.passvalidation = !this.passvalidation
     }
     this.spinner.show();
-    //let user: bousermaster = this.userService.getUserByemailAndPassword(this.bologinForm.get('email').value, this.bologinForm.get('password').value);
     this.userService.login(this.bologinForm.get('email').value, this.bologinForm.get('password').value, this.bologinForm.get('rememberMe').value).then((res: any) => {
       this.spinner.hide();
       let user: any = res;
@@ -587,13 +503,11 @@ export class LoginComponent implements OnInit {
               contentStyle: { "padding": "0px" },
             }
           ).onClose.subscribe(res => {
-            debugger
             if (res) {
               this.CheckAgreeOk(user);
             }
           });
         } else {
-          // return;
           this.CheckAgreeOk(user);
         }
       } else {
@@ -606,8 +520,6 @@ export class LoginComponent implements OnInit {
   };
 
   rememberme(Remember) {
-    debugger
-    console.log('Remember ', Remember)
     if (Remember) {
       localStorage.setItem("email", this.bologinForm.get('email').value);
       localStorage.setItem('rememberMe', this.bologinForm.get('rememberMe').value)
@@ -616,9 +528,6 @@ export class LoginComponent implements OnInit {
     } else if (this.rememberMe == false) {
       console.log(this.bologinForm.get('rememberMe').value);
       this.rememberMe = false;
-      // this.email = localStorage.removeItem("email");
-      // this.password = localStorage.removeItem("password");
-      // this.remem = localStorage.removeItem("rememberMe");
     }
   }
   selectTheme(theme: string) {
@@ -630,18 +539,13 @@ export class LoginComponent implements OnInit {
     if (this.locale == undefined || this.locale == null || this.locale.length == 0) {
       this.locale = "en";
     }
-    // the lang to use, if the lang isn't available, it will use the current loader to get them
-    //this.translate.use(this.locale);
     this.sessionService.setItem("ng-prime-language", this.locale);
   }
   private onValueChanged(data?: any): void {
     if (!this.bologinForm) { return; }
-
     for (const field in this.formErrors) {
-      // clear previous error message (if any)
       this.formErrors[field] = '';
       const control = this.bologinForm.get(field);
-
       if (control && control.dirty && !control.valid) {
         const messages = this.validationMessages[field];
         for (const key in control.errors) {
@@ -652,13 +556,6 @@ export class LoginComponent implements OnInit {
   }
   get f() { return this.bologinForm.controls; }
   UserSignin() {
-    /*
-    this.dialog.open(bouserregistrationComponent,
-        {
-            data: { save: true, ScreenType: 1 },
-        }
-    )
-    */
     this.dialog.open(bouserregistrationComponent,
       {
         data: { save: true, ScreenType: 2, formtemplate: '' },
