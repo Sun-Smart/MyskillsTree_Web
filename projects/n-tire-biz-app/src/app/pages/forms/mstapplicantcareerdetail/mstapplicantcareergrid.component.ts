@@ -467,12 +467,12 @@ export class mstapplicantcareergridComponent implements OnInit {
     this.pkcol = this.data.maindatapkcol;
     this.applicantid = this.data.applicantid;
 
-    console.log(" dedmekf this.applicantid",  this.applicantid);
+    console.log(" dedmekf this.applicantid", this.applicantid);
 
     this.mstapplicantcareerdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid:this.applicantid,
+      applicantid: this.applicantid,
       applicantiddesc: [null],
       careerid: [null],
       category: [null],
@@ -629,7 +629,7 @@ export class mstapplicantcareergridComponent implements OnInit {
 
       if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
       this.formData.applicantid = this.applicantid;
-      console.log('this.formData above',this.formData.applicantid);
+      console.log('this.formData above', this.formData.applicantid);
 
       console.log(this.formData);
       this.spinner.show();
@@ -677,9 +677,9 @@ export class mstapplicantcareergridComponent implements OnInit {
     }
 
   }
-   textAreaAdjust(element:any) {
+  textAreaAdjust(element: any) {
     element.style.height = "1px";
-    element.style.height = (25+element.scrollHeight)+"px";
+    element.style.height = (25 + element.scrollHeight) + "px";
   };
   getSkills(skills_List) {
     debugger;
@@ -927,17 +927,6 @@ export class mstapplicantcareergridComponent implements OnInit {
         // custom: this.mstapplicantcareerdetail_menuactions
         custom: this.mstapplicantcareerdetail_menuactions
       },
-      // actions: {
-      //     columnTitle: '',
-      //     width: '300px',
-      //     edit: true, // true,
-      //     delete: (this.IsApplicant || this.IsAdmin),
-      //     position: 'left',
-      //     // custom: this.mstapplicantcareerdetail_menuactions
-      //     custom: [{ name: 'reference',
-      //     title: `<i class="icon-references" aria-hidden="true"></i>`,
-      //     }],
-      // },
       add: {
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
@@ -955,6 +944,50 @@ export class mstapplicantcareergridComponent implements OnInit {
         confirmDelete: true,
       },
       columns: {
+        // categorydesc: {
+        //   title: 'Category',
+        //   type: 'html',
+        //   filter: true,
+        // },
+        // companyname: {
+        //   title: 'Company Name',
+        //   type: 'html',
+        //   filter: true,
+        // },
+        // designation: {
+        //   title: 'Designation',
+        //   type: 'html',
+        //   filter: true,
+        // },
+        // fromdate: {
+        //   title: 'From Date',
+        //   type: 'custom',
+        //   renderComponent: SmartTableDatepickerRenderComponent,
+        //   editor: {
+        //       type: 'custom',
+        //       component: SmartTableDatepickerComponent,
+        //   },
+        // },
+        // todate: {
+        //   title: 'To Date',
+        //   type: 'custom',
+        //   renderComponent: SmartTableDatepickerRenderComponent,
+        //   editor: {
+        //       type: 'custom',
+        //       component: SmartTableDatepickerComponent,
+        //   },
+        // },
+        // string_agg: {
+        //   title: 'Skills',
+        //   type: 'html',
+        //   filter: true,
+        // },
+        // remarks: {
+        //   title: 'Remarks',
+        //   type: 'html',
+        //   filter: true,
+        // },
+
         colhtml:
         {
           title: '',
@@ -1159,11 +1192,14 @@ export class mstapplicantcareergridComponent implements OnInit {
     //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     //   })
 
+    let fromdate = this.datePipe.transform(new Date(event.data.fromdate), 'dd-MM-yyyy');
+    let todate = this.datePipe.transform(new Date(event.data.todate), 'dd-MM-yyyy');
+
 
     let referencesourcedetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Company Name: ' + event.data.companyname + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Designation: ' + event.data.designation + '</li>'
-      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> From Date: ' + event.data.fromdate + '</li>'
-      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> To Date: ' + event.data.todate + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> From Date: ' + fromdate + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> To Date: ' + todate + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Currently Working: ' + event.data.currentlyworking + '</li>'
       + '<li class="list-group-item remarks_p" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
 

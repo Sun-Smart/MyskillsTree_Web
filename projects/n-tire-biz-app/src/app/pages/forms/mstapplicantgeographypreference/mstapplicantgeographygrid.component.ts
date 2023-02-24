@@ -733,6 +733,22 @@ export class mstapplicantgeographygrid implements OnInit {
         confirmDelete: true,
       },
       columns: {
+        // countrydesc: {
+        //   title: 'Country',
+        //   type: 'html',
+        //   filter: true,
+        // },
+        // citydesc: {
+        //   title: 'City',
+        //   type: 'html',
+        //   filter: true,
+        // },
+        // remarks: {
+        //   title: 'Remarks',
+        //   type: 'html',
+        //   filter: true,
+        // },
+
         colhtml:
         {
           title: '',

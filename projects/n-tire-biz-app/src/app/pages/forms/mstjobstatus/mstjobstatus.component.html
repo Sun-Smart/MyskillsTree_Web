@@ -105,13 +105,13 @@
         *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
         style='' class="col-3 applicantfield"><label for="applicantid" class="control-label"
           (click)="AddOrEdit_applicantid(null)">Applicant</label>
-        <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
+        <app-popupselect [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
           [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
           formControlName="applicantid" id="value" desc="label"></app-popupselect>
         <div class="input-group">
         </div>
-        <!-- <label *ngIf="showview" class="labelview">{{f.applicantiddesc?.value}} </label> -->
-        <label *ngIf="showview" class="labelview">{{f.applicantiddesc.value}} &nbsp; {{applicantiddesc1}}</label>
+        <label *ngIf="showview" class="labelview">{{f.applicantiddesc.value}} </label>
+        <!-- <label *ngIf="showview" class="labelview">{{f.applicantiddesc.value}} &nbsp; {{applicantiddesc1}}</label> -->
       </div>
 
 

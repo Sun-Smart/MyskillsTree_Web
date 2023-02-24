@@ -94,245 +94,256 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     }
     `],
   template: `
-    <div *ngIf="showWebviewDetect" class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
+  
+  <div *ngIf="showWebviewDetect" class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
-<div class="col-4">
-    <h4 class="columns left">{{'Language Details'}}</h4>
-</div>
-<div class="col-4">
-    <ul class="nav navbar-nav1" style='display:none'>
-      <li class="dropdown">
-        <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-          aria-expanded='false'> <span class='caret'></span></a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" [routerLink]=''
-              (click)="mstapplicantlanguagedetailtoggleOption();mstapplicantlanguagedetails_route(null, 'create')"><i
-                class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-        </ul>
-      </li>
-    </ul>
-</div>
-
-<div class="col-4" style="text-align: end; margin: auto;">
-    <!-- <ul class="rightside">
-    <a [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i style="color:#fff !important;"
-        class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-    </ul> -->
-    <!-- <ul class="rightside"> -->
-                <!-- <a  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"> -->
-                <!-- <button type="button" style="border-color: #fff !important;
-                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
-
-                <button type="button" class="btn btn-outline-primary  popup-add-button"
-                [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
-                 title = "Add Details">Add</button>
-
-                 <!-- <button (click)="addSkills()" >Add 1</button> -->
-                <!-- </a> -->
-
-                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="closeButton1" style="width: 20px;" title = "Close"/></a>
-
-                <!-- </ul> -->
-</div>
-</div>
-
-
-<div *ngIf="showMobileDetectskill" class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
-
-<div class="col-4">
-    <h4 class="columns left">{{'Language Details'}}</h4>
-</div>
-<div class="col-4">
-    <ul class="nav navbar-nav1" style='display:none'>
-      <li class="dropdown">
-        <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-          aria-expanded='false'> <span class='caret'></span></a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" [routerLink]=''
-              (click)="mstapplicantlanguagedetailtoggleOption();mstapplicantlanguagedetails_route(null, 'create')"><i
-                class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-        </ul>
-      </li>
-    </ul>
-</div>
-
-<div class="col-4" style="text-align: end; margin: auto;">
-    <!-- <ul class="rightside">
-    <a [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i style="color:#fff !important;"
-        class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-    </ul> -->
-    <!-- <ul class="rightside"> -->
-                <!-- <a  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"> -->
-                <!-- <button type="button" style="border-color: #fff !important;
-                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
-
-                <button type="button" class="btn btn-outline-primary  popup-add-button"
-                [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
-                 title = "Add Details">Add</button>
-
-                 <!-- <button (click)="addSkills()" >Add 1</button> -->
-                <!-- </a> -->
-
-                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png"  style="width: 20px;" title = "Close"/></a>
-
-                <!-- </ul> -->
-</div>
-</div>
-<form [formGroup]="mstapplicantlanguagedetail_Form" class="mobile_grid_view" *ngIf="showWebviewDetect">
-  <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
-  <thead>
-    <tr >
-      <th style="width:15%;">Language</th>
-      <th style="width:15%;">Read Proficiency</th>
-      <th style="width:15%;">Write Proficiency</th>
-      <th style="width:15%;">Speak Proficiency</th>
-      <th style="width:15%;">Rating</th>
-      <th style="width:15%;">Remarks</th>
-      <!-- <th style="width: 31.5%;">Attachment</th> -->
-      <!--<th>Attachment</th>-->
-    <th style="width:10%;">Action</th>
-    </tr>
-  </thead>
-  <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
-    <tr>
-        <!--language-->
-        <td>
-        <select id="language" required (change)="language_onChange($event.target)"
-          formControlName="language" class="form-control">
-          <option [ngValue]="null" selected>-Select-</option>
-          <option *ngFor="let item of language_List" value="{{item.value}}">{{item.label}}</option>
-        </select>
-        </td>
-
-        <!--Read Proficiency -->
-
-        <td>
-        <p-rating id="readproficiency" formControlName="readproficiency" class="form-control">
-        </p-rating>
-        </td>
-
-       <!--Write Proficiency -->
-
-        <td>
-        <p-rating id="writeproficiency" formControlName="writeproficiency" class="form-control">
-        </p-rating>
-        </td>
-
-        <!--Speak Proficiency -->
-
-        <td>
-        <p-rating id="speakproficiency" formControlName="speakproficiency" class="form-control">
-        </p-rating>
-        </td>
-
-        <!-- Rating -->
-
-        <td>
-        <p-rating id="overallrating" formControlName="overallrating" class="form-control">
-        </p-rating>
-        </td>
-
-        <!-- Remarks -->
-
-        <td>
-        <textarea autosize rows="3" cols="10" class="form-control"  id="achievementdetails"
-        formControlName="remarks">
-        </textarea>
-        </td>
-
-        <!-- Attachment -->
-
-        <!-- <td>
-        <p-accordion [multiple]='true'>
-        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
-          <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
-          </app-attachment>
-        </p-accordionTab>
-      </p-accordion>
-        </td> -->
-
-        <!-- Submit & Close -->
-
-        <td class="field-add-close-button">
-            <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
-
-            <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
-                (click)="skillClose()"></i>
-        </td>
-    </tr>
-
+  <div class="col-4">
+      <h4 class="columns left">{{'Language Details'}}</h4>
+  </div>
+  <div class="col-4">
+      <ul class="nav navbar-nav1" style='display:none'>
+        <li class="dropdown">
+          <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+            aria-expanded='false'> <span class='caret'></span></a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]=''
+                (click)="mstapplicantlanguagedetailtoggleOption();mstapplicantlanguagedetails_route(null, 'create')"><i
+                  class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+          </ul>
+        </li>
+      </ul>
+  </div>
+  
+  <div class="col-4" style="text-align: end; margin: auto;">
+      <!-- <ul class="rightside">
+      <a [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i style="color:#fff !important;"
+          class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
+      </ul> -->
+      <!-- <ul class="rightside"> -->
+                  <!-- <a  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"> -->
+                  <!-- <button type="button" style="border-color: #fff !important;
+                  color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
+  
+                  <button type="button" class="btn btn-outline-primary  popup-add-button"
+                  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
+                   title = "Add Details">Add</button>
+  
+                   <!-- <button (click)="addSkills()" >Add 1</button> -->
+                  <!-- </a> -->
+  
+                  <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
+  
+                  <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="closeButton1" style="width: 20px;" title = "Close"/></a>
+  
+                  <!-- </ul> -->
+  </div>
+  </div>
+  
+  
+  <div *ngIf="showMobileDetectskill" class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
+  
+  <div class="col-4">
+      <h4 class="columns left">{{'Language Details'}}</h4>
+  </div>
+  <div class="col-4">
+      <ul class="nav navbar-nav1" style='display:none'>
+        <li class="dropdown">
+          <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
+            aria-expanded='false'> <span class='caret'></span></a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]=''
+                (click)="mstapplicantlanguagedetailtoggleOption();mstapplicantlanguagedetails_route(null, 'create')"><i
+                  class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
+          </ul>
+        </li>
+      </ul>
+  </div>
+  
+  <div class="col-4" style="text-align: end; margin: auto;">
+      <!-- <ul class="rightside">
+      <a [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i style="color:#fff !important;"
+          class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
+      </ul> -->
+      <!-- <ul class="rightside"> -->
+                  <!-- <a  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"> -->
+                  <!-- <button type="button" style="border-color: #fff !important;
+                  color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
+  
+                  <button type="button" class="btn btn-outline-primary  popup-add-button"
+                  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
+                   title = "Add Details">Add</button>
+  
+                   <!-- <button (click)="addSkills()" >Add 1</button> -->
+                  <!-- </a> -->
+  
+                  <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
+  
+                  <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png"  style="width: 20px;" title = "Close"/></a>
+  
+                  <!-- </ul> -->
+  </div>
+  </div>
+  <form [formGroup]="mstapplicantlanguagedetail_Form" class="mobile_grid_view" *ngIf="showWebviewDetect">
+    <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
+    <thead>
+      <tr >
+        <th style="width:15%;">Language</th>
+        <th style="width:15%;">Read Proficiency</th>
+        <th style="width:15%;">Write Proficiency</th>
+        <th style="width:15%;">Speak Proficiency</th>
+        <th style="width:15%;">Rating</th>
+        <th style="width:15%;">Remarks</th>
+        <!-- <th style="width: 31.5%;">Attachment</th> -->
+        <!--<th>Attachment</th>-->
+      <th style="width:10%;">Action</th>
+      </tr>
+    </thead>
+    <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
+      <tr>
+          <!--language-->
+          <td>
+          <select id="language" required (change)="language_onChange($event.target)"
+            formControlName="language" class="form-control">
+            <option [ngValue]="null" selected>-Select-</option>
+            <option *ngFor="let item of language_List" value="{{item.value}}">{{item.label}}</option>
+          </select>
+          </td>
+  
+          <!--Read Proficiency -->
+  
+          <td>
+          <p-rating id="readproficiency" formControlName="readproficiency" class="form-control">
+          </p-rating>
+          </td>
+  
+         <!--Write Proficiency -->
+  
+          <td>
+          <p-rating id="writeproficiency" formControlName="writeproficiency" class="form-control">
+          </p-rating>
+          </td>
+  
+          <!--Speak Proficiency -->
+  
+          <td>
+          <p-rating id="speakproficiency" formControlName="speakproficiency" class="form-control">
+          </p-rating>
+          </td>
+  
+          <!-- Rating -->
+  
+          <td>
+          <p-rating id="overallrating" formControlName="overallrating" class="form-control">
+          </p-rating>
+          </td>
+  
+          <!-- Remarks -->
+  
+          <td>
+          <textarea autosize rows="3" cols="10" class="form-control"  id="achievementdetails"
+          formControlName="remarks">
+          </textarea>
+          </td>
+  
+          <!-- Attachment -->
+  
+          <!-- <td>
+          <p-accordion [multiple]='true'>
+          <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+            <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
+            </app-attachment>
+          </p-accordionTab>
+        </p-accordion>
+          </td> -->
+  
+          <!-- Submit & Close -->
+  
+          <td class="field-add-close-button">
+              <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+  
+              <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                  (click)="skillClose()"></i>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+  </form>
+  
+  <!--<table>
+  <tbody>
+  <tr *ngFor = "let item of check_mstapplicantlanguagedetail">
+  <td>{{item.languagedesc}}</td>
+  <td>{{item.readproficiency}}</td>
+  <td>{{item.writeproficiency}}</td>
+  <td>{{item.speakproficiency}}</td>
+  <td>{{item.overallrating}}</td>
+  <td>{{item.remarks}}</td>
+  </tr>
   </tbody>
-</table>
-</form>
-
-
-<form [formGroup]="mstapplicantlanguagedetail_Form" class="mobile_grid_view" *ngIf="showMobileDetectskill">
-
-<div class="row" *ngIf="showSkillDetails_input" style="width: 320px;margin: 10px !important;">
-<div class="col-md-12">
-<label>Language</label>
-<select id="language" required (change)="language_onChange($event.target)"
-          formControlName="language" class="form-control">
-          <option [ngValue]="null" selected>-Select-</option>
-          <option *ngFor="let item of language_List" value="{{item.value}}">{{item.label}}</option>
-        </select>
-</div>
-<div class="col-md-12">
-<label>Read Proficiency</label>
-<p-rating id="readproficiency" formControlName="readproficiency" class="form-control">
-        </p-rating>
-</div>
-<div class="col-md-12">
-<label>Write Proficiency</label>
-<p-rating id="writeproficiency" formControlName="writeproficiency" class="form-control">
-        </p-rating>
-</div>
-<div class="col-md-12">
-<label>Speak Proficiency</label>
-<p-rating id="speakproficiency" formControlName="speakproficiency" class="form-control">
-        </p-rating>
-</div>
-<div class="col-md-12">
-<label>Rating</label>
-<p-rating id="overallrating" formControlName="overallrating" class="form-control">
-        </p-rating>
-</div>
-<div class="col-md-12">
-<label>Remarks</label>
-<textarea autosize rows="1" cols="10" class="form-control"  id="achievementdetails"
-        formControlName="remarks">
-        </textarea>
-</div>
-
-<div class="col" style="position: relative;left: 120px;top: 7px;">
-
-<i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
-
-            <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
-                (click)="skillClose()"></i>
+  </table> -->
+  
+  <form [formGroup]="mstapplicantlanguagedetail_Form" class="mobile_grid_view" *ngIf="showMobileDetectskill">
+  
+  <div class="row" *ngIf="showSkillDetails_input" style="width: 320px;margin: 10px !important;">
+  <div class="col-md-12">
+  <label>Language</label>
+  <select id="language" required (change)="language_onChange($event.target)"
+            formControlName="language" class="form-control">
+            <option [ngValue]="null" selected>-Select-</option>
+            <option *ngFor="let item of language_List" value="{{item.value}}">{{item.label}}</option>
+          </select>
   </div>
-
+  <div class="col-md-12">
+  <label>Read Proficiency</label>
+  <p-rating id="readproficiency" formControlName="readproficiency" class="form-control">
+          </p-rating>
   </div>
-
-</form>
-  <ng2-smart-table #tbl_mstapplicantlanguagedetails
-    (userRowSelect)="handle_mstapplicantlanguagedetails_GridSelected($event)"
-    [settings]="mstapplicantlanguagedetails_settings"
-    (custom)="onCustom_mstapplicantlanguagedetails_Action($event)"
-    (custom)="onCustom_mstapplicantlanguagedetailsAttachment_Action($event)"
-    [source]="tbl_mstapplicantlanguagedetails?.source?.data"
-    (delete)="mstapplicantlanguagedetails_route($event,'delete')"
-    (deleteConfirm)="mstapplicantlanguagedetails_route($event,'delete')"
-    (create)="mstapplicantlanguagedetails_route($event,'create')"
-    (createConfirm)="mstapplicantlanguagedetails_beforesave($event)"
-    (edit)="mstapplicantlanguagedetails_route($event,'edit')"
-    (editConfirm)="mstapplicantlanguagedetails_beforesave($event)">
-  </ng2-smart-table>
-    `
+  <div class="col-md-12">
+  <label>Write Proficiency</label>
+  <p-rating id="writeproficiency" formControlName="writeproficiency" class="form-control">
+          </p-rating>
+  </div>
+  <div class="col-md-12">
+  <label>Speak Proficiency</label>
+  <p-rating id="speakproficiency" formControlName="speakproficiency" class="form-control">
+          </p-rating>
+  </div>
+  <div class="col-md-12">
+  <label>Rating</label>
+  <p-rating id="overallrating" formControlName="overallrating" class="form-control">
+          </p-rating>
+  </div>
+  <div class="col-md-12">
+  <label>Remarks</label>
+  <textarea autosize rows="1" cols="10" class="form-control"  id="achievementdetails"
+          formControlName="remarks">
+          </textarea>
+  </div>
+  
+  <div class="col" style="position: relative;left: 120px;top: 7px;">
+  
+  <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+  
+              <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                  (click)="skillClose()"></i>
+    </div>
+  
+    </div>
+  </form>
+    <ng2-smart-table #tbl_mstapplicantlanguagedetails
+      (userRowSelect)="handle_mstapplicantlanguagedetails_GridSelected($event)"
+      [settings]="mstapplicantlanguagedetails_settings"
+      (custom)="onCustom_mstapplicantlanguagedetails_Action($event)"
+      (custom)="onCustom_mstapplicantlanguagedetailsAttachment_Action($event)"
+      [source]="tbl_mstapplicantlanguagedetails?.source?.data"
+      (delete)="mstapplicantlanguagedetails_route($event,'delete')"
+      (deleteConfirm)="mstapplicantlanguagedetails_route($event,'delete')"
+      (create)="mstapplicantlanguagedetails_route($event,'create')"
+      (createConfirm)="mstapplicantlanguagedetails_beforesave($event)"
+      (edit)="mstapplicantlanguagedetails_route($event,'edit')"
+      (editConfirm)="mstapplicantlanguagedetails_beforesave($event)">
+    </ng2-smart-table>
+     `
 })
 export class mstapplicantlanuagegridComponent implements OnInit {
 
@@ -350,6 +361,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
   mstapplicantlanguagedetails_selectedindex: any;
   ShowTableslist: any;
   pkcol: any;
+  check_mstapplicantlanguagedetail: any;
 
 
   applicantid_List: DropDownValues[];
@@ -513,10 +525,14 @@ export class mstapplicantlanuagegridComponent implements OnInit {
       console.log(res);
 
       this.spinner.hide();
+      // this.check_mstapplicantlanguagedetail = res.mstapplicantlanguagedetail;
+      console.log("this.check_mstapplicantlanguagedetail", this.check_mstapplicantlanguagedetail);
 
       this.toastr.addSingle("success", "", "Successfully saved");
       this.sessionService.setItem("attachedsaved", "true")
       this.objvalues.push((res as any).mstapplicantlanguagedetail);
+
+      console.log("this.objvalues", this.objvalues);
       this.ngOnInit();
       this.mstapplicantlanguagedetail_Form.reset();
       if (!bclear) this.showview = true;
@@ -592,12 +608,12 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         <table class="table table-hover languagedetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr style="word-break: break-word;">
-            <th style="white-space: break-spaces;width:7%;">##languagedesc##</th>
-            <th style="white-space: break-spaces;width:17%;">##readproficiency##</th>
-            <th style="white-space: break-spaces;width:17%;">##writeproficiency##</th>
-            <th style="white-space: break-spaces;width:16%;">##speakproficiency##</th>
-            <th style="white-space: break-spaces;width:27%;">##overallrating##</th>
-            <th style="white-space: break-spaces;">##remarks##</th>
+            <th style="width:10%;">##languagedesc##</th>
+            <th style="width:10%;">##readproficiency##</th>
+            <th style="width:10%;">##writeproficiency##</th>
+            <th style="width:10%;">##speakproficiency##</th>
+            <th style="width:10%;">##overallrating##</th>
+            <th style="white-space: break-spaces;width:18%;">##remarks##</th>
             <!--<th style="" >##attachment##</th>-->
           </tr>
         </tbody>
@@ -743,6 +759,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         //   type: 'html',
         //   filter: true,
         // },
+
         colhtml:
         {
           title: '',
@@ -822,9 +839,9 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             divrow["readproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + readproficiency + "</div>";
             divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + writeproficiency + "</div>";
             divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + overallrating + "</div>";
-              // cell+= `
-              // <div class='Stars'  style='font-size: large !important;color:green;float: left;margin-left: 6%;'>##speakproficiency##</div>
-              // `
+            // cell+= `
+            // <div class='Stars'  style='font-size: large !important;color:green;float: left;margin-left: 6%;'>##speakproficiency##</div>
+            // `
 
             // if (divrow.speakproficiency == 1 || row.readproficiency == 1 || row.writeproficiency == 1 || row.overallrating == 1) {
             //     showstr = '★';

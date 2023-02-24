@@ -122,6 +122,7 @@ export class mstjobstatusComponent implements OnInit {
 
     sessionData: any;
     sourceKey: any;
+    applicant_name: any;
 
     constructor(
         private nav: Location,
@@ -467,7 +468,7 @@ export class mstjobstatusComponent implements OnInit {
             viewid: res.mstjobstatus.viewid,
             applicantid: res.mstjobstatus.applicantid,
             applicantiddesc: res.mstjobstatus.applicantiddesc,
-            applicantiddesc1: res.mstjobstatus.applicantiddesc1,
+            // applicantiddesc1: res.mstjobstatus.applicantiddesc1,
             corporateid: res.mstjobstatus.corporateid,
             corporateiddesc: res.mstjobstatus.corporateiddesc,
             viewdatetime: this.ngbDateParserFormatter.parse(res.mstjobstatus.viewdatetime),
@@ -482,7 +483,13 @@ export class mstjobstatusComponent implements OnInit {
             statusdesc: res.mstjobstatus.statusdesc,
         });
         this.mstjobstatus_menuactions = res.mstjobstatus_menuactions;
-        //Child Tables if any
+        //Child Tables if any;
+
+        this.applicant_name = res.mstjobstatus.applicantiddesc;
+
+        console.log("applicantiddesc",this.applicant_name);
+        
+        
     }
 
     validate() {

@@ -23,6 +23,16 @@ export class AppConstants {//localhost:5000
     // public static get ntirecrmURL(): string { return "https://demo.herbie.ai/devMySkillsTreeapi/api"; }
     // public static get ntiredashboardsURL(): string { return "https://demo.herbie.ai/devMySkillsTreeapi/api"; }
 
+        // Dummy
+
+        // public static get baseURL(): string { return "http://3.111.186.56/myskillstreeapi/api"; }
+        // public static get ntireboURL(): string { return "http://3.111.186.56/myskillstreeapi/api"; }
+        // public static get ntirebizURL(): string { return "http://3.111.186.56/myskillstreeapi/api"; }
+        // public static get UploadURL(): string { return "http://3.111.186.56/myskillstreeapi/api/file/upload"; }
+        // public static get AttachmentURL(): string { return "http://3.111.186.56/attachment/"; }
+        // public static get ntirecrmURL(): string { return "http://3.111.186.56/myskillstreeapi/api"; }
+        // public static get ntiredashboardsURL(): string { return "http://3.111.186.56/myskillstreeapi/api"; }
+    
 
     // public static get baseURL(): string { return "https://prod.herbie.ai/MySkillTree/api"; }
     // public static get ntireboURL(): string { return "https://prod.herbie.ai/MySkillTree/api"; }
