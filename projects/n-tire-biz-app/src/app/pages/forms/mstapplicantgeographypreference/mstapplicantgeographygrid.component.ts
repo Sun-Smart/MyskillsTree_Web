@@ -153,7 +153,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               <!-- Remarks -->
 
               <td>
-              <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+              <textarea name="w3review" rows="3" cols="10" class="form-control" formControlName="remarks"></textarea>
               </td>
 
               <!-- Attachment -->

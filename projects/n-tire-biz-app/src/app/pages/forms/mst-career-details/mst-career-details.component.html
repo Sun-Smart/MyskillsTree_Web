@@ -73,18 +73,23 @@
 
                     <div class="col-12">
                         <label for="remarks" class="control-label">Remarks</label>
-                        <textarea name="w3review" rows="1" cols="10" class="form-control"
+                        <textarea name="w3review" rows="3" cols="10" class="form-control"
                             formControlName="remarks"></textarea>
                     </div>
 
                     <div class="col-6 back-button">
-                        <img src="assets/newstartup/Backbutton.png" alt="" (click)="back()">
+                        <!-- <img src="assets/newstartup/Backbutton.png" alt="" (click)="back()"> -->
+                        <button (click)="back()"> Back </button>
                     </div>
 
                     <div class="col-6 button-css">
-                        <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="addproject()">
+                        <button (click)="addproject()"> Skip </button>
+                        <button (click)="AddmoreSubmitData()"> Add More Career </button>
+                        <button (click)="onSubmitData()"> Add Project </button>
+
+                        <!-- <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="addproject()">
                         <img src="assets/newstartup/AddMoreCareer.png" alt="" (click)="AddmoreSubmitData()">
-                        <img src="assets/newstartup/AddProject.png" alt="" (click)="onSubmitData()">
+                        <img src="assets/newstartup/AddProject.png" alt="" (click)="onSubmitData()"> -->
 
                     </div>
                 </div>

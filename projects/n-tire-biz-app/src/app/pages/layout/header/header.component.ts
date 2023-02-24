@@ -172,7 +172,7 @@ export class HeaderComponent implements OnInit {
 
     this.username = this.sessionService.getItem('username');
     if (this.sessionService.getItem('role') == '1') {
-      this.userrole = 'Admin';
+      this.userrole = 'Admin'; 
       this.showAdminMenuaccess = true;
       this.showApplicantmenu = false;
       this.showCorporateMenuaccess = false;
@@ -539,7 +539,7 @@ export class HeaderComponent implements OnInit {
     let data = {
       updateProfile : "yes"
     }
-    this.router.navigate(['home/personaldetails'],{ queryParams : {updateProfile: true}})
+    this.router.navigate(['home/personaldetails'])
  
     // this.dialog.open(mstapplicantmastermainComponent,
     //   {
@@ -593,7 +593,7 @@ export class HeaderComponent implements OnInit {
     this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')], { queryParams: { show: this.show_dashboard } });
   }
 
-  showNewApplicantDetails() {
+  skillWizard() {
     this.router.navigate(['/home/personaldetails']);
   }
 

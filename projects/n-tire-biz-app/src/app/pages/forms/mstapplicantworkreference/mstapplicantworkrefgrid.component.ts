@@ -185,7 +185,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 <!-- Work Description -->
 
                     <td>
-                    <textarea autosize rows="1" cols="10" onlyGrow="true"  id="workdescription" required
+                    <textarea autosize rows="3" cols="10" onlyGrow="true"  id="workdescription" required
                     formControlName="workdescription" class="form-control">
                     </textarea>
 
@@ -197,7 +197,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 <!-- Remarks -->
 
                     <td>
-                    <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+                    <textarea name="w3review" rows="3" cols="10" class="form-control" formControlName="remarks"></textarea>
                     </td>
 
                 <!--skill-->

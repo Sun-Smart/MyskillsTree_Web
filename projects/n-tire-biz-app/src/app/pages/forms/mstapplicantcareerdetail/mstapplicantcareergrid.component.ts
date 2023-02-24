@@ -221,7 +221,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <!-- Remarks -->
      <td>
      <!-- <label for="remarks" class="control-label">Remarks</label> -->
-       <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+       <textarea name="w3review" onkeyup="textAreaAdjust(this)" class="form-control" formControlName="remarks"></textarea>
        <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '20' }"></p-editor> -->
      </td>
 
@@ -677,7 +677,10 @@ export class mstapplicantcareergridComponent implements OnInit {
     }
 
   }
-
+   textAreaAdjust(element:any) {
+    element.style.height = "1px";
+    element.style.height = (25+element.scrollHeight)+"px";
+  };
   getSkills(skills_List) {
     debugger;
     let skills: any[] = [];
@@ -799,24 +802,24 @@ export class mstapplicantcareergridComponent implements OnInit {
       debugger
       console.log(res);
       this.mstapplicantcareerdetail_Form.patchValue({
-        // applicantid: res.mstapplicantcareerdetail.applicantid,
-        // applicantiddesc: res.mstapplicantcareerdetail.applicantiddesc,
-        // careerid: res.mstapplicantcareerdetail.careerid,
+        applicantid: res.mstapplicantcareerdetail.applicantid,
+        applicantiddesc: res.mstapplicantcareerdetail.applicantiddesc,
+        careerid: res.mstapplicantcareerdetail.careerid,
         category: res.mstapplicantcareerdetail.category,
         categorydesc: res.mstapplicantcareerdetail.categorydesc,
         companyname: res.mstapplicantcareerdetail.companyname,
         designation: res.mstapplicantcareerdetail.designation,
-        // keyproject: res.mstapplicantcareerdetail.keyproject,
+        keyproject: res.mstapplicantcareerdetail.keyproject,
         fromdate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.fromdate),
         todate: this.ngbDateParserFormatter.parse(res.mstapplicantcareerdetail.todate),
-        // currentlyworking: res.mstapplicantcareerdetail.currentlyworking,
+        currentlyworking: res.mstapplicantcareerdetail.currentlyworking,
         requestid: res.mstapplicantcareerdetail.requestid,
         skills: res.mstapplicantcareerdetail.skills,
         string_agg: res.mstapplicantcareerdetail.string_agg,
         remarks: res.mstapplicantcareerdetail.remarks,
-        // status: res.mstapplicantcareerdetail.status,
-        // statusdesc: res.mstapplicantcareerdetail.statusdesc,
-        // attachment: "[]",
+        status: res.mstapplicantcareerdetail.status,
+        statusdesc: res.mstapplicantcareerdetail.statusdesc,
+        attachment: "[]",
 
       });
       setTimeout(() => {

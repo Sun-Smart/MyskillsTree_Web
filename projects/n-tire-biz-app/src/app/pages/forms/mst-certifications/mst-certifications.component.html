@@ -64,19 +64,24 @@
 
                     <div class="col-12">
                         <label for="achievementdetails" class="control-label required">Achievement Details</label>
-                        <textarea autosize rows="1" cols="10" onlyGrow="true" id="achievementdetails" required
+                        <textarea autosize rows="3" cols="10" onlyGrow="true" id="achievementdetails" required
                             formControlName="achievementdetails" class="form-control">
                         </textarea>
                     </div>
 
                     <div class="col-6 back-button">
-                        <img src="assets/newstartup/Backbutton.png" alt="" (click)="back()">
+                        <!-- <img src="assets/newstartup/Backbutton.png" alt="" (click)="back()"> -->
+                        <button (click)="back()"> Back </button>
                     </div>
 
                     <div class="col-6 button-css">
-                        <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="addlocation()">
+                        <!-- <button (click)="addlocation()"> Skip </button> -->
+                        <button (click)="AddmoreSubmitData()"> Add More Certification </button>
+                        <button (click)="onSubmitData()"> Add More Skills </button>
+
+                        <!-- <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="addlocation()">
                         <img src="assets/newstartup/AddMoreCertification.png" alt="" (click)="AddmoreSubmitData()">
-                        <img src="assets/newstartup/AddLocation.png" alt="" (click)="onSubmitData()">
+                        <img src="assets/newstartup/AddLocation.png" alt="" (click)="onSubmitData()"> -->
 
                     </div>
                 </div>

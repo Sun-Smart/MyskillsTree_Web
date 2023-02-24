@@ -139,13 +139,14 @@ export class MstCertificationsComponent implements OnInit {
           console.log("Response", res);
           this.spinner.hide();
           this.toastr.addSingle("success", "", "Successfully saved");
-          this.route.navigate(['/home/newresume'])
+          this.route.navigate(['/home/newskilldetails'])
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicantachievementdetail);
           this.mstapplicantachievementdetail_Form.reset();
         })
     }
-  }
+  };
+
   AddmoreSubmitData() {
     debugger
     this.isSubmitted = true;

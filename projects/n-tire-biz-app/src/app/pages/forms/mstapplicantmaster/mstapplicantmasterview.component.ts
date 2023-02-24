@@ -118,6 +118,8 @@ export class mstapplicantmasterviewComponent implements OnInit {
   p_menuid: any;
   p_currenturl: any;
   isSubmitted: boolean = false;
+  showplswait: boolean = true;
+  shownodate: boolean = false
   ShowTableslist: string[] = [];
   data: any;
   maindata: any;
@@ -185,6 +187,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
   sourceKey: any;
 
   profilecompletionvisible: boolean = false;
+  nodata: boolean;
 
   read_str: any;
   speak_str: any;
@@ -436,14 +439,14 @@ export class mstapplicantmasterviewComponent implements OnInit {
     this.sub = this.currentRoute.queryParams.subscribe((params: any) => {
       this.checkdata = params;
 
-      console.log("this.checkdata",this.checkdata.show);
+      console.log("this.checkdata", this.checkdata.show);
 
-      if(this.checkdata.show == "true"){
+      if (this.checkdata.show == "true") {
         this.iseditbuttonshow = true;
-      }else{
+      } else {
         this.iseditbuttonshow = false;
       }
-      
+
     });
 
     //session & theme
@@ -1078,8 +1081,8 @@ return false;
   };
 
   getProfile_data(res: any) {
-
-    console.log("Response", res);
+    // suneel
+    // this.showplswait = false
 
     this.mstapplicantgeographypreferences = res.mstapplicantgeographypreferences;
     this.mstapplicantachievementdetails = res.mstapplicantachievementdetails;
@@ -1088,7 +1091,13 @@ return false;
     this.mstapplicantworkreferences = res.mstapplicantworkreferences;
     this.mstapplicantsocialmediadetails = res.mstapplicantsocialmediadetails;
 
-    this.mstapplicantskilldetails = res.mstapplicantskilldetails;    
+    this.mstapplicantskilldetails = res.mstapplicantskilldetails;
+
+    // if (this.mstapplicantachievementdetails == "" || this.mstapplicantachievementdetails == null) {
+    //   this.shownodate = true
+    //   this.showplswait = false
+    // }
+
 
     for (let i = 0; i < this.mstapplicantskilldetails.length; i++) {
       if (this.mstapplicantskilldetails[i].selfrating == 1) {
@@ -1113,7 +1122,7 @@ return false;
 
     console.log("skillarray", this.skillarray);
     console.log("skillarray", this.skillarray.skillDescription);
-    
+
 
     this.mstapplicantlanguagedetails = res.mstapplicantlanguagedetails;
 

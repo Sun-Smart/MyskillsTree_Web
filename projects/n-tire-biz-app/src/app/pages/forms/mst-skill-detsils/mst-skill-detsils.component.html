@@ -5,7 +5,7 @@
             <h4>Welcome...</h4>
             <h6>MySkillsTree</h6>
             <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
-            <p style="margin-left: 1rem;">Kindly Provide Your Personal Details </p>
+            <p style="margin-left: 1rem;">Kindly Provide Your Skill Details </p>
 
             <img src="assets/newstartup/infography_Skillset.png" alt="" style="margin: 7%;width: 86%;">
 
@@ -68,13 +68,17 @@
                     </div>
 
                     <div class="col-6 back-button">
-                        <img src="assets/newstartup/Backbutton.png" (click)="back()" alt="">
+                        <!-- <img src="assets/newstartup/Backbutton.png" (click)="back()" alt=""> -->
+                        <button (click)="back()"> Back </button>
                     </div>
 
                     <div class="col-6 button-css">
-                        <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="addEducation()">
+                        <button (click)="addEducation()"> Skip</button>
+                        <button (click)="AddmoreSubmitData(mstapplicantskilldetail_Form)"> Add More Skills</button>
+                        <button (click)="onSubmitData(mstapplicantskilldetail_Form)">Add Education </button>
+                        <!-- <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="addEducation()">
                         <img src="assets/newstartup/AddMoreSkills.png" alt="" (click)="AddmoreSubmitData(mstapplicantskilldetail_Form)">
-                        <img src="assets/newstartup/AddEducation.png" alt="" (click)="onSubmitData(mstapplicantskilldetail_Form)">
+                        <img src="assets/newstartup/AddEducation.png" alt="" (click)="onSubmitData(mstapplicantskilldetail_Form)">-->
                     </div>
 
                 </div>

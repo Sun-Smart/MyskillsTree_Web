@@ -72,6 +72,7 @@ export class MstStartPagesComponent implements OnInit {
   usermail: any;
   sub: any;
   showLabel_data:boolean = false;
+  emailid: any;
 
 
 
@@ -104,7 +105,7 @@ export class MstStartPagesComponent implements OnInit {
 
     this.loginUser = localStorage.getItem('username');
     this.applicantid = localStorage.getItem('applicantid');
-    this.usermail = localStorage.getItem('emailid');
+    this.emailid = localStorage.getItem('emailid');
     this.usernumber = localStorage.getItem('mobilenumber');
     
     this.mstapplicantmaster_Form = this.fb.group({
@@ -113,7 +114,7 @@ export class MstStartPagesComponent implements OnInit {
       applicantid: this.applicantid,
       firstname: [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)])],
       lastname: [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)])],
-      emailid: this.usermail,
+      emailid:this.emailid,
       mobilenumber: [null, Validators.compose([Validators.required])],
       applicanttype: [null, Validators.compose([Validators.required])],
       applicanttypedesc: [null],
@@ -141,18 +142,6 @@ export class MstStartPagesComponent implements OnInit {
       status: [null],
       statusdesc: [null],
     });
-    
-    this.sub = this.currentRoute.queryParams.subscribe((params: any) => {
-
-      let label = params["updateProfile"];
-
-      if(label = true){
-        this.showLabel_data = false;
-      }
-
-      console.log("label", label);
-      
-    })
   }
 
   get f() { return this.mstapplicantmaster_Form.controls; }
@@ -286,12 +275,13 @@ export class MstStartPagesComponent implements OnInit {
     if ((res.mstapplicantmaster as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
     console.log(res);
     //console.log(res.order);
-    //console.log(res.orderDetails);
+    console.log(res.mstapplicantmaster.emailid);
+
     this.mstapplicantmaster_Form.patchValue({
       applicantid: res.mstapplicantmaster.applicantid,
       firstname: res.mstapplicantmaster.firstname,
       lastname: res.mstapplicantmaster.lastname,
-      emailid: res.mstapplicantmaster.emailid,
+      emailid: res.mstapplicantmaster.emailid ?  res.mstapplicantmaster.emailid : this.emailid,
       mobilenumber: res.mstapplicantmaster.mobilenumber,
       applicanttype: res.mstapplicantmaster.applicanttype,
       applicanttypedesc: res.mstapplicantmaster.applicanttypedesc,
@@ -316,7 +306,7 @@ export class MstStartPagesComponent implements OnInit {
       availableforjob: res.mstapplicantmaster.availableforjob,
       profilecompletion: res.mstapplicantmaster.profilecompletion,
       applicantreference: res.mstapplicantmaster.applicantreference,
-      attachment: JSON.parse(res.mstapplicantmaster.attachment),
+      attachment: "[]",
       status: res.mstapplicantmaster.status,
       statusdesc: res.mstapplicantmaster.statusdesc,
     });

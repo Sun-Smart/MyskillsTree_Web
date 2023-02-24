@@ -4,7 +4,7 @@ import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms'
 import { AppConstants } from '../../shared/helper';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastService } from '../core/services/toast.service';
+import { ToastService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -97,17 +97,18 @@ export class RegisterComponent implements OnInit {
         debugger;
         if (res == 'Email already exist') {
           this.showSpinner = false;
-          // this.toastr.addSingle("error", "", "Email already exist");
-          alert("Email already exist");
+          this.toastr.addSingle("error", "", "Email already exist");
+          // alert("Email already exist");
           return;
         } else if (res == 'Mobilenumber already exist') {
           this.showSpinner = false;
-          alert('Mobilenumber already exist');
+          // alert('Mobilenumber already exist');
+          this.toastr.addSingle("error", "", "Mobile Number already exist");
           return;
         } else {
           this.showSpinner = false;
-          // this.toastr.addSingle("success", "", "Successfully Registered.Check your mail for the login credentials");
-          alert("Successfully Registered.Check your mail for the login credentials");
+          this.toastr.addSingle("success", "", "Successfully Registered.Check your mail for the login credentials");
+          // alert("Successfully Registered.Check your mail for the login credentials");
           this.objvalues.push((res as any).bouserregistration)
           this.bouserregistration_Form.reset(this.bouserregistration_Form.value);
           this.bouserregistration_Form.reset();
@@ -123,15 +124,15 @@ export class RegisterComponent implements OnInit {
         console.log(error.error);
         if (error.error == "Email already exist") {
           this.showSpinner = false;
-          alert('Email already exist');
+          this.toastr.addSingle("error", "", "Email already exist");
           return;
         } else if (error.error == 'Mobilenumber already exist') {
           this.showSpinner = false;
-          alert('Mobilenumber already exist');
+          this.toastr.addSingle("error", "", "Mobile Number already exist");
           return;
         } else if (error.error == 'Email already existMobilenumber already exist') {
           this.showSpinner = false;
-          alert('Email or Mobilenumber already exist');
+          this.toastr.addSingle("error", "", "Email already existMobilenumber already exist");
           return;
         }
       });

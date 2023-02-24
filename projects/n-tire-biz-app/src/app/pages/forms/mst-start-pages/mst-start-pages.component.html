@@ -2,9 +2,9 @@
   <div class="main-contentainer">
 
     <div class="inline-curve">
-      <h4 >Welcome...</h4>
-      <h6  >MySkillsTree</h6>
-      <label  >Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
+      <h4>Welcome...</h4>
+      <h6>MySkillsTree</h6>
+      <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
       <!-- <label class="applicant-name-label"></label> -->
       <p style="margin-left: 1rem;">Kindly Provide Your Personal Details </p>
       <img src="assets/newstartup/infography_personal.png" alt="" style="margin: 7%;width: 86%;">
@@ -56,15 +56,15 @@
 
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="emailid" class="control-label required">Email</label>
-            <input type="email" readonly id="emailid" formControlName="emailid" class="form-control">
+            <input type="email" readonly id="emailid" [value]= "emailid" formControlName="emailid" class="form-control">
           </div>
 
           <!-- Mobile Number -->
 
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="mobilenumber" class="control-label required">Mobile Number</label>
-            <int-phone-prefix id="mobilenumber" required aria-readonly="true" formControlName="mobilenumber" [locale]="'en'"
-              class="form-control telephone">
+            <int-phone-prefix id="mobilenumber" required aria-readonly="true" formControlName="mobilenumber"
+              [locale]="'en'" class="form-control telephone">
             </int-phone-prefix>
           </div>
 
@@ -176,8 +176,10 @@
           <!-- Skip & Save -->
 
           <div class="col-12 button-css">
-            <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="addskill()">
-            <img src="assets/newstartup/AddSkills1.png" alt="addskills" (click)="onSubmit()">
+            <!-- <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="addskill()"> -->
+            <!-- <img src="assets/newstartup/AddSkills1.png" alt="addskills" (click)="onSubmit()"> -->
+            <button (click)="addskill();">Skip</button>
+            <button (click)="onSubmit();">Add Skills</button>
           </div>
 
         </div>

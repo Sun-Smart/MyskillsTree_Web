@@ -15,9 +15,10 @@
         (click)="releasemethod(false)">Hide</button>
     </div>
   </div>
+
   <div class="row mobile_col" style="height: 100%;">
-    <div class="dashboard-sidebar col-3" style="height: auto;">
-      <div class="dashboard-sidebar-content">
+    <div class="dashboard-sidebar col-3">
+      <div class="dashboard-sidebar-content  overflow-auto">
         <div class="row sidenav-skill-card">
           <label class="head-label"> Skills</label>
           <div class="col-12" *ngIf="finalarray.length == 0" style="text-align: center;">
@@ -98,7 +99,9 @@
         </div>
       </div>
     </div>
-    <div class="main-dash-content col-9">
+
+
+    <div class="main-dash-content overflow-auto col-9">
       <div class="row" style="background-color: #333333; color: #fff;" *ngIf="showhearder_Details">
         <div class="col-12">
           <h6 style="font-weight: 600;">{{sub_categorydesc}} - {{expYrs}}yrs ({{remarks}})
@@ -126,7 +129,7 @@
                 <tr *ngFor="let item of dashboard_employementdetails">
                   <td style="padding-left: 20px;">{{item.companyname}}</td>
                   <td>{{item.designation}}</td>
-                  <td>{{item.details}}</td>
+                  <td style="white-space: break-spaces;line-height: 1.5;">{{item.details}}</td>
                   <td>{{item.fromdate | date : 'dd-MM-yyyy'}}</td>
                   <td>{{item.todate | date : 'dd-MM-yyyy'}}</td>
                 </tr>
@@ -167,9 +170,9 @@
               </thead>
               <tbody class="dashboard-table-data">
                 <tr *ngFor="let item of dashboard_projectdetails">
-                  <td style="padding-left: 20px;">{{item.companyname}}</td>
-                  <td>{{item.worktopic}}</td>
-                  <td>{{item.workdescription}}</td>
+                  <td style="padding-left: 20px;padding-right: 20px;">{{item.companyname}}</td>
+                  <td style="padding-right: 20px;">{{item.worktopic}}</td>
+                  <td style="white-space: break-spaces;line-height: 1.5;">{{item.workdescription}}</td>
                 </tr>
               </tbody>
             </table>
@@ -196,7 +199,7 @@
                 <tr  *ngFor="let item of dashboard_achievementdetails">
                   <td style="padding-left: 20px;">{{item.masterdataiddesc}}</td>
                   <td>{{item.skilldesc}}</td>
-                  <td>{{item.achievementdetails}}</td>
+                  <td style="white-space: break-spaces;line-height: 1.5;">{{item.achievementdetails}}</td>
                 </tr>
               </tbody>
             </table>

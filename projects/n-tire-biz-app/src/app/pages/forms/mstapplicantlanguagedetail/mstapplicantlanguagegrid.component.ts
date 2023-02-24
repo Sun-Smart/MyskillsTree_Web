@@ -239,7 +239,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <!-- Remarks -->
 
         <td>
-        <textarea autosize rows="1" cols="10" class="form-control"  id="achievementdetails"
+        <textarea autosize rows="3" cols="10" class="form-control"  id="achievementdetails"
         formControlName="remarks">
         </textarea>
         </td>

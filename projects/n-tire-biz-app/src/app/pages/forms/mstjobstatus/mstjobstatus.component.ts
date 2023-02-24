@@ -47,6 +47,16 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
     selector: 'app-mstjobstatus',
     templateUrl: './mstjobstatus.component.html',
     styles: [`
+
+    :host /deep/ ng2-smart-table tbody > tr:nth-child(even) {
+        background-color : #f4f4f4 !important;
+        }
+        .table thead tr {
+            background-color: #a89888 !important;
+            color: #fff !important;
+            border: #6b431d !important;
+        }
+
     .mobileshowview{
       display: none;
     }
@@ -155,7 +165,7 @@ export class mstjobstatusComponent implements OnInit {
             viewid: [null],
             applicantid: [null],
             applicantiddesc: [null],
-            // applicantiddesc1:[null],
+            applicantiddesc1:[null],
             corporateid: [null],
             corporateiddesc: [null],
             viewdatetime: [null],
@@ -321,6 +331,9 @@ export class mstjobstatusComponent implements OnInit {
         }
     }
 
+
+
+
     resetForm() {
         if (this.mstjobstatus_Form != null)
             this.mstjobstatus_Form.reset();
@@ -454,7 +467,7 @@ export class mstjobstatusComponent implements OnInit {
             viewid: res.mstjobstatus.viewid,
             applicantid: res.mstjobstatus.applicantid,
             applicantiddesc: res.mstjobstatus.applicantiddesc,
-            // applicantiddesc1: res.mstjobstatus.applicantiddesc1,
+            applicantiddesc1: res.mstjobstatus.applicantiddesc1,
             corporateid: res.mstjobstatus.corporateid,
             corporateiddesc: res.mstjobstatus.corporateiddesc,
             viewdatetime: this.ngbDateParserFormatter.parse(res.mstjobstatus.viewdatetime),

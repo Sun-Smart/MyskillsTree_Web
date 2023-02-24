@@ -1,5 +1,6 @@
 <div id="dialog-content" style="width:100%;height:100%">
-    <div style="display: flex;justify-content: end;align-items: center;margin: 5px;">
+    <div style="display: flex;justify-content: end;align-items: center;padding: 5px;"
+    [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
         <a class="nav-link active right dialog-close" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i>Close</a>
     </div>
     <iframe [src]="url" style="width:1000px!important;height:1000px!important" width='100%' height='100%'

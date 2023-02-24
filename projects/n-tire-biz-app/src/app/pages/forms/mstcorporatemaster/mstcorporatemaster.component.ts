@@ -996,6 +996,9 @@ export class mstcorporatemasterComponent implements OnInit {
                     filter: true,
                 },
             },
+            attr: {
+                class: 'table table-bordered table-header'
+            },
         };
     }
     mstcorporatelocations_LoadTable(mstcorporatelocations = new LocalDataSource()) {
@@ -1291,6 +1294,9 @@ export class mstcorporatemasterComponent implements OnInit {
                 //         return ret;
                 //     },
                 // },
+            },
+            attr: {
+                class: 'table table-bordered table-header'
             },
         };
     }

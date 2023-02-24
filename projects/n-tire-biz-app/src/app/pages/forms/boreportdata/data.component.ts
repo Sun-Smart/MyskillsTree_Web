@@ -6,6 +6,7 @@ import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator } from '@angular/forms';
 
+import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { BOReportViewerService } from '../../../../../../n-tire-biz-app/src/app/service/boreportviewer.service';
 import { bomenumasterService } from '../../../../../../n-tire-biz-app/src/app/service/bomenumaster.service';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
@@ -24,15 +25,26 @@ export class dataComponent implements OnInit {
   menuactions: any;
   menuid: any;
   data: any;
+  userrole: any;
+
   constructor(
     private sanitizer: DomSanitizer,
-    private router: Router,
+    private router: Router, public sessionService: SessionService,
     public dynamicconfig: DynamicDialogConfig,
     private boreportviewerservice: BOReportViewerService,
     private bomenumasterservice: bomenumasterService, public dialogRef: DynamicDialogRef) {
     this.data = dynamicconfig;
   }
   async ngOnInit() {
+
+    if (this.sessionService.getItem('role') == '1') {
+      this.userrole = 'Admin';
+    } else if (this.sessionService.getItem('role') == '2') {
+      this.userrole = 'Applicant';
+    } else if (this.sessionService.getItem('role') == '3') {
+      this.userrole = 'Corporate';
+    }
+
     if (this.data != null && this.data.data != null) this.data = this.data.data;
     debugger;
 

@@ -208,7 +208,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- Remarks -->
 
                    <td>
-                    <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks" required></textarea>
+                    <textarea name="w3review" rows="3" cols="10" class="form-control" formControlName="remarks" required></textarea>
                     <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor> -->
                     </td>
 

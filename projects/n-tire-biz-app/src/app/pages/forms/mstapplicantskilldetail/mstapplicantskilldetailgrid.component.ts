@@ -241,7 +241,7 @@ import { MstapplicantskilldetailsattachmentComponent } from '../mstapplicantskil
         <!-- Remarks -->
 
         <td>
-          <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
+          <textarea name="w3review" rows="3" cols="10" class="form-control" formControlName="remarks"></textarea>
           <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '20' }"></p-editor> -->
         </td>
 
@@ -473,8 +473,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   ngAfterViewInit() {
   }
-
-
 
   getData() {
     debugger
@@ -759,15 +757,11 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         subcategoryid: res.mstapplicantskilldetail.subcategoryid,
         subcategoryiddesc: res.mstapplicantskilldetail.subcategoryiddesc,
 
-        //suneel
-        // segmentid: res.mstapplicantskilldetail.segmentid,
         segmentid: this.seg_id,
         segmentcategorydesc: res.mstapplicantskilldetail.segmentdesc,
-
         segmentcategoryothers: res.mstapplicantskilldetail.segmentcategoryothers,
         skillcategoryothers: res.mstapplicantskilldetail.skillcategoryothers,
         subcategoryidothers: res.mstapplicantskilldetail.subcategoryidothers,
-
         selfrating: res.mstapplicantskilldetail.selfrating,
         remarks: res.mstapplicantskilldetail.remarks,
         requestid: res.mstapplicantskilldetail.requestid,
