@@ -1,52 +1,22 @@
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-
-import { mstapplicantskilldetail } from './../../../model/mstapplicantskilldetail.model';
-import { mstapplicantskilldetailComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.component';
-import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
-
-import { mstapplicantreferencerequest } from './../../../model/mstapplicantreferencerequest.model';
 import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
 import { mstapplicantreferencerequestService } from './../../../service/mstapplicantreferencerequest.service';
-
-//primeng services
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
 import { mstapplicantworkreferenceComponent } from './mstapplicantworkreference.component';
-import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
@@ -77,23 +47,10 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 
 <div class="col-4" style="text-align: end; margin: auto;">
 
-                <!-- <a  [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"> -->
-                <!-- <button type="button" style="border-color: #fff !important;
-                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
                 <button type="button" class="btn btn-outline-primary popup-add-button" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"
                 title = "Add Details">Add</button>
 
-                <!-- <button (click)="addSkills()">Add 1</button> -->
-                <!-- </a> -->
-
-                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-
                 <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="work_ref_mobile" style="width: 20px;" title = "Close"/></a>
-
-                <!--<ul class="rightside">
-                <a  [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
-                style="color:#fff !important;"   class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-                </ul>-->
 </div>
 </div>
 
@@ -119,23 +76,10 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 
 <div class="col-4" style="text-align: end; margin: auto;">
 
-                <!-- <a  [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"> -->
-                <!-- <button type="button" style="border-color: #fff !important;
-                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
                 <button type="button" class="btn btn-outline-primary popup-add-button" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"
                 title = "Add Details">Add</button>
 
-                <!-- <button (click)="addSkills()">Add 1</button> -->
-                <!-- </a> -->
-
-                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-
                 <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="work_ref_mobile" style="width: 20px;" title = "Close"/></a>
-
-                <!--<ul class="rightside">
-                <a  [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
-                style="color:#fff !important;"   class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-                </ul>-->
 </div>
 </div>
 
@@ -202,11 +146,6 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 
                 <!--skill-->
                     <td>
-                    <!-- <select  id="skill" required
-                    (change)="skill_onchange($event.target)" formControlName="skill" class="form-control">
-                    <option [ngValue]="null" selected>-Select-</option>
-                    <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
-                    </select> -->
 
                     <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
                     (completeMethod)="search_skills($event)"></p-autoComplete>
@@ -272,11 +211,6 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 </div>
 <div class="col-md-12">
   <label>Skills</label><br/>
-<!-- <select  id="skill" required
-                    (change)="skill_onchange($event.target)" formControlName="skill" class="form-control">
-                    <option [ngValue]="null" selected>-Select-</option>
-                    <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
-                    </select> -->
                     <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
                     (completeMethod)="search_skills($event)"></p-autoComplete>
 
@@ -311,21 +245,12 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
               margin-top: 10px !important;
             }
             button.btn.btn-outline-primary.popup-add-button{
-              /* position: relative !important;
-              top: 13px !important;
-              right: 40px !important; */
               position: absolute !important;
               right: 50px !important;
               bottom: -3px !important;
             }
             .row.form-group.sticky1{
               height: 50px !important;
-            }
-            .work_ref_mobile{
-              /* width: 20px !important;
-              position: relative !important;
-              bottom: 14px !important;
-              right: 10px !important; */
             }
     }
     `]
@@ -378,14 +303,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   showWebviewDetect: boolean = true;
   isMobile: any;
   constructor(
-    private nav: Location,
-    private translate: TranslateService,
-    //dhana
-    private mstapplicantmaster_service: mstapplicantmasterService,
-    //end
-    private router: Router,
-    private themeService: ThemeService,
-    private ngbDateParserFormatter: NgbDateParserFormatter,
     private mstapplicantworkreference_service: mstapplicantworkreferenceService,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
@@ -394,11 +311,9 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     private fb: FormBuilder,
     private sessionService: SessionService,
     private toastr: ToastService,
-    private sanitizer: DomSanitizer,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
     private mstapplicantreferencerequestService: mstapplicantreferencerequestService,
   ) {
-    debugger;
     this.data = dynamicconfig;
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -461,11 +376,10 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     this.mstapplicantworkreference_service.getDefaultData().then(res => {
       this.applicantid_List = res.list_applicantid.value;
       this.skills_List = res.list_skills.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
   };
 
   getSkills(skills_List: any) {
-    debugger;
     let skills: any[] = [];
 
     for (let i = 0; i < skills_List.length; i++) {
@@ -475,7 +389,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   }
 
   getSkillsDescription() {
-    debugger;
     let skillsdescription: any[] = [];
     for (let i = 0; i < this.skills_List.length; i++) {
       for (let j = 0; j < this.mstapplicantworkreference_Form.get('skills').value.length; j++) {
@@ -488,7 +401,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   }
 
   get_companyName() {
-    debugger
     this.mstapplicantworkreference_service.get_mstapplicantworkreferences_companyList(this.applicantid).then(res => {
       console.log(res);
       this.companyList = res as DropDownValues[];
@@ -496,33 +408,27 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   }
 
   search_skills(event) {
-    debugger;
     this.skills_results = this.skills_List.filter(v => v.label.toLowerCase().indexOf(event.query.toLowerCase()) > -1).slice(0, 10);
   }
 
   skill_onchange(event: any) {
-    console.log("skill_onchange", event);
     let e = event.value;
     this.mstapplicantworkreference_Form.patchValue({ skilldesc: event.options[event.options.selectedIndex].text });
 
   }
   onChange_companyList(event: any) {
-    debugger
-    console.log("onChange_companyList", event);
     this.mstapplicantworkreference_Form.patchValue({ companyname: event.options[event.options.selectedIndex].text });
   }
   async PopulateScreen(pkcol: any) {
     this.spinner.show();
     this.mstapplicantworkreference_service.get_mstapplicantworkreferences_ByEID(pkcol).then(res => {
       this.spinner.hide();
-
       this.formData = res.mstapplicantworkreference;
       let formproperty = res.mstapplicantworkreference.formproperty;
       if (formproperty && formproperty.edit == false) this.showview = true;
       this.pkcol = res.mstapplicantworkreference.pkcol;
       this.formid = res.mstapplicantworkreference.workreferenceid;
-      //   this.FillData(res);
-    }).catch((err) => { console.log(err); });
+    }).catch((err) => { });
   }
 
   addSkills() {
@@ -538,7 +444,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       this.onSubmitData(false);
     }
     else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-      // this.onSubmitDataDlg(false);
       this.onSubmitData(false);
     }
     else {
@@ -555,15 +460,11 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     var obj = this.mstapplicantworkreference_Form.getRawValue();
     if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     obj.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log(obj);
     await this.sharedService.upload(this.fileAttachmentList);
     this.attachmentlist = [];
     if (this.fileattachment) this.fileattachment.clear();
     this.objvalues.push(obj);
     this.dialogRef.close(this.objvalues);
-    setTimeout(() => {
-      //this.dialogRef.destroy();
-    }, 200);
   }
 
   onSubmit() {
@@ -579,7 +480,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   };
 
   async onSubmitData(bclear: any) {
-    debugger;
     this.isSubmitted = true;
     let strError = "";
     if (!this.mstapplicantworkreference_Form.valid) {
@@ -593,12 +493,10 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     this.formData.skills = null;
     this.formData.applicantid = this.applicantid;
     if (this.mstapplicantworkreference_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantworkreference_Form.get('skills').value));
-    console.log(this.formData);
     this.spinner.show();
     this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(
       async res => {
         this.spinner.hide();
-        debugger;
         this.toastr.addSingle("success", "", "Successfully saved");
         this.sessionService.setItem("attachedsaved", "true")
         this.mstapplicantworkreference_Form.reset();
@@ -629,10 +527,8 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         this.mstapplicantworkreference_Form.markAsPristine();
       },
       err => {
-        debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       }
     )
   }
@@ -708,14 +604,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     return ret;
   }
   FillData() {
-    // this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.applicantid).then(res => {
-    //     this.mstapplicantworkreference_menuactions = res.mstapplicantworkreference_menuactions;
-    //     this.Set_mstapplicantworkreferences_TableConfig();
-    //     this.mstapplicantworkreferences_LoadTable(res.mstapplicantworkreferences);
-    // });
-    // debugger;
-
-
     this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
       this.mstapplicantworkreference_menuactions = res.mstapplicantworkreference_menuactions;
       debugger;
@@ -729,7 +617,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   }
 
   Add_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
-    debugger;
     this.showSkillDetails_input = true;
     this.mstapplicantworkreference_Form.reset();
     let add = false;
@@ -739,7 +626,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   }
 
   Edit_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
-    debugger;
     this.showSkillDetails_input = true;
     let add = false;
     if (event == null) add = true;
@@ -748,9 +634,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
     console.log(event, event.data.workreferenceid, event.data.applicantid);
     this.mstapplicantworkreference_service.get_mstapplicantworkreferences_ByEID(event.data.pkcol).then((res: any) => {
-      debugger;
-      console.log(res);
-
       this.mstapplicantworkreference_Form.patchValue({
         applicantid: res.mstapplicantworkreference.applicantid,
         applicantiddesc: res.mstapplicantworkreference.applicantiddesc,
@@ -772,38 +655,11 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     });
   }
 
-  // Old Code
-
-  // AddOrEdit_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
-  //     debugger;
-  //     let add = false;
-  //     if (event == null) add = true;
-  //     let childsave = true;
-  //     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-  //     this.dialog.open(mstapplicantworkreferenceComponent,
-  //         {
-  //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, workreferenceid, applicantid, visiblelist: this.mstapplicantworkreferences_visiblelist, hidelist: this.mstapplicantworkreferences_hidelist, ScreenType: 2 },
-  //         }
-  //     ).onClose.subscribe(res => {
-  //         if (res) {
-  //             if (add) {
-  //                 for (let i = 0; i < res.length; i++) {
-  //                     this.tbl_mstapplicantworkreferences.source.add(res[i]);
-  //                 }
-  //                 this.tbl_mstapplicantworkreferences.source.refresh();
-  //             }
-  //             else {
-  //                 this.tbl_mstapplicantworkreferences.source.update(event.data, res[0]);
-  //             }
-  //         }
-  //     });
-  // }
 
   onDelete_mstapplicantworkreference(event: any, childID: number, i: number) {
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicantreferencerequestService.delete_mstapplicantreferencerequest(childID).then(res => {
         this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
-          debugger;
           this.ngOnInit();
           this.mstapplicantworkreferences_LoadTable(res);
         });
@@ -811,15 +667,10 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantworkreference_IDs += childID + ",";
-    // this.tbl_mstapplicantworkreferences.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
   mstapplicantworkreferences_settings: any;
 
   show_mstapplicantworkreferences_Checkbox() {
-    //debugger;;
     if (this.tbl_mstapplicantworkreferences.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantworkreferences.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantworkreferences.source.settings['selectMode'] = 'multi';
@@ -829,15 +680,8 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     this.tbl_mstapplicantworkreferences.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantworkreferences_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantworkreferences_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantworkreferences.source.settings != null) this.tbl_mstapplicantworkreferences.source.settings['hideSubHeader'] = !this.tbl_mstapplicantworkreferences.source.settings['hideSubHeader'];
     this.tbl_mstapplicantworkreferences.source.initGrid();
-  }
-  show_mstapplicantworkreferences_InActive() {
-  }
-  enable_mstapplicantworkreferences_InActive() {
   }
   async Set_mstapplicantworkreferences_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantworkreferences) {
@@ -870,18 +714,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         // custom: this.mstapplicantworkreference_menuactions
         custom: this.mstapplicantworkreference_menuactions
       },
-      // actions: {
-      //     columnTitle: '',
-      //     width: '300px',
-      //     edit: true, // true,
-      //     delete: (this.IsApplicant || this.IsAdmin),
-      //     position: 'left',
-      //     // custom: this.mstapplicantworkreference_menuactions
-      //     custom: [{
-      //         name: 'reference',
-      //         title: `<i class="icon-references" aria-hidden="true"></i>`,
-      //     }],
-      // },
       add: {
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
@@ -1025,24 +857,11 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     }
   }
   async onCustom_mstapplicantworkreferences_Action(event: any) {
-    //   this.dialog.open(mstapplicantreferencegridComponent, {
-    //     width: '100% !important',
-    //     height: 'auto !important',
-    //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-    //   })
-
     let referencesourcedetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Work Topic: ' + event.data.worktopic + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;white-space: break-spaces !important;"> Work Description: ' + event.data.workdescription + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.referenceurl + '</li>'
       + '<li class="list-group-item remarks_p" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
 
-
-    // let referencesourcedetails =
-    //     'Work Topic: ' + event.data.worktopic +
-    //     '<BR>' +
-    //     'Work Description: ' +event.data.workdescription + '<BR>'
-    //     + 'Reference URL: ' + event.data.referenceurl +
-    //     '<BR>' + 'Remarks: ' + event.data.remarks;
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantworkreferences");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantreferencerequests") {
@@ -1084,7 +903,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     }
   }
   mstapplicantworkreferences_Paging(val) {
-    //debugger;;
     this.tbl_mstapplicantworkreferences.source.setPaging(1, val, true);
   }
 
