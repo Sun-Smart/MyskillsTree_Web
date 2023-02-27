@@ -1,7 +1,6 @@
 p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
   max-width: 99% !important;
   display: flex !important;
-  // min-height: 85% !important;
 }
 
 .p-accordion {
@@ -14,7 +13,6 @@ p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
 @media only screen and (max-width: 600px) {
   h4.form-group.sticky1.columns.left {
     white-space: nowrap !important;
-    // font-size: 18px !important;
   }
   .custom_list{
     padding: 0.45rem 0.26rem !important;
@@ -30,12 +28,6 @@ p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
     position: absolute !important;
     right: 70px !important;
     bottom: -3px !important;
-  }
-  .row.skill_title{
-    // width: 540px !important;
-  }
-  .mobile_grid_view{
-    // width: 540px !important;
   }
   .showhidemobileviewskill{
     display: block !important;

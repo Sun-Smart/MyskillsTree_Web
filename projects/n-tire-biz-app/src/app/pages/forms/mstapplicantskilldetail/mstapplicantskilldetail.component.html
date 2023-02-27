@@ -58,10 +58,6 @@
             </ul>
           </li>
         </ul>
-        <!-- <ng-container *ngFor="let action of mstapplicantskilldetail_menuactions">
-            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
-                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
-          </ng-container>-->
       </div>
     </div>
 
@@ -101,17 +97,6 @@
     <!--applicantid-->
 
     <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
-      <!-- <div
-        *ngIf="((hidelist.indexOf('applicantid') == -1) && (applicantidvisible==undefined || applicantidvisible==true))"
-        style='' class="col-3"><label for="applicantid" class="control-label"
-          (click)="AddOrEdit_applicantid(null)">Applicant</label>
-        <app-popupselect *ngIf="!showview" [options]="applicantid_List" [optionsEvent]="applicantid_optionsEvent"
-          [form]="mstapplicantmaster" (selectItem)="onSelected_applicantid($event)" [reportid]='MAM' [menuid]='MAM'
-          formControlName="applicantid" id="value" desc="label"></app-popupselect>
-        <div class="input-group">
-        </div>
-        <label *ngIf="showview" class="labelview">{{f.applicantiddesc?.value}}</label>
-      </div> -->
 
       <!--Segmentcategory-->
 
@@ -120,10 +105,8 @@
         *ngIf="((hidelist.indexOf('segmentid') == -1) && (segmentcategoryvisible==undefined || segmentcategoryvisible==true))"
         style='' class="col-4"><label for="segmentid" class="control-label required">Segments
         </label>&nbsp;&nbsp;
-        <!-- <a [routerLink]='' (click)="AddOrEditsegmentcategory(null)"> Add segment Category</a> -->
         <select *ngIf="!showview" id="segmentid" required (change)="segmentcategory_onChange($event.target)"
           formControlName="segmentid" class="form-control">
-          <!-- <option [ngValue]="null" disabled selected>-Select-</option> -->
           <option [ngValue]="null" [disabled]="true">-Select-</option>
           <option *ngFor="let item of Segmentcategory_list" value="{{item.value}}">{{item.label}}</option>
         </select>
@@ -176,7 +159,7 @@
         <input *ngIf="showinput3" id="subcategoryid" class="form-control" formControlName="subcategoryidothers"
           type="text">
         <app-field-error-display [displayError]="f.subcategoryid.errors?.required"
-          errorMsg="Enter {{'Sub Category' | translate}}">
+          errorMsg="Enter {{'Sub Category'}}">
         </app-field-error-display>
       </div>
 
@@ -200,8 +183,6 @@
             <input type="checkbox" *ngIf="!showview" id="showorhide" formControlName="showorhide"
               class="form-control"></label>
           <label *ngIf="showview" class="labelview">{{f.showorhide?.value}}</label>
-          <!-- <p-inputSwitch formControlName="showorhide" *ngIf="!showview" id="showorhide"></p-inputSwitch> -->
-
         </div>
       </div>
     </div>
@@ -214,26 +195,6 @@
         <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>
       </div>
     </div>
-
-    <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div *ngIf="hidelist.indexOf('requestid') == -1 && f.requestid.value !=null" class="col-3 ">
-        <button class="btn btn-link" (click)="viewrequestid()" type="button"><i class="fa fa-external-link"></i>
-          View Request</button>
-        <label *ngIf="showview" class="labelview">{{f.requestid?.value}}</label>
-      </div>
-    </div> -->
-
-
-    <!--referenceacceptance-->
-
-    <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div
-        *ngIf="((hidelist.indexOf('referenceacceptance') == -1) && (referenceacceptancevisible==undefined || referenceacceptancevisible==true)) || f.requestid.value !=null"
-        style='' class="col-3"><label for="referenceacceptance" class="control-label">Reference Acceptance</label>
-        <input readonly id="referenceacceptancedesc" formControlName="referenceacceptancedesc" class="form-control">
-        <label *ngIf="showview" class="labelview">{{f.referenceacceptancedesc?.value}}</label>
-      </div>
-    </div> -->
     <div class='full-width Skill-attachment' *ngIf="attachmentVisible">
       <p-accordion [multiple]='true'>
         <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>

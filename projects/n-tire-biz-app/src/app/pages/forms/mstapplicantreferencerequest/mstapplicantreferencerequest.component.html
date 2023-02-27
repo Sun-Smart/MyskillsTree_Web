@@ -3,7 +3,7 @@
 <form [formGroup]="mstapplicantreferencerequest_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second second2" style="background-color: #ebf3fc !important;">
     <div class="col-4">
-      <h1 class="columns mainheader left common_titles_new">{{'Reference Requests' | translate}}</h1>
+      <h1 class="columns mainheader left common_titles_new">{{'Reference Requests'}}</h1>
     </div>
 
     <div class='col-4  sticky1 second second2' role='toolbar' aria-label='Toolbar with button groups'>
@@ -66,17 +66,8 @@
     <div class="col-4">
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;line-height: 1;">
         <li class='nav-item actionheader' *ngIf="!showview">
-          <!-- <a class="alert-success" [routerLink]=''>  -->
-          <!-- <a class="btn btn-outline-primary  popup-add-button showhideback" [routerLink]=''(click)="goBack()" >
-              Back</a> -->
           <button type="button" class="btn btn-outline-primary  popup-add-button"
             (click)="onSubmitAndWait()">Submit</button>&nbsp;
-          <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-          <!-- <button type="button" class="btn btn-outline-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null'
-              style="border-color: #fff !important;
-              color: #fff;margin: 5px;
-    padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp; -->
           <app-action *ngIf="f.requestid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
             [value]="f.requestid.value" [status]="f.status.value"></app-action>
         </li>
@@ -161,7 +152,7 @@
               aria-hidden="true"></i></button>
         </div>
         <app-field-error-display [displayError]="f.requestreferencedate.errors?.required"
-          errorMsg="Enter {{'Date' | translate}}">
+          errorMsg="Enter {{'Date'}}">
         </app-field-error-display>
       </div>
       <div *ngIf="requestedcontactvisible==undefined || requestedcontactvisible==true" style=''
@@ -170,10 +161,10 @@
         <label *ngIf="showview" class="labelview">{{f.requestedcontact?.value}}</label>
         <input *ngIf="!showview" id="requestedcontact" required formControlName="requestedcontact" class="form-control">
         <app-field-error-display [displayError]="f.requestedcontact.errors?.required"
-          errorMsg="Enter {{'Contact' | translate}}">
+          errorMsg="Enter {{'Contact'}}">
         </app-field-error-display>
         <app-field-error-display [displayError]="f.requestedcontact.errors?.pattern"
-          errorMsg="{{'Contact' | translate}} not valid">
+          errorMsg="{{'Contact'}} not valid">
         </app-field-error-display>
       </div>
       <div *ngIf="contactdesignationvisible==undefined || contactdesignationvisible==true" style=''
@@ -181,9 +172,6 @@
         <label for="contactdesignation" class="control-label">Designation</label>
         <label *ngIf="showview" class="labelview">{{f.contactdesignation?.value}}</label>
         <input *ngIf="!showview" id="contactdesignation" formControlName="contactdesignation" class="form-control">
-        <!-- <app-field-error-display [displayError]="f.contactdesignation.errors?.required"
-          errorMsg="Enter {{'Designation' | translate}}">
-        </app-field-error-display> -->
       </div>
       <div *ngIf="contactemailidvisible==undefined || contactemailidvisible==true" style=''
         class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -192,7 +180,7 @@
         <input type="email" [email]="true" *ngIf="!showview" id="contactemailid" formControlName="contactemailid"
           class="form-control" required>
         <app-field-error-display [displayError]="f.contactemailid.errors?.required"
-          errorMsg="Enter {{'email' | translate}}">
+          errorMsg="Enter {{'email'}}">
         </app-field-error-display>
         <app-field-error-display [displayError]="f.contactemailid.errors!=null && f.contactemailid.errors?.email"
           errorMsg="Enter valid email">
@@ -277,27 +265,6 @@
 
     </div>
     <br />
-    <!-- <div class="card form-group row blue" style="width: 100% !important;height: auto !important;" *ngIf="(viewhtml == '' || !showview)">
-      <div class="card-body" innerHtml="{{f.referencesourcedetails?.value}}">
-      </div>
-    </div> -->
-
-    <!-- <div *ngIf="(viewhtml == '' || !showview)" class="form-group row blue"
-      innerHtml="{{f.referencesourcedetails?.value}}">
-    </div> -->
-
-
-    <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div *ngIf="contactfileattachvisible==undefined || contactfileattachvisible==true" style='width:1500px'
-        class="col-12 ">
-        <label for="contactfileattach" class="control-label">File Attachment</label>
-        <label *ngIf="showview" class="labelview">{{f.contactfileattach?.value[0]?.name}}</label>
-        <app-attachment #contactfileattach formControlName="contactfileattach" [showremove]='bmyrecord'
-          [SessionData]="sessionData"></app-attachment>
-        <button type="button" class="btn" *ngIf="contactfileattach.getAttachmentList().length > 0"
-          (click)="getcontactfileattach()">Download File</button>
-      </div>
-    </div> -->
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="sentvisible==undefined || sentvisible==true" style='' class="col-3 ">
         <div class="columnchk">
@@ -326,17 +293,3 @@
     </div>
   </div>
 </form>
-
-<!-- <div class="card-footer text-muted">
-  <li class='nav-item actionheader common_title_style' style="background:transparent !important;  margin-top: 12px;"
-    *ngIf="!showview">
-
-    <button type="button" class="btn btn-outline-primary1" style="border-color: #fff !important;margin: -3px;
-      padding: -2px;
-      position: sticky;
-  margin-left: 985px  !important;
-  background:#0368b7 !important;
-
-      color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
-  </li>
-</div> -->

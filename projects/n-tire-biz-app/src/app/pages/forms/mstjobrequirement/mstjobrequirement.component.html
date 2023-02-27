@@ -4,8 +4,7 @@
   <div class="row second"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <div class="col-4" style="display: flex;align-items: center;">
-      <h1 class=" columns mainheader left" style="margin: auto;">{{'Job Requirements'
-          | translate}}
+      <h1 class=" columns mainheader left" style="margin: auto;">{{'Job Requirements'}}
       </h1>
     </div>
 
@@ -153,7 +152,7 @@
                 <input *ngIf="!showview" id="jobdescription" required formControlName="jobdescription"
                   class="form-control">
                 <app-field-error-display [displayError]="f.jobdescription.errors?.required"
-                  errorMsg="Enter {{'Job Description' | translate}}">
+                  errorMsg="Enter {{'Job Description'}}">
                 </app-field-error-display>
               </div>
               <div
@@ -164,7 +163,7 @@
                 <input *ngIf="!showview" id="jobrequirement" required formControlName="jobrequirement"
                   class="form-control">
                 <app-field-error-display [displayError]="f.jobrequirement.errors?.required"
-                  errorMsg="Enter {{'Job Requirement' | translate}}">
+                  errorMsg="Enter {{'Job Requirement'}}">
                 </app-field-error-display>
               </div>
               <div
@@ -175,7 +174,7 @@
                 <input *ngIf="!showview" id="numberofpositions" required formControlName="numberofpositions"
                   class="form-control">
                 <app-field-error-display [displayError]="f.numberofpositions.errors?.required"
-                  errorMsg="Enter {{'Number Of Positions' | translate}}">
+                  errorMsg="Enter {{'Number Of Positions'}}">
                 </app-field-error-display>
               </div>
               <div
@@ -336,7 +335,7 @@
             <!-- child table mstjobstatuses-->
             <div [ngClass]="Is_mstjobstatuses_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left" style="font-size: inherit;margin: 6px 10px !important;">{{'Job Statuses' | translate}}
+              <h4 class="form-group sticky1  columns left" style="font-size: inherit;margin: 6px 10px !important;">{{'Job Statuses'}}
                 <select class='child' id="mstjobstatusesPagingdropdown"
                   (change)="mstjobstatuses_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

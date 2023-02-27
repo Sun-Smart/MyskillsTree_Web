@@ -11,7 +11,7 @@ import { MstapplicantreferenceacceptedComponent } from './mstapplicantreferencea
 // import { ApplicantregisterComponent } from './applicantregister/applicantregister.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { MstapplicantskilldetailsattachmentComponent } from './forms/mstapplicantskilldetailsattachment/mstapplicantskilldetailsattachment.component';
+// import { MstapplicantskilldetailsattachmentComponent } from './forms/mstapplicantskilldetailsattachment/mstapplicantskilldetailsattachment.component';
 import { CertifierComponent } from './certifier/certifier.component';
 import { MstLocationDetailsComponent } from './forms/mst-location-details/mst-location-details.component';
 // import { RegisterComponent } from './register/register.component';
@@ -41,7 +41,7 @@ const PAGES_COMPONENTS = [
         ...PAGES_COMPONENTS,
         MstapplicantreferenceacceptedComponent,
         ForgotpasswordComponent,
-        MstapplicantskilldetailsattachmentComponent,
+        // MstapplicantskilldetailsattachmentComponent,
         CertifierComponent,
         MstLocationDetailsComponent,
         // ApplicantregisterComponent,

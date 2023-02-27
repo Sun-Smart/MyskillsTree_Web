@@ -1,52 +1,19 @@
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import {  Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-
-import { mstapplicantskilldetail } from './../../../model/mstapplicantskilldetail.model';
-import { mstapplicantskilldetailComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.component';
-import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
-
-import { mstapplicantreferencerequest } from './../../../model/mstapplicantreferencerequest.model';
-import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
-import { mstapplicantreferencerequestService } from './../../../service/mstapplicantreferencerequest.service';
-
-//primeng services
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { mstapplicanteducationdetailService } from '../../../service/mstapplicanteducationdetail.service';
-import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 import { mstapplicantsocialmediadetailService } from '../../../service/mstapplicantsocialmediadetail.service';
 import { mstapplicantsocialmediadetailComponent } from './mstapplicantsocialmediadetail.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -78,27 +45,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </div>
 
 <div class="col-4" style="text-align: end; margin: auto;">
-    <!-- <ul class="rightside">
-    <a [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')"><i style="color:#fff !important;"
-        class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-    </ul> -->
-
-    <!-- <ul class="rightside"> -->
-                <!-- <a  [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')"> -->
-
-                <!-- <button type="button" style="border-color: #fff !important;
-                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
 
                 <button type="button" class="btn btn-outline-primary popup-add-button"
                 [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')" title = "Add Details">Add</button>
-                <!-- </a> -->
-                 <!-- <button (click)="addSkills()" >Add 1</button> -->
-
-                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
                 <a  class="" [routerLink]='' (click)="onClose()"><img style="width:20px;" class="social_close_btn" src="assets/mainmenuicons/icons_close.png"/></a>
 
-                <!-- </ul> -->
 </div>
 
 
@@ -126,27 +78,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </div>
 
 <div class="col-4" style="text-align: end; margin: auto;">
-    <!-- <ul class="rightside">
-    <a [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')"><i style="color:#fff !important;"
-        class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-    </ul> -->
-
-    <!-- <ul class="rightside"> -->
-                <!-- <a  [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')"> -->
-
-                <!-- <button type="button" style="border-color: #fff !important;
-                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
 
                 <button type="button" class="btn btn-outline-primary popup-add-button"
                 [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')" title = "Add Details">Add</button>
-                <!-- </a> -->
-                 <!-- <button (click)="addSkills()" >Add 1</button> -->
-
-                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
                 <a  class="" [routerLink]='' (click)="onClose()"><img style="width:20px;"  src="assets/mainmenuicons/icons_close.png"/></a>
 
-                <!-- </ul> -->
 </div>
 
 
@@ -159,7 +96,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       <th style="width: 21.5%;">Handle Name</th>
       <th style="width: 21.5%;">Url</th>
       <th style="width: 25%;">Remarks</th>
-      <!-- <th style="width: 25%;">Attachment</th> -->
       <th>Action</th>
     </tr>
   </thead>
@@ -185,8 +121,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
         <td>
         <input *ngIf="!showview" id="url" required formControlName="url" class="form-control">
-        <!-- <app-field-error-display [displayError]="f.url.errors?.required" errorMsg="Enter {{'U R L' | translate}}">
-        </app-field-error-display> -->
         </td>
 
         <!-- Remarks -->
@@ -196,17 +130,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         formControlName="remarks" class="form-control">
         </textarea>
         </td>
-
-        <!-- Attachment -->
-
-        <!-- <td>
-        <p-accordion [multiple]='true'>
-            <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
-            <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
-            </app-attachment>
-            </p-accordionTab>
-        </p-accordion>
-        </td> -->
 
             <!-- Submit & Close -->
 
@@ -287,26 +210,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
           margin-top: 16px !important;
         }
         button.btn.btn-outline-primary.popup-add-button{
-          /* position: relative !important;
-          right: 30px !important;
-          top: 10px !important; */
           position: absolute !important;
           right: 50px !important;
           bottom: -3px !important;
         }
-        .social_close_btn{
-          /* width: 20px !important;
-          position: relative !important;
-          bottom: 16px !important; */
-        }
         .mobile_view_social{
           word-break: normal !important;
-        }
-        .row.form-group.sticky1{
-          /* width: 460px !important; */
-        }
-        .mobile_grid_view{
-          /* width: 460px !important; */
         }
       }
       `
@@ -364,12 +273,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
   isMobile: any;
 
   constructor(
-    private nav: Location,
-    private translate: TranslateService,
-
-    private router: Router,
-    private themeService: ThemeService,
-    private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
@@ -378,11 +281,8 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     private sessionService: SessionService,
     private toastr: ToastService,
     private mstapplicantsocialmediadetail_service: mstapplicantsocialmediadetailService,
-    private sanitizer: DomSanitizer,
-    private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
-    // private mstapplicantskilldetail_service: mstapplicantskilldetailService,
+    private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService
   ) {
-    debugger;
     this.data = dynamicconfig;
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -425,14 +325,8 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     this.mstapplicantsocialmediadetail_service.getDefaultData().then(res => {
       this.applicantid_List = res.list_applicantid.value;
       this.socialmedianame_List = res.list_socialmedianame.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
   }
-
-  // addSkills() {
-  //     debugger
-  //     this.showSkillDetails_input = true;
-  //     this.getdata();
-  // };
   skillClose() {
     this.mstapplicantsocialmediadetail_Form.reset();
     this.showSkillDetails_input = false;
@@ -448,7 +342,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
       this.onSubmitData(false);
     }
     else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-      // this.onSubmitDataDlg(false);
       this.onSubmitData(false);
     }
     else {
@@ -466,20 +359,15 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     var obj = this.mstapplicantsocialmediadetail_Form.getRawValue();
     if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     obj.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log(obj);
     await this.sharedService.upload(this.fileAttachmentList);
     this.attachmentlist = [];
     if (this.fileattachment) this.fileattachment.clear();
     this.objvalues.push(obj);
     this.dialogRef.close(this.objvalues);
-    setTimeout(() => {
-      //this.dialogRef.destroy();
-    }, 200);
   }
 
 
   async onSubmitData(bclear: any) {
-    debugger;
     this.isSubmitted = true;
     let strError = "";
     if (!this.mstapplicantsocialmediadetail_Form.valid) {
@@ -494,7 +382,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
 
     this.formData = this.mstapplicantsocialmediadetail_Form.getRawValue();
 
-    console.log(this.formData);
     this.spinner.show();
 
     this.mstapplicantsocialmediadetail_service.saveOrUpdate_mstapplicantsocialmediadetails(this.formData).subscribe(
@@ -532,10 +419,8 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         this.mstapplicantsocialmediadetail_Form.markAsPristine();
       },
       err => {
-        debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       });
 
 
@@ -597,13 +482,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
           </tr>
         </tbody>
       </table>
-
-
-        <!--<div class='card1'>
-<h2>##socialmedianamedesc## - ##handlename##</h2>
-<h3 class='profile__section__item__sub'><a href='##url##' target='_blank'>##url##</a></h3>
-<p>##remarks##</p>
-</div>-->
 `;
     return ret;
   };
@@ -622,11 +500,9 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
   };
 
   FillData() {
-    debugger
     this.Set_mstapplicantsocialmediadetails_TableConfig();
 
     this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByApplicantID(this.applicantid).then((res: any) => {
-      debugger;
       this.mstapplicantsocialmediadetail_menuactions = res.mstapplicantsocialmediadetail_menuactions;
       this.Set_mstapplicantsocialmediadetails_TableConfig();
       this.mstapplicantsocialmediadetails_LoadTable(res.mstapplicantsocialmediadetail);
@@ -636,7 +512,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
   mstapplicantsocialmediadetails_settings: any;
 
   show_mstapplicantsocialmediadetails_Checkbox() {
-    //debugger;;
     if (this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'multi';
@@ -646,15 +521,8 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantsocialmediadetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantsocialmediadetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantsocialmediadetails.source.settings != null) this.tbl_mstapplicantsocialmediadetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantsocialmediadetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicantsocialmediadetails.source.initGrid();
-  }
-  show_mstapplicantsocialmediadetails_InActive() {
-  }
-  enable_mstapplicantsocialmediadetails_InActive() {
   }
   async Set_mstapplicantsocialmediadetails_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantsocialmediadetails) {
@@ -675,9 +543,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
   }
   async mstapplicantsocialmediadetails_beforesave(event: any) {
     event.confirm.resolve(event.newData);
-
-
-
   }
   Set_mstapplicantsocialmediadetails_TableConfig() {
     this.mstapplicantsocialmediadetails_settings = {
@@ -719,7 +584,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
             cell = this.mstapplicantsocialmediadetailshtml();
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
@@ -735,7 +599,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     };
   }
   mstapplicantsocialmediadetails_LoadTable(mstapplicantsocialmediadetail = new LocalDataSource()) {
-    debugger
     if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantsocialmediadetails_ID) >= 0) {
       if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source = new LocalDataSource();
       if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source.load(mstapplicantsocialmediadetail as any as LocalDataSource);
@@ -744,7 +607,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
   }
 
   Add_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
-    debugger
 
     this.showSkillDetails_input = true;
     this.ngOnInit();
@@ -755,7 +617,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
   }
 
   Edit_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
-    debugger
 
     this.showSkillDetails_input = true;
     this.ngOnInit();
@@ -765,8 +626,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
 
     this.mstapplicantsocialmediadetail_service.get_mstapplicantsocialmediadetails_ByEID(event.data.pkcol).then(res => {
-      console.log(res);
-
       this.mstapplicantsocialmediadetail_Form.patchValue({
         applicantid: res.mstapplicantsocialmediadetail.applicantid,
         applicantiddesc: res.mstapplicantsocialmediadetail.applicantiddesc,
@@ -783,36 +642,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     });
   };
 
-  //  Old Code
-
-  //  AddOrEdit_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
-  //    debugger
-  //     let add = false;
-  //     debugger
-  //     this.showSkillDetails_input = true;
-  //     this.getdata();
-  //     if (event == null) add = true;
-  //     let childsave = true;
-  //     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-  //     this.dialog.open(mstapplicantsocialmediadetailComponent,
-  //         {
-  //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, socialrefid, applicantid, visiblelist: this.mstapplicantsocialmediadetails_visiblelist, hidelist: this.mstapplicantsocialmediadetails_hidelist, ScreenType: 2 },
-  //         }
-  //     ).onClose.subscribe(res => {
-  //         if (res) {
-  //             if (add) {
-  //                 for (let i = 0; i < res.length; i++) {
-  //                     this.tbl_mstapplicantsocialmediadetails.source.add(res[i]);
-  //                 }
-  //                 this.tbl_mstapplicantsocialmediadetails.source.refresh();
-  //             }
-  //             else {
-  //                 this.tbl_mstapplicantsocialmediadetails.source.update(event.data, res[0]);
-  //             }
-  //         }
-  //     });
-  // }
-
   onDelete_mstapplicantsocialmediadetail(event: any, childID: number, i: number) {
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicantsocialmediadetail_service.delete_mstapplicantsocialmediadetail(childID).then(res => {
@@ -824,13 +653,7 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantsocialmediadetail_IDs += childID + ",";
-    // this.tbl_mstapplicantsocialmediadetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
-
- 
 
     mstapplicantsocialmediadetails_route(event: any, action: any) {
         var addparam = "";
@@ -869,11 +692,9 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     }
 
     async onCustom_mstapplicantsocialmediadetailsAttachment_Action(event: any, socialrefid: any, applicantid: any) {
-        debugger;
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantsocialmediadetails");
         let formname = (objbomenuaction as any).actionname;
         if (formname == "mstapplicantsocialmediadetails") {
-            debugger
             let add = false;
             if (event == null) add = true;
             let childsave = true;
@@ -900,7 +721,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
     }
 
     mstapplicantsocialmediadetails_Paging(val) {
-        //debugger;;
         this.tbl_mstapplicantsocialmediadetails.source.setPaging(1, val, true);
     }
 
@@ -916,7 +736,6 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         }
     }
     onClose() {
-        // location.reload();
         this.dialogRef.close();
     }
     //end of Grid Codes mstapplicantsocialmediadetails

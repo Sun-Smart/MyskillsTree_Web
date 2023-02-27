@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="systemtable_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left">{{'systemtables' | translate}}</h1>
+    <h1 class="col-4 columns mainheader left">{{'systemtables'}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -413,7 +413,7 @@
             <!-- child table systemtabletemplates-->
             <div [ngClass]="Is_systemtabletemplates_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Templates' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Templates'}}
                 <select class='child' id="systemtabletemplatesPagingdropdown"
                   (change)="systemtabletemplates_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

@@ -2,8 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstcorporatelocation_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left" style="background-color: #f5f3e4;margin: auto;">{{'Corporate Locations' |
-        translate}}</h1>
+    <h1 class="col-4 columns mainheader left" style="background-color: #f5f3e4;margin: auto;">{{'Corporate Locations'}}</h1>
     <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -106,7 +105,7 @@
         </div>
         <label *ngIf="showview" class="labelview">{{f.countryiddesc?.value}}</label>
         <app-field-error-display [displayError]="f.countryid.errors?.required"
-          errorMsg="Enter {{'Country' | translate}}">
+          errorMsg="Enter {{'Country'}}">
         </app-field-error-display>
       </div>
 
@@ -122,7 +121,7 @@
         <div class="input-group">
         </div>
         <label *ngIf="showview" class="labelview">{{f.stateiddesc?.value}}</label>
-        <app-field-error-display [displayError]="f.stateid.errors?.required" errorMsg="Enter {{'State' | translate}}">
+        <app-field-error-display [displayError]="f.stateid.errors?.required" errorMsg="Enter {{'State'}}">
         </app-field-error-display>
       </div>
       <div *ngIf="((hidelist.indexOf('cityid') == -1) && (cityidvisible==undefined || cityidvisible==true))" style=''
@@ -133,7 +132,7 @@
       <div class="input-group">
       </div>
       <label *ngIf="showview" class="labelview">{{f.cityiddesc?.value}}</label>
-      <app-field-error-display [displayError]="f.cityid.errors?.required" errorMsg="Enter {{'City' | translate}}">
+      <app-field-error-display [displayError]="f.cityid.errors?.required" errorMsg="Enter {{'City'}}">
       </app-field-error-display>
     </div>
     <div *ngIf="((hidelist.indexOf('address1') == -1) && (address1visible==undefined || address1visible==true))"
@@ -192,7 +191,7 @@
         <app-field-error-display [displayError]="f.emailid.errors!=null && f.emailid.errors?.email"
           errorMsg="Enter valid email">
         </app-field-error-display>
-        <app-field-error-display [displayError]="f.emailid.errors?.required" errorMsg="Enter {{'Email' | translate}}">
+        <app-field-error-display [displayError]="f.emailid.errors?.required" errorMsg="Enter {{'Email'}}">
         </app-field-error-display>
       </div>
       <div *ngIf="((hidelist.indexOf('mobile') == -1) && (mobilevisible==undefined || mobilevisible==true))" style=''
@@ -202,7 +201,7 @@
         <int-phone-prefix *ngIf="!showview" id="mobile" required formControlName="mobile" [locale]="'en'"
            class="form-control telephone">
         </int-phone-prefix>
-        <app-field-error-display [displayError]="f.mobile.errors?.required" errorMsg="Enter {{'Mobile' | translate}}">
+        <app-field-error-display [displayError]="f.mobile.errors?.required" errorMsg="Enter {{'Mobile'}}">
         </app-field-error-display>
       </div>
     </div>
