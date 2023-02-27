@@ -16,21 +16,16 @@
       <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Skills Set</h6>
 
-        <!-- Select Segment -->
-
         <ng-multiselect-dropdown [placeholder]="'Select Segment'" [settings]="dropdownSettings"
           [data]="Segmentcategory_list" [(ngModel)]="segmentid" (onSelect)="segmentcategory_onChange($event,val)"
           (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)">
         </ng-multiselect-dropdown><br />
-
-        <!-- Select Category -->
 
         <ng-multiselect-dropdown [placeholder]="'Select Category'" [settings]="categorySettings"
           [data]="skillcategory_List" [(ngModel)]="skillcategory" (onSelect)="skillcategory_onChange($event,val)"
           (onSelectAll)="onSelectAll($event)" (onDeSelect)="category_DeSelect($event)">
         </ng-multiselect-dropdown><br />
 
-        <!-- Select Sub-Category -->
 
         <ng-multiselect-dropdown [placeholder]="'Select Subcategory'" [settings]="subCategorySettings"
           [data]="subcategoryid_List" [(ngModel)]="subcategoryid" (onSelect)="subcategoryid_onChange($event,val)"
@@ -40,8 +35,6 @@
 
       <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Experience</h6><br />
-
-        <!-- Choose Range -->
 
         <div class="range">
           <div class="sliderValue">
@@ -57,7 +50,6 @@
         </div>
       </div><br />
 
-      <!-- Choose Location -->
 
       <div class="sidebar-content">
         <h6 style="font-weight: 600;"> Location</h6>
@@ -65,11 +57,8 @@
           [(ngModel)]="skilllocation" (onSelect)="location_onChange($event,val)" (onSelectAll)="onSelectAll($event)"
           (onDeSelect)="location_DeSelect($event)">
         </ng-multiselect-dropdown>
-        <!-- <input class="form-control" [(ngModel)]="location" (keyup)="valueChanged1($event)"> -->
       </div>
     </div>
-
-    <!-- Main Content -->
 
     <div class="main-content mobile_content">
       <div class="row tab">
@@ -84,8 +73,6 @@
         <div class="dropdown-skillSet">
         </div>
       </div>
-
-      <!-- List View -->
 
       <div class="listView-content" *ngIf="showList" style="max-height: 450px !important;overflow-y: scroll;">
         <h5>Profiles Matching Search Criteria</h5>
@@ -113,8 +100,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Grid View -->
 
       <div class="gridView-content" *ngIf="showGrid">
         <h5>Profiles Matching Search Criteria</h5>
@@ -152,14 +137,12 @@
         </div>
       </div>
 
-      <!-- Card View -->
-
       <div class="cardView-content" *ngIf="showCard">
         <h5>Profiles Matching Search Criteria</h5>
         <label for="">Matching profile</label>
         <div class="card-view">
           <div *ngFor="let item of showData | filter:term">
-            <div style="padding: 0;margin: 0;border: none;width: auto;    position: relative;right: 0px;bottom: 0px;"> 
+            <div style="padding: 0;margin: 0;border: none;width: auto;    position: relative;right: 0px;bottom: 0px;">
               <i class="fa fa-eye" title="View Profile"
                 style="font-size: 1.7rem;position: relative;color: #000;left: 110px;cursor: pointer;"
                 (click)='opendialog1(item.applicant,item.pkcol)'></i></div>
@@ -183,6 +166,3 @@
     </div>
   </div>
 </div>
-<script>
-
-</script>
