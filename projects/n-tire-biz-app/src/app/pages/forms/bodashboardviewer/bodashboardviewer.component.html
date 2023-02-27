@@ -135,25 +135,13 @@
                 </tr>
               </tbody>
             </table>
-            <div class="col-12 dashboard-card-header" style="display: none;">
-              <label style="width: 20%;">Company</label>
-              <label style="width: 20%;">Designation</label>
-              <label style="width: 25%;">Details</label>
-              <label style="width: 20%;">From</label>
-              <label>To</label>
-            </div>
+
             <div class="col-12" style="text-align: left;margin: 10px;" *ngIf="dashboard_employementdetails.length == 0">
               <label style="color: red;font-size: small;">No Records Mapped..</label>
             </div>
-            <div class="col-12 emp-resp" *ngFor="let item of dashboard_employementdetails" style="display: none;">
-              <label style="color: #000;font-size: small;width: 20%;">{{item.companyname}}</label>
-              <label style="color: #000;font-size: small;width: 20%;">{{item.designation}}</label>
-              <label class="details-label">{{item.details}}</label>
-              <label style="color: #000;font-size: small;width: 20%;">{{item.fromdate | date : 'dd-MM-yyyy'}}</label>
-              <label style="color: #000;font-size: small;">{{item.todate | date : 'dd-MM-yyyy'}}</label>
-            </div>
           </div>
         </div>
+
         <div class="main-data">
           <div class="row">
             <div class="col-12 dashboard-list_data">
@@ -181,6 +169,7 @@
             </div>
           </div>
         </div>
+
         <div class="main-data">
           <div class="row">
             <div class="col-12 dashboard-list_data">
@@ -208,6 +197,7 @@
             </div>
           </div>
         </div>
+
         <div class="main-data">
           <div class="row">
             <div class="col-12 dashboard-list_data">
@@ -231,6 +221,7 @@
             </div>
           </div>
         </div>
+
         <div class="main-data">
           <div class="row">
             <div class="col-12 dashboard-list_data">
@@ -243,7 +234,7 @@
                   <th style="padding-left: 20px !important;">Date</th>
                   <th>Refered To</th>
                   <th>Response</th>
-                  <th>Remarks</th>
+                  <th>Reference Remarks</th>
                 </tr>
               </thead>
               <tbody class="dashboard-table-data">
@@ -260,6 +251,7 @@
             </div>
           </div>
         </div>
+
         <div class=" main-data">
           <div class="row">
             <div class="col-12 dashboard-list_data">
@@ -287,6 +279,7 @@
             </table>
           </div>
         </div>
+        
       </div>
     </div>
   </div>
@@ -458,7 +451,7 @@
               <label for="" style="color:#000;font-weight: 600;width: 250px;">Date</label>
               <label for="" style="color:#000;font-weight: 600;width: 250px;">Referred To</label>
               <label for="" style="color:#000;font-weight: 600;width: 250px;">Response</label>
-              <label for="" style="color:#000;font-weight: 600;">Remarks</label>
+              <label for="" style="color:#000;font-weight: 600;">Reference Remarks</label>
             </div>
 
             <div class="col-12" *ngFor="let item of dashboard_reffreq_details">

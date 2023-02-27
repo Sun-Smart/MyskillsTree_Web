@@ -635,8 +635,8 @@ export class bomasterdatatypeComponent implements OnInit {
 
     AddOrEdit_bomasterdata(event: any, masterdataid: any, datatypeid: any) {
         debugger
-        let getData = this.mdata;
-        this.bomasterdata_service.boarray = getData;
+        // let getData = this.mdata;
+        // this.bomasterdata_service.boarray = getData;
         // this.masterdatatypeid1 = localStorage.getItem("masterdataname")
         let add = false;
         if (event == null) add = true;

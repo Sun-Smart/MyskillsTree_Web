@@ -150,8 +150,8 @@ export class bomasterdataComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.masterdatatypeid = this.bomasterdata_service.boarray
-        this.bomasterdata_Form.patchValue({ masterdatatypeid: this.masterdatatypeid[0] })
+        // this.masterdatatypeid = this.bomasterdata_service.boarray
+        // this.bomasterdata_Form.patchValue({ masterdatatypeid: this.masterdatatypeid[0] })
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
         });
@@ -350,8 +350,8 @@ export class bomasterdataComponent implements OnInit {
         if ((res.bomasterdata as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
         this.bomasterdata_Form.patchValue({
             masterdataid: res.bomasterdata.masterdataid,
-            masterdatatypeid: localStorage.getItem("masterdataname"),
-            masterdatatypeiddesc: localStorage.getItem("masterdataname"),
+            masterdatatypeid:  res.bomasterdata.masterdatatypeid,
+            masterdatatypeiddesc:  res.bomasterdata.masterdatatypeiddesc,
             masterdataname: res.bomasterdatatype.masterdataname,
             masterdatacode: res.bomasterdata.masterdatacode,
             masterdatadescription: res.bomasterdata.masterdatadescription,

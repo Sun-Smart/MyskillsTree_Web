@@ -2003,6 +2003,9 @@ select {
 }
 
 p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
+  width: 100% !important;
+  height: 100%;
+  max-height: 50% !important;
   max-width: 95% !important;
   display: flex !important;
 }
@@ -2627,8 +2630,8 @@ a#showReadBtn {
   margin: 10px 15px;
 }
 
-.showprfl-contents{
-  p{
+.showprfl-contents {
+  p {
     line-height: 1.5 !important;
     margin: 15px !important;
   }
@@ -3083,14 +3086,12 @@ footer {
   background-color: #fff;
   float: left;
   box-shadow: 0px 0px 10px 0px #e2e0e0;
-  
 }
 
 .dashboard-sidebar-content {
   padding: 1rem;
   overflow-y: scroll;
   height: 500px !important;
-
 
   .form-check {
     font-size: 12px;
@@ -3229,7 +3230,7 @@ footer {
   p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
     height: auto !important;
   }
-  #contentAreaLayout{
+  #contentAreaLayout {
     overflow: hidden !important;
   }
 }
@@ -3244,7 +3245,7 @@ footer {
   color: #fff !important;
 }
 .p-autocomplete-items {
-  height: 50px !important;
+  height: auto !important;
 }
 
 .show-Pfl-card {
@@ -3259,7 +3260,7 @@ footer {
     background-color: #cbf29f;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-}
+  }
 }
 
 .show-locaion-card {
@@ -3273,24 +3274,24 @@ footer {
   .location-inside-card {
     i {
       margin: 5px 10px;
-      color:#8f9b99;
+      color: #8f9b99;
     }
     label {
       margin: 0 5px;
       // color:#8f9b99;
     }
-    span{
+    span {
       color: green;
     }
   }
 }
-.extra-right-box{
+.extra-right-box {
   height: 70px !important;
 }
-.extra-right-box-overlap{
+.extra-right-box-overlap {
   height: 70px !important;
 }
-.dialog-close{
+.dialog-close {
   color: #fff !important;
   border: none !important;
   border-radius: 6px;

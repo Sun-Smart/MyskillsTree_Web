@@ -438,6 +438,7 @@ export class bosubcategorymasterComponent implements OnInit {
             status: res.bosubcategorymaster.status,
             statusdesc: res.bosubcategorymaster.statusdesc,
         });
+        
         this.bosubcategorymaster_menuactions = res.bosubcategorymaster_menuactions;
         //Child Tables if any
     }

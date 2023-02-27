@@ -69,16 +69,14 @@
             <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
             <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
-              style="border-color: #fff !important;
-              color: #fff;margin: 5px;
-    padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
+              style="border-color: #fff !important; color: #fff;margin: 5px;padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
             <app-action *ngIf="f.masterdataid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.masterdataid.value" [status]="f.status.value"></app-action>
-          </li>
+     
           <i class='nav-item actionheader common_title_style'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
             class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
-
+          </li>
 
           <!-- <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
@@ -123,16 +121,15 @@
               <div
                 *ngIf="((hidelist.indexOf('masterdatatypeid') == -1) && (masterdatatypeidvisible==undefined || masterdatatypeidvisible==true))"
                 style='' class="col-4 education_view_mobile"><label for="masterdatatypeid" class="control-label"
-                  (click)="AddOrEdit_masterdatatypeid(null)">Master Datatype</label>
+                  (click)="AddOrEdit_masterdatatypeid(null)">Master Data type</label>
                 <!-- <select *ngIf="!showview " id="masterdatatypeid" (change)="masterdatatypeid_onChange($event.target)"
                   formControlName="masterdatatypeid" class="form-control">
                   <option>-Select-</option>
                   <option *ngFor="let item of masterdatatypeid_List" value="{{item.value}}">{{item.label}}</option>
                 </select> -->
 
-                <input *ngIf="!showview" id="masterdatatypeid" [(ngModel)]="masterdatatypeid" formControlName="masterdatatypeid" class="form-control">
-
-                <!-- <label *ngIf="showview" class="labelview">{{f.masterdatatypeiddesc?.value}}</label> -->
+                <input *ngIf="!showview" id="masterdatatypeid" formControlName="masterdatatypeid" class="form-control">
+                <label *ngIf="showview" class="labelview">{{f.masterdatatypeid?.value}}</label>
               </div>
               <div
                 *ngIf="((hidelist.indexOf('masterdatacode') == -1) && (masterdatacodevisible==undefined || masterdatacodevisible==true))"

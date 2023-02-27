@@ -554,6 +554,7 @@ export class AttachmentComponent implements ControlValueAccessor {
         return this.attachedfiles;
     }
     getAttachmentList() {
+        debugger;
         return this.attachedfiles;
     }
     async onFileSelect(e: any) {

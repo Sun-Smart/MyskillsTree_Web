@@ -1,0 +1,97 @@
+<div class="row" style=" background: #ebf3fc !important;color: #000;padding: 5px !important;">
+    <div class="col-4">{{'Language Details'}}</div>
+    <div class="col-4"></div>
+    <div class="col-4" style="display: flex;justify-content: end;align-items: center;">
+        <button type="button" class="btn btn-outline-primary  popup-add-button" title="Add Details"
+            (click)="mstapplicantlanguagedetails_route(null, 'create')">Add</button>
+
+        <a (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="closeButton1" style="width: 20px;"
+                title="Close" /></a>
+
+    </div>
+</div>
+
+<form [formGroup]="mstapplicantlanguagedetail_Form" class="mobile_grid_view">
+
+    <table class="table" style="margin-top:0 !important;">
+        <thead>
+            <tr style="color: aliceblue !important;">
+                <th>Language</th>
+                <th>Read Proficiency</th>
+                <th>Write Proficiency</th>
+                <th>Speak Proficiency</th>
+                <th>Rating</th>
+                <th>Remarks</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngIf="showSkillDetails_input">
+                <!--language-->
+                <td>
+                    <select id="language" required (change)="language_onChange($event.target)"
+                        formControlName="language" class="form-control">
+                        <option [ngValue]="null" selected>-Select-</option>
+                        <option *ngFor="let item of language_List" value="{{item.value}}">{{item.label}}</option>
+                    </select>
+                </td>
+
+                <!--Read Proficiency -->
+
+                <td>
+                    <p-rating id="readproficiency" formControlName="readproficiency" class="form-control">
+                    </p-rating>
+                </td>
+
+                <!--Write Proficiency -->
+
+                <td>
+                    <p-rating id="writeproficiency" formControlName="writeproficiency" class="form-control">
+                    </p-rating>
+                </td>
+
+                <!--Speak Proficiency -->
+
+                <td>
+                    <p-rating id="speakproficiency" formControlName="speakproficiency" class="form-control">
+                    </p-rating>
+                </td>
+
+                <!-- Rating -->
+
+                <td>
+                    <p-rating id="overallrating" formControlName="overallrating" class="form-control">
+                    </p-rating>
+                </td>
+
+                <!-- Remarks -->
+
+                <td>
+                    <textarea autosize rows="2" cols="2" id="achievementdetails" class="form-control" formControlName="remarks">
+                    </textarea>
+                </td>
+
+                <!-- Submit & Close -->
+
+                <td class="field-add-close-button">
+                    <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+
+                    <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
+                        (click)="skillClose()"></i>
+                </td>
+            </tr>
+
+            <tr *ngFor="let item of check_mstapplicantlanguagedetail">
+                <td>{{item.languagedesc}}</td>
+                <td>{{item.readproficiency}}</td>
+                <td>{{item.writeproficiency}}</td>
+                <td>{{item.speakproficiency}}</td>
+                <td>{{item.overallrating}}</td>
+                <td>{{item.remarks}}</td>
+                <td><i (click)="Edit_mstapplicantlanguagedetail(item.pkcol,item.languageid,item.applicantid)"
+                        class="fa fa-edit commonEditicon" title="Edit"></i></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
