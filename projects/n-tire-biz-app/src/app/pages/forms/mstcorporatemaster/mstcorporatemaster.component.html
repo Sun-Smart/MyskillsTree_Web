@@ -5,13 +5,11 @@
   [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <div class="col-4" style="display: flex !important;justify-content: initial;align-items: center !important;">
     <h1 class="   mainheader left " style="margin: 0px; color: gray !important;margin: auto;">
-      {{'Corporate Masters' | translate}}
+      {{'Corporate Masters'}}
     </h1>
   </div>
   <div class="col-4"></div>
   <div class='col-4  sticky1 second' style="display: flex !important;justify-content: end !important;align-items: center !important;" role='toolbar' aria-label='Toolbar with button groups'>
-      <!--btn-toolbar-->
-      <!-- <div class='col'></div> -->
       <div class='dropdown d-inline-block btn-dropdown show'>
 
         <ul class='nav nav-pills  input-group '>
@@ -65,32 +63,7 @@
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
 
-        <!-- </ul>
-      </div>
-    </div>
-    <div class='col-4' style="display: flex;justify-content: end;align-items: center;">
-      <button *ngIf="!showview" (click)="onSubmitAndWait()" class="popup-add-button mst_cor_btn">
-        <i class="fa fa-database"></i>Submit
-        <app-action *ngIf="f.jobid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
-          [value]="f.jobid.value" [status]="f.status.value"></app-action>
-      </button>
-      <button *ngIf='data.pkcol==null || maindata.ScreenType==null' (click)="onSubmitAndWait()"
-      class="popup-add-button mobile_view_btn">
-      <i class="fa fa-share-square"></i> Submit & Clear
-        <app-action *ngIf="f.corporateid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
-        [value]="f.corporateid.value" [status]="f.status.value"></app-action>
-      </button>
-      <button class="popup-add-button mobile_view_btn"
-        *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
-        (click)="onClose()">
-        <i class="fa fa-close"></i>Close
-      </button>
-      <ul style="display: none;"> -->
-
-
           <li class='nav-item actionheader' *ngIf="!showview">
-            <!-- <a class="alert-success  popup-add-button" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
-              Back</a> -->
             <a class="alert-success  popup-add-button mobile_viewsubmit" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
             <a class="alert-primary  popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
@@ -193,9 +166,7 @@
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
-            <!-- child table mstcorporatelocations-->
             <div [ngClass]="Is_mstcorporatelocations_Visible()">
-              <!--End-->
               <h4 class="form-group sticky1  columns left" style="font-size: medium;
               margin: 6px 3px !important;">{{'Corporate Locations' | translate}}
                 <select class='child' id="mstcorporatelocationsPagingdropdown"
@@ -237,7 +208,6 @@
                 (editConfirm)="mstcorporatelocations_beforesave($event)">
               </ng2-smart-table>
             </div>
-            <!--End of child table mstcorporatelocations-->
           </p-accordion>
         </ng-template>
       </ngb-tab>

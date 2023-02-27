@@ -1,59 +1,32 @@
 import { mstcorporatemasterService } from './../../../service/mstcorporatemaster.service';
 import { mstcorporatemaster } from './../../../model/mstcorporatemaster.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import {  Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
+import { DomSanitizer } from "@angular/platform-browser";
 import { CorporateDashboardComponent } from '../corporate.component';
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
 import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { mstcorporatelocation } from './../../../model/mstcorporatelocation.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { mstcorporatelocationComponent } from './../../../pages/forms/mstcorporatelocation/mstcorporatelocation.component';
 import { mstcorporatelocationService } from './../../../service/mstcorporatelocation.service';
-import { mstjobrequirement } from './../../../model/mstjobrequirement.model';
 import { mstjobrequirementComponent } from './../../../pages/forms/mstjobrequirement/mstjobrequirement.component';
 import { mstjobrequirementService } from './../../../service/mstjobrequirement.service';
-import { mstjobstatus } from './../../../model/mstjobstatus.model';
 import { mstjobstatusComponent } from './../../../pages/forms/mstjobstatus/mstjobstatus.component';
 import { mstjobstatusService } from './../../../service/mstjobstatus.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
+import { AppConstants } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
 
 @Component({
@@ -86,7 +59,7 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
         }
     }
     `],
-    providers: [KeyboardShortcutsService, CorporateDashboardComponent]
+    providers: [CorporateDashboardComponent]
 })
 
 
@@ -97,7 +70,7 @@ export class mstcorporatemasterComponent implements OnInit {
     bmyrecord: boolean = false;
     hidelist: any = [];
     objvalues: any = [];
-    viewHtml: any = '';//stores html view of the screen
+    viewHtml: any = '';
     showview: boolean = false;//view or edit mode
     theme: string = "";//current theme
     //formdata: any;//current form data
@@ -171,46 +144,21 @@ export class mstcorporatemasterComponent implements OnInit {
     applicantid: number;
 
 
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
         private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private mstcorporatemaster_service: mstcorporatemasterService,
-        private mstcorporatelocation_service: mstcorporatelocationService,
-        private mstjobrequirement_service: mstjobrequirementService,
-        private mstjobstatus_service: mstjobstatusService,
         private fb: FormBuilder,
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.mstcorporatemaster_Form = this.fb.group({
             pk: [null],
             corporateid: [null],
@@ -235,7 +183,6 @@ export class mstcorporatemasterComponent implements OnInit {
 
     //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.mstcorporatemaster_Form.dirty && this.mstcorporatemaster_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -245,30 +192,6 @@ export class mstcorporatemasterComponent implements OnInit {
         }
         return Observable.of(true);
     }
-
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.corporateid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.corporateid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
-    }
-
     //on searching in pk autocomplete
     onSelectedpk(pkDetail: any) {
         if (pkDetail.corporateid && pkDetail) {
@@ -308,10 +231,6 @@ export class mstcorporatemasterComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
-        //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
             this.maindata = this.data;
@@ -355,19 +274,10 @@ export class mstcorporatemasterComponent implements OnInit {
         //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.Set_mstcorporatelocations_TableConfig();
-            setTimeout(() => {
-                //this.Set_mstcorporatelocations_TableDropDownConfig();
-            });
 
             this.Set_mstjobrequirements_TableConfig();
-            setTimeout(() => {
-                //this.Set_mstjobrequirements_TableDropDownConfig();
-            });
 
             this.Set_mstjobstatuses_TableConfig();
-            setTimeout(() => {
-                //this.Set_mstjobstatuses_TableDropDownConfig();
-            });
 
             this.resetForm();
         }
@@ -377,14 +287,14 @@ export class mstcorporatemasterComponent implements OnInit {
             //foreign keys
         }
         this.mstcorporatemaster_service.getDefaultData().then(res => {
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide(); });
 
         //autocomplete
         this.mstcorporatemaster_service.get_mstcorporatemasters_List().then(res => {
             this.pkList = res as mstcorporatemaster[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        ).catch((err) => { this.spinner.hide(); });
         //setting the flag that the screen is not touched
         this.mstcorporatemaster_Form.markAsUntouched();
         this.mstcorporatemaster_Form.markAsPristine();
@@ -421,7 +331,7 @@ export class mstcorporatemasterComponent implements OnInit {
                 this.mstcorporatemaster_service.delete_mstcorporatemaster(corporateid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide();});
             }
         }
         else {
@@ -477,7 +387,6 @@ export class mstcorporatemasterComponent implements OnInit {
         this.dialogRef.close(this.objvalues);
     }
     goBack() {
-        // this.router.navigate(["/home/ + CorporateDashboardComponent"])
         this.router.navigate(['/home/corporatedashboard']);
 
     }
@@ -525,7 +434,7 @@ export class mstcorporatemasterComponent implements OnInit {
             this.pkcol = res.mstcorporatemaster.pkcol;
             this.formid = res.mstcorporatemaster.corporateid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -534,9 +443,6 @@ export class mstcorporatemasterComponent implements OnInit {
         this.pkcol = res.mstcorporatemaster.pkcol;
         this.bmyrecord = false;
         if ((res.mstcorporatemaster as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.mstcorporatemaster_Form.patchValue({
             corporateid: res.mstcorporatemaster.corporateid,
             companyname: res.mstcorporatemaster.companyname,
@@ -608,13 +514,9 @@ export class mstcorporatemasterComponent implements OnInit {
         var obj = this.mstcorporatemaster_Form.getRawValue();
         obj.licensevalidto = new Date(this.mstcorporatemaster_Form.get('licensevalidto').value ? this.ngbDateParserFormatter.format(this.mstcorporatemaster_Form.get('licensevalidto').value) + '  UTC' : null);
         if (this.kycupload.getAttachmentList() != null) obj.kycupload = JSON.stringify(this.kycupload.getAttachmentList());
-        console.log(obj);
         await this.sharedService.upload(this.kycupload.getAllFiles());
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -630,19 +532,9 @@ export class mstcorporatemasterComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.mstcorporatemaster_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.mstcorporatemaster_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.mstcorporatemaster_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -667,7 +559,6 @@ export class mstcorporatemasterComponent implements OnInit {
         this.formData.Deleted_mstjobrequirement_IDs = this.Deleted_mstjobrequirement_IDs;
         this.formData.Deleted_mstjobstatus_IDs = this.Deleted_mstjobstatus_IDs;
         if (this.kycupload.getAttachmentList() != null) this.formData.kycupload = JSON.stringify(this.kycupload.getAttachmentList());
-        console.log(this.formData);
         this.spinner.show();
         this.mstcorporatemaster_service.saveOrUpdate_mstcorporatemasters(this.formData, this.tbl_mstcorporatelocations?.source?.data, this.tbl_mstjobrequirements?.source?.data, this.tbl_mstjobstatuses?.source?.data,).subscribe(
             async res => {
@@ -688,7 +579,6 @@ export class mstcorporatemasterComponent implements OnInit {
                     }
                 }
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.mstcorporatemaster_Form.reset()
                 this.objvalues.push((res as any).mstcorporatemaster);
@@ -718,10 +608,8 @@ export class mstcorporatemasterComponent implements OnInit {
                 this.mstcorporatemaster_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
@@ -795,7 +683,6 @@ export class mstcorporatemasterComponent implements OnInit {
         if (childID != null)
             this.Deleted_mstjobrequirement_IDs += childID + ",";
         this.tbl_mstjobrequirements.source.data.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
     AddOrEdit_mstjobstatus(event: any, viewid: any, corporateid: any) {
@@ -823,28 +710,12 @@ export class mstcorporatemasterComponent implements OnInit {
     }
 
     onDelete_mstjobstatus(event: any, childID: number, i: number) {
-        // let viewID = event.data.viewid;
-        // // alert(viewID);
-        // if (confirm('Do you want to delete this record?')) {
-        //     this.mstcorporatemaster_service.delete_mstcorporatemaster(viewID).then(res => {
-        //         this.mstcorporatemaster_service.getListBy_corporateid(this.applicantid).then(res => {
-        //             this.ngOnInit();
-        //             this.mstjobstatuses_LoadTable(res);
-        //         });
-        //     })
-        // } else {
-        //     return;
-        // }
         let viewid = event.data.viewid;
         if (confirm('Are you sure to delete this record ?')) {
             this.mstcorporatemaster_service.delete_mstcorporatemaster(viewid).then(res =>
                 this.mstjobstatuses_LoadTable(res)
             );
         }
-        // if (childID != null)
-        //     this.Deleted_mstjobstatus_IDs += childID + ",";
-        // this.tbl_mstjobstatuses.source.data.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
 
@@ -857,7 +728,6 @@ export class mstcorporatemasterComponent implements OnInit {
     mstcorporatelocations_settings: any;
 
     show_mstcorporatelocations_Checkbox() {
-        debugger;
         if (this.tbl_mstcorporatelocations.source.settings['selectMode'] == 'multi') this.tbl_mstcorporatelocations.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstcorporatelocations.source.settings['selectMode'] = 'multi';
@@ -867,15 +737,8 @@ export class mstcorporatemasterComponent implements OnInit {
         this.tbl_mstcorporatelocations.source.settings['selectMode'] = 'single';
     }
     show_mstcorporatelocations_Filter() {
-        setTimeout(() => {
-            //  this.Set_mstcorporatelocations_TableDropDownConfig();
-        });
         if (this.tbl_mstcorporatelocations.source.settings != null) this.tbl_mstcorporatelocations.source.settings['hideSubHeader'] = !this.tbl_mstcorporatelocations.source.settings['hideSubHeader'];
         this.tbl_mstcorporatelocations.source.initGrid();
-    }
-    show_mstcorporatelocations_InActive() {
-    }
-    enable_mstcorporatelocations_InActive() {
     }
     async Set_mstcorporatelocations_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_mstcorporatelocations) {
@@ -1009,38 +872,6 @@ export class mstcorporatemasterComponent implements OnInit {
         }
     }
 
-    //external to inline
-    /*
-    mstcorporatelocations_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.mstcorporatemaster_service.mstcorporatelocations.length == 0)
-    {
-        this.tbl_mstcorporatelocations.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new mstcorporatelocation();
-        this.mstcorporatemaster_service.mstcorporatelocations.push(obj);
-        this.tbl_mstcorporatelocations.source.refresh();
-        if ((this.mstcorporatemaster_service.mstcorporatelocations.length / this.tbl_mstcorporatelocations.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstcorporatelocations.source.getPaging().page)
-        {
-            this.tbl_mstcorporatelocations.source.setPage((this.mstcorporatemaster_service.mstcorporatelocations.length / this.tbl_mstcorporatelocations.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_mstcorporatelocations.source.grid.edit(this.tbl_mstcorporatelocations.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_mstcorporatelocations.source.data.indexOf(event.data);
-    this.onDelete_mstcorporatelocation(event,event.data.locationid,((this.tbl_mstcorporatelocations.source.getPaging().page-1) *this.tbl_mstcorporatelocations.source.getPaging().perPage)+index);
-    this.tbl_mstcorporatelocations.source.refresh();
-    break;
-    }
-    }
-
-    */
     mstcorporatelocations_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -1079,7 +910,6 @@ export class mstcorporatemasterComponent implements OnInit {
 
     }
     mstcorporatelocations_Paging(val) {
-        debugger;
         this.tbl_mstcorporatelocations.source.setPaging(1, val, true);
     }
 
@@ -1099,7 +929,6 @@ export class mstcorporatemasterComponent implements OnInit {
     mstjobrequirements_settings: any;
 
     show_mstjobrequirements_Checkbox() {
-        debugger;
         if (this.tbl_mstjobrequirements.source.settings['selectMode'] == 'multi') this.tbl_mstjobrequirements.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstjobrequirements.source.settings['selectMode'] = 'multi';
@@ -1109,15 +938,8 @@ export class mstcorporatemasterComponent implements OnInit {
         this.tbl_mstjobrequirements.source.settings['selectMode'] = 'single';
     }
     show_mstjobrequirements_Filter() {
-        setTimeout(() => {
-            //  this.Set_mstjobrequirements_TableDropDownConfig();
-        });
         if (this.tbl_mstjobrequirements.source.settings != null) this.tbl_mstjobrequirements.source.settings['hideSubHeader'] = !this.tbl_mstjobrequirements.source.settings['hideSubHeader'];
         this.tbl_mstjobrequirements.source.initGrid();
-    }
-    show_mstjobrequirements_InActive() {
-    }
-    enable_mstjobrequirements_InActive() {
     }
     async Set_mstjobrequirements_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_mstjobrequirements) {
@@ -1222,26 +1044,6 @@ export class mstcorporatemasterComponent implements OnInit {
                     type: 'number',
                     filter: true,
                 },
-                // locationsdesc: {
-                //     title: 'Locations',
-                //     type: 'html',
-                //     filter: true,
-                // },
-                // skillsdesc: {
-                //     title: 'Skills',
-                //     type: 'html',
-                //     filter: true,
-                // },
-                // educationdesc: {
-                //     title: 'Education',
-                //     type: 'html',
-                //     filter: true,
-                // },
-                // languagedesc: {
-                //     title: 'Language',
-                //     type: 'html',
-                //     filter: true,
-                // },
                 referenceavailability: {
                     title: 'Reference Availability',
                     type: 'boolean',
@@ -1282,18 +1084,6 @@ export class mstcorporatemasterComponent implements OnInit {
                         },
                     },
                 },
-                // attachment: {
-                //     title: 'Attachment',
-                //     type: 'html',
-                //     filter: true,
-                //     editor: {
-                //         type: 'textarea',
-                //     },
-                //     valuePrepareFunction: (cell, row) => {
-                //         let ret = this.sharedService.getAttachmentValue(cell);
-                //         return ret;
-                //     },
-                // },
             },
             attr: {
                 class: 'table table-bordered table-header'
@@ -1308,38 +1098,7 @@ export class mstcorporatemasterComponent implements OnInit {
         }
     }
 
-    //external to inline
-    /*
-    mstjobrequirements_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.mstcorporatemaster_service.mstjobrequirements.length == 0)
-    {
-        this.tbl_mstjobrequirements.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new mstjobrequirement();
-        this.mstcorporatemaster_service.mstjobrequirements.push(obj);
-        this.tbl_mstjobrequirements.source.refresh();
-        if ((this.mstcorporatemaster_service.mstjobrequirements.length / this.tbl_mstjobrequirements.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstjobrequirements.source.getPaging().page)
-        {
-            this.tbl_mstjobrequirements.source.setPage((this.mstcorporatemaster_service.mstjobrequirements.length / this.tbl_mstjobrequirements.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_mstjobrequirements.source.grid.edit(this.tbl_mstjobrequirements.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_mstjobrequirements.source.data.indexOf(event.data);
-    this.onDelete_mstjobrequirement(event,event.data.jobid,((this.tbl_mstjobrequirements.source.getPaging().page-1) *this.tbl_mstjobrequirements.source.getPaging().perPage)+index);
-    this.tbl_mstjobrequirements.source.refresh();
-    break;
-    }
-    }
 
-    */
     mstjobrequirements_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -1378,7 +1137,6 @@ export class mstcorporatemasterComponent implements OnInit {
 
     }
     mstjobrequirements_Paging(val) {
-        debugger;
         this.tbl_mstjobrequirements.source.setPaging(1, val, true);
     }
 
@@ -1413,10 +1171,6 @@ export class mstcorporatemasterComponent implements OnInit {
         });
         if (this.tbl_mstjobstatuses.source.settings != null) this.tbl_mstjobstatuses.source.settings['hideSubHeader'] = !this.tbl_mstjobstatuses.source.settings['hideSubHeader'];
         this.tbl_mstjobstatuses.source.initGrid();
-    }
-    show_mstjobstatuses_InActive() {
-    }
-    enable_mstjobstatuses_InActive() {
     }
     async Set_mstjobstatuses_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_mstjobstatuses) {
@@ -1514,14 +1268,6 @@ export class mstcorporatemasterComponent implements OnInit {
                         },
                     },
                 },
-                // comments: {
-                //     title: 'Comments',
-                //     type: 'html',
-                //     filter: true,
-                //     editor: {
-                //         type: 'textarea',
-                //     },
-                // },
                 allcomments: {
                     title: 'All Comments',
                     type: 'html',
@@ -1574,38 +1320,6 @@ export class mstcorporatemasterComponent implements OnInit {
         }
     }
 
-    //external to inline
-    /*
-    mstjobstatuses_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.mstcorporatemaster_service.mstjobstatuses.length == 0)
-    {
-        this.tbl_mstjobstatuses.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new mstjobstatus();
-        this.mstcorporatemaster_service.mstjobstatuses.push(obj);
-        this.tbl_mstjobstatuses.source.refresh();
-        if ((this.mstcorporatemaster_service.mstjobstatuses.length / this.tbl_mstjobstatuses.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstjobstatuses.source.getPaging().page)
-        {
-            this.tbl_mstjobstatuses.source.setPage((this.mstcorporatemaster_service.mstjobstatuses.length / this.tbl_mstjobstatuses.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_mstjobstatuses.source.grid.edit(this.tbl_mstjobstatuses.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_mstjobstatuses.source.data.indexOf(event.data);
-    this.onDelete_mstjobstatus(event,event.data.viewid,((this.tbl_mstjobstatuses.source.getPaging().page-1) *this.tbl_mstjobstatuses.source.getPaging().perPage)+index);
-    this.tbl_mstjobstatuses.source.refresh();
-    break;
-    }
-    }
-
-    */
     mstjobstatuses_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -1644,7 +1358,6 @@ export class mstcorporatemasterComponent implements OnInit {
 
     }
     mstjobstatuses_Paging(val) {
-        debugger;
         this.tbl_mstjobstatuses.source.setPaging(1, val, true);
     }
 
