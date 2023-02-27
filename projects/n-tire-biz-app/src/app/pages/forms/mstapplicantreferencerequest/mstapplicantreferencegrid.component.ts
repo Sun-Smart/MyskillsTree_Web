@@ -1,50 +1,20 @@
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit,  ViewChild } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-
-import { mstapplicantskilldetail } from './../../../model/mstapplicantskilldetail.model';
-import { mstapplicantskilldetailComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.component';
-import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
-
-import { mstapplicantreferencerequest } from './../../../model/mstapplicantreferencerequest.model';
 import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
 import { mstapplicantreferencerequestService } from './../../../service/mstapplicantreferencerequest.service';
-
-//primeng services
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 
 
@@ -64,14 +34,8 @@ import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.s
                       </ul>
                     </li>
                   </ul>
-                  <!-- <ul class="rightside">
-                    <a [routerLink]='' (click)="mstapplicantreferencerequests_route(null, 'create')"><i style="color:#fff !important;"
-                        class="fa fa-plus"></i></a><a  class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-                    </ul>  -->
                     <ul class="rightside">
                 <a  [routerLink]='' (click)="mstapplicantreferencerequests_route(null, 'create')">
-                <!-- <button type="button" style="border-color: #fff !important;
-                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
                 <button type="button" class="btn btn-outline-primary  popup-add-button">Add</button>
                 </a><a  class="" [routerLink]='' (click)="onClose()"><i  style="color:#fff !important;" class="fa fa-times-circle close_common_icon"></i></a>
                 </ul>
@@ -123,30 +87,21 @@ export class mstapplicantreferencegridComponent implements OnInit {
     applicantid: any;
     data: any;
     constructor(
-        private nav: Location,
-        private translate: TranslateService,
-
-        private router: Router,
-        private themeService: ThemeService,
         private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private sharedService: SharedService,
         private sessionService: SessionService,
-        private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private mstapplicantmaster_service: mstapplicantmasterService,
-        private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
+        private currentRoute: ActivatedRoute,
         private mstapplicantreferencerequestService: mstapplicantreferencerequestService,
     ) {
-        debugger;
         this.data = dynamicconfig;
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
         }
         this.pkcol = this.data.maindatapkcol;
-        // this.applicantid = this.data.applicantid
     }
 
     ngOnInit() {
@@ -176,7 +131,6 @@ export class mstapplicantreferencegridComponent implements OnInit {
     FillData() {
         this.Set_mstapplicantreferencerequests_TableConfig();
         this.mstapplicantreferencerequestService.get_mstapplicantreferencerequests_ByApplicantID(this.applicantid).then(res => {
-            // this.mstapplicantskilldetails_LoadTable(res);
             this.mstapplicantreferencerequests_LoadTable(res);
         });
 
@@ -210,17 +164,12 @@ export class mstapplicantreferencegridComponent implements OnInit {
         if (confirm('Do you want to delete this record?')) {
             this.mstapplicantreferencerequestService.delete_mstapplicantreferencerequest(childID).then(res => {
                 this.mstapplicantreferencerequestService.get_mstapplicantreferencerequests_ByApplicantID(this.applicantid).then(res => {
-                    // this.mstapplicantskilldetails_LoadTable(res);
                     this.mstapplicantreferencerequests_LoadTable(res);
                 });
             })
         } else {
             return;
         }
-        // if (childID != null)
-        //     this.Deleted_mstapplicantreferencerequest_IDs += childID + ",";
-        // this.tbl_mstapplicantreferencerequests.source.data.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
 
@@ -228,7 +177,6 @@ export class mstapplicantreferencegridComponent implements OnInit {
     mstapplicantreferencerequests_settings: any;
 
     show_mstapplicantreferencerequests_Checkbox() {
-        //debugger;;
         if (this.tbl_mstapplicantreferencerequests.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantreferencerequests.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstapplicantreferencerequests.source.settings['selectMode'] = 'multi';
@@ -238,15 +186,8 @@ export class mstapplicantreferencegridComponent implements OnInit {
         this.tbl_mstapplicantreferencerequests.source.settings['selectMode'] = 'single';
     }
     show_mstapplicantreferencerequests_Filter() {
-        setTimeout(() => {
-            //  this.Set_mstapplicantreferencerequests_TableDropDownConfig();
-        });
         if (this.tbl_mstapplicantreferencerequests.source.settings != null) this.tbl_mstapplicantreferencerequests.source.settings['hideSubHeader'] = !this.tbl_mstapplicantreferencerequests.source.settings['hideSubHeader'];
         this.tbl_mstapplicantreferencerequests.source.initGrid();
-    }
-    show_mstapplicantreferencerequests_InActive() {
-    }
-    enable_mstapplicantreferencerequests_InActive() {
     }
     async Set_mstapplicantreferencerequests_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_mstapplicantreferencerequests) {
@@ -317,7 +258,6 @@ export class mstapplicantreferencegridComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
                         cell = this.mstapplicantreferencerequestshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -338,38 +278,7 @@ export class mstapplicantreferencegridComponent implements OnInit {
         }
     }
 
-    //external to inline
-    /*
-    mstapplicantreferencerequests_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.mstapplicantmaster_service.mstapplicantreferencerequests.length == 0)
-    {
-        this.tbl_mstapplicantreferencerequests.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new mstapplicantreferencerequest();
-        this.mstapplicantmaster_service.mstapplicantreferencerequests.push(obj);
-        this.tbl_mstapplicantreferencerequests.source.refresh();
-        if ((this.mstapplicantmaster_service.mstapplicantreferencerequests.length / this.tbl_mstapplicantreferencerequests.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantreferencerequests.source.getPaging().page)
-        {
-            this.tbl_mstapplicantreferencerequests.source.setPage((this.mstapplicantmaster_service.mstapplicantreferencerequests.length / this.tbl_mstapplicantreferencerequests.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_mstapplicantreferencerequests.source.grid.edit(this.tbl_mstapplicantreferencerequests.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_mstapplicantreferencerequests.source.data.indexOf(event.data);
-    this.onDelete_mstapplicantreferencerequest(event,event.data.requestid,((this.tbl_mstapplicantreferencerequests.source.getPaging().page-1) *this.tbl_mstapplicantreferencerequests.source.getPaging().perPage)+index);
-    this.tbl_mstapplicantreferencerequests.source.refresh();
-    break;
-    }
-    }
 
-    */
     mstapplicantreferencerequests_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -405,13 +314,8 @@ export class mstapplicantreferencegridComponent implements OnInit {
     async onCustom_mstapplicantreferencerequests_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantreferencerequests");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     mstapplicantreferencerequests_Paging(val) {
-        //debugger;;
         this.tbl_mstapplicantreferencerequests.source.setPaging(1, val, true);
     }
 

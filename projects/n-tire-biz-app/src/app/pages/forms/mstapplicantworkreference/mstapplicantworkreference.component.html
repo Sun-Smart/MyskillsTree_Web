@@ -117,7 +117,7 @@
         <label *ngIf="showview" class="labelview">{{f.worktopic?.value}}</label>
         <input *ngIf="!showview" id="worktopic" required formControlName="worktopic" class="form-control">
         <app-field-error-display [displayError]="f.worktopic.errors?.required"
-          errorMsg="Enter {{'Work Topic' | translate}}">
+          errorMsg="Enter {{'Work Topic'}}">
         </app-field-error-display>
       </div>
 
@@ -131,7 +131,7 @@
         <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="workdescription" required
           formControlName="workdescription" class="form-control"> </textarea>
         <app-field-error-display [displayError]="f.workdescription.errors?.required"
-          errorMsg="Enter {{'Work Description' | translate}}">
+          errorMsg="Enter {{'Work Description'}}">
         </app-field-error-display>
       </div>
 

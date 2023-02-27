@@ -123,7 +123,7 @@
         </select>
         <label *ngIf="showview" class="labelview">{{f.socialmedianamedesc?.value}}</label>
         <app-field-error-display [displayError]="f.socialmedianame.errors?.required"
-          errorMsg="Enter {{'Social Media' | translate}}">
+          errorMsg="Enter {{'Social Media'}}">
         </app-field-error-display>
       </div>
 
@@ -142,7 +142,7 @@
         <label for="url" class="control-label required">U R L</label>
         <label *ngIf="showview" class="labelview">{{f.url?.value}}</label>
         <input *ngIf="!showview" id="url" required formControlName="url" class="form-control">
-        <app-field-error-display [displayError]="f.url.errors?.required" errorMsg="Enter {{'U R L' | translate}}">
+        <app-field-error-display [displayError]="f.url.errors?.required" errorMsg="Enter {{'U R L'}}">
         </app-field-error-display>
       </div>
 

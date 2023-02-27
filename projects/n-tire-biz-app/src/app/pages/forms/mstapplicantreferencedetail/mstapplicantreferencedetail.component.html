@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstapplicantreferencedetail_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second common_title_style">
-    <h1 class="col-4 columns mainheader left">{{'Reference Details' | translate}}
+    <h1 class="col-4 columns mainheader left">{{'Reference Details'}}
     </h1>
     <div class='col  sticky1 second common_header_clr' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
@@ -55,27 +55,8 @@
               </li>
             </ul>
           </li>
-          <!-- <ng-container *ngFor="let action of mstapplicantreferencedetail_menuactions">
-            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
-                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
-          </ng-container>-->
-          <!-- <li class='nav-item actionheader' *ngIf="!showview"  style="padding: 1px 0px 8px 0px;">
-            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
-              Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
-            <app-action *ngIf="f.referenceid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
-              [value]="f.referenceid.value" [status]="f.status.value"></app-action>
-          </li>
-          <li class='nav-item actionheader'
-            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-          </li> -->
           <li class='nav-item actionheader common_title_style' *ngIf="!showview">
-            <!-- <a class="alert-success" [routerLink]=''>  -->
             <button type="button" class="btn btn-outline-primary  popup-add-button" (click)="onSubmitAndWait()">Submit</button>&nbsp;
-            <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
             <button type="button" class="btn btn-outline-primary  popup-add-button" *ngIf='data.pkcol==null || maindata.ScreenType==null'
               (click)="onSubmit()">Submit & Clear</button>&nbsp;
             <app-action *ngIf="f.referenceid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
@@ -126,7 +107,7 @@
         </select>
         <label *ngIf="showview" class="labelview">{{f.referencetypedesc?.value}}</label>
         <app-field-error-display [displayError]="f.referencetype.errors?.required"
-          errorMsg="Enter {{'Reference Type' | translate}}">
+          errorMsg="Enter {{'Reference Type'}}">
         </app-field-error-display>
       </div>
       <div
@@ -136,7 +117,7 @@
         <label *ngIf="showview" class="labelview">{{f.referencename?.value}}</label>
         <input *ngIf="!showview" id="referencename" required formControlName="referencename" class="form-control">
         <app-field-error-display [displayError]="f.referencename.errors?.required"
-          errorMsg="Enter {{'Reference Name' | translate}}">
+          errorMsg="Enter {{'Reference Name'}}">
         </app-field-error-display>
       </div>
       <div
@@ -146,7 +127,7 @@
         <label *ngIf="showview" class="labelview">{{f.companyname?.value}}</label>
         <input *ngIf="!showview" id="companyname" required formControlName="companyname" class="form-control">
         <app-field-error-display [displayError]="f.companyname.errors?.required"
-          errorMsg="Enter {{'Company Name' | translate}}">
+          errorMsg="Enter {{'Company Name'}}">
         </app-field-error-display>
       </div>
     </div>
@@ -176,7 +157,7 @@
         <app-field-error-display [displayError]="f.email.errors!=null && f.email.errors?.email"
           errorMsg="Enter valid email">
         </app-field-error-display>
-        <app-field-error-display [displayError]="f.email.errors?.required" errorMsg="Enter {{'Email' | translate}}">
+        <app-field-error-display [displayError]="f.email.errors?.required" errorMsg="Enter {{'Email'}}">
         </app-field-error-display>
       </div>
       <div
