@@ -8,7 +8,8 @@ import { bosubcategorymasterModule } from '../bosubcategorymaster/bosubcategorym
 
 @NgModule({
   exports: [
-    NgCommonModule
+    NgCommonModule,
+    bosubcategorymasterModule
   ],
   imports: [boreportviewerModule,
     routing,

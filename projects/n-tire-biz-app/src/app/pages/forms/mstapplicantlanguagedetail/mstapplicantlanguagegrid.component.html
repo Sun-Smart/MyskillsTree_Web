@@ -68,7 +68,8 @@
                 <!-- Remarks -->
 
                 <td>
-                    <textarea autosize rows="2" cols="2" id="achievementdetails" class="form-control" formControlName="remarks">
+                    <textarea autosize rows="2" cols="2" id="achievementdetails" class="form-control"
+                        formControlName="remarks">
                     </textarea>
                 </td>
 
@@ -82,15 +83,18 @@
                 </td>
             </tr>
 
-            <tr *ngFor="let item of check_mstapplicantlanguagedetail">
+            <tr *ngFor="let item of language_array">
                 <td>{{item.languagedesc}}</td>
                 <td>{{item.readproficiency}}</td>
                 <td>{{item.writeproficiency}}</td>
-                <td>{{item.speakproficiency}}</td>
+                <td>{{speakproficiency}}</td>
                 <td>{{item.overallrating}}</td>
-                <td>{{item.remarks}}</td>
+                <td style="width: 20%;word-break: break-word;white-space: break-spaces;">{{item.remarks}}</td>
                 <td><i (click)="Edit_mstapplicantlanguagedetail(item.pkcol,item.languageid,item.applicantid)"
-                        class="fa fa-edit commonEditicon" title="Edit"></i></td>
+                        class="fa fa-edit commonEditicon" title="Edit"></i>
+                    <i (click)="onDelete_mstapplicantlanguagedetail(item.pkcol,item.languageid,item.applicantid)"
+                        class="fa fa-trash-o" title="Delete"></i>
+                </td>
             </tr>
         </tbody>
     </table>

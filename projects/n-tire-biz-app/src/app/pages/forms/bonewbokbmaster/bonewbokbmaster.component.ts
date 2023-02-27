@@ -317,6 +317,8 @@ export class BonewbokbmasterComponent implements OnInit {
         //foreign keys
       }
       this.bokbmaster_service.getDefaultData().then(res => {
+        console.log("tfthdy", res.list_kbcategory);
+        
         this.kbcategory_List = res.list_kbcategory.value;
         this.kbcategory_Suggestions = this.kbcategory_List;
         if (this.formData?.kbcategory != undefined && this.formData?.kbcategory != null) {

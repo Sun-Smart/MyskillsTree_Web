@@ -422,6 +422,7 @@ export class bosubcategorymasterComponent implements OnInit {
     }
 
     FillData(res: any) {
+        debugger
         this.formData = res.bosubcategorymaster;
         this.formid = res.bosubcategorymaster.subcategoryid;
         this.pkcol = res.bosubcategorymaster.pkcol;

@@ -83,8 +83,6 @@ export class bomasterdataComponent implements OnInit {
     sessionData: any;
     sourceKey: any;
 
-
-    masterdatatypeid1: any;
     bosubcategorymasters_visiblelist: any;
     bosubcategorymasters_hidelist: any;
 
@@ -208,7 +206,7 @@ export class bomasterdataComponent implements OnInit {
         }
         this.bomasterdata_service.getDefaultData().then(res => {
             this.masterdatatypeid_List = res.list_masterdatatypeid.value;
-
+            // this.masterdatatypeid_List = res.list_masterdatatypeid.label;
         }).catch((err) => { this.spinner.hide(); });
 
         this.bomasterdata_service.get_bomasterdatas_List().then(res => {
@@ -330,6 +328,7 @@ export class bomasterdataComponent implements OnInit {
 
 
     async PopulateScreen(pkcol: any) {
+
         this.spinner.show();
         this.bomasterdata_service.get_bomasterdatas_ByEID(pkcol).then(res => {
             this.spinner.hide();
@@ -343,6 +342,9 @@ export class bomasterdataComponent implements OnInit {
     }
 
     FillData(res: any) {
+
+        this.Set_bosubcategorymasters_TableConfig();
+        this.bosubcategorymasters_LoadTable(res.bosubcategorymasters);
         this.formData = res.bomasterdata;
         this.formid = res.bomasterdata.masterdataid;
         this.pkcol = res.bomasterdata.pkcol;
@@ -367,8 +369,6 @@ export class bomasterdataComponent implements OnInit {
         this.bomasterdata_menuactions = res.bomasterdata_menuactions;
         this.bosubcategorymaster_menuactions = res.bosubcategorymaster_menuactions;
         this.bosubcategorymasters_visiblelist = res.bosubcategorymasters_visiblelist;
-        this.Set_bosubcategorymasters_TableConfig();
-        this.bosubcategorymasters_LoadTable(res.bosubcategorymasters);
     }
 
     validate() {
@@ -427,6 +427,7 @@ export class bomasterdataComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
+        debugger;
         this.isSubmitted = true;
         let strError = "";
         if (strError != "") return this.sharedService.alert(strError);
@@ -599,6 +600,9 @@ export class bomasterdataComponent implements OnInit {
                     filter: true,
                 },
             },
+            // attr: {
+            //     class: 'table table-bordered table-header'
+            // },
         };
     }
     bosubcategorymasters_LoadTable(bosubcategorymasters = new LocalDataSource()) {
