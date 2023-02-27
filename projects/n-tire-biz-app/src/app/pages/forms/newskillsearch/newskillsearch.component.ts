@@ -6,17 +6,14 @@ import { mstapplicantskilldetailService } from '../../../service/mstapplicantski
 import { AppConstants, DropDownValues } from '../../../shared/helper';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { mstapplicantgeographypreferenceService } from './../../../service/mstapplicantgeographypreference.service';
-import { ReportViewerCtrlComponent } from '../boreportviewer/reportviewerctrl.component';
 import { DialogService } from 'primeng/dynamicDialog';
 import { dataComponent } from '../boreportdata/data.component';
 import { BOReportViewerService } from '../../../../../../n-tire-biz-app/src/app/service/boreportviewer.service';
-import { bodlgviewerComponent } from '../boreportviewer/bodlgviewer.component';
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { Router } from '@angular/router';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { bomenumasterService } from '../../../../../../n-tire-biz-app/src/app/service/bomenumaster.service';
-import { mstcategoryComponent } from '../mstcategory/mstcategory.component';
 @Component({
   selector: 'app-newskillsearch',
   templateUrl: './newskillsearch.component.html',
@@ -102,7 +99,7 @@ export class NewskillsearchComponent implements OnInit {
   locationsetitem: any;
   technicalSkill: DropDownValues[];
   nonTechskill: DropDownValues[];
-  constructor(private http: HttpClient, public dialog: DialogService, private bomenumasterservice: bomenumasterService, public sessionService: SessionService, public dialogRef: DynamicDialogRef, private sharedService: SharedService, private router: Router, private boreportviewerservice: BOReportViewerService, private mstapplicantskilldetail_service: mstapplicantskilldetailService, private mstapplicantgeographypreference_service: mstapplicantgeographypreferenceService, private fb: FormBuilder) {
+  constructor(private http: HttpClient, public dialog: DialogService, public sessionService: SessionService, public dialogRef: DynamicDialogRef, private sharedService: SharedService, private router: Router, private boreportviewerservice: BOReportViewerService, private mstapplicantskilldetail_service: mstapplicantskilldetailService, private mstapplicantgeographypreference_service: mstapplicantgeographypreferenceService, private fb: FormBuilder) {
     this.mstapplicantgeographypreference_Form = this.fb.group({
       country: [null],
       countrydesc: [null],
@@ -110,7 +107,6 @@ export class NewskillsearchComponent implements OnInit {
       citydesc: [null],
     });
     if (this.sharedService.menuid != undefined) {
-      //console.log(this.sharedService.menuid);
       this.pmenuid = this.sharedService.menuid;
       this.pmenucode = this.sharedService.menucode;
     }
@@ -157,52 +153,30 @@ export class NewskillsearchComponent implements OnInit {
       key: "",
       pkvalue: 0
     }
-    // this.http.post(AppConstants.ntireboURL + '/ReportViewer', data).subscribe((res: any) => {
-    //   this.showData = res.results.Rows;
-    //   console.log(this.showData);
-    // })
     this.http.get(AppConstants.ntirebizURL + '/boreport/reportcode/mstsr').subscribe((res: any) => {
-      console.log(res);
     })
     this.http.get(AppConstants.ntirebizURL + '/mstapplicantgeographypreference/getList_city').subscribe((res: any) => {
-      console.log('location check', res);
       this.location_List = res;
     })
     this.mstapplicantskilldetail_service.getList_segmentcategory().then(res => {
-
-
-      //  this.applicantid_List = res.list_applicantid.value;
       this.Segmentcategory_list = res;
-      console.log('res ', res);
-
-      // this.referenceacceptance_List = res.list_referenceacceptance.value;
-    }).catch((err) => { console.log(err); });
+    }).catch((err) => { });
 
     this.mstapplicantskilldetail_service.getDefaultData().then(res => {
-
-      console.log(res)
-
       this.applicantid_List = res.list_applicantid.value;
-
-      // this.skillcategory_List = res.list_skillcategory.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
-    }).catch((err) => { console.log(err); });
+    }).catch((err) => { });
 
     //autocomplete
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_List().then(res => {
       this.pkList = res as mstapplicantskilldetail[];
       this.pkoptionsEvent.emit(this.pkList);
     }
-    ).catch((err) => { console.log(err); });
+    ).catch((err) => { });
 
     this.mstapplicantgeographypreference_service.getDefaultData().then(res => {
-      debugger
       this.applicantid_List = res.list_applicantid.value;
       this.country_List = res.list_country.value;
-      console.log('this.applicantid_List ', this.applicantid_List);
-      console.log('this.country_List ', this.country_List);
-
-
     }).catch((err) => { });
   }
   onList() {
@@ -223,63 +197,30 @@ export class NewskillsearchComponent implements OnInit {
 
   get f() { return this.mstapplicantskilldetail_Form.controls; }
   segmentcategory_onChange(evt: any) {
-    debugger
     let e = evt.value;
 
     this.skillcategoryarry.push({ segment: e })
-    // console.log('eee', e);
     this.skillcategory1 = 0;
     for (let i = 0; i < this.skillcategoryarry.length; i++) {
       this.skillcategory1 = this.skillcategory1 + ',' + this.skillcategoryarry[i].segment;
     }
-    console.log(this.skillcategory1);
 
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, null, null, null, null, null, null).then((res: any) => {
-      console.log('res ', res);
-      debugger
       this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
         this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
-        console.log(this.showData[z].useprofilephoto);
       }
-      debugger
       this.showData = res;
       this.showGrid = true;
-
-      console.log('split image', this.showData);
-
     });
-    // this.getidd = e
-
-    // if (this.getidd == "166") {
-    //   this.showinput1 = true
-    // } else {
-    //   this.showinput2 = false
-    //   this.showinput3 = false
-    //   this.showinput1 = false
-    // }
     setTimeout(() => {
-      //New code
       this.mstapplicantskilldetail_service.getMultipleCheckSegmentID(this.skillcategory1).then((res: any) => {
-        debugger
-        // if (this.skillcategory1 == "0,121") {
-        //   this.technicalSkill = res as DropDownValues[];
-        //   console.log('this.technicalSkill', this.technicalSkill);
-        // }
-        // else if (this.skillcategory1 == "0,122") {
-        //   this.nonTechskill = res as DropDownValues[];
-        //   console.log('this.technicalSkill', this.nonTechskill);
-        // }
-        // else {
           this.skillcategory_List = res as DropDownValues[];
-        // }
       })
-
     }
     );
 
     setTimeout(() => {
-      // if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
       this.mstapplicantskilldetail_service.getList_subcategoryid2(e).then(res =>
         this.subcategoryid_List = res as DropDownValues[]);
     });
@@ -288,24 +229,17 @@ export class NewskillsearchComponent implements OnInit {
   }
 
   skillcategory_onChange(evt: any) {
-    debugger
     let e = evt.categoryid;
-    console.log('evt.categoryid ', e);
-
 
     this.skillcategory1arry.push({ category: e })
-    // console.log('eee', e);
     this.skillcategory2 = 0;
     for (let i = 0; i < this.skillcategory1arry.length; i++) {
       this.skillcategory2 = this.skillcategory2 + ',' + this.skillcategory1arry[i].category;
     }
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, null, null, null, null, null).then((res: any) => {
-      console.log('res ', res);
       this.showData = res;
-      // this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
         this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
-        console.log(this.showData[z].useprofilephoto);
       }
       this.showData = res;
       this.showGrid = true;
@@ -316,16 +250,11 @@ export class NewskillsearchComponent implements OnInit {
     } else {
       this.showinput2 = false
     }
-    // setTimeout(() => {
-    debugger
-    //New Code
     this.mstapplicantskilldetail_service.getMultipleChecksubcategoryID(this.skillcategory2).then((res: any) => {
       this.subcategoryid_List = res as DropDownValues[]
     });
-    // });
   }
   subcategoryid_onChange(evt: any) {
-    debugger
     let e = evt.subcategoryid;
     this.skillcategory2arry.push({ subcate: e })
     this.skillcategory3 = 0;
@@ -333,16 +262,13 @@ export class NewskillsearchComponent implements OnInit {
       this.skillcategory3 = this.skillcategory3 + ',' + this.skillcategory2arry[i].subcate;
     }
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.skillcategory3 ? this.skillcategory3 : null, null, null, null, null).then((res: any) => {
-      console.log('res ', res);
       this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
         this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
-        console.log(this.showData[z].useprofilephoto);
       }
       this.showData = res;
       this.showGrid = true;
     });
-    console.log('eeeeee', e);
 
     this.getdata2 = e
     if (this.getdata2 == "411") {
@@ -353,7 +279,6 @@ export class NewskillsearchComponent implements OnInit {
   }
 
   onSelected_country(countryDetail: any) {
-    debugger
     if (countryDetail.value && countryDetail) {
       this.mstapplicantgeographypreference_Form.patchValue({
         country: countryDetail.value,
@@ -366,27 +291,20 @@ export class NewskillsearchComponent implements OnInit {
     }
   }
   valueChanged(e) {
-    console.log('e', e);
     this.rangevalue = e.target.value;
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.skillcategory3 ? this.skillcategory3 : null, this.rangevalue ? this.rangevalue : null, null, null, null).then((res: any) => {
-      console.log('res ', res);
       this.showData = res;
 
       for (let z = 0; this.showData.length > 0; z++) {
         this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
-        console.log(this.showData[z].useprofilephoto);
       }
       this.showData = res;
       this.showGrid = true;
     });
   }
   location_onChange(e: any) {
-    debugger;
-    console.log('e', e);
     this.locationValue = e.label;
     this.location_arry.push({ loca: this.locationValue })
-    // console.log('substring', this.locationValue.substring(0, this.locationValue.length - 1));
-
     this.location_field = "";
     for (let i = 0; i < this.location_arry.length; i++) {
       this.showData = [];
@@ -395,32 +313,24 @@ export class NewskillsearchComponent implements OnInit {
     this.location_field = this.location_field.slice(0, -1);
 
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.skillcategory3 ? this.skillcategory3 : null, this.rangevalue ? this.rangevalue : null, this.location_field ? this.location_field : null, null, null).then((res: any) => {
-      console.log('res ', res);
       this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
         this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
-        console.log(this.showData[z].useprofilephoto);
       }
       this.showData = res;
       this.showGrid = true;
     });
   }
   location_DeSelect(e: any) {
-    console.log(e.label);
     this.locationsetitem = "0";
     for (let i = 0; i < this.skilllocation.length; i++) {
       this.locationsetitem = this.locationsetitem + ',' + this.skilllocation[i].label;
     }
-    console.log('this.deletecategory ', this.locationsetitem);
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.sub_categorysetItem ? this.sub_categorysetItem : null, null, this.locationsetitem ? this.locationsetitem : null, null, null).then((res: any) => {
-      console.log('res ', res);
-      debugger
       this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
         this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
-        console.log(this.showData[z].useprofilephoto);
       }
-      debugger
       this.showData = res;
       this.showGrid = true;
 
@@ -429,8 +339,6 @@ export class NewskillsearchComponent implements OnInit {
 
   }
   opendialog1(applicantid: any, pkcol: any) {
-    console.log('applicantid', applicantid);
-    console.log('pkcol', pkcol);
     let stredit = 'view';
     let url = "#/workflow/" + "mstapplicantmasters" + "/" + "mstapplicantmasters" + "/" + stredit + "/" + encodeURIComponent(pkcol);
     this.dialog.open(dataComponent,
@@ -442,8 +350,6 @@ export class NewskillsearchComponent implements OnInit {
   }
 
   onItemDeSelect(item: any) {
-    debugger;
-    console.log(item);
     this.skillcategory = ''
     this.subcategoryid = ''
     this.segmentsetItem = "0";
@@ -451,58 +357,39 @@ export class NewskillsearchComponent implements OnInit {
       this.segmentsetItem = this.segmentsetItem + ',' + this.segmentid[i].value;
       this.checkSeg = this.segmentid[i].value;
     }
-    console.log('this.deletesegment ', this.segmentsetItem);
-    console.log('this.checkSeg ', this.checkSeg);
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.segmentsetItem ? this.segmentsetItem : null, null, null, null, null, null, null).then((res: any) => {
-      console.log('res ', res);
-      debugger
       this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
         this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
-        console.log(this.showData[z].useprofilephoto);
       }
-      debugger
       this.showData = res;
       this.showGrid = true;
-
-      console.log('split image', this.showData);
 
     });
     setTimeout(() => {
       //New code
       this.mstapplicantskilldetail_service.getMultipleCheckSegmentID(this.segmentsetItem).then((res: any) => {
-        debugger
         this.skillcategory_List = res as DropDownValues[];
       });
     });
   };
 
   category_DeSelect(item: any) {
-    debugger;
     this.subcategoryid = ''
-    console.log(item);
-    // console.log('get chg',this.checkSeg);
 
     this.categorysetItem = "0";
     for (let i = 0; i < this.skillcategory.length; i++) {
       this.categorysetItem = this.categorysetItem + ',' + this.skillcategory[i].categoryid;
     }
-    console.log('this.deletecategory ', this.categorysetItem);
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.categorysetItem ? this.categorysetItem : null, null, null, null, null, null).then((res: any) => {
-      console.log('res ', res);
-      debugger
       this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
         this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
-        console.log(this.showData[z].useprofilephoto);
       }
-      debugger
       this.showData = res;
       this.showGrid = true;
 
-      console.log('split image', this.showData);
       setTimeout(() => {
-        // if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
         this.mstapplicantskilldetail_service.getList_subcategoryid2(this.categorysetItem).then(res =>
           this.subcategoryid_List = res as DropDownValues[]);
       });
@@ -512,28 +399,19 @@ export class NewskillsearchComponent implements OnInit {
 
   subcategory_DeSelect(item: any) {
 
-    console.log("subcategory", item.subcategoryid);
-
     this.sub_categorysetItem = "0";
     for (let i = 0; i < this.subcategoryid.length; i++) {
       this.sub_categorysetItem = this.sub_categorysetItem + ',' + this.subcategoryid[i].subcategoryid;
     }
-    console.log('this.deletecategory ', this.sub_categorysetItem);
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.sub_categorysetItem ? this.sub_categorysetItem : null, null, null, null, null).then((res: any) => {
-      console.log('res ', res);
-      debugger
       this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
         this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
-        console.log(this.showData[z].useprofilephoto);
       }
-      debugger
       this.showData = res;
       this.showGrid = true;
 
-      console.log('split image', this.showData);
       setTimeout(() => {
-        // if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null)
         this.mstapplicantskilldetail_service.getList_subcategoryid2(this.categorysetItem).then(res =>
           this.subcategoryid_List = res as DropDownValues[]);
       });
