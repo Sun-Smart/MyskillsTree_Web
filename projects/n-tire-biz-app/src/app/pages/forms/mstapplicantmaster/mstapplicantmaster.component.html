@@ -53,12 +53,6 @@
               </li>
             </ul>
           </li>
-          <!--
-          <ng-container *ngFor="let action of mstapplicantmaster_menuactions">
-            <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
-                  aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
-          </ng-container>
-        -->
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success popup-add-button" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
               Back</a>
@@ -106,10 +100,10 @@
               <label *ngIf="showview" class="labelview">{{f.firstname?.value}}</label>
               <input *ngIf="!showview" id="firstname" required formControlName="firstname" class="form-control">
               <app-field-error-display [displayError]="f.firstname.errors?.required"
-                errorMsg="Enter {{'First Name' | translate}}">
+                errorMsg="Enter {{'First Name'}}">
               </app-field-error-display>
               <app-field-error-display [displayError]="f.firstname.errors?.pattern"
-                errorMsg="{{'First Name' | translate}} not valid">
+                errorMsg="{{'First Name'}} not valid">
               </app-field-error-display>
             </div>
             <div *ngIf="((hidelist.indexOf('lastname') == -1) && (lastnamevisible==undefined || lastnamevisible==true))"
@@ -118,10 +112,10 @@
               <label *ngIf="showview" class="labelview">{{f.lastname?.value}}</label>
               <input *ngIf="!showview" id="lastname" required formControlName="lastname" class="form-control">
               <app-field-error-display [displayError]="f.lastname.errors?.required"
-                errorMsg="Enter {{'Last Name' | translate}}">
+                errorMsg="Enter {{'Last Name'}}">
               </app-field-error-display>
               <app-field-error-display [displayError]="f.lastname.errors?.pattern"
-                errorMsg="{{'Last Name' | translate}} not valid">
+                errorMsg="{{'Last Name'}} not valid">
               </app-field-error-display>
             </div>
           </div>
@@ -136,7 +130,7 @@
                 errorMsg="Enter valid email">
               </app-field-error-display>
               <app-field-error-display [displayError]="f.emailid.errors?.required"
-                errorMsg="Enter {{'Email' | translate}}">
+                errorMsg="Enter {{'Email'}}">
               </app-field-error-display>
             </div>
             <div
@@ -148,7 +142,7 @@
                 [locale]="'en'" [defaultCountry]="'ae'" class="form-control telephone">
               </int-phone-prefix>
               <app-field-error-display [displayError]="f.mobilenumber.errors?.required"
-                errorMsg="Enter {{'Mobile Number' | translate}}">
+                errorMsg="Enter {{'Mobile Number'}}">
               </app-field-error-display>
             </div>
           </div>
@@ -167,7 +161,7 @@
               </select>
               <label *ngIf="showview" class="labelview">{{f.applicanttypedesc?.value}}</label>
               <app-field-error-display [displayError]="f.applicanttype.errors?.required"
-                errorMsg="Enter {{'Type' | translate}}">
+                errorMsg="Enter {{'Type'}}">
               </app-field-error-display>
             </div>
 
@@ -267,7 +261,7 @@
               <label *ngIf="showview" class="labelview">{{f.zipcode?.value}}</label>
               <input *ngIf="!showview" id="zipcode" formControlName="zipcode" class="form-control">
               <app-field-error-display [displayError]="f.zipcode.errors?.pattern"
-                errorMsg="{{'Zip Code' | translate}} not valid">
+                errorMsg="{{'Zip Code'}} not valid">
               </app-field-error-display>
             </div>
           </div>
@@ -363,42 +357,7 @@
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
-            <!-- child table mstapplicantgeographypreferences-->
-            <!--
-            <div [ngClass]="Is_mstapplicantgeographypreferences_Visible()">
-
-              <h4 class="form-group sticky1  columns left">{{'Geography Preferences' | translate}}
-                <ul class="nav navbar-nav1" style='display:none'>
-                  <li class="dropdown">
-                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-                      aria-expanded='false'> <span class='caret'></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" [routerLink]=''
-                          (click)="mstapplicantgeographypreferences_route(null, 'create')"><i class="fa fa-plus"
-                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                    </ul>
-                  </li>
-                </ul>
-                <a class="rightside" [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')"><i
-                    class="fa fa-plus"></i></a>
-              </h4>
-              <ng2-smart-table #tbl_mstapplicantgeographypreferences
-                (userRowSelect)="handle_mstapplicantgeographypreferences_GridSelected($event)"
-                [settings]="mstapplicantgeographypreferences_settings"
-                (custom)="onCustom_mstapplicantgeographypreferences_Action($event)"
-                [source]="tbl_mstapplicantgeographypreferences?.source?.data"
-                (delete)="mstapplicantgeographypreferences_route($event,'delete')"
-                (deleteConfirm)="mstapplicantgeographypreferences_route($event,'delete')"
-                (create)="mstapplicantgeographypreferences_route($event,'create')"
-                (createConfirm)="mstapplicantgeographypreferences_beforesave($event)"
-                (edit)="mstapplicantgeographypreferences_route($event,'edit')"
-                (editConfirm)="mstapplicantgeographypreferences_beforesave($event)">
-              </ng2-smart-table>
-            </div>
-
-          -->
             <!--End of child table mstapplicantgeographypreferences-->
-
 
             <button class="btn-style" (click)="showGeographyPreferences()" type="button">Where are you located?</button>
           </p-accordion>
@@ -413,7 +372,7 @@
             <!-- child table mstapplicantcareerdetails-->
             <div [ngClass]="Is_mstapplicantcareerdetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Career Details' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Career Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -445,44 +404,7 @@
           </p-accordion>
         </ng-template>
       </ngb-tab>
-      <!-- <ngb-tab>
-        <ng-template ngbTabTitle>
-          <div (click)="ToolBar(false)">Other References</div>
-        </ng-template>
-        <ng-template ngbTabContent>
-          <p-accordion [multiple]='true'>
-            <div [ngClass]="Is_mstapplicantreferencedetails_Visible()">
-              <h4 class="form-group sticky1  columns left">{{'Other References' | translate}}
-                <ul class="nav navbar-nav1" style='display:none'>
-                  <li class="dropdown">
-                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-                      aria-expanded='false'> <span class='caret'></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" [routerLink]=''
-                          (click)="mstapplicantreferencedetails_route(null, 'create')"><i class="fa fa-plus"
-                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                    </ul>
-                  </li>
-                </ul>
-                <a class="rightside" [routerLink]='' (click)="mstapplicantreferencedetails_route(null, 'create')"><i
-                    class="fa fa-plus"></i></a>
-              </h4>
-              <ng2-smart-table #tbl_mstapplicantreferencedetails
-                (userRowSelect)="handle_mstapplicantreferencedetails_GridSelected($event)"
-                [settings]="mstapplicantreferencedetails_settings"
-                (custom)="onCustom_mstapplicantreferencedetails_Action($event)"
-                [source]="tbl_mstapplicantreferencedetails?.source?.data"
-                (delete)="mstapplicantreferencedetails_route($event,'delete')"
-                (deleteConfirm)="mstapplicantreferencedetails_route($event,'delete')"
-                (create)="mstapplicantreferencedetails_route($event,'create')"
-                (createConfirm)="mstapplicantreferencedetails_beforesave($event)"
-                (edit)="mstapplicantreferencedetails_route($event,'edit')"
-                (editConfirm)="mstapplicantreferencedetails_beforesave($event)">
-              </ng2-smart-table>
-            </div>
-          </p-accordion>
-        </ng-template>
-      </ngb-tab> -->
+
       <ngb-tab>
         <ng-template ngbTabTitle>
           <div (click)="ToolBar(false)">Skill Details</div>
@@ -490,39 +412,7 @@
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
             <button class="btn-style" (click)="showSkills()" type="button">What are your skills?</button>
-            <!-- child table mstapplicantskilldetails-->
-            <!--
-            <div [ngClass]="Is_mstapplicantskilldetails_Visible()">
 
-              <h4 class="form-group sticky1  columns left">{{'Skill Details' | translate}}
-                <ul class="nav navbar-nav1" style='display:none'>
-                  <li class="dropdown">
-                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-                      aria-expanded='false'> <span class='caret'></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" [routerLink]=''
-                          (click)="mstapplicantskilldetails_route(null, 'create')"><i class="fa fa-plus"
-                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                    </ul>
-                  </li>
-                </ul>
-                <a class="rightside" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
-                    class="fa fa-plus"></i></a>
-              </h4>
-              <ng2-smart-table #tbl_mstapplicantskilldetails
-                (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
-                [settings]="mstapplicantskilldetails_settings"
-                (custom)="onCustom_mstapplicantskilldetails_Action($event)"
-                [source]="tbl_mstapplicantskilldetails?.source?.data"
-                (delete)="mstapplicantskilldetails_route($event,'delete')"
-                (deleteConfirm)="mstapplicantskilldetails_route($event,'delete')"
-                (create)="mstapplicantskilldetails_route($event,'create')"
-                (createConfirm)="mstapplicantskilldetails_beforesave($event)"
-                (edit)="mstapplicantskilldetails_route($event,'edit')"
-                (editConfirm)="mstapplicantskilldetails_beforesave($event)">
-              </ng2-smart-table>
-            </div>
-          -->
             <!--End of child table mstapplicantskilldetails-->
           </p-accordion>
         </ng-template>
@@ -536,7 +426,7 @@
             <!-- child table mstapplicantworkreferences-->
             <div [ngClass]="Is_mstapplicantworkreferences_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Projects' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Projects'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -577,7 +467,7 @@
             <!-- child table mstapplicantsocialmediadetails-->
             <div [ngClass]="Is_mstapplicantsocialmediadetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'SocialMedia Details' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'SocialMedia Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -618,7 +508,7 @@
             <!-- child table mstapplicantachievementdetails-->
             <div [ngClass]="Is_mstapplicantachievementdetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Achievement Details' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Achievement Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -659,7 +549,7 @@
             <!-- child table mstapplicantlanguagedetails-->
             <div [ngClass]="Is_mstapplicantlanguagedetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Language Details' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Language Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -700,7 +590,7 @@
             <!-- child table mstapplicanteducationdetails-->
             <div [ngClass]="Is_mstapplicanteducationdetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Education Details' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Education Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -741,7 +631,7 @@
             <!-- child table mstjobstatuses-->
             <div [ngClass]="Is_mstjobstatuses_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Job Statuses' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Job Statuses'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -776,7 +666,7 @@
             <!-- child table mstapplicantreferencerequests-->
             <div [ngClass]="Is_mstapplicantreferencerequests_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Reference Requests' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Reference Requests'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'

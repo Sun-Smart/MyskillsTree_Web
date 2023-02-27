@@ -1,6 +1,6 @@
 import { mstapplicantmasterService } from './../../../service/mstapplicantmaster.service';
 import { mstapplicantmaster } from './../../../model/mstapplicantmaster.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';

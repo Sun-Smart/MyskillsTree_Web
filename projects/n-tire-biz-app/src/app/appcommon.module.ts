@@ -193,7 +193,7 @@ import { MstStartPagesComponent } from './pages/forms/mst-start-pages/mst-start-
 import {PickListModule} from 'primeng/picklist';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import { MstLocationDetailsComponent } from './pages/forms/mst-location-details/mst-location-details.component';
-
+import {BlockUIModule} from 'primeng/blockui';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -296,7 +296,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         DynamicFormBuilderComponent,
         CheckBoxComponent, DropDownComponent, FileComponent, RadioComponent, TextBoxComponent,
         FieldBuilderComponent,
-        RouterModule,PickListModule,InputSwitchModule,
+        RouterModule,PickListModule,InputSwitchModule,BlockUIModule,
         //NgxIntlTelInputModule,
         SmartTableDatepickerRenderComponent,
         SmartTableDatepickerComponent,

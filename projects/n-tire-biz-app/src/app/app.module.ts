@@ -118,6 +118,7 @@ import { MstSocialMediaComponent } from './pages/forms/mst-social-media/mst-soci
 import { MstStartPagesComponent } from './pages/forms/mst-start-pages/mst-start-pages.component';
 import {PickListModule} from 'primeng/picklist';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import {BlockUIModule} from 'primeng/blockui';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -176,7 +177,7 @@ export function tokenGetter() {
         NgbDatepickerModule,
         OverlayPanelModule,
         HttpClientModule,
-        NgScrollbarModule,PickListModule,InputSwitchModule,
+        NgScrollbarModule,PickListModule,InputSwitchModule,BlockUIModule,
         AppRoutingModule,
         AutoCompleteModule,
         // Optionally you can set time for `idle`, `timeout` and `ping` in seconds.
