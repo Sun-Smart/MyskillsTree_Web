@@ -58,7 +58,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
     <div class="col-4">
     <h4 class="  columns left"
-    >{{'Career Details'}}</h4>
+    >{{'Experience'}}</h4>
     </div>
     <div class="col-4">
     <ul class="nav navbar-nav1" style='display:none'>
@@ -96,7 +96,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
     <div class="col-4">
     <h4 class="  columns left"
-    >{{'Career Details'}}</h4>
+    >{{'Experience'}}</h4>
     </div>
     <div class="col-4">
     <ul class="nav navbar-nav1" style='display:none'>

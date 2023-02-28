@@ -27,7 +27,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <div *ngIf="showWebviewDetect" class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
 <div class="col-4">
-    <h4 class="columns left">{{'Social Media Details'}}</h4>
+    <h4 class="columns left">{{'Social media'}}</h4>
 </div>
 
 <div class="col-4">
@@ -60,7 +60,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 <div *ngIf="showMobileDetectskill" class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
 <div class="col-4">
-    <h4 class="columns left">{{'Social Media Details'}}</h4>
+    <h4 class="columns left">{{'Social media'}}</h4>
 </div>
 
 <div class="col-4">

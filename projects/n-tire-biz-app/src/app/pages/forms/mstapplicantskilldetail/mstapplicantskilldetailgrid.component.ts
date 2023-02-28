@@ -58,7 +58,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
 
   <div class="col-4" style="margin:auto;">
-    <h4 class="form-group sticky1  columns left">{{'Skill Details'}}
+    <h4 class="form-group sticky1  columns left">{{'Skill sets'}}
 
       <ul class="nav navbar-nav1" style='display:none'>
         <li class="dropdown">
@@ -87,7 +87,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
 
   <div class="col-4" style="margin:auto;">
-    <h4 class="form-group sticky1  columns left">{{'Skill Details'}}
+    <h4 class="form-group sticky1  columns left">{{'Skill sets'}}
 
       <ul class="nav navbar-nav1" style='display:none'>
         <li class="dropdown">

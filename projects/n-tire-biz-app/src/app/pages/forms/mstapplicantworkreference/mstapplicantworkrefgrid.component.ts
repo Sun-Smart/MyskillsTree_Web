@@ -28,7 +28,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
     <div *ngIf="showWebviewDetect" class="row form-group sticky1" style=" background: #ebf3fc; !important;color: #000;padding: 5px;">
 
     <div class="col-4">
-    <h4 class="mobile_work_ref">{{'Projects'}}</h4>
+    <h4 class="mobile_work_ref">{{'Project'}}</h4>
 </div>
 
 <div class="col-4">
@@ -57,7 +57,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 <div *ngIf="showMobileDetectskill" class="row form-group sticky1" style=" background: #ebf3fc; !important;color: #000;padding: 5px;">
 
     <div class="col-4">
-    <h4 class="mobile_work_ref">{{'Projects'}}</h4>
+    <h4 class="mobile_work_ref">{{'Project'}}</h4>
 </div>
 
 <div class="col-4">
