@@ -146,8 +146,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <tr>
 
 
-                    <th style="width: 10%;">Category</th>
-                    <th style="width: 10%;">Sub Category</th>
+                    <th style="width: 10%;">Qualification</th>
+                    <th style="width: 10%;">Discipline</th>
                     <th style="width: 10%">Institution Name</th>
                     <th style="width: 10%;">Course Name</th>
                     <th style="width: 10%;">Percentage</th>
@@ -259,7 +259,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <input type="number" id="fromyear" formControlName="fromyear" class="form-control" required>
 </div>
 <div class="col-md-12">
-  <label>Category</label>
+  <label>Qualification</label>
   <select  id="educationcategory" required (change)="educationcategory_onChange($event.target)"
                         formControlName="educationcategory" class="form-control">
                     <option [ngValue]="null" selected>-Select-</option>
@@ -267,7 +267,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     </select>
 </div>
 <div class="col-md-12">
-  <label>Sub Category</label>
+  <label>Discipline</label>
   <select  id="educationsubcategory" required
                         (change)="educationsubcategory_onChange($event.target)" formControlName="educationsubcategory"
                         class="form-control">
