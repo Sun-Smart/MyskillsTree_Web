@@ -4,3 +4,13 @@ p-accordiontab{
 .p-float-label label{
   top: 0% !important;
 }
+.kbmaster-tab{
+  margin: 1rem 0 !important;
+}
+.table-container:not(.p-dialog-content .table-container) {
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  position: absolute !important;
+  height: auto !important;
+  width: 100% !important;
+}
