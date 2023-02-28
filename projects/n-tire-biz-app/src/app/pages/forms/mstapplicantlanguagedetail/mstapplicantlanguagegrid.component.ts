@@ -1,53 +1,19 @@
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-
-import { mstapplicantskilldetail } from './../../../model/mstapplicantskilldetail.model';
-import { mstapplicantskilldetailComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.component';
-import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
-
-import { mstapplicantreferencerequest } from './../../../model/mstapplicantreferencerequest.model';
-import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
-import { mstapplicantreferencerequestService } from './../../../service/mstapplicantreferencerequest.service';
-
-//primeng services
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { mstapplicanteducationdetailService } from '../../../service/mstapplicanteducationdetail.service';
-import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
-import { mstapplicantsocialmediadetailService } from '../../../service/mstapplicantsocialmediadetail.service';
 import { mstapplicantlanguagedetailService } from '../../../service/mstapplicantlanguagedetail.service';
 import { mstapplicantlanguagedetailComponent } from './mstapplicantlanguagedetail.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -60,15 +26,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   styles: [`
      @media only screen and (max-width: 600px) {
       button.btn.btn-outline-primary.popup-add-button{
-        /* position: absolute !important;
-        right: 50px !important;
-        bottom: -3px !important; */
         position: absolute !important;
         right: 50px !important;
         bottom: -3px !important;
     }
     .row.form-group.sticky1{
-      /* width: 890px !important; */
       height: 50px !important;
     }
     h4.columns.left{
@@ -78,12 +40,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     h4.form-group.sticky1.columns.left{
       white-space: pre !important;
       font-size: 17px !important;
-    }
-    .closeButton1{
-      /* width: 27% !important; */
-    }
-    .mobile_grid_view{
-      /* width: 900px !important; */
     }
     label {
     margin-bottom: 0rem !important;
@@ -115,27 +71,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </div>
 
   <div class="col-4" style="text-align: end; margin: auto;">
-      <!-- <ul class="rightside">
-      <a [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i style="color:#fff !important;"
-          class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-      </ul> -->
-      <!-- <ul class="rightside"> -->
-                  <!-- <a  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"> -->
-                  <!-- <button type="button" style="border-color: #fff !important;
-                  color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
-
                   <button type="button" class="btn btn-outline-primary  popup-add-button"
                   [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
                    title = "Add Details">Add</button>
 
-                   <!-- <button (click)="addSkills()" >Add 1</button> -->
-                  <!-- </a> -->
-
-                  <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-
                   <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="closeButton1" style="width: 20px;" title = "Close"/></a>
-
-                  <!-- </ul> -->
   </div>
   </div>
 
@@ -160,27 +100,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </div>
 
   <div class="col-4" style="text-align: end; margin: auto;">
-      <!-- <ul class="rightside">
-      <a [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i style="color:#fff !important;"
-          class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-      </ul> -->
-      <!-- <ul class="rightside"> -->
-                  <!-- <a  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"> -->
-                  <!-- <button type="button" style="border-color: #fff !important;
-                  color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
 
                   <button type="button" class="btn btn-outline-primary  popup-add-button"
                   [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
                    title = "Add Details">Add</button>
-
-                   <!-- <button (click)="addSkills()" >Add 1</button> -->
-                  <!-- </a> -->
-
-                  <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-
                   <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png"  style="width: 20px;" title = "Close"/></a>
 
-                  <!-- </ul> -->
   </div>
   </div>
   <form [formGroup]="mstapplicantlanguagedetail_Form" class="mobile_grid_view" *ngIf="showWebviewDetect">
@@ -193,8 +118,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <th style="width:15%;">Speak Proficiency</th>
         <th style="width:15%;">Rating</th>
         <th style="width:15%;">Remarks</th>
-        <!-- <th style="width: 31.5%;">Attachment</th> -->
-        <!--<th>Attachment</th>-->
       <th style="width:10%;">Action</th>
       </tr>
     </thead>
@@ -245,17 +168,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
           </textarea>
           </td>
 
-          <!-- Attachment -->
-
-          <!-- <td>
-          <p-accordion [multiple]='true'>
-          <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
-            <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
-            </app-attachment>
-          </p-accordionTab>
-        </p-accordion>
-          </td> -->
-
           <!-- Submit & Close -->
 
           <td class="field-add-close-button">
@@ -268,19 +180,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </tbody>
   </table>
   </form>
-
-  <!--<table>
-  <tbody>
-  <tr *ngFor = "let item of check_mstapplicantlanguagedetail">
-  <td>{{item.languagedesc}}</td>
-  <td>{{item.readproficiency}}</td>
-  <td>{{item.writeproficiency}}</td>
-  <td>{{item.speakproficiency}}</td>
-  <td>{{item.overallrating}}</td>
-  <td>{{item.remarks}}</td>
-  </tr>
-  </tbody>
-  </table> -->
 
   <form [formGroup]="mstapplicantlanguagedetail_Form" class="mobile_grid_view" *ngIf="showMobileDetectskill">
 
@@ -393,12 +292,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
   showWebviewDetect: boolean = true;
   isMobile: any;
   constructor(
-    private nav: Location,
-    private translate: TranslateService,
-
-    private router: Router,
-    private themeService: ThemeService,
-    private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
     private fb: FormBuilder,
@@ -407,11 +300,8 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     private sessionService: SessionService,
     private toastr: ToastService,
     private mstapplicantlanguagedetail_service: mstapplicantlanguagedetailService,
-    private sanitizer: DomSanitizer,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
-    // private mstapplicantskilldetail_service: mstapplicantskilldetailService,
   ) {
-    debugger;
     this.data = dynamicconfig;
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -436,7 +326,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
       pk: [null],
       ImageName: [null],
       applicantid: this.sessionService.getItem('applicantid'),
-      // applicantid: [this.applicantid],
       applicantiddesc: [null],
       languageid: [null],
       language: [null, Validators.compose([Validators.required])],
@@ -456,12 +345,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
 
   get f() { return this.mstapplicantlanguagedetail_Form.controls; }
 
-
-  //     addSkills() {
-  //     debugger
-  //     this.showSkillDetails_input = true;
-  //     this.getdata();
-  // };
   skillClose() {
     this.showSkillDetails_input = false;
   };
@@ -471,7 +354,7 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     this.mstapplicantlanguagedetail_service.getDefaultData().then(res => {
       this.applicantid_List = res.list_applicantid.value;
       this.language_List = res.list_language.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
   }
   onSubmitAndWait() {
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
@@ -505,7 +388,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     var obj = this.mstapplicantlanguagedetail_Form.getRawValue();
   }
   async onSubmitData(bclear: any) {
-    debugger
     this.showSkillDetails_input = false;
     this.getdata();
     this.isSubmitted = true;
@@ -517,22 +399,13 @@ export class mstapplicantlanuagegridComponent implements OnInit {
       return;
     }
     this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
-
-    console.log(this.formData);
     this.spinner.show();;
     this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe((res: any) => {
-      debugger;
-      console.log(res);
-
       this.spinner.hide();
-      // this.check_mstapplicantlanguagedetail = res.mstapplicantlanguagedetail;
       console.log("this.check_mstapplicantlanguagedetail", this.check_mstapplicantlanguagedetail);
-
       this.toastr.addSingle("success", "", "Successfully saved");
       this.sessionService.setItem("attachedsaved", "true")
       this.objvalues.push((res as any).mstapplicantlanguagedetail);
-
-      console.log("this.objvalues", this.objvalues);
       this.ngOnInit();
       this.mstapplicantlanguagedetail_Form.reset();
       if (!bclear) this.showview = true;
@@ -618,15 +491,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
           </tr>
         </tbody>
       </table>
-
-
-        <!--<div class='card1'>
-<h2>##languagedesc## - ##overallrating##</h2>
-<h3 class='profile__section__item__sub'>Read ##readproficiency## Write ##writeproficiency## Speak: ##speakproficiency##</h3>
-<h3 class='profile__section__item__sub'>##mobilenumber## - ##email## ##knownduration##</h3>
-<p>##remarks##</p>
-<p>##attachment##</p>
-</div>-->
 `;
     return ret;
   }
@@ -665,15 +529,8 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantlanguagedetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantlanguagedetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantlanguagedetails.source.settings != null) this.tbl_mstapplicantlanguagedetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantlanguagedetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicantlanguagedetails.source.initGrid();
-  }
-  show_mstapplicantlanguagedetails_InActive() {
-  }
-  enable_mstapplicantlanguagedetails_InActive() {
   }
   async Set_mstapplicantlanguagedetails_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantlanguagedetails) {
@@ -728,38 +585,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         confirmDelete: true,
       },
       columns: {
-
-        // languagedesc: {
-        //   title: 'Language',
-        //   type: 'html',
-        //   filter: true,
-        // },
-        // readproficiency: {
-        //   title: 'Read Proficiency',
-        //   type: 'html',
-        //   filter: true,
-        // },
-        // writeproficiency: {
-        //   title: 'Write Proficiency',
-        //   type: 'html',
-        //   filter: true,
-        // },
-        // speakproficiency: {
-        //   title: 'Speak Proficiency',
-        //   type: 'html',
-        //   filter: true,
-        // },
-        // overallrating: {
-        //   title: 'Rating',
-        //   type: 'html',
-        //   filter: true,
-        // },
-        // remarks: {
-        //   title: 'Remarks',
-        //   type: 'html',
-        //   filter: true,
-        // },
-
         colhtml:
         {
           title: '',
@@ -839,22 +664,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             divrow["readproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + readproficiency + "</div>";
             divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + writeproficiency + "</div>";
             divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;float: left;margin-left: 6%;'>" + overallrating + "</div>";
-            // cell+= `
-            // <div class='Stars'  style='font-size: large !important;color:green;float: left;margin-left: 6%;'>##speakproficiency##</div>
-            // `
-
-            // if (divrow.speakproficiency == 1 || row.readproficiency == 1 || row.writeproficiency == 1 || row.overallrating == 1) {
-            //     showstr = '★';
-            // } else if (row.speakproficiency == 2 || row.readproficiency == 2 || row.writeproficiency == 2 || row.overallrating == 2) {
-            //     showstr = '★★';
-            // } else if (row.speakproficiency == 3 || row.readproficiency == 3 || row.writeproficiency == 3 || row.overallrating == 3) {
-            //     showstr = '★★★';
-            // } else if (row.speakproficiency == 4 || row.readproficiency == 4 || row.writeproficiency == 4 || row.overallrating == 4) {
-            //     showstr = '★★★★';
-            // } else if (row.speakproficiency == 5 || row.readproficiency == 5 || row.writeproficiency == 5 || row.overallrating == 5) {
-            //     showstr = '★★★★★';
-            // }
-
 
             this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (this.isMobile) {
@@ -863,10 +672,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
               divrow["writeproficiency"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative !important;right: -40px !important;bottom: 5px;'>" + writeproficiency + "</div>";
               divrow["overallrating"] = "<div class='Stars' style='font-size: large !important;color:green;position: relative;right: -40px !important;bottom: 5px;'>" + overallrating + "</div>";
             }
-            // divrow["speakproficiency"] = "<div class='Stars' style='--rating:" + row['speakproficiency'] + "'></div>";
-            // divrow["readproficiency"] = "<div class='Stars' style='--rating:" + row['readproficiency'] + "'></div>";
-            // divrow["writeproficiency"] = "<div class='Stars' style='--rating:" + row['writeproficiency'] + "'></div>";
-            // divrow["overallrating"] = "<div class='Stars' style='--rating:" + row['overallrating'] + "'></div>";
             return this.sharedService.HtmlValue(divrow, cell);
           },
         },
@@ -883,32 +688,21 @@ export class mstapplicantlanuagegridComponent implements OnInit {
 
 
   Add_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
-    debugger
     this.showSkillDetails_input = true;
     this.ngOnInit();
     this.getdata();
     let add = false;
     if (event == null) add = true;
-    // let childsave = true;
-    // if (this.pkcol != undefined && this.pkcol != null) childsave = true;
   }
 
 
   Edit_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
-    debugger
     this.showSkillDetails_input = true;
-
-    // let add = false;
-    // if (event == null) add = true;
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
     this.getdata();
-    console.log(event, languageid, applicantid);
-
     this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByEID(event.data.pkcol).then(res => {
-      console.log(res);
       this.formData = res.mstapplicantlanguagedetail;
-      // this.formid = res.mstapplicantachievementdetail.achievementid;
       this.pkcol = res.mstapplicantlanguagedetail.pkcol;
       this.mstapplicantlanguagedetail_Form.patchValue({
         applicantid: res.mstapplicantlanguagedetail.applicantid,
@@ -928,33 +722,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     })
   }
 
-  // AddOrEdit_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
-  //     debugger
-
-  //     this.getdata();
-  //     let add = false;
-  //     if (event == null) add = true;
-  //     let childsave = true;
-  //     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-  //     this.dialog.open(mstapplicantlanguagedetailComponent,
-  //         {
-  //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, languageid, applicantid, visiblelist: this.mstapplicantlanguagedetails_visiblelist, hidelist: this.mstapplicantlanguagedetails_hidelist, ScreenType: 2 },
-  //         }
-  //     ).onClose.subscribe(res => {
-  //         if (res) {
-  //             if (add) {
-  //                 for (let i = 0; i < res.length; i++) {
-  //                     this.tbl_mstapplicantlanguagedetails.source.add(res[i]);
-  //                 }
-  //                 this.tbl_mstapplicantlanguagedetails.source.refresh();
-  //             }
-  //             else {
-  //                 this.tbl_mstapplicantlanguagedetails.source.update(event.data, res[0]);
-  //             }
-  //         }
-  //     });
-  // }
-
   onDelete_mstapplicantlanguagedetail(event: any, childID: number, i: number) {
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicantlanguagedetail_service.delete_mstapplicantlanguagedetail(childID).then(res => {
@@ -966,10 +733,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantlanguagedetail_IDs += childID + ",";
-    // this.tbl_mstapplicantlanguagedetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
   mstapplicantlanguagedetails_route(event: any, action: any) {
     var addparam = "";
@@ -1058,7 +821,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
   }
   //end of Grid Codes mstapplicantlanguagedetails
   onClose() {
-    // location.reload();
     this.dialogRef.close();
   }
 

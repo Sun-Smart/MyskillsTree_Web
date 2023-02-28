@@ -1,50 +1,14 @@
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import {  Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
 import { LocalDataSource } from 'ng2-smart-table';
-import { Ng2SmartTableComponent } from 'ng2-smart-table';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-
-//translator
-import { TranslateService } from "@ngx-translate/core";
-
-import { mstapplicantskilldetail } from './../../../model/mstapplicantskilldetail.model';
-import { mstapplicantskilldetailComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.component';
-import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
-
-import { mstapplicantreferencerequest } from './../../../model/mstapplicantreferencerequest.model';
-import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
-import { mstapplicantreferencerequestService } from './../../../service/mstapplicantreferencerequest.service';
-
-//primeng services
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
 import { mstapplicantgeographypreferenceService } from '../../../service/mstapplicantgeographypreference.service';
 import { mstapplicantgeographypreferenceComponent } from './mstapplicantgeographypreference.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -74,16 +38,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </div>
 <div class=col-6></div>
 <div class=col-2 style="text-align: right; margin: auto;">
-    <!-- <ul class="rightside"> -->
-    <!-- <a  [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')">
-    <button type="button" class="btn btn-outline-primary" style="border-color: #fff !important;    color: #fff;
-    margin-top: -17%;">Add</button>
-    </a> -->
     <button type="button" [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')" class="btn btn-outline-primary popup-add-button">Add</button>
 
     <a  class="" [routerLink]='' (click)="onClose()"><img class="closeButton" src="assets/mainmenuicons/icons_close.png"/></a>
 
-<!-- </ul> -->
     </div>
     </div>
 
@@ -107,16 +65,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </ul>
 </div>
 <div class=col-4 style="text-align: end; margin: auto;">
-    <!-- <ul class="rightside"> -->
-    <!-- <a  [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')">
-    <button type="button" class="btn btn-outline-primary" style="border-color: #fff !important;    color: #fff;
-    margin-top: -17%;">Add</button>
-    </a> -->
     <button type="button" [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')" class="btn btn-outline-primary popup-add-button">Add</button>
 
     <a  class="" [routerLink]='' (click)="onClose()"><img class="closeButton1" style="width: 20px;" src="assets/mainmenuicons/icons_close.png"/></a>
 
-<!-- </ul> -->
     </div>
     </div>
     <form [formGroup]="mstapplicantgeographypreference_Form" class="mobile_grid_view" *ngIf="showWebviewDetect">
@@ -127,7 +79,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       <th scope="col" style="width:25%;">Country</th>
       <th scope="col" style="width:25%;">City</th>
       <th scope="col" style="width:40%;">Remarks</th>
-      <!-- <th scope="col" >Attachment</th> -->
       <th scope="col" style="width:10%; text-align:center;">Action</th>
     </tr>
   </thead>
@@ -155,17 +106,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               <td>
               <textarea name="w3review" rows="3" cols="10" class="form-control" formControlName="remarks"></textarea>
               </td>
-
-              <!-- Attachment -->
-
-            <!-- <td>
-                <p-accordion [multiple]='true'>
-                    <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
-                    <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
-                    </app-attachment>
-                    </p-accordionTab>
-                </p-accordion>
-              </td> -->
 
               <!-- Submit & close -->
 
@@ -235,9 +175,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     `
     @media only screen and (max-width: 600px) {
       button.btn.btn-outline-primary.popup-add-button{
-    /* position: absolute !important;
-    left: -43px !important;
-    bottom: -4px !important; */
     position: absolute !important;
     right: 50px !important;
     bottom: -3px !important;
@@ -245,13 +182,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     h4.form-group.sticky1.columns.left{
     white-space: pre !important;
     font-size: 17px !important;
-    }
-    .closeButton1{
-      /* width: 75% !important; */
-    }
-    .mobile_view_geo{
-    }
-    .mobile_grid_view{
     }
     }
     `
@@ -304,12 +234,10 @@ export class mstapplicantgeographygrid implements OnInit {
   isMobile: any;
   constructor(public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
-    private router: Router,
     public dialog: DialogService, private fb: FormBuilder,
     private sharedService: SharedService, private currentRoute: ActivatedRoute,
     private spinner: NgxSpinnerService, private toastr: ToastService,
     private sessionService: SessionService, private mstapplicantgeographypreference_service: mstapplicantgeographypreferenceService,) {
-    debugger
     this.data = dynamicconfig;
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -354,7 +282,7 @@ export class mstapplicantgeographygrid implements OnInit {
     this.mstapplicantgeographypreference_service.get_mstapplicantgeographypreferences_List().then(res => {
       this.pkList = res as mstapplicantgeographypreference[];
       this.pkoptionsEvent.emit(this.pkList);
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
 
   }
 
@@ -371,10 +299,9 @@ export class mstapplicantgeographygrid implements OnInit {
   }
   getdata() {
     this.mstapplicantgeographypreference_service.getDefaultData().then(res => {
-      debugger
       this.applicantid_List = res.list_applicantid.value;
       this.country_List = res.list_country.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
   }
   skillClose() {
     this.mstapplicantgeographypreference_Form.reset();
@@ -411,7 +338,6 @@ export class mstapplicantgeographygrid implements OnInit {
   }
 
   onSubmitAndWait() {
-    debugger;
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
       this.onSubmitData(false);
     }
@@ -424,7 +350,6 @@ export class mstapplicantgeographygrid implements OnInit {
   };
 
   async onSubmitData(bclear: any) {
-    debugger;
     this.isSubmitted = true;
     let strError = "";
     if (strError != "") return this.sharedService.alert(strError);
@@ -436,13 +361,9 @@ export class mstapplicantgeographygrid implements OnInit {
 
     this.formData = this.mstapplicantgeographypreference_Form.getRawValue();
 
-    console.log(this.formData);
     this.spinner.show();
     this.mstapplicantgeographypreference_service.saveOrUpdate_mstapplicantgeographypreferences(this.formData).subscribe((res: any) => {
-      console.log("Reference Log", res);
-
       this.spinner.hide();
-      debugger;
       this.toastr.addSingle("success", "", "Successfully saved");
       this.sessionService.setItem("attachedsaved", "true")
       this.objvalues.push((res as any).mstapplicantgeographypreference);
@@ -474,10 +395,8 @@ export class mstapplicantgeographygrid implements OnInit {
       this.mstapplicantgeographypreference_Form.markAsPristine();
     },
       err => {
-        debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       }
     )
   }
@@ -497,11 +416,6 @@ export class mstapplicantgeographygrid implements OnInit {
           </tr>
         </tbody>
       </table>
-
-        <!--<div class='card1'>
-<h3 style="margin: 0 auto !important;" class='profile_sectionitem_sub'>##countrydesc## - ##citydesc##</h3>
-<p  style="margin: 0 auto !important;line-height: 2.0rem !important">##remarks##</p>
-</div>-->
 `;
     return ret;
   }
@@ -528,7 +442,6 @@ export class mstapplicantgeographygrid implements OnInit {
   };
 
   onSelected_country(countryDetail: any) {
-    debugger
     if (countryDetail.value && countryDetail) {
       this.mstapplicantgeographypreference_Form.patchValue({
         country: countryDetail.value,
@@ -536,11 +449,8 @@ export class mstapplicantgeographygrid implements OnInit {
 
       });
       this.mstapplicantgeographypreference_service.getList_city(countryDetail.value).then((res: any) => {
-
-        // this.country_List = res as DropDownValues[]
         this.city_List = res as DropDownValues[]
-
-      }).catch((err) => { this.spinner.hide(); console.log(err); });
+      }).catch((err) => { this.spinner.hide(); });
 
     }
   };
@@ -555,20 +465,15 @@ export class mstapplicantgeographygrid implements OnInit {
       });
 
       this.mstapplicantgeographypreference_service.getList(cityDetail.cityid).then((res: any) => {
-        console.log(res)
-
         this.city_List = res as DropDownValues[]
       }).catch((err) => {
-        this.spinner.hide(); console.log(err);
-        //console.log(err);
+        this.spinner.hide();
       });
     }
   }
 
 
   Add_mstapplicantgeographypreference(event: any, geographypreferenceid: any, applicantid: any) {
-    debugger;
-
     this.showSkillDetails_input = true;
     this.getdata();
     this.ngOnInit();
@@ -578,14 +483,11 @@ export class mstapplicantgeographygrid implements OnInit {
   }
 
   Edit_mstapplicantgeographypreference(event: any, geographypreferenceid: any, applicantid: any) {
-    debugger;
-
     this.showSkillDetails_input = true;
     let add = false;
     if (event == null) add = true;
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-    console.log(event, geographypreferenceid, applicantid);
 
     this.mstapplicantgeographypreference_service.get_mstapplicantgeographypreferences_ByEID(event.data.pkcol).then(res => {
       this.mstapplicantgeographypreference_Form.patchValue({
@@ -604,42 +506,11 @@ export class mstapplicantgeographygrid implements OnInit {
       setTimeout(() => {
         this.getdata();
         if (this.f.country.value && this.f.country.value != "" && this.f.country.value != null) this.mstapplicantgeographypreference_service.getList_city(this.f.country.value).then(res => {
-
-          // if (this.f.country.value && this.f.country.value != "" && this.f.country.value != null) this.mstapplicantgeographypreference_service.getList_city().then(res => {
           this.city_List = res as DropDownValues[];
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
       });
     });
   }
-
-  // Old Code
-
-  // AddOrEdit_mstapplicantgeographypreference(event: any, geographypreferenceid: any, applicantid: any) {
-  //     debugger;
-
-
-  //     let add = false;
-  //     if (event == null) add = true;
-  //     let childsave = true;
-  //     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-  //     this.dialog.open(mstapplicantgeographypreferenceComponent,
-  //         {
-  //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, geographypreferenceid, applicantid, visiblelist: this.mstapplicantgeographypreferences_visiblelist, hidelist: this.mstapplicantgeographypreferences_hidelist, ScreenType: 2 },
-  //         }
-  //     ).onClose.subscribe(res => {
-  //         if (res) {
-  //             if (add) {
-  //                 for (let i = 0; i < res.length; i++) {
-  //                     this.tbl_mstapplicantgeographypreferences.source.add(res[i]);
-  //                 }
-  //                 this.tbl_mstapplicantgeographypreferences.source.refresh();
-  //             }
-  //             else {
-  //                 this.tbl_mstapplicantgeographypreferences.source.update(event.data, res[0]);
-  //             }
-  //         }
-  //     });
-  // }
 
   onDelete_mstapplicantgeographypreference(event: any, childID: number, i: number) {
     if (confirm('Do you want to delete this record?')) {
@@ -652,15 +523,10 @@ export class mstapplicantgeographygrid implements OnInit {
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantgeographypreference_IDs += childID + ",";
-    // this.tbl_mstapplicantgeographypreferences.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
   mstapplicantgeographypreferences_settings: any;
 
   show_mstapplicantgeographypreferences_Checkbox() {
-    //debugger;;
     if (this.tbl_mstapplicantgeographypreferences.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantgeographypreferences.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantgeographypreferences.source.settings['selectMode'] = 'multi';
@@ -670,15 +536,8 @@ export class mstapplicantgeographygrid implements OnInit {
     this.tbl_mstapplicantgeographypreferences.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantgeographypreferences_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantgeographypreferences_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantgeographypreferences.source.settings != null) this.tbl_mstapplicantgeographypreferences.source.settings['hideSubHeader'] = !this.tbl_mstapplicantgeographypreferences.source.settings['hideSubHeader'];
     this.tbl_mstapplicantgeographypreferences.source.initGrid();
-  }
-  show_mstapplicantgeographypreferences_InActive() {
-  }
-  enable_mstapplicantgeographypreferences_InActive() {
   }
   async Set_mstapplicantgeographypreferences_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantgeographypreferences) {
@@ -699,9 +558,6 @@ export class mstapplicantgeographygrid implements OnInit {
   }
   async mstapplicantgeographypreferences_beforesave(event: any) {
     event.confirm.resolve(event.newData);
-
-
-
   }
   Set_mstapplicantgeographypreferences_TableConfig() {
     this.mstapplicantgeographypreferences_settings = {
@@ -733,22 +589,6 @@ export class mstapplicantgeographygrid implements OnInit {
         confirmDelete: true,
       },
       columns: {
-        // countrydesc: {
-        //   title: 'Country',
-        //   type: 'html',
-        //   filter: true,
-        // },
-        // citydesc: {
-        //   title: 'City',
-        //   type: 'html',
-        //   filter: true,
-        // },
-        // remarks: {
-        //   title: 'Remarks',
-        //   type: 'html',
-        //   filter: true,
-        // },
-
         colhtml:
         {
           title: '',
@@ -759,15 +599,12 @@ export class mstapplicantgeographygrid implements OnInit {
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
             cell = this.mstapplicantgeographypreferenceshtml();
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
               cell = this.mstapplicantgeographypreferenceshtml1();
             }
             var divrow = JSON.parse(JSON.stringify(row));
-
-
             return this.sharedService.HtmlValue(divrow, cell);
           },
         },
@@ -775,7 +612,6 @@ export class mstapplicantgeographygrid implements OnInit {
     };
   }
   mstapplicantgeographypreferences_LoadTable(mstapplicantgeographypreference = new LocalDataSource()) {
-    debugger;;
     if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantgeographypreferences_ID) >= 0) {
       if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source = new LocalDataSource();
       if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source.load(mstapplicantgeographypreference as any as LocalDataSource);
@@ -791,13 +627,11 @@ export class mstapplicantgeographygrid implements OnInit {
 
     switch (action) {
       case 'create':
-        // this.AddOrEdit_mstapplicantgeographypreference(event, null, this.applicantid);
         this.Add_mstapplicantgeographypreference(event, null, this.applicantid);
         break;
       case 'view':
         break;
       case 'edit':
-        this.Edit_mstapplicantgeographypreference(event, event.data.geographypreferenceid, this.applicantid);
         this.Edit_mstapplicantgeographypreference(event, event.data.geographypreferenceid, this.applicantid);
         break;
       case 'delete':
@@ -824,7 +658,6 @@ export class mstapplicantgeographygrid implements OnInit {
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantgeographypreferences");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantgeographypreferences") {
-      debugger
       let add = false;
       if (event == null) add = true;
       let childsave = true;
@@ -850,7 +683,6 @@ export class mstapplicantgeographygrid implements OnInit {
   }
 
   mstapplicantgeographypreferences_Paging(val) {
-    //debugger;;
     this.tbl_mstapplicantgeographypreferences.source.setPaging(1, val, true);
   }
 

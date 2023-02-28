@@ -13,8 +13,6 @@
       <div class='dropdown d-inline-block btn-dropdown show'>
 
         <ul class='nav nav-pills  input-group'>
-          <!-- <li><a class='alert-info' [routerLink]='' *ngIf='showview'
-              (click)="edit_mstapplicantgeographypreferences()"><i class="nb-edit"></i>Edit</a></li> -->
           <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
             <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
                 aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
@@ -69,15 +67,9 @@
     <div class="col-4">
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
         <li class='nav-item actionheader' *ngIf="!showview">
-          <!-- <a class="alert-success" [routerLink]=''>  -->
-          <!-- <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" style="border-color: #000 !important;margin: 5px;
-              padding: 3px;
-              color: #000;" [routerLink]='' (click)="goBack()">Back</button>&nbsp; -->
           <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
               padding: 3px;
               color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
-          <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
           <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn"
             *ngIf='data.pkcol==null || maindata.ScreenType==null' style="border-color: #000 !important;
               color: #000;margin: 5px;padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
