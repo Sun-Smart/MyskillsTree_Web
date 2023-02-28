@@ -35,7 +35,7 @@
               </p-accordion>
               <p-accordion [multiple]='true'>
                 <div class='p-grid griddisplay'>
-                  <p-accordionTab header='Basic' [selected]='false'>
+                  <p-accordionTab header='Basic' [selected]='false' class="kbmaster-tab">
                     <div class='ui-fluid p-formgrid p-grid '>
                       <div *ngIf="hidelist.indexOf('kbcode')<0" class="  p-float-label  p-col-12 p-md-3">
 
@@ -159,7 +159,7 @@
               </p-accordion>
               <p-accordion [multiple]='true'>
                 <div class='p-grid griddisplay'>
-                  <p-accordionTab header='Details' [selected]='false'>
+                  <p-accordionTab header='Details' [selected]='false' class="kbmaster-tab">
                     <div class='ui-fluid p-formgrid p-grid '>
                       <div *ngIf="hidelist.indexOf('kbdetails')<0" class="  p-col-12 p-md-12">
                         <label for="kbdetails" class="control-label required">{{'Details' | translate}}</label>
@@ -178,7 +178,7 @@
               </p-accordion>
               <p-accordion [multiple]='true'>
                 <div class='p-grid griddisplay'>
-                  <p-accordionTab header='Information' [selected]='false'>
+                  <p-accordionTab header='Information' [selected]='false' class="kbmaster-tab">
                     <div class='ui-fluid p-formgrid p-grid '>
                       <div *ngIf="hidelist.indexOf('markpublic')<0" class="  p-float-label  p-col-12 p-md-3">
 
@@ -272,7 +272,7 @@
               </p-accordion>
               <p-accordion [multiple]='true'>
                 <div class='p-grid griddisplay'>
-                  <p-accordionTab header='Other Details' [selected]='false'>
+                  <p-accordionTab header='Other Details' [selected]='false' class="kbmaster-tab">
                     <div class='ui-fluid p-formgrid p-grid '>
                       <div *ngIf="hidelist.indexOf('comments')<0" class="  p-col-12 p-md-12">
                         <label for="comments" class="control-label">{{'Comments' | translate}}</label>
@@ -306,7 +306,7 @@
               <div class='full-width'
                 *ngIf="customFieldVisible  && customFieldServiceList!=null && customFieldServiceList!=undefined  && customFieldServiceList.fields.length>0">
                 <p-accordion [multiple]='true'>
-                  <p-accordionTab header='CustomField' [selected]='false'>
+                  <p-accordionTab header='CustomField' [selected]='false' class="kbmaster-tab">
                     <div class='ui-fluid p-formgrid p-grid '>
                       <div class=""
                         *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
@@ -318,10 +318,9 @@
                 </p-accordion>
               </div>
               <div class='full-width' *ngIf="attachmentVisible"
-                style="margin-top:1rem;margin-left:-0.5rem;margin-right:-0.5rem;border-bottom-right-radius: 4px;border-bottom-left-radius: 4px;"
-                style="margin-top:1rem;margin-left:-0.5rem;margin-right:-0.5rem;border-bottom-right-radius: 4px;border-bottom-left-radius: 4px;">
+                   >
                 <p-accordion [multiple]='true'>
-                  <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+                  <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false' class="kbmaster-tab">
                     <div class='ui-fluid p-formgrid p-grid '>
                       <app-attachment #fileattachment class="full-width" isAttachment=true formControlName="attachment"
                         [SessionData]="sessionData"></app-attachment>
