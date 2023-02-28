@@ -57,7 +57,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <div *ngIf="showWebviewDetect" class= "row mobile_view_geo"   style="background: #ebf3fc; color: #000; padding: 5px; height: 45px;">
     <div class=col-4 style="margin: auto;">
     <h4 class="form-group sticky1  columns left mobile_title">
-        {{'Geography Preferences'}}
+        {{'Location'}}
 
     <ul class="nav navbar-nav1" style='display:none'>
       <li class="dropdown">
@@ -90,7 +90,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <div *ngIf="showMobileDetectskill" class= "row mobile_view_geo"   style="background: #ebf3fc; color: #000; padding: 5px;">
     <div class=col-4 >
     <h4 class="columns left" style="font-size: 16px;">
-        {{'Geography Preferences'}}
+        {{'Location'}}
 </h4>
 </div>
 <div class="col-4">
@@ -291,7 +291,7 @@ export class mstapplicantgeographygrid implements OnInit {
   applicantid_List: DropDownValues[];
   hidelist: any = [];
   objvalues: any = [];
- 
+
   applicantid: any;
   data: any;
   formid: any;

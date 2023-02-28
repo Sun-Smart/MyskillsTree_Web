@@ -94,11 +94,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     }
     `],
   template: `
-  
+
   <div *ngIf="showWebviewDetect" class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
   <div class="col-4">
-      <h4 class="columns left">{{'Language Details'}}</h4>
+      <h4 class="columns left">{{'Language'}}</h4>
   </div>
   <div class="col-4">
       <ul class="nav navbar-nav1" style='display:none'>
@@ -113,7 +113,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         </li>
       </ul>
   </div>
-  
+
   <div class="col-4" style="text-align: end; margin: auto;">
       <!-- <ul class="rightside">
       <a [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i style="color:#fff !important;"
@@ -123,27 +123,27 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                   <!-- <a  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"> -->
                   <!-- <button type="button" style="border-color: #fff !important;
                   color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
-  
+
                   <button type="button" class="btn btn-outline-primary  popup-add-button"
                   [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
                    title = "Add Details">Add</button>
-  
+
                    <!-- <button (click)="addSkills()" >Add 1</button> -->
                   <!-- </a> -->
-  
+
                   <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-  
+
                   <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="closeButton1" style="width: 20px;" title = "Close"/></a>
-  
+
                   <!-- </ul> -->
   </div>
   </div>
-  
-  
+
+
   <div *ngIf="showMobileDetectskill" class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
-  
+
   <div class="col-4">
-      <h4 class="columns left">{{'Language Details'}}</h4>
+      <h4 class="columns left">{{'Language'}}</h4>
   </div>
   <div class="col-4">
       <ul class="nav navbar-nav1" style='display:none'>
@@ -158,7 +158,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         </li>
       </ul>
   </div>
-  
+
   <div class="col-4" style="text-align: end; margin: auto;">
       <!-- <ul class="rightside">
       <a [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i style="color:#fff !important;"
@@ -168,18 +168,18 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                   <!-- <a  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"> -->
                   <!-- <button type="button" style="border-color: #fff !important;
                   color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
-  
+
                   <button type="button" class="btn btn-outline-primary  popup-add-button"
                   [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
                    title = "Add Details">Add</button>
-  
+
                    <!-- <button (click)="addSkills()" >Add 1</button> -->
                   <!-- </a> -->
-  
+
                   <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-  
+
                   <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png"  style="width: 20px;" title = "Close"/></a>
-  
+
                   <!-- </ul> -->
   </div>
   </div>
@@ -208,45 +208,45 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <option *ngFor="let item of language_List" value="{{item.value}}">{{item.label}}</option>
           </select>
           </td>
-  
+
           <!--Read Proficiency -->
-  
+
           <td>
           <p-rating id="readproficiency" formControlName="readproficiency" class="form-control">
           </p-rating>
           </td>
-  
+
          <!--Write Proficiency -->
-  
+
           <td>
           <p-rating id="writeproficiency" formControlName="writeproficiency" class="form-control">
           </p-rating>
           </td>
-  
+
           <!--Speak Proficiency -->
-  
+
           <td>
           <p-rating id="speakproficiency" formControlName="speakproficiency" class="form-control">
           </p-rating>
           </td>
-  
+
           <!-- Rating -->
-  
+
           <td>
           <p-rating id="overallrating" formControlName="overallrating" class="form-control">
           </p-rating>
           </td>
-  
+
           <!-- Remarks -->
-  
+
           <td>
           <textarea autosize rows="3" cols="10" class="form-control"  id="achievementdetails"
           formControlName="remarks">
           </textarea>
           </td>
-  
+
           <!-- Attachment -->
-  
+
           <!-- <td>
           <p-accordion [multiple]='true'>
           <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
@@ -255,12 +255,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
           </p-accordionTab>
         </p-accordion>
           </td> -->
-  
+
           <!-- Submit & Close -->
-  
+
           <td class="field-add-close-button">
               <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
-  
+
               <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
                   (click)="skillClose()"></i>
           </td>
@@ -268,7 +268,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </tbody>
   </table>
   </form>
-  
+
   <!--<table>
   <tbody>
   <tr *ngFor = "let item of check_mstapplicantlanguagedetail">
@@ -281,9 +281,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </tr>
   </tbody>
   </table> -->
-  
+
   <form [formGroup]="mstapplicantlanguagedetail_Form" class="mobile_grid_view" *ngIf="showMobileDetectskill">
-  
+
   <div class="row" *ngIf="showSkillDetails_input" style="width: 320px;margin: 10px !important;">
   <div class="col-md-12">
   <label>Language</label>
@@ -319,15 +319,15 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
           formControlName="remarks">
           </textarea>
   </div>
-  
+
   <div class="col" style="position: relative;left: 120px;top: 7px;">
-  
+
   <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
-  
+
               <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
                   (click)="skillClose()"></i>
     </div>
-  
+
     </div>
   </form>
     <ng2-smart-table #tbl_mstapplicantlanguagedetails
