@@ -5,7 +5,7 @@ import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/cor
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
+//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menus
 
 //Custom error functions
 import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';

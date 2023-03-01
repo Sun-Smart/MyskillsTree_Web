@@ -13,68 +13,6 @@
 
           <div class='dropdown d-inline-block btn-dropdown show'>
             <ul>
-              <!-- <li class='nav-item actionheader col' *ngIf='(maindata==null || maindata==undefined)  && !bSingleRecord'>
-                <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
-                    aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
-                    class='fa fa-step-backward' aria-hidden='true'></i></a>&nbsp;&nbsp;
-                <app-popupselect [options]='pkList' [optionsEvent]='pkoptionsEvent' [form]='pkform'
-                  (selectItem)='onSelectedpk($event)' [reportid]=31 [menuid]=31 formControlName='pk' id='pk' desc=''>
-                </app-popupselect>
-
-                <a [routerLink]='' (click)='next()'><i class='fa fa-step-forward'
-                    aria-hidden='true'></i></a>&nbsp;&nbsp; <a [routerLink]='' (click)='last()'><i
-                    class='fa fa-fast-forward' aria-hidden='true'></i></a>
-
-              </li> -->
-              <!-- <li *ngIf='!showview && (maindata==null || maindata==undefined)' class='nav-item dro`pdown  actionheader'>
-                <ul class="nav navbar-nav1">
-                  <li *ngIf=' (maindata==null || maindata==undefined)' class="dropdown">
-                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-                      aria-expanded='false'> <span class='caret'></span>Actions</a>
-                    <ul class="dropdown-menu">
-                      <li><a class='dropdown-item' *ngIf='ScreenType!=2' [routerLink]='' (click)='resetForm()'><i
-                            class='fa fa-plus' aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                      <li><a class='dropdown-item' [routerLink]='' (click)='onSubmit()'><i class='fa fa-save'
-                            aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Save</a></li>
-                      <li><a class='dropdown-item' [routerLink]='' (click)='onDelete()'><i class='fa fa-trash'
-                            aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Delete</a></li>
-
-                      <li role="separator" class="divider">
-                        <hr>
-                      </li>
-
-                      <li><a class='dropdown-item' [routerLink]='' (click)='onCopy()'><i class='fa fa-copy'
-                            aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Copy</a></li>
-                      <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-clipboard'
-                            aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Clipboard</a></li>
-                      <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-print'
-                            aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Print</a></li>
-                      <li><a class='dropdown-item' [routerLink]=''><i class='fa fa-envelope'
-                            aria-hidden='true'></i>&nbsp;&nbsp;&nbsp;Mail</a></li>
-
-
-                    </ul>
-                  </li>
-                </ul>
-              </li> -->
-              <!--
-              <ng-container *ngFor="let action of mstapplicantmaster_menuactions">
-                <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i
-                      class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
-              </ng-container>-->
-              <!-- <li class='nav-item actionheader' *ngIf="!showview">
-                <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
-                  Submit</a>
-                <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-                  (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
-                <app-action *ngIf="f.applicantid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
-                  [value]="f.applicantid.value" [status]="f.status.value"></app-action>
-              </li>
-              <li class='nav-item actionheader'
-                *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-                <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-              </li> -->
-
             </ul>
           </div>
         </div>
@@ -119,7 +57,7 @@
           <div class="show-Pfl-card">
 
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Geography Preferences' | translate}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Geography Preferences'}}</h5>
             </div>
 
             <div *ngIf="mstapplicantgeographypreferences.length == 0" style="text-align: center;">
@@ -146,7 +84,7 @@
 
             <div [ngClass]="Is_mstapplicantgeographypreferences_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Geography Preferences' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Geography Preferences'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -158,8 +96,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantgeographypreferences_route(null, 'create')"><i
-                    class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstapplicantgeographypreferences
                 (userRowSelect)="handle_mstapplicantgeographypreferences_GridSelected($event)"
@@ -183,7 +119,7 @@
           <div class="show-Pfl-card">
 
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Education Details' | translate}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Education Details'}}</h5>
             </div>
 
 
@@ -214,7 +150,7 @@
             <!-- child table mstapplicanteducationdetails-->
             <div [ngClass]="Is_mstapplicanteducationdetails_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Education Details' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Education Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -226,8 +162,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i
-                    class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstapplicanteducationdetails
                 (userRowSelect)="handle_mstapplicanteducationdetails_GridSelected($event)"
@@ -251,7 +185,7 @@
           <div class="show-Pfl-card">
 
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Achievement Details' | translate}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Achievement Details'}}</h5>
             </div>
 
             <div *ngIf="mstapplicantachievementdetails.length == 0" style="text-align: center;">
@@ -280,7 +214,7 @@
             <!-- child table mstapplicantachievementdetails-->
             <div [ngClass]="Is_mstapplicantachievementdetails_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Achievement Details' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Achievement Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -292,8 +226,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"><i
-                    class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstapplicantachievementdetails
                 (userRowSelect)="handle_mstapplicantachievementdetails_GridSelected($event)"
@@ -317,7 +249,7 @@
           <div class="show-Pfl-card">
 
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Language Details' | translate}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Language Details'}}</h5>
             </div>
 
             <div *ngIf="language_star_rating.length == 0" style="text-align: center;">
@@ -346,7 +278,7 @@
             <!-- child table mstapplicantlanguagedetails-->
             <div [ngClass]="Is_mstapplicantlanguagedetails_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Language Details' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Language Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -358,8 +290,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i
-                    class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstapplicantlanguagedetails
                 (userRowSelect)="handle_mstapplicantlanguagedetails_GridSelected($event)"
@@ -389,7 +319,7 @@
           <div class="show-Pfl-card">
 
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Skill Details' | translate}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Skill Details'}}</h5>
             </div>
 
             <div *ngIf="skillarray.length == 0" style="text-align: center;">
@@ -419,7 +349,7 @@
             <!-- child table mstapplicantskilldetails-->
             <div [ngClass]="Is_mstapplicantskilldetails_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Skill Details' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Skill Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -431,8 +361,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
-                      class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstapplicantskilldetails
                 (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
@@ -454,7 +382,7 @@
           <!-- Career Details -->
           <div class="show-Pfl-card">
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Career Details' | translate}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Career Details'}}</h5>
             </div>
 
             <div *ngIf="mstapplicantcareerdetails.length == 0" style="text-align: center;">
@@ -484,7 +412,7 @@
             <!-- child table mstapplicantcareerdetails-->
             <div [ngClass]="Is_mstapplicantcareerdetails_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Career Details' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Career Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -496,8 +424,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
-                      class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstapplicantcareerdetails
                 (userRowSelect)="handle_mstapplicantcareerdetails_GridSelected($event)"
@@ -519,7 +445,7 @@
           <!-- Projects -->
           <div class="show-Pfl-card">
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Projects' | translate}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Projects'}}</h5>
             </div>
 
             <div *ngIf="mstapplicantworkreferences.length == 0" style="text-align: center;">
@@ -548,7 +474,7 @@
             <!-- child table mstapplicantworkreferences-->
             <div [ngClass]="Is_mstapplicantworkreferences_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Projects' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Projects'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -560,8 +486,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
-                      class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstapplicantworkreferences
                 (userRowSelect)="handle_mstapplicantworkreferences_GridSelected($event)"
@@ -584,7 +508,7 @@
           <div class="show-Pfl-card">
 
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px;">{{'Social Media' | translate}}</h5>
+              <h5 style="padding: 0 10px;">{{'Social Media'}}</h5>
             </div>
 
             <div *ngIf="mstapplicantsocialmediadetails.length == 0" style="text-align: center;">
@@ -614,7 +538,7 @@
             <!-- child table mstapplicantsocialmediadetails-->
             <div [ngClass]="Is_mstapplicantsocialmediadetails_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'SocialMedia Details' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'SocialMedia Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -626,8 +550,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')"><i
-                      class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstapplicantsocialmediadetails
                 (userRowSelect)="handle_mstapplicantsocialmediadetails_GridSelected($event)"
@@ -650,7 +572,7 @@
             <!-- child table mstapplicantreferencedetails-->
             <div [ngClass]="Is_mstapplicantreferencedetails_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Reference Details' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Reference Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -662,8 +584,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantreferencedetails_route(null, 'create')"><i
-                      class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstapplicantreferencedetails
                 (userRowSelect)="handle_mstapplicantreferencedetails_GridSelected($event)"
@@ -685,7 +605,7 @@
             <!-- child table mstapplicantreferencerequests-->
             <div [ngClass]="Is_mstapplicantreferencerequests_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Reference Requests' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Reference Requests'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -697,8 +617,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstapplicantreferencerequests_route(null, 'create')"><i
-                      class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstapplicantreferencerequests
                 (userRowSelect)="handle_mstapplicantreferencerequests_GridSelected($event)"
@@ -720,7 +638,7 @@
             <!-- child table mstjobstatuses-->
             <div [ngClass]="Is_mstjobstatuses_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Job Statuses' | translate}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Job Statuses'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -732,8 +650,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstjobstatuses_route(null, 'create')"><i
-                      class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstjobstatuses (userRowSelect)="handle_mstjobstatuses_GridSelected($event)"
                 [settings]="mstjobstatuses_settings" (custom)="onCustom_mstjobstatuses_Action($event)"
