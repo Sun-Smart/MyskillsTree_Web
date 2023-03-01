@@ -1,54 +1,26 @@
 import { bokbmasterService } from './../../../service/bokbmaster.service';
 import { bokbmaster } from './../../../model/bokbmaster.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { ElementRef, Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ReportViewerCtrlComponent } from '../../../../../../n-tire-bo-app/src/app/pages/forms/boreportviewer/reportviewerctrl.component';
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../shared/general.validator';
-
-//child table
-
-//Custom control
-import { durationComponent } from '../../../custom/duration.component';
+import { KeyValuePair } from '../../../shared/general.validator';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { bokbtopic } from './../../../model/bokbtopic.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { bokbtopicComponent } from './../../../pages/forms/bokbtopic/bokbtopic.component';
-import { bokbtopicService } from './../../../service/bokbtopic.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-
-//primeng services
+import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog'
-
-//session,application constants
 import { SharedService } from '../../../service/shared.service';
 import { SessionService } from '../../core/services/session.service';
-import { ThemeService } from '../../../../../../n-tire-bo-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 import { customfieldconfigurationService } from './../../../service/customfieldconfiguration.service';
-import { customfieldconfiguration } from './../../../model/customfieldconfiguration.model';
 import { DynamicFormBuilderComponent } from '../dynamic-form-builder/dynamic-form-builder.component';
 
 @Component({
@@ -140,9 +112,7 @@ export class BonewbokbmasterComponent implements OnInit {
   Deleted_bokbtopic_IDs: string = "";
   bokbtopics_ID: string = "1";
   bokbtopics_selectedindex: any;
-  constructor(private nav: Location,
-    private translate: TranslateService, private router: Router,
-    private ngbDateParserFormatter: NgbDateParserFormatter,
+  constructor( private router: Router,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
@@ -157,7 +127,6 @@ export class BonewbokbmasterComponent implements OnInit {
     try {
       this.sessionData = this.sessionService.getSession();
       if (this.sessionData != null) {
-        this.translate.use(this.sessionData.language);
       }
       this.data = dynamicconfig;
       this.p_menuid = sharedService.menuid;
@@ -211,7 +180,6 @@ export class BonewbokbmasterComponent implements OnInit {
 
   //function called when we navigate to other page.defined in routing
   canDeactivate(): Observable<boolean> | boolean {
-    //debugger;
     if (this.bokbmaster_Form.dirty && this.bokbmaster_Form.touched) {
       if (confirm('Do you want to exit the page?')) {
         return Observable.of(true);
@@ -220,23 +188,6 @@ export class BonewbokbmasterComponent implements OnInit {
       }
     }
     return Observable.of(true);
-  }
-
-  //check Unique fields
-
-  //navigation buttons
-  first() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-  }
-
-  last() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-  }
-
-  prev() {
-    //debugger;
-    let pos = this.pkList.map(function (e: any) { return e.kbid?.toString(); }).indexOf(this.formid?.toString());
-    if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
   }
 
   //on searching in pk autocomplete
@@ -250,10 +201,6 @@ export class BonewbokbmasterComponent implements OnInit {
   async ngOnInit() {
     try {
       if (this.panelscroller != undefined) (this.panelscroller as any)?.scrollTop(0);
-      //session & theme
-      // this.themeService.theme.subscribe((val: string) => {
-      //   this.theme = val;
-      // });
 
       this.sessionData = this.sessionService.getSession();
       if (this.sessionData != null) {
@@ -261,9 +208,6 @@ export class BonewbokbmasterComponent implements OnInit {
       }
 
       this.theme = this.sessionService.getItem('selected-theme');
-      //this.viewHtml=this.sessionService.getViewHtml();
-
-      //debugger;
       //getting data - from list page, from other screen through dialog
       if (this.data != null && this.data.data != null) {
         this.data = this.data.data;
@@ -283,7 +227,6 @@ export class BonewbokbmasterComponent implements OnInit {
       if (this.currentRoute.snapshot.paramMap.get('viewid') != null) {
         this.pkcol = this.currentRoute.snapshot.paramMap.get('viewid');
         this.showview = true;
-        //this.viewHtml=this.sessionService.getViewHtml();
       }
       else if (this.currentRoute.snapshot.paramMap.get('usersource') != null) {
         this.pkcol = this.sessionService.getItem('usersource');
@@ -304,7 +247,6 @@ export class BonewbokbmasterComponent implements OnInit {
         this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
       }
       this.formid = bokbmasterid;
-      //alert(bokbmasterid);
 
       //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
       if (this.pkcol == null) {
@@ -317,8 +259,7 @@ export class BonewbokbmasterComponent implements OnInit {
         //foreign keys
       }
       this.bokbmaster_service.getDefaultData().then(res => {
-        console.log("tfthdy", res.list_kbcategory);
-        
+
         this.kbcategory_List = res.list_kbcategory.value;
         this.kbcategory_Suggestions = this.kbcategory_List;
         if (this.formData?.kbcategory != undefined && this.formData?.kbcategory != null) {
@@ -365,7 +306,7 @@ export class BonewbokbmasterComponent implements OnInit {
         }
       }).catch((err) => {
         this.blockedDocument = false;
-        if (this.sharedService.IsDebug) console.log(err);
+        if (this.sharedService.IsDebug)
         this.toastr.addSingle("error", "", 'autocomplete ' + err);
       });
 
@@ -376,7 +317,7 @@ export class BonewbokbmasterComponent implements OnInit {
       }
       ).catch((err) => {
         this.blockedDocument = false;
-        if (this.sharedService.IsDebug) console.log(err);
+        if (this.sharedService.IsDebug)
         this.toastr.addSingle("error", "", 'bokbmastersList ' + err);
       });
       //setting the flag that the screen is not touched

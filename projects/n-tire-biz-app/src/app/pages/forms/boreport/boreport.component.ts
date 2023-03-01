@@ -1,55 +1,29 @@
 import { boreportService } from './../../../service/boreport.service';
 import { boreport } from './../../../model/boreport.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { boreportdetail } from './../../../model/boreportdetail.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { boreportdetailComponent } from './../../../pages/forms/boreportdetail/boreportdetail.component';
 import { boreportdetailService } from './../../../service/boreportdetail.service';
-import { boreportothertable } from './../../../model/boreportothertable.model';
 import { boreportothertableComponent } from './../../../pages/forms/boreportothertable/boreportothertable.component';
 import { boreportothertableService } from './../../../service/boreportothertable.service';
-import { boreportcolumn } from './../../../model/boreportcolumn.model';
 import { boreportcolumnComponent } from './../../../pages/forms/boreportcolumn/boreportcolumn.component';
 import { boreportcolumnService } from './../../../service/boreportcolumn.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
@@ -65,7 +39,7 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
     }
    }
     `],
-    providers: [KeyboardShortcutsService]
+    providers: []
 })
 
 
@@ -152,46 +126,20 @@ export class boreportComponent implements OnInit {
     boreportcolumns_selectedindex: any;
 
 
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private boreport_service: boreportService,
-        private boreportdetail_service: boreportdetailService,
-        private boreportothertable_service: boreportothertableService,
-        private boreportcolumn_service: boreportcolumnService,
         private fb: FormBuilder,
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.boreport_Form = this.fb.group({
             reportid: [null],
             reportcode: [null],
@@ -308,7 +256,6 @@ export class boreportComponent implements OnInit {
 
     //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.boreport_Form.dirty && this.boreport_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -317,29 +264,6 @@ export class boreportComponent implements OnInit {
             }
         }
         return Observable.of(true);
-    }
-
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.reportid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.reportid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
     }
 
     //on searching in pk autocomplete
@@ -362,9 +286,6 @@ export class boreportComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -404,24 +325,14 @@ export class boreportComponent implements OnInit {
             this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
         }
         this.formid = boreportid;
-        //alert(boreportid);
 
         //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.Set_boreportdetails_TableConfig();
-            setTimeout(() => {
-                //this.Set_boreportdetails_TableDropDownConfig();
-            });
 
             this.Set_boreportothertables_TableConfig();
-            setTimeout(() => {
-                //this.Set_boreportothertables_TableDropDownConfig();
-            });
 
             this.Set_boreportcolumns_TableConfig();
-            setTimeout(() => {
-                //this.Set_boreportcolumns_TableDropDownConfig();
-            });
 
             this.resetForm();
         }
@@ -441,14 +352,14 @@ export class boreportComponent implements OnInit {
             this.workflowhtmltype_List = res.list_workflowhtmltype.value;
             this.recordtype_List = res.list_recordtype.value;
             this.dashboardid_List = res.list_dashboardid.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide(); });
 
         //autocomplete
         this.boreport_service.get_boreports_List().then(res => {
             this.pkList = res as boreport[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        ).catch((err) => { this.spinner.hide(); });
         //setting the flag that the screen is not touched
         this.boreport_Form.markAsUntouched();
         this.boreport_Form.markAsPristine();
@@ -488,7 +399,7 @@ export class boreportComponent implements OnInit {
                 this.boreport_service.delete_boreport(reportid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -606,12 +517,8 @@ export class boreportComponent implements OnInit {
 
     edit_boreports() {
         this.showview = false;
-        setTimeout(() => {
-        });
         return false;
     }
-
-
 
     async PopulateScreen(pkcol: any) {
         this.spinner.show();
@@ -624,7 +531,7 @@ export class boreportComponent implements OnInit {
             this.pkcol = res.boreport.pkcol;
             this.formid = res.boreport.reportid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -633,9 +540,6 @@ export class boreportComponent implements OnInit {
         this.pkcol = res.boreport.pkcol;
         this.bmyrecord = false;
         if ((res.boreport as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.boreport_Form.patchValue({
             reportid: res.boreport.reportid,
             reportcode: res.boreport.reportcode,
@@ -793,15 +697,11 @@ export class boreportComponent implements OnInit {
             return;
         }
         var obj = this.boreport_Form.getRawValue();
-        console.log(obj);
         if (!confirm('Do you want to want to save?')) {
             return;
         }
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -817,19 +717,9 @@ export class boreportComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.boreport_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.boreport_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.boreport_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -851,7 +741,6 @@ export class boreportComponent implements OnInit {
         this.formData.Deleted_boreportdetail_IDs = this.Deleted_boreportdetail_IDs;
         this.formData.Deleted_boreportothertable_IDs = this.Deleted_boreportothertable_IDs;
         this.formData.Deleted_boreportcolumn_IDs = this.Deleted_boreportcolumn_IDs;
-        console.log(this.formData);
         this.spinner.show();
         this.boreport_service.saveOrUpdate_boreports(this.formData, this.tbl_boreportdetails?.source?.data, this.tbl_boreportothertables?.source?.data, this.tbl_boreportcolumns?.source?.data,).subscribe(
             async res => {
@@ -871,7 +760,6 @@ export class boreportComponent implements OnInit {
                     }
                 }
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).boreport);
                 if (!bclear) this.showview = true;
@@ -900,10 +788,8 @@ export class boreportComponent implements OnInit {
                 this.boreport_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
@@ -946,7 +832,6 @@ export class boreportComponent implements OnInit {
         if (childID != null)
             this.Deleted_boreportdetail_IDs += childID + ",";
         this.tbl_boreportdetails.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
     AddOrEdit_boreportothertable(event: any, othertableid: any, reportid: any) {
@@ -977,7 +862,6 @@ export class boreportComponent implements OnInit {
         if (childID != null)
             this.Deleted_boreportothertable_IDs += childID + ",";
         this.tbl_boreportothertables.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
     AddOrEdit_boreportcolumn(event: any, reportcolumnid: any, reportid: any) {
@@ -1008,17 +892,9 @@ export class boreportComponent implements OnInit {
         if (childID != null)
             this.Deleted_boreportcolumn_IDs += childID + ",";
         this.tbl_boreportcolumns.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
     MakeAllHide() {
-        /*for(let i=0;i<this.boreportservice.boreportcolumns.length;i++)
-        {
-            this.boreportservice.boreportcolumns[i].hide=true;
-        }
-        */
-        // this.onSubmitData(false);
         this.router.navigate(['/home/corporatedashboard']);
-
     }
 
 
@@ -1041,15 +917,8 @@ export class boreportComponent implements OnInit {
         this.tbl_boreportdetails.source.settings['selectMode'] = 'single';
     }
     show_boreportdetails_Filter() {
-        setTimeout(() => {
-            //  this.Set_boreportdetails_TableDropDownConfig();
-        });
         if (this.tbl_boreportdetails.source.settings != null) this.tbl_boreportdetails.source.settings['hideSubHeader'] = !this.tbl_boreportdetails.source.settings['hideSubHeader'];
         this.tbl_boreportdetails.source.initGrid();
-    }
-    show_boreportdetails_InActive() {
-    }
-    enable_boreportdetails_InActive() {
     }
     async Set_boreportdetails_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_boreportdetails) {
@@ -1064,9 +933,6 @@ export class boreportComponent implements OnInit {
     }
     async boreportdetails_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_boreportdetails_TableConfig() {
         this.boreportdetails_settings = {
@@ -1157,38 +1023,7 @@ export class boreportComponent implements OnInit {
         }
     }
 
-    //external to inline
-    /*
-    boreportdetails_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.boreport_service.boreportdetails.length == 0)
-    {
-        this.tbl_boreportdetails.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new boreportdetail();
-        this.boreport_service.boreportdetails.push(obj);
-        this.tbl_boreportdetails.source.refresh();
-        if ((this.boreport_service.boreportdetails.length / this.tbl_boreportdetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_boreportdetails.source.getPaging().page)
-        {
-            this.tbl_boreportdetails.source.setPage((this.boreport_service.boreportdetails.length / this.tbl_boreportdetails.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_boreportdetails.source.grid.edit(this.tbl_boreportdetails.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_boreportdetails.source.data.indexOf(event.data);
-    this.onDelete_boreportdetail(event,event.data.reportdetailid,((this.tbl_boreportdetails.source.getPaging().page-1) *this.tbl_boreportdetails.source.getPaging().perPage)+index);
-    this.tbl_boreportdetails.source.refresh();
-    break;
-    }
-    }
 
-    */
     boreportdetails_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -1227,7 +1062,6 @@ export class boreportComponent implements OnInit {
 
     }
     boreportdetails_Paging(val) {
-        debugger;
         this.tbl_boreportdetails.source.setPaging(1, val, true);
     }
 
@@ -1247,7 +1081,6 @@ export class boreportComponent implements OnInit {
     boreportothertables_settings: any;
 
     show_boreportothertables_Checkbox() {
-        debugger;
         if (this.tbl_boreportothertables.source.settings['selectMode'] == 'multi') this.tbl_boreportothertables.source.settings['selectMode'] = 'single';
         else
             this.tbl_boreportothertables.source.settings['selectMode'] = 'multi';
@@ -1257,15 +1090,8 @@ export class boreportComponent implements OnInit {
         this.tbl_boreportothertables.source.settings['selectMode'] = 'single';
     }
     show_boreportothertables_Filter() {
-        setTimeout(() => {
-            //  this.Set_boreportothertables_TableDropDownConfig();
-        });
         if (this.tbl_boreportothertables.source.settings != null) this.tbl_boreportothertables.source.settings['hideSubHeader'] = !this.tbl_boreportothertables.source.settings['hideSubHeader'];
         this.tbl_boreportothertables.source.initGrid();
-    }
-    show_boreportothertables_InActive() {
-    }
-    enable_boreportothertables_InActive() {
     }
     async Set_boreportothertables_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_boreportothertables) {
@@ -1348,39 +1174,6 @@ export class boreportComponent implements OnInit {
             if (this.tbl_boreportothertables != undefined) this.tbl_boreportothertables.source.setPaging(1, 20, true);
         }
     }
-
-    //external to inline
-    /*
-    boreportothertables_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.boreport_service.boreportothertables.length == 0)
-    {
-        this.tbl_boreportothertables.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new boreportothertable();
-        this.boreport_service.boreportothertables.push(obj);
-        this.tbl_boreportothertables.source.refresh();
-        if ((this.boreport_service.boreportothertables.length / this.tbl_boreportothertables.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_boreportothertables.source.getPaging().page)
-        {
-            this.tbl_boreportothertables.source.setPage((this.boreport_service.boreportothertables.length / this.tbl_boreportothertables.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_boreportothertables.source.grid.edit(this.tbl_boreportothertables.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_boreportothertables.source.data.indexOf(event.data);
-    this.onDelete_boreportothertable(event,event.data.othertableid,((this.tbl_boreportothertables.source.getPaging().page-1) *this.tbl_boreportothertables.source.getPaging().perPage)+index);
-    this.tbl_boreportothertables.source.refresh();
-    break;
-    }
-    }
-
-    */
     boreportothertables_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -1414,12 +1207,8 @@ export class boreportComponent implements OnInit {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "boreportothertables");
         let formname = (objbomenuaction as any).actionname;
 
-
-
-
     }
     boreportothertables_Paging(val) {
-        debugger;
         this.tbl_boreportothertables.source.setPaging(1, val, true);
     }
 
@@ -1439,7 +1228,6 @@ export class boreportComponent implements OnInit {
     boreportcolumns_settings: any;
 
     show_boreportcolumns_Checkbox() {
-        debugger;
         if (this.tbl_boreportcolumns.source.settings['selectMode'] == 'multi') this.tbl_boreportcolumns.source.settings['selectMode'] = 'single';
         else
             this.tbl_boreportcolumns.source.settings['selectMode'] = 'multi';
@@ -1449,15 +1237,8 @@ export class boreportComponent implements OnInit {
         this.tbl_boreportcolumns.source.settings['selectMode'] = 'single';
     }
     show_boreportcolumns_Filter() {
-        setTimeout(() => {
-            //  this.Set_boreportcolumns_TableDropDownConfig();
-        });
         if (this.tbl_boreportcolumns.source.settings != null) this.tbl_boreportcolumns.source.settings['hideSubHeader'] = !this.tbl_boreportcolumns.source.settings['hideSubHeader'];
         this.tbl_boreportcolumns.source.initGrid();
-    }
-    show_boreportcolumns_InActive() {
-    }
-    enable_boreportcolumns_InActive() {
     }
     async Set_boreportcolumns_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_boreportcolumns) {
@@ -1478,9 +1259,6 @@ export class boreportComponent implements OnInit {
     }
     async boreportcolumns_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_boreportcolumns_TableConfig() {
         this.boreportcolumns_settings = {
@@ -1976,39 +1754,6 @@ export class boreportComponent implements OnInit {
             if (this.tbl_boreportcolumns != undefined) this.tbl_boreportcolumns.source.setPaging(1, 20, true);
         }
     }
-
-    //external to inline
-    /*
-    boreportcolumns_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.boreport_service.boreportcolumns.length == 0)
-    {
-        this.tbl_boreportcolumns.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new boreportcolumn();
-        this.boreport_service.boreportcolumns.push(obj);
-        this.tbl_boreportcolumns.source.refresh();
-        if ((this.boreport_service.boreportcolumns.length / this.tbl_boreportcolumns.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_boreportcolumns.source.getPaging().page)
-        {
-            this.tbl_boreportcolumns.source.setPage((this.boreport_service.boreportcolumns.length / this.tbl_boreportcolumns.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_boreportcolumns.source.grid.edit(this.tbl_boreportcolumns.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_boreportcolumns.source.data.indexOf(event.data);
-    this.onDelete_boreportcolumn(event,event.data.reportcolumnid,((this.tbl_boreportcolumns.source.getPaging().page-1) *this.tbl_boreportcolumns.source.getPaging().perPage)+index);
-    this.tbl_boreportcolumns.source.refresh();
-    break;
-    }
-    }
-
-    */
     boreportcolumns_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -2047,7 +1792,6 @@ export class boreportComponent implements OnInit {
 
     }
     boreportcolumns_Paging(val) {
-        debugger;
         this.tbl_boreportcolumns.source.setPaging(1, val, true);
     }
 

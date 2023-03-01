@@ -1,50 +1,26 @@
 import { bostateService } from './../../../service/bostate.service';
 import { bostate } from './../../../model/bostate.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit,ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { bocity } from './../../../model/bocity.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { bocityComponent } from './../../../pages/forms/bocity/bocity.component';
 import { bocityService } from './../../../service/bocity.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { AppConstants } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
     selector: 'app-bostate',
@@ -64,7 +40,7 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
         }
       }
     `],
-    providers: [KeyboardShortcutsService]
+    providers: []
 })
 
 
@@ -124,44 +100,20 @@ export class bostateComponent implements OnInit {
     bocities_selectedindex: any;
 
 
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private bostate_service: bostateService,
-        private bocity_service: bocityService,
         private fb: FormBuilder,
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.bostate_Form = this.fb.group({
             pk: [null],
             stateid: [null],
@@ -183,7 +135,6 @@ export class bostateComponent implements OnInit {
 
     //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.bostate_Form.dirty && this.bostate_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -192,29 +143,6 @@ export class bostateComponent implements OnInit {
             }
         }
         return Observable.of(true);
-    }
-
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.stateid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.stateid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
     }
 
     //on searching in pk autocomplete
@@ -237,9 +165,6 @@ export class bostateComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -279,14 +204,10 @@ export class bostateComponent implements OnInit {
             this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
         }
         this.formid = bostateid;
-        //alert(bostateid);
 
         //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.Set_bocities_TableConfig();
-            setTimeout(() => {
-                //this.Set_bocities_TableDropDownConfig();
-            });
 
             this.resetForm();
         }
@@ -296,14 +217,14 @@ export class bostateComponent implements OnInit {
             //foreign keys
         }
         this.bostate_service.getDefaultData().then(res => {
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide();});
 
         //autocomplete
         this.bostate_service.get_bostates_List().then(res => {
             this.pkList = res as bostate[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        ).catch((err) => { this.spinner.hide(); });
         //setting the flag that the screen is not touched
         this.bostate_Form.markAsUntouched();
         this.bostate_Form.markAsPristine();
@@ -330,7 +251,7 @@ export class bostateComponent implements OnInit {
                 this.bostate_service.delete_bostate(stateid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide();});
             }
         }
         else {
@@ -403,8 +324,6 @@ export class bostateComponent implements OnInit {
 
     edit_bostates() {
         this.showview = false;
-        setTimeout(() => {
-        });
         return false;
     }
 
@@ -421,7 +340,7 @@ export class bostateComponent implements OnInit {
             this.pkcol = res.bostate.pkcol;
             this.formid = res.bostate.stateid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
     FillData(res: any) {
         this.formData = res.bostate;
@@ -429,9 +348,6 @@ export class bostateComponent implements OnInit {
         this.pkcol = res.bostate.pkcol;
         this.bmyrecord = false;
         if ((res.bostate as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.bostate_Form.patchValue({
             stateid: res.bostate.stateid,
             code: res.bostate.code,
@@ -485,15 +401,11 @@ export class bostateComponent implements OnInit {
             return;
         }
         var obj = this.bostate_Form.getRawValue();
-        console.log(obj);
         if (!confirm('Do you want to want to save?')) {
             return;
         }
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -509,19 +421,9 @@ export class bostateComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.bostate_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.bostate_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.bostate_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -541,7 +443,6 @@ export class bostateComponent implements OnInit {
             }
         }
         this.formData.Deleted_bocity_IDs = this.Deleted_bocity_IDs;
-        console.log(this.formData);
         this.spinner.show();
         this.bostate_service.saveOrUpdate_bostates(this.formData, this.tbl_bocities?.source?.data,).subscribe(
             async res => {
@@ -551,7 +452,6 @@ export class bostateComponent implements OnInit {
                     }
                 }
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).bostate);
                 if (!bclear) this.showview = true;
@@ -580,10 +480,8 @@ export class bostateComponent implements OnInit {
                 this.bostate_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
@@ -624,7 +522,6 @@ export class bostateComponent implements OnInit {
         if (childID != null)
             this.Deleted_bocity_IDs += childID + ",";
         this.tbl_bocities.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
 
@@ -637,7 +534,6 @@ export class bostateComponent implements OnInit {
     bocities_settings: any;
 
     show_bocities_Checkbox() {
-        debugger;
         if (this.tbl_bocities.source.settings['selectMode'] == 'multi') this.tbl_bocities.source.settings['selectMode'] = 'single';
         else
             this.tbl_bocities.source.settings['selectMode'] = 'multi';
@@ -647,15 +543,8 @@ export class bostateComponent implements OnInit {
         this.tbl_bocities.source.settings['selectMode'] = 'single';
     }
     show_bocities_Filter() {
-        setTimeout(() => {
-            //  this.Set_bocities_TableDropDownConfig();
-        });
         if (this.tbl_bocities.source.settings != null) this.tbl_bocities.source.settings['hideSubHeader'] = !this.tbl_bocities.source.settings['hideSubHeader'];
         this.tbl_bocities.source.initGrid();
-    }
-    show_bocities_InActive() {
-    }
-    enable_bocities_InActive() {
     }
     async Set_bocities_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_bocities) {
@@ -664,9 +553,6 @@ export class bostateComponent implements OnInit {
     }
     async bocities_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_bocities_TableConfig() {
         this.bocities_settings = {
@@ -720,40 +606,6 @@ export class bostateComponent implements OnInit {
         }
     }
 
-    //external to inline
-    /*
-    bocities_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.bostate_service.bocities.length == 0)
-    {
-        this.tbl_bocities.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new bocity();
-        this.bostate_service.bocities.push(obj);
-        this.tbl_bocities.source.refresh();
-        if ((this.bostate_service.bocities.length / this.tbl_bocities.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_bocities.source.getPaging().page)
-        {
-            this.tbl_bocities.source.setPage((this.bostate_service.bocities.length / this.tbl_bocities.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_bocities.source.grid.edit(this.tbl_bocities.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    if (confirm('Do you want to want to delete?')) {
-    let index = this.tbl_bocities.source.data.indexOf(event.data);
-    this.onDelete_bocity(event,event.data.cityid,((this.tbl_bocities.source.getPaging().page-1) *this.tbl_bocities.source.getPaging().perPage)+index);
-    this.tbl_bocities.source.refresh();
-    }
-    break;
-    }
-    }
-
-    */
     bocities_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -788,13 +640,8 @@ export class bostateComponent implements OnInit {
     async onCustom_bocities_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "bocities");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     bocities_Paging(val) {
-        debugger;
         this.tbl_bocities.source.setPaging(1, val, true);
     }
 

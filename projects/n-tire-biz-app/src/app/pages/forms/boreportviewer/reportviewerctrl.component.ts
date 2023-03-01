@@ -59,8 +59,6 @@ import { FormControl } from '@angular/forms';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
 
 
-import { bodlgviewerComponent } from './bodlgviewer.component';
-
 import { FilterMetadata } from 'primeng/api';
 
 
@@ -1379,12 +1377,6 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
     opendialog(action, rowData) {
         this.router.navigate(["/home/" + rowData["modulename"] + "/" + rowData["modulename"] + "/edit/" + rowData["pkvalue"] + "/source/workflow/" + rowData["pk"]]);
         return;
-        this.dialog.open(bodlgviewerComponent,
-            {
-                data: { url: "/modal/" + rowData["modulename"] + "/" + rowData["modulename"] + "/edit/" + rowData["pkvalue"] + "/workflow/" + rowData["pk"] }
-            }
-        ).onClose.subscribe(res => {
-        });
 
 
 

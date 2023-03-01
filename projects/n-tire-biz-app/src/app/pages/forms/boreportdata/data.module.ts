@@ -3,7 +3,6 @@ import { NgCommonModule } from '../../../../../../n-tire-biz-app/src/app/appcomm
 import { boreportviewerModule } from '../../../../../../n-tire-biz-app/src/app/pages/forms/boreportviewer/boreportviewer.module';
 import { routing } from './data.routing';
 import { dataComponent } from './data.component';
-//import { mstapplicantmasterModule } from '../mstapplicantmaster/mstapplicantmaster.module';
 
 @NgModule({
   exports: [
@@ -11,7 +10,6 @@ import { dataComponent } from './data.component';
 
   ],
   imports: [boreportviewerModule,
-    //mstapplicantmasterModule,
     routing,
     NgCommonModule
   ],
