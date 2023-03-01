@@ -346,7 +346,8 @@ export class BODashboardViewerComponent implements OnInit {
           this.showstr = '★★★★'
         } else if (this.skill_detail[i].strRating == 5) {
           this.showstr = '★★★★★'
-        }
+        };
+        
         this.finalarray.push({
           subCategory: this.skill_detail[i].subCategory,
           skillId: this.skill_detail[i].skill_id,

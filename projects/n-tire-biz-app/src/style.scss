@@ -2004,8 +2004,6 @@ select {
 
 p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
   width: 100% !important;
-  height: 100%;
-  max-height: 100% !important;
   max-width: 95% !important;
   display: flex !important;
 }
@@ -3299,4 +3297,19 @@ footer {
   margin-right: 10px !important;
   background: #7d3535 !important;
   width: fit-content;
+}
+.language-data{
+  .star{
+  color: green;
+  font-size: 19px !important;
+  vertical-align: middle;
+  }
+};
+
+.language-action{
+  vertical-align: middle !important;
+  i{
+    margin: 0 6px;
+    font-size: 19px;
+  }
 }

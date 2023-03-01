@@ -191,7 +191,7 @@ export class SharedService {
 
   onCustomAction(event: any, modulename) {
     //debugger;
-    let actionid = event.action;
+    let actionid = 99;
     return this.bomenuactionservice.getListBy_actionid(actionid).then((res: any) => {
       let objbomenuaction = res[0];
       ////console.log(objbomenuaction);

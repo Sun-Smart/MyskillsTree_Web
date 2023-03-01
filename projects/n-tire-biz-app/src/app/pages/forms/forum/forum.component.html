@@ -15,7 +15,7 @@
         <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
           <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
         </div>
-        <div *ngIf="!showview" id="div_boforums"></div>
+        
         <div *ngIf="showview" id="div_boforums"></div>
         <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
 
