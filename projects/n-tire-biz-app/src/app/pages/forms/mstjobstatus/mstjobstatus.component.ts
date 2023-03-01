@@ -3,8 +3,6 @@ import { mstjobstatus } from './../../../model/mstjobstatus.model';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer } from "@angular/platform-browser";
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
@@ -229,7 +227,7 @@ export class mstjobstatusComponent implements OnInit {
             this.applicantid_List = res.list_applicantid.value;
             this.corporateid_List = res.list_corporateid.value;
             this.jobid_List = res.list_jobid.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide(); });
 
         //autocomplete
         this.mstjobstatus_service.get_mstjobstatuses_List().then(res => {
