@@ -5,3 +5,6 @@ div#contentAreascroll{
   overflow: inherit !important;
   top: 90px !important;
 }
+::ng-deep .p-picklist .p-picklist-list {
+  height: 10rem;
+}

@@ -71,54 +71,41 @@ export class MstLocationDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    //autocomplete
     this.mstapplicantgeographypreference_service.get_mstapplicantgeographypreferences_List().then(res => {
       this.pkList = res as mstapplicantgeographypreference[];
       this.pkoptionsEvent.emit(this.pkList);
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
 
     this.mstapplicantgeographypreference_service.getDefaultData().then(res => {
-      debugger
       this.applicantid_List = res.list_applicantid.value;
       this.country_List = res.list_country.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
   };
 
 
   onSelected_country(countryDetail: any) {
-    debugger
     if (countryDetail.value && countryDetail) {
       this.mstapplicantgeographypreference_Form.patchValue({
         country: countryDetail.value,
         countrydesc: countryDetail.label,
-
       });
       this.mstapplicantgeographypreference_service.getList_city(countryDetail.value).then((res: any) => {
-
-        // this.country_List = res as DropDownValues[]
         this.city_List = res as DropDownValues[]
-
-      }).catch((err) => { this.spinner.hide(); console.log(err); });
+      }).catch((err) => { this.spinner.hide(); });
     }
   };
 
   onSelected_city(cityDetail: any) {
-
     if (cityDetail.cityid && cityDetail) {
       this.mstapplicantgeographypreference_Form.patchValue({
         city: cityDetail.cityid,
         citydesc: cityDetail.name,
-
       });
 
       this.mstapplicantgeographypreference_service.getList(cityDetail.cityid).then((res: any) => {
-        console.log(res)
-
         this.city_List = res as DropDownValues[]
       }).catch((err) => {
-        this.spinner.hide(); console.log(err);
-        //console.log(err);
+        this.spinner.hide();
       });
     }
   };
@@ -135,21 +122,16 @@ export class MstLocationDetailsComponent implements OnInit {
 
     this.formData = this.mstapplicantgeographypreference_Form.getRawValue();
     this.formData.applicantid = this.applicantid;
-    console.log(this.formData);
     this.spinner.show();
     this.mstapplicantgeographypreference_service.saveOrUpdate_mstapplicantgeographypreferences(this.formData).subscribe(
         async res => {
-
             this.spinner.hide();
-            debugger;
             this.toastr.addSingle("success", "", "Successfully saved");
             this.route.navigate(['/home/newlanguage'])
             this.objvalues.push((res as any).mstapplicantgeographypreference);
         }, (err:any) => {
-            debugger;
             this.spinner.hide();
             this.toastr.addSingle("error", "", err.error);
-            console.log(err);
         }
     )
 };
@@ -170,17 +152,13 @@ async AddMorelocation(bclear: any) {
   this.spinner.show();
   this.mstapplicantgeographypreference_service.saveOrUpdate_mstapplicantgeographypreferences(this.formData).subscribe(
       async res => {
-
           this.spinner.hide();
-          debugger;
           this.toastr.addSingle("success", "", "Successfully saved");
           this.objvalues.push((res as any).mstapplicantgeographypreference);
           this.mstapplicantgeographypreference_Form.reset();
       }, (err:any) => {
-          debugger;
           this.spinner.hide();
           this.toastr.addSingle("error", "", err.error);
-          console.log(err);
       }
   )
 }

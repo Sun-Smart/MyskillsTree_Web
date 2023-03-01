@@ -60,36 +60,13 @@
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
           <li class='nav-item actionheader common_title_style' *ngIf="!showview">
-            <!-- <a class="alert-success" [routerLink]=''>  -->
             <button type="button" class="btn btn-outline-primary popup-add-button" (click)="onSubmitAndWait()" *ngIf="showSubmit==true">Submit</button>&nbsp;
-            <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
-            <!-- <button type="button" class="btn btn-outline-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null'
-              style="border-color: #fff !important;
-              color: #fff;margin: 5px;
-    padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp; -->
             <app-action *ngIf="f.requestid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.requestid.value" [status]="f.status.value"></app-action>
           </li>
           <i class='nav-item actionheader common_title_style'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
             class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
-          <!-- <li class='nav-item actionheader common_title_style' *ngIf="!showview">
-            <a class="alert-success"  style='background: #0368b7 !important;' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
-              Submit</a>
-            <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
-            <app-action *ngIf="f.requestid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
-              [value]="f.requestid.value" [status]="f.status.value"></app-action>
-          </li> -->
-          <!-- <li class='nav-item actionheader common_title_style'
-            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-          </li> -->
-          <!-- <i class='nav-item actionheader common_title_style'
-          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
-          class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i> -->
-
         </ul>
       </div>
     </div>
@@ -179,9 +156,6 @@
         <label *ngIf="(showview || bapplicantentry)" class="labelview">{{f.contactdesignation?.value}}</label>
         <input *ngIf="!(showview || bapplicantentry)" id="contactdesignation" formControlName="contactdesignation"
           class="form-control">
-        <!-- <app-field-error-display [displayError]="f.contactdesignation.errors?.required"
-          errorMsg="Enter {{'Designation' | translate}}">
-        </app-field-error-display> -->
       </div>
       <div *ngIf="contactemailidvisible==undefined || contactemailidvisible==true" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <label for="contactemailid" class="control-label required">Email</label><br/>
@@ -268,26 +242,6 @@
 
     </div>
     <br />
-    <!-- <div class="card form-group row blue" style="width: 100% !important;height: auto !important;" *ngIf="(viewhtml == '' || !showview)">
-      <div class="card-body" innerHtml="{{f.referencesourcedetails?.value}}">
-      </div>
-    </div> -->
-
-    <!-- <div *ngIf="(viewhtml == '' || !showview)" class="form-group row blue"
-      innerHtml="{{f.referencesourcedetails?.value}}">
-    </div> -->
-
-
-    <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row" style="display: none !important;">
-      <div *ngIf="contactfileattachvisible==undefined || contactfileattachvisible==true" style='width:1500px'
-        class="col-12 ">
-        <label *ngIf="showview" class="labelview">{{f.contactfileattach?.value[0]?.name}}</label>
-        <app-attachment #contactfileattach formControlName="contactfileattach" [showremove]='bmyrecord'
-          [SessionData]="sessionData"></app-attachment>
-        <button type="button" class="btn" *ngIf="contactfileattach.getAttachmentList().length > 0"
-          (click)="getcontactfileattach()">Download File</button>
-      </div>
-    </div> -->
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="sentvisible==undefined || sentvisible==true" style='' class="col-3 ">
         <div class="columnchk">
@@ -319,28 +273,3 @@
 <div class="loading" *ngIf="loadinghide">
   <div class="loader"></div>
 </div>
-<!-- <div  *ngIf="loadinghide" style="display: block !important;
-position: absolute !important;
-bottom: 0;
-top: 0;
-left: 0;
-width: 100%;
-opacity: 0.5;
-right: 0;
-background: transparent !important;
-background-color: gray !important;">
-<img src="../../../assets/loader.gif" style="position: absolute;bottom: 0;
-top: 0;
-left: 0;right: 0;vertical-align: middle;" width="50px" height="50px"/>
-</div> -->
-<!-- <ngx-spinner></ngx-spinner> -->
-<!-- <div *ngIf="loadinghide">
-  <h3 style="color: red;text-align: center;color: red;
-  text-align: center;
-  font-size: 30px !important;
-  position: absolute;
-  left: 0 !important;
-  right: 0;top: 40%;
-  bottom: 0%;"><img src="assets/loading.gif" style="width: 15%;height: 34%;" />Please wait page is loading...!</h3>
-
-</div> -->

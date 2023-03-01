@@ -1,5 +1,4 @@
 declare var $: any;
-import { FooterComponent } from '../../layout/footer/footer.component';
 //import { crmtatconfigurationComponent } from '../crmtatconfiguration/crmtatconfiguration.component';
 //import { ToastrService } from 'ngx-toastr';
 import { HttpClient, HttpParams } from '@angular/common/http';

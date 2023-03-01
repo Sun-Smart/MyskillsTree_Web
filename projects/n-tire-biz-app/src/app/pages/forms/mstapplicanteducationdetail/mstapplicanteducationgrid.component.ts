@@ -1,54 +1,23 @@
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-
-import { mstapplicantskilldetail } from './../../../model/mstapplicantskilldetail.model';
-import { mstapplicantskilldetailComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.component';
-import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
-
-import { mstapplicantreferencerequest } from './../../../model/mstapplicantreferencerequest.model';
 import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
-import { mstapplicantreferencerequestService } from './../../../service/mstapplicantreferencerequest.service';
-
-//primeng services
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
 import { mstapplicanteducationdetailService } from '../../../service/mstapplicanteducationdetail.service';
 import { mstapplicanteducationdetailComponent } from './mstapplicanteducationdetail.component';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
-import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mstapplicanteducationdetail } from '../../../model/mstapplicanteducationdetail.model';
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
@@ -77,21 +46,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 </ul>
 </div>
 <div class="col-4" style="text-align: end; margin: auto;">
-                <!-- <ul class="rightside">
-                    <a [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i style="color:#fff !important;"
-                       class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-                </ul> -->
-                <!-- <a  [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"> -->
-                <!-- <button type="button" style="border-color: #fff !important;
-                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
                 <button type="button" class="btn btn-outline-primary  popup-add-button"  [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"
                  title = "Add Details">Add</button>
-
-                 <!-- <button (click)="addSkills()" >Add 1</button> -->
-                <!-- </a> -->
-
-                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-
                 <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="eduction_close" style="width: 20px;" title = "Close"/></a>
 </div>
 
@@ -118,27 +74,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 </ul>
 </div>
 <div class="col-4" style="text-align: end; margin: auto;">
-                <!-- <ul class="rightside">
-                    <a [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i style="color:#fff !important;"
-                       class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-                </ul> -->
-                <!-- <a  [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"> -->
-                <!-- <button type="button" style="border-color: #fff !important;
-                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
                 <button type="button" class="btn btn-outline-primary  popup-add-button"  [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"
                  title = "Add Details">Add</button>
-
-                 <!-- <button (click)="addSkills()" >Add 1</button> -->
-                <!-- </a> -->
-
-                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
 
                 <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="eduction_close" style="width: 20px;" title = "Close"/></a>
 </div>
 
 </div>
 
-              <!-- suneel12  & modifed by muthu dated 19/12/22-->
 
             <form [formGroup]="mstapplicanteducationdetail_Form" *ngIf="showWebviewDetect">
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
@@ -193,9 +136,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                     <td>
                     <input  id="coursename" required formControlName="coursename" class="form-control">
-                    <!-- <app-field-error-display [displayError]="f.coursename.errors?.required"
-                      errorMsg="Enter {{'Course Name' | translate}}">
-                    </app-field-error-display> -->
                     </td>
 
                     <!-- Percentage -->
@@ -209,7 +149,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                    <td>
                     <textarea name="w3review" rows="3" cols="10" class="form-control" formControlName="remarks" required></textarea>
-                    <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor> -->
                     </td>
 
                     <!-- From Year -->
@@ -225,11 +164,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                     <!--skill-->
                     <td>
-                    <!--<select  id="skill" required (change)="skill_onchange($event.target)" formControlName="skill"
-                    class="form-control">
-                      <option [ngValue]="null" selected>-Select-</option>
-                      <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
-                    </select>-->
 
                     <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
                     (completeMethod)="search_skills($event)"></p-autoComplete><br/>
@@ -302,11 +236,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
                     (completeMethod)="search_skills($event)"></p-autoComplete><br/>
                     <label style="color:blue;font-size: 9px;"> (Optional)</label>
-<!-- <select  id="skill" required (change)="skill_onchange($event.target)" formControlName="skill"
-                    class="form-control">
-                      <option [ngValue]="null" selected>-Select-</option>
-                      <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
-                    </select> -->
 </div>
 
 <div class="col" style="position: relative;left: 120px;top: 7px;">
@@ -340,24 +269,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         margin-top: 10px !important;
       }
       button.btn.btn-outline-primary.popup-add-button{
-        /* position: relative !important;
-        top: 10px !important;
-        right: 30px !important; */
         position: absolute !important;
         right: 50px !important;
         bottom: -3px !important;
       }
       .row.form-group.sticky1.educ_det_title{
         height: 50px !important;
-      }
-      .eduction_close{
-        /* width: 20px !important;
-        position: relative !important;
-        bottom: 15px !important;
-        right: 7px !important; */
-      }
-      .educ_det_title{
-        /* width: 650px !important; */
       }
       .edu_sub{
         white-space: nowrap !important;
@@ -447,15 +364,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   showWebviewDetect: boolean = true;
   isMobile: any;
   constructor(
-    private nav: Location,
-    private translate: TranslateService,
-
-    //dhana
-    private mstapplicantmaster_service: mstapplicantmasterService,
-    //end
-    private router: Router,
-    private themeService: ThemeService,
-    private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
@@ -463,7 +371,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     private sessionService: SessionService,
     private fb: FormBuilder,
     private toastr: ToastService,
-    private sanitizer: DomSanitizer,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
     private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,
   ) {
@@ -495,7 +402,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     this.mstapplicanteducationdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      // applicantid: localStorage.getItem('applicantid'),
       applicantid: [this.applicantid],
       applicantiddesc: [null],
       educationid: [null],
@@ -528,13 +434,12 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       this.educationcategory_List = res.list_educationcategory.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
       this.skills_List = res.list_skills.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
 
   };
 
 
   search_skills(event) {
-
     this.skills_results = this.skills_List.filter(v => v.label.toLowerCase().indexOf(event.query.toLowerCase()) > -1).slice(0, 10);
   }
 
@@ -592,8 +497,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
     }
     else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-      // this.onSubmitDataDlg(false);
-
       this.onSubmitData(false);
     }
     else {
@@ -606,7 +509,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       this.onSubmitData(true);
     }
     else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
-      // this.onSubmitDataDlg(true);
       this.onSubmitData(true);
     }
     else {
@@ -618,7 +520,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
     this.isSubmitted = true;
     let strError = "";
-    console.log(this.mstapplicanteducationdetail_Form.value)
 
     if (strError != "") return this.sharedService.alert(strError);
 
@@ -646,10 +547,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       }
       return
     }
-    // else if (this.mstapplicanteducationdetail_Form.value.percentage > 100) {
-    //   this.show_percentageError = true;
-    //   return
-    // }
     else {
       this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
       this.formData.skills = null;
@@ -658,8 +555,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       this.show_YearError = false;
       this.show_percentageError = false;
       if (this.mstapplicanteducationdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicanteducationdetail_Form.get('skills').value));
-
-      console.log(this.formData);
       this.spinner.show();
       this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
         async res => {
@@ -700,10 +595,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
           this.mstapplicanteducationdetail_Form.markAsPristine();
         },
         err => {
-
           this.spinner.hide();
           this.toastr.addSingle("error", "", err.error);
-          console.log(err);
         })
     };
   };
@@ -819,9 +712,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
     this.eduCategory();
-    console.log(event, educationid, applicantid);
     this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByEID(event.data.pkcol).then(res => {
-      console.log(res);
       this.mstapplicanteducationdetail_Form.patchValue({
         applicantid: res.mstapplicanteducationdetail.applicantid,
         applicantiddesc: res.mstapplicanteducationdetail.applicantiddesc,
@@ -861,32 +752,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       });
   }
 
-  // Old Code
-
-  // AddOrEdit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
-  //     //   this.eduCategory();
-  //   let add = false;
-  //   if (event == null) add = true;
-  //   let childsave = true;
-  //   if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-  //   this.dialog.open(mstapplicanteducationdetailComponent,
-  //     {
-  //       data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, educationid, applicantid, visiblelist: this.mstapplicanteducationdetails_visiblelist, hidelist: this.mstapplicanteducationdetails_hidelist, ScreenType: 2 },
-  //     }
-  //   ).onClose.subscribe(res => {
-  //     if (res) {
-  //       if (add) {
-  //         for (let i = 0; i < res.length; i++) {
-  //           this.tbl_mstapplicanteducationdetails.source.add(res[i]);
-  //         }
-  //         this.tbl_mstapplicanteducationdetails.source.refresh();
-  //       }
-  //       else {
-  //         this.tbl_mstapplicanteducationdetails.source.update(event.data, res[0]);
-  //       }
-  //     }
-  //   });
-  // }
 
   handle_mstapplicanteducationdetails_GridSelected(event: any) {
     this.mstapplicanteducationdetails_selectedindex = this.tbl_mstapplicanteducationdetails.source.findIndex(i => i.educationid === event.data.educationid);
@@ -904,17 +769,10 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicanteducationdetail_IDs += childID + ",";
-    // this.tbl_mstapplicanteducationdetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
-  //start of Grid Codes mstapplicantskilldetails
-  // mstapplicanteducationdetails_settings: any;
 
   show_mstapplicanteducationdetails_Checkbox() {
-    //;
     if (this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'multi';
@@ -924,15 +782,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicanteducationdetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantskilldetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicanteducationdetails.source.settings != null) this.tbl_mstapplicanteducationdetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicanteducationdetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicanteducationdetails.source.initGrid();
-  }
-  show_mstapplicanteducationdetails_InActive() {
-  }
-  enable_mstapplicanteducationdetails_InActive() {
   }
   async Set_mstapplicanteducationdetails_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicanteducationdetails) {
@@ -1003,7 +854,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //;
             cell = this.mstapplicanteducationdetailshtml();
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
@@ -1106,12 +956,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       case 'edit':
         this.Edit_mstapplicanteducationdetail(event, event.data.educationid, this.applicantid);
         break;
-      // case 'delete':
-
-      //     this.onDelete_mstapplicanteducationdetail(event, event.data.skillid, ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
-      //     this.tbl_mstapplicanteducationdetails.source.refresh();
-      //     break;
-
       case 'delete':
         this.onDelete_mstapplicanteducationdetail(event, event.data.educationid,
           ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
@@ -1131,36 +975,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     } else {
       return;
     }
-    // let educationid = obj.data.educationid;
-    // if (confirm('Are you sure to delete this record ?')) {
-    //     this.mstapplicantmaster_service.delete_mstapplicantmaster(educationid).then(res =>
-    //         this.mstapplicanteducationdetails_LoadTable(res)
-    //     );
-    // }
   }
-  //for delete function not wokring
-
-  // mstapplicanteducationdetails_onDelete(obj) {
-  //     let educationid = obj.data.educationid;
-  //     if (confirm('Are you sure to delete this record ?')) {
-  //         this.mstapplicantmaster_service.delete_mstapplicantmaster(educationid).then(res =>
-  //             this.mstapplicanteducationdetails_LoadTable()
-  //         );
-  //     }
-  // }
   async onCustom_mstapplicanteducationdetails_Action(event: any) {
-
-    //   this.dialog.open(mstapplicantreferencegridComponent, {
-    //     width: '100% !important',
-    //     height: 'auto !important',
-    //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-    //   })
-
-
-
-    // let referencesourcedetails = 'Category: ' + event.data.educationcategorydesc + '<BR>' + 'Sub Category: ' + event.data.educationsubcategory + '<BR>'
-    //     + 'Course: ' + event.data.coursename + '<BR>' + 'Institution: ' + event.data.institutionname + '<BR>' + 'From Year: ' + event.data.fromyear + '<BR>'
-    //     + 'To Year: ' + event.data.toyear + '<BR>' + 'Percentage: ' + event.data.percentage + '<BR>' + 'Remarks: ' + event.data.remarks;
 
     let referencesourcedetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Category: ' + event.data.educationcategorydesc + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Sub Category: ' + event.data.educationsubcategorydesc + '</li>'
@@ -1171,18 +987,12 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Percentage: ' + event.data.percentage + '</li>'
       + '<li class="list-group-item remarks_p" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
 
-
-    // let referencesourcedetails = 'Sub Category: ' + event.data.subcategoryiddesc + '<BR>'
-    //  + 'Education Details: ' + event.data.skillcategorydesc + '<BR>'
-    //   + 'Self Rating: ' + event.data.selfrating + '<BR>'
-    //   + 'Remarks: ' + event.data.remarks;
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicanteducationdetails");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantreferencerequests") {
       this.dialog.open(mstapplicantreferencerequestComponent,
         {
           data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 315, requestmasterid: event.data.educationid, ScreenType: 2, save: true }
-          // data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 3, save: true }
         }
       ).onClose.subscribe(res => {
       });
@@ -1218,7 +1028,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     }
   }
   mstapplicanteducationdetails_Paging(val) {
-    //;
     this.tbl_mstapplicanteducationdetails.source.setPaging(1, val, true);
   }
 
@@ -1233,30 +1042,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       return "hide";
     }
   }
-  // mstapplicanteducationdetails_route(event: any, action: any) {
-  //     //     var addparam = "";
-  //     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
-  //         addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
-  //     }
 
-  //     switch (action) {
-  //         case 'create':
-  //             this.AddOrEdit_mstapplicanteducationdetail(event, null, this.formid);
-  //             break;
-  //         case 'view':
-  //             break;
-  //         case 'edit':
-  //             this.AddOrEdit_mstapplicanteducationdetail(event, event.data.educationid, this.formid);
-  //             break;
-  //         case 'delete':
-  //             this.onDelete_mstapplicanteducationdetail(event, event.data.educationid, ((this.tbl_mstapplicanteducationdetails.source.getPaging().page - 1) * this.tbl_mstapplicanteducationdetails.source.getPaging().perPage) + event.index);
-  //             this.tbl_mstapplicanteducationdetails.source.refresh();
-  //             break;
-  //     }
-  // }
-  //end of Grid Codes mstapplicantskilldetails
   onClose() {
-    // location.reload();
     this.dialogRef.close();
   }
 

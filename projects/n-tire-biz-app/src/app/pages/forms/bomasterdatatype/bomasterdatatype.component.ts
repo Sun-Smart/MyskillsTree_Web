@@ -1,49 +1,25 @@
 import { bomasterdatatypeService } from './../../../service/bomasterdatatype.service';
 import { bomasterdatatype } from './../../../model/bomasterdatatype.model';
-import { ElementRef, Component, OnInit, Inject, Optional,Input, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { bomasterdata } from './../../../model/bomasterdata.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { bomasterdataComponent } from './../../../pages/forms/bomasterdata/bomasterdata.component';
 import { bomasterdataService } from './../../../service/bomasterdata.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
@@ -65,10 +41,8 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
         }
       }
     `],
-    providers: [KeyboardShortcutsService]
+    providers: []
 })
-
-
 
 export class bomasterdatatypeComponent implements OnInit {
     formData: bomasterdatatype;
@@ -130,44 +104,20 @@ export class bomasterdatatypeComponent implements OnInit {
     boarray: any[];
 check1:boolean = false ;
 
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private bomasterdatatype_service: bomasterdatatypeService,
-        private bomasterdata_service: bomasterdataService,
         private fb: FormBuilder,
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.bomasterdatatype_Form = this.fb.group({
             pk: [null],
             datatypeid: [null],
@@ -199,7 +149,7 @@ check1:boolean = false ;
 
     //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
+
         if (this.bomasterdatatype_Form.dirty && this.bomasterdatatype_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -222,13 +172,13 @@ check1:boolean = false ;
     }
 
     prev() {
-        debugger;
+
         let pos = this.pkList.map(function (e: any) { return e.datatypeid.toString(); }).indexOf(this.formid.toString());
         if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
     }
 
     next() {
-        debugger;
+
         let pos = this.pkList.map(function (e: any) { return e.datatypeid.toString(); }).indexOf(this.formid.toString());
         if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
     }
@@ -259,7 +209,7 @@ check1:boolean = false ;
         this.theme = this.sessionService.getItem('selected-theme');
         //this.viewHtml=this.sessionService.getViewHtml();
 
-        debugger;
+
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -316,14 +266,14 @@ check1:boolean = false ;
         }
         this.bomasterdatatype_service.getDefaultData().then(res => {
             this.code_List = res.list_code.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide(); });
 
         //autocomplete
         this.bomasterdatatype_service.get_bomasterdatatypes_List().then(res => {
             this.pkList = res as bomasterdatatype[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        ).catch((err) => { this.spinner.hide();});
         //setting the flag that the screen is not touched
         this.bomasterdatatype_Form.markAsUntouched();
         this.bomasterdatatype_Form.markAsPristine();  
@@ -467,7 +417,7 @@ check1:boolean = false ;
             this.pkcol = res.bomasterdatatype.pkcol;
             this.formid = res.bomasterdatatype.datatypeid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -476,9 +426,6 @@ check1:boolean = false ;
         this.pkcol = res.bomasterdatatype.pkcol;
         this.bmyrecord = false;
         if ((res.bomasterdatatype as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);.
         this.mdata=res.bomasterdatatype.masterdataname
         console.log( this.bomasterdatatype_Form.value.hassubcategory)
         this.bomasterdatatype_Form.patchValue({
@@ -545,15 +492,11 @@ check1:boolean = false ;
             return;
         }
         var obj = this.bomasterdatatype_Form.getRawValue();
-        console.log(obj);
         if (!confirm('Do you want to want to save?')) {
             return;
         }
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -566,19 +509,10 @@ check1:boolean = false ;
             this.router.navigate(['/home/' + formname + '/' + formname + '/edit/' + this.formid + query]);
     }
     async onSubmitData(bclear: any) {
-        debugger;
+
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.bomasterdatatype_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.bomasterdatatype_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.bomasterdatatype_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -598,7 +532,6 @@ check1:boolean = false ;
             }
         }
         this.formData.Deleted_bomasterdata_IDs = this.Deleted_bomasterdata_IDs;
-        console.log(this.formData);
         this.spinner.show();
         this.bomasterdatatype_service.saveOrUpdate_bomasterdatatypes(this.formData, this.tbl_bomasterdatas?.source?.data,).subscribe(
             async res => {
@@ -608,7 +541,7 @@ check1:boolean = false ;
                     }
                 }
                 this.spinner.hide();
-                debugger;
+
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).bomasterdatatype);
                 if (!bclear) this.showview = true;
@@ -637,10 +570,8 @@ check1:boolean = false ;
                 this.bomasterdatatype_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
@@ -654,10 +585,7 @@ check1:boolean = false ;
     }
 
     AddOrEdit_bomasterdata(event: any, masterdataid: any, datatypeid: any) {
-        debugger
-        // let getData = this.mdata;
-        // this.bomasterdata_service.boarray = getData;
-        // this.masterdatatypeid1 = localStorage.getItem("masterdataname")
+
         let add = false;
         if (event == null) add = true;
         let childsave = false;
@@ -685,7 +613,6 @@ check1:boolean = false ;
         if (childID != null)
             this.Deleted_bomasterdata_IDs += childID + ",";
         this.tbl_bomasterdatas.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
 
@@ -698,7 +625,7 @@ check1:boolean = false ;
     bomasterdatas_settings: any;
 
     show_bomasterdatas_Checkbox() {
-        debugger;
+
         if (this.tbl_bomasterdatas.source.settings['selectMode'] == 'multi') this.tbl_bomasterdatas.source.settings['selectMode'] = 'single';
         else
             this.tbl_bomasterdatas.source.settings['selectMode'] = 'multi';
@@ -708,15 +635,8 @@ check1:boolean = false ;
         this.tbl_bomasterdatas.source.settings['selectMode'] = 'single';
     }
     show_bomasterdatas_Filter() {
-        setTimeout(() => {
-            //  this.Set_bomasterdatas_TableDropDownConfig();
-        });
         if (this.tbl_bomasterdatas.source.settings != null) this.tbl_bomasterdatas.source.settings['hideSubHeader'] = !this.tbl_bomasterdatas.source.settings['hideSubHeader'];
         this.tbl_bomasterdatas.source.initGrid();
-    }
-    show_bomasterdatas_InActive() {
-    }
-    enable_bomasterdatas_InActive() {
     }
     async Set_bomasterdatas_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_bomasterdatas) {
@@ -776,39 +696,7 @@ check1:boolean = false ;
                     type: '',
                     filter: true,
                 },
-                // orderno: {
-                //     title: 'Order No',
-                //     type: 'number',
-                //     filter: true,
-                // },
-                // htmlcode: {
-                //     title: 'H T M L Code',
-                //     type: '',
-                //     filter: true,
-                // },
-                // param1: {
-                //     title: 'Param1',
-                //     type: '',
-                //     filter: true,
-                // },
-                // param2: {
-                //     title: 'Param2',
-                //     type: '',
-                //     filter: true,
-                // },
-                // helptext: {
-                //     title: 'Help Text',
-                //     type: 'html',
-                //     filter: true,
-                //     editor: {
-                //         type: 'textarea',
-                //     },
-                // },
-                // flag: {
-                //     title: 'Flag',
-                //     type: '',
-                //     filter: true,
-                // },
+
             },
         };
     }
@@ -820,47 +708,14 @@ check1:boolean = false ;
         }
     }
 
-    //external to inline
-    /*
-    bomasterdatas_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.bomasterdatatype_service.bomasterdatas.length == 0)
-    {
-        this.tbl_bomasterdatas.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new bomasterdata();
-        this.bomasterdatatype_service.bomasterdatas.push(obj);
-        this.tbl_bomasterdatas.source.refresh();
-        if ((this.bomasterdatatype_service.bomasterdatas.length / this.tbl_bomasterdatas.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_bomasterdatas.source.getPaging().page)
-        {
-            this.tbl_bomasterdatas.source.setPage((this.bomasterdatatype_service.bomasterdatas.length / this.tbl_bomasterdatas.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_bomasterdatas.source.grid.edit(this.tbl_bomasterdatas.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    if (confirm('Do you want to want to delete?')) {
-    let index = this.tbl_bomasterdatas.source.data.indexOf(event.data);
-    this.onDelete_bomasterdata(event,event.data.masterdataid,((this.tbl_bomasterdatas.source.getPaging().page-1) *this.tbl_bomasterdatas.source.getPaging().perPage)+index);
-    this.tbl_bomasterdatas.source.refresh();
-    }
-    break;
-    }
-    }
 
-    */
     bomasterdatas_route(event: any, action: any) {
 
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
             addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
         }
-debugger
+
         switch (action) {
             case 'create':
                 this.AddOrEdit_bomasterdata(event, null, this.formid);
@@ -898,7 +753,7 @@ debugger
 
     }
     bomasterdatas_Paging(val) {
-        debugger;
+
         this.tbl_bomasterdatas.source.setPaging(1, val, true);
     }
 

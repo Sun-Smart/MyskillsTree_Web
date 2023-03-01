@@ -59,38 +59,18 @@
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
           <li class='nav-item actionheader common_title_style' *ngIf="!showview">
-            <!-- <a class="alert-success" [routerLink]=''>  -->
-              <!-- <button type="button" class="btn btn-outline-primary popup-add-button " style="border-color: #fff !important;margin: 5px;
-              padding: 3px;
-              color: #fff;" [routerLink]=''(click)="goBack()" >Back</button>&nbsp; -->
             <button type="button" class="btn btn-outline-primary popup-add-button " style="border-color: #fff !important;margin: 5px;
               padding: 3px;
               color: #fff;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
-            <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
             <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
               style="border-color: #fff !important; color: #fff;margin: 5px;padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
             <app-action *ngIf="f.masterdataid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.masterdataid.value" [status]="f.status.value"></app-action>
-     
+
           <i class='nav-item actionheader common_title_style'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
             class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
           </li>
-
-          <!-- <li class='nav-item actionheader' *ngIf="!showview">
-            <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
-              Submit</a>
-            <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
-            <app-action *ngIf="f.masterdataid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
-              [value]="f.masterdataid.value" [status]="f.status.value"></app-action>
-          </li>
-          <li class='nav-item actionheader'
-            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-          </li> -->
-
         </ul>
       </div>
     </div>
@@ -122,7 +102,7 @@
                 *ngIf="((hidelist.indexOf('masterdatatypeid') == -1) && (masterdatatypeidvisible==undefined || masterdatatypeidvisible==true))"
                 style='' class="col-4 education_view_mobile"><label for="masterdatatypeid" class="control-label"
                   (click)="AddOrEdit_masterdatatypeid(null)">Master Data type</label>
-               
+
                   <select *ngIf="!showview " id="masterdatatypeid" (change)="masterdatatypeid_onChange($event.target)"
                   formControlName="masterdatatypeid" class="form-control">
                   <option>-Select-</option>
@@ -147,57 +127,8 @@
                 <input *ngIf="!showview" id="masterdatadescription" formControlName="masterdatadescription"
                   class="form-control">
               </div>
-              <!-- <div *ngIf="((hidelist.indexOf('orderno') == -1) && (ordernovisible==undefined || ordernovisible==true))"
-                style='' class="col-3 ">
-                <label for="orderno" class="control-label">Order No</label>
-                <label *ngIf="showview" class="labelview">{{f.orderno?.value}}</label>
-                <input *ngIf="!showview" id="orderno" formControlName="orderno" class="form-control">
-              </div> -->
             </div>
-            <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-              <div
-                *ngIf="((hidelist.indexOf('htmlcode') == -1) && (htmlcodevisible==undefined || htmlcodevisible==true))"
-                style='' class="col-3 ">
-                <label for="htmlcode" class="control-label">H T M L Code</label>
-                <label *ngIf="showview" class="labelview">{{f.htmlcode?.value}}</label>
-                <input *ngIf="!showview" id="htmlcode" formControlName="htmlcode" class="form-control">
-              </div>
-              <div *ngIf="((hidelist.indexOf('param1') == -1) && (param1visible==undefined || param1visible==true))"
-                style='' class="col-3 ">
-                <label for="param1" class="control-label">Param1</label>
-                <label *ngIf="showview" class="labelview">{{f.param1?.value}}</label>
-                <input *ngIf="!showview" id="param1" formControlName="param1" class="form-control">
-              </div>
-              <div *ngIf="((hidelist.indexOf('param2') == -1) && (param2visible==undefined || param2visible==true))"
-                style='' class="col-3 ">
-                <label for="param2" class="control-label">Param2</label>
-                <label *ngIf="showview" class="labelview">{{f.param2?.value}}</label>
-                <input *ngIf="!showview" id="param2" formControlName="param2" class="form-control">
-              </div>
-              <div class="col"></div>
-            </div>
-            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-              <div
-                *ngIf="((hidelist.indexOf('helptext') == -1) && (helptextvisible==undefined || helptextvisible==true))"
-                style='width:1500px' class="col-12 ">
-                <label for="helptext" class="control-label">Help Text</label>
-                <label *ngIf="showview" class="labelview">{{f.helptext?.value}}</label>
-                <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="helptext"
-                  formControlName="helptext" class="form-control">
-</textarea>
-              </div>
-            </div>
-            <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-              <div *ngIf="((hidelist.indexOf('flag') == -1) && (flagvisible==undefined || flagvisible==true))" style=''
-                class="col-3 ">
-                <label for="flag" class="control-label">Flag</label>
-                <label *ngIf="showview" class="labelview">{{f.flag?.value}}</label>
-                <input *ngIf="!showview" id="flag" formControlName="flag" class="form-control">
-              </div>
-              <div class="col"></div>
-              <div class="col"></div>
-              <div class="col"></div>
-            </div> -->
+
           </p-accordion>
         </ng-template>
       </ngb-tab>

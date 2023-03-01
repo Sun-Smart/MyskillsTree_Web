@@ -1,61 +1,30 @@
 import { mstapplicantmasterService } from './../../../service/mstapplicantmaster.service';
 import { mstapplicantmaster } from './../../../model/mstapplicantmaster.model';
-import { Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { NgbDatepickerConfig, } from '@ng-bootstrap/ng-bootstrap';
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
-import { LocalDataSource } from 'ng2-smart-table';
-import { Ng2SmartTableComponent } from 'ng2-smart-table';
+import { KeyValuePair } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { switchMap, map, debounceTime } from 'rxjs/operators';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
 
 @Component({
   selector: 'app-mstapplicantmastermain',
   templateUrl: './mstapplicantmastermain.component.html',
   styles: [],
-  providers: [KeyboardShortcutsService]
+  providers: []
 })
-
-
 
 export class mstapplicantmastermainComponent implements OnInit {
   formData: mstapplicantmaster;
@@ -117,15 +86,7 @@ export class mstapplicantmastermainComponent implements OnInit {
   profilecompletionvisible: boolean = false;
   showOpenfile: boolean = false;
 
-
-
-
-
-  constructor(
-    private config: NgbDatepickerConfig,
-    private nav: Location,
-    private translate: TranslateService,
-    private keyboard: KeyboardShortcutsService, private router: Router,
+  constructor( private router: Router,
     private themeService: ThemeService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
@@ -146,27 +107,9 @@ export class mstapplicantmastermainComponent implements OnInit {
       day: current.getDate()
     };
 
-    this.translate = this.sharedService.translate;
     this.data = dynamicconfig;
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
-    this.keyboard.add([
-      {
-        key: 'cmd l',
-        command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-        preventDefault: true
-      },
-      {
-        key: 'cmd s',
-        command: () => this.onSubmitData(false),
-        preventDefault: true
-      },
-      {
-        key: 'cmd f',
-        command: () => this.resetForm(),
-        preventDefault: true
-      }
-    ]);
     this.mstapplicantmaster_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
@@ -213,7 +156,6 @@ export class mstapplicantmastermainComponent implements OnInit {
 
   //function called when we navigate to other page.defined in routing
   canDeactivate(): Observable<boolean> | boolean {
-    debugger;
     if (this.mstapplicantmaster_Form.dirty && this.mstapplicantmaster_Form.touched) {
       if (confirm('Do you want to exit the page?')) {
         return Observable.of(true).delay(1000);
@@ -222,29 +164,6 @@ export class mstapplicantmastermainComponent implements OnInit {
       }
     }
     return Observable.of(true);
-  }
-
-  //check Unique fields
-
-  //navigation buttons
-  first() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-  }
-
-  last() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-  }
-
-  prev() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.applicantid.toString(); }).indexOf(this.formid.toString());
-    if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-  }
-
-  next() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.applicantid.toString(); }).indexOf(this.formid.toString());
-    if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
   }
 
   //on searching in pk autocomplete
@@ -268,9 +187,6 @@ export class mstapplicantmastermainComponent implements OnInit {
     }
 
     this.theme = this.sessionService.getItem('selected-theme');
-    //this.viewHtml=this.sessionService.getViewHtml();
-
-    debugger;
     //getting data - from list page, from other screen through dialog
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -309,12 +225,9 @@ export class mstapplicantmastermainComponent implements OnInit {
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
       this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
     }
-    // mstapplicantmasterid=212;
     mstapplicantmasterid = this.data.applicantid;
     this.pkcol = this.sessionService.getItem('usersource');
-    // this.pkcol="MjEyOzIwMjItMDMtMTcgMTc6MjE6MjkuNDU3OTE3KzA1OjMw";
     this.formid = mstapplicantmasterid;
-    //alert(mstapplicantmasterid);
 
     //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
 
@@ -330,14 +243,14 @@ export class mstapplicantmastermainComponent implements OnInit {
       this.applicanttype_List = res.list_applicanttype.value;
       this.gender_List = res.list_gender.value;
       this.country_List = res.list_country.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
 
     //autocomplete
     this.mstapplicantmaster_service.get_mstapplicantmasters_List().then(res => {
       this.pkList = res as mstapplicantmaster[];
       this.pkoptionsEvent.emit(this.pkList);
     }
-    ).catch((err) => { this.spinner.hide(); console.log(err); });
+    ).catch((err) => { this.spinner.hide(); });
     //setting the flag that the screen is not touched
     this.mstapplicantmaster_Form.markAsUntouched();
     this.mstapplicantmaster_Form.markAsPristine();
@@ -351,7 +264,7 @@ export class mstapplicantmastermainComponent implements OnInit {
       });
       this.mstapplicantmaster_service.getList_state(countryDetail.value).then(res => {
         this.state_List = res as DropDownValues[]
-      }).catch((err) => { this.spinner.hide(); console.log(err); });
+      }).catch((err) => { this.spinner.hide(); });
 
     }
   }
@@ -365,7 +278,7 @@ export class mstapplicantmastermainComponent implements OnInit {
       });
       this.mstapplicantmaster_service.getList_city(stateDetail.value).then(res => {
         this.city_List = res as DropDownValues[]
-      }).catch((err) => { this.spinner.hide(); console.log(err); });
+      }).catch((err) => { this.spinner.hide(); });
 
     }
   }
@@ -383,10 +296,7 @@ export class mstapplicantmastermainComponent implements OnInit {
 
 
   getprofilephoto() {
-    debugger
-
     if (this.profilephoto.getAttachmentList().length > 0) {
-      debugger
       let file = this.profilephoto.getAttachmentList()[0];
       this.sharedService.geturl(file.filekey, file.type);
     }
@@ -409,7 +319,7 @@ export class mstapplicantmastermainComponent implements OnInit {
         this.mstapplicantmaster_service.delete_mstapplicantmaster(applicantid).then(res => {
           this.resetForm();
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        ).catch((err) => { this.spinner.hide(); });
       }
     }
     else {
@@ -533,19 +443,15 @@ export class mstapplicantmastermainComponent implements OnInit {
       this.pkcol = res.mstapplicantmaster.pkcol;
       this.formid = res.mstapplicantmaster.applicantid;
       this.FillData(res);
-    }).catch((err) => { console.log(err); });
+    }).catch((err) => {});
   }
 
   FillData(res: any) {
-    debugger
     this.formData = res.mstapplicantmaster;
     this.formid = res.mstapplicantmaster.applicantid;
     this.pkcol = res.mstapplicantmaster.pkcol;
     this.bmyrecord = false;
     if ((res.mstapplicantmaster as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-    console.log(res);
-    //console.log(res.order);
-    //console.log(res.orderDetails);
     this.mstapplicantmaster_Form.patchValue({
       applicantid: res.mstapplicantmaster.applicantid,
       firstname: res.mstapplicantmaster.firstname,
@@ -568,7 +474,6 @@ export class mstapplicantmastermainComponent implements OnInit {
       citydesc: res.mstapplicantmaster.citydesc ?? '',
       zipcode: res.mstapplicantmaster.zipcode,
       recoveryemailid: res.mstapplicantmaster.recoveryemailid,
-      // profilephoto:res.res.mstapplicantmaster.profilephoto,
       profilephoto: JSON.parse(res.mstapplicantmaster.profilephoto),
       briefintroduction: res.mstapplicantmaster.briefintroduction,
       statuscrimp: res.mstapplicantmaster.statuscrimp,
@@ -594,7 +499,7 @@ export class mstapplicantmastermainComponent implements OnInit {
           state: this.formData.state,
           statedesc: this.formData.statedesc,
         })
-      }).catch((err) => { console.log(err); });
+      }).catch((err) => { });
     });
     setTimeout(() => {
       if (this.f.state.value && this.f.state.value != "" && this.f.state.value != null) this.mstapplicantmaster_service.getList_city(this.f.state.value).then(res => {
@@ -603,10 +508,7 @@ export class mstapplicantmastermainComponent implements OnInit {
           city: this.formData.city,
           citydesc: this.formData.citydesc,
         })
-      }).catch((err) => { console.log(err); });
-    });
-    //Child Tables if any
-    setTimeout(() => {
+      }).catch((err) => { });
     });
   }
 
@@ -652,18 +554,13 @@ export class mstapplicantmastermainComponent implements OnInit {
     obj.dob = new Date(this.mstapplicantmaster_Form.get('dob').value ? this.ngbDateParserFormatter.format(this.mstapplicantmaster_Form.get('dob').value) + '  UTC' : null);
     if (this.profilephoto.getAttachmentList() != null) obj.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
     if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
-
     obj.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log(obj);
     await this.sharedService.upload(this.profilephoto.getAllFiles());
     await this.sharedService.upload(this.fileAttachmentList);
     this.attachmentlist = [];
     if (this.fileattachment) this.fileattachment.clear();
     this.objvalues.push(obj);
     this.dialogRef.close(this.objvalues);
-    setTimeout(() => {
-      //this.dialogRef.destroy();
-    }, 200);
   }
 
   //This has to come from bomenuactions & procedures
@@ -679,19 +576,9 @@ export class mstapplicantmastermainComponent implements OnInit {
 
 
   async onSubmitData(bclear: any) {
-    debugger;
     this.isSubmitted = true;
     let strError = "";
-    // Object.keys(this.mstapplicantmaster_Form.controls).forEach(key => {
-    //   const controlErrors: ValidationErrors = this.mstapplicantmaster_Form.get(key).errors;
-    //   if (controlErrors != null) {
-    //     Object.keys(controlErrors).forEach(keyError => {
-    //       strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-    //     });
-    //   }
-    // });
     if (strError != "") return this.sharedService.alert(strError);
-
 
     if (!this.mstapplicantmaster_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the required fields");
@@ -714,7 +601,6 @@ export class mstapplicantmastermainComponent implements OnInit {
     if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     if (this.profilephoto.getAttachmentList() != null) this.formData.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
     this.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log(this.formData);
     this.spinner.show();
     this.mstapplicantmaster_service.saveOrUpdate_mstapplicantmastermains(this.formData).subscribe(
       async res => {
@@ -723,21 +609,17 @@ export class mstapplicantmastermainComponent implements OnInit {
         this.attachmentlist = [];
         if (this.fileattachment) this.fileattachment.clear();
         this.spinner.hide();
-        debugger;
         this.toastr.addSingle("success", "", "Successfully saved");
         localStorage.removeItem("choosefileforprofile")
         this.objvalues.push((res as any).mstapplicantmaster);
         this.showOpenfile = true;
         if (!bclear) this.showview = true;
-        // document.getElementById("contentAreascroll").scrollTop = 0;
         if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
           this.dialogRef.close(this.objvalues);
           return;
         }
         else {
-          // document.getElementById("contentAreascroll").scrollTop = 0;
         }
-        this.clearList();
         if (bclear) {
           this.resetForm();
         }
@@ -754,21 +636,11 @@ export class mstapplicantmastermainComponent implements OnInit {
         this.mstapplicantmaster_Form.markAsPristine();
       },
       err => {
-        debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       }
     )
   }
-
-
-
-
-  //dropdown edit from the screen itself -> One screen like Reportviewer
-  clearList() {
-  }
-
 
   PrevForm() {
     let formid = this.sessionService.getItem("key");

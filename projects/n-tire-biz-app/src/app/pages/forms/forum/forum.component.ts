@@ -54,6 +54,7 @@ import { DynamicFormBuilderComponent } from '../dynamic-form-builder/dynamic-for
   styleUrls: ['./forum.component.scss']
 })
 export class ForumComponent implements OnInit {
+  
   blockedDocument: boolean = false;
   formData: boforum;
   list: boforum[];

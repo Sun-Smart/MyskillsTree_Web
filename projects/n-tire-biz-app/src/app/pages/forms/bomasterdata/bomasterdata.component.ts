@@ -3,11 +3,8 @@ import { bomasterdata } from './../../../model/bomasterdata.model';
 import {  Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { bosubcategorymasterComponent } from './../../../pages/forms/bosubcategorymaster/bosubcategorymaster.component';
 import { Observable } from 'rxjs';
@@ -443,7 +440,6 @@ export class bomasterdataComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
         if (strError != "") return this.sharedService.alert(strError);

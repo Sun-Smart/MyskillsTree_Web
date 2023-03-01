@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
-import { DatePipe, Location } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -21,22 +21,15 @@ import { mstapplicantachievementdetail } from '../../../model/mstapplicantachiev
   styleUrls: ['./mst-certifications.component.scss']
 })
 export class MstCertificationsComponent implements OnInit {
-
   mstapplicantachievementdetail_Form: FormGroup;
   formData: mstapplicantachievementdetail;
-
   loginUser: any;
   myDate: any;
   applicantid: any;
   data: any;
-
-
   isSubmitted: boolean = false;
   showview: boolean = false;
   showDateError: boolean;
-
-
-
   applicantid_List: DropDownValues[];
   masterdataid_List: DropDownValues[];
   referenceacceptance_List: DropDownValues[];
@@ -88,14 +81,12 @@ export class MstCertificationsComponent implements OnInit {
 
   ngOnInit() {
 
-    // get_default data
     this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
-      debugger
       this.applicantid_List = res.list_applicantid.value;
       this.masterdataid_List = res.list_masterdataid.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
       this.skill_list = res.list_skills.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
   };
 
   masterdataid_onChange(evt: any) {
@@ -105,7 +96,6 @@ export class MstCertificationsComponent implements OnInit {
 
 
   onSubmitData() {
-    debugger
     this.isSubmitted = true;
 
     let strError = "";
@@ -116,13 +106,11 @@ export class MstCertificationsComponent implements OnInit {
       return;
     };
     this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
-    console.log(this.formData);
 
     this.formData.fromyear = new Date(this.mstapplicantachievementdetail_Form.get('fromyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('fromyear').value) + '  UTC' : null);
 
     if (this.mstapplicantachievementdetail_Form.value.currentlyworking == true) {
       this.formData.toyear = new Date()
-      console.log(this.formData.toyear);
     } else {
       this.formData.toyear = new Date(this.mstapplicantachievementdetail_Form.get('toyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('toyear').value) + '  UTC' : null);
     }
@@ -135,8 +123,6 @@ export class MstCertificationsComponent implements OnInit {
       this.spinner.show();
       this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
         (res: any) => {
-
-          console.log("Response", res);
           this.spinner.hide();
           this.toastr.addSingle("success", "", "Successfully saved");
           this.route.navigate(['/home/newskilldetails'])
@@ -148,7 +134,6 @@ export class MstCertificationsComponent implements OnInit {
   };
 
   AddmoreSubmitData() {
-    debugger
     this.isSubmitted = true;
 
     let strError = "";
@@ -159,13 +144,11 @@ export class MstCertificationsComponent implements OnInit {
       return;
     };
     this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
-    console.log(this.formData);
 
     this.formData.fromyear = new Date(this.mstapplicantachievementdetail_Form.get('fromyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('fromyear').value) + '  UTC' : null);
 
     if (this.mstapplicantachievementdetail_Form.value.currentlyworking == true) {
       this.formData.toyear = new Date()
-      console.log(this.formData.toyear);
     } else {
       this.formData.toyear = new Date(this.mstapplicantachievementdetail_Form.get('toyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('toyear').value) + '  UTC' : null);
     }
@@ -178,8 +161,6 @@ export class MstCertificationsComponent implements OnInit {
       this.spinner.show();
       this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
         (res: any) => {
-
-          console.log("Response", res);
           this.spinner.hide();
           this.toastr.addSingle("success", "", "Successfully saved");
           this.sessionService.setItem("attachedsaved", "true")

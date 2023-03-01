@@ -3,16 +3,13 @@ import { mstjobrequirement } from './../../../model/mstjobrequirement.model';
 import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer } from "@angular/platform-browser";
 import { KeyValuePair } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
-import { NgbDateParserFormatter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { mstjobstatusComponent } from './../../../pages/forms/mstjobstatus/mstjobstatus.component';
-import { mstjobstatusService } from './../../../service/mstjobstatus.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
@@ -308,7 +305,7 @@ export class mstjobrequirementComponent implements OnInit {
                 this.showloc = res.mstjobrequirement.locationdesc,
                 this.showskill = res.mstjobrequirement.skilldesc
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        ).catch((err) => { this.spinner.hide(); });
         //setting the flag that the screen is not touched
         this.mstjobrequirement_Form.markAsUntouched();
         this.mstjobrequirement_Form.markAsPristine();
@@ -335,7 +332,7 @@ export class mstjobrequirementComponent implements OnInit {
                 this.mstjobrequirement_service.delete_mstjobrequirement(jobid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {

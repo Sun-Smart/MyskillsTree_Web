@@ -1,90 +1,52 @@
 import { mstapplicantmasterService } from './../../../service/mstapplicantmaster.service';
 import { mstapplicantmaster } from './../../../model/mstapplicantmaster.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { KeyValuePair} from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { mstapplicantgeographypreference } from './../../../model/mstapplicantgeographypreference.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { mstapplicantgeographypreferenceComponent } from './../../../pages/forms/mstapplicantgeographypreference/mstapplicantgeographypreference.component';
 import { mstapplicantgeographypreferenceService } from './../../../service/mstapplicantgeographypreference.service';
-import { mstapplicantcareerdetail } from './../../../model/mstapplicantcareerdetail.model';
 import { mstapplicantcareerdetailComponent } from './../../../pages/forms/mstapplicantcareerdetail/mstapplicantcareerdetail.component';
 import { mstapplicantcareerdetailService } from './../../../service/mstapplicantcareerdetail.service';
-import { mstapplicantreferencedetail } from './../../../model/mstapplicantreferencedetail.model';
 import { mstapplicantreferencedetailComponent } from './../../../pages/forms/mstapplicantreferencedetail/mstapplicantreferencedetail.component';
 import { mstapplicantreferencedetailService } from './../../../service/mstapplicantreferencedetail.service';
-import { mstapplicantskilldetail } from './../../../model/mstapplicantskilldetail.model';
 import { mstapplicantskilldetailComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.component';
 import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
-import { mstapplicantworkreference } from './../../../model/mstapplicantworkreference.model';
 import { mstapplicantworkreferenceComponent } from './../../../pages/forms/mstapplicantworkreference/mstapplicantworkreference.component';
 import { mstapplicantworkreferenceService } from './../../../service/mstapplicantworkreference.service';
-import { mstapplicantsocialmediadetail } from './../../../model/mstapplicantsocialmediadetail.model';
 import { mstapplicantsocialmediadetailComponent } from './../../../pages/forms/mstapplicantsocialmediadetail/mstapplicantsocialmediadetail.component';
 import { mstapplicantsocialmediadetailService } from './../../../service/mstapplicantsocialmediadetail.service';
-import { mstapplicantachievementdetail } from './../../../model/mstapplicantachievementdetail.model';
 import { mstapplicantachievementdetailComponent } from './../../../pages/forms/mstapplicantachievementdetail/mstapplicantachievementdetail.component';
 import { mstapplicantachievementdetailService } from './../../../service/mstapplicantachievementdetail.service';
-import { mstapplicantlanguagedetail } from './../../../model/mstapplicantlanguagedetail.model';
 import { mstapplicantlanguagedetailComponent } from './../../../pages/forms/mstapplicantlanguagedetail/mstapplicantlanguagedetail.component';
 import { mstapplicantlanguagedetailService } from './../../../service/mstapplicantlanguagedetail.service';
-import { mstapplicanteducationdetail } from './../../../model/mstapplicanteducationdetail.model';
 import { mstapplicanteducationdetailComponent } from './../../../pages/forms/mstapplicanteducationdetail/mstapplicanteducationdetail.component';
 import { mstapplicanteducationdetailService } from './../../../service/mstapplicanteducationdetail.service';
-import { mstjobstatus } from './../../../model/mstjobstatus.model';
 import { mstjobstatusComponent } from './../../../pages/forms/mstjobstatus/mstjobstatus.component';
-import { mstjobstatusService } from './../../../service/mstjobstatus.service';
-import { mstapplicantreferencerequest } from './../../../model/mstapplicantreferencerequest.model';
 import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
 import { mstapplicantreferencerequestService } from './../../../service/mstapplicantreferencerequest.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
 
 @Component({
   selector: 'app-mstapplicantmaster',
   templateUrl: './mstapplicantmasterview.component.html',
   styles: [],
-  providers: [KeyboardShortcutsService],
+  providers: [],
   encapsulation: ViewEncapsulation.None,
 })
 
@@ -281,10 +243,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
   sub: any;
   checkdata: any;
 
-  constructor(
-    private nav: Location,
-    private translate: TranslateService,
-    private keyboard: KeyboardShortcutsService, private router: Router,
+  constructor(private router: Router,
     private themeService: ThemeService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
@@ -300,7 +259,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
     private mstapplicantachivement_service: mstapplicantachievementdetailService,
     private mstapplicantlanguagedetail_service: mstapplicantlanguagedetailService,
     private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,
-    private mstjobstatus_service: mstjobstatusService,
     private mstapplicantreferencerequestService: mstapplicantreferencerequestService,
     private fb: FormBuilder,
     private sharedService: SharedService,
@@ -308,28 +266,10 @@ export class mstapplicantmasterviewComponent implements OnInit {
     private toastr: ToastService,
     private sanitizer: DomSanitizer,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-    this.translate = this.sharedService.translate;
     this.applicantid = this.sessionService.getItem("applicantid");
     this.data = dynamicconfig;
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
-    this.keyboard.add([
-      {
-        key: 'cmd l',
-        command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-        preventDefault: true
-      },
-      {
-        key: 'cmd s',
-        command: () => this.onSubmitData(false),
-        preventDefault: true
-      },
-      {
-        key: 'cmd f',
-        command: () => this.resetForm(),
-        preventDefault: true
-      }
-    ]);
     this.mstapplicantmaster_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
@@ -382,7 +322,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
 
   //function called when we navigate to other page.defined in routing
   canDeactivate(): Observable<boolean> | boolean {
-    //debugger;;
+    //;
     if (this.mstapplicantmaster_Form.dirty && this.mstapplicantmaster_Form.touched) {
       if (confirm('Do you want to exit the page?')) {
         return Observable.of(true).delay(1000);
@@ -391,29 +331,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
       }
     }
     return Observable.of(true);
-  }
-
-  //check Unique fields
-
-  //navigation buttons
-  first() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-  }
-
-  last() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-  }
-
-  prev() {
-    //debugger;;
-    let pos = this.pkList.map(function (e: any) { return e.applicantid.toString(); }).indexOf(this.formid.toString());
-    if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-  }
-
-  next() {
-    //debugger;;
-    let pos = this.pkList.map(function (e: any) { return e.applicantid.toString(); }).indexOf(this.formid.toString());
-    if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
   }
 
   //on searching in pk autocomplete
@@ -425,7 +342,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
 
   // initialize
   async ngOnInit() {
-    debugger
     this.applicantid = this.currentRoute.snapshot.paramMap.get('id');
     if (this.sessionService.getItem("role") == '1') {
       this.userrole = 'Admin';
@@ -438,8 +354,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
 
     this.sub = this.currentRoute.queryParams.subscribe((params: any) => {
       this.checkdata = params;
-
-      console.log("this.checkdata", this.checkdata.show);
 
       if (this.checkdata.show == "true") {
         this.iseditbuttonshow = true;
@@ -462,7 +376,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
     this.theme = this.sessionService.getItem('selected-theme');
     //this.viewHtml=this.sessionService.getViewHtml();
 
-    //debugger;;
+    //;
     //getting data - from list page, from other screen through dialog
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -485,7 +399,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
       //this.viewHtml=this.sessionService.getViewHtml();
     }
     else if (this.currentRoute.snapshot.paramMap.get('usersource') != null) {
-      debugger;
       this.pkcol = this.sessionService.getItem('usersource');
     }
     else if (this.data != null && this.data.pkcol != null) {
@@ -495,37 +408,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
       this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
       this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
     }
-    //copy the data from previous dialog
-    //         this.viewHtml = `<div class="" style="background-image:url('assets/images/E.png')!important;background-repeat: repeat !important;border-radius: 5px !important;">
-    // <div class="designrow">
-    //     <div class="row designrow main-box" style="background-image:url('assets/images/##applicanttype##.png')!important;background-repeat: repeat !important;border-radius: 5px !important;">
-    //         <div class="designrow main-content">
-    //             <div class="row designrow">
-    //               <!--  <div class="dp-container col-2"><img class="dp" src="##profilephoto##"></div> -->
-    //                 <div class="col">
-    //                 <!--     <h2><b>##firstname## ##lastname##</b></h2>
-    //                     <br>
-    //                     <font color='green'>
-    //                         <h3>##emailid## | ##mobilenumber##</h3>
-    //                     </font>-->
-    //                     <font color='white'>
-    //                         <h3>##applicantreference## | ##applicanttypedesc## | ##applicanttype##.png</h3>
-    //                     </font>
-    //                     <h3><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;##citydesc##</h3>
-    //                 </div>
-    //                 <div class="col-1 right top">##profilecompletion##</div>
-    //             </div>
-    //             <div class="row designrow">
-    //             <font color='white'><h4>##statuscrimp##</h4></font>
-    //         </div>
-    //         </div>
-    //     </div>
-    // </div>
-    // </div>
-    // <div class="row">
-    //     <h5>##briefintroduction##</h5>
-    // </div>
-    // `;
     //New code
     this.viewHtml = `
 <div class="designrow">
@@ -562,59 +444,26 @@ export class mstapplicantmasterviewComponent implements OnInit {
     //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
     if (this.pkcol == null) {
       this.Set_mstapplicantgeographypreferences_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstapplicantgeographypreferences_TableDropDownConfig();
-      });
 
       this.Set_mstapplicantcareerdetails_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstapplicantcareerdetails_TableDropDownConfig();
-      });
 
       this.Set_mstapplicantreferencedetails_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstapplicantreferencedetails_TableDropDownConfig();
-      });
 
       this.Set_mstapplicantskilldetails_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstapplicantskilldetails_TableDropDownConfig();
-      });
 
       this.Set_mstapplicantworkreferences_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstapplicantworkreferences_TableDropDownConfig();
-      });
 
       this.Set_mstapplicantsocialmediadetails_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstapplicantsocialmediadetails_TableDropDownConfig();
-      });
 
       this.Set_mstapplicantachievementdetails_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstapplicantachievementdetails_TableDropDownConfig();
-      });
 
       this.Set_mstapplicantlanguagedetails_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstapplicantlanguagedetails_TableDropDownConfig();
-      });
 
       this.Set_mstapplicanteducationdetails_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstapplicanteducationdetails_TableDropDownConfig();
-      });
 
       this.Set_mstjobstatuses_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstjobstatuses_TableDropDownConfig();
-      });
 
       this.Set_mstapplicantreferencerequests_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstapplicantreferencerequests_TableDropDownConfig();
-      });
 
       this.resetForm();
     }
@@ -627,14 +476,14 @@ export class mstapplicantmasterviewComponent implements OnInit {
       this.applicanttype_List = res.list_applicanttype.value;
       this.gender_List = res.list_gender.value;
       this.country_List = res.list_country.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
 
     //autocomplete
     this.mstapplicantmaster_service.get_mstapplicantmasters_List().then(res => {
       this.pkList = res as mstapplicantmaster[];
       this.pkoptionsEvent.emit(this.pkList);
     }
-    ).catch((err) => { this.spinner.hide(); console.log(err); });
+    ).catch((err) => { this.spinner.hide(); });
     //setting the flag that the screen is not touched
     this.mstapplicantmaster_Form.markAsUntouched();
     this.mstapplicantmaster_Form.markAsPristine();
@@ -648,7 +497,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
       });
       this.mstapplicantmaster_service.getList_state(countryDetail.value).then(res => {
         this.state_List = res as DropDownValues[]
-      }).catch((err) => { this.spinner.hide(); console.log(err); });
+      }).catch((err) => { this.spinner.hide();});
 
     }
   }
@@ -662,7 +511,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
       });
       this.mstapplicantmaster_service.getList_city(stateDetail.value).then(res => {
         this.city_List = res as DropDownValues[]
-      }).catch((err) => { this.spinner.hide(); console.log(err); });
+      }).catch((err) => { this.spinner.hide(); });
 
     }
   }
@@ -682,7 +531,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
 
 
   getprofilephoto() {
-    //debugger;;
     if (this.profilephoto.getAttachmentList().length > 0) {
       let file = this.profilephoto.getAttachmentList()[0];
       this.sharedService.geturl(file.filekey, file.type);
@@ -693,7 +541,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
     ret += `<div class='geo-card1'>
     <label style="color:gray;font-weight:300;">Country</label> : <label style="color:#000;font-weight:bold;">##countrydesc##</label><br/>
     <label style="color:gray;font-weight:300;">City</label> : <label style="color:#000;font-weight:bold;">##citydesc##</label><br/>
-<!--<h3 class='profile__section__item__sub'>##countrydesc## - ##citydesc##</h3>-->
 <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label>
 </div>
 `;
@@ -704,13 +551,9 @@ export class mstapplicantmasterviewComponent implements OnInit {
     ret += `<div class='career-card1'>
     <label style="color:gray;font-weight:300;">Company Name</label> : <label style="color:#000;font-weight:bold;">##companyname##</label><br/>
     <label style="color:gray;font-weight:300;">Designation</label> : <label style="color:#000;font-weight:bold;">##designation##</label><br/>
-    <label style="color:gray;font-weight:300;">From Date</label> : <label style="color:#000;font-weight:bold;">##fromdate##</label> - 
+    <label style="color:gray;font-weight:300;">From Date</label> : <label style="color:#000;font-weight:bold;">##fromdate##</label> -
     <label style="color:gray;font-weight:300;">To Date</label> : <label style="color:#000;font-weight:bold;">##todate##</label><br/>
     <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label><br/>
-
-<!--<h2>##companyname## - ##designation##</h2>
-<h3 class='profile__section__item__sub'>##fromdate## - ##todate##</h3>
-<p>##remarks##</p>-->
 </div>
 `;
     return ret;
@@ -733,11 +576,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
     <label style="color:gray;font-weight:300;">Sub Category</label> : <label style="color:#000;font-weight:bold;">##subcategoryiddesc##</label><br/>
     <label style="color:gray;font-weight:300;">Self Rating</label> : <label style="color:#000;font-weight:bold;">##selfrating##</label><br/>
     <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label>
-
-<!--<h2>##skillcategorydesc## ##subcategoryiddesc##</h2>
-<h3 class='profile__section__item__sub'>##selfrating##</h3>
-<p>##remarks##</p>-->
-
 </div>
 `;
     return ret;
@@ -749,10 +587,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
     <label style="color:gray;font-weight:300;">Reference Url</label> : <label style="color:#000;font-weight:bold;">##referenceurl##</label><br/>
     <label style="color:gray;font-weight:300;">Work Description</label> : <label style="color:#000;font-weight:bold;">##workdescription##</label><br/>
     <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label>
-
-<!--<h2>##worktopic## - ##referenceurl##</h2>
-<h3 class='profile__section__item__sub'>##workdescription##</h3>
-<p>##remarks##</p>-->
 </div>
 `;
     return ret;
@@ -764,10 +598,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
     <label style="color:gray;font-weight:300;">Handle Name</label> : <label style="color:#000;font-weight:bold;">##handlename##</label><br/>
     <label style="color:gray;font-weight:300;">URL</label> : <label style="color:#000;font-weight:bold;">##url##</label><br/>
     <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label>
-
-<!--<h2>##socialmedianamedesc## - ##handlename##</h2>
-<h3 class='profile__section__item__sub'><a href='##url##' target='_blank'>##url##</a></h3>
-<p>##remarks##</p>-->
 </div>
 `;
     return ret;
@@ -775,24 +605,8 @@ export class mstapplicantmasterviewComponent implements OnInit {
   mstapplicantachievementdetailshtml() {
     let ret = "";
     ret += `<div class='achievement-card1'>
-
-    <!--<label style="color:gray;font-weight:300;">Category</label> : <label style="color:#000;font-weight:bold;">##masterdatatypeiddesc##</label><br/>-->
     <label style="color:gray;font-weight:300;">Category</label> : <label style="color:#000;font-weight:bold;">##masterdataiddesc##</label><br/>
     <label style="color:gray;font-weight:300;">Achievement Details</label> : <label style="color:#000;font-weight:bold;">##achievementdetails##</label><br/>
-    <!--<label style="color:gray;font-weight:300;">Self Rating</label> : <label style="color:#000;font-weight:bold;">##selfrating##</label><br/>
-    <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label><br/>-->
-
-
-        <!--<div class="row">
-        <div class="col-6">
-       <h2>##masterdatatypeiddesc##  ##masterdataiddesc##</h2>
-        </div>
-
-        <div class="col-6">
-        <h2 class='profile_sectionitem_sub'>##achievementdetails##  ##selfrating##</h2>
-        <p>##remarks##</p>
-        </div>
-        </div>-->
 </div>
 `;
     return ret;
@@ -800,24 +614,12 @@ export class mstapplicantmasterviewComponent implements OnInit {
   mstapplicantlanguagedetailshtml() {
     let ret = "";
     ret += `<div class='language-card1'>
-
-    <label style="color:gray;font-weight:300;">Language</label> : <label style="color:#000;font-weight:bold;">##languagedesc##</label> - 
+    <label style="color:gray;font-weight:300;">Language</label> : <label style="color:#000;font-weight:bold;">##languagedesc##</label> -
     <label style="color:gray;font-weight:300;">Overall Rating</label> : <label style="color:#000;font-weight:bold;">##overallrating##</label><br/>
-    <label style="color:gray;font-weight:300;">Read</label> : <label style="color:#000;font-size: small;;">##readproficiency##</label>  
-    <label style="color:gray;font-weight:300;">Write</label> : <label style="color:#000;font-size: small;;">##writeproficiency##</label>  
-    <label style="color:gray;font-weight:300;">Speak</label> : <label style="color:#000;font-size: small;;">##speakproficiency##</label><br/> 
-    <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label>  
-    <!--<label style="color:gray;font-weight:300;">Mobile Number</label> : <label style="color:#000;font-weight:bold;">##mobilenumber##</label>  
-    <label style="color:gray;font-weight:300;">Email</label> : <label style="color:#000;font-weight:bold;">##email##</label>  
-    <label style="color:gray;font-weight:300;">Known Duration</label> : <label style="color:#000;font-weight:bold;">##knownduration##</label>
-    <label style="color:gray;font-weight:300;">Attachment</label> : <label style="color:#000;font-weight:bold;">##attachment##</label>-->
-
-
-<!--<h2>##languagedesc## - ##overallrating##</h2>
-<h3 class='profile__section__item__sub'>Read ##readproficiency## Write ##writeproficiency## Speak: ##speakproficiency##</h3>
-<h3 class='profile__section__item__sub'>##mobilenumber## - ##email## ##knownduration##</h3>
-<p>##remarks##</p>
-<p>##attachment##</p>-->
+    <label style="color:gray;font-weight:300;">Read</label> : <label style="color:#000;font-size: small;;">##readproficiency##</label>
+    <label style="color:gray;font-weight:300;">Write</label> : <label style="color:#000;font-size: small;;">##writeproficiency##</label>
+    <label style="color:gray;font-weight:300;">Speak</label> : <label style="color:#000;font-size: small;;">##speakproficiency##</label><br/>
+    <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label>
 </div>
 `;
     return ret;
@@ -825,27 +627,11 @@ export class mstapplicantmasterviewComponent implements OnInit {
   mstapplicanteducationdetailshtml() {
     let ret = "";
     ret += `<div class='table-card1'>
-    <label style="color:gray;font-weight:300;">From Year</label> : <label style="color:#000;font-weight:bold;">##fromyear##</label> - 
+    <label style="color:gray;font-weight:300;">From Year</label> : <label style="color:#000;font-weight:bold;">##fromyear##</label> -
     <label style="color:gray;font-weight:300;">To Year</label> : <label style="color:#000;font-weight:bold;">##toyear##</label><br/>
     <label style="color:gray;font-weight:300;">Institution Name</label> : <label style="color:#000;font-weight:bold;">##institutionname##</label><br/>
     <label style="color:gray;font-weight:300;">Course Name</label> : <label style="color:#000;font-weight:bold;">##coursename##</label><br/>
     <label style="color:gray;font-weight:300;">Remarks</label> : <label style="color:#000;font-weight:bold;">##remarks##</label><br/>
-
-
-<!--<div class='row' >
-<div class='col-4  bold' style="margin-top: 15px !important;">##fromyear##</div>
-<div class='col-4 center' style='display:block'>
-<h2 class='navy'>##institutionname##</h2>
-<br>
-<h2>##coursename##</h2>
-<br>
-<h3 class='profile__section__item__sub'>##percentage##%</h3>
-<br>
-##remarks##
-</div>
-<div class='col-4 bold' style="margin-top: 15px !important;">##toyear##</div>
-</div>
-</div>-->
 `;
     return ret;
   }
@@ -905,7 +691,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
         this.mstapplicantmaster_service.delete_mstapplicantmaster(applicantid).then(res => {
           this.resetForm();
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        ).catch((err) => { this.spinner.hide(); });
       }
     }
     else {
@@ -1047,15 +833,6 @@ export class mstapplicantmasterviewComponent implements OnInit {
     this.showview = false;
     this.readMoreBtn = false;
     this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("usersource")])
-    /*
-this.showview=false;
-setTimeout(() => {
-if( this.profilephoto!=null && this.profilephoto!=undefined)this.profilephoto.setattachmentlist(this.mstapplicantmaster_Form.get('profilephoto').value);
-});
-return false;
-*/
-
-    // this.router.navigate(['/home/mstapplicantmasters/mstapplicantmasters/edit/' + this.pkcol]);
   }
 
 
@@ -1064,12 +841,8 @@ return false;
   async PopulateScreen(pkcol: any) {
     this.spinner.show();
     this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(pkcol).then(res => {
-      debugger;
       this.spinner.hide();
-
       this.formData = res.mstapplicantmaster;
-
-
       let formproperty = res.mstapplicantmaster.formproperty;
       if (formproperty && formproperty.edit == false) this.showview = true;
       this.showview = true;
@@ -1077,13 +850,10 @@ return false;
       this.formid = res.mstapplicantmaster.applicantid;
       this.FillData(res);
       this.getProfile_data(res);
-    }).catch((err) => { console.log(err); });
+    }).catch((err) => {});
   };
 
   getProfile_data(res: any) {
-    // suneel
-    // this.showplswait = false
-
     this.mstapplicantgeographypreferences = res.mstapplicantgeographypreferences;
     this.mstapplicantachievementdetails = res.mstapplicantachievementdetails;
     this.mstapplicanteducationdetails = res.mstapplicanteducationdetails;
@@ -1092,12 +862,6 @@ return false;
     this.mstapplicantsocialmediadetails = res.mstapplicantsocialmediadetails;
 
     this.mstapplicantskilldetails = res.mstapplicantskilldetails;
-
-    // if (this.mstapplicantachievementdetails == "" || this.mstapplicantachievementdetails == null) {
-    //   this.shownodate = true
-    //   this.showplswait = false
-    // }
-
 
     for (let i = 0; i < this.mstapplicantskilldetails.length; i++) {
       if (this.mstapplicantskilldetails[i].selfrating == 1) {
@@ -1119,9 +883,6 @@ return false;
         showstr: this.skill_selfrating
       })
     };
-
-    console.log("skillarray", this.skillarray);
-    console.log("skillarray", this.skillarray.skillDescription);
 
 
     this.mstapplicantlanguagedetails = res.mstapplicantlanguagedetails;
@@ -1178,7 +939,7 @@ return false;
         this.write_str = '★★★★★'
       }
 
-      // Rating For Overall 
+      // Rating For Overall
       if (this.language_data[i].overallrating == 1) {
         this.overall_str = '★'
       } else if (this.language_data[i].overallrating == 2) {
@@ -1204,17 +965,12 @@ return false;
   }
 
   FillData(res: any) {
-    debugger;
     this.formData = res.mstapplicantmaster;
     this.formid = res.mstapplicantmaster.applicantid;
     this.pkcol = res.mstapplicantmaster.pkcol;
     this.bmyrecord = false;
     this.showview = true;
     if ((res.mstapplicantmaster as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-    console.log(res);
-    //console.log(res.order);
-    //console.log(res.orderDetails);
-
     if (res.mstapplicantmaster.briefintroduction != null || res.mstapplicantmaster.statuscrimp != null) {
       this.readMoreBtn = true;
     }
@@ -1287,12 +1043,12 @@ return false;
     setTimeout(() => {
       if (this.f.country.value && this.f.country.value != "" && this.f.country.value != null) this.mstapplicantmaster_service.getList_state(this.f.country.value).then(res => {
         this.state_List = res as DropDownValues[];
-      }).catch((err) => { console.log(err); });
+      }).catch((err) => { });
     });
     setTimeout(() => {
       if (this.f.state.value && this.f.state.value != "" && this.f.state.value != null) this.mstapplicantmaster_service.getList_city(this.f.state.value).then(res => {
         this.city_List = res as DropDownValues[];
-      }).catch((err) => { console.log(err); });
+      }).catch((err) => { });
     });
     //Child Tables if any
     setTimeout(() => {
@@ -1350,9 +1106,7 @@ return false;
     }
     var re = /##(\w+)##/g;
     ret = ret.replace(re, '');
-    // console.log(ret);
     return this.sanitizer.bypassSecurityTrustHtml(ret) as SafeHtml;
-    //return ret;
   }
 
   async onSubmitDataDlg(bclear: any) {
@@ -1366,16 +1120,12 @@ return false;
     if (this.profilephoto.getAttachmentList() != null) obj.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
     if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     obj.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log(obj);
     await this.sharedService.upload(this.profilephoto.getAllFiles());
     await this.sharedService.upload(this.fileAttachmentList);
     this.attachmentlist = [];
     if (this.fileattachment) this.fileattachment.clear();
     this.objvalues.push(obj);
     this.dialogRef.close(this.objvalues);
-    setTimeout(() => {
-      //this.dialogRef.destroy();
-    }, 200);
   }
 
   //This has to come from bomenuactions & procedures
@@ -1391,17 +1141,8 @@ return false;
 
 
   async onSubmitData(bclear: any) {
-    //debugger;;
     this.isSubmitted = true;
     let strError = "";
-    // Object.keys(this.mstapplicantmaster_Form.controls).forEach(key => {
-    //     const controlErrors: ValidationErrors = this.mstapplicantmaster_Form.get(key).errors;
-    //     if (controlErrors != null) {
-    //         Object.keys(controlErrors).forEach(keyError => {
-    //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-    //         });
-    //     }
-    // });
     if (strError != "") return this.sharedService.alert(strError);
 
 
@@ -1437,10 +1178,8 @@ return false;
     this.formData.Deleted_mstapplicantreferencerequest_IDs = this.Deleted_mstapplicantreferencerequest_IDs;
     if (this.profilephoto.getAttachmentList() != null) this.formData.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
     this.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log(this.formData);
     this.spinner.show();
     this.mstapplicantmaster_service.saveOrUpdate_mstapplicantmasters(this.formData, this.tbl_mstapplicantgeographypreferences?.source?.data, this.tbl_mstapplicantcareerdetails?.source?.data, this.tbl_mstapplicantreferencedetails?.source?.data, this.tbl_mstapplicantskilldetails?.source?.data, this.tbl_mstapplicantworkreferences?.source?.data, this.tbl_mstapplicantsocialmediadetails?.source?.data, this.tbl_mstapplicantachievementdetails?.source?.data, this.tbl_mstapplicantlanguagedetails?.source?.data, this.tbl_mstapplicanteducationdetails?.source?.data, this.tbl_mstjobstatuses?.source?.data, this.tbl_mstapplicantreferencerequests?.source?.data,).subscribe(
-      // this.mstapplicantmaster_service.saveOrUpdate_mstapplicantmasters(this.formData, this.tbl_mstapplicantgeographypreferences?.source?.data, this.tbl_mstapplicantcareerdetails?.source?.data, this.tbl_mstapplicantreferencedetails?.source?.data, this.tbl_mstapplicantskilldetails?.source?.data, this.tbl_mstapplicantworkreferences?.source?.data, this.tbl_mstapplicantsocialmediadetails?.source?.data, this.tbl_mstapplicantachievementdetails?.source?.data, this.tbl_mstapplicantlanguagedetails?.source?.data, this.tbl_mstapplicanteducationdetails?.source?.data, this.tbl_mstjobstatuses?.source?.data, this.tbl_mstapplicantreferencerequests?.source?.data,).subscribe(
       async res => {
         await this.sharedService.upload(this.profilephoto.getAllFiles());
         await this.sharedService.upload(this.fileAttachmentList);
@@ -1502,7 +1241,6 @@ return false;
           }
         }
         this.spinner.hide();
-        //debugger;;
         this.toastr.addSingle("success", "", "Successfully saved");
         this.router.navigate(['/home/mstapplicantmasters/mstapplicantmasters/view/' + this.pkcol]);
         this.objvalues.push((res as any).mstapplicantmaster);
@@ -1532,10 +1270,8 @@ return false;
         this.mstapplicantmaster_Form.markAsPristine();
       },
       err => {
-        //debugger;;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       }
     )
   }
@@ -1559,7 +1295,6 @@ return false;
   }
 
   AddOrEdit_mstapplicantgeographypreference(event: any, geographypreferenceid: any, applicantid: any) {
-    debugger;;
     let add = false;
     if (event == null) add = true;
     let childsave = false;
@@ -1588,21 +1323,13 @@ return false;
       this.mstapplicantgeographypreference_service.delete_mstapplicantgeographypreference(childID).then(res => {
         this.tbl_mstapplicantgeographypreferences.source.refresh();
         this.ngOnInit();
-        // this.mstapplicantgeographypreference_service.getDefaultData().then(res => {
-        //     this.mstapplicantgeographypreferences_LoadTable(res);
-        // });
       })
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantgeographypreference_IDs += childID + ",";
-    // this.tbl_mstapplicantgeographypreferences.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
   AddOrEdit_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
-    debugger
     let add = false;
     if (event == null) add = true;
     let childsave = false;
@@ -1631,21 +1358,13 @@ return false;
       this.mstapplicantcareerdetail_service.delete_mstapplicantcareerdetail(childID).then(res => {
         this.tbl_mstapplicantcareerdetails.source.refresh();
         this.ngOnInit();
-        // this.mstapplicantcareerdetail_service.getDefaultData().then(res => {
-        //     this.mstapplicantcareerdetails_LoadTable(res);
-        // });
       })
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantcareerdetail_IDs += childID + ",";
-    // this.tbl_mstapplicantcareerdetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
   AddOrEdit_mstapplicantreferencedetail(event: any, referenceid: any, applicantid: any) {
-    debugger
     let add = false;
     if (event == null) add = true;
     let childsave = false;
@@ -1672,23 +1391,15 @@ return false;
   onDelete_mstapplicantreferencedetail(event: any, childID: number, i: number) {
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicantreferencedetail_service.delete_mstapplicantreferencedetail(childID).then(res => {
-        // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByEID(this.applicantid).then(res => {
         this.tbl_mstapplicantreferencedetails.source.refresh();
         this.ngOnInit();
-        // this.mstapplicantskilldetails_LoadTable(res);
-        // });
       })
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantreferencedetail_IDs += childID + ",";
-    // this.tbl_mstapplicantreferencedetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
   AddOrEdit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
-    debugger
     let add = false;
     if (event == null) add = true;
     let childsave = false;
@@ -1715,23 +1426,15 @@ return false;
   onDelete_mstapplicantskilldetail(event: any, childID: number, i: number) {
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicantskilldetail_service.delete_mstapplicantskilldetail(childID).then(res => {
-        // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByEID(this.applicantid).then(res => {
         this.tbl_mstapplicantskilldetails.source.refresh();
         this.ngOnInit();
-        // this.mstapplicantskilldetails_LoadTable(res);
-        // });
       })
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantskilldetail_IDs += childID + ",";
-    // this.tbl_mstapplicantskilldetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
   AddOrEdit_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
-    debugger
     let add = false;
     if (event == null) add = true;
     let childsave = false;
@@ -1760,18 +1463,10 @@ return false;
       this.mstapplicantworkreference_service.delete_mstapplicantworkreference(childID).then(res => {
         this.tbl_mstapplicantworkreferences.source.refresh();
         this.ngOnInit();
-        // this.mstapplicantworkreference_service.getDefaultData().then(res => {
-        //     debugger;
-        // this.mstapplicantworkreferences_LoadTable(res);
-        // });
       })
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantworkreference_IDs += childID + ",";
-    // this.tbl_mstapplicantworkreferences.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
   AddOrEdit_mstapplicantsocialmediadetail(event: any, socialrefid: any, applicantid: any) {
@@ -1803,17 +1498,10 @@ return false;
       this.mstapplicantsocialmediadetail_service.delete_mstapplicantsocialmediadetail(childID).then(res => {
         this.tbl_mstapplicantsocialmediadetails.source.refresh();
         this.ngOnInit();
-        // this.mstapplicantsocialmediadetail_service.getDefaultData().then(res => {
-        //     this.mstapplicantsocialmediadetails_LoadTable(res);
-        //     });
       })
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantsocialmediadetail_IDs += childID + ",";
-    // this.tbl_mstapplicantsocialmediadetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
   AddOrEdit_mstapplicantachievementdetail(event: any, achievementid: any, applicantid: any) {
@@ -1845,17 +1533,10 @@ return false;
       this.mstapplicantachivement_service.delete_mstapplicantachievementdetail(childID).then(res => {
         this.tbl_mstapplicantachievementdetails.source.refresh();
         this.ngOnInit();
-        // this.mstapplicantachivement_service.getDefaultData().then(res => {
-        //     this.mstapplicantachievementdetails_LoadTable(res);
-        // });
       })
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantachievementdetail_IDs += childID + ",";
-    // this.tbl_mstapplicantachievementdetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
   AddOrEdit_mstapplicantlanguagedetail(event: any, languageid: any, applicantid: any) {
@@ -1887,17 +1568,10 @@ return false;
       this.mstapplicantlanguagedetail_service.delete_mstapplicantlanguagedetail(childID).then(res => {
         this.tbl_mstapplicantlanguagedetails.source.refresh();
         this.ngOnInit();
-        // this.mstapplicantlanguagedetail_service.get_mstapplicantlanguagedetails_ByApplicantID(this.applicantid).then(res => {
-        //     this.mstapplicantlanguagedetails_LoadTable(res);
-        //     });
       })
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantlanguagedetail_IDs += childID + ",";
-    // this.tbl_mstapplicantlanguagedetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
   AddOrEdit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
@@ -1925,22 +1599,14 @@ return false;
   }
 
   onDelete_mstapplicanteducationdetail(event: any, childID: number, i: number) {
-    console.log('event call on delete');
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicanteducationdetail_service.delete_mstapplicanteducationdetail(childID).then(res => {
         this.tbl_mstapplicanteducationdetails.source.refresh();
         this.ngOnInit();
-        // this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByID(this.applicantid).then(res => {
-        //     this.mstapplicanteducationdetails_LoadTable(res);
-        //     });
       })
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicanteducationdetail_IDs += childID + ",";
-    // this.tbl_mstapplicanteducationdetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
   AddOrEdit_mstjobstatus(event: any, viewid: any, applicantid: any) {
@@ -1971,7 +1637,6 @@ return false;
     if (childID != null)
       this.Deleted_mstjobstatus_IDs += childID + ",";
     this.tbl_mstjobstatuses.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
   AddOrEdit_mstapplicantreferencerequest(event: any, requestid: any, applicantid: any) {
@@ -2003,18 +1668,10 @@ return false;
       this.mstapplicantreferencerequestService.delete_mstapplicantreferencerequest(childID).then(res => {
         this.tbl_mstapplicantreferencerequests.source.refresh();
         this.ngOnInit();
-        // this.mstapplicantreferencerequestService.get_mstapplicantreferencerequests_ByApplicantID(this.applicantid).then(res => {
-        //     // this.mstapplicantskilldetails_LoadTable(res);
-        //     this.mstapplicantreferencerequests_LoadTable(res);
-        // });
       })
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantreferencerequest_IDs += childID + ",";
-    // this.tbl_mstapplicantreferencerequests.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
 
@@ -2027,7 +1684,6 @@ return false;
   mstapplicantgeographypreferences_settings: any;
 
   show_mstapplicantgeographypreferences_Checkbox() {
-    //debugger;;
     if (this.tbl_mstapplicantgeographypreferences.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantgeographypreferences.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantgeographypreferences.source.settings['selectMode'] = 'multi';
@@ -2037,15 +1693,8 @@ return false;
     this.tbl_mstapplicantgeographypreferences.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantgeographypreferences_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantgeographypreferences_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantgeographypreferences.source.settings != null) this.tbl_mstapplicantgeographypreferences.source.settings['hideSubHeader'] = !this.tbl_mstapplicantgeographypreferences.source.settings['hideSubHeader'];
     this.tbl_mstapplicantgeographypreferences.source.initGrid();
-  }
-  show_mstapplicantgeographypreferences_InActive() {
-  }
-  enable_mstapplicantgeographypreferences_InActive() {
   }
   async Set_mstapplicantgeographypreferences_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantgeographypreferences) {
@@ -2082,7 +1731,6 @@ return false;
         // delete: (this.IsApplicant || this.IsAdmin),
         delete: false,
         position: 'right',
-        // custom: this.mstapplicantgeographypreference_menuactions
         custom: ""
       },
       add: {
@@ -2112,10 +1760,8 @@ return false;
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
             cell = this.mstapplicantgeographypreferenceshtml();
             var divrow = JSON.parse(JSON.stringify(row));
-
 
             return this.sharedService.HtmlValue(divrow, cell);
           },
@@ -2124,46 +1770,12 @@ return false;
     };
   }
   mstapplicantgeographypreferences_LoadTable(mstapplicantgeographypreferences = new LocalDataSource()) {
-    //debugger;;
     if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantgeographypreferences_ID) >= 0) {
       if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source = new LocalDataSource();
       if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source.load(mstapplicantgeographypreferences as any as LocalDataSource);
       if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstapplicantgeographypreferences_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicantgeographypreferences.length == 0)
-  {
-      this.tbl_mstapplicantgeographypreferences.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicantgeographypreference();
-      this.mstapplicantmaster_service.mstapplicantgeographypreferences.push(obj);
-      this.tbl_mstapplicantgeographypreferences.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicantgeographypreferences.length / this.tbl_mstapplicantgeographypreferences.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantgeographypreferences.source.getPaging().page)
-      {
-          this.tbl_mstapplicantgeographypreferences.source.setPage((this.mstapplicantmaster_service.mstapplicantgeographypreferences.length / this.tbl_mstapplicantgeographypreferences.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicantgeographypreferences.source.grid.edit(this.tbl_mstapplicantgeographypreferences.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicantgeographypreferences.source.data.indexOf(event.data);
-  this.onDelete_mstapplicantgeographypreference(event,event.data.geographypreferenceid,((this.tbl_mstapplicantgeographypreferences.source.getPaging().page-1) *this.tbl_mstapplicantgeographypreferences.source.getPaging().perPage)+index);
-  this.tbl_mstapplicantgeographypreferences.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstapplicantgeographypreferences_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -2203,7 +1815,6 @@ return false;
 
   }
   mstapplicantgeographypreferences_Paging(val) {
-    //debugger;;
     this.tbl_mstapplicantgeographypreferences.source.setPaging(1, val, true);
   }
 
@@ -2223,7 +1834,7 @@ return false;
   mstapplicantcareerdetails_settings: any;
 
   show_mstapplicantcareerdetails_Checkbox() {
-    //debugger;;
+    //;
     if (this.tbl_mstapplicantcareerdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantcareerdetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantcareerdetails.source.settings['selectMode'] = 'multi';
@@ -2233,15 +1844,8 @@ return false;
     this.tbl_mstapplicantcareerdetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantcareerdetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantcareerdetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantcareerdetails.source.settings != null) this.tbl_mstapplicantcareerdetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantcareerdetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicantcareerdetails.source.initGrid();
-  }
-  show_mstapplicantcareerdetails_InActive() {
-  }
-  enable_mstapplicantcareerdetails_InActive() {
   }
   async Set_mstapplicantcareerdetails_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantcareerdetails) {
@@ -2314,7 +1918,6 @@ return false;
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
             cell = this.mstapplicantcareerdetailshtml();
             var divrow = JSON.parse(JSON.stringify(row));
 
@@ -2334,39 +1937,6 @@ return false;
       if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstapplicantcareerdetails_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicantcareerdetails.length == 0)
-  {
-      this.tbl_mstapplicantcareerdetails.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicantcareerdetail();
-      this.mstapplicantmaster_service.mstapplicantcareerdetails.push(obj);
-      this.tbl_mstapplicantcareerdetails.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicantcareerdetails.length / this.tbl_mstapplicantcareerdetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantcareerdetails.source.getPaging().page)
-      {
-          this.tbl_mstapplicantcareerdetails.source.setPage((this.mstapplicantmaster_service.mstapplicantcareerdetails.length / this.tbl_mstapplicantcareerdetails.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicantcareerdetails.source.grid.edit(this.tbl_mstapplicantcareerdetails.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicantcareerdetails.source.data.indexOf(event.data);
-  this.onDelete_mstapplicantcareerdetail(event,event.data.careerid,((this.tbl_mstapplicantcareerdetails.source.getPaging().page-1) *this.tbl_mstapplicantcareerdetails.source.getPaging().perPage)+index);
-  this.tbl_mstapplicantcareerdetails.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstapplicantcareerdetails_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -2397,7 +1967,6 @@ return false;
     }
   }
   async onCustom_mstapplicantcareerdetails_Action(event: any) {
-    debugger
     let careerdetails = '<ul class="list-group"  style="background: #0368b7 !important;"><li class="list-group-item" style="background: #0368b7 !important;color: #fff;"> Company Name: ' + event.data.companyname + '</li>'
       + '<li class="list-group-item" style="background: #0368b7 !important;color: #fff;"> Designation: ' + event.data.designation + '</li>'
       + '<li class="list-group-item" style="background: #0368b7 !important;color: #fff;"> From Date: ' + event.data.fromdate + '</li>'
@@ -2410,7 +1979,6 @@ return false;
       this.dialog.open(mstapplicantreferencerequestComponent,
         {
           data: { referencesourcedetails: careerdetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 317, requestmasterid: event.data.careerid, ScreenType: 2, save: true }
-          // data: { applicantid: event.data.applicantid, requestmasterdatatypeid: 317, requestmasterid: event.data.careerid, ScreenType: 2, save: true }
         }
       ).onClose.subscribe(res => {
       });
@@ -2418,7 +1986,6 @@ return false;
 
   }
   mstapplicantcareerdetails_Paging(val) {
-    //debugger;;
     this.tbl_mstapplicantcareerdetails.source.setPaging(1, val, true);
   }
 
@@ -2438,7 +2005,6 @@ return false;
   mstapplicantreferencedetails_settings: any;
 
   show_mstapplicantreferencedetails_Checkbox() {
-    //debugger;;
     if (this.tbl_mstapplicantreferencedetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantreferencedetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantreferencedetails.source.settings['selectMode'] = 'multi';
@@ -2448,15 +2014,8 @@ return false;
     this.tbl_mstapplicantreferencedetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantreferencedetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantreferencedetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantreferencedetails.source.settings != null) this.tbl_mstapplicantreferencedetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantreferencedetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicantreferencedetails.source.initGrid();
-  }
-  show_mstapplicantreferencedetails_InActive() {
-  }
-  enable_mstapplicantreferencedetails_InActive() {
   }
   async Set_mstapplicantreferencedetails_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantreferencedetails) {
@@ -2529,7 +2088,7 @@ return false;
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
+            //;
             cell = this.mstapplicantreferencedetailshtml();
             var divrow = JSON.parse(JSON.stringify(row));
 
@@ -2547,39 +2106,6 @@ return false;
       if (this.tbl_mstapplicantreferencedetails != undefined) this.tbl_mstapplicantreferencedetails.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstapplicantreferencedetails_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicantreferencedetails.length == 0)
-  {
-      this.tbl_mstapplicantreferencedetails.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicantreferencedetail();
-      this.mstapplicantmaster_service.mstapplicantreferencedetails.push(obj);
-      this.tbl_mstapplicantreferencedetails.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicantreferencedetails.length / this.tbl_mstapplicantreferencedetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantreferencedetails.source.getPaging().page)
-      {
-          this.tbl_mstapplicantreferencedetails.source.setPage((this.mstapplicantmaster_service.mstapplicantreferencedetails.length / this.tbl_mstapplicantreferencedetails.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicantreferencedetails.source.grid.edit(this.tbl_mstapplicantreferencedetails.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicantreferencedetails.source.data.indexOf(event.data);
-  this.onDelete_mstapplicantreferencedetail(event,event.data.referenceid,((this.tbl_mstapplicantreferencedetails.source.getPaging().page-1) *this.tbl_mstapplicantreferencedetails.source.getPaging().perPage)+index);
-  this.tbl_mstapplicantreferencedetails.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstapplicantreferencedetails_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -2624,7 +2150,6 @@ return false;
     if (formname == "mstapplicantreferencerequests") {
       this.dialog.open(mstapplicantreferencerequestComponent,
         {
-          // data: { applicantid: event.data.applicantid, requestmasterdatatypeid: 318, requestmasterid: event.data.achievementid, contactemailid: event.data.email, requestedcontact: event.data.referencename, ScreenType: 2, save: true }
           data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 318, requestmasterid: event.data.referenceid, contactemailid: event.data.email, requestedcontact: event.data.referencename, ScreenType: 2, save: true }
         }
       ).onClose.subscribe(res => {
@@ -2632,7 +2157,6 @@ return false;
     }
   }
   mstapplicantreferencedetails_Paging(val) {
-    //debugger;;
     this.tbl_mstapplicantreferencedetails.source.setPaging(1, val, true);
   }
 
@@ -2652,7 +2176,7 @@ return false;
   mstapplicantskilldetails_settings: any;
 
   show_mstapplicantskilldetails_Checkbox() {
-    //debugger;;
+    //;
     if (this.tbl_mstapplicantskilldetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantskilldetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantskilldetails.source.settings['selectMode'] = 'multi';
@@ -2662,15 +2186,8 @@ return false;
     this.tbl_mstapplicantskilldetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantskilldetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantskilldetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantskilldetails.source.settings != null) this.tbl_mstapplicantskilldetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantskilldetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicantskilldetails.source.initGrid();
-  }
-  show_mstapplicantskilldetails_InActive() {
-  }
-  enable_mstapplicantskilldetails_InActive() {
   }
   async Set_mstapplicantskilldetails_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantskilldetails) {
@@ -2743,7 +2260,7 @@ return false;
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
+            //;
             cell = this.mstapplicantskilldetailshtml();
             var divrow = JSON.parse(JSON.stringify(row));
 
@@ -2762,39 +2279,6 @@ return false;
       if (this.tbl_mstapplicantskilldetails != undefined) this.tbl_mstapplicantskilldetails.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstapplicantskilldetails_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicantskilldetails.length == 0)
-  {
-      this.tbl_mstapplicantskilldetails.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicantskilldetail();
-      this.mstapplicantmaster_service.mstapplicantskilldetails.push(obj);
-      this.tbl_mstapplicantskilldetails.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicantskilldetails.length / this.tbl_mstapplicantskilldetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantskilldetails.source.getPaging().page)
-      {
-          this.tbl_mstapplicantskilldetails.source.setPage((this.mstapplicantmaster_service.mstapplicantskilldetails.length / this.tbl_mstapplicantskilldetails.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicantskilldetails.source.grid.edit(this.tbl_mstapplicantskilldetails.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicantskilldetails.source.data.indexOf(event.data);
-  this.onDelete_mstapplicantskilldetail(event,event.data.skillid,((this.tbl_mstapplicantskilldetails.source.getPaging().page-1) *this.tbl_mstapplicantskilldetails.source.getPaging().perPage)+index);
-  this.tbl_mstapplicantskilldetails.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstapplicantskilldetails_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -2837,8 +2321,6 @@ return false;
       this.dialog.open(mstapplicantreferencerequestComponent,
         {
           data: { referencesourcedetails: skillsdetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
-          // data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 318, requestmasterid: event.data.referenceid, contactemailid: event.data.email, requestedcontact: event.data.referencename, ScreenType: 2, save: true }
-          // data: { skillsdetails:skillsdetails,applicantid: event.data.applicantid, requestmasterdatatypeid: 316, requestmasterid: event.data.skillid, ScreenType: 2, save: true }
         }
       ).onClose.subscribe(res => {
       });
@@ -2849,7 +2331,7 @@ return false;
 
   }
   mstapplicantskilldetails_Paging(val) {
-    //debugger;;
+    //;
     this.tbl_mstapplicantskilldetails.source.setPaging(1, val, true);
   }
 
@@ -2869,7 +2351,7 @@ return false;
   mstapplicantworkreferences_settings: any;
 
   show_mstapplicantworkreferences_Checkbox() {
-    //debugger;;
+    //;
     if (this.tbl_mstapplicantworkreferences.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantworkreferences.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantworkreferences.source.settings['selectMode'] = 'multi';
@@ -2879,15 +2361,8 @@ return false;
     this.tbl_mstapplicantworkreferences.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantworkreferences_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantworkreferences_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantworkreferences.source.settings != null) this.tbl_mstapplicantworkreferences.source.settings['hideSubHeader'] = !this.tbl_mstapplicantworkreferences.source.settings['hideSubHeader'];
     this.tbl_mstapplicantworkreferences.source.initGrid();
-  }
-  show_mstapplicantworkreferences_InActive() {
-  }
-  enable_mstapplicantworkreferences_InActive() {
   }
   async Set_mstapplicantworkreferences_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantworkreferences) {
@@ -2918,23 +2393,8 @@ return false;
         delete: false,
         // delete: (this.IsApplicant || this.IsAdmin),
         position: 'right',
-        // custom: this.mstapplicantworkreference_menuactions
         custom: ""
-        // custom: [{
-        //     name: 'reference',
-        //     title: `<i class="icon-references" aria-hidden="true"></i>`,
-        // }],
       },
-      // actions: {
-      //     columnTitle: '',
-      //     width: '300px',
-      //     edit: true, // true,
-      //     // delete: (this.IsApplicant || this.IsAdmin),
-      //     delete: true,
-      //     position: 'right',
-      //     custom: this.mstapplicantworkreference_menuactions
-      //     // custom: ""
-      // },
       add: {
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
@@ -2962,7 +2422,7 @@ return false;
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
+            //;
             cell = this.mstapplicantworkreferenceshtml();
             var divrow = JSON.parse(JSON.stringify(row));
 
@@ -2980,39 +2440,6 @@ return false;
       if (this.tbl_mstapplicantworkreferences != undefined) this.tbl_mstapplicantworkreferences.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstapplicantworkreferences_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicantworkreferences.length == 0)
-  {
-      this.tbl_mstapplicantworkreferences.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicantworkreference();
-      this.mstapplicantmaster_service.mstapplicantworkreferences.push(obj);
-      this.tbl_mstapplicantworkreferences.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicantworkreferences.length / this.tbl_mstapplicantworkreferences.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantworkreferences.source.getPaging().page)
-      {
-          this.tbl_mstapplicantworkreferences.source.setPage((this.mstapplicantmaster_service.mstapplicantworkreferences.length / this.tbl_mstapplicantworkreferences.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicantworkreferences.source.grid.edit(this.tbl_mstapplicantworkreferences.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicantworkreferences.source.data.indexOf(event.data);
-  this.onDelete_mstapplicantworkreference(event,event.data.workreferenceid,((this.tbl_mstapplicantworkreferences.source.getPaging().page-1) *this.tbl_mstapplicantworkreferences.source.getPaging().perPage)+index);
-  this.tbl_mstapplicantworkreferences.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstapplicantworkreferences_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -3059,16 +2486,7 @@ return false;
     }
 
   }
-  // async onCustom_mstapplicantworkreferences_Action(event: any) {
-  //     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantworkreferences");
-  //     let formname = (objbomenuaction as any).actionname;
-
-
-
-
-  // }
   mstapplicantworkreferences_Paging(val) {
-    //debugger;;
     this.tbl_mstapplicantworkreferences.source.setPaging(1, val, true);
   }
 
@@ -3088,7 +2506,7 @@ return false;
   mstapplicantsocialmediadetails_settings: any;
 
   show_mstapplicantsocialmediadetails_Checkbox() {
-    //debugger;;
+    //;
     if (this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'multi';
@@ -3098,15 +2516,8 @@ return false;
     this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantsocialmediadetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantsocialmediadetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantsocialmediadetails.source.settings != null) this.tbl_mstapplicantsocialmediadetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantsocialmediadetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicantsocialmediadetails.source.initGrid();
-  }
-  show_mstapplicantsocialmediadetails_InActive() {
-  }
-  enable_mstapplicantsocialmediadetails_InActive() {
   }
   async Set_mstapplicantsocialmediadetails_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantsocialmediadetails) {
@@ -3173,7 +2584,7 @@ return false;
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
+            //;
             cell = this.mstapplicantsocialmediadetailshtml();
             var divrow = JSON.parse(JSON.stringify(row));
 
@@ -3191,39 +2602,6 @@ return false;
       if (this.tbl_mstapplicantsocialmediadetails != undefined) this.tbl_mstapplicantsocialmediadetails.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstapplicantsocialmediadetails_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicantsocialmediadetails.length == 0)
-  {
-      this.tbl_mstapplicantsocialmediadetails.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicantsocialmediadetail();
-      this.mstapplicantmaster_service.mstapplicantsocialmediadetails.push(obj);
-      this.tbl_mstapplicantsocialmediadetails.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicantsocialmediadetails.length / this.tbl_mstapplicantsocialmediadetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantsocialmediadetails.source.getPaging().page)
-      {
-          this.tbl_mstapplicantsocialmediadetails.source.setPage((this.mstapplicantmaster_service.mstapplicantsocialmediadetails.length / this.tbl_mstapplicantsocialmediadetails.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicantsocialmediadetails.source.grid.edit(this.tbl_mstapplicantsocialmediadetails.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicantsocialmediadetails.source.data.indexOf(event.data);
-  this.onDelete_mstapplicantsocialmediadetail(event,event.data.socialrefid,((this.tbl_mstapplicantsocialmediadetails.source.getPaging().page-1) *this.tbl_mstapplicantsocialmediadetails.source.getPaging().perPage)+index);
-  this.tbl_mstapplicantsocialmediadetails.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstapplicantsocialmediadetails_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -3262,7 +2640,7 @@ return false;
 
   }
   mstapplicantsocialmediadetails_Paging(val) {
-    //debugger;;
+    //;
     this.tbl_mstapplicantsocialmediadetails.source.setPaging(1, val, true);
   }
 
@@ -3282,7 +2660,7 @@ return false;
   mstapplicantachievementdetails_settings: any;
 
   show_mstapplicantachievementdetails_Checkbox() {
-    //debugger;;
+    //;
     if (this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'multi';
@@ -3292,15 +2670,8 @@ return false;
     this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantachievementdetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantachievementdetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantachievementdetails.source.settings != null) this.tbl_mstapplicantachievementdetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantachievementdetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicantachievementdetails.source.initGrid();
-  }
-  show_mstapplicantachievementdetails_InActive() {
-  }
-  enable_mstapplicantachievementdetails_InActive() {
   }
   async Set_mstapplicantachievementdetails_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantachievementdetails) {
@@ -3373,7 +2744,7 @@ return false;
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
+            //;
             cell = this.mstapplicantachievementdetailshtml();
             var divrow = JSON.parse(JSON.stringify(row));
 
@@ -3392,39 +2763,6 @@ return false;
       if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstapplicantachievementdetails_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicantachievementdetails.length == 0)
-  {
-      this.tbl_mstapplicantachievementdetails.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicantachievementdetail();
-      this.mstapplicantmaster_service.mstapplicantachievementdetails.push(obj);
-      this.tbl_mstapplicantachievementdetails.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicantachievementdetails.length / this.tbl_mstapplicantachievementdetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantachievementdetails.source.getPaging().page)
-      {
-          this.tbl_mstapplicantachievementdetails.source.setPage((this.mstapplicantmaster_service.mstapplicantachievementdetails.length / this.tbl_mstapplicantachievementdetails.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicantachievementdetails.source.grid.edit(this.tbl_mstapplicantachievementdetails.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicantachievementdetails.source.data.indexOf(event.data);
-  this.onDelete_mstapplicantachievementdetail(event,event.data.achievementid,((this.tbl_mstapplicantachievementdetails.source.getPaging().page-1) *this.tbl_mstapplicantachievementdetails.source.getPaging().perPage)+index);
-  this.tbl_mstapplicantachievementdetails.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstapplicantachievementdetails_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -3455,7 +2793,6 @@ return false;
     }
   }
   async onCustom_mstapplicantachievementdetails_Action(event: any) {
-    debugger
     let achievementdet = '<ul class="list-group"  style="background: #0368b7 !important;"><li class="list-group-item" style="background: #0368b7 !important;color: #fff;"> Achievements: ' + event.data.masterdataiddesc + '</li>'
       + '<li class="list-group-item" style="background: #0368b7 !important;color: #fff;"> Details: ' + event.data.achievementdetails + '</li>'
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantachievementdetails");
@@ -3464,7 +2801,6 @@ return false;
       this.dialog.open(mstapplicantreferencerequestComponent,
         {
           data: { referencesourcedetails: achievementdet, applicantid: event.data.applicantid, requestmasterdatatypeid: 317, requestmasterid: event.data.careerid, ScreenType: 2, save: true }
-          // data: { applicantid: event.data.applicantid, requestmasterdatatypeid: 319, requestmasterid: event.data.achievementid, ScreenType: 2, save: true }
         }
       ).onClose.subscribe(res => {
       });
@@ -3475,7 +2811,7 @@ return false;
 
   }
   mstapplicantachievementdetails_Paging(val) {
-    //debugger;;
+    //;
     this.tbl_mstapplicantachievementdetails.source.setPaging(1, val, true);
   }
 
@@ -3495,7 +2831,7 @@ return false;
   mstapplicantlanguagedetails_settings: any;
 
   show_mstapplicantlanguagedetails_Checkbox() {
-    //debugger;;
+    //;
     if (this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] = 'multi';
@@ -3505,15 +2841,8 @@ return false;
     this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantlanguagedetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantlanguagedetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantlanguagedetails.source.settings != null) this.tbl_mstapplicantlanguagedetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantlanguagedetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicantlanguagedetails.source.initGrid();
-  }
-  show_mstapplicantlanguagedetails_InActive() {
-  }
-  enable_mstapplicantlanguagedetails_InActive() {
   }
   async Set_mstapplicantlanguagedetails_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantlanguagedetails) {
@@ -3580,7 +2909,7 @@ return false;
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
+            //;
             cell = this.mstapplicantlanguagedetailshtml();
             var divrow = JSON.parse(JSON.stringify(row));
 
@@ -3602,39 +2931,6 @@ return false;
       if (this.tbl_mstapplicantlanguagedetails != undefined) this.tbl_mstapplicantlanguagedetails.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstapplicantlanguagedetails_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicantlanguagedetails.length == 0)
-  {
-      this.tbl_mstapplicantlanguagedetails.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicantlanguagedetail();
-      this.mstapplicantmaster_service.mstapplicantlanguagedetails.push(obj);
-      this.tbl_mstapplicantlanguagedetails.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicantlanguagedetails.length / this.tbl_mstapplicantlanguagedetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantlanguagedetails.source.getPaging().page)
-      {
-          this.tbl_mstapplicantlanguagedetails.source.setPage((this.mstapplicantmaster_service.mstapplicantlanguagedetails.length / this.tbl_mstapplicantlanguagedetails.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicantlanguagedetails.source.grid.edit(this.tbl_mstapplicantlanguagedetails.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicantlanguagedetails.source.data.indexOf(event.data);
-  this.onDelete_mstapplicantlanguagedetail(event,event.data.languageid,((this.tbl_mstapplicantlanguagedetails.source.getPaging().page-1) *this.tbl_mstapplicantlanguagedetails.source.getPaging().perPage)+index);
-  this.tbl_mstapplicantlanguagedetails.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstapplicantlanguagedetails_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -3673,7 +2969,7 @@ return false;
 
   }
   mstapplicantlanguagedetails_Paging(val) {
-    //debugger;;
+    //;
     this.tbl_mstapplicantlanguagedetails.source.setPaging(1, val, true);
   }
 
@@ -3693,7 +2989,7 @@ return false;
   mstapplicanteducationdetails_settings: any;
 
   show_mstapplicanteducationdetails_Checkbox() {
-    //debugger;;
+    //;
     if (this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'multi';
@@ -3703,15 +2999,8 @@ return false;
     this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicanteducationdetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicanteducationdetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicanteducationdetails.source.settings != null) this.tbl_mstapplicanteducationdetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicanteducationdetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicanteducationdetails.source.initGrid();
-  }
-  show_mstapplicanteducationdetails_InActive() {
-  }
-  enable_mstapplicanteducationdetails_InActive() {
   }
   async Set_mstapplicanteducationdetails_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicanteducationdetails) {
@@ -3784,7 +3073,7 @@ return false;
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
+            //;
             cell = this.mstapplicanteducationdetailshtml();
             var divrow = JSON.parse(JSON.stringify(row));
 
@@ -3802,39 +3091,6 @@ return false;
       if (this.tbl_mstapplicanteducationdetails != undefined) this.tbl_mstapplicanteducationdetails.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstapplicanteducationdetails_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicanteducationdetails.length == 0)
-  {
-      this.tbl_mstapplicanteducationdetails.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicanteducationdetail();
-      this.mstapplicantmaster_service.mstapplicanteducationdetails.push(obj);
-      this.tbl_mstapplicanteducationdetails.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicanteducationdetails.length / this.tbl_mstapplicanteducationdetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicanteducationdetails.source.getPaging().page)
-      {
-          this.tbl_mstapplicanteducationdetails.source.setPage((this.mstapplicantmaster_service.mstapplicanteducationdetails.length / this.tbl_mstapplicanteducationdetails.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicanteducationdetails.source.grid.edit(this.tbl_mstapplicanteducationdetails.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicanteducationdetails.source.data.indexOf(event.data);
-  this.onDelete_mstapplicanteducationdetail(event,event.data.educationid,((this.tbl_mstapplicanteducationdetails.source.getPaging().page-1) *this.tbl_mstapplicanteducationdetails.source.getPaging().perPage)+index);
-  this.tbl_mstapplicanteducationdetails.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstapplicanteducationdetails_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -3865,7 +3121,6 @@ return false;
     }
   }
   async onCustom_mstapplicanteducationdetails_Action(event: any) {
-    debugger
     let educationsourcedetails = '<ul class="list-group"  style="background: #0368b7 !important;"><li class="list-group-item" style="background: #0368b7 !important;color: #fff;"> Category: ' + event.data.educationcategorydesc + '</li>'
       + '<li class="list-group-item" style="background: #0368b7 !important;color: #fff;"> Sub Category: ' + event.data.educationsubcategorydesc + '</li>'
       + '<li class="list-group-item" style="background: #0368b7 !important;color: #fff;"> Course: ' + event.data.coursename + '</li>'
@@ -3880,7 +3135,6 @@ return false;
       this.dialog.open(mstapplicantreferencerequestComponent,
         {
           data: { referencesourcedetails: educationsourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 315, requestmasterid: event.data.educationid, ScreenType: 2, save: true }
-          // data: { applicantid: event.data.applicantid, requestmasterdatatypeid: 315, requestmasterid: event.data.careerid, ScreenType: 2, save: true }
         }
       ).onClose.subscribe(res => {
       });
@@ -3891,7 +3145,7 @@ return false;
 
   }
   mstapplicanteducationdetails_Paging(val) {
-    //debugger;;
+    //;
     this.tbl_mstapplicanteducationdetails.source.setPaging(1, val, true);
   }
 
@@ -3911,7 +3165,7 @@ return false;
   mstjobstatuses_settings: any;
 
   show_mstjobstatuses_Checkbox() {
-    //debugger;;
+    //;
     if (this.tbl_mstjobstatuses.source.settings['selectMode'] == 'multi') this.tbl_mstjobstatuses.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstjobstatuses.source.settings['selectMode'] = 'multi';
@@ -3921,9 +3175,6 @@ return false;
     this.tbl_mstjobstatuses.source.settings['selectMode'] = 'single';
   }
   show_mstjobstatuses_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstjobstatuses_TableDropDownConfig();
-    });
     if (this.tbl_mstjobstatuses.source.settings != null) this.tbl_mstjobstatuses.source.settings['hideSubHeader'] = !this.tbl_mstjobstatuses.source.settings['hideSubHeader'];
     this.tbl_mstjobstatuses.source.initGrid();
   }
@@ -4002,7 +3253,7 @@ return false;
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
+            //;
             cell = this.mstjobstatuseshtml();
             var divrow = JSON.parse(JSON.stringify(row));
 
@@ -4021,39 +3272,6 @@ return false;
       if (this.tbl_mstjobstatuses != undefined) this.tbl_mstjobstatuses.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstjobstatuses_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstjobstatuses.length == 0)
-  {
-      this.tbl_mstjobstatuses.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstjobstatus();
-      this.mstapplicantmaster_service.mstjobstatuses.push(obj);
-      this.tbl_mstjobstatuses.source.refresh();
-      if ((this.mstapplicantmaster_service.mstjobstatuses.length / this.tbl_mstjobstatuses.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstjobstatuses.source.getPaging().page)
-      {
-          this.tbl_mstjobstatuses.source.setPage((this.mstapplicantmaster_service.mstjobstatuses.length / this.tbl_mstjobstatuses.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstjobstatuses.source.grid.edit(this.tbl_mstjobstatuses.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstjobstatuses.source.data.indexOf(event.data);
-  this.onDelete_mstjobstatus(event,event.data.viewid,((this.tbl_mstjobstatuses.source.getPaging().page-1) *this.tbl_mstjobstatuses.source.getPaging().perPage)+index);
-  this.tbl_mstjobstatuses.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstjobstatuses_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -4092,7 +3310,7 @@ return false;
 
   }
   mstjobstatuses_Paging(val) {
-    //debugger;;
+    //;
     this.tbl_mstjobstatuses.source.setPaging(1, val, true);
   }
 
@@ -4112,7 +3330,7 @@ return false;
   mstapplicantreferencerequests_settings: any;
 
   show_mstapplicantreferencerequests_Checkbox() {
-    //debugger;;
+    //;
     if (this.tbl_mstapplicantreferencerequests.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantreferencerequests.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantreferencerequests.source.settings['selectMode'] = 'multi';
@@ -4122,15 +3340,8 @@ return false;
     this.tbl_mstapplicantreferencerequests.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantreferencerequests_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantreferencerequests_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantreferencerequests.source.settings != null) this.tbl_mstapplicantreferencerequests.source.settings['hideSubHeader'] = !this.tbl_mstapplicantreferencerequests.source.settings['hideSubHeader'];
     this.tbl_mstapplicantreferencerequests.source.initGrid();
-  }
-  show_mstapplicantreferencerequests_InActive() {
-  }
-  enable_mstapplicantreferencerequests_InActive() {
   }
   async Set_mstapplicantreferencerequests_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantreferencerequests) {
@@ -4203,7 +3414,7 @@ return false;
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
+            //;
             cell = this.mstapplicantreferencerequestshtml();
             var divrow = JSON.parse(JSON.stringify(row));
 
@@ -4224,38 +3435,6 @@ return false;
     }
   }
 
-  //external to inline
-  /*
-  mstapplicantreferencerequests_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicantreferencerequests.length == 0)
-  {
-      this.tbl_mstapplicantreferencerequests.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicantreferencerequest();
-      this.mstapplicantmaster_service.mstapplicantreferencerequests.push(obj);
-      this.tbl_mstapplicantreferencerequests.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicantreferencerequests.length / this.tbl_mstapplicantreferencerequests.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantreferencerequests.source.getPaging().page)
-      {
-          this.tbl_mstapplicantreferencerequests.source.setPage((this.mstapplicantmaster_service.mstapplicantreferencerequests.length / this.tbl_mstapplicantreferencerequests.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicantreferencerequests.source.grid.edit(this.tbl_mstapplicantreferencerequests.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicantreferencerequests.source.data.indexOf(event.data);
-  this.onDelete_mstapplicantreferencerequest(event,event.data.requestid,((this.tbl_mstapplicantreferencerequests.source.getPaging().page-1) *this.tbl_mstapplicantreferencerequests.source.getPaging().perPage)+index);
-  this.tbl_mstapplicantreferencerequests.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstapplicantreferencerequests_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -4294,7 +3473,7 @@ return false;
 
   }
   mstapplicantreferencerequests_Paging(val) {
-    //debugger;;
+    //;
     this.tbl_mstapplicantreferencerequests.source.setPaging(1, val, true);
   }
 

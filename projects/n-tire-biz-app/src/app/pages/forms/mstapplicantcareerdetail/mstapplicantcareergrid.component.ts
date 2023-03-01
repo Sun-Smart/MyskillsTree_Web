@@ -1,53 +1,22 @@
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-
-import { mstapplicantskilldetail } from './../../../model/mstapplicantskilldetail.model';
-import { mstapplicantskilldetailComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.component';
-import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
-
-import { mstapplicantreferencerequest } from './../../../model/mstapplicantreferencerequest.model';
 import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
-import { mstapplicantreferencerequestService } from './../../../service/mstapplicantreferencerequest.service';
-
-//primeng services
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
 import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
 import { mstapplicantcareerdetailComponent } from './mstapplicantcareerdetail.component';
-import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mstapplicantcareerdetail } from '../../../model/mstapplicantcareerdetail.model';
@@ -74,20 +43,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </ul>
     </div>
     <div class="col-4" style="text-align: end; margin: auto;">
-
-    <!-- <a  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"> -->
-    <!-- <button type="button" style="border-color: #fff !important;
-    color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button>  -->
     <button type="button" class="btn btn-outline-primary"  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"
     class="popup-add-button heightbtn" title = "Add Details">Add</button>
 
     <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
 
-
-    <!--<ul class="rightside">
-    <a [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i style="color:#fff !important;"
-        class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-    </ul>-->
     </div>
   </div>
 
@@ -113,23 +73,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </div>
     <div class="col-4" style="text-align: end; margin: auto;">
 
-    <!-- <a  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"> -->
-    <!-- <button type="button" style="border-color: #fff !important;
-    color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button>  -->
     <button type="button" class="btn btn-outline-primary"  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"
     class="popup-add-button heightbtn" title = "Add Details">Add</button>
 
-    <!-- <button type="button"  class="popup-add-button heightbtn" (click)="addSkills()">Add</button> -->
-    <!-- </a> -->
-    <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-
     <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
 
-
-    <!--<ul class="rightside">
-    <a [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i style="color:#fff !important;"
-        class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-    </ul>-->
     </div>
   </div>
 
@@ -145,7 +93,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       <th style="width: 11.5%;white-space: nowrap;">To Date</th>
       <th style="width: 11.5%;">Skills</th>
       <th style="width: 11.5%;">Remarks</th>
-      <!-- <th style="width: 11.5%;">Attachment</th> -->
       <th style="width: 8%;">Action</th>
     </tr>
   </thead>
@@ -155,7 +102,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
    <tr>
      <!-- Gategory -->
      <td>
-     <!-- <label for="category" class="control-label">Category</label> -->
         <select id="category" (change)="category_onChange($event.target)" formControlName="category" class="form-control">
           <option value="null" selected>-Select-</option>
           <option *ngFor="let item of category_List" value="{{item.value}}">{{item.label}}</option>
@@ -164,15 +110,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
      <!-- Company Name -->
      <td>
-     <!-- <label *ngIf="showview" class="labelview">{{f.companyname?.value}}</label> -->
-     <!-- <label for="companyname" class="control-label required">Company Name</label> -->
         <input  id="companyname" required formControlName="companyname" class="form-control">
 
      </td>
 
      <!-- Designation-->
      <td>
-     <!-- <label for="designation" class="control-label required">Designation</label> -->
      <input  id="designation" required formControlName="designation" class="form-control">
      </td>
 
@@ -187,10 +130,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
        <button class="input-group-addon" (click)="d.toggle()" type="button"><i
            class="fa fa-calendar" aria-hidden="true"></i></button>
      </div>
-
-    <!-- <app-field-error-display [displayError]="f.fromdate.errors?.required"
-       errorMsg="Enter {{'From Date' | translate}}">
-     </app-field-error-display> -->
    </div></td>
 
      <!-- To Date -->
@@ -220,26 +159,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
      <!-- Remarks -->
      <td>
-     <!-- <label for="remarks" class="control-label">Remarks</label> -->
        <textarea name="w3review" onkeyup="textAreaAdjust(this)" class="form-control" formControlName="remarks"></textarea>
-       <!-- <p-editor  id="remarks" formControlName="remarks" [style]="{  height: '20' }"></p-editor> -->
      </td>
-
-     <!-- Attachment -->
-
-     <!-- <td>
-     <p-accordion [multiple]='true'>
-        <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
-          <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
-          </app-attachment>
-        </p-accordionTab>
-      </p-accordion>
-     </td> -->
 
     <!-- Submit -->
      <td class="field-add-close-button" style="vertical-align: initial !important;">
-       <!-- <button type="button" class="btn btn-outline-primary"  (click)="onSubmitData(mstapplicantcareerdetail_Form)"
-       style="background: green;color: antiquewhite;padding: 5px;border: none;box-shadow: 1px 1px 1px 0px black;">Submit</button> -->
        <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
 
        <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
@@ -330,28 +254,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   styles: [`
                 @media only screen and (max-width: 600px) {
                   h4.columns.left{
-                    /* white-space: nowrap !important;
-                    margin-top: 7px !important; */
                     white-space: nowrap !important;
                     height: 40px !important;
                     margin-top: 10px !important;
                   }
                   button.popup-add-button.heightbtn{
-                    /* position: relative !important;
-                    top: 10px !important;
-                    right: 40px !important; */
                     position: absolute !important;
                     right: 50px !important;
                     bottom: -3px !important;
-                  }
-                  .mobile_career_close{
-                    /* width: 20px !important;
-                    position: relative !important;
-                    bottom: 14px !important; */
-                    /* right: 30px !important; */
-                  }
-                  .career_mobile_grid{
-                    /* width: 630px !important; */
                   }
                 }
 `]
@@ -421,13 +331,6 @@ export class mstapplicantcareergridComponent implements OnInit {
   isMobile: any;
 
   constructor(
-    private nav: Location,
-    private translate: TranslateService,
-    //dhana
-    private mstapplicantmaster_service: mstapplicantmasterService,
-    //end
-    private router: Router,
-    private themeService: ThemeService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
@@ -435,13 +338,10 @@ export class mstapplicantcareergridComponent implements OnInit {
     private sharedService: SharedService,
     private sessionService: SessionService,
     private toastr: ToastService,
-    private fb: FormBuilder,
-    private config: NgbDatepickerConfig,
-    private sanitizer: DomSanitizer, private datePipe: DatePipe,
+    private fb: FormBuilder,private datePipe: DatePipe,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
     private mstapplicantcareerdetail_service: mstapplicantcareerdetailService,
   ) {
-    debugger;
     var date = new Date()
     this.myDate = this.datePipe.transform(date);
     this.data = dynamicconfig;
@@ -466,8 +366,6 @@ export class mstapplicantcareergridComponent implements OnInit {
 
     this.pkcol = this.data.maindatapkcol;
     this.applicantid = this.data.applicantid;
-
-    console.log(" dedmekf this.applicantid", this.applicantid);
 
     this.mstapplicantcareerdetail_Form = this.fb.group({
       pk: [null],
@@ -506,7 +404,6 @@ export class mstapplicantcareergridComponent implements OnInit {
   get f() { return this.mstapplicantcareerdetail_Form.controls; };
 
   selectctwo(event: any) {
-    debugger
     if (this.mstapplicantcareerdetail_Form.value.currentlyworking == true) {
       this.isdisabled = true
     } else {
@@ -520,14 +417,14 @@ export class mstapplicantcareergridComponent implements OnInit {
       this.applicantid_List = res.list_applicantid.value;
       this.category_List = res.list_category.value;
       this.skills_List = res.list_skills.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
 
     //autocomplete
     this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_List().then(res => {
       this.pkList = res as mstapplicantcareerdetail[];
       this.pkoptionsEvent.emit(this.pkList);
     }
-    ).catch((err) => { this.spinner.hide(); console.log(err); });
+    ).catch((err) => { this.spinner.hide(); });
   }
   skillClose() {
     this.mstapplicantcareerdetail_Form.reset();
@@ -592,7 +489,6 @@ export class mstapplicantcareergridComponent implements OnInit {
       this.onSubmitData(false);
     }
     else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-      // this.onSubmitDataDlg(false);
       this.onSubmitData(false);
     }
     else {
@@ -601,10 +497,8 @@ export class mstapplicantcareergridComponent implements OnInit {
   };
 
   async onSubmitData(bclear: any) {
-    debugger;
     this.isSubmitted = true;
     let strError = "";
-    // this.getData()
     if (!this.mstapplicantcareerdetail_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the required fields");
       return;
@@ -615,7 +509,6 @@ export class mstapplicantcareergridComponent implements OnInit {
 
     if (this.mstapplicantcareerdetail_Form.value.currentlyworking == true) {
       this.formData.todate = new Date()
-      console.log(this.formData.todate);
     } else {
       this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('todate').value) + '  UTC' : null);
     }
@@ -629,14 +522,10 @@ export class mstapplicantcareergridComponent implements OnInit {
 
       if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
       this.formData.applicantid = this.applicantid;
-      console.log('this.formData above', this.formData.applicantid);
-
-      console.log(this.formData);
       this.spinner.show();
       this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
         async res => {
           this.spinner.hide();
-          debugger;
           this.toastr.addSingle("success", "", "Successfully saved");
           this.showDateError = false;
           this.sessionService.setItem("attachedsaved", "true")
@@ -669,10 +558,8 @@ export class mstapplicantcareergridComponent implements OnInit {
           this.mstapplicantcareerdetail_Form.markAsPristine();
         },
         err => {
-          debugger;
           this.spinner.hide();
           this.toastr.addSingle("error", "", err.error);
-          console.log(err);
         })
     }
 
@@ -682,7 +569,6 @@ export class mstapplicantcareergridComponent implements OnInit {
     element.style.height = (25 + element.scrollHeight) + "px";
   };
   getSkills(skills_List) {
-    debugger;
     let skills: any[] = [];
 
     for (let i = 0; i < skills_List.length; i++) {
@@ -710,12 +596,6 @@ export class mstapplicantcareergridComponent implements OnInit {
         </tbody>
       </table>
       </div>
-
-        <!--<div class='card1'>
-<h2>##companyname## - ##designation##</h2>
-<h3 style="margin: 0 auto !important;" class='profile__section__item__sub'>##fromdate## - ##todate##</h3>
-##remarks##
-</div>-->
 `;
     return ret;
   };
@@ -736,7 +616,6 @@ export class mstapplicantcareergridComponent implements OnInit {
   };
 
   search_skills(event) {
-    debugger;
     this.skills_results = this.skills_List.filter(v => v.label.toLowerCase().indexOf(event.query.toLowerCase()) > -1).slice(0, 10);
   }
 
@@ -751,14 +630,11 @@ export class mstapplicantcareergridComponent implements OnInit {
       this.pkcol = res.mstapplicantcareerdetail.pkcol;
       this.formid = res.mstapplicantcareerdetail.careerid;
       this.FillData();
-    }).catch((err) => { console.log(err); });
+    }).catch((err) => { });
   }
 
   FillData() {
-    debugger;
-
     this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
-      debugger;
       this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
       this.Set_mstapplicantcareerdetails_TableConfig();
       this.mstapplicantcareerdetails_LoadTable(res.mstapplicantcareerdetail);
@@ -766,7 +642,6 @@ export class mstapplicantcareergridComponent implements OnInit {
   };
 
   getSkillsDescription() {
-    debugger;
     let skillsdescription: any[] = [];
     for (let i = 0; i < this.skills_List.length; i++) {
       for (let j = 0; j < this.mstapplicantcareerdetail_Form.get('skills').value.length; j++) {
@@ -781,26 +656,18 @@ export class mstapplicantcareergridComponent implements OnInit {
 
 
   Add_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
-
-    debugger;
     this.showSkillDetails_input = true;
     this.getData();
     let add = false;
     if (event == null) add = true;
-    // this.mstapplicantcareerdetail_Form.reset();
   }
 
   Edit_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
-    debugger;
     this.showSkillDetails_input = true;
     this.getData();
-
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-    console.log("careerid", careerid);
     this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByEID(event.data.pkcol).then((res: any) => {
-      debugger
-      console.log(res);
       this.mstapplicantcareerdetail_Form.patchValue({
         applicantid: res.mstapplicantcareerdetail.applicantid,
         applicantiddesc: res.mstapplicantcareerdetail.applicantiddesc,
@@ -825,46 +692,15 @@ export class mstapplicantcareergridComponent implements OnInit {
       setTimeout(() => {
         this.getSkillsDescription();
       }, 400);
-      debugger;
       this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
     })
 
   };
 
-  // Old Code
-
-  // AddOrEdit_mstapplicantcareerdetail(event: any, careerid: any, applicantid: any) {
-  //     debugger;
-  //     this.getData();
-  //     let add = false;
-  //     if (event == null) add = true;
-  //     let childsave = true;
-  //     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-  //     this.dialog.open(mstapplicantcareerdetailComponent,
-  //         {
-  //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, careerid, applicantid, visiblelist: this.mstapplicantcareerdetails_visiblelist, hidelist: this.mstapplicantcareerdetails_hidelist, ScreenType: 2 },
-  //         }
-  //     ).onClose.subscribe(res => {
-  //         if (res) {
-  //             if (add) {
-  //                 for (let i = 0; i < res.length; i++) {
-  //                     this.tbl_mstapplicantcareerdetails.source.add(res[i]);
-  //                 }
-  //                 this.tbl_mstapplicantcareerdetails.source.refresh();
-  //             }
-  //             else {
-  //                 this.tbl_mstapplicantcareerdetails.source.update(event.data, res[0]);
-  //             }
-  //         }
-  //     });
-  // }
-
-
   //start of Grid Codes mstapplicantcareerdetails
   mstapplicantcareerdetails_settings: any;
 
   show_mstapplicantcareerdetails_Checkbox() {
-    //debugger;;
     if (this.tbl_mstapplicantcareerdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantcareerdetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantcareerdetails.source.settings['selectMode'] = 'multi';
@@ -874,15 +710,8 @@ export class mstapplicantcareergridComponent implements OnInit {
     this.tbl_mstapplicantcareerdetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantcareerdetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantcareerdetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantcareerdetails.source.settings != null) this.tbl_mstapplicantcareerdetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantcareerdetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicantcareerdetails.source.initGrid();
-  }
-  show_mstapplicantcareerdetails_InActive() {
-  }
-  enable_mstapplicantcareerdetails_InActive() {
   }
   async Set_mstapplicantcareerdetails_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstapplicantcareerdetails) {
@@ -909,9 +738,6 @@ export class mstapplicantcareergridComponent implements OnInit {
   }
   async mstapplicantcareerdetails_beforesave(event: any) {
     event.confirm.resolve(event.newData);
-
-
-
   }
   Set_mstapplicantcareerdetails_TableConfig() {
     this.mstapplicantcareerdetails_settings = {
@@ -924,7 +750,6 @@ export class mstapplicantcareergridComponent implements OnInit {
         edit: true, // true,
         delete: (this.IsApplicant || this.IsAdmin),
         position: 'right',
-        // custom: this.mstapplicantcareerdetail_menuactions
         custom: this.mstapplicantcareerdetail_menuactions
       },
       add: {
@@ -944,50 +769,6 @@ export class mstapplicantcareergridComponent implements OnInit {
         confirmDelete: true,
       },
       columns: {
-        // categorydesc: {
-        //   title: 'Category',
-        //   type: 'html',
-        //   filter: true,
-        // },
-        // companyname: {
-        //   title: 'Company Name',
-        //   type: 'html',
-        //   filter: true,
-        // },
-        // designation: {
-        //   title: 'Designation',
-        //   type: 'html',
-        //   filter: true,
-        // },
-        // fromdate: {
-        //   title: 'From Date',
-        //   type: 'custom',
-        //   renderComponent: SmartTableDatepickerRenderComponent,
-        //   editor: {
-        //       type: 'custom',
-        //       component: SmartTableDatepickerComponent,
-        //   },
-        // },
-        // todate: {
-        //   title: 'To Date',
-        //   type: 'custom',
-        //   renderComponent: SmartTableDatepickerRenderComponent,
-        //   editor: {
-        //       type: 'custom',
-        //       component: SmartTableDatepickerComponent,
-        //   },
-        // },
-        // string_agg: {
-        //   title: 'Skills',
-        //   type: 'html',
-        //   filter: true,
-        // },
-        // remarks: {
-        //   title: 'Remarks',
-        //   type: 'html',
-        //   filter: true,
-        // },
-
         colhtml:
         {
           title: '',
@@ -998,7 +779,6 @@ export class mstapplicantcareergridComponent implements OnInit {
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
             cell = this.mstapplicantcareerdetailshtml();
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
@@ -1006,7 +786,6 @@ export class mstapplicantcareergridComponent implements OnInit {
               /* your code here */
             }
             var divrow = JSON.parse(JSON.stringify(row));
-
 
             if (row.referencecount == 0 || row.referencecount == undefined) {
               let abc = '-';
@@ -1073,8 +852,6 @@ export class mstapplicantcareergridComponent implements OnInit {
             divrow['referencecount'] = "<div style='position: relative;left: 12%;font-size: 17px;'>" + xyzyzyz + "</div>";
             this.countarray = [];
 
-
-
             divrow["fromdate"] = this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(row["fromdate"]));
             divrow["todate"] = this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(row["todate"]));
             var dateee = divrow["todate"]
@@ -1085,7 +862,6 @@ export class mstapplicantcareergridComponent implements OnInit {
               divrow["todate"] = dateee
               return this.sharedService.HtmlValue(divrow, cell)
             }
-            // if (row["todate"] == "1970-01-01T00:00:00") divrow["todate"] = "Till Date"; return this.sharedService.HtmlValue(divrow, cell);
           },
         },
       },
@@ -1099,41 +875,7 @@ export class mstapplicantcareergridComponent implements OnInit {
       if (this.tbl_mstapplicantcareerdetails != undefined) this.tbl_mstapplicantcareerdetails.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstapplicantcareerdetails_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicantcareerdetails.length == 0)
-  {
-      this.tbl_mstapplicantcareerdetails.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicantcareerdetail();
-      this.mstapplicantmaster_service.mstapplicantcareerdetails.push(obj);
-      this.tbl_mstapplicantcareerdetails.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicantcareerdetails.length / this.tbl_mstapplicantcareerdetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantcareerdetails.source.getPaging().page)
-      {
-          this.tbl_mstapplicantcareerdetails.source.setPage((this.mstapplicantmaster_service.mstapplicantcareerdetails.length / this.tbl_mstapplicantcareerdetails.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicantcareerdetails.source.grid.edit(this.tbl_mstapplicantcareerdetails.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicantcareerdetails.source.data.indexOf(event.data);
-  this.onDelete_mstapplicantcareerdetail(event,event.data.careerid,((this.tbl_mstapplicantcareerdetails.source.getPaging().page-1) *this.tbl_mstapplicantcareerdetails.source.getPaging().perPage)+index);
-  this.tbl_mstapplicantcareerdetails.source.refresh();
-  break;
-  }
-  }
-
-  */
   mstapplicantcareerdetails_route(event: any, action: any) {
-    debugger
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
       addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
@@ -1156,23 +898,18 @@ export class mstapplicantcareergridComponent implements OnInit {
     }
   }
   mstapplicantcareerdetails_onDelete(obj) {
-    debugger
     let careerid = obj.data.careerid;
     if (confirm('Are you sure to delete this record ?')) {
       this.mstapplicantcareerdetail_service.delete_mstapplicantcareerdetail(careerid).then(res => {
-        debugger;
         this.mstapplicantcareerdetails_LoadTable();
       }
       );
     }
   }
   onDelete_mstapplicantcareerdetail(event: any, childID: any, i: number) {
-
-    debugger
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicantcareerdetail_service.delete_mstapplicantcareerdetail(childID).then(res => {
         this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
-          debugger;
           this.ngOnInit();
           this.mstapplicantcareerdetails_LoadTable(res);
         });
@@ -1180,18 +917,8 @@ export class mstapplicantcareergridComponent implements OnInit {
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantcareerdetail_IDs += childID + ",";
-    // this.tbl_mstapplicantcareerdetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
   async onCustom_mstapplicantcareerdetails_Action(event: any) {
-    //   this.dialog.open(mstapplicantreferencegridComponent, {
-    //     width: '100% !important',
-    //     height: 'auto !important',
-    //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-    //   })
-
     let fromdate = this.datePipe.transform(new Date(event.data.fromdate), 'dd-MM-yyyy');
     let todate = this.datePipe.transform(new Date(event.data.todate), 'dd-MM-yyyy');
 
@@ -1203,11 +930,6 @@ export class mstapplicantcareergridComponent implements OnInit {
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Currently Working: ' + event.data.currentlyworking + '</li>'
       + '<li class="list-group-item remarks_p" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
 
-    // let referencesourcedetails = 'Company Name:' + event.data.companyname +
-    //  '<BR>' + 'Designation: ' + event.data.designation + '<BR>'
-    //  + 'From Date: ' + event.data.fromdate + '<BR>' +
-    //  'To Date: ' + event.data.todate + '<BR>'
-    //  + 'Currently Working: ' + event.data.currentlyworking + '<BR>' + 'Remarks: ' + event.data.remarks;
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantcareerdetails");
     let formname = (objbomenuaction as any).actionname;
     if (formname == "mstapplicantreferencerequests") {
@@ -1250,7 +972,6 @@ export class mstapplicantcareergridComponent implements OnInit {
   }
 
   mstapplicantcareerdetails_Paging(val) {
-    //debugger;;
     this.tbl_mstapplicantcareerdetails.source.setPaging(1, val, true);
   }
 

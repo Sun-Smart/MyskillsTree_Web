@@ -1,11 +1,8 @@
-//import { NgCommonModule } from './appcommon.module';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarFormComponent } from '../../../n-tire-biz-app/src/app/pages/forms/calendarform/calendarform.component';
-
 import { showdashboardComponent } from '../../../n-tire-biz-app/src/app/pages/forms/bodashboardviewer/showdashboard.component';
 import { DashboardComponent } from '../../../n-tire-biz-app/src/app/pages/forms/dashboard/dashboard.component';
 import { CorporateDashboardComponent } from '../../../n-tire-biz-app/src/app/pages/forms/corporate.component';
@@ -37,7 +34,7 @@ export const paths = [
     path: '',
     children: [
 
-      {//CalendarComponent   //, component: LayoutComponent,
+      {
         path: '',
         children: [
 
@@ -103,19 +100,11 @@ export const paths = [
           { path: 'bomenumasters', pathMatch: 'prefix', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bomenumaster/bomenumaster.module').then(m => m.bomenumasterModule) },
           { path: 'bomenuactions', pathMatch: 'prefix', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bomenuaction/bomenuaction.module').then(m => m.bomenuactionModule) },
           { path: 'bousermenuaccesses', pathMatch: 'prefix', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bousermenuaccess/bousermenuaccess.module').then(m => m.bousermenuaccessModule) },
-          //{ path: 'bousers', pathMatch: 'prefix',loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bouser/bouser.module').then(m => m.bouserModule) },
           { path: 'bousertypemenuaccesses', pathMatch: 'prefix', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bousertypemenuaccess/bousertypemenuaccess.module').then(m => m.bousertypemenuaccessModule) },
           { path: 'bodashboardviewer', pathMatch: 'prefix', loadChildren: () => import("../../../n-tire-biz-app/src/app/pages/forms/bodashboardviewer/bodashboardviewer.module").then(m => m.bodashboardviewerModule) },
           { path: 'applicantdashboard', pathMatch: 'prefix', loadChildren: () => import("../../../n-tire-biz-app/src/app/pages/forms/applicantdashboard/applicantdashboard.module").then(m => m.applicantdashboardModule) },
           { path: 'hlpticketdetails', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/hlpticketdetail/hlpticketdetail.module').then(m => m.hlpticketdetailModule) },
-          //code added by dhana dec-15
-          // { path: 'newskillsearch',  loadChildren: () => import("../../../n-tire-biz-app/src/app/pages/forms/newskillsearch/newskillsearch.module").then(m => m.NewskillsearchModule) },
-
-          //added by dhana march-21
           { path: "mstterms", pathMatch: 'prefix', loadChildren: () => import("../../../n-tire-biz-app/src/app/pages/forms/mstterm/mstterm.module").then(m => m.msttermModule) },
-          //added by dhana mar-11
-          // { path: 'mstterm', pathMatch: 'prefix', loadChildren: () => import("../../../n-tire-biz-app/src/app/pages/forms/mstterm/mstterm.module").then(m => m.msttermModule) },
-
           { path: 'hlptickets', loadChildren: () => import("../../../n-tire-biz-app/src/app/pages/forms/hlpticket/hlpticket.module").then(m => m.hlpticketModule) },
           { path: 'lmsassigns', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/lmsassign/lmsassign.module').then(m => m.lmsassignModule) },
           { path: 'lmscalls', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/lmscall/lmscall.module').then(m => m.lmscallModule) },
@@ -148,23 +137,10 @@ export const paths = [
           { path: 'lmstaskresponses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/lmstaskresponse/lmstaskresponse.module').then(m => m.lmstaskresponseModule) },
           { path: 'boexpenses', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/boexpense/boexpense.module').then(m => m.boexpenseModule) },
 
-
-
-          // New Knowlwdge Base implementation 10/02/2023
-
           { path: 'faq', component: FaqComponent },
           { path: 'bokbmaster', component: BonewbokbmasterComponent },
           { path: 'forum', component: ForumComponent },
           { path: 'topic', component: BonewtopicComponent },
-          // { path: 'boforum', component: boforumComponent },
-
-          // { path: 'faq', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/faq/faq.module').then(m => m.FaqModule) },
-          // { path: 'bofaq', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bofaq/bofaq.module').then(m => m.BofaqModule) },
-          // { path: 'bokbmaster', pathMatch: 'prefix', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bokbmaster/bokbmaster.module').then(m => m.BokbmasterModule) },
-          // { path: 'bokbtopic', pathMatch: 'prefix', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bokbtopic/bokbtopic.module').then(m => m.BokbtopicModule) },
-          // { path: 'boforum', pathMatch: 'prefix', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/boforum/boforum.module').then(m => m.BoforumModule) },
-
-          //New implement applicant pages
           { path: "personaldetails",component: MstStartPagesComponent },
           { path: "newcareerdetails",component: MstCareerDetailsComponent },
           { path: "newcertification",component: MstCertificationsComponent },

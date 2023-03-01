@@ -29,6 +29,7 @@ export class VerifyscreenComponent implements OnInit {
   email: any;
   theme: string;
   showSpinner: boolean = false;
+  termCondition: any;
   verifyEmail_Otp1: string;
   verifyMob_Otp1: string;
   verifyEmail_data1: string;
@@ -55,14 +56,23 @@ export class VerifyscreenComponent implements OnInit {
       this.verifyEmail_data = data3;
     });
   }
-  get f() { return this.validation_Form.controls; }
+  get f() { return this.validation_Form.controls; };
+
+  onClick(event: any) { 
+
+    this.termCondition = event.target.checked;
+
+    console.log("this.termCondition",this.termCondition);
+    
+  };
+
   onSubmit(data: any) {
 
     this.submitted = true;
     this.showSpinner = true;
     this.mobile = this.validation_Form.value.mobileotp;
     this.email = this.validation_Form.value.emailotp;
-    if ((this.mobile == this.verifyMob_Otp) && (this.email == this.verifyEmail_Otp)) {
+    if ((this.email == this.verifyEmail_Otp) && (this.termCondition == true)) {
       this.http.get(AppConstants.ntirebizURL + '/Token/LoginwithOTP?email=' + this.verifyEmail_data + '&otpm=' + this.verifyMob_Otp + '&otpe=' + this.verifyEmail_Otp)
         .subscribe((resp: any) => {
           this.showSpinner = false;
@@ -74,9 +84,14 @@ export class VerifyscreenComponent implements OnInit {
           localStorage.setItem('token', user.token)
           this.CheckAgreeOk(user);
         })
-    } else {
-      this.toastService.addSingle("success", "", "Email and Mobile OTP mismatch.");
+    } else if((this.email == this.verifyEmail_Otp) || (this.termCondition == false)){
+      this.toastService.addSingle("success", "", "Accept Terms & Conditions.");
       this.showSpinner = false;
+      return
+    } else  {
+      this.toastService.addSingle("success", "", "Email OTP mismatch.");
+      this.showSpinner = false;
+      return
     }
   };
 
@@ -102,6 +117,11 @@ export class VerifyscreenComponent implements OnInit {
     this.sessionService.setItem("selected-theme", this.theme);
     this.sessionService.setItem("selected-layout", loginuser.layoutpage);
     this.sessionService.setItem("applicantid", loginuser.key);
+    this.sessionService.setItem("user_type", loginuser.user_type);
+    this.sessionService.setItem("email", loginuser.email);
+    this.sessionService.setItem("mobilenumber", loginuser.mobilenumber);
+    this.sessionService.setItem("emailid", loginuser.emailid);
+    this.sessionService.setItem("employeeid", loginuser.employeeid);
 
     if (loginuser.nextloginchangepassword == 'True') {
       this.router.navigate(['/resetpassword']);

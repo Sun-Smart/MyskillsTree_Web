@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
-                                        <label for="loginPassword">Type</label>
+                                        <label for="companytype">Type</label>
                                         <select id="companytype" (change)="companytype_onChange($event.target)"
                                             formControlName="companytype" class="form-control">
                                             <option [ngValue]="null" selected>-Select-</option>
@@ -79,7 +79,15 @@
                                         <label *ngIf="showview" class="labelview">{{f.designationdesc?.value}}</label>
                                     </div>
                                 </div>
+
                                 <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label for="loginPassword">Mobile</label>
+                                        <input type="number" name="mobilenumber" formControlName="mobilenumber"  required onKeyPress="if(this.value.length==10) return false;" class="form-control input-sm"
+                                            placeholder="Mobile Number">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-12">
                                     <div class="form-group">
                                         <label for="emailid">Email</label>
                                         <input type="email" [email]="true" id="emailid" formControlName="emailid" required
@@ -90,14 +98,11 @@
                                         </app-field-error-display>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <div class="form-group">
-                                        <label for="loginPassword">Mobile</label>
-                                        <input type="number" name="mobilenumber" formControlName="mobilenumber"  required onKeyPress="if(this.value.length==10) return false;" class="form-control input-sm"
-                                            placeholder="Mobile Number">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
+        
+
+                                <!-- Category in commend -->
+
+                                <!-- <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <label for="loginPassword">Category</label>
                                         <select name="gender" formControlName="category" [(ngModel)]="category"  class="form-control" (change)="opendrop(category)">
@@ -124,7 +129,7 @@
                                         <input type="radio" name="skills"
                                             value="certifier"> physically challenged
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">

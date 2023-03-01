@@ -34,15 +34,7 @@ export class MenuComponent implements AfterViewInit {
 
     }
     ngAfterViewInit() {
-
-
-
         setTimeout(() => {
-            debugger;
-            console.log(this.items);
-            // this.menuitems=JSON.stringify(this.items);
-
-
             var activeMenu = this.sessionService.getItem("active-menu");
             if (activeMenu) {
                 this.selectedItem = activeMenu;
@@ -54,8 +46,6 @@ export class MenuComponent implements AfterViewInit {
 
     // on menu click event
     onMenuClick(menu: MenuItem) {
-        //debugger;
-        // if child are available then open child
         if (menu.items != undefined || menu.items != null) {
             this.toggleSubMenu(menu);
             return;
@@ -64,7 +54,6 @@ export class MenuComponent implements AfterViewInit {
             this.toastService.addSingle("error", "", "404 Page not found.");
             return;
         }
-        console.log("click" + menu.id);
         this.sharedService.menuid = menu.id;
         this.sharedService.menucode = menu.menucode;
         this.sharedService.currenturl = menu.routerLink;
@@ -75,7 +64,7 @@ export class MenuComponent implements AfterViewInit {
 
         this.routeStateService.add(menu.label, "/#/" + link, null, true);
 
-        // hide menu bar after menu click for mobile layout        
+        // hide menu bar after menu click for mobile layout
         setTimeout(() => {
             this.closeClicked.emit(false);
         }, 100);

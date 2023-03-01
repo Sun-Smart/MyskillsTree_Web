@@ -68,15 +68,9 @@
               style="border-color: #fff !important;
   color: #fff;margin: 5px;
      padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
-
-            <!-- <a class="alert-success" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
-    <a class="alert-primary"  *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a> -->
             <app-action *ngIf="f.categoryid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.categoryid.value" [status]="f.status.value"></app-action>
           </li>
-          <!-- <li  class='nav-item actionheader common_title_style'   *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-    <a class="alert-danger"  [routerLink]=''  (click)="onClose()"   ><i class="fa fa-close"></i> Close</a>
-  </li> -->
 
           <i class='nav-item actionheader common_title_style'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
@@ -105,18 +99,6 @@
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-              <!-- <div *ngIf="((hidelist.indexOf('code') == -1) && (codevisible==undefined || codevisible==true))" style=''
-                class="col-3 ">
-                <label for="code" class="control-label">Code</label>
-                <label *ngIf="showview" class="labelview">{{f.code?.value}}</label>
-                <input *ngIf="!showview" id="code" formControlName="code" class="form-control">
-              </div> -->
-<!--
-              <div *ngIf="angForm.controls['name'].invalid && (angForm.controls['name'].dirty || angForm.controls['name'].touched)" class="alert alert-danger">
-                <div *ngIf="angForm.controls['name'].errors.required">
-                Name is required.
-              </div>
-            </div> -->
               <div *ngIf="((hidelist.indexOf('name') == -1) && (namevisible==undefined || namevisible==true))"
                 class="col-3 education_view_mobile">
                 <label for="name" type class="control-label">Name</label>
@@ -124,9 +106,7 @@
                 <input type="text" onlyGrow="true" *ngIf="!showview" id="name" formControlName="name" class="form-control" required />
                 <app-field-error-display [displayError]="f.name.errors?.required" errorMsg="Enter {{'Name'}}">
                 </app-field-error-display>
-                <!-- <span class="invalid-feedback"></span> -->
               </div>
-              <!-- <app-field-error-display [displayError]="isFieldValid('name')"  errorMsg="Please enter name"></app-field-error-display> -->
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div

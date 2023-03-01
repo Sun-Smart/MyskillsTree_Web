@@ -1,50 +1,25 @@
 import { mstsegmentService } from './../../../service/mstsegment.service';
 import { mstsegment } from './../../../model/mstsegment.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { mstcategory } from './../../../model/mstcategory.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { mstcategoryComponent } from './../../../pages/forms/mstcategory/mstcategory.component';
-import { mstcategoryService } from './../../../service/mstcategory.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { AppConstants } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
   selector: 'app-mstsegment',
@@ -64,10 +39,8 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
         }
       }
   `],
-  providers: [KeyboardShortcutsService]
+  providers: []
 })
-
-
 
 export class mstsegmentComponent implements OnInit {
   formData: mstsegment;
@@ -124,12 +97,8 @@ export class mstsegmentComponent implements OnInit {
   mstcategories_selectedindex: any;
 
 
-  constructor(
-    private nav: Location,
-    private translate: TranslateService,
-    private keyboard: KeyboardShortcutsService, private router: Router,
+  constructor(private router: Router,
     private themeService: ThemeService,
-    private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
@@ -140,31 +109,12 @@ export class mstsegmentComponent implements OnInit {
     private toastr: ToastService,
     private sanitizer: DomSanitizer,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-    this.translate = this.sharedService.translate;
     this.data = dynamicconfig;
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
-    this.keyboard.add([
-      {
-        key: 'cmd l',
-        command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-        preventDefault: true
-      },
-      {
-        key: 'cmd s',
-        command: () => this.onSubmitData(false),
-        preventDefault: true
-      },
-      {
-        key: 'cmd f',
-        command: () => this.resetForm(),
-        preventDefault: true
-      }
-    ]);
     this.mstsegment_Form = this.fb.group({
       pk: [null],
       segmentid: [null],
-      // code: [null, Validators.compose([Validators.required])],
       name: [null, Validators.compose([Validators.required])],
       status: [null],
       statusdesc: [null],
@@ -178,10 +128,8 @@ export class mstsegmentComponent implements OnInit {
   ToolBar(prop) {
     this.toolbarVisible = prop;
   }
-
   //function called when we navigate to other page.defined in routing
   canDeactivate(): Observable<boolean> | boolean {
-    debugger;
     if (this.mstsegment_Form.dirty && this.mstsegment_Form.touched) {
       if (confirm('Do you want to exit the page?')) {
         return Observable.of(true).delay(1000);
@@ -190,29 +138,6 @@ export class mstsegmentComponent implements OnInit {
       }
     }
     return Observable.of(true);
-  }
-
-  //check Unique fields
-
-  //navigation buttons
-  first() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-  }
-
-  last() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-  }
-
-  prev() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.segmentid.toString(); }).indexOf(this.formid.toString());
-    if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-  }
-
-  next() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.segmentid.toString(); }).indexOf(this.formid.toString());
-    if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
   }
 
   //on searching in pk autocomplete
@@ -235,9 +160,6 @@ export class mstsegmentComponent implements OnInit {
     }
 
     this.theme = this.sessionService.getItem('selected-theme');
-    //this.viewHtml=this.sessionService.getViewHtml();
-
-    debugger;
     //getting data - from list page, from other screen through dialog
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -277,14 +199,10 @@ export class mstsegmentComponent implements OnInit {
       this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
     }
     this.formid = mstsegmentid;
-    //alert(mstsegmentid);
 
     //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
     if (this.pkcol == null) {
       this.Set_mstcategories_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstcategories_TableDropDownConfig();
-      });
 
       this.resetForm();
     }
@@ -294,14 +212,14 @@ export class mstsegmentComponent implements OnInit {
       //foreign keys
     }
     this.mstsegment_service.getDefaultData().then(res => {
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
 
     //autocomplete
     this.mstsegment_service.get_mstsegments_List().then(res => {
       this.pkList = res as mstsegment[];
       this.pkoptionsEvent.emit(this.pkList);
     }
-    ).catch((err) => { this.spinner.hide(); console.log(err); });
+    ).catch((err) => { this.spinner.hide();});
     //setting the flag that the screen is not touched
     this.mstsegment_Form.markAsUntouched();
     this.mstsegment_Form.markAsPristine();
@@ -321,15 +239,13 @@ export class mstsegmentComponent implements OnInit {
     this.PopulateFromMainScreen(this.dynamicconfig.data, true);
   }
   onDelete() {
-    debugger
     let segmentid = this.mstsegment_Form.get('segmentid').value;
     if (segmentid != null) {
       if (confirm('Are you sure to delete this record ?')) {
         this.mstsegment_service.delete_mstsegment(segmentid).then(res => {
-          debugger
           this.resetForm();
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        ).catch((err) => { this.spinner.hide(); });
       }
     }
     else {
@@ -346,7 +262,6 @@ export class mstsegmentComponent implements OnInit {
     }
   }
   PopulateFromMainScreen(mainscreendata: any, bdisable: any) {
-    debugger
     if (mainscreendata != null) {
       for (let key in mainscreendata) {
         if (key != 'visiblelist' && key != 'hidelist' && key != 'event') {
@@ -406,32 +321,21 @@ export class mstsegmentComponent implements OnInit {
   }
 
   edit_mstsegments() {
-    debugger
     this.showview = false;
-    setTimeout(() => {
-    });
     return true;
   }
 
-
-
   async PopulateScreen(pkcol: any) {
-    debugger
     this.spinner.show();
-    debugger
     this.mstsegment_service.get_mstsegments_ByEID(pkcol).then(res => {
-      debugger
-      console.log("test")
       this.spinner.hide();
-
       this.formData = res.mstsegment;
       let formproperty = res.mstsegment.formproperty;
       if (formproperty && formproperty.edit == false) this.showview = true;
       this.pkcol = res.mstsegment.pkcol;
       this.formid = res.mstsegment.segmentid;
       this.FillData(res);
-      console.log(res)
-    }).catch((err) => { console.log(err); });
+    }).catch((err) => { });
   }
 
   FillData(res: any) {
@@ -440,9 +344,6 @@ export class mstsegmentComponent implements OnInit {
     this.pkcol = res.mstsegment.pkcol;
     this.bmyrecord = false;
     if ((res.mstsegment as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-    console.log(res);
-    //console.log(res.order);
-    //console.log(res.orderDetails);
     this.mstsegment_Form.patchValue({
       segmentid: res.mstsegment.segmentid,
       code: res.mstsegment.code,
@@ -466,7 +367,6 @@ export class mstsegmentComponent implements OnInit {
   }
 
   getHtml(html: any) {
-    debugger
     let ret = "";
     ret = html;
 
@@ -499,15 +399,11 @@ export class mstsegmentComponent implements OnInit {
       return;
     }
     var obj = this.mstsegment_Form.getRawValue();
-    console.log(obj);
     if (!confirm('Do you want to want to save?')) {
       return;
     }
     this.objvalues.push(obj);
     this.dialogRef.close(this.objvalues);
-    setTimeout(() => {
-      //this.dialogRef.destroy();
-    }, 200);
   }
 
   //This has to come from bomenuactions & procedures
@@ -523,19 +419,9 @@ export class mstsegmentComponent implements OnInit {
 
 
   async onSubmitData(bclear: any) {
-    debugger;
     this.isSubmitted = true;
     let strError = "";
-    // Object.keys(this.mstsegment_Form.controls).forEach(key => {
-    //   const controlErrors: ValidationErrors = this.mstsegment_Form.get(key).errors;
-    //   if (controlErrors != null) {
-    //     Object.keys(controlErrors).forEach(keyError => {
-    //       strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-    //     });
-    //   }
-    // });
     if (strError != "") return this.sharedService.alert(strError);
-
 
     if (!this.mstsegment_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the required fields");
@@ -556,7 +442,6 @@ export class mstsegmentComponent implements OnInit {
     }
     this.formData.Deleted_mstcategory_IDs = this.Deleted_mstcategory_IDs;
 
-    console.log(this.formData);
     this.spinner.show();
     this.mstsegment_service.saveOrUpdate_mstsegments(this.formData, this.tbl_mstcategories?.source?.data,).subscribe(
       async res => {
@@ -566,11 +451,9 @@ export class mstsegmentComponent implements OnInit {
           }
         }
         this.spinner.hide();
-        debugger;
         this.toastr.addSingle("success", "", "Successfully saved");
         this.objvalues.push((res as any).mstsegment);
         if (!bclear) this.showview = true;
-        // document.getElementById("contentAreascroll").scrollTop = 0;
         if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
           this.dialogRef.close(this.objvalues);
           return;
@@ -595,10 +478,8 @@ export class mstsegmentComponent implements OnInit {
         this.mstsegment_Form.markAsPristine();
       },
       err => {
-        debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       }
     )
   }
@@ -641,7 +522,6 @@ export class mstsegmentComponent implements OnInit {
     if (childID != null)
       this.Deleted_mstcategory_IDs += childID + ",";
     this.tbl_mstcategories.source.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
 
@@ -654,7 +534,6 @@ export class mstsegmentComponent implements OnInit {
   mstcategories_settings: any;
 
   show_mstcategories_Checkbox() {
-    debugger;
     if (this.tbl_mstcategories.source.settings['selectMode'] == 'multi') this.tbl_mstcategories.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstcategories.source.settings['selectMode'] = 'multi';
@@ -664,15 +543,8 @@ export class mstsegmentComponent implements OnInit {
     this.tbl_mstcategories.source.settings['selectMode'] = 'single';
   }
   show_mstcategories_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstcategories_TableDropDownConfig();
-    });
     if (this.tbl_mstcategories.source.settings != null) this.tbl_mstcategories.source.settings['hideSubHeader'] = !this.tbl_mstcategories.source.settings['hideSubHeader'];
     this.tbl_mstcategories.source.initGrid();
-  }
-  show_mstcategories_InActive() {
-  }
-  enable_mstcategories_InActive() {
   }
   async Set_mstcategories_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstcategories) {
@@ -740,41 +612,6 @@ export class mstsegmentComponent implements OnInit {
       if (this.tbl_mstcategories != undefined) this.tbl_mstcategories.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstcategories_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstsegment_service.mstcategories.length == 0)
-  {
-      this.tbl_mstcategories.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstcategory();
-      this.mstsegment_service.mstcategories.push(obj);
-      this.tbl_mstcategories.source.refresh();
-      if ((this.mstsegment_service.mstcategories.length / this.tbl_mstcategories.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstcategories.source.getPaging().page)
-      {
-          this.tbl_mstcategories.source.setPage((this.mstsegment_service.mstcategories.length / this.tbl_mstcategories.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstcategories.source.grid.edit(this.tbl_mstcategories.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  if (confirm('Do you want to want to delete?')) {
-  let index = this.tbl_mstcategories.source.data.indexOf(event.data);
-  this.onDelete_mstcategory(event,event.data.categoryid,((this.tbl_mstcategories.source.getPaging().page-1) *this.tbl_mstcategories.source.getPaging().perPage)+index);
-  this.tbl_mstcategories.source.refresh();
-  }
-  break;
-  }
-  }
-
-  */
   mstcategories_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -809,13 +646,8 @@ export class mstsegmentComponent implements OnInit {
   async onCustom_mstcategories_Action(event: any) {
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstcategories");
     let formname = (objbomenuaction as any).actionname;
-
-
-
-
   }
   mstcategories_Paging(val) {
-    debugger;
     this.tbl_mstcategories.source.setPaging(1, val, true);
   }
 

@@ -56,14 +56,6 @@
               </li>
             </ul>
           </li>
-          <!--<ng-container *ngFor="let action of mstjobrequirement_menuactions">
-    <li><a  class="alert-action" [routerLink]=''  (click)="onChangeAction(action.actionid)" ><i class="fa fa-new" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
-</ng-container>-->
-
-          <!-- <li class='nav-item actionheader'
-            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-            <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-          </li> -->
 
         </ul>
       </div>
@@ -75,12 +67,6 @@
         <i class="nb-edit"></i>Edit
       </button>
       <li class='nav-item actionheader' *ngIf="!showview">
-        <!-- <a class="alert-success  popup-add-button mobile_view_btn" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
-          Back</a> -->
-        <!-- <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
-          Submit</a> -->
-        <!-- <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-          (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
         <app-action *ngIf="f.jobid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
           [value]="f.jobid.value" [status]="f.status.value"></app-action>
       </li>
@@ -103,8 +89,6 @@
           <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()"><i
               class="fa fa-database"></i>
             Submit</a>
-          <!-- <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
           <app-action *ngIf="f.jobid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
             [value]="f.jobid.value" [status]="f.status.value"></app-action>
         </li>
@@ -216,10 +200,6 @@
                 style='' class="col-3 education_view_mobile"><label for="locations" class="control-label">Locations</label>&nbsp;&nbsp; <br />
                 <p-autoComplete formControlName="locations" field="label" [multiple]="true" *ngIf="!showview"
                   [suggestions]="locations_results" (completeMethod)="locations_onChange($event)"></p-autoComplete>
-                <!-- <p-multiSelect [options]="locations_List" formControlName="locations" [filter]="true" *ngIf="!showview"
-                  id="locationsdesc" (change)="locations_onChange($event.target)" formControlName="locations"
-                  class="form-control">
-                </p-multiSelect>  -->
                 <label *ngIf="showview" class="labelview">{{f.locations?.label}}</label>
                 <label class="labelview alignment_label" *ngIf="showview">{{mstjobrequirement.locationdesc}}</label>
               </div>
@@ -230,13 +210,6 @@
                   *ngIf="!showview" [suggestions]="skills_results"
                   (completeMethod)="skills_onChange($event)"></p-autoComplete>
 
-                <!-- <p-autoComplete formControlName="skills" field="label" id="skillsdesc" [multiple]="true" *ngIf="!showview" [suggestions]="skills_results"
-                  (completeMethod)="skills_onChange($event)"></p-autoComplete> -->
-
-                <!-- <p-multiSelect [options]="skills_List" formControlName="skills" [filter]="true" *ngIf="!showview"
-                  id="skillsdesc" (change)="skills_onChange($event.target)" formControlName="skills"
-                  class="form-control">
-                </p-multiSelect> -->
                 <label *ngIf="showview" class="labelview">{{f.skills?.label}}</label>
                 <label class="labelview alignment_label" *ngIf="showview">{{mstjobrequirement.skilldesc}}</label>
               </div>
@@ -258,12 +231,6 @@
                   *ngIf="!showview" [suggestions]="education_results"
                   (completeMethod)="education_onChange($event)"></p-autoComplete>
 
-
-
-                <!-- <p-multiSelect [options]="education_List" formControlName="education" [filter]="true" *ngIf="!showview"
-                  id="educationdesc" (change)="education_onChange($event.target)" formControlName="education"
-                  class="form-control">
-                </p-multiSelect>  -->
                 <label *ngIf="showview" class="labelview">{{f.education?.label}}</label>
                 <label class="labelview alignment_label" *ngIf="showview">{{mstjobrequirement.educationdesc}}</label>
               </div>
@@ -278,10 +245,6 @@
                 <p-autoComplete formControlName="language" field="label" id="languagedesc" [multiple]="true"
                   *ngIf="!showview" [suggestions]="language_results"
                   (completeMethod)="language_onChange($event)"></p-autoComplete>
-                <!-- <p-multiSelect [options]="language_List" formControlName="language" [filter]="false" *ngIf="!showview"
-                  id="languagedesc" (change)="language_onChange($event.target)" formControlName="language"
-                  class="form-control">
-                </p-multiSelect> -->
                 <label *ngIf="showview" class="labelview">{{f.language?.label}}</label>
                 <label class="labelview alignment_label" *ngIf="showview">{{mstjobrequirement.languagedesc}}</label>
               </div>
@@ -360,8 +323,6 @@
                     </ul>
                   </li>
                 </ul>
-                <!-- <a class="rightside" [routerLink]='' (click)="mstjobstatuses_route(null, 'create')"><i
-                    class="fa fa-plus"></i></a> -->
               </h4>
               <ng2-smart-table #tbl_mstjobstatuses (userRowSelect)="handle_mstjobstatuses_GridSelected($event)"
                 [settings]="mstjobstatuses_settings" (custom)="onCustom_mstjobstatuses_Action($event)"
