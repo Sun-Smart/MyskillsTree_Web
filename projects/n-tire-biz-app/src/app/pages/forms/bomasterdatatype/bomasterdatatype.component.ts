@@ -89,9 +89,10 @@ export class bomasterdatatypeComponent implements OnInit {
 
     sessionData: any;
     sourceKey: any;
-
-
-
+    
+    checkrelease : boolean = false;
+    releasecheckbox : boolean = false;
+    canedit:boolean = false ;
     bomasterdatas_visiblelist: any;
     bomasterdatas_hidelist: any;
 
@@ -101,7 +102,7 @@ export class bomasterdatatypeComponent implements OnInit {
     masterdatatypeid1: string;
     mdata: any;
     boarray: any[];
-
+check1:boolean = false ;
 
     constructor( private router: Router,
         private themeService: ThemeService,
@@ -188,9 +189,13 @@ export class bomasterdatatypeComponent implements OnInit {
             this.PopulateScreen(pkDetail.pkcol);
         }
     }
+    
 
     // initialize
     async ngOnInit() {
+        debugger
+
+        this.checkRelease();
         //session & theme
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
@@ -271,10 +276,28 @@ export class bomasterdatatypeComponent implements OnInit {
         ).catch((err) => { this.spinner.hide();});
         //setting the flag that the screen is not touched
         this.bomasterdatatype_Form.markAsUntouched();
-        this.bomasterdatatype_Form.markAsPristine();
+        this.bomasterdatatype_Form.markAsPristine();  
+        console.log( this.bomasterdatatype_Form.value.hassubcategory)  
+    
+       
+
+    }      
+
+    checkRelease()
+    {
+       debugger;
+       console.log(this.releasecheckbox);
+       localStorage.setItem("releasecheckbox", JSON.stringify(this.releasecheckbox));
+       
+    }
+    checkedit(){
+        console.log(this.canedit);
+        localStorage.setItem("canedit", JSON.stringify(this.canedit));
     }
 
-
+    release(release: any) {
+        throw new Error('Method not implemented.');
+    }
 
     resetForm() {
         if (this.bomasterdatatype_Form != null)
@@ -404,7 +427,7 @@ export class bomasterdatatypeComponent implements OnInit {
         this.bmyrecord = false;
         if ((res.bomasterdatatype as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
         this.mdata=res.bomasterdatatype.masterdataname
-
+        console.log( this.bomasterdatatype_Form.value.hassubcategory)
         this.bomasterdatatype_Form.patchValue({
             datatypeid: res.bomasterdatatype.datatypeid,
             code: res.bomasterdatatype.code,
@@ -485,9 +508,6 @@ export class bomasterdatatypeComponent implements OnInit {
         else if (mode == "refresh")
             this.router.navigate(['/home/' + formname + '/' + formname + '/edit/' + this.formid + query]);
     }
-
-
-
     async onSubmitData(bclear: any) {
 
         this.isSubmitted = true;

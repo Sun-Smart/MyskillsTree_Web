@@ -166,7 +166,7 @@
                     </ul>
                   </li>
                 </ul>
-                <a class="rightside" [routerLink]='' (click)="bosubcategorymasters_route(null, 'create')"><i
+                <a class="rightside" [routerLink]='' *ngIf="plusbutton" (click)="bosubcategorymasters_route(null, 'create')"><i
                     class="fa fa-plus"></i></a>
               </h4>
               <ng2-smart-table #tbl_bosubcategorymasters
