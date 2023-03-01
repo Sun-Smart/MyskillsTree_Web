@@ -1,66 +1,36 @@
 import { botaskService } from './../../../service/botask.service';
 import { botask } from './../../../model/botask.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
+import { KeyValuePair } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { botaskresponse } from './../../../model/botaskresponse.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { botaskresponseComponent } from './../../../pages/forms/botaskresponse/botaskresponse.component';
-import { botaskresponseService } from './../../../service/botaskresponse.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
 import { customfieldconfigurationService } from '../../../../../../n-tire-biz-app/src/app/service/customfieldconfiguration.service';
-import { customfieldconfiguration } from '../../../../../../n-tire-biz-app/src/app/model/customfieldconfiguration.model';
 import { DynamicFormBuilderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/dynamic-form-builder/dynamic-form-builder.component';
 
 @Component({
     selector: 'app-botask',
     templateUrl: './botask.component.html',
     styles: [],
-    providers: [KeyboardShortcutsService]
+    providers: []
 })
-
-
 
 export class botaskComponent implements OnInit {
     formData: botask;
@@ -119,8 +89,6 @@ export class botaskComponent implements OnInit {
     sessionData: any;
     sourceKey: any;
 
-
-
     botaskresponses_visiblelist: any;
     botaskresponses_hidelist: any;
 
@@ -130,10 +98,7 @@ export class botaskComponent implements OnInit {
     userid: any;
 
 
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor(private router: Router,
         private themeService: ThemeService,
         private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
@@ -145,29 +110,10 @@ export class botaskComponent implements OnInit {
         private sessionService: SessionService,
         private toastr: ToastService,
         private customfieldservice: customfieldconfigurationService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.botask_Form = this.fb.group({
             pk: [null],
             ImageName: [null],
@@ -213,7 +159,6 @@ export class botaskComponent implements OnInit {
 
     //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.botask_Form.dirty && this.botask_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -222,29 +167,6 @@ export class botaskComponent implements OnInit {
             }
         }
         return Observable.of(true);
-    }
-
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.taskid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.taskid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
     }
 
     //on searching in pk autocomplete
@@ -267,9 +189,6 @@ export class botaskComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -301,7 +220,7 @@ export class botaskComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -309,14 +228,10 @@ export class botaskComponent implements OnInit {
             this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
         }
         this.formid = botaskid;
-        //alert(botaskid);
 
         //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.Set_botaskresponses_TableConfig();
-            setTimeout(() => {
-                //this.Set_botaskresponses_TableDropDownConfig();
-            });
 
             this.FillCustomField();
             this.resetForm();
@@ -324,22 +239,22 @@ export class botaskComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.botask_service.getDefaultData().then(res => {
             this.tasktype_List = res.list_tasktype.value;
             this.priority_List = res.list_priority.value;
             this.taskstatus_List = res.list_taskstatus.value;
             this.performancestatus_List = res.list_performancestatus.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide(); });
 
         //autocomplete
         this.botask_service.get_botasks_List(this.userid).then(res => {
             this.pkList = res as botask[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        ).catch((err) => { this.spinner.hide(); });
+        //setting the flag that the screen is not touched
         this.botask_Form.markAsUntouched();
         this.botask_Form.markAsPristine();
     }
@@ -371,7 +286,7 @@ export class botaskComponent implements OnInit {
                 this.botask_service.delete_botask(taskid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -494,8 +409,6 @@ export class botaskComponent implements OnInit {
 
     edit_botasks() {
         this.showview = false;
-        setTimeout(() => {
-        });
         return false;
     }
 
@@ -512,7 +425,7 @@ export class botaskComponent implements OnInit {
             this.pkcol = res.botask.pkcol;
             this.formid = res.botask.taskid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -521,9 +434,6 @@ export class botaskComponent implements OnInit {
         this.pkcol = res.botask.pkcol;
         this.bmyrecord = false;
         if ((res.botask as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.botask_Form.patchValue({
             taskid: res.botask.taskid,
             sourcefield: res.botask.sourcefield,
@@ -612,15 +522,11 @@ export class botaskComponent implements OnInit {
         if (customfields != null) obj.customfield = JSON.stringify(customfields);
         if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
         obj.fileAttachmentList = this.fileattachment.getAllFiles();
-        console.log(obj);
         await this.sharedService.upload(this.fileAttachmentList);
         this.attachmentlist = [];
         if (this.fileattachment) this.fileattachment.clear();
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -636,19 +542,9 @@ export class botaskComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.botask_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.botask_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.botask_Form.valid || (this.customform != undefined && this.customform.form != undefined && !this.customform.form.valid)) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -677,7 +573,6 @@ export class botaskComponent implements OnInit {
         if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
         this.formData.Deleted_botaskresponse_IDs = this.Deleted_botaskresponse_IDs;
         this.fileAttachmentList = this.fileattachment.getAllFiles();
-        console.log(this.formData);
         this.spinner.show();
         this.botask_service.saveOrUpdate_botasks(this.formData, this.tbl_botaskresponses?.source?.data,).subscribe(
             async res => {
@@ -690,7 +585,6 @@ export class botaskComponent implements OnInit {
                     }
                 }
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).botask);
                 if (!bclear) this.showview = true;
@@ -719,16 +613,11 @@ export class botaskComponent implements OnInit {
                 this.botask_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
-
-
-
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
@@ -763,7 +652,6 @@ export class botaskComponent implements OnInit {
         if (childID != null)
             this.Deleted_botaskresponse_IDs += childID + ",";
         this.tbl_botaskresponses.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
 
@@ -776,7 +664,6 @@ export class botaskComponent implements OnInit {
     botaskresponses_settings: any;
 
     show_botaskresponses_Checkbox() {
-        debugger;
         if (this.tbl_botaskresponses.source.settings['selectMode'] == 'multi') this.tbl_botaskresponses.source.settings['selectMode'] = 'single';
         else
             this.tbl_botaskresponses.source.settings['selectMode'] = 'multi';
@@ -786,15 +673,8 @@ export class botaskComponent implements OnInit {
         this.tbl_botaskresponses.source.settings['selectMode'] = 'single';
     }
     show_botaskresponses_Filter() {
-        setTimeout(() => {
-            //  this.Set_botaskresponses_TableDropDownConfig();
-        });
         if (this.tbl_botaskresponses.source.settings != null) this.tbl_botaskresponses.source.settings['hideSubHeader'] = !this.tbl_botaskresponses.source.settings['hideSubHeader'];
         this.tbl_botaskresponses.source.initGrid();
-    }
-    show_botaskresponses_InActive() {
-    }
-    enable_botaskresponses_InActive() {
     }
     async Set_botaskresponses_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_botaskresponses) {
@@ -803,9 +683,6 @@ export class botaskComponent implements OnInit {
     }
     async botaskresponses_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_botaskresponses_TableConfig() {
         this.botaskresponses_settings = {
@@ -881,38 +758,6 @@ export class botaskComponent implements OnInit {
         }
     }
 
-    //external to inline
-    /*
-    botaskresponses_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.botask_service.botaskresponses.length == 0)
-    {
-        this.tbl_botaskresponses.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new botaskresponse();
-        this.botask_service.botaskresponses.push(obj);
-        this.tbl_botaskresponses.source.refresh();
-        if ((this.botask_service.botaskresponses.length / this.tbl_botaskresponses.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_botaskresponses.source.getPaging().page)
-        {
-            this.tbl_botaskresponses.source.setPage((this.botask_service.botaskresponses.length / this.tbl_botaskresponses.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_botaskresponses.source.grid.edit(this.tbl_botaskresponses.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_botaskresponses.source.data.indexOf(event.data);
-    this.onDelete_botaskresponse(event,event.data.responseid,((this.tbl_botaskresponses.source.getPaging().page-1) *this.tbl_botaskresponses.source.getPaging().perPage)+index);
-    this.tbl_botaskresponses.source.refresh();
-    break;
-    }
-    }
-    
-    */
     botaskresponses_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -945,13 +790,8 @@ export class botaskComponent implements OnInit {
     async onCustom_botaskresponses_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "botaskresponses");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     botaskresponses_Paging(val) {
-        debugger;
         this.tbl_botaskresponses.source.setPaging(1, val, true);
     }
 
