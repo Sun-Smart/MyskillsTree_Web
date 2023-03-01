@@ -347,7 +347,7 @@ export class BODashboardViewerComponent implements OnInit {
         } else if (this.skill_detail[i].strRating == 5) {
           this.showstr = '★★★★★'
         };
-        
+
         this.finalarray.push({
           subCategory: this.skill_detail[i].subCategory,
           skillId: this.skill_detail[i].skill_id,
@@ -378,8 +378,8 @@ export class BODashboardViewerComponent implements OnInit {
       this.dashboard_projectdetails = this.dashboard_details[0].lis_dashboardproject.value;
       this.dashboard_educationdetails = this.dashboard_details[0].list_dashboareducation.value;
 
-      let StartDate = this.dashboard_employementdetails[0].fromdate;
-      let EndDate = this.dashboard_employementdetails[0].todate;
+      let StartDate = this.dashboard_employementdetails[0]?.fromdate;
+      let EndDate = this.dashboard_employementdetails[0]?.todate;
 
       this.start_date = this.datepipe.transform(new Date(StartDate), 'dd-MM-yyyy');
       this.end_date = this.datepipe.transform(new Date(EndDate), 'dd-MM-yyyy');

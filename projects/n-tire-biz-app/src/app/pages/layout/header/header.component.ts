@@ -2,15 +2,11 @@ import { Component, OnInit, Output, Input, ViewChild, EventEmitter } from '@angu
 import { Router } from '@angular/router';
 import { RouteStateService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/route-state.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
-//import { User } from '../../core/models/user.model';
-import { notification } from '../../core/models/notification.model';
 import { UserIdleService } from 'angular-user-idle';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
 import { UserContextService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/user-context.service';
 import { botaskService } from '../../../../../../n-tire-biz-app/src/app/service/botask.service';
 import { DialogService } from 'primeng/dynamicDialog';
-
-import { lmstask } from '../../../../../../n-tire-biz-app/src/app/model/lmstask.model';
 import { lmstaskComponent } from '../../../../../../n-tire-biz-app/src/app/pages/forms/lmstask/lmstask.component';
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { bousermasterService } from './../../../service/bousermaster.service';
@@ -25,7 +21,6 @@ import { mstapplicanteducationdetailgridComponent } from '../../forms/mstapplica
 import { mstapplicantachivementgridComponent } from '../../forms/mstapplicantachievementdetail/mstapplicantachivementgrid.component';
 import { mstapplicantsocialmediagridComponent } from '../../forms/mstapplicantsocialmediadetail/mstapplicantsocialmediagrid.component';
 import { mstapplicantlanuagegridComponent } from '../../forms/mstapplicantlanguagedetail/mstapplicantlanguagegrid.component';
-import { ReportViewerCtrlComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/boreportviewer/reportviewerctrl.component';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 import { mstcorporatemasterService } from '../../../service/mstcorporatemaster.service';
 import { NewskillsearchComponent } from '../../forms/newskillsearch/newskillsearch.component';
@@ -99,27 +94,19 @@ export class HeaderComponent implements OnInit {
     private toastService: ToastService,
     private pageroute: Router, private mstcorporatemasterservice: mstcorporatemasterService
   ) {
-    //debugger;
     this.displayNotifications = false;
     this.userid = this.sessionService.getItem('userid');
     this.theme = this.sessionService.getItem("selected-theme");
     this.usersource = this.sessionService.getItem("usersource");
     this.applicantid = this.sessionService.getItem("applicantid");
 
-    //this.theme ='cruze';
     if (this.theme) {
       this.selectTheme(this.theme);
     }
   }
   openApplicant() {
-    debugger;
     this.menuhide = false;
-    //
-    //"home/boreportviewer/arrA"
-    // this.sharedService.currenturl = 'home/bodashboardviewer/bodashboardviewer/';
     this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("usersource")]);
-    // this.sharedService.currenturl = 'home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem("usersource");
-    // this.router.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem("usersource")]);
 
   }
   openJobs() {
@@ -140,7 +127,6 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit() {
 
-    //debugger;
     this.showNotify = false;
     this.user = this.sessionService.getSession();
 
@@ -152,12 +138,10 @@ export class HeaderComponent implements OnInit {
       let jsonUser = JSON.parse(this.userData.userphoto);
       if (jsonUser.length > 0) this.userphoto = jsonUser[0].name;
     }).catch((err) => {
-      //console.log(err);
     });
 
     this.theme = this.sessionService.getItem('selected-theme');
     this.themeService.theme.subscribe((val: string) => {
-      //debugger;
       this.theme = val;
     });
 
@@ -172,7 +156,7 @@ export class HeaderComponent implements OnInit {
 
     this.username = this.sessionService.getItem('username');
     if (this.sessionService.getItem('role') == '1') {
-      this.userrole = 'Admin'; 
+      this.userrole = 'Admin';
       this.showAdminMenuaccess = true;
       this.showApplicantmenu = false;
       this.showCorporateMenuaccess = false;
@@ -205,13 +189,7 @@ export class HeaderComponent implements OnInit {
       this.corporateicon = true;
     }
     if (this.sessionService.getItem('role') == '2') this.menuvisible = false;
-    /*
-    for (var i = 1; i <= 5; i++) {
-        var notificationObj = new notification("Message " + i, new Date(), null)
-        this.notifications.push(notificationObj);
-    }*/
     this.botaskservice.get_botasks_List(this.userid).then((res: any) => {
-      debugger;
       this.notifications = res;
       for (let i = 0; i <= this.notifications.length; i++) {
         this.notifications[i]['taskid'] = this.notifications[i]?.value;
@@ -222,65 +200,13 @@ export class HeaderComponent implements OnInit {
     //Start watching for user inactivity.
     this.userIdle.startWatching();
 
-    // Start watching when user idle is starting.
-    this.userIdle.onTimerStart().subscribe(count => {
-      //console.log(count)
-    }
-    );
-
     // Start watch when time is up.
     this.userIdle.onTimeout().subscribe(() => {
-      console.log('Session Timeout');
       this.logout();
     });
 
-    /////////////
-
-    this.items = [
-
-      {
-        label: 'Recents', icon: 'fa fa-fw fa-soccer-ball-o',
-        items: [
-          [
-            {
-              label: 'Procurement',
-              items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }]
-            },
-            {
-              label: 'Legal',
-              items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }]
-            },
-          ],
-          [
-            {
-              label: 'CRM',
-              items: [{ label: 'Sports 3.1' }, { label: 'Sports 3.2' }]
-            },
-            {
-              label: 'DMS',
-              items: [{ label: 'Sports 4.1' }, { label: 'Sports 4.2' }]
-            }
-          ],
-          [
-            {
-              label: 'Project Management',
-              items: [{ label: 'Sports 5.1' }, { label: 'Sports 5.2' }]
-            },
-            {
-              label: 'Property Management',
-              items: [{ label: 'Sports 6.1' }, { label: 'Sports 6.2' }]
-            }
-          ]
-        ]
-      }
-    ];
-
-
-    ///////////
-
 
     let result = this.router.routerState.snapshot.url.match("mstapplicantreferencerequestsaccepted")
-    // console.log(result[0]);
     if (result[0] == "mstapplicantreferencerequestsaccepted") {
       this.showheader = false;
     } else {
@@ -302,7 +228,6 @@ export class HeaderComponent implements OnInit {
       this.ngOnInit();
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }), (error) => {
-      console.log(error);
     })
   }
 
@@ -330,8 +255,6 @@ export class HeaderComponent implements OnInit {
   getText(ret) {
     ret = String(ret).replace(new RegExp('&lt;', 'g'), '<');
     ret = String(ret).replace(new RegExp('&gt;', 'g'), '>');
-    // ret = ret.replace(new RegExp('&lt;', 'g'),'<');
-    // ret = ret.replace(new RegExp('&gt;', 'g'),'>');
     return ret;
   }
 
@@ -361,22 +284,13 @@ export class HeaderComponent implements OnInit {
     });
   }
   selectTheme(theme: string) {
-    //debugger;
 
     this.sessionService.setItem("selected-theme", theme);
     this.themeService.selectTheme(theme);
     this.theme = theme;
-    /*
-    theme="luna-pink";
-            var elem=document.getElementById('themeAsset') as HTMLLinkElement ;
-            elem.href = 'node_modules/primeng/resources/themes/'+theme+'/theme.css';
-           */
   }
   closeicon() {
-    debugger
-    // this.appmenu=false
     this.showmenulist = false;
-    // this.showApplicantmenu = false;
   }
   showMenus() {
     this.showmenulist = !this.showmenulist;
@@ -389,7 +303,6 @@ export class HeaderComponent implements OnInit {
     }
   }
   showProfileDetails() {
-    debugger
     this.showhideProfile = !this.showhideProfile;
     this.showmenulist = false;
     this.menuhides = false;
@@ -406,7 +319,6 @@ export class HeaderComponent implements OnInit {
     })
   }
   closePopup(data) {
-    debugger
     if (data == 'p') {
       this.showhideProfile = false
       this.showmenulist = false;
@@ -414,14 +326,9 @@ export class HeaderComponent implements OnInit {
       this.menuhide = false;
       this.showhideProfile = false;
       this.showmenulist = false;
-
     }
-    //  else{
-    // this.menuhide=false
-    // }
   }
   openpopup() {
-    debugger
     this.menuhide = true;
     this.displayNotifications = false;
     this.showNotify = false;
@@ -429,7 +336,6 @@ export class HeaderComponent implements OnInit {
   }
 
   openpopups() {
-    debugger
     this.menuhides = true;
     this.showhideProfile = false;
 
@@ -540,14 +446,6 @@ export class HeaderComponent implements OnInit {
       updateProfile : "yes"
     }
     this.router.navigate(['home/personaldetails'])
- 
-    // this.dialog.open(mstapplicantmastermainComponent,
-    //   {
-    //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-    //   }
-    // ).onClose.subscribe(res => {
-    //   this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
-    // })
   };
 
   showLanguage() {
@@ -568,7 +466,6 @@ export class HeaderComponent implements OnInit {
     this.menuhide = false;
 
     this.mstcorporatemasterservice.getListBy_userid(0 + this.sessionService.getItem("userid")).then(res => {
-      debugger;
       this.pkcorporateid = res[0].pkcol;
       this.router.navigate(['/home/mstcorporatemasters/mstcorporatemasters/edit/' + this.pkcorporateid])
     });
@@ -576,7 +473,6 @@ export class HeaderComponent implements OnInit {
   };
 
   dashboard() {
-    debugger;
     if (this.sessionService.getItem('role') == '2') {
       this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("usersource")]);
     }
@@ -586,7 +482,6 @@ export class HeaderComponent implements OnInit {
   }
 
   showmyProfile() {
-    debugger
     var showmyproid = "showMyPro";
     localStorage.setItem('showprofile', showmyproid);
 
@@ -603,9 +498,6 @@ export class HeaderComponent implements OnInit {
       "ReleaseStatus": e
     };
     this.mstapplicantmaster_service.release_method(obj).subscribe(res => {
-
-      //need ngoninit api result need to arrange release status
-      // need result for status=false
 
       if (res == "Released Successfully") {
         this.toastService.addSingle("success", "", "Successfully Released");

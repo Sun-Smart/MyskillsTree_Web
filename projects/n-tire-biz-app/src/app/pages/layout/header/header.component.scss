@@ -1,22 +1,10 @@
-// .layout-topbar
-// {
-//   background-color: var(--frontcolor)!important;
-//   color: var(--backcolor)!important;
-// }
-
 .layout-topbar {
   background-color: #ebf3fc !important;
   color: black !important;
-  // background-color: var(--frontcolor)!important;
-  // background: linear-gradient(to bottom, #004fce 0%, #009c8e 90%);
-
-  // color: #fff !important;
 }
 
 .headerClass {
   span {
-    // color: #fff;
-    // color: black !important;
     color: gray !important;
   }
 }
@@ -54,24 +42,18 @@
   background-color: red;
   margin: 0 !important;
   display: flex;
-  // justify-content: center;
   color: #fff !important;
 }
 
 .logo-2 {
-  // width: 70%;
-  //   height: 100%;
-  //   margin: 5px;
   width: 42px;
   border-radius: 50px;
-  // margin-right: 86%;
   margin-bottom: 0 rem;
 }
 
 .icon {
   height: 50px;
   width: 50px;
-  // color: #fff !important;
 }
 
 a {
@@ -157,18 +139,11 @@ a:hover {
 }
 
 .dd-menu li {
-  // padding: 10px 20px;
   cursor: pointer;
-  // white-space: nowrap;
-}
-
-.dd-menu li:hover {
-  // background-color: #f6f6f6;
 }
 
 .dd-menu li a {
   display: block;
-  /* margin: -10px -20px; */
   padding: 9px;
   white-space: pre-line;
 }
@@ -179,7 +154,6 @@ a:hover {
 }
 
 .col-4 {
-  //border-style: groove;
   border-color: #e0dfdf;
 }
 
@@ -216,11 +190,6 @@ a:hover {
   font-size: 11px;
 }
 
-// .col-4[_ngcontent-hub-c401] {
-//   border-color: #ffffff !important;
-//   background-color: #cbf29f !important;
-//   /* gap: 5px !important; */
-// }
 i1 {
   font-size: 24px !important;
 }
@@ -300,7 +269,6 @@ a[_ngcontent-uuu-c401] {
   i {
     cursor: pointer;
     font-size: 17px;
-    // padding: 0 8px;
   }
 }
 
@@ -313,10 +281,6 @@ a[_ngcontent-uuu-c401] {
   color: gray !important;
   font-size: 12px;
 }
-
-// .layout1 {
-//   background-color: #d8ecc1 !important;
-// }
 
 .adminbgColor {
   background-color: #d8ecc1 !important;
@@ -372,7 +336,6 @@ a[_ngcontent-uuu-c401] {
   border-color: #ffffff !important;
   background-color: white !important;
   padding: 5px !important;
-  /* margin: 5px 5px !important; */
   max-width: 30%;
   box-shadow: none !important;
   font-size: 11px;
@@ -384,7 +347,6 @@ a[_ngcontent-uuu-c401] {
   border-color: #ffffff !important;
   background-color: white !important;
   padding: 5px !important;
-  /* margin: 5px 5px !important; */
   max-width: 30%;
   box-shadow: none !important;
   font-size: 11px;
@@ -400,7 +362,6 @@ a[_ngcontent-uuu-c401] {
   border-color: #ffffff !important;
   background-color: white !important;
   padding: 5px !important;
-  /* margin: 5px 5px !important; */
   max-width: 30%;
   box-shadow: none !important;
   font-size: 11px;
@@ -450,7 +411,6 @@ a[_ngcontent-uuu-c401] {
     position: absolute !important;
     margin-top: 12px !important;
     border-radius: 12px !important;
-    // right: -80px !important;
     right: -61px !important;
   }
   .profile-card{

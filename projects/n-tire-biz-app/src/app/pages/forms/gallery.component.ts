@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { mstapplicantmasterService } from './../../service/mstapplicantmaster.service';
-import { mstapplicantmaster } from './../../model/mstapplicantmaster.model';
-
 import { AppConstants } from '../../shared/helper';
 import { DomSanitizer } from '@angular/platform-browser';
-
 import { DialogService } from 'primeng/dynamicDialog';
 import { openfileComponent } from '../../custom/openfile.component';
-import { opencommentComponent } from '../../custom/opencomment.component';
 
 @Component({
     selector: 'app-gallery',
@@ -28,29 +24,16 @@ export class galleryComponent implements OnInit {
     isadmin = false;
     attachments: any;
     AttachmentURL = AppConstants.AttachmentURL;
-    // showcorporatelogo: boolean  = true;
-    // showapplicantlogo: boolean = true;
     constructor(private mstapplicantmasterservice: mstapplicantmasterService, private sessionService: SessionService, private sanitizer: DomSanitizer, public dialog: DialogService) {
-        // if (localStorage.getItem('role') == '2') {
-        //     this.showapplicantlogo = true;
-        //     this.showcorporatelogo = false;
-        // } else if (localStorage.getItem('role') == '3') {
-        //     this.showapplicantlogo = false;
-        //     this.showcorporatelogo = true;
-        // }
     }
 
     getCount(e) {
         if (e != undefined && e != null && e != "") {
-            //debugger;
-            // console.log(e);
-            // console.log(JSON.parse(e))
             return JSON.parse(e).length;
         }
 
     }
     geturl(e, filename: string, filetype: string) {
-        //debugger;
         this.attachments[this.attachments.findIndex(x => x.Key === e.Key)].views += 1;
         this.dialog.open(openfileComponent,
             {
@@ -58,7 +41,6 @@ export class galleryComponent implements OnInit {
                 header: filename
             }
         );
-        //window.open(AppConstants.AttachmentURL + filename);
         return;
     }
     getURL(filename) {
@@ -74,15 +56,10 @@ export class galleryComponent implements OnInit {
             for (var i = 0; i < this.attachments.length; i++) {
                 this.attachments[i].safeurl = this.sanitizer.bypassSecurityTrustResourceUrl(AppConstants.AttachmentURL + this.attachments[i].name);
             }
-            debugger;
-
-
-
 
         }).catch((err) => {
-            //console.log(err);
         });
-       
+
     }
 
 }

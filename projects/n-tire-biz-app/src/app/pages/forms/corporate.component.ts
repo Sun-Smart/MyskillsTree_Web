@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import {
-  ApexAxisChartSeries, ApexChart, ChartComponent, ApexDataLabels, ApexPlotOptions,
+  ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexPlotOptions,
   ApexYAxis, ApexLegend, ApexStroke, ApexXAxis, ApexFill, ApexTooltip
 } from "ng-apexcharts";
 import { mstapplicantmasterService } from '../../service/mstapplicantmaster.service';
-import { mstcorporatemasterService } from '../../service/mstcorporatemaster.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries; chart: ApexChart; dataLabels: ApexDataLabels; plotOptions: ApexPlotOptions;
@@ -25,7 +24,6 @@ export type ChartOptions = {
 
     <div class="row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
-    <!-- <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="jobq" custommenuid="544"></ngx-reportviewer> -->
     </div>
 
     <hr>
@@ -37,7 +35,6 @@ export type ChartOptions = {
 
     <div class="row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
-    <!-- <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="arrA" custommenuid="544"></ngx-reportviewer> -->
     </div>
 
     </div>
@@ -107,7 +104,6 @@ export type ChartOptions = {
 
     <div class="row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
-    <!-- <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="jobqc" custommenuid="544"></ngx-reportviewer> -->
     </div>
 
     <hr>
@@ -119,7 +115,6 @@ export type ChartOptions = {
 
     <div class="row"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
-    <!-- <ngx-reportviewer style="width: 200px!important;height:200px !important;" class="" viewtype="'1'" customreportid="arrA" custommenuid="544"></ngx-reportviewer> -->
     </div>
 
     </div>
@@ -184,7 +179,6 @@ export class CorporateDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger
     this.username = this.sessionService.getItem('username');
     if (this.sessionService.getItem('role') == '1') {
       this.userrole = 'Admin';
