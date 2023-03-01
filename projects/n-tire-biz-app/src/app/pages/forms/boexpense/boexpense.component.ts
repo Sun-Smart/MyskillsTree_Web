@@ -3,8 +3,6 @@ import { boexpense } from './../../../model/boexpense.model';
 import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer } from "@angular/platform-browser";
 import { KeyValuePair } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
@@ -270,7 +268,7 @@ export class boexpenseComponent implements OnInit {
                 this.boexpense_service.delete_boexpense(expenseid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {

@@ -262,7 +262,7 @@ export class bofinancialyearComponent implements OnInit {
                 this.bofinancialyear_service.delete_bofinancialyear(finyearid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {

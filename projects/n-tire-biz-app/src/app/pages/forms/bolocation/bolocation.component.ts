@@ -3,9 +3,6 @@ import { bolocation } from './../../../model/bolocation.model';
 import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer } from "@angular/platform-browser";
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput} from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -234,7 +231,7 @@ export class bolocationComponent implements OnInit {
                 this.bolocation_service.delete_bolocation(locationid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
