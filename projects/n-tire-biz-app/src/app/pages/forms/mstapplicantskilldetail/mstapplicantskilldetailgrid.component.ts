@@ -54,24 +54,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 @Component({
   selector: 'app-applicantskilldetailgrid',
   template: `
+<div style = "float: left;width: 100%;">
 <div class="row skill_title" *ngIf="showWebviewDetect" style="background: #ebf3fc !important;
     color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
 
   <div class="col-4" style="margin:auto;">
-    <h4 class="form-group sticky1  columns left">{{'Skill sets'}}
-
-      <ul class="nav navbar-nav1" style='display:none'>
-        <li class="dropdown">
-          <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-            aria-expanded='false'> <span class='caret'></span></a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
-                  class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-            <li> </li>
-          </ul>
-        </li>
-      </ul>
-    </h4>
+    <h4 class="form-group sticky1  columns left">{{'Skill sets'}}</h4>
   </div>
   <div class="col-6"></div>
   <div class="col-2" style="text-align:right; margin:auto;">
@@ -79,40 +67,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       (click)="mstapplicantskilldetails_route(null, 'create')">Add</button>
 
     <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
-
-
   </div>
 </div>
-<div class="row skill_title" *ngIf="showMobileDetectskill" style="background: #ebf3fc !important;
-    color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
 
-  <div class="col-4" style="margin:auto;">
-    <h4 class="form-group sticky1  columns left">{{'Skill sets'}}
-
-      <ul class="nav navbar-nav1" style='display:none'>
-        <li class="dropdown">
-          <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-            aria-expanded='false'> <span class='caret'></span></a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
-                  class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-            <li> </li>
-          </ul>
-        </li>
-      </ul>
-    </h4>
-  </div>
-  <div class="col-6"></div>
-  <div class="col-2" style="text-align:right; margin:auto;">
-    <button type="button" class="btn btn-outline-primary popup-add-button"
-      (click)="mstapplicantskilldetails_route(null, 'create')">Add</button>
-      <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
-
-
-  </div>
-</div>
+<div> 
 <form [formGroup]="mstapplicantskilldetail_Form" class="mobile_grid_view" *ngIf="showWebviewDetect">
-
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
       <tr>
@@ -126,9 +85,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <th style="width:10%;text-align: center;">Action</th>
       </tr>
     </thead>
-    <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
-
-
+    <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input"> 
       <tr>
         <!-- Segment Gategory -->
         <td>
@@ -187,11 +144,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
           <textarea name="w3review" rows="3" cols="10" class="form-control" formControlName="remarks"></textarea>
         </td>
 
-
       <!-- Add & Close -->
 
         <td class="field-add-close-button">
-
         <i class="fa fa-plus-square field-Add-button" aria-hidden="true"
         (click)="onSubmitAndWait(mstapplicantskilldetail_Form)"></i>
 
@@ -203,6 +158,24 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </tbody>
   </table>
 </form>
+</div>
+</div>
+<br>
+
+<div class="row skill_title" *ngIf="showMobileDetectskill" style="background: #ebf3fc !important;
+    color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
+
+  <div class="col-4" style="margin:auto;">
+    <h4 class="form-group sticky1  columns left">{{'Skill sets'}}</h4>
+  </div>
+  <div class="col-6"></div>
+  <div class="col-2" style="text-align:right; margin:auto;">
+    <button type="button" class="btn btn-outline-primary popup-add-button"
+      (click)="mstapplicantskilldetails_route(null, 'create')">Add</button>
+      <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
+  </div>
+</div>
+
 
 <form [formGroup]="mstapplicantskilldetail_Form" class="mobile_grid_view" *ngIf="showMobileDetectskill">
 

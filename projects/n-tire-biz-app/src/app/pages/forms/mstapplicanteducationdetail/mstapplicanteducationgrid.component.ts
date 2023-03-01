@@ -539,10 +539,10 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     } else if (this.mstapplicanteducationdetail_Form.value.fromyear >= this.mstapplicanteducationdetail_Form.value.toyear || this.mstapplicanteducationdetail_Form.value.percentage > 100) {
       this.show_YearError = true;
       this.show_percentageError = true;
-      if(this.mstapplicanteducationdetail_Form.value.percentage == 100 || this.mstapplicanteducationdetail_Form.value.percentage < 100){
+      if (this.mstapplicanteducationdetail_Form.value.percentage == 100 || this.mstapplicanteducationdetail_Form.value.percentage < 100) {
         this.show_percentageError = false;
       }
-      if(this.mstapplicanteducationdetail_Form.value.fromyear < this.mstapplicanteducationdetail_Form.value.toyear){
+      if (this.mstapplicanteducationdetail_Form.value.fromyear < this.mstapplicanteducationdetail_Form.value.toyear) {
         this.show_YearError = false;
       }
       return
@@ -826,7 +826,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
         custom: this.mstapplicanteducationdetail_menuactions
       },
-
       add: {
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
@@ -843,6 +842,11 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
         confirmDelete: true,
       },
+      // pager: {
+      //   display: true,
+      //   perPage: 5
+      // },
+
       columns: {
         colhtml:
         {

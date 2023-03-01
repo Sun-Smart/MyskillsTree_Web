@@ -128,9 +128,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <td>
                 <div >
                 <div class="input-group" style="display: flex;width: 100%;">
-                  <input #d="ngbDatepicker" readonly ngbDatepicker
-                    name="fromyearformpicker" id="fromyear" required
+
+                  <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+                  [maxDate]="maxDate"  name="fromdateformpicker" id="fromyear" required
                     formControlName="fromyear" style="margin-right: 5px;" class="form-control">
+                    
                   <button class="input-group-addon" (click)="d.toggle()" type="button"><i
                       class="fa fa-calendar" aria-hidden="true"></i></button>
                 </div>
