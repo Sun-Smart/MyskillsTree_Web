@@ -15,13 +15,13 @@
                     <form [formGroup]="validation_Form" (ngSubmit)="onSubmit(validation_Form)">
                     <div class="register-form">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12">
+                            <!-- <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <span>Mobile OTP</span>
                                     <input type="number" name="mobileotp" formControlName="mobileotp" class="form-control input-sm"
                                         placeholder="Mobile OTP" onKeyPress="if(this.value.length==6) return false;" required>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-xs-12 col-sm-12 col-md-12" style="margin-bottom: 1rem;">
                                 <div class="form-group">
                                     <span>Email OTP</span>
@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <label><input  type="checkbox" value="" id="flexCheckDefault">&nbsp; <span class="custom_header">I accept MySkillsTree's General Terms & Conditions and acknowledge the Privacy Policy.</span></label>
+                                    <label><input  type="checkbox" value="" id="flexCheckDefault" (change)="onClick($event)">&nbsp; <span class="custom_header">I accept MySkillsTree's General Terms & Conditions and acknowledge the Privacy Policy.</span></label>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">

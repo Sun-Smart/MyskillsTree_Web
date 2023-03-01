@@ -116,12 +116,13 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
       <tr>
-        <th  style="width:15%;">Segments</th>
-        <th  style="width:15%;">Skill Category</th>
-        <th  style="width:15%;">Sub Category</th>
-        <th  style="width:15%;">Self Rating</th>
-        <th  style="width:15%;">Referal Status</th>
-        <th  style="width:15%;">Remarks</th>
+        <th  style="width:12.5%;">Segments</th>
+        <th  style="width:13.5%;">Skill Category</th>
+        <th  style="width:13%;">Sub Category</th>
+        <th  style="width:12.5%;">Self Rating</th>
+        <th  style="width:12.5%;" >Show/Hide</th>
+        <th  style="width:12.5%;" >Referal Status</th>
+        <th  style="width:12.5%;">Remarks</th>
         <th style="width:10%;text-align: center;">Action</th>
       </tr>
     </thead>
@@ -168,6 +169,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <td>
         <p-rating  id="selfrating" formControlName="selfrating" class="form-control">
         </p-rating>
+        </td>
+
+        <!-- Hide -->
+
+        <td>
+        <input type="checkbox" formControlName="showorhide">
         </td>
 
         <!-- Referal Status -->
@@ -237,13 +244,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 <ng2-smart-table #tbl_mstapplicantskilldetails
   (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
   [settings]="mstapplicantskilldetails_settings"
+  (edit)="mstapplicantskilldetails_route($event,'edit')"
   (custom)="onCustom_mstapplicantskilldetails_Action($event)"
   (custom)="onCustom_mstapplicantskilldetailsAttachment_Action($event)"
   [source]="tbl_mstapplicantskilldetails?.source?.data"
   (delete)="mstapplicantskilldetails_route($event,'delete')"
   (deleteConfirm)="mstapplicantskilldetails_route($event,'delete')"
   (create)="mstapplicantskilldetails_route($event,'create')"
-  (createConfirm)="mstapplicantskilldetails_beforesave($event)" (edit)="mstapplicantskilldetails_route($event,'edit')"
+  (createConfirm)="mstapplicantskilldetails_beforesave($event)" 
   (createConfirm)="mstapplicantskilldetails_beforesave($event)">
 </ng2-smart-table>
     `,
@@ -280,6 +288,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   showinput3: boolean = false;
 
   showSkillDetails_input: boolean = false;
+  showskillhide: boolean = false;
   showview: boolean = false;
 
   Segmentcategory_list: DropDownValues[];
@@ -364,6 +373,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       segmentid: [null, Validators.compose([Validators.required])],
       segmentcategorydesc: [null],
       selfrating: [null],
+      showorhide: [null],
       remarks: [null],
       requestid: [null],
       referenceacceptance: [null],
@@ -550,11 +560,12 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     <table class="table table-hover skilldetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
     <tbody>
       <tr style="word-break: break-word;">
-        <th style="white-space: break-spaces;width:16.5%;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
-        <th style="white-space: break-spaces;width:16.5%;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
-        <th style="white-space: break-spaces;width:14.5%;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
-        <th style="white-space: break-spaces;width:16.5%;">##selfrating##</th>
-        <th style="white-space: break-spaces;width:19.5%;">##referencecount##</th>
+        <th style="white-space: break-spaces;width:13%;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
+        <th style="white-space: break-spaces;width:15%;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
+        <th style="white-space: break-spaces;width:11%;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
+        <th style="white-space: break-spaces;width:17%;">##selfrating##</th>
+        <th style="white-space: break-spaces;width:13%;">##showorhide##</th>
+        <th style="white-space: break-spaces;width:16%;">##referencecount##</th>
         <th style="white-space: break-spaces;">##remarks##</th>
       </tr>
     </tbody>
@@ -790,6 +801,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       hideSubHeader: true,
       mode: 'external',
       selectMode: 'single',
+      width : '80%',
       actions: {
         columnTitle: '',
         width: '300px',
@@ -814,7 +826,10 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
         confirmDelete: true,
       },
-
+      pager: {
+        display: true,
+        perPage: 5
+      },
       columns: {
         colhtml:
         {

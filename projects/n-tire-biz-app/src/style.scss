@@ -3089,7 +3089,8 @@ footer {
 .dashboard-sidebar-content {
   padding: 1rem;
   overflow-y: scroll;
-  height: 500px !important;
+  height: 100% !important;
+  max-height: 100% !important;
 
   .form-check {
     font-size: 12px;
