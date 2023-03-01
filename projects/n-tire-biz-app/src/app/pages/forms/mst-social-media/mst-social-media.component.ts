@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { mstapplicantsocialmediadetail } from '../../../model/mstapplicantsocialmediadetail.model';
 import { mstapplicantsocialmediadetailService } from '../../../service/mstapplicantsocialmediadetail.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 
 @Component({
@@ -48,7 +48,7 @@ export class MstSocialMediaComponent implements OnInit {
     this.mstapplicantsocialmediadetail_service.getDefaultData().then(res => {
       this.applicantid_List = res.list_applicantid.value;
       this.socialmedianame_List = res.list_socialmedianame.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide();});
   }
   socialmedianame_onChange(evt: any) {
     let e = evt.value;
@@ -56,7 +56,6 @@ export class MstSocialMediaComponent implements OnInit {
   };
 
   async onSubmitData(bclear: any) {
-    debugger;
     this.isSubmitted = true;
     let strError = "";
     if (!this.mstapplicantsocialmediadetail_Form.valid) {
@@ -67,17 +66,12 @@ export class MstSocialMediaComponent implements OnInit {
     this.formData = this.mstapplicantsocialmediadetail_Form.getRawValue();
 
     this.formData.applicantid = this.applicantid;
-    console.log(this.formData);
     this.spinner.show();
 
     this.mstapplicantsocialmediadetail_service.saveOrUpdate_mstapplicantsocialmediadetails(this.formData).subscribe(
       async res => {
-        // await this.sharedService.upload(this.fileAttachmentList);
-        // this.attachmentlist = [];
-        // if (this.fileattachment) this.fileattachment.clear();
         this.spinner.hide();
         this.toastr.addSingle("success", "", "Successfully saved");
-        // this.sessionService.setItem("attachedsaved", "true")
         this.objvalues.push((res as any).mstapplicantsocialmediadetail);
         this.mstapplicantsocialmediadetail_Form.reset();
         this.ngOnInit();
@@ -91,10 +85,8 @@ export class MstSocialMediaComponent implements OnInit {
         this.route.navigate(['/home/bodashboardviewer/' + pkcol]);
       },
       err => {
-        debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       });
   };
   resetForm() {
@@ -105,9 +97,7 @@ export class MstSocialMediaComponent implements OnInit {
   }
 
   AddMoreSocial(){
-    debugger;
     this.isSubmitted = true;
-    let strError = "";
     if (!this.mstapplicantsocialmediadetail_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the required fields");
       return;
@@ -115,7 +105,6 @@ export class MstSocialMediaComponent implements OnInit {
 
     this.formData = this.mstapplicantsocialmediadetail_Form.getRawValue();
     this.formData.applicantid = this.applicantid;
-    console.log(this.formData);
     this.spinner.show();
 
     this.mstapplicantsocialmediadetail_service.saveOrUpdate_mstapplicantsocialmediadetails(this.formData).subscribe(
@@ -130,10 +119,8 @@ export class MstSocialMediaComponent implements OnInit {
         this.mstapplicantsocialmediadetail_Form.markAsPristine();
       },
       err => {
-        debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       });
   }
   back() {
