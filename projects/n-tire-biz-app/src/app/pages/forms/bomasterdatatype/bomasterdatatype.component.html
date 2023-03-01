@@ -143,7 +143,7 @@
                 <div class="columnchk">
                   <label for="hassubcategory" class="control-label">Has Subcategory</label>
                   <label *ngIf="showview" class="labelview">{{f.hassubcategory?.value}}</label>
-                  <input type="checkbox" *ngIf="!showview" id="hassubcategory" formControlName="hassubcategory"
+                  <input type="checkbox" [(ngModel)]="releasecheckbox" (click)='checkRelease()' *ngIf="!showview" id="hassubcategory" formControlName="hassubcategory"
                     class="">
                 </div>
               </div>
@@ -162,7 +162,7 @@
                 <div class="columnchk">
                   <label for="canedit" class="control-label">Can Edit</label>
                   <label *ngIf="showview" class="labelview">{{f.canedit?.value}}</label>
-                  <input type="checkbox" *ngIf="!showview" id="canedit" formControlName="canedit" class="">
+                  <input type="checkbox" [(ngModel)]="canedit" (click)='checkedit()' *ngIf="!showview" id="canedit" formControlName="canedit" class="">
                 </div>
               </div>
               <div

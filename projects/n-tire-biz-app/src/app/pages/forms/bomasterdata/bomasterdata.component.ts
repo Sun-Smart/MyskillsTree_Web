@@ -79,7 +79,7 @@ export class bomasterdataComponent implements OnInit {
     formid: any;
     pkcol: any;
     SESSIONUSERID: any;//current user
-
+    plusbutton : boolean = true ;
     sessionData: any;
     sourceKey: any;
 
@@ -90,6 +90,7 @@ export class bomasterdataComponent implements OnInit {
     bosubcategorymasters_ID: string = "1";
     bosubcategorymasters_selectedindex: any;
     masterdatatypeid: any;
+    addbutton: string;
 
 
     constructor( private router: Router,
@@ -150,6 +151,21 @@ export class bomasterdataComponent implements OnInit {
     async ngOnInit() {
         // this.masterdatatypeid = this.bomasterdata_service.boarray
         // this.bomasterdata_Form.patchValue({ masterdatatypeid: this.masterdatatypeid[0] })
+        
+        this.addbutton = localStorage.getItem("releasecheckbox");
+        console.log(this.addbutton);
+        
+        if(this.addbutton == "false")
+        {
+            this.plusbutton = true;
+        }
+      if(this.addbutton == "true")
+        { 
+            this.plusbutton = false;
+        }
+        
+
+
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
         });
