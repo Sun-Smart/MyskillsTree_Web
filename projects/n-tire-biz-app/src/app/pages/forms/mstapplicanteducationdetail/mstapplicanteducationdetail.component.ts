@@ -1,62 +1,20 @@
-import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
-import { mstapplicantskilldetail } from './../../../model/mstapplicantskilldetail.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menus
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
-import { LocalDataSource } from 'ng2-smart-table';
-import { Ng2SmartTableComponent } from 'ng2-smart-table';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//hyperlinks services
-import { mstapplicantreferencerequest } from './../../../model/mstapplicantreferencerequest.model';
+import { KeyValuePair } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
-//FK field services
-//detail table services
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
-//popups
-import { bomasterdata } from './../../../model/bomasterdata.model';
-import { bomasterdataComponent } from './../../../pages/forms/bomasterdata/bomasterdata.component';
-import { bomasterdataService } from './../../../service/bomasterdata.service';
-//popups
-import { bosubcategorymaster } from './../../../model/bosubcategorymaster.model';
-import { bosubcategorymasterComponent } from './../../../pages/forms/bosubcategorymaster/bosubcategorymaster.component';
-import { bosubcategorymasterService } from './../../../service/bosubcategorymaster.service';
 import { mstapplicanteducationdetail } from '../../../model/mstapplicanteducationdetail.model';
 import { mstapplicanteducationdetailService } from '../../../service/mstapplicanteducationdetail.service';
 import { pairwise } from 'rxjs/operators';
@@ -81,7 +39,7 @@ import { pairwise } from 'rxjs/operators';
         }
       }
   `],
-  providers: [KeyboardShortcutsService]
+  providers: []
 })
 
 
@@ -150,12 +108,8 @@ export class mstapplicanteducationdetailComponent implements OnInit {
 
 
 
-  constructor(
-    private nav: Location,
-    private translate: TranslateService,
-    private keyboard: KeyboardShortcutsService, private router: Router,
+  constructor( private router: Router,
     private themeService: ThemeService,
-    private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
@@ -164,37 +118,10 @@ export class mstapplicanteducationdetailComponent implements OnInit {
     private sharedService: SharedService,
     private sessionService: SessionService,
     private toastr: ToastService,
-    private sanitizer: DomSanitizer,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-    this.translate = this.sharedService.translate;
     this.data = dynamicconfig;
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
-    // this.getid=localStorage.getItem('applicantid')
-    // if(this.data.applicantid=='' || this.data.applicantid==undefined){
-    //   this.data.
-    //     applicantid=this.getid
-    // }
-    debugger
-
-
-    this.keyboard.add([
-      {
-        key: 'cmd l',
-        command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-        preventDefault: true
-      },
-      {
-        key: 'cmd s',
-        command: () => this.onSubmitData(false),
-        preventDefault: true
-      },
-      {
-        key: 'cmd f',
-        command: () => this.resetForm(),
-        preventDefault: true
-      }
-    ]);
     this.mstapplicanteducationdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
@@ -222,18 +149,9 @@ export class mstapplicanteducationdetailComponent implements OnInit {
     this.mstapplicanteducationdetail_Form.controls['fromyear'].valueChanges.pipe(pairwise()).subscribe(([prev, next]: [any, any]) => {
       this.fromyearCondition = next;
       this.test(this.fromyearCondition);
-      console.log(prev, next)
     });
     this.mstapplicanteducationdetail_Form.controls['toyear'].valueChanges.pipe(pairwise()).subscribe(([prev, next]: [any, any]) => {
-
       this.toyearCondition = next;
-      console.log(parseInt(this.toyearCondition), this.test1);
-      // if(parseInt(this.toyearCondition) <= this.test1) {
-      //  this.showDateError1 = false;
-      // }else {
-      //  this.showDateError1 = true;
-      // }
-      console.log(prev, next)
     });
     //end
   }
@@ -248,7 +166,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
 
   //function called when we navigate to other page.defined in routing
   canDeactivate(): Observable<boolean> | boolean {
-    debugger;
     if (this.mstapplicanteducationdetail_Form.dirty && this.mstapplicanteducationdetail_Form.touched) {
       if (confirm('Do you want to exit the page?')) {
         return Observable.of(true).delay(1000);
@@ -259,31 +176,9 @@ export class mstapplicanteducationdetailComponent implements OnInit {
     return Observable.of(true);
   }
 
-  //check Unique fields
-
-  //navigation buttons
-  first() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-  }
 
   test(fromyear) {
     this.test1 = parseInt(fromyear) + 15;
-  }
-
-  last() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-  }
-
-  prev() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.educationid.toString(); }).indexOf(this.formid.toString());
-    if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-  }
-
-  next() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.educationid.toString(); }).indexOf(this.formid.toString());
-    if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
   }
 
   //on searching in pk autocomplete
@@ -292,9 +187,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
       this.PopulateScreen(pkDetail.pkcol);
     }
   }
-
-
-
 
   // initialize
   async ngOnInit() {
@@ -305,11 +197,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
       this.showAttachment = false;
     }
 
-    debugger
-    // let checkuser=localStorage.getItem('role');
-    // if(checkuser == '3'){
-    //   this.showRefAcept=true;
-    // }
     //session & theme
     this.themeService.theme.subscribe((val: string) => {
       this.theme = val;
@@ -321,9 +208,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
     }
 
     this.theme = this.sessionService.getItem('selected-theme');
-    //this.viewHtml=this.sessionService.getViewHtml();
-
-    debugger;
     //getting data - from list page, from other screen through dialog
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -375,32 +259,27 @@ export class mstapplicanteducationdetailComponent implements OnInit {
       //foreign keys
     }
     this.mstapplicanteducationdetail_service.getDefaultData().then(res => {
-      debugger
       this.applicantid_List = res.list_applicantid.value;
       this.educationcategory_List = res.list_educationcategory.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide();});
 
     //autocomplete
     this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_List().then(res => {
-      debugger;
       this.pkList = res as mstapplicanteducationdetail[];
       this.pkoptionsEvent.emit(this.pkList);
     }
-    ).catch((err) => { this.spinner.hide(); console.log(err); });
+    ).catch((err) => { this.spinner.hide(); });
     //setting the flag that the screen is not touched
     this.mstapplicanteducationdetail_Form.markAsUntouched();
     this.mstapplicanteducationdetail_Form.markAsPristine();
   }
   onSelected_applicantid(applicantidDetail: any) {
-    debugger
     if (applicantidDetail.value && applicantidDetail) {
       this.mstapplicanteducationdetail_Form.patchValue({
         applicantid: applicantidDetail.value,
         applicantiddesc: applicantidDetail.label,
-
       });
-
     }
   }
 
@@ -423,7 +302,7 @@ export class mstapplicanteducationdetailComponent implements OnInit {
         this.mstapplicanteducationdetail_service.delete_mstapplicanteducationdetail(educationid).then(res => {
           this.resetForm();
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        ).catch((err) => { this.spinner.hide(); });
       }
     }
     else {
@@ -475,14 +354,10 @@ export class mstapplicanteducationdetailComponent implements OnInit {
 }
 
   onSubmitAndWait() {
-    debugger
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
       this.onSubmitData(false);
-
     }
     else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-      // this.onSubmitDataDlg(false);
-
       this.onSubmitData(false);
     }
     else {
@@ -494,7 +369,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
       this.onSubmitData(true);
     }
     else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
-      // this.onSubmitDataDlg(true);
       this.onSubmitData(true);
     }
     else {
@@ -505,7 +379,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
     let e = evt.value;
   }
   educationcategory_onChange(evt: any) {
-    debugger
     let e = evt.value;
     this.mstapplicanteducationdetail_Form.patchValue({ educationcategorydesc: evt.options[evt.options.selectedIndex].text });
     setTimeout(() => {
@@ -534,45 +407,30 @@ export class mstapplicanteducationdetailComponent implements OnInit {
     }
   }
 
-
-
   edit_mstapplicanteducationdetails() {
     this.showview = false;
-    setTimeout(() => {
-    });
     return false;
   }
 
-
-
   async PopulateScreen(pkcol: any) {
-    debugger
     this.spinner.show();
     this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByEID(pkcol).then(res => {
-      debugger
-      console.log("populatescreen", res)
       this.spinner.hide();
-
       this.formData = res.mstapplicanteducationdetail;
       let formproperty = res.mstapplicanteducationdetail.formproperty;
       if (formproperty && formproperty.edit == false) this.showview = true;
       this.pkcol = res.mstapplicanteducationdetail.pkcol;
       this.formid = res.mstapplicanteducationdetail.educationid;
       this.FillData(res);
-    }).catch((err) => { console.log(err); });
+    }).catch((err) => { });
   }
 
   FillData(res: any) {
-    debugger
     this.formData = res.mstapplicanteducationdetail;
     this.formid = res.mstapplicanteducationdetail.educationid;
     this.pkcol = res.mstapplicanteducationdetail.pkcol;
     this.bmyrecord = false;
     if ((res.mstapplicanteducationdetail as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-    console.log(res);
-    //console.log(res.order);
-    //console.log(res.orderDetails);
-    debugger
     this.mstapplicanteducationdetail_Form.patchValue({
       applicantid: res.mstapplicanteducationdetail.applicantid,
       applicantiddesc: res.mstapplicanteducationdetail.applicantiddesc,
@@ -594,16 +452,12 @@ export class mstapplicanteducationdetailComponent implements OnInit {
       status: res.mstapplicanteducationdetail.status,
       statusdesc: res.mstapplicanteducationdetail.statusdesc,
     });
-    console.log(' this.mstapplicanteducationdetail_Form', this.mstapplicanteducationdetail_Form);
     this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
     if (this.mstapplicanteducationdetail_Form.get('attachment').value != null && this.mstapplicanteducationdetail_Form.get('attachment').value != "" && this.fileattachment != null && this.fileattachment != undefined) this.fileattachment.setattachmentlist(this.mstapplicanteducationdetail_Form.get('attachment').value);
     setTimeout(() => {
       if (this.f.educationcategory.value && this.f.educationcategory.value != "" && this.f.educationcategory.value != null) this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then(res => {
         this.educationsubcategory_List = res as DropDownValues[];
-      }).catch((err) => { console.log(err); });
-    });
-    //Child Tables if any
-    setTimeout(() => {
+      }).catch((err) => { });
     });
   }
   viewrequestid() {
@@ -620,7 +474,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
   }
 
   getHtml(html: any) {
-    debugger
     let ret = "";
     ret = html;
 
@@ -648,7 +501,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
   }
 
   async onSubmitDataDlg(bclear: any) {
-    debugger
     this.isSubmitted = true;
     if (!this.mstapplicanteducationdetail_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the required fields");
@@ -657,15 +509,11 @@ export class mstapplicanteducationdetailComponent implements OnInit {
     var obj = this.mstapplicanteducationdetail_Form.getRawValue();
     if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     obj.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log(obj);
     await this.sharedService.upload(this.fileAttachmentList);
     this.attachmentlist = [];
     if (this.fileattachment) this.fileattachment.clear();
     this.objvalues.push(obj);
     this.dialogRef.close(this.objvalues);
-    setTimeout(() => {
-      //this.dialogRef.destroy();
-    }, 200);
   }
 
   //This has to come from bomenuactions & procedures
@@ -681,7 +529,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
 
 
   async onSubmitData(bclear: any) {
-    debugger;
     this.isSubmitted = true;
     let strError = "";
     console.log(this.mstapplicanteducationdetail_Form)
@@ -689,26 +536,12 @@ export class mstapplicanteducationdetailComponent implements OnInit {
       this.toastr.addSingle("error", "", "Enter the required fields");
       return;
     }
-    // Object.keys(this.mstapplicanteducationdetail_Form.controls).forEach(key => {
-    //   const controlErrors: ValidationErrors = this.mstapplicanteducationdetail_Form.get(key).errors;
-    //   if (controlErrors != null) {
-    //     Object.keys(controlErrors).forEach(keyError => {
-    //       strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-    //     });
-    //   }
-    // });
     if (strError != "") return this.sharedService.alert(strError);
 
-
-    // if (!this.mstapplicanteducationdetail_Form.valid) {
-    //   this.toastr.addSingle("error", "", "Enter the required fields");
-    //   return;
-    // }
     if (!this.validate()) {
       return;
     }
     this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
-    debugger
     if (this.dynamicconfig.data != null) {
       for (let key in this.dynamicconfig.data) {
         if (key != 'visiblelist' && key != 'hidelist') {
@@ -739,7 +572,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
       this.showPercentError = false;
       if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
       this.fileAttachmentList = this.fileattachment.getAllFiles();
-      console.log(this.formData);
       this.spinner.show();
       this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
         async res => {
@@ -747,7 +579,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
           this.attachmentlist = [];
           if (this.fileattachment) this.fileattachment.clear();
           this.spinner.hide();
-          debugger;
           this.toastr.addSingle("success", "", "Successfully saved");
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicanteducationdetail);
@@ -760,7 +591,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
           else {
             if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
           }
-          this.clearList();
           if (bclear) {
             this.resetForm();
           }
@@ -777,23 +607,13 @@ export class mstapplicanteducationdetailComponent implements OnInit {
           this.mstapplicanteducationdetail_Form.markAsPristine();
         },
         err => {
-          debugger;
           this.spinner.hide();
           this.toastr.addSingle("error", "", err.error);
-          console.log(err);
         }
       )
     }
 
   }
-
-
-
-
-  //dropdown edit from the screen itself -> One screen like Reportviewer
-  clearList() {
-  }
-
 
   PrevForm() {
     let formid = this.sessionService.getItem("key");

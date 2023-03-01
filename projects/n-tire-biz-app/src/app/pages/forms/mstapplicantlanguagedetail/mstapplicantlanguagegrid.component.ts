@@ -1,18 +1,14 @@
 import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer } from "@angular/platform-browser";
+import { ActivatedRoute } from '@angular/router';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
 import { DialogService } from 'primeng/dynamicDialog';
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 import { mstapplicantlanguagedetailService } from '../../../service/mstapplicantlanguagedetail.service';
 import { mstapplicantlanguagedetailComponent } from './mstapplicantlanguagedetail.component';
@@ -50,11 +46,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     }
     `],
   template: `
-  
+
   <div *ngIf="showWebviewDetect" class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
   <div class="col-4">
-      <h4 class="columns left">{{'Language Details'}}</h4>
+      <h4 class="columns left">{{'Language'}}</h4>
   </div>
   <div class="col-4">
       <ul class="nav navbar-nav1" style='display:none'>
@@ -69,37 +65,20 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         </li>
       </ul>
   </div>
-  
+
   <div class="col-4" style="text-align: end; margin: auto;">
-      <!-- <ul class="rightside">
-      <a [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i style="color:#fff !important;"
-          class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-      </ul> -->
-      <!-- <ul class="rightside"> -->
-                  <!-- <a  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"> -->
-                  <!-- <button type="button" style="border-color: #fff !important;
-                  color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
-  
                   <button type="button" class="btn btn-outline-primary  popup-add-button"
                   [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
                    title = "Add Details">Add</button>
-  
-                   <!-- <button (click)="addSkills()" >Add 1</button> -->
-                  <!-- </a> -->
-  
-                  <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-  
                   <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="closeButton1" style="width: 20px;" title = "Close"/></a>
-  
-                  <!-- </ul> -->
   </div>
   </div>
-  
-  
+
+
   <div *ngIf="showMobileDetectskill" class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
-  
+
   <div class="col-4">
-      <h4 class="columns left">{{'Language Details'}}</h4>
+      <h4 class="columns left">{{'Language'}}</h4>
   </div>
   <div class="col-4">
       <ul class="nav navbar-nav1" style='display:none'>
@@ -114,29 +93,15 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         </li>
       </ul>
   </div>
-  
+
   <div class="col-4" style="text-align: end; margin: auto;">
-      <!-- <ul class="rightside">
-      <a [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i style="color:#fff !important;"
-          class="fa fa-plus"></i></a><a class="" [routerLink]='' (click)="onClose()"><i style="color:#fff !important;" class="fa fa-close"></i></a>
-      </ul> -->
-      <!-- <ul class="rightside"> -->
-                  <!-- <a  [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"> -->
-                  <!-- <button type="button" style="border-color: #fff !important;
-                  color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
-  
+
                   <button type="button" class="btn btn-outline-primary  popup-add-button"
                   [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"
                    title = "Add Details">Add</button>
-  
-                   <!-- <button (click)="addSkills()" >Add 1</button> -->
-                  <!-- </a> -->
-  
-                  <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-  
+
                   <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png"  style="width: 20px;" title = "Close"/></a>
-  
-                  <!-- </ul> -->
+
   </div>
   </div>
   <form [formGroup]="mstapplicantlanguagedetail_Form" class="mobile_grid_view" *ngIf="showWebviewDetect">
@@ -162,59 +127,48 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <option *ngFor="let item of language_List" value="{{item.value}}">{{item.label}}</option>
           </select>
           </td>
-  
+
           <!--Read Proficiency -->
-  
+
           <td>
           <p-rating id="readproficiency" formControlName="readproficiency" class="form-control">
           </p-rating>
           </td>
-  
+
          <!--Write Proficiency -->
-  
+
           <td>
           <p-rating id="writeproficiency" formControlName="writeproficiency" class="form-control">
           </p-rating>
           </td>
-  
+
           <!--Speak Proficiency -->
-  
+
           <td>
           <p-rating id="speakproficiency" formControlName="speakproficiency" class="form-control">
           </p-rating>
           </td>
-  
+
           <!-- Rating -->
-  
+
           <td>
           <p-rating id="overallrating" formControlName="overallrating" class="form-control">
           </p-rating>
           </td>
-  
+
           <!-- Remarks -->
-  
+
           <td>
           <textarea autosize rows="3" cols="10" class="form-control"  id="achievementdetails"
           formControlName="remarks">
           </textarea>
           </td>
-  
-          <!-- Attachment -->
-  
-          <!-- <td>
-          <p-accordion [multiple]='true'>
-          <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
-            <app-attachment #fileattachment isAttachment=true formControlName="attachment" [SessionData]="sessionData">
-            </app-attachment>
-          </p-accordionTab>
-        </p-accordion>
-          </td> -->
-  
+
           <!-- Submit & Close -->
-  
+
           <td class="field-add-close-button">
               <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
-  
+
               <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
                   (click)="skillClose()"></i>
           </td>
@@ -222,22 +176,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </tbody>
   </table>
   </form>
-  
-  <!--<table>
-  <tbody>
-  <tr *ngFor = "let item of check_mstapplicantlanguagedetail">
-  <td>{{item.languagedesc}}</td>
-  <td>{{item.readproficiency}}</td>
-  <td>{{item.writeproficiency}}</td>
-  <td>{{item.speakproficiency}}</td>
-  <td>{{item.overallrating}}</td>
-  <td>{{item.remarks}}</td>
-  </tr>
-  </tbody>
-  </table> -->
-  
+
   <form [formGroup]="mstapplicantlanguagedetail_Form" class="mobile_grid_view" *ngIf="showMobileDetectskill">
-  
+
   <div class="row" *ngIf="showSkillDetails_input" style="width: 320px;margin: 10px !important;">
   <div class="col-md-12">
   <label>Language</label>
@@ -273,15 +214,15 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
           formControlName="remarks">
           </textarea>
   </div>
-  
+
   <div class="col" style="position: relative;left: 120px;top: 7px;">
-  
+
   <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
-  
+
               <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
                   (click)="skillClose()"></i>
     </div>
-  
+
     </div>
   </form>
     <ng2-smart-table #tbl_mstapplicantlanguagedetails
@@ -405,7 +346,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
   };
 
   getdata() {
-    debugger;
     this.mstapplicantlanguagedetail_service.getDefaultData().then(res => {
       this.applicantid_List = res.list_applicantid.value;
       this.language_List = res.list_language.value;
@@ -457,7 +397,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     this.spinner.show();;
     this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe((res: any) => {
       this.spinner.hide();
-      console.log("this.check_mstapplicantlanguagedetail", this.check_mstapplicantlanguagedetail);
       this.toastr.addSingle("success", "", "Successfully saved");
       this.sessionService.setItem("attachedsaved", "true")
       this.objvalues.push((res as any).mstapplicantlanguagedetail);
@@ -574,7 +513,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
   mstapplicantlanguagedetails_settings: any;
 
   show_mstapplicantlanguagedetails_Checkbox() {
-    //debugger;;
     if (this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] = 'multi';
@@ -606,9 +544,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
   }
   async mstapplicantlanguagedetails_beforesave(event: any) {
     event.confirm.resolve(event.newData);
-
-
-
   }
   Set_mstapplicantlanguagedetails_TableConfig() {
     this.mstapplicantlanguagedetails_settings = {
@@ -650,9 +585,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            console.log('row count response', row);
-
-            //debugger;;
             cell = this.mstapplicantlanguagedetailshtml();
 
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -859,7 +791,6 @@ export class mstapplicantlanuagegridComponent implements OnInit {
     }
   }
   mstapplicantlanguagedetails_Paging(val) {
-    //debugger;;
     this.tbl_mstapplicantlanguagedetails.source.setPaging(1, val, true);
   }
 
