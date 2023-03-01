@@ -2,15 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
-import { mstapplicantcareerdetail } from '../../../model/mstapplicantcareerdetail.model';
 import { DatePipe } from '@angular/common';
-import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
-import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
-
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
 import { NgbDateParserFormatter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { mstapplicantcareergridComponent } from '../mstapplicantcareerdetail/mstapplicantcareergrid.component';
@@ -63,12 +59,10 @@ export class MstCareerDetailsComponent implements OnInit {
 
     this.loginUser = localStorage.getItem('username');
 
-
     this.mstapplicantcareerdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
       applicantid: this.applicantid,
-      // applicantid: this.sessionService.getItem('applicantid'),
       applicantiddesc: [null],
       careerid: [null],
       category: [null],
@@ -92,11 +86,6 @@ export class MstCareerDetailsComponent implements OnInit {
   get f() { return this.mstapplicantcareerdetail_Form.controls; };
 
   ngOnInit() {
-
-    // this.pkcol = this.data.maindatapkcol;
-    // this.applicantid = this.data.applicantid;
-
-
     const current = new Date();
     this.maxDate = {
       year: current.getFullYear(),
@@ -104,12 +93,11 @@ export class MstCareerDetailsComponent implements OnInit {
       day: current.getDate()
     };
 
-    // get_default data
     this.mstapplicantcareerdetail_service.getDefaultData().then(res => {
       this.applicantid_List = res.list_applicantid.value;
       this.category_List = res.list_category.value;
       this.skills_List = res.list_skills.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
   };
 
 
@@ -119,12 +107,10 @@ export class MstCareerDetailsComponent implements OnInit {
   };
 
   search_skills(event) {
-    debugger;
     this.skills_results = this.skills_List.filter(v => v.label.toLowerCase().indexOf(event.query.toLowerCase()) > -1).slice(0, 10);
   };
 
   getSkills(skills_List) {
-    debugger;
     let skills: any[] = [];
 
     for (let i = 0; i < skills_List.length; i++) {
@@ -147,7 +133,6 @@ export class MstCareerDetailsComponent implements OnInit {
 
     if (this.mstapplicantcareerdetail_Form.value.currentlyworking == true) {
       this.formData.todate = new Date()
-      console.log(this.formData.todate);
     } else {
       this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('todate').value) + '  UTC' : null);
     }
@@ -163,23 +148,17 @@ export class MstCareerDetailsComponent implements OnInit {
 
       this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
         (res: any) => {
-
-
           this.spinner.hide();
           this.toastr.addSingle("success", "", "Successfully saved");
           this.route.navigate(['/home/newproject']);
           this.showDateError = false;
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicantcareerdetail);
-
-
           this.mstapplicantcareerdetail_Form.reset();
         },
         err => {
-          debugger;
           this.spinner.hide();
           this.toastr.addSingle("error", "", err.error);
-          console.log(err);
         })
     };
   }
@@ -196,7 +175,6 @@ export class MstCareerDetailsComponent implements OnInit {
 
     if (this.mstapplicantcareerdetail_Form.value.currentlyworking == true) {
       this.formData.todate = new Date()
-      console.log(this.formData.todate);
     } else {
       this.formData.todate = new Date(this.mstapplicantcareerdetail_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantcareerdetail_Form.get('todate').value) + '  UTC' : null);
     }
@@ -213,15 +191,11 @@ export class MstCareerDetailsComponent implements OnInit {
 
       this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
         (res: any) => {
-
-
           this.spinner.hide();
           this.toastr.addSingle("success", "", "Successfully saved");
           this.showDateError = false;
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicantcareerdetail);
-
-
           this.mstapplicantcareerdetail_Form.reset();
         })
     };

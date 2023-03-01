@@ -4,8 +4,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  // background-color: #f5f3e4 !important;
-
 }
 html,
 body {
@@ -14,7 +12,6 @@ body {
 }
 
 .menu-wrapper + div {
- // margin-top: 5% !important;
   padding-left: 18rem!important;
 }
 #contentArea {
@@ -25,87 +22,46 @@ body {
   max-width: 100% !important;
 }
 #contentidarea{left:-80px!important;z-index:10}
-#cssvmenu { overflow: auto; position:relative;  z-index:2;} 
-.parent-menu { background-color: #0c8fff; min-width:70px; float:left; } 
-#cssvmenu ul { list-style-type:none; } 
-#cssvmenu ul li a { 
-  padding:10px 15px; 
-  display:block; 
-  color:#4c4c4c; 
-  text-decoration:none; } 
-#cssvmenu ul li a:hover { background-color:#f1f1f1; } 
+#cssvmenu { overflow: auto; position:relative;  z-index:2;}
+.parent-menu { background-color: #0c8fff; min-width:70px; float:left; }
+#cssvmenu ul { list-style-type:none; }
+#cssvmenu ul li a {
+  padding:10px 15px;
+  display:block;
+  color:#4c4c4c;
+  text-decoration:none; }
+#cssvmenu ul li a:hover { background-color:#f1f1f1; }
 
-#cssvmenu ul li a:hover+ul,#cssvmenu li:hover{ display: block;z-index:5000!important } 
+#cssvmenu ul li a:hover+ul,#cssvmenu li:hover{ display: block;z-index:5000!important }
 
-#cssvmenu ul li:hover > ul { 
-  left: 70px; 
-  -webkit-transition: left 400ms ease-out; 
-  -moz-transition: left 400ms ease-out; 
-  -ms-transition: left 400ms ease-out; 
+#cssvmenu ul li:hover > ul {
+  left: 70px;
+  -webkit-transition: left 400ms ease-out;
+  -moz-transition: left 400ms ease-out;
+  -ms-transition: left 400ms ease-out;
   transition: left 400ms ease-out;
 
-} 
-#cssvmenu ul li > ul { 
-  position: absolute; 
-  background-color: #eee; 
-  top: 0; 
-  left: -70px; 
-  min-width: 200px; 
-  z-index: -1; 
-  height: 100%; 
- -webkit-transition: left 400ms ease-out; 
-  -moz-transition: left 400ms ease-out; 
-  -ms-transition: left 400ms ease-out; 
+}
+#cssvmenu ul li > ul {
+  position: absolute;
+  background-color: #eee;
+  top: 0;
+  left: -70px;
+  min-width: 200px;
+  z-index: -1;
+  height: 100%;
+ -webkit-transition: left 400ms ease-out;
+  -moz-transition: left 400ms ease-out;
+  -ms-transition: left 400ms ease-out;
   transition: left 400ms ease-out;
   display: none;
-} 
-/*
-li {
-  display: block;
- // transition-duration: 0.5s;
- }
- 
- li:hover {
-   cursor: pointer;
- }
- 
- ul li ul {
-   visibility: hidden;
-   opacity: 0;
-   position: absolute;
-  // transition: all 0.5s ease;
-   //margin-top: 1rem;
-   margin-top: -30px;
-   left: 50px!important;
-   width:max-content!important;
-   word-break: keep-all!important;
-   background-color: black!important;
-   color:white!important;
-   display: none;
- }
- 
- ul li:hover > ul,
- ul li ul:hover {
-   visibility: visible;
-   opacity: 1;
-   display: block;
- }
- 
- ul li ul li {
-   clear: both;
-   width: 100%;
- }
-*/
+}
+
 .w3-sidebar,.w3-bar-block
 {
   background-color: var(--backcolor)!important;
   color: var(--frontcolor)!important;
 }
-/*.Bitter
-{
-  font-family: bitter;
-  font: normal normal normal 14px/1 Bitter;
-}*/
 a {
   text-decoration: none;
   color: var(--frontcolor);;
@@ -119,7 +75,7 @@ a.active {
 #header-scroll {
   position: fixed;
   height: 100%;
-  background: var(--backcolor);//rgba(0,0,0,0.4);
+  background: var(--backcolor);
   left: 0;
   top: 0;
   float: left;
@@ -210,7 +166,6 @@ section:nth-child(odd) {
 
 
 .w3-bar-block .w3-bar-item {
-//  width: 100%;
   display: block;
   padding: 8px 16px;
   text-align: left;
@@ -258,9 +213,6 @@ section:nth-child(odd) {
   min-width: 260px;
   border-radius: 1.1rem;
   margin-left:5px;
- /* -webkit-box-ordinal-group: 2;
-  -ms-flex-order: 1;
-  order: 1;*/
   -moz-transition: ease 0.1s;
   -o-transition: ease 0.1s;
   -webkit-transition: ease 0.1s;
@@ -268,7 +220,7 @@ section:nth-child(odd) {
     -webkit-box-flex: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
-  
+
 }
 #navigation ul {
   list-style: none;
@@ -289,7 +241,7 @@ section:nth-child(odd) {
   border-bottom: 1px solid var(--frontcolor);
   position:relative;
  }
- 
+
  #navigation li a:link, #navigation li a:visited  {
   font-size: 16;
   display: block;
@@ -317,7 +269,7 @@ section:nth-child(odd) {
  #navigation li:hover ul {
   margin-left:0;
  }
- 
+
  #navigation ul ul li {
   border-bottom: 1px solid var(--frontcolor);
   margin:0;
@@ -331,7 +283,7 @@ section:nth-child(odd) {
   background-color: var(--frontcolor);
   color: var(--backcolor);
  }
- 
+
  #navigation3 ul a::before {
   font-size: 14px;
   content: "\e999";

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { bomenumasterService } from '../../../../n-tire-biz-app/src/app/service/bomenumaster.service';
-import { MENU_ITEMS } from './pages-menu';
+// import { MENU_ITEMS } from './pages-menu';
 
 @Component({
     selector: 'ngx-pages',
@@ -32,11 +32,11 @@ export class PagesComponent implements OnInit {
             //  console.log(MENU_ITEMS);
              // this.nbmenuservice.addItems(MENU_ITEMS);
               this.nbmenuservice.addItems(this.menulist);
-        
+
           //    //debugger;
-             
+
             });
-            
+
         */
 
 

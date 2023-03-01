@@ -3,7 +3,6 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 @import 'var.scss';
 @import 'theme.scss';
-//@import '../node_modules/primeng/resources/themes/luna-pink/theme.css';
 @import '../../../node_modules/primeng/resources/primeng.min.css';
 @import '~primeicons/primeicons.css';
 
@@ -294,7 +293,6 @@ a + a {
   padding: 4px 14px !important;
   margin-right: 15px !important;
   background: #6b431d !important;
-  // line-height: 0px;
   font-size: 14px;
 }
 
@@ -671,7 +669,6 @@ h1 a {
 }
 
 .table thead tr {
-  // background-color: #a89888 !important;
   background-color: #6b431d !important;
   color: var(--frontcolor) !important;
   border: #6b431d !important;
@@ -808,7 +805,6 @@ th {
   border-color: var(--frontcolor);
   margin-right: 0px !important;
   margin-left: 0px !important;
-  // margin: 1px;
 }
 
 .p-datatable .p-datatable-thead > tr > th,
@@ -1039,9 +1035,7 @@ button.btn.btn-primary.btn-sm.readMoreBtn {
   --percent: calc(var(--rating) / 5 * 100%);
 
   display: inline-block;
-  // font-size: 30px;
   font-family: Times; // make sure ★ appears correctly
-  // line-height: 1;
 
   &::before {
     content: '★★★★★';
@@ -1052,7 +1046,6 @@ button.btn.btn-primary.btn-sm.readMoreBtn {
       var(--frontcolor) var(--percent)
     );
     font-weight: bolder;
-    // font-size:x-large;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }

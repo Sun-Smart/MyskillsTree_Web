@@ -3,7 +3,6 @@ import { mstterm } from './../../../model/mstterm.model';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";

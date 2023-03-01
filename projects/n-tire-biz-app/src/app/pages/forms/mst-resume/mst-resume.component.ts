@@ -1,8 +1,8 @@
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { AppConstants } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
+import { KeyValuePair } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
@@ -11,7 +11,6 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
 import { mstapplicantmasterService } from './../../../service/mstapplicantmaster.service';
 import { mstapplicantmaster } from './../../../model/mstapplicantmaster.model';
@@ -62,8 +61,7 @@ export class MstResumeComponent implements OnInit {
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
     private mstapplicantmaster_service: mstapplicantmasterService,
-    private ngbDateParserFormatter: NgbDateParserFormatter,
-    private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
+    private ngbDateParserFormatter: NgbDateParserFormatter, private spinner: NgxSpinnerService) {
 
 
     this.loginUser = localStorage.getItem('username');
@@ -113,8 +111,6 @@ export class MstResumeComponent implements OnInit {
   get f() { return this.mstapplicantmaster_Form.controls; }
 
   ngOnInit() {
-
-
     this.sessionData = this.sessionService.getSession();
     if (this.sessionData != null) {
       this.SESSIONUSERID = this.sessionData.userid;
@@ -122,9 +118,6 @@ export class MstResumeComponent implements OnInit {
   }
 
   onSubmit() {
-   debugger
-
-
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
       this.onSubmitData(true);
     }
@@ -137,7 +130,6 @@ export class MstResumeComponent implements OnInit {
   };
 
   onSubmitAndWait() {
-    debugger
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
       this.onSubmitData(false);
     }
@@ -157,23 +149,16 @@ export class MstResumeComponent implements OnInit {
     }
     var obj = this.mstapplicantmaster_Form.getRawValue();
     obj.dob = new Date(this.mstapplicantmaster_Form.get('dob').value ? this.ngbDateParserFormatter.format(this.mstapplicantmaster_Form.get('dob').value) + '  UTC' : null);
-    // if (this.profilephoto.getAttachmentList() != null) obj.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
     if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     obj.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log(obj);
-    // await this.sharedService.upload(this.profilephoto.getAllFiles());
     await this.sharedService.upload(this.fileAttachmentList);
     this.attachmentlist = [];
     if (this.fileattachment) this.fileattachment.clear();
     this.objvalues.push(obj);
     this.dialogRef.close(this.objvalues);
-    setTimeout(() => {
-      //this.dialogRef.destroy();
-    }, 200);
   };
 
   onSubmitData(bclear: any){
-    debugger;
     this.isSubmitted = true;
     let strError = "";
     if (strError != "") return this.sharedService.alert(strError);
@@ -191,14 +176,10 @@ export class MstResumeComponent implements OnInit {
 
     this.mstapplicantmaster_service.saveOrUpdate_mstapplicantmastermains(this.formData).subscribe(
       async (res:any) => {
-
-        console.log("Response", res);
-
         await this.sharedService.upload(this.fileAttachmentList);
         this.attachmentlist = [];
         if (this.fileattachment) this.fileattachment.clear();
         this.spinner.hide();
-        debugger;
         this.toastr.addSingle("success", "", "Successfully saved");
         this.route.navigate(['/home/newlanguage'])
         this.objvalues.push((res as any).mstapplicantmaster);

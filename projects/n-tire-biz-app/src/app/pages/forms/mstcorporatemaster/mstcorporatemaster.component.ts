@@ -3,8 +3,6 @@ import { mstcorporatemaster } from './../../../model/mstcorporatemaster.model';
 import {  Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer } from "@angular/platform-browser";
 import { CorporateDashboardComponent } from '../corporate.component';
 import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -12,11 +10,8 @@ import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { mstcorporatelocationComponent } from './../../../pages/forms/mstcorporatelocation/mstcorporatelocation.component';
-import { mstcorporatelocationService } from './../../../service/mstcorporatelocation.service';
 import { mstjobrequirementComponent } from './../../../pages/forms/mstjobrequirement/mstjobrequirement.component';
-import { mstjobrequirementService } from './../../../service/mstjobrequirement.service';
 import { mstjobstatusComponent } from './../../../pages/forms/mstjobstatus/mstjobstatus.component';
-import { mstjobstatusService } from './../../../service/mstjobstatus.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
@@ -303,7 +298,6 @@ export class mstcorporatemasterComponent implements OnInit {
 
 
     getkycupload() {
-        debugger;
         if (this.kycupload.getAttachmentList().length > 0) {
             let file = this.kycupload.getAttachmentList()[0];
             this.sharedService.geturl(file.filekey, file.type);
@@ -1156,7 +1150,6 @@ export class mstcorporatemasterComponent implements OnInit {
     mstjobstatuses_settings: any;
 
     show_mstjobstatuses_Checkbox() {
-        debugger;
         if (this.tbl_mstjobstatuses.source.settings['selectMode'] == 'multi') this.tbl_mstjobstatuses.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstjobstatuses.source.settings['selectMode'] = 'multi';
@@ -1166,9 +1159,6 @@ export class mstcorporatemasterComponent implements OnInit {
         this.tbl_mstjobstatuses.source.settings['selectMode'] = 'single';
     }
     show_mstjobstatuses_Filter() {
-        setTimeout(() => {
-            //  this.Set_mstjobstatuses_TableDropDownConfig();
-        });
         if (this.tbl_mstjobstatuses.source.settings != null) this.tbl_mstjobstatuses.source.settings['hideSubHeader'] = !this.tbl_mstjobstatuses.source.settings['hideSubHeader'];
         this.tbl_mstjobstatuses.source.initGrid();
     }

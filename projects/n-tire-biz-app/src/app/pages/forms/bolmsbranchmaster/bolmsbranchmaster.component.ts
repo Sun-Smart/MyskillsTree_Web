@@ -3,11 +3,9 @@ import { bolmsbranchmaster } from './../../../model/bolmsbranchmaster.model';
 import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { boconfigvalue } from '../../../../../../n-tire-biz-app/src/app/model/boconfigvalue.model';
 import { boconfigvalueService } from '../../../../../../n-tire-biz-app/src/app/service/boconfigvalue.service';
 import { KeyValuePair, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { bocountry } from './../../../model/bocountry.model';
 import { bocountryService } from './../../../service/bocountry.service';
@@ -269,7 +267,6 @@ export class bolmsbranchmasterComponent implements OnInit {
 
         this.theme = this.sessionService.getItem('selected-theme');
         this.themeService.theme.subscribe((val: string) => {
-            debugger;
             this.theme = val;
         });
 
@@ -388,7 +385,6 @@ export class bolmsbranchmasterComponent implements OnInit {
                     });
                 }
             }).catch((err) => {
-                //console.log(err);
             });
         });
         this.locationid_bolocationsoptions = (text$: Observable<string>) =>

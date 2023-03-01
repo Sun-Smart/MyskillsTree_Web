@@ -3,26 +3,12 @@
   <div class="col-3 layout-topbar-left ng-tns-c186-0" style="align-items: self-end;">
     <a routerlink="" class="layout-topbar-logo ng-tns-c186-0" href="javascript:void(0)"><img class="logo-2"
         src="assets/companylogo.png" (click) = "dashboard()"/> </a>
-    <!-- <a pripple="" class="layout-topbar-mobile-button ng-tns-c186-0 p-ripple"><i
-              class="pi pi-ellipsis-v fs-large ng-tns-c186-0"></i><span class="p-ink"></span></a> -->
     <label style="left: 63px;position: fixed;font-size: 20px; color:#6B431D;" class="comp_title">MySkillsTree</label>
 
   </div>
   <div class="col-6">
-    <!-- <app-newskillsearch #searchInput isSearchInput=true></app-newskillsearch> -->
   </div>
-  <!-- <div class="col-6" style="display:flex; justify-content:center; align-items:center;padding: 0 5rem;">
-    <i class="fa fa-search search-icon" aria-hidden="true"></i>
-    <input type="text" class="form-control" placeholder="Search"
-      style="border-radius:30px !important; padding: 0 30px;height: 31px;">
-    <i class="fa fa-microphone microphone-icon" aria-hidden="true"></i>
-    <ngx-reportviewer >
-
-    </ngx-reportviewer>
-  </div> -->
-  <!-- <div class="col-6" *ngIf="!hideCorporatePage"></div> -->
   <div class="col-3 layout-topbar-right ng-tns-c186-0">
-
     <div class="layout-topbar-actions-right ng-tns-c186-0">
       <ul class="layout-topbar-items ng-tns-c186-0">
         <li class="layout-topbar-item notifications ng-tns-c186-0"><a pripple=""
@@ -30,15 +16,9 @@
                 style="color: red; "></i>{{notifications.length}}<span class="p-ink"
               style="height: 44px; width: 44px;"></span></a>
         </li>
-
-        <!-- Applicant Login Dropdown -->
-
         <li *ngIf="showApplicantmenu && !showCertifiermenu" class="layout-topbar-item ng-tns-c186-0 "
           style="list-style: none; color:black;">
-
-
           <label class="dropdown">
-
             <div>
               <i class="fa fa-th fa1 fa2 menu-icon" aria-haspopup="true" aria-expanded="false"  (click)="openpopup()"></i>
               <span class="p-ink" style="height: 44px; width: 44px; "></span>
@@ -155,22 +135,6 @@
                   </a>
                 </div>
               </div>
-
-              <!-- <div class="col-4 card admindrop" style="text-align:center;">
-                  <a class="icon" [routerLink]='' (click)="openJobs()"><li class="li2">
-                    <i class="bi bi-briefcase-fill fa1" style="font-size: 25px;"></i><br />
-                    <span class="common_cls_font newfont_header" title="Jobs">Jobs</span></li>
-                  </a>
-                </div> -->
-              <!-- <div class="col-4 card admindrop" style="text-align:center;">
-                  <a class="icon" [routerLink]='' (click)="openGallery()"><li class="li2">
-                    <i style="font-style: normal!important;font-size: 25px;" class="bi bi-image fa1"></i><br />
-                    <span class="common_cls_font newfont_header" title="Gallery">Gallery</span>
-                </li>  </a>
-                </div> -->
-
-
-
             </ul>
 
           </label>
@@ -210,18 +174,7 @@
             </ul>
           </label>
         </li>
-        <!-- <li class="layout-topbar-item app ng-tns-c186-0"><a pripple="" (click)="themeChooser.toggle($event)"
-                      class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple"><i
-                          class="pi pi-table fs-large ng-tns-c186-0"></i><span class="p-ink"
-                          style="height: 44px; width: 44px;"></span></a>
-
-              </li> -->
-        <!-- <a href="http://localhost:4200/#/home/boreportviewer/aj5qt">Visit W3Schools</a> -->
-
-
-
         <!-- Admin Login -->
-
 
         <li *ngIf="showAdminMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
           style="list-style: none; color:black;">
@@ -368,7 +321,6 @@
                   </a>
                 </div>
 
-                <!-- <div class="row" style=" font-size: 1rem;border-style: 1px solid gray;"> -->
                 <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/mfrqi']" routerLinkActive="router-link-activet">
                     <li class="li2"><i class="fa fa-check-square fa1" aria-hidden="true"></i>
@@ -388,7 +340,6 @@
                 </div>
                 <!-- </div> -->
 
-                <!-- <div class="row" style=" font-size: 1rem;"> -->
                 <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/segmt']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-cc-mastercard fa1" aria-hidden="true"></i><br /> Segment Masters
@@ -408,7 +359,6 @@
                 <!-- </div> -->
 
 
-                <!-- <div class="row" style="font-size: 1rem;"> -->
                 <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/tnf39']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> User Roles</li>
@@ -426,8 +376,6 @@
                 </div>
                 <!-- </div> -->
 
-
-                <!-- <div class="row" style="font-size: 1rem;"> -->
                 <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/ybg3p']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-tachometer fa1" aria-hidden="true"></i><br /> Dashboards</li>
@@ -694,15 +642,6 @@
             <span style="color:white !important;">Signout from account</span>
           </label>
         </div>
-
-
-        <!-- <label class="profile-label" class="layout-topbar-item" style='width:fit-content'>{{username}}({{userrole}})
-              </li> -->
-        <!-- <label class="layout-topbar-item ng-tns-c186-0"><a pripple="" (click)="logout()"
-                      class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple"><i
-                          class="pi fs-large ng-tns-c186-0 pi-sign-out"
-                          style="font-size: 30px !important; color: #000;" title="Logout"></i><span
-                          class="p-ink"></span></a></li> -->
 
       </ul>
     </div>

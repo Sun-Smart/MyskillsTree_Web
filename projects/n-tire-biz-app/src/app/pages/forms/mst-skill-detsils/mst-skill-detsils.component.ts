@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import {  DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -42,10 +42,6 @@ export class MstSkillDetsilsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.pkcol = this.data.maindatapkcol;
-    // this.applicantid = this.data.applicantid;
-
-    debugger;
     this.mstapplicantskilldetail_Form = this.fb.group({
 
       pk: [null],
@@ -64,8 +60,6 @@ export class MstSkillDetsilsComponent implements OnInit {
       requestid: [null],
       referenceacceptance: [null],
       referenceacceptancedesc: [null],
-      // showorhide: [Boolean],
-      // attachment: [null],
       status: [null],
       statusdesc: [null],
       segmentcategoryothers: [null],
@@ -80,7 +74,6 @@ export class MstSkillDetsilsComponent implements OnInit {
    }
 
   segmentcategory_onChange(evt: any) {
-    debugger
     let e = evt.value;
     this.getidd = e
 
@@ -97,14 +90,12 @@ export class MstSkillDetsilsComponent implements OnInit {
       skillcategory: null
     });
     this.mstapplicantskilldetail_service.getList_skillcategory2(e).then((res: any) => {
-      debugger;
       this.skillcategory_List = res as DropDownValues[];
       this.subcategoryid_List = [];
     });
   };
 
   skillcategory_onChange(evt: any) {
-    debugger
     let e = evt.value;
     this.getidd1 = e;
     if (this.getidd1 == "262") {
@@ -115,15 +106,12 @@ export class MstSkillDetsilsComponent implements OnInit {
     this.mstapplicantskilldetail_Form.patchValue({
       subcategoryid:null
     });
-    debugger
     this.mstapplicantskilldetail_service.getList_subcategoryid2(e).then((res: any) => {
-      debugger;
       this.subcategoryid_List = res as DropDownValues[]
     });
   };
 
   subcategoryid_onChange(evt: any) {
-    debugger
     let e = evt.value;
     this.getdata2 = e
     if (this.getdata2 == "512") {
@@ -134,7 +122,6 @@ export class MstSkillDetsilsComponent implements OnInit {
     this.mstapplicantskilldetail_Form.patchValue({ subcategoryiddesc: evt.options[evt.options.selectedIndex].text, categoryid: this.getdata2 });
   };
   async onSubmitData(bclear: any) {
-    debugger
     this.isSubmitted = true;
     let strError = "";
     if (strError != "") return this.sharedService.alert(strError);
@@ -143,17 +130,10 @@ export class MstSkillDetsilsComponent implements OnInit {
       return;
     }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
-    debugger
     this.formData.applicantid = this.applicantid;
-    console.log(this.formData);
-    debugger
     this.spinner.show();
     this.mstapplicantskilldetail_service.saveOrUpdate_mstapplicantskilldetails(this.formData).subscribe(
       async (res: any) => {
-        console.log(res);
-
-
-
         this.spinner.hide();
 
         this.toastr.addSingle("success", "", "Successfully saved");
@@ -164,9 +144,7 @@ export class MstSkillDetsilsComponent implements OnInit {
         this.mstapplicantskilldetail_Form.markAsPristine();
         this.ngOnInit();
         this.mstapplicantskilldetail_Form.reset();
-        // this.showSkillDetails_input = false;
         this.sessionService.setItem("attachedsaved", "true");
-        // this.ngAfterViewInit();
         let getapp = parseInt(localStorage.getItem('applicantid'));
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(getapp);
         this.objvalues.push((res as any).mstapplicantskilldetail);
@@ -176,15 +154,12 @@ export class MstSkillDetsilsComponent implements OnInit {
         this.mstapplicantskilldetail_Form.markAsPristine();
       },
       err => {
-        debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       });
   }
 
   async AddmoreSubmitData(bclear: any) {
-    debugger
     this.isSubmitted = true;
     let strError = "";
     if (strError != "") return this.sharedService.alert(strError);
@@ -193,17 +168,11 @@ export class MstSkillDetsilsComponent implements OnInit {
       return;
     }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
-    debugger
     this.formData.applicantid = this.applicantid;
-    console.log(this.formData);
-    debugger
     this.spinner.show();
     this.mstapplicantskilldetail_service.saveOrUpdate_mstapplicantskilldetails(this.formData).subscribe(
       async (res: any) => {
-        console.log(res);
-
         this.spinner.hide();
-
         this.toastr.addSingle("success", "", "Successfully saved");
         this.skillcategory_List = [];
         this.subcategoryid_List = [];
@@ -212,9 +181,7 @@ export class MstSkillDetsilsComponent implements OnInit {
         this.mstapplicantskilldetail_Form.markAsPristine();
         this.ngOnInit();
         this.mstapplicantskilldetail_Form.reset();
-        // this.showSkillDetails_input = false;
         this.sessionService.setItem("attachedsaved", "true");
-        // this.ngAfterViewInit();
         let getapp = parseInt(localStorage.getItem('applicantid'));
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(getapp);
         this.objvalues.push((res as any).mstapplicantskilldetail);
@@ -223,10 +190,8 @@ export class MstSkillDetsilsComponent implements OnInit {
         this.mstapplicantskilldetail_Form.markAsPristine();
       },
       err => {
-        debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       });
   }
   resetForm() {

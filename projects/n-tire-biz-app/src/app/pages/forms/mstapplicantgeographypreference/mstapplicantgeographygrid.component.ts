@@ -619,7 +619,6 @@ export class mstapplicantgeographygrid implements OnInit {
     }
   }
   mstapplicantgeographypreferences_route(event: any, action: any) {
-    debugger
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
       addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');

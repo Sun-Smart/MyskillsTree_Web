@@ -68,15 +68,9 @@
               style="border-color: #fff !important;
   color: #fff;margin: 5px;
      padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
-
-            <!-- <a class="alert-success" [routerLink]=''  (click)="onSubmitAndWait()"  ><i class="fa fa-database"></i> Submit</a>
-    <a class="alert-primary"  *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]='' (click)="onSubmit()" ><i class="fa fa-share-square"></i> Submit & Clear</a> -->
             <app-action *ngIf="f.subcategoryid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.subcategoryid.value" [status]="f.status.value"></app-action>
           </li>
-          <!-- <li  class='nav-item actionheader'   *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-    <a class="alert-danger"  [routerLink]=''  (click)="onClose()"   ><i class="fa fa-close"></i> Close</a>
-  </li> -->
           <i class='nav-item actionheader common_title_style'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
             class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
@@ -94,13 +88,6 @@
 
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <!-- <div   *ngIf="((hidelist.indexOf('code') == -1) && (codevisible==undefined || codevisible==true))"  style='' class="col-3 " >
-<label  for="code" class="control-label required">Code</label>
-      <label *ngIf="showview"     class="labelview">{{f.code?.value}}</label>
-      <input   *ngIf="!showview"  id="code"  required formControlName="code" class="form-control"        >
-      <app-field-error-display [displayError]="f.code.errors?.required" errorMsg="Enter {{'Code'}}">
-      </app-field-error-display>
-  </div> -->
       <div *ngIf="((hidelist.indexOf('name') == -1) && (namevisible==undefined || namevisible==true))" style=''
         class="col-3 education_view_mobile">
         <label for="name" class="control-label required">Name</label>
@@ -115,16 +102,6 @@
         <label *ngIf="showview" class="labelview">{{f.categoryid?.value}}</label>
         <input *ngIf="!showview" id="categoryid" formControlName="categoryid" class="form-control">
       </div>
-
-
-      <!--segmentid-->
-
-      <!-- <div   *ngIf="((hidelist.indexOf('segmentid') == -1) && (segmentidvisible==undefined || segmentidvisible==true)) || maindata==undefined || maindata==null || maindata.ScreenType==null"  style='' class="col-3" ><label  for="segmentid" class="control-label" (click)="AddOrEdit_segmentid(null)">Segment</label>
-<app-popupselect  *ngIf="!showview"  [options]="segmentid_List"  [optionsEvent]="segmentid_optionsEvent" [form]="mstsegment" (selectItem)="onSelected_segmentid($event)"  [reportid]= 'wc9rn' [menuid]='wc9rn' formControlName="segmentid" id="value" desc="label" ></app-popupselect>
-<div class="input-group">
-</div>
-      <label *ngIf="showview"   class="labelview">{{f.segmentiddesc?.value}}</label>
-  </div> -->
     </div>
   </div>
 </form>

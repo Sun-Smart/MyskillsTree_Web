@@ -3,9 +3,7 @@ import { bokbtopic } from './../../../model/bokbtopic.model';
 import { ElementRef, Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
@@ -396,7 +394,7 @@ export class bokbtopicComponent implements OnInit {
                 }, 500);
             }).catch((err) => {
                 this.blockedDocument = false;
-                if (this.sharedService.IsDebug) console.log(err);
+                if (this.sharedService.IsDebug)
                 this.toastr.addSingle("error", "", 'filldata ' + err);
             });
         } catch (e) {

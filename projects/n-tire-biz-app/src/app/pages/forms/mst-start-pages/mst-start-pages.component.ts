@@ -2,7 +2,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicDialog';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
@@ -71,24 +71,21 @@ export class MstStartPagesComponent implements OnInit {
   usernumber: any;
   usermail: any;
   sub: any;
-  showLabel_data:boolean = false;
+  showLabel_data: boolean = false;
   emailid: any;
 
 
 
   constructor(private route: Router, private fb: FormBuilder,
     private ngbDateParserFormatter: NgbDateParserFormatter,
-    private config: NgbDatepickerConfig,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
-    private translate: TranslateService,
     private mstapplicantmaster_service: mstapplicantmasterService,
     private sharedService: SharedService,
     private sessionService: SessionService,
     private toastr: ToastService,
     private themeService: ThemeService,
-    private sanitizer: DomSanitizer,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
 
     const current = new Date();
@@ -98,7 +95,6 @@ export class MstStartPagesComponent implements OnInit {
       day: current.getDate()
     };
 
-    this.translate = this.sharedService.translate;
     this.data = dynamicconfig;
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
@@ -107,14 +103,14 @@ export class MstStartPagesComponent implements OnInit {
     this.applicantid = localStorage.getItem('applicantid');
     this.emailid = localStorage.getItem('emailid');
     this.usernumber = localStorage.getItem('mobilenumber');
-    
+
     this.mstapplicantmaster_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
       applicantid: this.applicantid,
       firstname: [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)])],
       lastname: [null, Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)])],
-      emailid:this.emailid,
+      emailid: this.emailid,
       mobilenumber: this.usernumber,
       applicanttype: [null, Validators.compose([Validators.required])],
       applicanttypedesc: [null],
@@ -149,7 +145,6 @@ export class MstStartPagesComponent implements OnInit {
   async ngOnInit() {
     this.sessionService.setItem("choosefileforprofile", "ok");
 
-
     //session & theme
     this.themeService.theme.subscribe((val: string) => {
       this.theme = val;
@@ -161,9 +156,6 @@ export class MstStartPagesComponent implements OnInit {
     }
 
     this.theme = this.sessionService.getItem('selected-theme');
-    //this.viewHtml=this.sessionService.getViewHtml();
-
-    debugger;
     //getting data - from list page, from other screen through dialog
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -205,9 +197,7 @@ export class MstStartPagesComponent implements OnInit {
     // mstapplicantmasterid=212;
     mstapplicantmasterid = this.data.applicantid;
     this.pkcol = this.sessionService.getItem('usersource');
-    // this.pkcol="MjEyOzIwMjItMDMtMTcgMTc6MjE6MjkuNDU3OTE3KzA1OjMw";
     this.formid = mstapplicantmasterid;
-    //alert(mstapplicantmasterid);
 
     //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
 
@@ -223,20 +213,20 @@ export class MstStartPagesComponent implements OnInit {
       this.applicanttype_List = res.list_applicanttype.value;
       this.gender_List = res.list_gender.value;
       this.country_List = res.list_country.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
 
     //autocomplete
     this.mstapplicantmaster_service.get_mstapplicantmasters_List().then(res => {
       this.pkList = res as mstapplicantmaster[];
       this.pkoptionsEvent.emit(this.pkList);
     }
-    ).catch((err) => { this.spinner.hide(); console.log(err); });
+    ).catch((err) => { this.spinner.hide(); });
     //setting the flag that the screen is not touched
     this.mstapplicantmaster_Form.markAsUntouched();
     this.mstapplicantmaster_Form.markAsPristine();
   }
 
-// Type
+  // Type
   applicanttype_onChange(evt: any) {
     let e = this.f.applicanttype.value as any;
     this.mstapplicantmaster_Form.patchValue({ applicanttypedesc: evt.options[evt.options.selectedIndex].text });
@@ -256,32 +246,26 @@ export class MstStartPagesComponent implements OnInit {
     this.spinner.show();
     this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(pkcol).then(res => {
       this.spinner.hide();
-
       this.formData = res.mstapplicantmaster;
       let formproperty = res.mstapplicantmaster.formproperty;
       if (formproperty && formproperty.edit == false) this.showview = true;
       this.pkcol = res.mstapplicantmaster.pkcol;
       this.formid = res.mstapplicantmaster.applicantid;
       this.FillData(res);
-    }).catch((err) => { console.log(err); });
+    }).catch((err) => { });
   };
 
   FillData(res: any) {
-    debugger
     this.formData = res.mstapplicantmaster;
     this.formid = res.mstapplicantmaster.applicantid;
     this.pkcol = res.mstapplicantmaster.pkcol;
     this.bmyrecord = false;
     if ((res.mstapplicantmaster as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-    console.log(res);
-    //console.log(res.order);
-    console.log(res.mstapplicantmaster.emailid);
-
     this.mstapplicantmaster_Form.patchValue({
       applicantid: res.mstapplicantmaster.applicantid,
       firstname: res.mstapplicantmaster.firstname,
       lastname: res.mstapplicantmaster.lastname,
-      emailid: res.mstapplicantmaster.emailid ?  res.mstapplicantmaster.emailid : this.emailid,
+      emailid: res.mstapplicantmaster.emailid ? res.mstapplicantmaster.emailid : this.emailid,
       mobilenumber: res.mstapplicantmaster.mobilenumber ? res.mstapplicantmaster.mobilenumber : this.usernumber,
       applicanttype: res.mstapplicantmaster.applicanttype,
       applicanttypedesc: res.mstapplicantmaster.applicanttypedesc,
@@ -299,7 +283,6 @@ export class MstStartPagesComponent implements OnInit {
       citydesc: res.mstapplicantmaster.citydesc ?? '',
       zipcode: res.mstapplicantmaster.zipcode,
       recoveryemailid: res.mstapplicantmaster.recoveryemailid,
-      // profilephoto:res.res.mstapplicantmaster.profilephoto,
       profilephoto: JSON.parse(res.mstapplicantmaster.profilephoto),
       briefintroduction: res.mstapplicantmaster.briefintroduction,
       statuscrimp: res.mstapplicantmaster.statuscrimp,
@@ -325,7 +308,7 @@ export class MstStartPagesComponent implements OnInit {
           state: this.formData.state,
           statedesc: this.formData.statedesc,
         })
-      }).catch((err) => { console.log(err); });
+      }).catch((err) => { });
     });
     setTimeout(() => {
       if (this.f.state.value && this.f.state.value != "" && this.f.state.value != null) this.mstapplicantmaster_service.getList_city(this.f.state.value).then(res => {
@@ -334,10 +317,7 @@ export class MstStartPagesComponent implements OnInit {
           city: this.formData.city,
           citydesc: this.formData.citydesc,
         })
-      }).catch((err) => { console.log(err); });
-    });
-    //Child Tables if any
-    setTimeout(() => {
+      }).catch((err) => { });
     });
   }
 
@@ -373,10 +353,7 @@ export class MstStartPagesComponent implements OnInit {
   }
 
   getprofilephoto() {
-    debugger
-
     if (this.profilephoto.getAttachmentList().length > 0) {
-      debugger
       let file = this.profilephoto.getAttachmentList()[0];
       this.sharedService.geturl(file.filekey, file.type);
     }
@@ -405,7 +382,7 @@ export class MstStartPagesComponent implements OnInit {
       });
       this.mstapplicantmaster_service.getList_state(countryDetail.value).then(res => {
         this.state_List = res as DropDownValues[]
-      }).catch((err) => { this.spinner.hide(); console.log(err); });
+      }).catch((err) => { this.spinner.hide(); });
 
     }
   };
@@ -419,7 +396,7 @@ export class MstStartPagesComponent implements OnInit {
       });
       this.mstapplicantmaster_service.getList_city(stateDetail.value).then(res => {
         this.city_List = res as DropDownValues[]
-      }).catch((err) => { this.spinner.hide(); console.log(err); });
+      }).catch((err) => { this.spinner.hide(); });
 
     }
   };
@@ -436,8 +413,6 @@ export class MstStartPagesComponent implements OnInit {
 
 
   onSubmit() {
-    debugger;
-    console.log("this.mstapplicantmaster_Form", this.mstapplicantmaster_Form);
 
     if (!this.mstapplicantmaster_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the required fields");
@@ -446,27 +421,23 @@ export class MstStartPagesComponent implements OnInit {
 
     this.formData = this.mstapplicantmaster_Form.getRawValue();
     this.formData.dob = new Date(this.mstapplicantmaster_Form.get('dob').value ? this.ngbDateParserFormatter.format(this.mstapplicantmaster_Form.get('dob').value) + '  UTC' : null);
-    // if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     if (this.profilephoto.getAttachmentList() != null) this.formData.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
-    // this.fileAttachmentList = this.fileattachment.getAllFiles();
-    console.log("this.formData", this.formData);
+
     this.spinner.show();
     this.mstapplicantmaster_service.saveOrUpdate_mstapplicantmastermains(this.formData).subscribe(
-      async (res:any) => {
-
-      console.log("response",res);
-      await this.sharedService.upload(this.profilephoto.getAllFiles());
-      await this.sharedService.upload(this.fileAttachmentList);
-      this.attachmentlist = [];
-      if (this.fileattachment) this.fileattachment.clear();
-      this.spinner.hide();
-      this.toastr.addSingle("success", "", "Successfully saved");
-      localStorage.removeItem("choosefileforprofile")
-      this.objvalues.push((res as any).mstapplicantmaster);
-      this.route.navigate(['/home/newskilldetails']);
-    });
+      async (res: any) => {
+        await this.sharedService.upload(this.profilephoto.getAllFiles());
+        await this.sharedService.upload(this.fileAttachmentList);
+        this.attachmentlist = [];
+        if (this.fileattachment) this.fileattachment.clear();
+        this.spinner.hide();
+        this.toastr.addSingle("success", "", "Successfully saved");
+        localStorage.removeItem("choosefileforprofile")
+        this.objvalues.push((res as any).mstapplicantmaster);
+        this.route.navigate(['/home/newskilldetails']);
+      });
   };
-addskill(){
+  addskill() {
     this.route.navigate(['/home/newskilldetails']);
-}
+  }
 }

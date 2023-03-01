@@ -3,36 +3,23 @@ import { mstapplicantmaster } from './../../../model/mstapplicantmaster.model';
 import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer } from "@angular/platform-browser";
 import { KeyValuePair } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { mstapplicantgeographypreferenceComponent } from './../../../pages/forms/mstapplicantgeographypreference/mstapplicantgeographypreference.component';
-import { mstapplicantgeographypreferenceService } from './../../../service/mstapplicantgeographypreference.service';
 import { mstapplicantskilldetailgridComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetailgrid.component';
 import { mstapplicantcareerdetailComponent } from './../../../pages/forms/mstapplicantcareerdetail/mstapplicantcareerdetail.component';
-import { mstapplicantcareerdetailService } from './../../../service/mstapplicantcareerdetail.service';
 import { mstapplicantreferencedetailComponent } from './../../../pages/forms/mstapplicantreferencedetail/mstapplicantreferencedetail.component';
-import { mstapplicantreferencedetailService } from './../../../service/mstapplicantreferencedetail.service';
 import { mstapplicantskilldetailComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.component';
-import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
 import { mstapplicantworkreferenceComponent } from './../../../pages/forms/mstapplicantworkreference/mstapplicantworkreference.component';
-import { mstapplicantworkreferenceService } from './../../../service/mstapplicantworkreference.service';
 import { mstapplicantsocialmediadetailComponent } from './../../../pages/forms/mstapplicantsocialmediadetail/mstapplicantsocialmediadetail.component';
-import { mstapplicantsocialmediadetailService } from './../../../service/mstapplicantsocialmediadetail.service';
 import { mstapplicantachievementdetailComponent } from './../../../pages/forms/mstapplicantachievementdetail/mstapplicantachievementdetail.component';
-import { mstapplicantachievementdetailService } from './../../../service/mstapplicantachievementdetail.service';
 import { mstapplicantlanguagedetailComponent } from './../../../pages/forms/mstapplicantlanguagedetail/mstapplicantlanguagedetail.component';
-import { mstapplicantlanguagedetailService } from './../../../service/mstapplicantlanguagedetail.service';
 import { mstapplicanteducationdetailComponent } from './../../../pages/forms/mstapplicanteducationdetail/mstapplicanteducationdetail.component';
-import { mstapplicanteducationdetailService } from './../../../service/mstapplicanteducationdetail.service';
 import { mstjobstatusComponent } from './../../../pages/forms/mstjobstatus/mstjobstatus.component';
-import { mstjobstatusService } from './../../../service/mstjobstatus.service';
 import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
-import { mstapplicantreferencerequestService } from './../../../service/mstapplicantreferencerequest.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
@@ -312,7 +299,7 @@ export class mstapplicantmasterComponent implements OnInit {
         this.theme = this.sessionService.getItem('selected-theme');
         //this.viewHtml=this.sessionService.getViewHtml();
 
-        //debugger;;
+        //;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -598,7 +585,7 @@ export class mstapplicantmasterComponent implements OnInit {
                 this.mstapplicantmaster_service.delete_mstapplicantmaster(applicantid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -1227,7 +1214,7 @@ export class mstapplicantmasterComponent implements OnInit {
     }
 
     onDelete_mstapplicantworkreference(event: any, childID: number, i: number) {
-        debugger;
+
         if (childID != null)
             this.Deleted_mstapplicantworkreference_IDs += childID + ",";
         this.tbl_mstapplicantworkreferences.source.data.splice(i, 1);
@@ -1515,7 +1502,7 @@ export class mstapplicantmasterComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
+                        //;
                         cell = this.mstapplicantgeographypreferenceshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -1527,7 +1514,7 @@ export class mstapplicantmasterComponent implements OnInit {
         };
     }
     mstapplicantgeographypreferences_LoadTable(mstapplicantgeographypreferences = new LocalDataSource()) {
-        //debugger;;
+        //;
         if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantgeographypreferences_ID) >= 0) {
             if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source = new LocalDataSource();
             if (this.tbl_mstapplicantgeographypreferences != undefined) this.tbl_mstapplicantgeographypreferences.source.load(mstapplicantgeographypreferences as any as LocalDataSource);
@@ -1592,7 +1579,7 @@ export class mstapplicantmasterComponent implements OnInit {
     mstapplicantcareerdetails_settings: any;
 
     show_mstapplicantcareerdetails_Checkbox() {
-        //debugger;;
+        //;
         if (this.tbl_mstapplicantcareerdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantcareerdetails.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstapplicantcareerdetails.source.settings['selectMode'] = 'multi';
@@ -1671,7 +1658,7 @@ export class mstapplicantmasterComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
+                        //;
                         cell = this.mstapplicantcareerdetailshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -1738,7 +1725,7 @@ export class mstapplicantmasterComponent implements OnInit {
 
     }
     mstapplicantcareerdetails_Paging(val) {
-        //debugger;;
+        //;
         this.tbl_mstapplicantcareerdetails.source.setPaging(1, val, true);
     }
 
@@ -1758,7 +1745,7 @@ export class mstapplicantmasterComponent implements OnInit {
     mstapplicantreferencedetails_settings: any;
 
     show_mstapplicantreferencedetails_Checkbox() {
-        //debugger;;
+        //;
         if (this.tbl_mstapplicantreferencedetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantreferencedetails.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstapplicantreferencedetails.source.settings['selectMode'] = 'multi';
@@ -1840,7 +1827,7 @@ export class mstapplicantmasterComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
+                        //;
                         cell = this.mstapplicantreferencedetailshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -1903,7 +1890,7 @@ export class mstapplicantmasterComponent implements OnInit {
         }
     }
     mstapplicantreferencedetails_Paging(val) {
-        //debugger;;
+        //;
         this.tbl_mstapplicantreferencedetails.source.setPaging(1, val, true);
     }
 
@@ -1923,7 +1910,7 @@ export class mstapplicantmasterComponent implements OnInit {
     mstapplicantskilldetails_settings: any;
 
     show_mstapplicantskilldetails_Checkbox() {
-        //debugger;;
+        //;
         if (this.tbl_mstapplicantskilldetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantskilldetails.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstapplicantskilldetails.source.settings['selectMode'] = 'multi';
@@ -2005,7 +1992,7 @@ export class mstapplicantmasterComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
+                        //;
                         cell = this.mstapplicantskilldetailshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -2071,7 +2058,7 @@ export class mstapplicantmasterComponent implements OnInit {
 
     }
     mstapplicantskilldetails_Paging(val) {
-        //debugger;;
+        //;
         this.tbl_mstapplicantskilldetails.source.setPaging(1, val, true);
     }
 
@@ -2091,7 +2078,7 @@ export class mstapplicantmasterComponent implements OnInit {
     mstapplicantworkreferences_settings: any;
 
     show_mstapplicantworkreferences_Checkbox() {
-        //debugger;;
+        //;
         if (this.tbl_mstapplicantworkreferences.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantworkreferences.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstapplicantworkreferences.source.settings['selectMode'] = 'multi';
@@ -2158,7 +2145,7 @@ export class mstapplicantmasterComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
+                        //;
                         cell = this.mstapplicantworkreferenceshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -2222,7 +2209,7 @@ export class mstapplicantmasterComponent implements OnInit {
 
     }
     mstapplicantworkreferences_Paging(val) {
-        //debugger;;
+        //;
         this.tbl_mstapplicantworkreferences.source.setPaging(1, val, true);
     }
 
@@ -2242,7 +2229,7 @@ export class mstapplicantmasterComponent implements OnInit {
     mstapplicantsocialmediadetails_settings: any;
 
     show_mstapplicantsocialmediadetails_Checkbox() {
-        //debugger;;
+        //;
         if (this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstapplicantsocialmediadetails.source.settings['selectMode'] = 'multi';
@@ -2315,7 +2302,7 @@ export class mstapplicantmasterComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
+                        //;
                         cell = this.mstapplicantsocialmediadetailshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -2367,7 +2354,7 @@ export class mstapplicantmasterComponent implements OnInit {
         let formname = (objbomenuaction as any).actionname;
     }
     mstapplicantsocialmediadetails_Paging(val) {
-        //debugger;;
+        //;
         this.tbl_mstapplicantsocialmediadetails.source.setPaging(1, val, true);
     }
 
@@ -2387,7 +2374,7 @@ export class mstapplicantmasterComponent implements OnInit {
     mstapplicantachievementdetails_settings: any;
 
     show_mstapplicantachievementdetails_Checkbox() {
-        //debugger;;
+        //;
         if (this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'multi';
@@ -2469,7 +2456,7 @@ export class mstapplicantmasterComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
+                        //;
                         cell = this.mstapplicantachievementdetailshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -2536,7 +2523,7 @@ export class mstapplicantmasterComponent implements OnInit {
 
     }
     mstapplicantachievementdetails_Paging(val) {
-        //debugger;;
+        //;
         this.tbl_mstapplicantachievementdetails.source.setPaging(1, val, true);
     }
 
@@ -2556,7 +2543,7 @@ export class mstapplicantmasterComponent implements OnInit {
     mstapplicantlanguagedetails_settings: any;
 
     show_mstapplicantlanguagedetails_Checkbox() {
-        //debugger;;
+        //;
         if (this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstapplicantlanguagedetails.source.settings['selectMode'] = 'multi';
@@ -2632,7 +2619,7 @@ export class mstapplicantmasterComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
+                        //;
                         cell = this.mstapplicantlanguagedetailshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -2690,7 +2677,7 @@ export class mstapplicantmasterComponent implements OnInit {
         let formname = (objbomenuaction as any).actionname;
     }
     mstapplicantlanguagedetails_Paging(val) {
-        //debugger;;
+        //;
         this.tbl_mstapplicantlanguagedetails.source.setPaging(1, val, true);
     }
 
@@ -2710,7 +2697,7 @@ export class mstapplicantmasterComponent implements OnInit {
     mstapplicanteducationdetails_settings: any;
 
     show_mstapplicanteducationdetails_Checkbox() {
-        //debugger;;
+        //;
         if (this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstapplicanteducationdetails.source.settings['selectMode'] = 'multi';
@@ -2792,7 +2779,7 @@ export class mstapplicantmasterComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
+                        //;
                         cell = this.mstapplicanteducationdetailshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -2861,7 +2848,7 @@ export class mstapplicantmasterComponent implements OnInit {
 
     }
     mstapplicanteducationdetails_Paging(val) {
-        //debugger;;
+        //;
         this.tbl_mstapplicanteducationdetails.source.setPaging(1, val, true);
     }
 
@@ -2881,7 +2868,7 @@ export class mstapplicantmasterComponent implements OnInit {
     mstjobstatuses_settings: any;
 
     show_mstjobstatuses_Checkbox() {
-        //debugger;;
+        //;
         if (this.tbl_mstjobstatuses.source.settings['selectMode'] == 'multi') this.tbl_mstjobstatuses.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstjobstatuses.source.settings['selectMode'] = 'multi';
@@ -2963,7 +2950,7 @@ export class mstapplicantmasterComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
+                        //;
                         cell = this.mstjobstatuseshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -3022,7 +3009,7 @@ export class mstapplicantmasterComponent implements OnInit {
 
     }
     mstjobstatuses_Paging(val) {
-        //debugger;;
+        //;
         this.tbl_mstjobstatuses.source.setPaging(1, val, true);
     }
 
@@ -3042,7 +3029,7 @@ export class mstapplicantmasterComponent implements OnInit {
     mstapplicantreferencerequests_settings: any;
 
     show_mstapplicantreferencerequests_Checkbox() {
-        //debugger;;
+        //;
         if (this.tbl_mstapplicantreferencerequests.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantreferencerequests.source.settings['selectMode'] = 'single';
         else
             this.tbl_mstapplicantreferencerequests.source.settings['selectMode'] = 'multi';
@@ -3124,7 +3111,7 @@ export class mstapplicantmasterComponent implements OnInit {
                         type: 'textarea',
                     },
                     valuePrepareFunction: (cell, row) => {
-                        //debugger;;
+                        //;
                         cell = this.mstapplicantreferencerequestshtml();
                         var divrow = JSON.parse(JSON.stringify(row));
 
@@ -3191,7 +3178,7 @@ export class mstapplicantmasterComponent implements OnInit {
 
     }
     mstapplicantreferencerequests_Paging(val) {
-        //debugger;;
+        //;
         this.tbl_mstapplicantreferencerequests.source.setPaging(1, val, true);
     }
 

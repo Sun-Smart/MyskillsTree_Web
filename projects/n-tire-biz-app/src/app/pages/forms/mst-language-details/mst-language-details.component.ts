@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { mstapplicantlanguagedetail } from '../../../model/mstapplicantlanguagedetail.model';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { mstapplicantlanguagedetailService } from '../../../service/mstapplicantlanguagedetail.service';
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 
@@ -22,7 +22,7 @@ export class MstLanguageDetailsComponent implements OnInit {
   isSubmitted: boolean = false;
   objvalues: any = [];
   applicantid: any;
-  
+
   constructor(private route: Router, private mstapplicantlanguagedetail_service: mstapplicantlanguagedetailService,
     private sessionService: SessionService, private toastr: ToastService,
     private fb: FormBuilder, private spinner: NgxSpinnerService) {
@@ -51,7 +51,7 @@ export class MstLanguageDetailsComponent implements OnInit {
     this.mstapplicantlanguagedetail_service.getDefaultData().then(res => {
       this.applicantid_List = res.list_applicantid.value;
       this.language_List = res.list_language.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
   }
   get f() { return this.mstapplicantlanguagedetail_Form.controls; }
   language_onChange(evt: any) {
@@ -59,7 +59,6 @@ export class MstLanguageDetailsComponent implements OnInit {
     this.mstapplicantlanguagedetail_Form.patchValue({ languagedesc: evt.options[evt.options.selectedIndex].text });
   }
   async onSubmitData(bclear: any) {
-    debugger
     this.isSubmitted = true;
 
     if (!this.mstapplicantlanguagedetail_Form.valid) {
@@ -68,14 +67,9 @@ export class MstLanguageDetailsComponent implements OnInit {
     }
     this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
     this.formData.applicantid = this.applicantid;
-    console.log(this.formData);
     this.spinner.show();;
     this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe((res: any) => {
-      debugger;
-      console.log(res);
-
       this.spinner.hide();
-
       this.toastr.addSingle("success", "", "Successfully saved");
       this.route.navigate(['/home/newsocial'])
       this.sessionService.setItem("attachedsaved", "true")
@@ -99,7 +93,6 @@ export class MstLanguageDetailsComponent implements OnInit {
     this.route.navigate(['/home/newsocial'])
   }
   addMoresocialmedia(){
-    debugger
     this.isSubmitted = true;
 
     if (!this.mstapplicantlanguagedetail_Form.valid) {
@@ -108,14 +101,9 @@ export class MstLanguageDetailsComponent implements OnInit {
     }
     this.formData = this.mstapplicantlanguagedetail_Form.getRawValue();
     this.formData.applicantid = this.applicantid;
-    console.log(this.formData);
     this.spinner.show();;
     this.mstapplicantlanguagedetail_service.saveOrUpdate_mstapplicantlanguagedetails(this.formData).subscribe((res: any) => {
-      debugger;
-      console.log(res);
-
       this.spinner.hide();
-
       this.toastr.addSingle("success", "", "Successfully saved");
       this.sessionService.setItem("attachedsaved", "true")
       this.objvalues.push((res as any).mstapplicantlanguagedetail);

@@ -5,7 +5,6 @@
       <h4>Welcome...</h4>
       <h6>MySkillsTree</h6>
       <label>Hi, <span class="applicant-name-label">{{loginUser}}</span></label>
-      <!-- <label class="applicant-name-label"></label> -->
       <p style="margin-left: 1rem;">Kindly Provide Your Personal Details </p>
       <img src="assets/newstartup/infography_personal.png" alt="" style="margin: 7%;width: 86%;">
     </div>
@@ -149,7 +148,6 @@
 
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <label for="profilephoto" class="control-label">Photo</label>
-            <!-- <label *ngIf="showview" class="labelview">{{f.profilephoto?.value[0]?.name}}</label> -->
             <app-attachment #profilephoto formControlName="profilephoto" [showremove]='bmyrecord'
               [SessionData]="sessionData"></app-attachment>
           </div>
@@ -176,8 +174,6 @@
           <!-- Skip & Save -->
 
           <div class="col-12 button-css">
-            <!-- <img src="assets/newstartup/SkipButton.png" alt="skip" (click)="addskill()"> -->
-            <!-- <img src="assets/newstartup/AddSkills1.png" alt="addskills" (click)="onSubmit()"> -->
             <button (click)="addskill();">Skip</button>
             <button (click)="onSubmit();">Add Skills</button>
           </div>

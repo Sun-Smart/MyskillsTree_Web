@@ -42,7 +42,6 @@ export class RegisterComponent implements OnInit {
     this.router.navigate(['login']);
   }
   onItemChange(value) {
-    console.log(" Value is : ", value);
     if (value == "provider" || value == "") {
       this.router.navigate(['registernew']);
       this.type = "P";
@@ -63,8 +62,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger
-
     if (!this.bouserregistration_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the fields");
       return;
@@ -83,7 +80,6 @@ export class RegisterComponent implements OnInit {
         specialcategory: null,
         statusdesc: null
       }
-      console.log(data);
       let options = new HttpHeaders().set('Content-Type', 'application/json');
       this.spinner.show();
 
@@ -91,24 +87,18 @@ export class RegisterComponent implements OnInit {
       return this.http.post(AppConstants.ntirebizURL + '/bouserregistration', data, {
         headers: options, responseType: 'text'
       }).subscribe((res: any) => {
-        console.log(res);
-        // this.spinner.hide();
         this.showSpinner = false;
-        debugger;
         if (res == 'Email already exist') {
           this.showSpinner = false;
           this.toastr.addSingle("error", "", "Email already exist");
-          // alert("Email already exist");
           return;
         } else if (res == 'Mobilenumber already exist') {
           this.showSpinner = false;
-          // alert('Mobilenumber already exist');
           this.toastr.addSingle("error", "", "Mobile Number already exist");
           return;
         } else {
           this.showSpinner = false;
           this.toastr.addSingle("success", "", "Successfully Registered.Check your mail for the login credentials");
-          // alert("Successfully Registered.Check your mail for the login credentials");
           this.objvalues.push((res as any).bouserregistration)
           this.bouserregistration_Form.reset(this.bouserregistration_Form.value);
           this.bouserregistration_Form.reset();
@@ -119,7 +109,6 @@ export class RegisterComponent implements OnInit {
           this.bouserregistration_Form.value.mobilenumber = null;
           this.bouserregistration_Form.value.category = null;
         }
-        debugger
       }, (error: HttpErrorResponse) => {
         console.log(error.error);
         if (error.error == "Email already exist") {
@@ -144,22 +133,14 @@ export class RegisterComponent implements OnInit {
   }
 
   opendrop(ev: any) {
-    debugger;
-    console.log(ev)
     if (ev == 'S') {
       this.submenus = true;
     } else {
       this.submenus = false;
     }
-
-    //this.userRoleID = ev;
   }
   closedrop(data: any) {
-    debugger
     console.log(data)
 
   }
-  // closedrop(){
-  //   this.drophide=false;
-  // }
 }

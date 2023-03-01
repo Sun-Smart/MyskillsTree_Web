@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { bousermasterService } from '../../../../../n-tire-biz-app/src/app/service/bousermaster.service';
 import { ToastService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
-import { RouteStateService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/route-state.service';
 import { SessionService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
-import { ThemeService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
 import { UserContextService } from '../../../../../n-tire-biz-app/src/app/pages/core/services/user-context.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { SharedService } from '../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { Router } from '@angular/router';
-import { bouserregistrationComponent } from '../../../../../n-tire-biz-app/src/app/pages/forms/bouserregistration/bouserregistration.component';
-import { bocompanyregistrationComponent } from '../../../../../n-tire-biz-app/src/app/pages/forms/bocompanyregistration/bocompanyregistration.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicDialog';
 import { NgxSpinnerService } from "ngx-spinner";
 import { msttermnewComponent } from '../forms/mstterm/msttermnew.component';
@@ -367,7 +363,6 @@ export class LoginComponent implements OnInit {
     private toastService: ToastService,
     public sessionService: SessionService,
     public otpService: OtpvalidationService,
-    private themeService: ThemeService,
     private userContextService: UserContextService,
     private router: Router, public dialogRef: DynamicDialogRef,
     public dialog: DialogService, private spinner: NgxSpinnerService,
@@ -526,82 +521,23 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("password", this.bologinForm.get('password').value);
       this.rememberMe = true;
     } else if (this.rememberMe == false) {
-      console.log(this.bologinForm.get('rememberMe').value);
       this.rememberMe = false;
     }
   }
-  selectTheme(theme: string) {
-    this.sessionService.setItem("selected-theme", theme);
-    this.themeService.selectTheme(theme);
-  }
-  onLanguageChange($event) {
-    this.locale = $event.target.value;
-    if (this.locale == undefined || this.locale == null || this.locale.length == 0) {
-      this.locale = "en";
-    }
-    this.sessionService.setItem("ng-prime-language", this.locale);
-  }
-  private onValueChanged(data?: any): void {
-    if (!this.bologinForm) { return; }
-    for (const field in this.formErrors) {
-      this.formErrors[field] = '';
-      const control = this.bologinForm.get(field);
-      if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
-        for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
-        }
-      }
-    }
-  }
-  get f() { return this.bologinForm.controls; }
-  UserSignin() {
-    this.dialog.open(bouserregistrationComponent,
-      {
-        data: { save: true, ScreenType: 2, formtemplate: '' },
-      }
-    )
-    return false;
-  }
-  CompanySignin() {
-    this.dialog.open(bocompanyregistrationComponent,
-      {
-        data: { save: true, ScreenType: 2, formtemplate: 'login' },
-      }
-    )
-    return false;
-  }
 
-  formErrors = {
-    'email': '',
-    'password': ''
-  };
+  get f() { return this.bologinForm.controls; }
+
 
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
   }
-  validationMessages = {
-    'email': {
-      'required': 'email is required.',
-      'minlength': 'email must be at least ' + this.minlengthemail + ' characters long.',
-      'email': 'Enter valid email'
-    },
-    'password': {
-      'required': 'Password is required.',
-      'minlength': 'Password must be at least ' + this.minlengthPassword + ' characters long.'
-    }
-  };
   gotoRegister() {
     this.router.navigate(['registernew']);
   };
 
-
-
   loginOtp(data: any) {
     this.password = "";
     this.spinner.show();
-
-
 
     if (data.value.email == null) {
       this.toastService.addSingle("success", " ", "Please Enter Email or Mobile Number.");

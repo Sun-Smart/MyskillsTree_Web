@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 import { mstapplicanteducationdetailService } from '../../../service/mstapplicanteducationdetail.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -44,12 +44,9 @@ export class MstEducationDetailsComponent implements OnInit {
   }
   get f() { return this.mstapplicanteducationdetail_Form.controls; }
   ngOnInit() {
-    // this.pkcol = this.data.maindatapkcol;
-    // this.applicantid = this.data.applicantid;
     this.mstapplicanteducationdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      // applicantid: localStorage.getItem('applicantid'),
       applicantid: this.applicantid,
       applicantiddesc: [null],
       educationid: [null],
@@ -77,7 +74,7 @@ export class MstEducationDetailsComponent implements OnInit {
       this.educationcategory_List = res.list_educationcategory.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
       this.skills_List = res.list_skills.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
   };
   search_skills(event) {
 
@@ -154,10 +151,6 @@ export class MstEducationDetailsComponent implements OnInit {
       }
       return
     }
-    // else if (this.mstapplicanteducationdetail_Form.value.percentage > 100) {
-    //   this.show_percentageError = true;
-    //   return
-    // }
     else {
       this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
       this.formData.applicantid = this.applicantid;
@@ -167,8 +160,6 @@ export class MstEducationDetailsComponent implements OnInit {
       this.show_YearError = false;
       this.show_percentageError = false;
       if (this.mstapplicanteducationdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicanteducationdetail_Form.get('skills').value));
-
-      console.log(this.formData);
       this.spinner.show();
       this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
         async res => {
@@ -189,10 +180,8 @@ export class MstEducationDetailsComponent implements OnInit {
           this.mstapplicanteducationdetail_Form.markAsPristine();
         },
         err => {
-
           this.spinner.hide();
           this.toastr.addSingle("error", "", err.error);
-          console.log(err);
         })
     };
   };
@@ -200,7 +189,6 @@ export class MstEducationDetailsComponent implements OnInit {
   AddmoreSubmitData() {
     this.isSubmitted = true;
     let strError = "";
-    console.log(this.mstapplicanteducationdetail_Form.value)
 
     if (strError != "") return this.sharedService.alert(strError);
 
@@ -228,10 +216,6 @@ export class MstEducationDetailsComponent implements OnInit {
       }
       return
     }
-    // else if (this.mstapplicanteducationdetail_Form.value.percentage > 100) {
-    //   this.show_percentageError = true;
-    //   return
-    // }
     else {
       this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
 
@@ -242,8 +226,6 @@ export class MstEducationDetailsComponent implements OnInit {
       this.show_YearError = false;
       this.show_percentageError = false;
       if (this.mstapplicanteducationdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicanteducationdetail_Form.get('skills').value));
-
-      console.log(this.formData);
       this.spinner.show();
       this.mstapplicanteducationdetail_service.saveOrUpdate_mstapplicanteducationdetails(this.formData).subscribe(
         async res => {
@@ -261,10 +243,8 @@ export class MstEducationDetailsComponent implements OnInit {
           this.mstapplicanteducationdetail_Form.markAsPristine();
         },
         err => {
-
           this.spinner.hide();
           this.toastr.addSingle("error", "", err.error);
-          console.log(err);
         })
     };
   }

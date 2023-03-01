@@ -1,60 +1,32 @@
 import { lmstaskresponseService } from './../../../service/lmstaskresponse.service';
 import { lmstaskresponse } from './../../../model/lmstaskresponse.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
-import { LocalDataSource } from 'ng2-smart-table';
-import { Ng2SmartTableComponent } from 'ng2-smart-table';
+import { DomSanitizer } from "@angular/platform-browser";
+import { KeyValuePair } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { switchMap, map, debounceTime } from 'rxjs/operators';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
 import { customfieldconfigurationService } from '../../../../../../n-tire-biz-app/src/app/service/customfieldconfiguration.service';
-import { customfieldconfiguration } from '../../../../../../n-tire-biz-app/src/app/model/customfieldconfiguration.model';
 import { DynamicFormBuilderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/dynamic-form-builder/dynamic-form-builder.component';
 
 @Component({
     selector: 'app-lmstaskresponse',
     templateUrl: './lmstaskresponse.component.html',
     styles: [],
-    providers: [KeyboardShortcutsService]
+    providers: []
 })
 
 
@@ -110,18 +82,8 @@ export class lmstaskresponseComponent implements OnInit {
 
     sessionData: any;
     sourceKey: any;
-
-
-
-
-
-
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
@@ -131,29 +93,10 @@ export class lmstaskresponseComponent implements OnInit {
         private sessionService: SessionService,
         private toastr: ToastService,
         private customfieldservice: customfieldconfigurationService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.lmstaskresponse_Form = this.fb.group({
             pk: [null],
             ImageName: [null],
@@ -181,7 +124,6 @@ export class lmstaskresponseComponent implements OnInit {
 
     //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.lmstaskresponse_Form.dirty && this.lmstaskresponse_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -190,29 +132,6 @@ export class lmstaskresponseComponent implements OnInit {
             }
         }
         return Observable.of(true);
-    }
-
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.responseid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.responseid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
     }
 
     //on searching in pk autocomplete
@@ -235,9 +154,6 @@ export class lmstaskresponseComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -269,7 +185,7 @@ export class lmstaskresponseComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -277,7 +193,6 @@ export class lmstaskresponseComponent implements OnInit {
             this.ShowTableslist = this.currentRoute.snapshot.paramMap.get('tableid').split(',');
         }
         this.formid = lmstaskresponseid;
-        //alert(lmstaskresponseid);
 
         //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
@@ -287,19 +202,19 @@ export class lmstaskresponseComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.lmstaskresponse_service.getDefaultData().then(res => {
             this.opportunityid_List = res.list_opportunityid.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide(); });
 
         //autocomplete
         this.lmstaskresponse_service.get_lmstaskresponses_List().then(res => {
             this.pkList = res as lmstaskresponse[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        ).catch((err) => { this.spinner.hide();});
+        //setting the flag that the screen is not touched
         this.lmstaskresponse_Form.markAsUntouched();
         this.lmstaskresponse_Form.markAsPristine();
     }
@@ -334,7 +249,7 @@ export class lmstaskresponseComponent implements OnInit {
                 this.lmstaskresponse_service.delete_lmstaskresponse(responseid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide();});
             }
         }
         else {
@@ -433,25 +348,20 @@ export class lmstaskresponseComponent implements OnInit {
 
     edit_lmstaskresponses() {
         this.showview = false;
-        setTimeout(() => {
-        });
         return false;
     }
-
-
 
     async PopulateScreen(pkcol: any) {
         this.spinner.show();
         this.lmstaskresponse_service.get_lmstaskresponses_ByEID(pkcol).then(res => {
             this.spinner.hide();
-
             this.formData = res.lmstaskresponse;
             let formproperty = res.lmstaskresponse.formproperty;
             if (formproperty && formproperty.edit == false) this.showview = true;
             this.pkcol = res.lmstaskresponse.pkcol;
             this.formid = res.lmstaskresponse.responseid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -460,9 +370,6 @@ export class lmstaskresponseComponent implements OnInit {
         this.pkcol = res.lmstaskresponse.pkcol;
         this.bmyrecord = false;
         if ((res.lmstaskresponse as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.lmstaskresponse_Form.patchValue({
             productid: res.lmstaskresponse.productid,
             leadid: res.lmstaskresponse.leadid,
@@ -525,15 +432,11 @@ export class lmstaskresponseComponent implements OnInit {
         if (customfields != null) obj.customfield = JSON.stringify(customfields);
         if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
         obj.fileAttachmentList = this.fileattachment.getAllFiles();
-        console.log(obj);
         await this.sharedService.upload(this.fileAttachmentList);
         this.attachmentlist = [];
         if (this.fileattachment) this.fileattachment.clear();
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -549,19 +452,9 @@ export class lmstaskresponseComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.lmstaskresponse_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.lmstaskresponse_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.lmstaskresponse_Form.valid || (this.customform != undefined && this.customform.form != undefined && !this.customform.form.valid)) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -585,7 +478,6 @@ export class lmstaskresponseComponent implements OnInit {
         if (customfields != null) this.formData.customfield = JSON.stringify(customfields);
         if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
         this.fileAttachmentList = this.fileattachment.getAllFiles();
-        console.log(this.formData);
         this.spinner.show();
         this.lmstaskresponse_service.saveOrUpdate_lmstaskresponses(this.formData).subscribe(
             async res => {
@@ -593,7 +485,6 @@ export class lmstaskresponseComponent implements OnInit {
                 this.attachmentlist = [];
                 if (this.fileattachment) this.fileattachment.clear();
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).lmstaskresponse);
                 if (!bclear) this.showview = true;
@@ -605,7 +496,6 @@ export class lmstaskresponseComponent implements OnInit {
                 else {
                     if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 }
-                this.clearList();
                 if (bclear) {
                     this.resetForm();
                 }
@@ -622,22 +512,11 @@ export class lmstaskresponseComponent implements OnInit {
                 this.lmstaskresponse_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
-
-
-
-
-    //dropdown edit from the screen itself -> One screen like Reportviewer
-    clearList() {
-    }
-
-
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");

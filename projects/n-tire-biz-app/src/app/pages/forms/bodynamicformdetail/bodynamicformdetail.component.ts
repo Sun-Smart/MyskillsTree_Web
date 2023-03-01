@@ -1,11 +1,8 @@
 import { bodynamicformdetailService } from './../../../service/bodynamicformdetail.service';
 import { bodynamicformdetail } from './../../../model/bodynamicformdetail.model';
-import {  Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer } from "@angular/platform-browser";
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';

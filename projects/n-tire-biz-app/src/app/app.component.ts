@@ -24,28 +24,11 @@ export class AppComponent implements OnInit {
 
     constructor(private loaderService: LoaderService,
         private themeService: ThemeService,
-        public sessionService: SessionService,
-        translate: TranslateService, private router: Router) {
+        public sessionService: SessionService) {
         this.theme = "admin-theme";
-
-
-        /*
-                // this language will be used as a fallback when a translation isn't found in the current language
-                translate.setDefaultLang('hi');
-                var language = this.sessionService.getItem("ng-prime-language");
-                if (language != null && language.length > 0) {
-                    // the lang to use, if the lang isn't available, it will use the current loader to get them
-                    translate.use(language);
-                } else {
-                    this.sessionService.setItem("ng-prime-language", "en");
-                }
-                */
     }
 
     ngOnInit() {
-
-
-
         this.loaderService.status.subscribe((val: boolean) => {
             this.showLoader = val;
         });
@@ -53,46 +36,11 @@ export class AppComponent implements OnInit {
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
         });
-
-        /*
-        this.sessiondata = this.sessionService.getSession();
-        if(this.sessiondata!="")this.loggedIn=true;
-
-        if(this.router.url=="/" || this.router.url=="/login")this.loggedIn=false;
-        if(this.loggedIn)
-            this.router.navigate(['/home']);
-        else
-            this.router.navigate(['/login']);
-            */
-
     }
 
     onActivate(event) {
-        // debugger;
-        /*
-        console.log(this.router);
-        
-        this.sessiondata = this.sessionService.getSession();
-        if(this.sessiondata!="")this.loggedIn=true;
-
-        if(this.router.url=="/" || this.router.url=="/login")this.loggedIn=false;
-
-        if(this.loggedIn)
-            this.router.navigate(['/home']);
-        else
-            this.router.navigate(['/login']);
-        */
         if (document.getElementById("contentArea") != null && document.getElementById("contentArea") != undefined) document.getElementById("contentArea1").scrollTop = 0;
-        //document.querySelector('body').scrollTo(0,0);
         return;
-        let scrollToTop = window.setInterval(() => {
-            let pos = window.pageYOffset;
-            if (pos > 0) {
-                window.scrollTo(0, pos - 20); // how far to scroll on each step
-            } else {
-                window.clearInterval(scrollToTop);
-            }
-        }, 16);
     }
 
 }

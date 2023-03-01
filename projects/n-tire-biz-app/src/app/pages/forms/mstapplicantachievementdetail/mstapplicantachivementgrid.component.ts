@@ -1,55 +1,23 @@
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-
-import { mstapplicantskilldetail } from './../../../model/mstapplicantskilldetail.model';
-import { mstapplicantskilldetailComponent } from './../../../pages/forms/mstapplicantskilldetail/mstapplicantskilldetail.component';
-import { mstapplicantskilldetailService } from './../../../service/mstapplicantskilldetail.service';
-
-import { mstapplicantreferencerequest } from './../../../model/mstapplicantreferencerequest.model';
 import { mstapplicantreferencerequestComponent } from './../../../pages/forms/mstapplicantreferencerequest/mstapplicantreferencerequest.component';
-import { mstapplicantreferencerequestService } from './../../../service/mstapplicantreferencerequest.service';
-
-//primeng services
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { mstapplicanteducationdetailService } from '../../../service/mstapplicanteducationdetail.service';
 import { mstapplicantmasterService } from '../../../service/mstapplicantmaster.service';
 import { mstapplicantachievementdetailService } from '../../../service/mstapplicantachievementdetail.service';
 import { mstapplicantachievementdetailComponent } from './mstapplicantachievementdetail.component';
-import { mstapplicantreferencegridComponent } from '../mstapplicantreferencerequest/mstapplicantreferencegrid.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { mstapplicantachievementdetail } from '../../../model/mstapplicantachievementdetail.model';
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
@@ -77,20 +45,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </div>
 
 <div class="col-4" style="text-align: end; margin: auto;">
-
-                <!-- <ul class="rightside"> -->
-                <!-- <a  [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"> -->
-                <!-- <button type="button" style="border-color: #fff !important;
-                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
                 <button type="button" class="btn btn-outline-primary  popup-add-button" [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"
                   title = "Add Details">Add</button>
-                     <!-- <button (click)="addSkills()" >Add 1</button> -->
-                <!-- </a> -->
-
-                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-
                 <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="achive_btn" style="width: 20px;" title = "Close"/></a>
-                <!-- </ul> -->
 </div>
 </div>
 
@@ -117,19 +74,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 <div class="col-4" style="text-align: end; margin: auto;">
 
-                <!-- <ul class="rightside"> -->
-                <!-- <a  [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"> -->
-                <!-- <button type="button" style="border-color: #fff !important;
-                color: #fff;" class="btn btn-outline-primary common_add_btn ">Add</button> -->
                 <button type="button" class="btn btn-outline-primary  popup-add-button" [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"
                   title = "Add Details">Add</button>
-                     <!-- <button (click)="addSkills()" >Add 1</button> -->
-                <!-- </a> -->
-
-                <!-- <a  class="" [routerLink]='' (click)="onClose()"><i class="fa fa-times-circle close_common_icon" title = "Close"></i></a> -->
-
                 <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="achive_btn" style="width: 20px;" title = "Close"/></a>
-                <!-- </ul> -->
 </div>
 </div>
 
@@ -293,28 +240,17 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     `
       @media only screen and (max-width: 600px) {
         h4.columns.left{
-        /* font-size: 17px !important; */
-        /* white-space: nowrap !important; */
         margin-top: 10px !important;
       }
       .achieve_title{
         padding-left: 0px !important;
       }
       button.btn.btn-outline-primary.popup-add-button{
-        /* position: relative !important;
-        right: 20px !important;
-        top: 10px !important; */
         position: absolute !important;
         right: 50px !important;
         bottom: -3px !important;
       }
-      .achive_btn{
-        /* width: 20px !important;
-        position: relative !important;
-        bottom: 15px !important; */
       }
-      }
-
       `
   ]
 })
@@ -383,12 +319,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
   myDate: any;
 
   constructor(
-    private nav: Location,
-    private translate: TranslateService,
-    private mstapplicantmaster_service: mstapplicantmasterService,
     private mstapplicantachievementdetail_service: mstapplicantachievementdetailService,
-    private router: Router,
-    private themeService: ThemeService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
@@ -396,13 +327,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
     public dialog: DialogService,
     private sharedService: SharedService,
     private sessionService: SessionService,
-    private toastr: ToastService,
-    private sanitizer: DomSanitizer, private datePipe: DatePipe,
+    private toastr: ToastService, private datePipe: DatePipe,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
     private mstapplicantachivement_service: mstapplicantachievementdetailService,
   ) {
-    debugger;
-
     var date = new Date()
     this.myDate = this.datePipe.transform(date);
     this.data = dynamicconfig;
@@ -412,7 +340,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) {
       this.showMobileDetectskill = true;
@@ -452,24 +379,21 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
     this.FillData();
 
-    //autocomplete
     this.mstapplicantachievementdetail_service.get_mstapplicantachievementdetails_List().then((res: any) => {
-      debugger
       this.pkList = res as mstapplicantachievementdetail[];
       this.pkoptionsEvent.emit(this.pkList);
     }
-    ).catch((err) => { this.spinner.hide(); console.log(err); });
+    ).catch((err) => { this.spinner.hide(); });
   };
 
 
   getdata() {
     this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
-      debugger
       this.applicantid_List = res.list_applicantid.value;
       this.masterdataid_List = res.list_masterdataid.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
       this.skill_list = res.list_skills.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
   }
   skillClose() {
     this.showSkillDetails_input = false;
@@ -481,7 +405,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
   };
 
   skills_onChange(evt: any) {
-    debugger;
     let e = evt.value;
     this.mstapplicantachievementdetail_Form.patchValue({ skilldesc: evt.options[evt.options.selectedIndex].text });
 
@@ -492,7 +415,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
       this.onSubmitData(false);
     }
     else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-      // this.onSubmitDataDlg(false);
       this.onSubmitData(false);
     }
     else {
@@ -501,7 +423,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
   };
 
   async onSubmitData(bclear: any) {
-    debugger;
     this.isSubmitted = true;
     let strError = "";
     if (strError != "") return this.sharedService.alert(strError);
@@ -511,13 +432,11 @@ export class mstapplicantachivementgridComponent implements OnInit {
       return;
     }
     this.formData = this.mstapplicantachievementdetail_Form.getRawValue();
-    console.log(this.formData);
 
     this.formData.fromyear = new Date(this.mstapplicantachievementdetail_Form.get('fromyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('fromyear').value) + '  UTC' : null);
 
     if (this.mstapplicantachievementdetail_Form.value.currentlyworking == true) {
       this.formData.toyear = new Date()
-      console.log(this.formData.toyear);
     } else {
       this.formData.toyear = new Date(this.mstapplicantachievementdetail_Form.get('toyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('toyear').value) + '  UTC' : null);
     }
@@ -528,16 +447,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
       this.showDateError = true;
       return;
     } else {
-      console.log(this.formData);
       this.spinner.show();
       this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
         async res => {
-          console.log("ressss", res);
-          // await this.sharedService.upload(this.fileAttachmentList);
-          // this.attachmentlist = [];
-          // if (this.fileattachment) this.fileattachment.clear();
           this.spinner.hide();
-          debugger;
           this.toastr.addSingle("success", "", "Successfully saved");
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicantachievementdetail);
@@ -616,7 +529,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
 
   FillData() {
-    debugger
     this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {
       debugger
       this.mstapplicantachievementdetail_menuactions = res.mstapplicantachievementdetail_menuactions;
@@ -657,7 +569,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
     return ret;
   }
   Add_mstapplicantachievementdetail(event: any, achievementid: any, applicantid: any) {
-    debugger
     this.showSkillDetails_input = true;
     this.ngOnInit();
     this.getdata();
@@ -666,18 +577,15 @@ export class mstapplicantachivementgridComponent implements OnInit {
   }
 
   Edit_mstapplicantachievementdetail(event: any, achievementid: any, applicantid: any) {
-    debugger
     this.showSkillDetails_input = true;
     let add = false;
     if (event == null) add = true;
     let childsave = true;
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-    console.log(event, achievementid, applicantid);
     this.mstapplicantachievementdetail_service.get_mstapplicantachievementdetails_ByEID(event.data.pkcol).then(res => {
       this.formData = res.mstapplicantachievementdetail;
       this.formid = res.mstapplicantachievementdetail.achievementid;
       this.pkcol = res.mstapplicantachievementdetail.pkcol;
-
       this.mstapplicantachievementdetail_Form.patchValue({
         applicantid: res.mstapplicantachievementdetail.applicantid,
         applicantiddesc: res.mstapplicantachievementdetail.applicantiddesc,
@@ -707,32 +615,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
     })
   }
 
-  // AddOrEdit_mstapplicantachievementdetail(event: any, achievementid: any, applicantid: any) {
-  //     debugger
-  //     this.getdata();
-  //     let add = false;
-  //     if (event == null) add = true;
-  //     let childsave = true;
-  //     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-  //     this.dialog.open(mstapplicantachievementdetailComponent,
-  //         {
-  //             data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, achievementid, applicantid, visiblelist: this.mstapplicantachievementdetails_visiblelist, hidelist: this.mstapplicantachievementdetails_hidelist, ScreenType: 2 },
-  //         }
-  //     ).onClose.subscribe(res => {
-  //         if (res) {
-  //             if (add) {
-  //                 for (let i = 0; i < res.length; i++) {
-  //                     this.tbl_mstapplicantachievementdetails.source.add(res[i]);
-  //                 }
-  //                 this.tbl_mstapplicantachievementdetails.source.refresh();
-  //             }
-  //             else {
-  //                 this.tbl_mstapplicantachievementdetails.source.update(event.data, res[0]);
-  //             }
-  //         }
-  //     });
-  // }
-
   onDelete_mstapplicantachievementdetail(event: any, childID: number, i: number) {
     if (confirm('Do you want to delete this record?')) {
       this.mstapplicantachivement_service.delete_mstapplicantachievementdetail(childID).then(res => {
@@ -744,16 +626,11 @@ export class mstapplicantachivementgridComponent implements OnInit {
     } else {
       return;
     }
-    // if (childID != null)
-    //     this.Deleted_mstapplicantachievementdetail_IDs += childID + ",";
-    // this.tbl_mstapplicantachievementdetails.source.data.splice(i, 1);
-    //this.updateGrandTotal();
   }
   //start of Grid Codes mstapplicantachievementdetails
   mstapplicantachievementdetails_settings: any;
 
   show_mstapplicantachievementdetails_Checkbox() {
-    //debugger;;
     if (this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] == 'multi') this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'multi';
@@ -763,18 +640,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
     this.tbl_mstapplicantachievementdetails.source.settings['selectMode'] = 'single';
   }
   show_mstapplicantachievementdetails_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstapplicantachievementdetails_TableDropDownConfig();
-    });
     if (this.tbl_mstapplicantachievementdetails.source.settings != null) this.tbl_mstapplicantachievementdetails.source.settings['hideSubHeader'] = !this.tbl_mstapplicantachievementdetails.source.settings['hideSubHeader'];
     this.tbl_mstapplicantachievementdetails.source.initGrid();
   }
-  show_mstapplicantachievementdetails_InActive() {
-  }
-  enable_mstapplicantachievementdetails_InActive() {
-  }
   async Set_mstapplicantachievementdetails_TableDropDownConfig(res) {
-    debugger
     if (!this.bfilterPopulate_mstapplicantachievementdetails) {
 
       var clone = this.sharedService.clone(this.tbl_mstapplicantachievementdetails.source.settings);
@@ -804,7 +673,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
   }
   Set_mstapplicantachievementdetails_TableConfig() {
-    debugger
     this.mstapplicantachievementdetails_settings = {
       hideSubHeader: true,
       mode: 'external',
@@ -817,17 +685,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
         position: 'right',
         custom: this.mstapplicantachievementdetail_menuactions
       },
-      //  actions: {
-      //      columnTitle: '',
-      //      width: '300px',
-      //      edit: true, // true,
-      //      delete: (this.IsApplicant || this.IsAdmin),
-      //      position: 'right',
-      //     //  custom: this.mstapplicantachievementdetail_menuactions
-      //     custom: [{ name: 'reference',
-      //     title: `<i class="icon-references" aria-hidden="true"></i>`,
-      //  }]
-      //  },
       add: {
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
@@ -855,7 +712,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
             type: 'textarea',
           },
           valuePrepareFunction: (cell, row) => {
-            //debugger;;
             cell = this.mstapplicantachievementdetailshtml();
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
@@ -864,8 +720,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
             var divrow = JSON.parse(JSON.stringify(row));
 
             divrow["selfrating"] = "<div class='Stars' style='--rating:" + row['selfrating'] + "'></div>";
-            // return this.sharedService.HtmlValue(divrow, cell);
-
 
             divrow["fromyear"] = this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(row["fromyear"]));
             divrow["toyear"] = this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(row["toyear"]));
@@ -884,7 +738,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
     };
   }
   mstapplicantachievementdetails_LoadTable(mstapplicantachievementdetail = new LocalDataSource()) {
-    debugger
     if (this.ShowTableslist == null || this.ShowTableslist.length == 0 || this.ShowTableslist.indexOf(this.mstapplicantachievementdetails_ID) >= 0) {
       if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source = new LocalDataSource();
       if (this.tbl_mstapplicantachievementdetails != undefined) this.tbl_mstapplicantachievementdetails.source.load(mstapplicantachievementdetail as any as LocalDataSource);
@@ -892,41 +745,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
     }
   }
 
-  //external to inline
-  /*
-  mstapplicantachievementdetails_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstapplicantmaster_service.mstapplicantachievementdetails.length == 0)
-  {
-      this.tbl_mstapplicantachievementdetails.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstapplicantachievementdetail();
-      this.mstapplicantmaster_service.mstapplicantachievementdetails.push(obj);
-      this.tbl_mstapplicantachievementdetails.source.refresh();
-      if ((this.mstapplicantmaster_service.mstapplicantachievementdetails.length / this.tbl_mstapplicantachievementdetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstapplicantachievementdetails.source.getPaging().page)
-      {
-          this.tbl_mstapplicantachievementdetails.source.setPage((this.mstapplicantmaster_service.mstapplicantachievementdetails.length / this.tbl_mstapplicantachievementdetails.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstapplicantachievementdetails.source.grid.edit(this.tbl_mstapplicantachievementdetails.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  let index = this.tbl_mstapplicantachievementdetails.source.data.indexOf(event.data);
-  this.onDelete_mstapplicantachievementdetail(event,event.data.achievementid,((this.tbl_mstapplicantachievementdetails.source.getPaging().page-1) *this.tbl_mstapplicantachievementdetails.source.getPaging().perPage)+index);
-  this.tbl_mstapplicantachievementdetails.source.refresh();
-  break;
-  }
-  }
-
-  */
-
   mstapplicantachievementdetails_route(event: any, action: any) {
-    debugger
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
       addparam = "/show/" + this.currentRoute.snapshot.paramMap.get('tableid');
@@ -947,9 +766,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
         break;
     }
   }
-  // formid(event: any, arg1: null, formid: any) {
-  //     throw new Error('Method not implemented.');
-  // }
   mstapplicantachievementdetails_onDelete(obj) {
     let achievementid = obj.data.achievementid;
     if (confirm('Are you sure to delete this record ?')) {
@@ -959,14 +775,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
     }
   }
   async onCustom_mstapplicantachievementdetails_Action(event: any) {
-
-    //   this.dialog.open(mstapplicantreferencegridComponent, {
-    //     width: '100% !important',
-    //     height: 'auto !important',
-    //     data: { ScreenType: 2, applicantid: this.applicantid, save: true }
-    //   })
-
-    // let referencesourcedetails = 'Achievements: ' + event.data.masterdataiddesc + '<BR>' + 'Details: ' + event.data.achievementdetails;
 
     let referencesourcedetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Achievements ' + event.data.masterdataiddesc + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Details: ' + event.data.achievementdetails + '</li>'
@@ -978,7 +786,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
       this.dialog.open(mstapplicantreferencerequestComponent,
         {
           data: { referencesourcedetails: referencesourcedetails, applicantid: event.data.applicantid, requestmasterdatatypeid: 319, requestmasterid: event.data.achievementid, ScreenType: 2, save: true }
-          //  data: { applicantid: event.data.applicantid, requestmasterdatatypeid: 319, requestmasterid: event.data.achievementid, ScreenType: 2, save: true }
         }
       ).onClose.subscribe(res => {
       });
@@ -1017,7 +824,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
   }
 
   mstapplicantachievementdetails_Paging(val) {
-    //debugger;;
     this.tbl_mstapplicantachievementdetails.source.setPaging(1, val, true);
   }
 
@@ -1034,7 +840,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
   }
   //end of Grid Codes mstapplicantachievementdetails
   onClose() {
-    //    location.reload();
     this.dialogRef.close();
   }
 

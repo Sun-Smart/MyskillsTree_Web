@@ -4,7 +4,7 @@
   <div class="row second">
 
     <div class="col-6 columns mainheader left">
-      <h1 class=" ">{{'Master DataTypes' | translate}}</h1>
+      <h1 class=" ">{{'Master DataTypes'}}</h1>
     </div>
 
     <div class="col-2 sticky1 second' role='toolbar' aria-label='Toolbar with button groups'" style="display: flex;
@@ -119,11 +119,6 @@
               <div *ngIf="((hidelist.indexOf('code') == -1) && (codevisible==undefined || codevisible==true))" style=''
                 class="col-3 education_view_mobile"><label for="code" class="control-label">Code</label>
                 <input type="number" id="code" formControlName="code" class="form-control" *ngIf="!showview" />
-                <!-- <select *ngIf="!showview" id="code" (change)="code_onChange($event.target)" formControlName="code"
-                  class="form-control">
-                  <option value="0">-Select-</option>
-                  <option *ngFor="let item of code_List" value="{{item.value}}">{{item.label}}</option>
-                </select> -->
                 <label *ngIf="showview" class="labelview">{{f.codedesc?.value}}</label>
               </div>
               <div
@@ -175,59 +170,7 @@
                     class="">
                 </div>
               </div>
-              <!-- <div *ngIf="((hidelist.indexOf('erp') == -1) && (erpvisible==undefined || erpvisible==true))" style=''
-                class="col-3 ">
-                <div class="columnchk">
-                  <label for="erp" class="control-label">E R P</label>
-                  <label *ngIf="showview" class="labelview">{{f.erp?.value}}</label>
-                  <input type="checkbox" *ngIf="!showview" id="erp" formControlName="erp" class="">
-                </div>
-              </div>
-              <div *ngIf="((hidelist.indexOf('cams') == -1) && (camsvisible==undefined || camsvisible==true))" style=''
-                class="col-3 ">
-                <div class="columnchk">
-                  <label for="cams" class="control-label">C A M S</label>
-                  <label *ngIf="showview" class="labelview">{{f.cams?.value}}</label>
-                  <input type="checkbox" *ngIf="!showview" id="cams" formControlName="cams" class="">
-                </div>
-              </div> -->
             </div>
-            <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-              <div *ngIf="((hidelist.indexOf('crm') == -1) && (crmvisible==undefined || crmvisible==true))" style=''
-                class="col-3 ">
-                <div class="columnchk">
-                  <label for="crm" class="control-label">C R M</label>
-                  <label *ngIf="showview" class="labelview">{{f.crm?.value}}</label>
-                  <input type="checkbox" *ngIf="!showview" id="crm" formControlName="crm" class="">
-                </div>
-              </div>
-              <div
-                *ngIf="((hidelist.indexOf('procurement') == -1) && (procurementvisible==undefined || procurementvisible==true))"
-                style='' class="col-3 ">
-                <div class="columnchk">
-                  <label for="procurement" class="control-label">Procurement</label>
-                  <label *ngIf="showview" class="labelview">{{f.procurement?.value}}</label>
-                  <input type="checkbox" *ngIf="!showview" id="procurement" formControlName="procurement"
-                    class="">
-                </div>
-              </div>
-              <div *ngIf="((hidelist.indexOf('legal') == -1) && (legalvisible==undefined || legalvisible==true))"
-                style='' class="col-3 ">
-                <div class="columnchk">
-                  <label for="legal" class="control-label">Legal</label>
-                  <label *ngIf="showview" class="labelview">{{f.legal?.value}}</label>
-                  <input type="checkbox" *ngIf="!showview" id="legal" formControlName="legal" class="">
-                </div>
-              </div>
-              <div *ngIf="((hidelist.indexOf('hrms') == -1) && (hrmsvisible==undefined || hrmsvisible==true))" style=''
-                class="col-3 ">
-                <div class="columnchk">
-                  <label for="hrms" class="control-label">H R M S</label>
-                  <label *ngIf="showview" class="labelview">{{f.hrms?.value}}</label>
-                  <input type="checkbox" *ngIf="!showview" id="hrms" formControlName="hrms" class="">
-                </div>
-              </div>
-            </div> -->
           </p-accordion>
         </ng-template>
       </ngb-tab>
@@ -240,7 +183,7 @@
             <!-- child table bomasterdatas-->
             <div [ngClass]="Is_bomasterdatas_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'MasterData' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'MasterData'}}
                 <select class='child' id="bomasterdatasPagingdropdown"
                   (change)="bomasterdatas_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

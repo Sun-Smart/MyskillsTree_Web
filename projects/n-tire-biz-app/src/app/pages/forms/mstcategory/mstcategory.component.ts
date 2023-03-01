@@ -1,49 +1,25 @@
 import { mstcategoryService } from './../../../service/mstcategory.service';
 import { mstcategory } from './../../../model/mstcategory.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import {  Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { mstsubcategory } from './../../../model/mstsubcategory.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { mstsubcategoryComponent } from './../../../pages/forms/mstsubcategory/mstsubcategory.component';
 import { mstsubcategoryService } from './../../../service/mstsubcategory.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
@@ -64,7 +40,7 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
         }
       }
   `],
-  providers: [KeyboardShortcutsService]
+  providers: []
 })
 
 
@@ -104,7 +80,6 @@ export class mstcategoryComponent implements OnInit {
 
   mstcategory_Form: FormGroup;
 
-
   private exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
   showFormType: any;
   formid: any;
@@ -114,59 +89,32 @@ export class mstcategoryComponent implements OnInit {
   sessionData: any;
   sourceKey: any;
 
-
-
   mstsubcategories_visiblelist: any;
   mstsubcategories_hidelist: any;
-
 
   Deleted_mstsubcategory_IDs: string = "";
   mstsubcategories_ID: string = "1";
   mstsubcategories_selectedindex: any;
 
 
-  constructor(
-    private nav: Location,
-    private translate: TranslateService,
-    private keyboard: KeyboardShortcutsService, private router: Router,
+  constructor( private router: Router,
     private themeService: ThemeService,
-    private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
     private mstcategory_service: mstcategoryService,
-    private mstsubcategory_service: mstsubcategoryService,
     private fb: FormBuilder,
     private sharedService: SharedService,
     private sessionService: SessionService,
     private toastr: ToastService,
     private sanitizer: DomSanitizer,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-    this.translate = this.sharedService.translate;
     this.data = dynamicconfig;
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
-    this.keyboard.add([
-      {
-        key: 'cmd l',
-        command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-        preventDefault: true
-      },
-      {
-        key: 'cmd s',
-        command: () => this.onSubmitData(false),
-        preventDefault: true
-      },
-      {
-        key: 'cmd f',
-        command: () => this.resetForm(),
-        preventDefault: true
-      }
-    ]);
     this.mstcategory_Form = this.fb.group({
       pk: [null],
       categoryid: [null],
-      // code: [null],
       name: ["",Validators.compose([Validators.required])],
       segmentid: [null],
       status: [null],
@@ -184,7 +132,6 @@ export class mstcategoryComponent implements OnInit {
 
   //function called when we navigate to other page.defined in routing
   canDeactivate(): Observable<boolean> | boolean {
-    debugger;
     if (this.mstcategory_Form.dirty && this.mstcategory_Form.touched) {
       if (confirm('Do you want to exit the page?')) {
         return Observable.of(true).delay(1000);
@@ -193,29 +140,6 @@ export class mstcategoryComponent implements OnInit {
       }
     }
     return Observable.of(true);
-  }
-
-  //check Unique fields
-
-  //navigation buttons
-  first() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-  }
-
-  last() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-  }
-
-  prev() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.categoryid.toString(); }).indexOf(this.formid.toString());
-    if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-  }
-
-  next() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.categoryid.toString(); }).indexOf(this.formid.toString());
-    if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
   }
 
   //on searching in pk autocomplete
@@ -238,9 +162,6 @@ export class mstcategoryComponent implements OnInit {
     }
 
     this.theme = this.sessionService.getItem('selected-theme');
-    //this.viewHtml=this.sessionService.getViewHtml();
-
-    debugger;
     //getting data - from list page, from other screen through dialog
     if (this.data != null && this.data.data != null) {
       debugger
@@ -286,9 +207,6 @@ export class mstcategoryComponent implements OnInit {
     //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
     if (this.pkcol == null) {
       this.Set_mstsubcategories_TableConfig();
-      setTimeout(() => {
-        //this.Set_mstsubcategories_TableDropDownConfig();
-      });
 
       this.resetForm();
     }
@@ -298,14 +216,14 @@ export class mstcategoryComponent implements OnInit {
       //foreign keys
     }
     this.mstcategory_service.getDefaultData().then(res => {
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
 
     //autocomplete
     this.mstcategory_service.get_mstcategories_List().then(res => {
       this.pkList = res as mstcategory[];
       this.pkoptionsEvent.emit(this.pkList);
     }
-    ).catch((err) => { this.spinner.hide(); console.log(err); });
+    ).catch((err) => { this.spinner.hide(); });
     //setting the flag that the screen is not touched
     this.mstcategory_Form.markAsUntouched();
     this.mstcategory_Form.markAsPristine();
@@ -381,28 +299,22 @@ export class mstcategoryComponent implements OnInit {
   }
 
   onSubmitAndWait() {
-    debugger
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
       this.onSubmitData(false);
     }
 
     else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-      debugger
       this.onSubmitDataDlg(false);
     }
     else {
-      debugger
       this.onSubmitData(false);
     }
   }
   onSubmit() {
-    debugger
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.name != null) {
       this.onSubmitData(true);
     }
     else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
-      // this.onSubmitDataDlg(true);
-
       this.onSubmitData(true);
     }
     else {
@@ -412,18 +324,12 @@ export class mstcategoryComponent implements OnInit {
 
   edit_mstcategories() {
     this.showview = false;
-    setTimeout(() => {
-    });
     return false;
   }
 
-
-
   async PopulateScreen(pkcol: any) {
-    debugger
     this.spinner.show();
     this.mstcategory_service.get_mstcategories_ByEID(pkcol).then(res => {
-      debugger
       this.spinner.hide();
 
       this.formData = res.mstcategory;
@@ -432,19 +338,15 @@ export class mstcategoryComponent implements OnInit {
       this.pkcol = res.mstcategory.pkcol;
       this.formid = res.mstcategory.categoryid;
       this.FillData(res);
-    }).catch((err) => { console.log(err); });
+    }).catch((err) => { });
   }
 
   FillData(res: any) {
-    debugger
     this.formData = res.mstcategory;
     this.formid = res.mstcategory.categoryid;
     this.pkcol = res.mstcategory.pkcol;
     this.bmyrecord = false;
     if ((res.mstcategory as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-    console.log(res);
-    //console.log(res.order);
-    //console.log(res.orderDetails);
     this.mstcategory_Form.patchValue({
       categoryid: res.mstcategory.categoryid,
       code: res.mstcategory.code,
@@ -469,7 +371,6 @@ export class mstcategoryComponent implements OnInit {
   }
 
   getHtml(html: any) {
-    debugger
     let ret = "";
     ret = html;
 
@@ -502,15 +403,11 @@ export class mstcategoryComponent implements OnInit {
       return;
     }
     var obj = this.mstcategory_Form.getRawValue();
-    console.log(obj);
     if (!confirm('Do you want to want to save?')) {
       return;
     }
     this.objvalues.push(obj);
     this.dialogRef.close(this.objvalues);
-    setTimeout(() => {
-      //this.dialogRef.destroy();
-    }, 200);
   }
 
   //This has to come from bomenuactions & procedures
@@ -526,18 +423,8 @@ export class mstcategoryComponent implements OnInit {
 
 
   async onSubmitData(bclear: any) {
-    debugger;
     this.isSubmitted = true;
     let strError = "";
-    // Object.keys(this.mstcategory_Form.controls).forEach(key => {
-    //   debugger
-    //   const controlErrors: ValidationErrors = this.mstcategory_Form.get(key).errors;
-    //   if (controlErrors != null) {
-    //     Object.keys(controlErrors).forEach(keyError => {
-    //       strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-    //     });
-    //   }
-    // });
     if (strError != "") return this.sharedService.alert(strError);
 
 
@@ -559,22 +446,18 @@ export class mstcategoryComponent implements OnInit {
       }
     }
     this.formData.Deleted_mstsubcategory_IDs = this.Deleted_mstsubcategory_IDs;
-    console.log(this.formData);
     this.spinner.show();
     this.mstcategory_service.saveOrUpdate_mstcategories(this.formData, this.tbl_mstsubcategories?.source?.data,).subscribe(
       async res => {
-        debugger
         if (this.tbl_mstsubcategories.source) {
           for (let i = 0; i < this.tbl_mstsubcategories.source.data.length; i++) {
             if (this.tbl_mstsubcategories.source.data[i].fileAttachmentList) await this.sharedService.upload(this.tbl_mstsubcategories.source.data[i].fileAttachmentList);
           }
         }
         this.spinner.hide();
-        debugger;
         this.toastr.addSingle("success", "", "Successfully saved");
         this.objvalues.push((res as any).mstcategory);
         if (!bclear) this.showview = true;
-        // document.getElementById("contentAreascroll").scrollTop = 0;
         if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
           this.dialogRef.close(this.objvalues);
           return;
@@ -599,10 +482,8 @@ export class mstcategoryComponent implements OnInit {
         this.mstcategory_Form.markAsPristine();
       },
       err => {
-        debugger;
         this.spinner.hide();
         this.toastr.addSingle("error", "", err.error);
-        console.log(err);
       }
     )
   }
@@ -645,7 +526,6 @@ export class mstcategoryComponent implements OnInit {
     if (childID != null)
       this.Deleted_mstsubcategory_IDs += childID + ",";
     this.tbl_mstsubcategories.source.splice(i, 1);
-    //this.updateGrandTotal();
   }
 
 
@@ -658,7 +538,6 @@ export class mstcategoryComponent implements OnInit {
   mstsubcategories_settings: any;
 
   show_mstsubcategories_Checkbox() {
-    debugger;
     if (this.tbl_mstsubcategories.source.settings['selectMode'] == 'multi') this.tbl_mstsubcategories.source.settings['selectMode'] = 'single';
     else
       this.tbl_mstsubcategories.source.settings['selectMode'] = 'multi';
@@ -668,15 +547,8 @@ export class mstcategoryComponent implements OnInit {
     this.tbl_mstsubcategories.source.settings['selectMode'] = 'single';
   }
   show_mstsubcategories_Filter() {
-    setTimeout(() => {
-      //  this.Set_mstsubcategories_TableDropDownConfig();
-    });
     if (this.tbl_mstsubcategories.source.settings != null) this.tbl_mstsubcategories.source.settings['hideSubHeader'] = !this.tbl_mstsubcategories.source.settings['hideSubHeader'];
     this.tbl_mstsubcategories.source.initGrid();
-  }
-  show_mstsubcategories_InActive() {
-  }
-  enable_mstsubcategories_InActive() {
   }
   async Set_mstsubcategories_TableDropDownConfig(res) {
     if (!this.bfilterPopulate_mstsubcategories) {
@@ -740,41 +612,6 @@ export class mstcategoryComponent implements OnInit {
       if (this.tbl_mstsubcategories != undefined) this.tbl_mstsubcategories.source.setPaging(1, 20, true);
     }
   }
-
-  //external to inline
-  /*
-  mstsubcategories_route(event:any,action:any) {
-  switch ( action) {
-  case 'create':
-  if (this.mstcategory_service.mstsubcategories.length == 0)
-  {
-      this.tbl_mstsubcategories.source.grid.createFormShown = true;
-  }
-  else
-  {
-      let obj = new mstsubcategory();
-      this.mstcategory_service.mstsubcategories.push(obj);
-      this.tbl_mstsubcategories.source.refresh();
-      if ((this.mstcategory_service.mstsubcategories.length / this.tbl_mstsubcategories.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_mstsubcategories.source.getPaging().page)
-      {
-          this.tbl_mstsubcategories.source.setPage((this.mstcategory_service.mstsubcategories.length / this.tbl_mstsubcategories.source.getPaging().perPage).toFixed(0) + 1);
-      }
-      setTimeout(() => {
-          this.tbl_mstsubcategories.source.grid.edit(this.tbl_mstsubcategories.source.grid.getLastRow());
-      });
-  }
-  break;
-  case 'delete':
-  if (confirm('Do you want to want to delete?')) {
-  let index = this.tbl_mstsubcategories.source.data.indexOf(event.data);
-  this.onDelete_mstsubcategory(event,event.data.subcategoryid,((this.tbl_mstsubcategories.source.getPaging().page-1) *this.tbl_mstsubcategories.source.getPaging().perPage)+index);
-  this.tbl_mstsubcategories.source.refresh();
-  }
-  break;
-  }
-  }
-
-  */
   mstsubcategories_route(event: any, action: any) {
     var addparam = "";
     if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -810,12 +647,8 @@ export class mstcategoryComponent implements OnInit {
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstsubcategories");
     let formname = (objbomenuaction as any).actionname;
 
-
-
-
   }
   mstsubcategories_Paging(val) {
-    debugger;
     this.tbl_mstsubcategories.source.setPaging(1, val, true);
   }
 

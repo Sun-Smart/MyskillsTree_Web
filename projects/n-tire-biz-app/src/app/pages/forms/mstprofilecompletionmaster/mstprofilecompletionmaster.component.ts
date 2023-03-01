@@ -1,47 +1,22 @@
 import { mstprofilecompletionmasterService } from './../../../service/mstprofilecompletionmaster.service';
 import { mstprofilecompletionmaster } from './../../../model/mstprofilecompletionmaster.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
-import { LocalDataSource } from 'ng2-smart-table';
-import { Ng2SmartTableComponent } from 'ng2-smart-table';
+import { DomSanitizer } from "@angular/platform-browser";
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { switchMap, map, debounceTime } from 'rxjs/operators';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { AppConstants } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
     selector: 'app-mstprofilecompletionmaster',
@@ -57,7 +32,7 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
         }
       }
     `],
-    providers: [KeyboardShortcutsService]
+    providers: []
 })
 
 
@@ -104,17 +79,8 @@ export class mstprofilecompletionmasterComponent implements OnInit {
     sessionData: any;
     sourceKey: any;
 
-
-
-
-
-
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
@@ -123,29 +89,10 @@ export class mstprofilecompletionmasterComponent implements OnInit {
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.mstprofilecompletionmaster_Form = this.fb.group({
             pk: [null],
             profileid: [null],
@@ -177,7 +124,6 @@ export class mstprofilecompletionmasterComponent implements OnInit {
 
     //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.mstprofilecompletionmaster_Form.dirty && this.mstprofilecompletionmaster_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -204,9 +150,6 @@ export class mstprofilecompletionmasterComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -228,7 +171,7 @@ export class mstprofilecompletionmasterComponent implements OnInit {
             this.pkList = res as mstprofilecompletionmaster[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        ).catch((err) => { this.spinner.hide(); });
         //setting the flag that the screen is not touched
         this.mstprofilecompletionmaster_Form.markAsUntouched();
         this.mstprofilecompletionmaster_Form.markAsPristine();
@@ -252,7 +195,7 @@ export class mstprofilecompletionmasterComponent implements OnInit {
                 this.mstprofilecompletionmaster_service.delete_mstprofilecompletionmaster(profileid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -322,12 +265,8 @@ export class mstprofilecompletionmasterComponent implements OnInit {
 
     edit_mstprofilecompletionmasters() {
         this.showview = false;
-        setTimeout(() => {
-        });
         return false;
     }
-
-
 
     async PopulateScreen() {
         this.spinner.show();
@@ -340,7 +279,7 @@ export class mstprofilecompletionmasterComponent implements OnInit {
             this.pkcol = res.mstprofilecompletionmaster.pkcol;
             this.formid = res.mstprofilecompletionmaster.profileid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -349,9 +288,6 @@ export class mstprofilecompletionmasterComponent implements OnInit {
         this.pkcol = res.mstprofilecompletionmaster.pkcol;
         this.bmyrecord = false;
         if ((res.mstprofilecompletionmaster as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.mstprofilecompletionmaster_Form.patchValue({
             profileid: res.mstprofilecompletionmaster.profileid,
             generalinformation: res.mstprofilecompletionmaster.generalinformation,
@@ -411,12 +347,8 @@ export class mstprofilecompletionmasterComponent implements OnInit {
             return;
         }
         var obj = this.mstprofilecompletionmaster_Form.getRawValue();
-        console.log(obj);
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -432,17 +364,8 @@ export class mstprofilecompletionmasterComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.mstprofilecompletionmaster_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.mstprofilecompletionmaster_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
 
 
@@ -463,12 +386,10 @@ export class mstprofilecompletionmasterComponent implements OnInit {
                 }
             }
         }
-        console.log(this.formData);
         this.spinner.show();
         this.mstprofilecompletionmaster_service.saveOrUpdate_mstprofilecompletionmasters(this.formData).subscribe(
             async res => {
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).mstprofilecompletionmaster);
                 if (!bclear) this.showview = true;
@@ -480,7 +401,6 @@ export class mstprofilecompletionmasterComponent implements OnInit {
                 else {
                     if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 }
-                this.clearList();
                 if (bclear) {
                     this.resetForm();
                 }
@@ -497,21 +417,11 @@ export class mstprofilecompletionmasterComponent implements OnInit {
                 this.mstprofilecompletionmaster_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
-
-
-
-
-    //dropdown edit from the screen itself -> One screen like Reportviewer
-    clearList() {
-    }
-
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");
