@@ -478,7 +478,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
     ret = html;
 
     for (let key in this.mstapplicanteducationdetail_Form.controls) {
-      debugger
       let val = this.mstapplicanteducationdetail_Form.controls[key].value;
       if (val == 'null' || val == null || val == undefined) val = '';
       if (this.mstapplicanteducationdetail_Form.controls[key] != null) {
@@ -531,7 +530,6 @@ export class mstapplicanteducationdetailComponent implements OnInit {
   async onSubmitData(bclear: any) {
     this.isSubmitted = true;
     let strError = "";
-    console.log(this.mstapplicanteducationdetail_Form)
     if (!this.mstapplicanteducationdetail_Form.valid) {
       this.toastr.addSingle("error", "", "Enter the required fields");
       return;
