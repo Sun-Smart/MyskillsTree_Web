@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="boreport_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second bgcolor">
-    <h1 class="col-4 columns mainheader left" style="color: #808080 !important;">{{'boreports' | translate}}</h1>
+    <h1 class="col-4 columns mainheader left" style="color: #808080 !important;">{{'boreports'}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -1095,7 +1095,7 @@
             <!-- child table boreportdetails-->
             <div [ngClass]="Is_boreportdetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'boreportdetails' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'boreportdetails'}}
                 <select class='child' id="boreportdetailsPagingdropdown"
                   (change)="boreportdetails_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
@@ -1144,7 +1144,7 @@
             <!-- child table boreportothertables-->
             <div [ngClass]="Is_boreportothertables_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'boreportothertables' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'boreportothertables'}}
                 <select class='child' id="boreportothertablesPagingdropdown"
                   (change)="boreportothertables_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
@@ -1196,7 +1196,7 @@
             <!-- child table boreportcolumns-->
             <div [ngClass]="Is_boreportcolumns_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Columns' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Columns'}}
                 <select class='child' id="boreportcolumnsPagingdropdown"
                   (change)="boreportcolumns_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

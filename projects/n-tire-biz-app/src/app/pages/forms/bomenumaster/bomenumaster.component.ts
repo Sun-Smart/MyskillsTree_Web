@@ -1,56 +1,32 @@
 import { bomenumasterService } from './../../../service/bomenumaster.service';
 import { bomenumaster } from './../../../model/bomenumaster.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { bomenuaction } from './../../../model/bomenuaction.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { bomenuactionComponent } from './../../../pages/forms/bomenuaction/bomenuaction.component';
 import { bomenuactionService } from './../../../service/bomenuaction.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
     selector: 'app-bomenumaster',
     templateUrl: './bomenumaster.component.html',
     styles: [],
-    providers: [KeyboardShortcutsService]
+    providers: []
 })
 
 
@@ -112,44 +88,20 @@ export class bomenumasterComponent implements OnInit {
     bomenuactions_selectedindex: any;
 
 
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private bomenumaster_service: bomenumasterService,
-        private bomenuaction_service: bomenuactionService,
         private fb: FormBuilder,
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.bomenumaster_Form = this.fb.group({
             pk: [null],
             menuid: [null],
@@ -186,7 +138,6 @@ export class bomenumasterComponent implements OnInit {
 
     //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.bomenumaster_Form.dirty && this.bomenumaster_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -199,7 +150,6 @@ export class bomenumasterComponent implements OnInit {
 
     //check Unique fields
     menudescriptionexists(e: any) {
-        debugger;
         let pos = this.pkList.map(function (e: any) { return e.menudescription.toString().toLowerCase(); }).indexOf(e.target.value.toString().toLowerCase());
 
         if (pos >= 0 && this.pkList[pos].menuid.toString() != this.formid.toString()) {
@@ -216,27 +166,6 @@ export class bomenumasterComponent implements OnInit {
             }
         }
         return true;
-    }
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.menuid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.menuid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
     }
 
     //on searching in pk autocomplete
@@ -259,9 +188,6 @@ export class bomenumasterComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -293,7 +219,7 @@ export class bomenumasterComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -306,28 +232,25 @@ export class bomenumasterComponent implements OnInit {
         //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.Set_bomenuactions_TableConfig();
-            setTimeout(() => {
-                //this.Set_bomenuactions_TableDropDownConfig();
-            });
 
             this.resetForm();
         }
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.bomenumaster_service.getDefaultData().then(res => {
             this.parentid_List = res.list_parentid.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide();});
 
         //autocomplete
         this.bomenumaster_service.get_bomenumasters_List().then(res => {
             this.pkList = res as bomenumaster[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        ).catch((err) => { this.spinner.hide(); });
+        //setting the flag that the screen is not touched
         this.bomenumaster_Form.markAsUntouched();
         this.bomenumaster_Form.markAsPristine();
     }
@@ -341,10 +264,6 @@ export class bomenumasterComponent implements OnInit {
 
         }
     }
-
-
-
-
     resetForm() {
         if (this.bomenumaster_Form != null)
             this.bomenumaster_Form.reset();
@@ -364,7 +283,7 @@ export class bomenumasterComponent implements OnInit {
                 this.bomenumaster_service.delete_bomenumaster(menuid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -440,8 +359,6 @@ export class bomenumasterComponent implements OnInit {
 
     edit_bomenumasters() {
         this.showview = false;
-        setTimeout(() => {
-        });
         return false;
     }
 
@@ -458,7 +375,7 @@ export class bomenumasterComponent implements OnInit {
             this.pkcol = res.bomenumaster.pkcol;
             this.formid = res.bomenumaster.menuid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => {});
     }
 
     FillData(res: any) {
@@ -467,9 +384,6 @@ export class bomenumasterComponent implements OnInit {
         this.pkcol = res.bomenumaster.pkcol;
         this.bmyrecord = false;
         if ((res.bomenumaster as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.bomenumaster_Form.patchValue({
             menuid: res.bomenumaster.menuid,
             menucode: res.bomenumaster.menucode,
@@ -538,15 +452,11 @@ export class bomenumasterComponent implements OnInit {
             return;
         }
         var obj = this.bomenumaster_Form.getRawValue();
-        console.log(obj);
         if (!confirm('Do you want to want to save?')) {
             return;
         }
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -562,19 +472,9 @@ export class bomenumasterComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.bomenumaster_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.bomenumaster_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.bomenumaster_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -594,7 +494,6 @@ export class bomenumasterComponent implements OnInit {
             }
         }
         this.formData.Deleted_bomenuaction_IDs = this.Deleted_bomenuaction_IDs;
-        console.log(this.formData);
         this.spinner.show();
         this.bomenumaster_service.saveOrUpdate_bomenumasters(this.formData, this.tbl_bomenuactions?.source?.data,).subscribe(
             async res => {
@@ -604,7 +503,6 @@ export class bomenumasterComponent implements OnInit {
                     }
                 }
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).bomenumaster);
                 if (!bclear) this.showview = true;
@@ -633,15 +531,11 @@ export class bomenumasterComponent implements OnInit {
                 this.bomenumaster_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
-
-
 
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
@@ -677,7 +571,6 @@ export class bomenumasterComponent implements OnInit {
         if (childID != null)
             this.Deleted_bomenuaction_IDs += childID + ",";
         this.tbl_bomenuactions.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
 
@@ -690,7 +583,6 @@ export class bomenumasterComponent implements OnInit {
     bomenuactions_settings: any;
 
     show_bomenuactions_Checkbox() {
-        debugger;
         if (this.tbl_bomenuactions.source.settings['selectMode'] == 'multi') this.tbl_bomenuactions.source.settings['selectMode'] = 'single';
         else
             this.tbl_bomenuactions.source.settings['selectMode'] = 'multi';
@@ -700,15 +592,8 @@ export class bomenumasterComponent implements OnInit {
         this.tbl_bomenuactions.source.settings['selectMode'] = 'single';
     }
     show_bomenuactions_Filter() {
-        setTimeout(() => {
-            //  this.Set_bomenuactions_TableDropDownConfig();
-        });
         if (this.tbl_bomenuactions.source.settings != null) this.tbl_bomenuactions.source.settings['hideSubHeader'] = !this.tbl_bomenuactions.source.settings['hideSubHeader'];
         this.tbl_bomenuactions.source.initGrid();
-    }
-    show_bomenuactions_InActive() {
-    }
-    enable_bomenuactions_InActive() {
     }
     async Set_bomenuactions_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_bomenuactions) {
@@ -729,9 +614,6 @@ export class bomenumasterComponent implements OnInit {
     }
     async bomenuactions_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_bomenuactions_TableConfig() {
         this.bomenuactions_settings = {
@@ -876,38 +758,6 @@ export class bomenumasterComponent implements OnInit {
         }
     }
 
-    //external to inline
-    /*
-    bomenuactions_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.bomenumaster_service.bomenuactions.length == 0)
-    {
-        this.tbl_bomenuactions.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new bomenuaction();
-        this.bomenumaster_service.bomenuactions.push(obj);
-        this.tbl_bomenuactions.source.refresh();
-        if ((this.bomenumaster_service.bomenuactions.length / this.tbl_bomenuactions.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_bomenuactions.source.getPaging().page)
-        {
-            this.tbl_bomenuactions.source.setPage((this.bomenumaster_service.bomenuactions.length / this.tbl_bomenuactions.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_bomenuactions.source.grid.edit(this.tbl_bomenuactions.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_bomenuactions.source.data.indexOf(event.data);
-    this.onDelete_bomenuaction(event,event.data.actionid,((this.tbl_bomenuactions.source.getPaging().page-1) *this.tbl_bomenuactions.source.getPaging().perPage)+index);
-    this.tbl_bomenuactions.source.refresh();
-    break;
-    }
-    }
-    
-    */
     bomenuactions_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -940,13 +790,8 @@ export class bomenumasterComponent implements OnInit {
     async onCustom_bomenuactions_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "bomenuactions");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     bomenuactions_Paging(val) {
-        debugger;
         this.tbl_bomenuactions.source.setPaging(1, val, true);
     }
 
