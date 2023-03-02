@@ -62,11 +62,13 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <h4 class="form-group sticky1  columns left">{{'Skill sets'}}</h4>
   </div>
   <div class="col-6"></div>
-  <div class="col-2" style="text-align:right; margin:auto;">
-    <button type="button" class="btn btn-outline-primary popup-add-button"
-      (click)="mstapplicantskilldetails_route(null, 'create')">Add</button>
+  <div class="col-2" style="text-align:right; margin:auto;display:flex;">
 
-    <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
+      <a class="alert-success popup-add-button" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
+      class="fa fa-plus"></i> Add</a>
+
+      <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
+      class="fa fa-close"></i> Close</a>
   </div>
 </div>
 
@@ -147,7 +149,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       <!-- Add & Close -->
 
         <td class="field-add-close-button">
-        <i class="fa fa-plus-square field-Add-button" aria-hidden="true"
+        <i class="fa fa-check-square field-Add-button" aria-hidden="true"
         (click)="onSubmitAndWait(mstapplicantskilldetail_Form)"></i>
 
           <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
