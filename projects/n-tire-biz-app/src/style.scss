@@ -194,6 +194,7 @@ ngb-datepicker {
 .ng2-smart-action i {
   font-size: 1.25em !important;
   padding: 2px;
+  color: black !important;
 }
 
 .form-control,
@@ -670,7 +671,8 @@ h1 a {
 
 .table thead tr {
   background-color: #6b431d !important;
-  color: var(--frontcolor) !important;
+  // color: var(--frontcolor) !important;
+  color: white !important;
   border: #6b431d !important;
 }
 
@@ -678,6 +680,8 @@ h1 a {
 .table th {
   padding: 0.6rem !important;
   font-size: small;
+  align-items: center !important;
+  vertical-align: middle !important;
 }
 .card * {
   overflow: hidden !important;
@@ -2075,7 +2079,10 @@ ng2-smart-table {
     max-width: 100% !important;
   }
 }
-
+::ng-deep [_nghost-ekp-c160] * {
+  box-sizing: border-box;
+  color: white !important;
+}
 ::ng-deep table tr:first-child th {
   position: sticky !important;
   top: -1px;
@@ -2643,7 +2650,7 @@ a#showReadBtn {
   left: -6px;
   background: white;
   color: red;
-  line-height: 19px !important;
+  line-height: 33px !important;
   height: 18px;
   border-radius: 50%;
   border-radius: 81% !important;
@@ -3305,5 +3312,8 @@ footer {
   i{
     margin: 0 6px;
     font-size: 19px;
+  }
+  .clred{
+    background-color: red !important;
   }
 }

@@ -26,6 +26,15 @@ import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/s
     selector: 'app-bomasterdatatype',
     templateUrl: './bomasterdatatype.component.html',
     styles: [`
+    :host /deep/ ng2-smart-table tbody > tr:nth-child(even) {
+        background-color : #f4f4f4 !important;
+        }
+        .table thead tr {
+            background-color: #a89888 !important;
+            color: #fff !important;
+            border: #6b431d !important;
+        }
+
     @media only screen and (max-width: 600px) {
         .education_view_mobile{
           min-width: 100% !important;
@@ -697,6 +706,9 @@ check1:boolean = false ;
                     filter: true,
                 },
 
+            },
+            attr: {
+                class: 'table table-bordered table-header'
             },
         };
     }
