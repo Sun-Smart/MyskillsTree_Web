@@ -75,7 +75,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </tr>
   </thead>
 
-  <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
+  <tbody id="showtbody" style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
 
    <tr>
      <!-- Gategory -->

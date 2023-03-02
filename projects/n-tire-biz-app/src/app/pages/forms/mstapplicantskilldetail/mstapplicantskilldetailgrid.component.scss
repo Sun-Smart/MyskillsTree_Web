@@ -2,6 +2,10 @@ p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
   max-width: 99% !important;
   display: flex !important;
 }
+ng2-smart-table-pager .ng2-smart-pagination{
+  margin-top: 13px !important;
+  margin-bottom: 0 !important;
+}
 
 .p-accordion {
   margin-top: 0px !important;
@@ -10,6 +14,9 @@ p-dynamicdialog .p-dialog.p-dynamic-dialog.p-component {
 .showhidemobileviewskill{
   display: none;
 }
+
+
+
 @media only screen and (max-width: 600px) {
   h4.form-group.sticky1.columns.left {
     white-space: nowrap !important;

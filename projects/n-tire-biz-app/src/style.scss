@@ -324,7 +324,6 @@ a + a {
   padding: 5px 10px !important;
   background: red !important;
   font-size: 12px;
-
 }
 .alert-danger:hover {
   line-height: 1;
@@ -2169,7 +2168,7 @@ label.required::after {
 
 table-cell-view-mode div div {
   line-height: 0 !important;
-  margin: 0 10px;
+  margin: 0px;
 }
 
 table tr td {
@@ -2825,15 +2824,15 @@ ng2-smart-table table thead {
   margin-right: 10px !important;
   background: #8d6f6f !important;
 }
-.logo_title{
+.logo_title {
   cursor: pointer;
-  font-size: 20px; 
-  color:#6B431D;
+  font-size: 20px;
+  color: #6b431d;
 }
 
 .field-Add-button {
   font-size: 20px !important;
-  color: #06d414 !important;
+  color: #23902b !important;
   margin-right: 5px !important;
   cursor: pointer !important;
 }
@@ -3117,8 +3116,8 @@ footer {
 }
 
 .dashboard-sidebar-content {
-  padding: 1rem;
-  overflow-y: scroll;
+  // padding: 1rem;
+  // overflow-y: scroll;
   height: 100% !important;
   max-height: 100% !important;
 
@@ -3212,7 +3211,24 @@ footer {
   border: 0px solid;
   border-radius: 15px;
   box-shadow: 0px 0px 10px 0px #e2e0e0;
+  margin: 15px 0 !important;
 
+  .sidenav-skill-label {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #d7ffd7;
+    margin: 5px 0px !important;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 5px 0;
+    
+    .skill-label {
+      label {
+        margin: 0 !important;
+      }
+    }
+  }
   .head-label {
     border-top-left-radius: 15px;
     font-weight: 600;
@@ -3220,9 +3236,9 @@ footer {
     font-size: 12px;
     width: 100%;
     border-top-right-radius: 15px;
-    padding: 0px 20px;
+    padding: 5px 20px;
     color: #fff;
-    text-align: inherit;
+    text-align: center;
   }
 }
 

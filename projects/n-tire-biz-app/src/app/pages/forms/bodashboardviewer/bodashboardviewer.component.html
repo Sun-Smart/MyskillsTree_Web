@@ -9,75 +9,92 @@
             <label> No records found</label>
           </div>
           <div class="col-12">
-            <div class="row" *ngFor="let item of finalarray" style="display: flex;justify-content: space-evenly;">
-              <div class="col-3">
+            <div class="row" *ngFor="let item of finalarray" class="sidenav-skill-label">
+
+              <div class="col-5 skill-label">
+                <label (click)="showDetails(item.skillId, item.subCategory, item.remarks)">{{item.subCategory}}</label>
+              </div>
+
+              <div class="col-3 skill-label">
                 <label style="color: rgb(8, 111, 8);">
                   {{item.showstr}}
                 </label>
               </div>
-              <div class="col-8 skill-label">
-                <label (click)="showDetails(item.skillId, item.subCategory, item.remarks)">{{item.subCategory}}</label>
+
+              <div class="col-4 skill-label" style="text-align: end;">
+                <label>{{expYrs}} Years</label>
               </div>
+
             </div>
           </div>
         </div>
         <br>
+
+        <div></div>
+
         <div class="row sidenav-skill-card">
           <label class="head-label"> Profile Status</label>
-          <div class="col-12">
-            <img src="assets/User Profile/status.png" width="90%" style="margin-left:6%;">
-            <div><canvas id="canvas" width="500px" height="500px"></canvas></div>
+          <div>
+            <img src="assets/newstartup/mst_infography.png" alt="" style="width: 100%;height: 100%;">
           </div>
-          <div class="row" style="justify-content: space-evenly;">
-            <div class="col-5" style="padding: 0;">
-              <ul class="list-group">
-                <li class="dash_list">
-                  <img src="assets/User Profile/Skillsets.png" />
-                  <label for="">1.SKILLSETS</label>
-                  <img src="assets/User Profile/Complete.png" *ngIf="isskillcompleted" style="float: right;" />
-                  <img src="assets/User Profile/Bending.png" *ngIf="isskillpending" style="float: right;" />
-                  <img src="assets/User Profile/Not Started.png" *ngIf="isskillnotstarted" style="float: right;" />
-                </li>
-                <li id="#tab1" class="dash_list">
-                  <img src="assets/User Profile/Sresum.png" width="30px" />
-                  <label for=""> 2.RESUME</label>
-                  <img src="assets/User Profile/Complete.png" *ngIf="isresumecompleted" style="float: right;" />
-                  <img src="assets/User Profile/Bending.png" *ngIf="isresumepending" style="float: right;" />
-                  <img src="assets/User Profile/Not Started.png" *ngIf="isresumenotstarted" style="float: right;" />
-                </li>
-                <li class="dash_list">
-                  <img src="assets/User Profile/Project.png" width="30px" />
-                  <label for="">3.PROJECT</label>
-                  <img src="assets/User Profile/Complete.png" *ngIf="isprojectcompleted" style="float: right;" />
-                  <img src="assets/User Profile/Bending.png" *ngIf="isprojectpending" style="float: right;" />
-                  <img src="assets/User Profile/Not Started.png" *ngIf="isprojectnotstarted" style="float: right;" />
-                </li>
-              </ul>
+
+          <div style="display: none;">
+            <div class="col-12">
+              <img src="assets/User Profile/status.png" width="90%" style="margin-left:6%;">
+              <div><canvas id="canvas" width="500px" height="500px"></canvas></div>
             </div>
-            <div class="col-5" style="padding: 0;">
-              <ul class="list-group">
-                <li class="dash_list">
-                  <img src="assets/User Profile/education.png" width="30px" />
-                  <label for=""> 4.EDUCATION</label>
-                  <img src="assets/User Profile/Complete.png" *ngIf="iseducationcompleted" style="float: right;" />
-                  <img src="assets/User Profile/Bending.png" *ngIf="iseducationpending" style="float: right;" />
-                  <img src="assets/User Profile/Not Started.png" *ngIf="iseducationnotstarted" style="float: right;" />
-                </li>
-                <li class="dash_list" style="white-space: pre;">
-                  <img src="assets/User Profile/Social Info.png" width="30px" />
-                  <label for="">5.SOCIAL INFO</label>
-                  <img src="assets/User Profile/Complete.png" *ngIf="issocialcompleted" style="float: right;" />
-                  <img src="assets/User Profile/Bending.png" *ngIf="issocialpending" style="float: right;" />
-                  <img src="assets/User Profile/Not Started.png" *ngIf="issocialnotstarted" style="float: right;" />
-                </li>
-                <li class="dash_list">
-                  <img src="assets/User Profile/Personal.png" width="30px" />
-                  <label for="">6.PERSONAL</label>
-                  <img src="assets/User Profile/Complete.png" *ngIf="ispersonalcompleted" style="float: right;" />
-                  <img src="assets/User Profile/Bending.png" *ngIf="ispersonalpending" style="float: right;" />
-                  <img src="assets/User Profile/Not Started.png" *ngIf="ispersonalnotstarted" style="float: right;" />
-                </li>
-              </ul>
+            <div class="row" style="justify-content: space-evenly;">
+              <div class="col-5" style="padding: 0;">
+                <ul class="list-group">
+                  <li class="dash_list">
+                    <img src="assets/User Profile/Skillsets.png" />
+                    <label for="">1.SKILLSETS</label>
+                    <img src="assets/User Profile/Complete.png" *ngIf="isskillcompleted" style="float: right;" />
+                    <img src="assets/User Profile/Bending.png" *ngIf="isskillpending" style="float: right;" />
+                    <img src="assets/User Profile/Not Started.png" *ngIf="isskillnotstarted" style="float: right;" />
+                  </li>
+                  <li id="#tab1" class="dash_list">
+                    <img src="assets/User Profile/Sresum.png" width="30px" />
+                    <label for=""> 2.RESUME</label>
+                    <img src="assets/User Profile/Complete.png" *ngIf="isresumecompleted" style="float: right;" />
+                    <img src="assets/User Profile/Bending.png" *ngIf="isresumepending" style="float: right;" />
+                    <img src="assets/User Profile/Not Started.png" *ngIf="isresumenotstarted" style="float: right;" />
+                  </li>
+                  <li class="dash_list">
+                    <img src="assets/User Profile/Project.png" width="30px" />
+                    <label for="">3.PROJECT</label>
+                    <img src="assets/User Profile/Complete.png" *ngIf="isprojectcompleted" style="float: right;" />
+                    <img src="assets/User Profile/Bending.png" *ngIf="isprojectpending" style="float: right;" />
+                    <img src="assets/User Profile/Not Started.png" *ngIf="isprojectnotstarted" style="float: right;" />
+                  </li>
+                </ul>
+              </div>
+              <div class="col-5" style="padding: 0;">
+                <ul class="list-group">
+                  <li class="dash_list">
+                    <img src="assets/User Profile/education.png" width="30px" />
+                    <label for=""> 4.EDUCATION</label>
+                    <img src="assets/User Profile/Complete.png" *ngIf="iseducationcompleted" style="float: right;" />
+                    <img src="assets/User Profile/Bending.png" *ngIf="iseducationpending" style="float: right;" />
+                    <img src="assets/User Profile/Not Started.png" *ngIf="iseducationnotstarted"
+                      style="float: right;" />
+                  </li>
+                  <li class="dash_list" style="white-space: pre;">
+                    <img src="assets/User Profile/Social Info.png" width="30px" />
+                    <label for="">5.SOCIAL INFO</label>
+                    <img src="assets/User Profile/Complete.png" *ngIf="issocialcompleted" style="float: right;" />
+                    <img src="assets/User Profile/Bending.png" *ngIf="issocialpending" style="float: right;" />
+                    <img src="assets/User Profile/Not Started.png" *ngIf="issocialnotstarted" style="float: right;" />
+                  </li>
+                  <li class="dash_list">
+                    <img src="assets/User Profile/Personal.png" width="30px" />
+                    <label for="">6.PERSONAL</label>
+                    <img src="assets/User Profile/Complete.png" *ngIf="ispersonalcompleted" style="float: right;" />
+                    <img src="assets/User Profile/Bending.png" *ngIf="ispersonalpending" style="float: right;" />
+                    <img src="assets/User Profile/Not Started.png" *ngIf="ispersonalnotstarted" style="float: right;" />
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -169,7 +186,7 @@
                 </tr>
               </thead>
               <tbody class="dashboard-table-data">
-                <tr  *ngFor="let item of dashboard_achievementdetails">
+                <tr *ngFor="let item of dashboard_achievementdetails">
                   <td style="padding-left: 20px;">{{item.masterdataiddesc}}</td>
                   <td>{{item.skilldesc}}</td>
                   <td style="white-space: break-spaces;line-height: 1.5;">{{item.achievementdetails}}</td>
@@ -222,7 +239,7 @@
                 </tr>
               </thead>
               <tbody class="dashboard-table-data">
-                <tr  *ngFor="let item of dashboard_reffreq_details">
+                <tr *ngFor="let item of dashboard_reffreq_details">
                   <td style="padding-left: 20px;">{{item.date | date : 'dd-MM-yyyy'}}</td>
                   <td>{{item.reffered_to}}</td>
                   <td>{{item.response}}</td>
@@ -263,7 +280,7 @@
             </table>
           </div>
         </div>
-        
+
       </div>
     </div>
   </div>
