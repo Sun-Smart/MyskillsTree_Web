@@ -35,7 +35,7 @@
                   <button type="button" (click)="closePopup();"
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
                     style=" margin:8px;">
-                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
+                    <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
                       style="color: red !important; font-size: 20PX;"></span>
                   </button>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="col-3 card applicantdrop" style="text-align:center;">
 
                   <a [routerLink]='' (click)="showSkills()">
-                    <li class="li2"><i class="fa fa-cog fa1" aria-hidden="true"></i><br/> Skill sets</li>
+                    <li class="li2"><i class="fa fa-cog fa1" aria-hidden="true"></i><br/> Skill Set</li>
                   </a>
 
                 </div>
@@ -81,7 +81,7 @@
                 </div>
                 <div class="col-3 card applicantdrop" style="text-align:center;">
                   <a [routerLink]='' (click)="showSocial();">
-                    <li class="li2"><i class="fa fa-share-square fa1" aria-hidden="true"></i><br /> Social media</li>
+                    <li class="li2"><i class="fa fa-share-square fa1" aria-hidden="true"></i><br /> Social Media</li>
                   </a>
                 </div>
                 <div class="col-3 card applicantdrop" style="text-align:center;">
@@ -126,7 +126,7 @@
                 </div>
                 <div class="col-3 card applicantdrop" style="text-align:center;">
                   <a [routerLink]='' (click)="openJobs()">
-                    <li class="li2"><i class="bi bi-briefcase-fill fa1" aria-hidden="true"></i><br /> Jobs</li>
+                    <li class="li2"><i class="bi bi-briefcase-fill fa1" aria-hidden="true"></i><br /> Opportunity</li>
                   </a>
                 </div>
                 <div class="col-3 card applicantdrop" style="text-align:center;">
@@ -158,7 +158,7 @@
                   <button type="button" (click)="closePopup();"
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
                     style=" margin:8px;">
-                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
+                    <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
                       style="color: red !important; font-size: 20PX;"></span>
                   </button>
                 </div>
@@ -199,7 +199,7 @@
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
                     style=" margin:8px; ">
 
-                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
+                    <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
                       style="color: red !important; font-size: 20PX;"></span>
                   </button>
                 </div>
@@ -442,7 +442,7 @@
                   <button type="button" pripple (click)="closePopups();"
                     class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
                     style=" margin:8px; ">
-                    <span class="p-sidebar-close-icon fa fa-times-circle ng-tns-c258-5"
+                    <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
                       style="color: red !important; font-size: 20PX;"></span>
                   </button>
                 </div>
@@ -456,7 +456,7 @@
                 </div>
                 <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/jobq']" routerLinkActive="router-link-active ">
-                    <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Job requirements</li>
+                    <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Job Requirements</li>
                   </a>
                 </div>
 
@@ -469,7 +469,7 @@
 
                 <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/newskillsearch']" routerLinkActive="router-link-active">
-                    <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Skill search</li>
+                    <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Skill Search</li>
                   </a>
                 </div>
 
@@ -551,7 +551,7 @@
                 </div>
                 <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
                   <a [routerLink]="['/home/boreportviewer/msres']" routerLinkActive="router-link-active">
-                    <li class="li2"><i class="fa fa-sticky-note fa1" aria-hidden="true"></i><br /> Reference Summary report</li>
+                    <li class="li2"><i class="fa fa-sticky-note fa1" aria-hidden="true"></i><br /> Reference Summary Report</li>
                   </a>
                 </div>
                 <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
@@ -591,7 +591,7 @@
 
           <label style="text-align: end;">
             <button type="button" pripple (click)="closePopup();" style=" background-color: transparent;border: none;">
-              <i class="fa fa-times-circle" aria-hidden="true" style="color: red !important; font-size: 20px;"
+              <i class="fa fa-window-close" aria-hidden="true" style="color: red !important; font-size: 20px; margin: 5px;"
                 (click)="closePopup();"></i>
             </button>
           </label>
@@ -639,7 +639,7 @@
 
           <label  (click)="logout()" class="sign_out-label">
             <i class="pi fs-large ng-tns-c186-0 pi-sign-out" title="Logout"></i>
-            <span style="color:white !important;">Signout from account</span>
+            <span style="color:white !important;">Signout</span>
           </label>
         </div>
 
@@ -670,7 +670,8 @@
   <i class="pi pi-caret-up fs-large ng-tns-c186-0"></i>
   <button type="button" pripple class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
     style="float: right; margin:0px;" (click)="closeNotify()">
-    <span class="p-sidebar-close-icon pi pi-times ng-tns-c258-5"></span>
+    <!-- <span class="p-sidebar-close-icon pi pi-times ng-tns-c258-5"></span> -->
+    <i class="fa fa-window-close" style="padding: 5px;font-size: 18px;color: red;"></i>
   </button>
   <ng-container *ngIf="displayNotifications">
 
@@ -683,7 +684,7 @@
       <div class="card bg-light mt-3 col-12 notification" style="color: #000 !important;background-color: #ebf3fc !important;"
         (click)="ShowTask(notification)">
         <a class="" [routerLink]='' title="Delete" (click)="delteNotify(notificationDelete[i])"><i
-            class="fa fa-times-circle" style="position: absolute;right: 0;top: 2%;
+            class="fa fa-window-close" style="position: absolute;right: 0;top: 2%;
                 padding: 5px;font-size: 18px;color: red;"></i></a>
         <b style="color: #000 !important;font-family: arial !important;"
           [innerHtml]="notification.assigneddate | date:'YYYY-MM-dd'"></b>
