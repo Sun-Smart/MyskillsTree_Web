@@ -70,7 +70,7 @@ export type ChartOptions = {
     <table class="table table-bordered" >
     <thead>
     <tr>
-    <th>S.No</th>
+    <th style="width: 10px;">S.No</th>
     <th>Job Name</th>
     <th>No Of Position</th>
     <th>No Of Intrested</th>
