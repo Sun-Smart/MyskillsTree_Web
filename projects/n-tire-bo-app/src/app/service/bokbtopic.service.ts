@@ -23,7 +23,7 @@ return true;
 
 }
   saveOrUpdatebokbtopics():any {
-  if (this.valid()){ 
+  if (this.valid()){
     var body = {
       ...this.formData,
     };
@@ -32,7 +32,7 @@ return true;
   }
 
   saveOrUpdatebokbtopicsList():any {
-  if (this.valid()){ 
+  if (this.valid()){
     var body = {
     list:this.list,
     };
@@ -41,43 +41,43 @@ return true;
   }
 
   getbokbtopicsList():any {
-  if (this.valid()){ 
+  if (this.valid()){
     return this.http.get(AppConstants.ntireboURL + '/bokbtopic').toPromise();
   }
   }
   getListBykbtopicid(kbtopicid:number):any {
-  if (this.valid()){ 
+  if (this.valid()){
     return this.http.get(AppConstants.ntireboURL + '/bokbtopic'+'/kbtopicid/'+kbtopicid).toPromise();
   }
   }
 
   getList(key:string):any {
-  if (this.valid()){ 
+  if (this.valid()){
     return this.http.get(AppConstants.ntireboURL + '/bokbtopic'+'/param/'+key).toPromise();
   }
   }
 
 
   getbokbtopicsByEID(id:any):any {
-  if (this.valid()){ 
+  if (this.valid()){
     return this.http.get(AppConstants.ntireboURL + '/bokbtopic'+'/e/'+id).toPromise();
   }
   }
   getbokbtopicsByID(id:number):any {
-  if (this.valid()){ 
+  if (this.valid()){
     return this.http.get(AppConstants.ntireboURL + '/bokbtopic'+'/'+id).toPromise();
   }
   }
 
   deletebokbtopic(id:number):any {
-  if (this.valid()){ 
+  if (this.valid()){
     return this.http.delete(AppConstants.ntireboURL + '/bokbtopic'+'/'+id).toPromise();
   }
   }
 clearList(){
 }
 refreshList():any{
-  if (this.valid()){ 
+  if (this.valid()){
 this.http.get(AppConstants.ntireboURL + '/bokbtopic')
 .toPromise()
 .then(res => this.list = res as any[]);

@@ -9,7 +9,6 @@ import { ReportViewerCtrlComponent } from '../../../../../../n-tire-bo-app/src/a
 import { KeyValuePair } from '../../../shared/general.validator';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
-import { bokbtopicComponent } from './../../../pages/forms/bokbtopic/bokbtopic.component';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
 import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
@@ -22,6 +21,7 @@ import { AppConstants, DropDownValues } from '../../../shared/helper';
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 import { customfieldconfigurationService } from './../../../service/customfieldconfiguration.service';
 import { DynamicFormBuilderComponent } from '../dynamic-form-builder/dynamic-form-builder.component';
+import { BonewtopicComponent } from '../bonewtopic/bonewtopic.component';
 
 @Component({
   selector: 'app-bonewbokbmaster',
@@ -839,7 +839,7 @@ export class BonewbokbmasterComponent implements OnInit {
       if (val?.value != undefined) val = val.value;
       data[prop] = val;
     }
-    this.dialog.open(bokbtopicComponent,
+    this.dialog.open(BonewtopicComponent,
       {
         data: data,
       }

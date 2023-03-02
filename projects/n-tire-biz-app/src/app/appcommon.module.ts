@@ -146,7 +146,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { bokbmasterComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/bokbmaster/bokbmaster.component';
-import { bokbtopicComponent } from './pages/forms/bokbtopic/bokbtopic.component';
 import { FaqComponent } from './pages/forms/faq/faq.component';
 import { BonewbokbmasterComponent } from './pages/forms/bonewbokbmaster/bonewbokbmaster.component';
 import { ForumComponent } from './pages/forms/forum/forum.component';
@@ -211,7 +210,7 @@ const config: ExtraOptions = {
         MstCareerDetailsComponent,MstCertificationsComponent,MstEducationDetailsComponent,
         MstLanguageDetailsComponent,MstProjectDetailsComponent,MstResumeComponent,
         MstSkillDetsilsComponent,MstSocialMediaComponent,MstStartPagesComponent,MstLocationDetailsComponent,
-        bokbmasterComponent,bokbtopicComponent,
+        bokbmasterComponent,BonewtopicComponent,
         ReportViewerCtrlComponent,
         AttachmentComponent, PopupSelectComponent, useraccessComponent, addressComponent, durationComponent, commentComponent, appmultipleentryComponent,
         openfileComponent, opencommentComponent,
@@ -296,7 +295,7 @@ const config: ExtraOptions = {
         MstCareerDetailsComponent,MstCertificationsComponent,MstEducationDetailsComponent,
         MstLanguageDetailsComponent,MstProjectDetailsComponent,MstResumeComponent,
         MstSkillDetsilsComponent,MstSocialMediaComponent,MstStartPagesComponent,MstLocationDetailsComponent,
-        bokbmasterComponent,bokbtopicComponent,
+        bokbmasterComponent,BonewtopicComponent,
         RegisterComponent,
         SkillenhancerComponent,
         CertifierComponent,
