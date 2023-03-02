@@ -115,7 +115,7 @@
 .alert-success,
 .alert-primary,
 .alert-danger {
-  width: 100% !important;
+  width: fit-content !important;
   white-space: nowrap;
 }
 
@@ -282,8 +282,6 @@ a + a {
   margin-left: 10px;
 }
 
-.alert-success,
-.alert-danger,
 .alert-primary,
 .alert-info,
 .alert-action,
@@ -291,19 +289,53 @@ a + a {
   color: #fff !important;
   border: none !important;
   border-radius: 6px;
-  padding: 4px 14px !important;
-  margin-right: 15px !important;
+  padding: 5px !important;
+  // margin-right: 15px !important;
   background: #6b431d !important;
-  font-size: 14px;
+  font-size: 12px;
 }
 
-.alert-primary:hover {
+.alert-success {
+  line-height: 1;
   color: #fff !important;
   border: none !important;
   border-radius: 6px;
-  padding: 4px 14px !important;
-  margin-right: 15px !important;
-  background: #8d6f6f !important;
+  padding: 5px 10px !important;
+  background: #6b431d !important;
+  height: 22px;
+  font-size: 12px;
+}
+
+.alert-success:hover {
+  line-height: 1;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 6px;
+  padding: 5px 10px !important;
+  height: 22px;
+  background: #744921 !important;
+  text-decoration: none;
+}
+.alert-danger {
+  line-height: 1;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 6px;
+  height: 22px;
+  padding: 5px 10px !important;
+  background: red !important;
+  font-size: 12px;
+
+}
+.alert-danger:hover {
+  line-height: 1;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 6px;
+  height: 22px;
+  padding: 5px 10px !important;
+  background: red !important;
+  text-decoration: none;
 }
 
 .layout-topbar-logo {
@@ -2144,7 +2176,7 @@ label.required::after {
 
 table-cell-view-mode div div {
   line-height: 0 !important;
-  margin: 0;
+  margin: 0 10px;
 }
 
 table tr td {
@@ -2800,17 +2832,22 @@ ng2-smart-table table thead {
   margin-right: 10px !important;
   background: #8d6f6f !important;
 }
+.logo_title{
+  cursor: pointer;
+  font-size: 20px; 
+  color:#6B431D;
+}
 
 .field-Add-button {
   font-size: 20px !important;
-  color: #3a7ac5 !important;
+  color: #06d414 !important;
   margin-right: 5px !important;
   cursor: pointer !important;
 }
 
 .field-close-button {
   font-size: 20px !important;
-  color: #ef2626 !important;
+  color: rgb(255, 0, 0) !important;
   cursor: pointer !important;
 }
 
@@ -3299,17 +3336,17 @@ footer {
   background: #7d3535 !important;
   width: fit-content;
 }
-.language-data{
-  .star{
-  color: green;
-  font-size: 19px !important;
-  vertical-align: middle;
+.language-data {
+  .star {
+    color: green;
+    font-size: 19px !important;
+    vertical-align: middle;
   }
-};
+}
 
-.language-action{
+.language-action {
   vertical-align: middle !important;
-  i{
+  i {
     margin: 0 6px;
     font-size: 19px;
   }

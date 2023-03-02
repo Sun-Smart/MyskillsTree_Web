@@ -29,25 +29,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <h4 class="  columns left"
     >{{'Experience'}}</h4>
     </div>
-    <div class="col-4">
-    <ul class="nav navbar-nav1" style='display:none'>
-      <li class="dropdown">
-        <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-          aria-expanded='false'> <span class='caret'></span></a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" [routerLink]=''
-              (click)="mstapplicantcareerdetails_route(null, 'create')"><i class="fa fa-plus"
-                aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-        </ul>
-      </li>
-    </ul>
-    </div>
-    <div class="col-4" style="text-align: end; margin: auto;">
-    <button type="button" class="btn btn-outline-primary"  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"
-    class="popup-add-button heightbtn" title = "Add Details">Add</button>
+    <div class="col-4">    </div>
+    <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
+    
+    <a class="alert-success" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
+    class="fa fa-plus"></i> Add</a>
 
-    <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
-
+    <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
+    class="fa fa-close"></i> Close</a>
     </div>
   </div>
 
@@ -58,25 +47,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <h4 class="  columns left"
     >{{'Experience'}}</h4>
     </div>
-    <div class="col-4">
-    <ul class="nav navbar-nav1" style='display:none'>
-      <li class="dropdown">
-        <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-          aria-expanded='false'> <span class='caret'></span></a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" [routerLink]=''
-              (click)="mstapplicantcareerdetails_route(null, 'create')"><i class="fa fa-plus"
-                aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-        </ul>
-      </li>
-    </ul>
-    </div>
-    <div class="col-4" style="text-align: end; margin: auto;">
+    <div class="col-4">    </div>
+    <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
 
-    <button type="button" class="btn btn-outline-primary"  [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"
-    class="popup-add-button heightbtn" title = "Add Details">Add</button>
+    <a class="alert-success" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
+    class="fa fa-plus"></i> Add</a>
 
-    <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="mobile_career_close" style="width: 20px;" title = "Close"/></a>
+    <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
+    class="fa fa-close"></i> Close</a>
 
     </div>
   </div>
@@ -166,7 +144,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
     <!-- Submit -->
      <td class="field-add-close-button" style="vertical-align: initial !important;">
-       <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+       <i class="fa fa-check-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
 
        <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
           (click)="skillClose()"></i>
@@ -231,7 +209,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
 </div>
 <div style="position: relative;left: 120px;top: 7px;">
-<i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+<i class="fa fa-check-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
 
 <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
    (click)="skillClose()"></i>

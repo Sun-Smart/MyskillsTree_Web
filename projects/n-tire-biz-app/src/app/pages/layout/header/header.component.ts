@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, ViewChild, EventEmitter, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteStateService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/route-state.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
@@ -28,7 +28,10 @@ import { NewskillsearchComponent } from '../../forms/newskillsearch/newskillsear
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  host: {
+    '(document:click)': 'onClick($event)',
+  },
 })
 export class HeaderComponent implements OnInit {
   @Input() menuItems: any[];
@@ -82,8 +85,9 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
-    public sessionService: SessionService,
+    public sessionService: SessionService,private _eref: ElementRef,
     private mstapplicantmaster_service: mstapplicantmasterService,
+    private toastr: ToastService,
     private userIdle: UserIdleService,
     private themeService: ThemeService,
     private userContextService: UserContextService,
@@ -109,6 +113,12 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("usersource")]);
 
   }
+  onClick(event) {
+    if (!this._eref.nativeElement.contains(event.target)) {
+      this.menuhide = false;
+      this.showhideProfile = false
+    }
+   }
   openJobs() {
     this.menuhide = false;
     this.sharedService.currenturl = "home/boreportviewer/jobs";
@@ -139,6 +149,8 @@ export class HeaderComponent implements OnInit {
       if (jsonUser.length > 0) this.userphoto = jsonUser[0].name;
     }).catch((err) => {
     });
+
+    this.profile_release();
 
     this.theme = this.sessionService.getItem('selected-theme');
     this.themeService.theme.subscribe((val: string) => {
@@ -219,8 +231,31 @@ export class HeaderComponent implements OnInit {
     } else {
       this.hideCorporatePage = true;
     };
-
   };
+
+  profile_release() {
+    debugger
+    this.mstapplicantmaster_service.get_profilecompletionsecond(this.applicantid).then(res => {
+      debugger
+
+      this.getdata = res;
+
+      console.log("this.getdata", this.getdata);
+      
+
+      for (let i = 0; i < this.getdata.length; i++) {
+        this.datarelease.push(this.getdata[i].releasestatus)
+      }
+
+      for (var i = 0; i < this.datarelease.length; i++) {
+        if (this.datarelease[i] == true) {
+          this.isrelease = true
+        } else {
+          this.isrelease = false
+        }
+      }
+    })
+  }
 
   delteNotify(value) {
     this.botaskservice.deleteNotification(value).subscribe(((res) => {
@@ -352,7 +387,7 @@ export class HeaderComponent implements OnInit {
 
   //  sowmiya dropdown menu routing
   showSkills() {
-
+    this.menuhide = false;
     this.dialog.open(mstapplicantskilldetailgridComponent,
       {
         width: '100% !important',
@@ -362,7 +397,7 @@ export class HeaderComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     });
-    this.menuhides = false;
+    // this.menuhides = false;
   };
 
 
@@ -440,14 +475,6 @@ export class HeaderComponent implements OnInit {
     })
   };
 
-  edit_fullpagemstapplicantmasters() {
-
-    let data = {
-      updateProfile : "yes"
-    }
-    this.router.navigate(['home/personaldetails'])
-  };
-
   showLanguage() {
     this.dialog.open(mstapplicantlanuagegridComponent, {
       width: '100% !important',
@@ -493,21 +520,22 @@ export class HeaderComponent implements OnInit {
   }
 
   releasemethod(e: any) {
+
     let obj = {
       "applicantid": this.applicantid,
       "ReleaseStatus": e
-    };
+    }
+
     this.mstapplicantmaster_service.release_method(obj).subscribe(res => {
 
       if (res == "Released Successfully") {
-        this.toastService.addSingle("success", "", "Successfully Released");
+        this.toastr.addSingle("success", "", "Successfully Released");
         this.isrelease = true
       }
       else {
-        this.toastService.addSingle("success", "", "Your profile is successfully revoked");
+        this.toastr.addSingle("success", "", "Your profile is successfully revoked");
         this.isrelease = false
       }
-
     })
   }
 

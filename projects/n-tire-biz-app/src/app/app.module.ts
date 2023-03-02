@@ -71,7 +71,7 @@ import { VerifyscreenComponent } from './pages/verifyscreen/verifyscreen.compone
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { bokbmasterComponent } from 'projects/n-tire-bo-app/src/app/pages/forms/bokbmaster/bokbmaster.component';
-import { bokbtopicComponent } from './pages/forms/bokbtopic/bokbtopic.component';
+
 import { MstCareerDetailsComponent } from './pages/forms/mst-career-details/mst-career-details.component';
 import { MstCertificationsComponent } from './pages/forms/mst-certifications/mst-certifications.component';
 import { MstEducationDetailsComponent } from './pages/forms/mst-education-details/mst-education-details.component';
@@ -84,6 +84,7 @@ import { MstStartPagesComponent } from './pages/forms/mst-start-pages/mst-start-
 import {PickListModule} from 'primeng/picklist';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {BlockUIModule} from 'primeng/blockui';
+import { BonewtopicComponent } from './pages/forms/bonewtopic/bonewtopic.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -113,7 +114,7 @@ export function tokenGetter() {
         HeaderComponent,
         LayoutComponent,
         MenuComponent,
-        bokbtopicComponent,bokbmasterComponent
+        BonewtopicComponent,bokbmasterComponent
     ],
     exports: [
         NgScrollbarModule,
