@@ -115,7 +115,7 @@
 .alert-success,
 .alert-primary,
 .alert-danger {
-  width: fit-content !important;
+  width: 100% !important;
   white-space: nowrap;
 }
 
@@ -194,6 +194,7 @@ ngb-datepicker {
 .ng2-smart-action i {
   font-size: 1.25em !important;
   padding: 2px;
+  color: black !important;
 }
 
 .form-control,
@@ -281,6 +282,8 @@ a + a {
   margin-left: 10px;
 }
 
+.alert-success,
+.alert-danger,
 .alert-primary,
 .alert-info,
 .alert-action,
@@ -288,14 +291,13 @@ a + a {
   color: #fff !important;
   border: none !important;
   border-radius: 6px;
-  padding: 5px !important;
-  // margin-right: 15px !important;
+  padding: 4px 14px !important;
+  margin-right: 15px !important;
   background: #6b431d !important;
-  font-size: 12px;
+  font-size: 14px;
 }
 
-.alert-success {
-  line-height: 1;
+.alert-primary:hover {
   color: #fff !important;
   border: none !important;
   border-radius: 6px;
@@ -701,7 +703,8 @@ h1 a {
 
 .table thead tr {
   background-color: #6b431d !important;
-  color: var(--frontcolor) !important;
+  // color: var(--frontcolor) !important;
+  color: white !important;
   border: #6b431d !important;
 }
 
@@ -709,6 +712,8 @@ h1 a {
 .table th {
   padding: 0.6rem !important;
   font-size: small;
+  align-items: center !important;
+  vertical-align: middle !important;
 }
 .card * {
   overflow: hidden !important;
@@ -2107,6 +2112,7 @@ ng2-smart-table {
   }
 }
 
+
 ::ng-deep table tr:first-child th {
   position: sticky !important;
   top: -1px;
@@ -2674,7 +2680,7 @@ a#showReadBtn {
   left: -6px;
   background: white;
   color: red;
-  line-height: 19px !important;
+  line-height: 33px !important;
   height: 18px;
   border-radius: 50%;
   border-radius: 81% !important;
@@ -2839,7 +2845,7 @@ ng2-smart-table table thead {
 
 .field-close-button {
   font-size: 20px !important;
-  color: rgb(255, 0, 0) !important;
+  color: #ef2626 !important;
   cursor: pointer !important;
 }
 
@@ -3345,18 +3351,21 @@ footer {
   background: #7d3535 !important;
   width: fit-content;
 }
-.language-data {
-  .star {
-    color: green;
-    font-size: 19px !important;
-    vertical-align: middle;
+.language-data{
+  .star{
+  color: green;
+  font-size: 19px !important;
+  vertical-align: middle;
   }
-}
+};
 
-.language-action {
+.language-action{
   vertical-align: middle !important;
-  i {
+  i{
     margin: 0 6px;
     font-size: 19px;
+  }
+  .clred{
+    background-color: red !important;
   }
 }
