@@ -1090,11 +1090,6 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
                 url = '/home/' + formname + '/' + formname + query
                 if (this.dialogdata?.ScreenType == 2) {
                     url = '#/workflow/' + formname + '/' + formname + query
-
-                    if(url == "/home/bokbmasters/bokbmasters"){
-                      let customUrl = "/home/bokbmasters";
-                      url = customUrl
-                    }
                     this.dialog.open(dataComponent,
                         {
                             data: { url: url, Save: true, ScreenType: 2 }
@@ -1114,6 +1109,7 @@ export class ReportViewerCtrlComponent implements OnInit, AfterViewInit {
 
                 if (this.dialogdata?.ScreenType == 2) {
                     url = '#/workflow/' + formname + '/' + formname + '/edit/' + encodeURIComponent(this.selecteddata['pkcol']) + query
+
 
                     this.dialog.open(dataComponent,
                         {

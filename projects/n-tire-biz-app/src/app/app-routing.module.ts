@@ -44,6 +44,8 @@ const routes: Routes = [
   { path: 'verify/:id', component: VerifyscreenComponent, },
   { path: 'bokbmasters', pathMatch: 'prefix', loadChildren: () => import("./pages/forms/bonewbokbmaster/bonewkbmaster.module").then(m => m.BonewkbmasterModule) },
   { path: 'bokbtopics',  pathMatch: 'prefix',loadChildren: () => import('./pages/forms/bonewtopic/bonewtopic.module').then(m => m.BonewtopicModule) },
+  { path: 'bofaqs',  pathMatch: 'prefix',loadChildren: () => import('./pages/forms/faq/faq.module').then(m => m.FaqModule) },
+
   { path: "mstapplicantreferencerequestsaccepted", pathMatch: 'prefix', loadChildren: () => import("./pages/mstapplicantreferenceaccepted/mstapplicantreferenceaccepted.module").then(m => m.mstapplicantreferencerequestModule) },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];

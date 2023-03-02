@@ -141,6 +141,7 @@ export const paths = [
           { path: 'bokbmasters', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bonewbokbmaster/bonewkbmaster.module').then(m => m.BonewkbmasterModule) },
           { path: 'forum', component: ForumComponent },
           { path: 'bokbtopics', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bonewtopic/bonewtopic.module').then(m => m.BonewtopicModule) },
+          { path: 'bofaqs', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/faq/faq.module').then(m => m.FaqModule) },
           // { path: 'topic', component: BonewtopicComponent },
           { path: "personaldetails", component: MstStartPagesComponent },
           { path: "newcareerdetails", component: MstCareerDetailsComponent },
