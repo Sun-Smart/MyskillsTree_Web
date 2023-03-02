@@ -62,9 +62,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <h4 class="form-group sticky1  columns left">{{'Skill sets'}}</h4>
   </div>
   <div class="col-6"></div>
-  <div class="col-2" style="text-align:right; margin:auto;display:flex;">
+  <div class="col-2" style="text-align:right; margin:auto;display:flex;justify-content:end;">
 
-      <a class="alert-success popup-add-button" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
+      <a class="alert-success" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
       class="fa fa-plus"></i> Add</a>
 
       <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
@@ -651,7 +651,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
           });
         };
         setTimeout(() => {
-                    if (this.f.segmentid.value == "166") {
+          if (this.f.segmentid.value == "166") {
             this.showinput1 = true
 
           } else {
@@ -776,7 +776,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       hideSubHeader: true,
       mode: 'external',
       selectMode: 'single',
-      width : '80%',
+      width: '80%',
       actions: {
         columnTitle: '',
         width: '300px',
@@ -818,6 +818,13 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
           valuePrepareFunction: (cell, row) => {
             debugger;
+            console.log(row.showorhide);
+
+            if (row.showorhide == true) {
+              row.showorhide = "Hide";
+            }
+
+
             let starrr = ['51', 'saS']
             console.log(starrr.join(''));
 

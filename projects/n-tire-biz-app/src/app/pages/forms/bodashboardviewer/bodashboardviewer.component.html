@@ -1,20 +1,4 @@
 <div class="container" style="position: fixed;top: 49px;height: 100%;">
-  <div class="row" style="background-color: #cbf29f;padding: 10px;display: flex;color: #000;">
-    <div class="col-3">
-      <h6 style="font-weight: 600;"> Dashboard</h6>
-    </div>
-    <div class="col-4"></div>
-    <div class="col-5" style="display: flex;justify-content: end;align-items: center;">
-      <label *ngIf="isrelease==false" style="margin: 0;" class="mob_profile_release">Click to release your
-        profile</label> &nbsp;&nbsp;
-      <button class="btn btn-outline-secondary releaseBtn" *ngIf="isrelease==false"
-        (click)="releasemethod(true)">Release</button>
-      <label *ngIf="isrelease==true" style="margin: 0;" class="mob_profile_release">Click to hide your profile
-      </label>&nbsp;&nbsp;
-      <button class="btn btn-outline-secondary releaseBtn" *ngIf="isrelease==true"
-        (click)="releasemethod(false)">Hide</button>
-    </div>
-  </div>
 
   <div class="row mobile_col" style="height: 100%;">
     <div class="dashboard-sidebar col-3">

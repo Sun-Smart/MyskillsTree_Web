@@ -30,25 +30,17 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <h4 class="columns left">{{'Certification'}}</h4>
 </div>
 
-<div class="col-4">
-                <ul class="nav navbar-nav1" style='display:none'>
-                  <li class="dropdown">
-                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-                      aria-expanded='false'> <span class='caret'></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" [routerLink]=''
-                          (click)="mstapplicantachievementdetails_route(null, 'create');"><i
-                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                    </ul>
-                  </li>
-                </ul>
-</div>
+<div class="col-4"></div>
 
-<div class="col-4" style="text-align: end; margin: auto;">
-                <button type="button" class="btn btn-outline-primary  popup-add-button" [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"
-                  title = "Add Details">Add</button>
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="achive_btn" style="width: 20px;" title = "Close"/></a>
-</div>
+<div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
+
+                <a class="alert-success" [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"><i
+                class="fa fa-plus"></i> Add</a>
+          
+                <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
+                class="fa fa-close"></i> Close</a>
+
+                </div>
 </div>
 
 
@@ -132,7 +124,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                   <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
                   [maxDate]="maxDate"  name="fromdateformpicker" id="fromyear" required
                     formControlName="fromyear" style="margin-right: 5px;" class="form-control">
-                    
+
                   <button class="input-group-addon" (click)="d.toggle()" type="button"><i
                       class="fa fa-calendar" aria-hidden="true"></i></button>
                 </div>

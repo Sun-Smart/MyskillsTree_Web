@@ -19,14 +19,14 @@
 
           <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
             <li class='nav-item actionheader ' *ngIf="!showview" style="padding:0 !important;font-size: 12px;">
-              <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()">
-                Submit</a>
+              <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()">
+                <i class="fa fa-database"></i> Submit </a>
             </li>
 
             <li class='nav-item actionheader' style="font-size: 12px;"
               *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-              <a class="alert-danger popup-add-button" [routerLink]='' (click)="onClose()">
-                Close</a>
+              <a class="alert-danger" [routerLink]='' (click)="onClose()">
+                <i class="fa fa-close" aria-hidden="true"></i> Close </a>
             </li>
           </ul>
         </div>

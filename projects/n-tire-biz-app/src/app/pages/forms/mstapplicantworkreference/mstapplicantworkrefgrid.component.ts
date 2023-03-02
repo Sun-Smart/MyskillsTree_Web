@@ -45,12 +45,13 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 </ul>
 </div>
 
-<div class="col-4" style="text-align: end; margin: auto;">
+<div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
 
-                <button type="button" class="btn btn-outline-primary popup-add-button" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"
-                title = "Add Details">Add</button>
+<a class="alert-success" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
+class="fa fa-plus"></i> Add</a>
 
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="work_ref_mobile" style="width: 20px;" title = "Close"/></a>
+<a class="alert-danger" [routerLink]='' (click)="onClose()"><i
+class="fa fa-close"></i> Close</a>
 </div>
 </div>
 
@@ -74,13 +75,14 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
                 </ul>
 </div>
 
-<div class="col-4" style="text-align: end; margin: auto;">
+<div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
 
-                <button type="button" class="btn btn-outline-primary popup-add-button" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"
-                title = "Add Details">Add</button>
-
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="work_ref_mobile" style="width: 20px;" title = "Close"/></a>
-</div>
+                <a class="alert-success" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
+                class="fa fa-plus"></i> Add</a>
+          
+                <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
+                class="fa fa-close"></i> Close</a>
+                </div>
 </div>
 
 <form [formGroup]="mstapplicantworkreference_Form"  *ngIf="showWebviewDetect">
@@ -158,7 +160,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 
                     <td class="field-add-close-button" style="">
                         <!-- Add -->
-                        <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantworkreference_Form)"></i>
+                        <i class="fa fa-check-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantworkreference_Form)"></i>
                         <!-- Close -->
                         <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
                         (click)="skillClose()"></i>
@@ -217,7 +219,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 </div>
 <div class="col" style="position: relative;left: 120px;top: 7px;">
 
-<i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantworkreference_Form)"></i>
+<i class="fa fa-check-square field-Add-button" aria-hidden="true" (click)="onSubmitData(mstapplicantworkreference_Form)"></i>
                         <!-- Close -->
                         <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
                         (click)="skillClose()"></i>

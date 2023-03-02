@@ -3,8 +3,8 @@
     <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
     <ngx-spinner></ngx-spinner>
     <form [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-      <div class="row second">
-        <div class='col-12  sticky1 second' *ngIf="iseditbuttonshow" role='toolbar' aria-label='Toolbar with button groups' style="align-items: center !important;;justify-content: end;"
+      <div class="row second" *ngIf="!iseditbuttonshow">
+        <div class='col-12  sticky1 second' role='toolbar' aria-label='Toolbar with button groups' style="align-items: center !important;;justify-content: end;"
           [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
           <!--btn-toolbar-->
 
