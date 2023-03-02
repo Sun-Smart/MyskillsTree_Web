@@ -84,6 +84,7 @@ export class HeaderComponent implements OnInit {
     private routeStateService: RouteStateService,
     public sessionService: SessionService,
     private mstapplicantmaster_service: mstapplicantmasterService,
+    private toastr: ToastService,
     private userIdle: UserIdleService,
     private themeService: ThemeService,
     private userContextService: UserContextService,
@@ -139,6 +140,8 @@ export class HeaderComponent implements OnInit {
       if (jsonUser.length > 0) this.userphoto = jsonUser[0].name;
     }).catch((err) => {
     });
+
+    this.profile_release();
 
     this.theme = this.sessionService.getItem('selected-theme');
     this.themeService.theme.subscribe((val: string) => {
@@ -219,8 +222,31 @@ export class HeaderComponent implements OnInit {
     } else {
       this.hideCorporatePage = true;
     };
-
   };
+
+  profile_release() {
+    debugger
+    this.mstapplicantmaster_service.get_profilecompletionsecond(this.applicantid).then(res => {
+      debugger
+
+      this.getdata = res;
+
+      console.log("this.getdata", this.getdata);
+      
+
+      for (let i = 0; i < this.getdata.length; i++) {
+        this.datarelease.push(this.getdata[i].releasestatus)
+      }
+
+      for (var i = 0; i < this.datarelease.length; i++) {
+        if (this.datarelease[i] == true) {
+          this.isrelease = true
+        } else {
+          this.isrelease = false
+        }
+      }
+    })
+  }
 
   delteNotify(value) {
     this.botaskservice.deleteNotification(value).subscribe(((res) => {
@@ -440,14 +466,6 @@ export class HeaderComponent implements OnInit {
     })
   };
 
-  edit_fullpagemstapplicantmasters() {
-
-    let data = {
-      updateProfile : "yes"
-    }
-    this.router.navigate(['home/personaldetails'])
-  };
-
   showLanguage() {
     this.dialog.open(mstapplicantlanuagegridComponent, {
       width: '100% !important',
@@ -493,21 +511,22 @@ export class HeaderComponent implements OnInit {
   }
 
   releasemethod(e: any) {
+
     let obj = {
       "applicantid": this.applicantid,
       "ReleaseStatus": e
-    };
+    }
+
     this.mstapplicantmaster_service.release_method(obj).subscribe(res => {
 
       if (res == "Released Successfully") {
-        this.toastService.addSingle("success", "", "Successfully Released");
+        this.toastr.addSingle("success", "", "Successfully Released");
         this.isrelease = true
       }
       else {
-        this.toastService.addSingle("success", "", "Your profile is successfully revoked");
+        this.toastr.addSingle("success", "", "Your profile is successfully revoked");
         this.isrelease = false
       }
-
     })
   }
 

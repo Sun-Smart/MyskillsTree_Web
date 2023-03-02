@@ -44,16 +44,15 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </ul>
 </div>
 
-<div class="col-4" style="text-align: end; margin: auto;">
+<div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
 
-                <button type="button" class="btn btn-outline-primary popup-add-button"
-                [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')" title = "Add Details">Add</button>
+      <a class="alert-success" [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')"><i
+      class="fa fa-plus"></i> Add</a>
 
-                <a  class="" [routerLink]='' (click)="onClose()"><img style="width:20px;" class="social_close_btn" src="assets/mainmenuicons/icons_close.png"/></a>
+      <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
+      class="fa fa-close"></i> Close</a>
 
 </div>
-
-
 </div>
 
 
@@ -77,13 +76,13 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </ul>
 </div>
 
-<div class="col-4" style="text-align: end; margin: auto;">
+<div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
 
-                <button type="button" class="btn btn-outline-primary popup-add-button"
-                [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')" title = "Add Details">Add</button>
+<a class="alert-success" [routerLink]='' (click)="mstapplicantsocialmediadetails_route(null, 'create')"><i
+class="fa fa-plus"></i> Add</a>
 
-                <a  class="" [routerLink]='' (click)="onClose()"><img style="width:20px;"  src="assets/mainmenuicons/icons_close.png"/></a>
-
+<a class="alert-danger" [routerLink]='' (click)="onClose()"><i
+class="fa fa-close"></i> Close</a>
 </div>
 
 
@@ -134,7 +133,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <!-- Submit & Close -->
 
             <td class="field-add-close-button">
-                <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+                <i class="fa fa-check-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
 
                 <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
                 (click)="skillClose()"></i>
@@ -173,17 +172,13 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </div>
 
 <div class="col" style="position: relative;left: 120px;top: 7px;">
-<i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+<i class="fa fa-check-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
 
                 <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
                 (click)="skillClose()"></i>
 
 </div>
-
-
 </div>
-
-
 
 </form>
   <ng2-smart-table #tbl_mstapplicantsocialmediadetails
