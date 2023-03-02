@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, ViewChild, EventEmitter, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteStateService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/route-state.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
@@ -28,7 +28,10 @@ import { NewskillsearchComponent } from '../../forms/newskillsearch/newskillsear
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  host: {
+    '(document:click)': 'onClick($event)',
+  },
 })
 export class HeaderComponent implements OnInit {
   @Input() menuItems: any[];
@@ -82,7 +85,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
-    public sessionService: SessionService,
+    public sessionService: SessionService,private _eref: ElementRef,
     private mstapplicantmaster_service: mstapplicantmasterService,
     private userIdle: UserIdleService,
     private themeService: ThemeService,
@@ -109,6 +112,12 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/home/bodashboardviewer/' + this.sessionService.getItem("usersource")]);
 
   }
+  onClick(event) {
+    if (!this._eref.nativeElement.contains(event.target)) {
+      this.menuhide = false;
+      this.showhideProfile = false
+    }
+   }
   openJobs() {
     this.menuhide = false;
     this.sharedService.currenturl = "home/boreportviewer/jobs";
@@ -352,7 +361,7 @@ export class HeaderComponent implements OnInit {
 
   //  sowmiya dropdown menu routing
   showSkills() {
-
+    this.menuhide = false;
     this.dialog.open(mstapplicantskilldetailgridComponent,
       {
         width: '100% !important',
@@ -362,7 +371,7 @@ export class HeaderComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     });
-    this.menuhides = false;
+    // this.menuhides = false;
   };
 
 
