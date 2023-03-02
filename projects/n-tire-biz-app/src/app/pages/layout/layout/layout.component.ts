@@ -121,6 +121,18 @@ export class LayoutComponent implements AfterViewInit, OnInit {
                                 command: (e) => { this.OpenPage(e); }
                             },
                             {
+                              label: 'KB Masters',
+                              icon: 'icon-reports',
+                              routerLink: "home/boreportviewer/y5q97",
+                              command: (e) => { this.OpenPage(e); }
+                          },
+                            {
+                              label: 'KB Topics',
+                              icon: 'icon-reports',
+                              routerLink: "home/boreportviewer/bokbt",
+                              command: (e) => { this.OpenPage(e); }
+                          },
+                            {
                                 label: 'User Master',
                                 icon: 'icon-usermaster',
                                 routerLink: "home/boreportviewer/e99kq",
