@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="crmindexmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Index Masters' | translate}}</a></h1>
+    <h1 class="col-4 columns mainheader left">{{'Index Masters'}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -161,7 +161,7 @@
             <!-- child table crmindexdetails-->
             <div [ngClass]="Is_crmindexdetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Index Details' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Index Details'}}
                 <select class='child' id="crmindexdetailsPagingdropdown"
                   (change)="crmindexdetails_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

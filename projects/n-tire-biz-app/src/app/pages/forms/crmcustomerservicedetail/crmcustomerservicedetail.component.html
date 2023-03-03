@@ -2,8 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="crmcustomerservicedetail_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Customer Service Details' |
-        translate}}</a></h1>
+    <h1 class="col-4 columns mainheader left">{{'Customer Service Details'}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -97,7 +96,7 @@
         <label *ngIf="showview" class="labelview">{{f.itemid?.value}}</label>
         <input *ngIf="!showview" id="itemid" required formControlName="itemid" (change)="itemid_onChange($event.target)"
           class="form-control">
-        <app-field-error-display [displayError]="f.itemid.errors?.required" errorMsg="Enter {{'Item' | translate}}">
+        <app-field-error-display [displayError]="f.itemid.errors?.required" errorMsg="Enter {{'Item'}}">
         </app-field-error-display>
       </div>
       <div

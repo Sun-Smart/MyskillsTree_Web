@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="crmcustomermaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left">{{'Customer Master' | translate}}
+    <h1 class="col-4 columns mainheader left">{{'Customer Master'}}
     </h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
@@ -865,7 +865,7 @@
             <!-- child table crmcustomeraccountmasters-->
             <div [ngClass]="Is_crmcustomeraccountmasters_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Accounts' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Accounts'}}
                 <select class='child' id="crmcustomeraccountmastersPagingdropdown"
                   (change)="crmcustomeraccountmasters_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
@@ -919,7 +919,7 @@
             <!-- child table crmcustomerkycmasters-->
             <div [ngClass]="Is_crmcustomerkycmasters_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'KYC Masters' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'KYC Masters'}}
                 <select class='child' id="crmcustomerkycmastersPagingdropdown"
                   (change)="crmcustomerkycmasters_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

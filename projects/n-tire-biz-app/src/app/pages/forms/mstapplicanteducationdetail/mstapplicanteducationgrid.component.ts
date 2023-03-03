@@ -37,7 +37,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                 <a class="alert-success" [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i
                 class="fa fa-plus"></i> Add</a>
-          
+
                 <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
                 class="fa fa-close"></i> Close</a>
 
@@ -69,7 +69,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                 <a class="alert-success" [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i
                 class="fa fa-plus"></i> Add</a>
-          
+
                 <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
                 class="fa fa-close"></i> Close</a>
 
@@ -419,6 +419,10 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     });
 
     this.FillData();
+    this.mstapplicanteducationdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
+      console.log('skill res',res);
+      this.skills_List = res;
+    }).catch((err) => { this.spinner.hide(); });
   };
 
   eduCategory() {
@@ -426,7 +430,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       this.applicantid_List = res.list_applicantid.value;
       this.educationcategory_List = res.list_educationcategory.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
-      this.skills_List = res.list_skills.value;
+      // this.skills_List = res.list_skills.value;
     }).catch((err) => { this.spinner.hide(); });
 
   };

@@ -10,7 +10,7 @@
 
         <ul class='nav nav-pills  input-group'>
           <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_boreports()"><i
-                class="nb-edit"></i>Edit</a></li>
+                class="fa fa-edit"></i>Edit</a></li>
           <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
             <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
                 aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
@@ -65,7 +65,7 @@
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.reportid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.reportid.value" [status]="f.status.value"></app-action>
-            <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="MakeAllHide()"><i class="fa fa-close"></i>Close</a>
+            <!-- <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="MakeAllHide()"><i class="fa fa-close"></i>Close</a> -->
           </li>
           <li class='nav-item actionheader'
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
@@ -175,7 +175,7 @@
                   <label for="sidefilter" class="control-label">Side Filter</label>
                   <label *ngIf="showview" class="labelview">{{f.sidefilter?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="sidefilter" formControlName="sidefilter"
-                    class="form-control">
+                    class="">
                 </div>
               </div>
               <div
@@ -247,7 +247,7 @@
                   <label for="cardtype" class="control-label">Card Type</label>
                   <label *ngIf="showview" class="labelview">{{f.cardtype?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="cardtype" formControlName="cardtype"
-                    class="form-control">
+                    class="">
                 </div>
               </div>
               <div class="col"></div>
@@ -272,7 +272,7 @@
                   <label for="calendar" class="control-label">Calendar</label>
                   <label *ngIf="showview" class="labelview">{{f.calendar?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="calendar" formControlName="calendar"
-                    class="form-control">
+                    class="">
                 </div>
               </div>
               <div
@@ -282,7 +282,7 @@
                   <label for="kanbanview" class="control-label">Kanban View</label>
                   <label *ngIf="showview" class="labelview">{{f.kanbanview?.value}}</label>
                   <input type="checkbox" *ngIf="!showview" id="kanbanview" formControlName="kanbanview"
-                    class="form-control">
+                    class="">
                 </div>
               </div>
               <div

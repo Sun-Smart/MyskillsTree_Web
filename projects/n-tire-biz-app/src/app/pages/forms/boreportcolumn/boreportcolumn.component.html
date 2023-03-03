@@ -122,7 +122,7 @@
         <div class="columnchk">
           <label for="hide" class="control-label">Hide</label>
           <label *ngIf="showview" class="labelview">{{f.hide?.value}}</label>
-          <input type="checkbox" *ngIf="!showview" id="hide" formControlName="hide" class="form-control">
+          <input type="checkbox" *ngIf="!showview" id="hide" formControlName="hide" class="">
         </div>
       </div>
       <div *ngIf="((hidelist.indexOf('derived') == -1) && (derivedvisible==undefined || derivedvisible==true))" style=''
@@ -130,7 +130,7 @@
         <div class="columnchk">
           <label for="derived" class="control-label">Derived</label>
           <label *ngIf="showview" class="labelview">{{f.derived?.value}}</label>
-          <input type="checkbox" *ngIf="!showview" id="derived" formControlName="derived" class="form-control">
+          <input type="checkbox" *ngIf="!showview" id="derived" formControlName="derived" class="">
         </div>
       </div>
 
@@ -153,7 +153,7 @@
         <div class="columnchk">
           <label for="fkfilter" class="control-label">F K Filter</label>
           <label *ngIf="showview" class="labelview">{{f.fkfilter?.value}}</label>
-          <input type="checkbox" *ngIf="!showview" id="fkfilter" formControlName="fkfilter" class="form-control">
+          <input type="checkbox" *ngIf="!showview" id="fkfilter" formControlName="fkfilter" class="">
         </div>
       </div>
 

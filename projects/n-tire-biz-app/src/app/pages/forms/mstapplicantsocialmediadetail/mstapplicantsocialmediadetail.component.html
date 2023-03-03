@@ -74,9 +74,10 @@
           <app-action *ngIf="f.socialrefid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
             [value]="f.socialrefid.value" [status]="f.status.value"></app-action>
         </li>
-        <i class='nav-item actionheader common_title_style'
-          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
-          class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
+        <li class='nav-item actionheader'
+          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+          <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+        </li>
       </ul>
     </div>
 

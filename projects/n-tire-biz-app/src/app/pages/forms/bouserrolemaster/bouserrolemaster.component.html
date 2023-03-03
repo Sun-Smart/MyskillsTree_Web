@@ -1,8 +1,8 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
-<ngx-spinner></ngx-spinner>
+
 <form [formGroup]="bouserrolemaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second bgcolor">
-    <h1 class="col-4 columns mainheader left">{{'UserRole Masters' | translate}}
+    <h1 class="col-4 columns mainheader left">{{'UserRole Masters'}}
     </h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
@@ -102,7 +102,7 @@
                 <label *ngIf="showview" class="labelview">{{f.userrole?.value}}</label>
                 <input *ngIf="!showview" id="userrole" required formControlName="userrole" class="form-control">
                 <app-field-error-display [displayError]="f.userrole.errors?.required"
-                  errorMsg="Enter {{'User Role' | translate}}">
+                  errorMsg="Enter {{'User Role'}}">
                 </app-field-error-display>
               </div>
               <div class="col"></div>
@@ -136,7 +136,7 @@
             <!-- child table bousertypemenuaccesses-->
             <div [ngClass]="Is_bousertypemenuaccesses_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'UserType MenuAccess' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'UserType MenuAccess'}}
                 <select class='child' id="bousertypemenuaccessesPagingdropdown"
                   (change)="bousertypemenuaccesses_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
