@@ -1093,6 +1093,10 @@ export class bocompanymasterComponent implements OnInit {
                     filter: true,
                 },
             },
+
+            attr: {
+                class: 'table table-bordered table-header'
+            },
         };
     }
     bocompanyholidays_LoadTable(bocompanyholidays = new LocalDataSource()) {
@@ -1246,8 +1250,13 @@ export class bocompanymasterComponent implements OnInit {
                             resetText: 'clear',
                         },
                     },
+                    
                 },
             },
+            
+attr: {
+    class: 'table table-bordered table-header'
+},
         };
     }
     bofinancialyears_LoadTable(bofinancialyears = new LocalDataSource()) {

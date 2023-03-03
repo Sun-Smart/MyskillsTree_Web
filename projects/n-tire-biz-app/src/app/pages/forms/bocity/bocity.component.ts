@@ -474,7 +474,7 @@ export class bocityComponent implements OnInit {
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(bolocationComponent,
-            {
+            { 
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, locationid, cityid, visiblelist: this.bolocations_visiblelist, hidelist: this.bolocations_hidelist, ScreenType: 2 },
             }
         ).onClose.subscribe(res => {

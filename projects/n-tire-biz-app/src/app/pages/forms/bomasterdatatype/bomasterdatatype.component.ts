@@ -600,7 +600,8 @@ check1:boolean = false ;
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(bomasterdataComponent,
-            {
+            { width: '50% !important',
+            height: '40% !important',
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, masterdataid, datatypeid, visiblelist: this.bomasterdatas_visiblelist, hidelist: this.bomasterdatas_hidelist, ScreenType: 2 },
             }
         ).onClose.subscribe(res => {
