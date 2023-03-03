@@ -568,10 +568,10 @@ export class mstapplicantsocialmediagridComponent implements OnInit {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
         confirmDelete: true,
       },
-      pager: {
-        display: true,
-        perPage: 5
-      },
+      // pager: {
+      //   display: true,
+      //   perPage: 5
+      // },
       columns: {
         colhtml:
         {
