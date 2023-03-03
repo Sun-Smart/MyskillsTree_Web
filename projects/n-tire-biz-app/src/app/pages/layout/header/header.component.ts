@@ -392,7 +392,6 @@ export class HeaderComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     });
-    // this.menuhides = false;
   };
 
 
@@ -401,7 +400,7 @@ export class HeaderComponent implements OnInit {
       {
         width: '100% !important',
         height: '90% !important',
-        contentStyle: 'mobileView',
+        // contentStyle: 'mobileView',
         data: { ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {

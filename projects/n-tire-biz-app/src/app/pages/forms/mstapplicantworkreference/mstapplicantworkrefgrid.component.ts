@@ -90,12 +90,15 @@ class="fa fa-close"></i> Close</a>
                 <thead>
                     <tr>
 
-                    <th style="width: 18%;">Company Name</th>
-                    <th style="width: 15%;">Work Topic</th>
-                    <th style="width: 15%">Reference Url</th>
-                    <th style="width: 15%;">Work Description</th>
-                    <th style="width: 15%;">Remarks</th>
-                    <th style="width: 15%;">Skills</th>
+                    <th style="width: 10%;">Company Name</th>
+                    <th style="width: 10%;">Work Topic</th>
+                    <th style="width: 10%;">Work Description</th>
+                    <th style="width: 10%">Reference Url</th>
+                    <th style="width: 10%;">From Date</th>
+                    <th style="width: 10%;">To Date</th>
+                    <th style="width: 10%;">Remarks</th>
+                    <th style="width: 10%;">Skills</th>
+                    <th style="width: 10%;">Location</th>
                     <th style="width: 10%;text-align: center;">Action</th>
                     </tr>
                 </thead>
@@ -121,12 +124,7 @@ class="fa fa-close"></i> Close</a>
 
                         </td>
 
-                <!-- Reference URL -->
-
-                    <td>
-                    <input id="referenceurl" formControlName="referenceurl" class="form-control">
-
-                    </td>
+  
 
                 <!-- Work Description -->
 
@@ -134,11 +132,51 @@ class="fa fa-close"></i> Close</a>
                     <textarea autosize rows="1" cols="10" onlyGrow="true"  id="workdescription" required
                     formControlName="workdescription" class="form-control">
                     </textarea>
-
+ 
                     <div *ngIf="mstapplicantworkreference_Form.get('workdescription').errors  && isSubmitted" class="invalid-feedback">
                         <span *ngIf="mstapplicantworkreference_Form.get('workdescription').hasError('required')">workdescription is required</span>
                         </div>
                     </td>
+
+                    <!-- Reference URL -->
+
+                    <td>
+                    <input id="referenceurl" formControlName="referenceurl" class="form-control">
+
+                    </td>
+
+                    <!-- From Date -->
+
+                    <td>
+                    <div >
+                    <div class="input-group" style="display: flex;width: 100%;">
+               
+                      <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+                      [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
+                        formControlName="fromdate" style="margin-right: 5px;" class="form-control">
+                        
+                      <button class="input-group-addon" (click)="d.toggle()" type="button"><i
+                          class="fa fa-calendar" aria-hidden="true"></i></button>
+                    </div>
+                  </div></td>
+
+                  <!-- To Date -->
+
+                  <td>
+                  <div>
+                 <div style="display: flex;width: 80%;">
+                  <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+                       [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate" class="form-control"
+                       style="margin-right: 5px;">
+             
+                       <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
+                           class="fa fa-calendar" aria-hidden="true"></i></button>
+                 </div>
+                         <div *ngIf="showDateError" style="color: red;font-size: 12px;">
+                           To date is greater than from date
+                         </div>
+                 </div>
+                  </td>
 
                 <!-- Remarks -->
 
@@ -152,6 +190,14 @@ class="fa fa-close"></i> Close</a>
                     <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
                     (completeMethod)="search_skills($event)"></p-autoComplete>
 
+                    </td>
+
+                    <!--Location-->
+
+                    <td>
+                    <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
+                      (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value"
+                      desc="label"></app-popupselect>
                     </td>
 
 
@@ -336,6 +382,9 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       remarks: [null],
       requestid: [null],
       attachment: [null],
+      fromdate: [null],
+      todate: [null],
+      Location: [null],
       status: [null],
       skills: [null],
       skilldesc: [null],
@@ -579,12 +628,15 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         <table class="table table-hover workdetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr style="word-break: break-word;">
-            <th style="white-space: break-spaces;width:20%;">##companyname##</th>
-            <th style="white-space: break-spaces;width:17%;">##worktopic##</th>
-            <th style="white-space: break-spaces;width:17%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
-            <th style="white-space: break-spaces;width:16%;">##workdescription##</th>
-            <th style="white-space: break-spaces;width:17%;">##remarks##</th>
+            <th style="white-space: break-spaces;width:10%;">##companyname##</th>
+            <th style="white-space: break-spaces;width:10%;">##worktopic##</th>
+            <th style="white-space: break-spaces;width:10%;">##workdescription##</th>
+            <th style="white-space: break-spaces;width:10%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
+            <th style="white-space: break-spaces;width:10%;">##fromdate##</th>
+            <th style="white-space: break-spaces;width:10%;">##todate##</th>
+            <th style="white-space: break-spaces;width:10%;">##remarks##</th>
             <th style="white-space: break-spaces;width:20%;">##string_agg##</th>
+            <th style="white-space: break-spaces;width:20%;">##location##</th>
           </tr>
         </tbody>
       </table>
