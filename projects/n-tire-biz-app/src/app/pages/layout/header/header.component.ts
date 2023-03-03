@@ -391,7 +391,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(mstapplicantskilldetailgridComponent,
       {
         width: '100% !important',
-        height: 'auto !important',
+        height: '100% !important',
         data: { ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {
