@@ -79,7 +79,7 @@ class="fa fa-close"></i> Close</a>
 
                 <a class="alert-success" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
                 class="fa fa-plus"></i> Add</a>
-          
+
                 <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
                 class="fa fa-close"></i> Close</a>
                 </div>
@@ -354,6 +354,10 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
     this.FillData();
+    this.mstapplicantworkreference_service.getskillsDetails(this.applicantid).then((res: any) => {
+      console.log('skill res',res);
+      this.skills_List = res;
+    }).catch((err) => { this.spinner.hide(); });
     this.get_companyName();
     let mstapplicantworkreferenceid = null;
     //copy the data from previous dialog
@@ -377,7 +381,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     }
     this.mstapplicantworkreference_service.getDefaultData().then(res => {
       this.applicantid_List = res.list_applicantid.value;
-      this.skills_List = res.list_skills.value;
+      // this.skills_List = res.list_skills.value;
     }).catch((err) => { this.spinner.hide(); });
   };
 

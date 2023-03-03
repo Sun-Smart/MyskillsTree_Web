@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="crmcustomerservice_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Customer Services' | translate}}</a>
+    <h1 class="col-4 columns mainheader left">{{'Customer Services'}}
     </h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
@@ -187,7 +187,7 @@
             <!-- child table crmcustomerservicedetails-->
             <div [ngClass]="Is_crmcustomerservicedetails_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Customer Service Details' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Customer Service Details'}}
                 <select class='child' id="crmcustomerservicedetailsPagingdropdown"
                   (change)="crmcustomerservicedetails_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

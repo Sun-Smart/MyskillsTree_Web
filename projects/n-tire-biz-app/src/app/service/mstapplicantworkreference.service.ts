@@ -33,6 +33,12 @@ export class mstapplicantworkreferenceService {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference' + '/getdefaultdata').toPromise();
     }
   }
+  getskillsDetails(applicantid:any):any{
+    if (this.valid()) {
+      let appid = localStorage.getItem('applicantid');
+      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantachievementdetail/appid/'+appid).toPromise();
+    }
+  }
   get_mstapplicantworkreferences_List(): any {
     if (this.valid()) {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference').toPromise();

@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="bousermaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second bgcolor" >
-    <h1 class="col-4 columns mainheader left">{{'User Master' | translate}}</h1>
+    <h1 class="col-4 columns mainheader left">{{'User Master'}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -903,7 +903,7 @@
             <!-- child table bousermenuaccesses-->
             <div [ngClass]="Is_bousermenuaccesses_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'UserMenu Access' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'UserMenu Access'}}
                 <select class='child' id="bousermenuaccessesPagingdropdown"
                   (change)="bousermenuaccesses_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
@@ -944,7 +944,7 @@
             <!-- child table bouserbranchaccesses-->
             <div [ngClass]="Is_bouserbranchaccesses_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'UserBranch Access' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'UserBranch Access'}}
                 <select class='child' id="bouserbranchaccessesPagingdropdown"
                   (change)="bouserbranchaccesses_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

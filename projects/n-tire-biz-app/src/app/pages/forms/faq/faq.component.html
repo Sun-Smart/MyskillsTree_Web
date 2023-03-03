@@ -19,14 +19,14 @@
 <!--categoryid-->
 
   <div  *ngIf="hidelist.indexOf('categoryid')<0"  class=" p-float-label  p-col-12 p-md-3" >
-<p-autoComplete  forceSelection="true" showClear=true  *ngIf="!showview"    class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="categoryid"  pTooltip="{{'Enter' | translate}} {{'categoryid' | translate}}"  field="label"  [suggestions]="categoryid_Suggestions" (onSelect)="onSelected_categoryid($event)" (completeMethod)="onEntered_categoryid($event)"  [dropdown]="true">
+<p-autoComplete  forceSelection="true" showClear=true  *ngIf="!showview"    class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="categoryid"  pTooltip="{{'Enter'}} {{'categoryid'}}"  field="label"  [suggestions]="categoryid_Suggestions" (onSelect)="onSelected_categoryid($event)" (completeMethod)="onEntered_categoryid($event)"  [dropdown]="true">
 <ng-template let-categoryid pTemplate="item">
 <div>{{categoryid.label}}</div>
 </ng-template>
 </p-autoComplete>
       <label *ngIf="showview"    class="labelview p-inputwrapper-filled">{{f.categoryiddesc?.value}}</label>
-<label  for="categoryid"  class="control-label required" (click)="AddOrEdit_categoryid(null)">{{'Category' | translate}}</label>
-      <app-field-error-display [displayError]="f.categoryid.errors?.required" errorMsg="{{'Enter'| translate}} {{'Category' | translate}}">
+<label  for="categoryid"  class="control-label required" (click)="AddOrEdit_categoryid(null)">{{'Category'}}</label>
+      <app-field-error-display [displayError]="f.categoryid.errors?.required" errorMsg="{{'Enter'}} {{'Category'}}">
       </app-field-error-display>
   </div>
 
@@ -34,26 +34,26 @@
 <!--subcategoryid-->
 
   <div  *ngIf="hidelist.indexOf('subcategoryid')<0"  class=" p-float-label  p-col-12 p-md-3" >
-<p-autoComplete  forceSelection="true" showClear=true  *ngIf="!showview"    class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="subcategoryid"  pTooltip="{{'Enter' | translate}} {{'subcategoryid' | translate}}"  field="label"  [suggestions]="subcategoryid_Suggestions" (onSelect)="onSelected_subcategoryid($event)" (completeMethod)="onEntered_subcategoryid($event)"  [dropdown]="true">
+<p-autoComplete  forceSelection="true" showClear=true  *ngIf="!showview"    class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="subcategoryid"  pTooltip="{{'Enter'}} {{'subcategoryid'}}"  field="label"  [suggestions]="subcategoryid_Suggestions" (onSelect)="onSelected_subcategoryid($event)" (completeMethod)="onEntered_subcategoryid($event)"  [dropdown]="true">
 <ng-template let-subcategoryid pTemplate="item">
 <div>{{subcategoryid.label}}</div>
 </ng-template>
 </p-autoComplete>
       <label *ngIf="showview"    class="labelview p-inputwrapper-filled">{{f.subcategoryiddesc?.value}}</label>
-<label  for="subcategoryid"  class="control-label">{{'Subcategory' | translate}}</label>
+<label  for="subcategoryid"  class="control-label">{{'Subcategory'}}</label>
   </div>
   <div    *ngIf="hidelist.indexOf('question')<0"   class="  p-col-12 p-md-12" >
-<label  for="question"  class="control-label required">{{'Question' | translate}}</label>
+<label  for="question"  class="control-label required">{{'Question'}}</label>
 
       <label *ngIf="showview"      class="labelview p-inputwrapper-filled">{{f.question?.value}}</label>
-<p-editor  *ngIf="!showview"  id="question"  pTooltip="{{'Enter' | translate}} {{'question' | translate}}"  formControlName="question"   required  [style]="{  height: '320' }"></p-editor>      <app-field-error-display [displayError]="f.question.errors?.required" errorMsg="{{'Enter'| translate}} {{'Question' | translate}}">
+<p-editor  *ngIf="!showview"  id="question"  pTooltip="{{'Enter'}} {{'question'}}"  formControlName="question"   required  [style]="{  height: '320' }"></p-editor>      <app-field-error-display [displayError]="f.question.errors?.required" errorMsg="{{'Enter'}} {{'Question'}}">
       </app-field-error-display>
   </div>
   <div    *ngIf="hidelist.indexOf('answer')<0"   class="  p-col-12 p-md-12" >
-<label  for="answer"  class="control-label required">{{'Answer' | translate}}</label>
+<label  for="answer"  class="control-label required">{{'Answer'}}</label>
 
       <label *ngIf="showview"      class="labelview p-inputwrapper-filled">{{f.answer?.value}}</label>
-<p-editor  *ngIf="!showview"  id="answer"  pTooltip="{{'Enter' | translate}} {{'answer' | translate}}"  formControlName="answer"   required  [style]="{  height: '320' }"></p-editor>      <app-field-error-display [displayError]="f.answer.errors?.required" errorMsg="{{'Enter'| translate}} {{'Answer' | translate}}">
+<p-editor  *ngIf="!showview"  id="answer"  pTooltip="{{'Enter'}} {{'answer'}}"  formControlName="answer"   required  [style]="{  height: '320' }"></p-editor>      <app-field-error-display [displayError]="f.answer.errors?.required" errorMsg="{{'Enter'}} {{'Answer'}}">
       </app-field-error-display>
   </div>
   </div>
