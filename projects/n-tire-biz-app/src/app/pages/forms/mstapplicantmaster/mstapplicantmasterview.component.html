@@ -3,10 +3,10 @@
     <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
     <ngx-spinner></ngx-spinner>
     <form [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-      <div class="row second" *ngIf="!iseditbuttonshow">
+
+      <!-- <div class="row second" *ngIf="!iseditbuttonshow">
         <div class='col-12  sticky1 second' role='toolbar' aria-label='Toolbar with button groups' style="align-items: center !important;;justify-content: end;"
           [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
-          <!--btn-toolbar-->
 
           <button *ngIf="showview"class='alert-info  popup-add-button'
             (click)="edit_mstapplicantmasters()">Dashboard</button>
@@ -16,7 +16,7 @@
             </ul>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="container"
         id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}"
@@ -57,7 +57,7 @@
           <div class="show-Pfl-card">
 
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Geography Preferences'}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Location'}}</h5>
             </div>
 
             <div *ngIf="mstapplicantgeographypreferences.length == 0" style="text-align: center;">
@@ -119,7 +119,7 @@
           <div class="show-Pfl-card">
 
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Education Details'}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Education'}}</h5>
             </div>
 
 
@@ -180,12 +180,12 @@
 
           </div>
 
-          <!-- Achievement Details -->
+          <!-- Certification Details -->
 
           <div class="show-Pfl-card">
 
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Achievement Details'}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Certification'}}</h5>
             </div>
 
             <div *ngIf="mstapplicantachievementdetails.length == 0" style="text-align: center;">
@@ -197,7 +197,7 @@
                 <i class="fa fa-certificate" aria-hidden="true"></i>
                 <label>Category : {{item.masterdataiddesc}}</label> |
                 <i class="fa fa-shield" aria-hidden="true"></i>
-                <label>Skill : {{item.skill}}</label>
+                <label>Skill : {{item.skilldesc}}</label>
                 <br>
 
                 <i class="fa fa-trophy" aria-hidden="true"></i>
@@ -214,7 +214,7 @@
             <!-- child table mstapplicantachievementdetails-->
             <div [ngClass]="Is_mstapplicantachievementdetails_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Achievement Details'}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Certification Details'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -249,7 +249,7 @@
           <div class="show-Pfl-card">
 
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Language Details'}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Language'}}</h5>
             </div>
 
             <div *ngIf="language_star_rating.length == 0" style="text-align: center;">
@@ -319,7 +319,7 @@
           <div class="show-Pfl-card">
 
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Skill Details'}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Skill Set'}}</h5>
             </div>
 
             <div *ngIf="skillarray.length == 0" style="text-align: center;">
@@ -349,7 +349,7 @@
             <!-- child table mstapplicantskilldetails-->
             <div [ngClass]="Is_mstapplicantskilldetails_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Skill Details'}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Skill Set'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
@@ -379,10 +379,10 @@
 
           </div>
 
-          <!-- Career Details -->
+          <!-- Experience Details -->
           <div class="show-Pfl-card">
             <div class="show-prfl-card-hdr">
-              <h5 style="padding: 0 10px !important;">{{'Career Details'}}</h5>
+              <h5 style="padding: 0 10px !important;">{{'Experience'}}</h5>
             </div>
 
             <div *ngIf="mstapplicantcareerdetails.length == 0" style="text-align: center;">
@@ -406,7 +406,7 @@
           </div>
           <br>
 
-          <!-- Old Career Details -->
+          <!-- Old Experience Details -->
 
           <div class='row designrow' style="display: none;">
             <!-- child table mstapplicantcareerdetails-->

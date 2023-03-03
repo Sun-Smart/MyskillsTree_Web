@@ -386,7 +386,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(mstapplicantskilldetailgridComponent,
       {
         width: '100% !important',
-        height: '100% !important',
+        height: '90% !important',
         data: { ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {
@@ -400,7 +400,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(mstapplicantgeographygrid,
       {
         width: '100% !important',
-        height: 'auto !important',
+        height: '90% !important',
         contentStyle: 'mobileView',
         data: { ScreenType: 2, applicantid: this.applicantid, save: true }
       }
@@ -421,7 +421,7 @@ export class HeaderComponent implements OnInit {
   showcareer() {
     this.dialog.open(mstapplicantcareergridComponent, {
       width: '100% !important',
-      height: 'auto !important',
+      height: '90% !important',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -431,7 +431,7 @@ export class HeaderComponent implements OnInit {
   showWorkRef() {
     this.dialog.open(mstapplicantworkrefgridComponent, {
       width: '100% !important',
-      height: 'auto !important',
+      height: '90% !important',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -441,7 +441,7 @@ export class HeaderComponent implements OnInit {
   showEducation() {
     this.dialog.open(mstapplicanteducationdetailgridComponent, {
       width: '100% !important',
-      height: 'auto !important',
+      height: '90% !important',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -451,7 +451,7 @@ export class HeaderComponent implements OnInit {
   showAchievement() {
     this.dialog.open(mstapplicantachivementgridComponent, {
       width: '100% !important',
-      height: 'auto !important',
+      height: '90% !important',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -462,7 +462,7 @@ export class HeaderComponent implements OnInit {
   showSocial() {
     this.dialog.open(mstapplicantsocialmediagridComponent, {
       width: '100% !important',
-      height: 'auto !important',
+      height: '90% !important',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -472,7 +472,7 @@ export class HeaderComponent implements OnInit {
   showLanguage() {
     this.dialog.open(mstapplicantlanuagegridComponent, {
       width: '100% !important',
-      height: 'auto !important',
+      height: '90% !important',
       data: { ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;

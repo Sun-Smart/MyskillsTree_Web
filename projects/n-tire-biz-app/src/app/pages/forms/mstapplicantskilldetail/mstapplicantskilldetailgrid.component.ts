@@ -59,7 +59,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
 
   <div class="col-4" style="margin:auto;">
-    <h4 class="form-group sticky1  columns left">{{'Skill sets'}}</h4>
+    <h4 class="form-group sticky1  columns left">{{'Skill set'}}</h4>
   </div>
   <div class="col-6"></div>
   <div class="col-2" style="text-align:right; margin:auto;display:flex;justify-content:end;">
@@ -77,12 +77,13 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
       <tr>
-        <th  style="width:12.5%;">Segments</th>
-        <th  style="width:13.5%;">Skill Category</th>
-        <th  style="width:13%;">Sub Category</th>
-        <th  style="width:12.5%;">Self Rating</th>
-        <th  style="width:12.5%;" >Show/Hide</th>
-        <th  style="width:12.5%;" >Referal Status</th>
+        <th  style="width:10.5%;">Segments</th>
+        <th  style="width:10.5%;">Skill Category</th>
+        <th  style="width:10.5%;">Sub Category</th>
+        <th  style="width:10.5%;">Self Rating</th>
+        <th  style="width:10.5%;">Priority</th>
+        <th  style="width:10.5%;" >Show/Hide</th>
+        <th  style="width:10.5%;" >Referal Status</th>
         <th  style="width:12.5%;">Remarks</th>
         <th style="width:10%;text-align: center;">Action</th>
       </tr>
@@ -130,6 +131,15 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         </p-rating>
         </td>
 
+        <!-- Order Priority -->
+
+        <td>
+        <input type="number" id="orderpriority" formControlName="orderpriority"  
+        onKeyPress="if(this.value.length==1) return false;" class="form-control">
+        <small *ngIf="showOrderError" style="color:brown">Priority between 1 to 5</small>
+
+        </td>
+
         <!-- Hide -->
 
         <td>
@@ -143,7 +153,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <!-- Remarks -->
 
         <td>
-          <textarea name="w3review" rows="3" cols="10" class="form-control" formControlName="remarks"></textarea>
+          <textarea name="w3review" rows="1" cols="4" class="form-control" formControlName="remarks"></textarea>
         </td>
 
       <!-- Add & Close -->
@@ -189,26 +199,39 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </select>
 <input *ngIf="showinput1" class="form-control" id="segmentid" formControlName="segmentcategoryothers"
           type="text" style="margin: 5px 0">
-<label>Skill Category</label>
+
+          <label>Skill Category</label>
           <select class="form-control" formControlName="skillcategory" (change)="skillcategory_onChange($event.target)">
             <option value=null [disabled]="true">-Select-</option>
             <option *ngFor="let item of skillcategory_List" value="{{item.categoryid}}">{{item.name}}</option>
           </select>
+
           <input *ngIf="showinput2" class="form-control" id="skillcategory" formControlName="skillcategoryothers"
           type="text" style="margin: 5px 0">
+
           <label>Sub Category</label>
           <select class="form-control" formControlName="subcategoryid" (change)="subcategoryid_onChange($event.target)">
             <option value=null [disabled]="true">-Select-</option>
             <option *ngFor="let item of subcategoryid_List" value="{{item.subcategoryid}}">{{item.name}}</option>
           </select>
+
           <input *ngIf="showinput3" id="subcategoryid" class="form-control" formControlName="subcategoryidothers"
           type="text" style="margin: 5px 0">
-          <label>Self Rating</label>
+
+        <label>Self Rating</label>
         <p-rating  id="selfrating" formControlName="selfrating" class="form-control">
         </p-rating>
+
+        <label>Priority</label>
+        <input  id="orderpriority" formControlName="orderpriority" class="form-control">
+        <span *ngIf="showOrderError">Check</span>
+        // <label>Show/Hide</label>
+        <input type="checkbox" formControlName="showorhide">
+
         <label>Remarks</label>
         <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
         <div class="col" style="position: relative;left: 120px;top: 7px;">
+
         <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait(mstapplicantskilldetail_Form)"></i>
 
           <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
@@ -301,6 +324,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   showMobileDetectskill: boolean = false;
   showWebviewDetect: boolean = true;
   isMobile: any;
+  showOrderError: boolean = false;
 
   constructor(
     public dialogRef: DynamicDialogRef,
@@ -348,6 +372,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       segmentid: [null, Validators.compose([Validators.required])],
       segmentcategorydesc: [null],
       selfrating: [null],
+      orderpriority: [null],
       showorhide: [null],
       remarks: [null],
       requestid: [null],
@@ -453,7 +478,14 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.toastr.addSingle("error", "", "Enter the required fields");
       return;
     }
+    if (this.mstapplicantskilldetail_Form.value.orderpriority > 5) {
+      this.showOrderError = true;
+      return;
+    } else {
+      this.showOrderError = false;
+    }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
+
     this.spinner.show();
     this.mstapplicantskilldetail_service.saveOrUpdate_mstapplicantskilldetails(this.formData).subscribe(
       async (res: any) => {
@@ -535,12 +567,13 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     <table class="table table-hover skilldetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
     <tbody>
       <tr style="word-break: break-word;">
-        <th style="white-space: break-spaces;width:13%;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
-        <th style="white-space: break-spaces;width:15%;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
+        <th style="white-space: break-spaces;width:12%;">##segmentdesc##&nbsp##segmentcategoryothers##</th>
+        <th style="white-space: break-spaces;width:12%;">##skillcategorydesc##&nbsp##skillcategoryothers##</th>
         <th style="white-space: break-spaces;width:11%;">##subcategoryiddesc##&nbsp##subcategoryidothers##</th>
-        <th style="white-space: break-spaces;width:17%;">##selfrating##</th>
-        <th style="white-space: break-spaces;width:13%;">##showorhide##</th>
-        <th style="white-space: break-spaces;width:16%;">##referencecount##</th>
+        <th style="white-space: break-spaces;width:12%;">##selfrating##</th>
+        <th style="white-space: break-spaces;width:12%;">##orderpriority##</th>
+        <th style="white-space: break-spaces;width:12%;">##showorhide##</th>
+        <th style="white-space: break-spaces;width:13%;">##referencecount##</th>
         <th style="white-space: break-spaces;">##remarks##</th>
       </tr>
     </tbody>
@@ -632,6 +665,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         selfrating: res.mstapplicantskilldetail.selfrating,
         remarks: res.mstapplicantskilldetail.remarks,
         requestid: res.mstapplicantskilldetail.requestid,
+        orderpriority: res.mstapplicantskilldetail.orderpriority,
         showorhide: res.mstapplicantskilldetail.showorhide,
         referenceacceptance: res.mstapplicantskilldetail.referenceacceptance,
         referenceacceptancedesc: res.mstapplicantskilldetail.referenceacceptancedesc,
@@ -712,8 +746,11 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   onDelete_mstapplicantskilldetail(event: any, childID: number, i: number) {
     if (confirm('Do you want to delete this record?')) {
+      this.spinner.show();
       this.mstapplicantskilldetail_service.delete_mstapplicantskilldetail(childID).then(res => {
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
+
+          this.spinner.hide();
           this.ngOnInit();
           this.mstapplicantskilldetails_LoadTable(res);
         });
@@ -801,10 +838,10 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
         confirmDelete: true,
       },
-      pager: {
-        display: true,
-        perPage: 5
-      },
+      // pager: {
+      //   display: true,
+      //   perPage: 5
+      // },
       columns: {
         colhtml:
         {
@@ -822,6 +859,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
             if (row.showorhide == true) {
               row.showorhide = "Hide";
+            } else {
+              row.showorhide = "Show";
             }
 
 
@@ -912,7 +951,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
             divrow['referencecount'] = "<div style='position: relative;left: 12%;font-size: 17px;'>" + xyzyzyz + "</div>";
             this.countarray = [];
 
-            divrow["selfrating"] = "<div style='font-size: large !important;color:green;position: relative;left: 19%;'>" + showstr + "</div>";
+            divrow["selfrating"] = "<div style='font-size: large !important;color:green;position: relative;left: 5%;'>" + showstr + "</div>";
             this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (this.isMobile) {
               divrow['referencecount'] = "<div style='position: relative;left: 61%;font-size: 17px;bottom: 8px;'>" + xyzyzyz + "</div>";

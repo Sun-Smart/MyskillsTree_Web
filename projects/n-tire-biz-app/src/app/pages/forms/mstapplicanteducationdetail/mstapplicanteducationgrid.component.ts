@@ -82,8 +82,6 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
                 <thead>
                     <tr>
-
-
                     <th style="width: 10%;">Qualification</th>
                     <th style="width: 10%;">Discipline</th>
                     <th style="width: 10%">Institution Name</th>
@@ -136,14 +134,14 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                     <!-- Percentage -->
 
                     <td>
-                     <input  id="percentage" formControlName="percentage" type="number"  class="form-control" required >
+                     <input  id="percentage" formControlName="percentage" type="number"  class="form-control" required onKeyPress="if(this.value.length == 3) return false;">
                     <span *ngIf = "show_percentageError" style = "color:red; font-size:10px;"> Percentage value should be below 100</span>
                     </td>
 
                     <!-- Remarks -->
 
                    <td>
-                    <textarea name="w3review" rows="3" cols="10" class="form-control" formControlName="remarks" required></textarea>
+                    <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks" required></textarea>
                     </td>
 
                     <!-- From Year -->

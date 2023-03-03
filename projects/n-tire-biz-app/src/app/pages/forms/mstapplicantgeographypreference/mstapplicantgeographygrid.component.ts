@@ -86,7 +86,7 @@ class="fa fa-close"></i> Close</a>
               <!-- Remarks -->
 
               <td>
-              <textarea name="w3review" rows="3" cols="10" class="form-control" formControlName="remarks"></textarea>
+              <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
               </td>
 
               <!-- Submit & close -->
@@ -570,10 +570,10 @@ export class mstapplicantgeographygrid implements OnInit {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
         confirmDelete: true,
       },
-      pager: {
-        display: true,
-        perPage: 5
-      },
+      // pager: {
+      //   display: true,
+      //   perPage: 5
+      // },
       columns: {
         colhtml:
         {
