@@ -500,7 +500,8 @@ export class bostateComponent implements OnInit {
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(bocityComponent,
-            {
+            { width:'50% !important',
+            height:'30% !important',
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, cityid, stateid, visiblelist: this.bocities_visiblelist, hidelist: this.bocities_hidelist, ScreenType: 2 },
             }
         ).onClose.subscribe(res => {
@@ -575,7 +576,7 @@ export class bostateComponent implements OnInit {
                 confirmCreate: true,
             },
             edit: {
-                editButtonContent: '<i class="nb-edit"></i>',
+                editButtonContent: '<i class="fa fa-edit"></i>',
                 saveButtonContent: '<i class="nb-checkmark"></i>',
                 cancelButtonContent: '<i class="nb-close"></i>',
                 confirmSave: true,
@@ -595,6 +596,9 @@ export class bostateComponent implements OnInit {
                     type: '',
                     filter: true,
                 },
+            },
+            attr: {
+                class: 'table table-bordered table-header'
             },
         };
     }

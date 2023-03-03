@@ -287,23 +287,26 @@ a + a {
 .alert-info,
 .alert-action,
 .btn-success {
+  line-height: 1;
   color: #fff !important;
   border: none !important;
   border-radius: 6px;
-  padding: 4px 14px !important;
-  margin-right: 15px !important;
+  height: 22px;
+  padding: 5px 10px !important;
   background: #6b431d !important;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .alert-primary:hover {
-  color: #fff !important;
-  border: none !important;
-  border-radius: 6px;
-  padding: 5px 10px !important;
-  background: #6b431d !important;
-  height: 22px;
-  font-size: 12px;
+  
+ line-height: 1;
+ color: #fff !important;
+ border: none !important;
+ border-radius: 6px;
+ padding: 5px 10px !important;
+ height: 22px;
+ background: #744921 !important;
+ text-decoration: none;
 }
 
 .alert-success {
