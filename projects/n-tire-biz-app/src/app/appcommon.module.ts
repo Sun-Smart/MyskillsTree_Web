@@ -163,7 +163,9 @@ import {PickListModule} from 'primeng/picklist';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import { MstLocationDetailsComponent } from './pages/forms/mst-location-details/mst-location-details.component';
 import {BlockUIModule} from 'primeng/blockui';
-
+import { titleComponent } from './pages/forms/title.component';
+import {SplitButtonModule} from 'primeng/splitbutton';
+import {SlideMenuModule} from 'primeng/slidemenu';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -255,12 +257,12 @@ const config: ExtraOptions = {
         DynamicFormBuilderComponent,
         CheckBoxComponent, DropDownComponent, FileComponent, RadioComponent, TextBoxComponent,
         FieldBuilderComponent,
-        RouterModule,PickListModule,InputSwitchModule,BlockUIModule,
+        RouterModule,PickListModule,InputSwitchModule,BlockUIModule,SplitButtonModule,SlideMenuModule,
         SmartTableDatepickerRenderComponent,
         SmartTableDatepickerComponent,
         addressComponent, durationComponent,
         SmartTableDurationComponent, SmartTableDurationRenderComponent,
-        workflowComponent, CorporateDashboardComponent, galleryComponent,
+        workflowComponent, CorporateDashboardComponent, galleryComponent,titleComponent,
         actionComponent,
         NgxCurrencyModule,
         SliderModule,
@@ -308,7 +310,7 @@ const config: ExtraOptions = {
         openfileComponent, opencommentComponent,
         stringlistComponent,
         BOReportViewerComponent,
-        CalendarHeaderComponent, CorporateDashboardComponent, galleryComponent,
+        CalendarHeaderComponent, CorporateDashboardComponent, galleryComponent,titleComponent,
         CalendarFormComponent, boworkflowdesignComponent,
         boganttComponent,
         SmartTableDatepickerRenderComponent,

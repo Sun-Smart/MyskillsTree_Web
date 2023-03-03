@@ -1,56 +1,29 @@
 import { lmssubresponseService } from './../../../service/lmssubresponse.service';
 import { lmssubresponse } from './../../../model/lmssubresponse.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
-import { LocalDataSource } from 'ng2-smart-table';
-import { Ng2SmartTableComponent } from 'ng2-smart-table';
+import { DomSanitizer } from "@angular/platform-browser";
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { switchMap, map, debounceTime } from 'rxjs/operators';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
-import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import { AppConstants } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
     selector: 'app-lmssubresponse',
     templateUrl: './lmssubresponse.component.html',
     styles: [],
-    providers: [KeyboardShortcutsService]
+    providers: []
 })
-
-
 
 export class lmssubresponseComponent implements OnInit {
     formData: lmssubresponse;
@@ -84,7 +57,6 @@ export class lmssubresponseComponent implements OnInit {
 
     lmssubresponse_Form: FormGroup;
 
-
     private exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
     showFormType: any;
     formid: any;
@@ -94,17 +66,8 @@ export class lmssubresponseComponent implements OnInit {
     sessionData: any;
     sourceKey: any;
 
-
-
-
-
-
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
@@ -113,29 +76,10 @@ export class lmssubresponseComponent implements OnInit {
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.lmssubresponse_Form = this.fb.group({
             pk: [null],
             productgroupid: [null],
@@ -158,7 +102,6 @@ export class lmssubresponseComponent implements OnInit {
 
     //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.lmssubresponse_Form.dirty && this.lmssubresponse_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -167,29 +110,6 @@ export class lmssubresponseComponent implements OnInit {
             }
         }
         return Observable.of(true);
-    }
-
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.subresponseid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.subresponseid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
     }
 
     //on searching in pk autocomplete
@@ -212,9 +132,6 @@ export class lmssubresponseComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -246,7 +163,7 @@ export class lmssubresponseComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -263,18 +180,18 @@ export class lmssubresponseComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.lmssubresponse_service.getDefaultData().then(res => {
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide(); });
 
         //autocomplete
         this.lmssubresponse_service.get_lmssubresponses_List().then(res => {
             this.pkList = res as lmssubresponse[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        ).catch((err) => { this.spinner.hide(); });
+        //setting the flag that the screen is not touched
         this.lmssubresponse_Form.markAsUntouched();
         this.lmssubresponse_Form.markAsPristine();
     }
@@ -297,7 +214,7 @@ export class lmssubresponseComponent implements OnInit {
                 this.lmssubresponse_service.delete_lmssubresponse(subresponseid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -367,11 +284,8 @@ export class lmssubresponseComponent implements OnInit {
 
     edit_lmssubresponses() {
         this.showview = false;
-        setTimeout(() => {
-        });
         return false;
     }
-
 
 
     async PopulateScreen(pkcol: any) {
@@ -385,7 +299,7 @@ export class lmssubresponseComponent implements OnInit {
             this.pkcol = res.lmssubresponse.pkcol;
             this.formid = res.lmssubresponse.subresponseid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -394,9 +308,6 @@ export class lmssubresponseComponent implements OnInit {
         this.pkcol = res.lmssubresponse.pkcol;
         this.bmyrecord = false;
         if ((res.lmssubresponse as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.lmssubresponse_Form.patchValue({
             productgroupid: res.lmssubresponse.productgroupid,
             responseid: res.lmssubresponse.responseid,
@@ -447,12 +358,8 @@ export class lmssubresponseComponent implements OnInit {
             return;
         }
         var obj = this.lmssubresponse_Form.getRawValue();
-        console.log(obj);
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -468,19 +375,9 @@ export class lmssubresponseComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.lmssubresponse_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.lmssubresponse_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.lmssubresponse_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -499,12 +396,10 @@ export class lmssubresponseComponent implements OnInit {
                 }
             }
         }
-        console.log(this.formData);
         this.spinner.show();
         this.lmssubresponse_service.saveOrUpdate_lmssubresponses(this.formData).subscribe(
             async res => {
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).lmssubresponse);
                 if (!bclear) this.showview = true;
@@ -516,7 +411,6 @@ export class lmssubresponseComponent implements OnInit {
                 else {
                     if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 }
-                this.clearList();
                 if (bclear) {
                     this.resetForm();
                 }
@@ -533,21 +427,11 @@ export class lmssubresponseComponent implements OnInit {
                 this.lmssubresponse_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
-
-
-
-
-    //dropdown edit from the screen itself -> One screen like Reportviewer
-    clearList() {
-    }
-
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");

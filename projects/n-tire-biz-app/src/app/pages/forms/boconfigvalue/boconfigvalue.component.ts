@@ -463,7 +463,8 @@ export class boconfigvalueComponent implements OnInit {
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(bosubconfigvalueComponent,
-            {
+            {width:'60% !important',
+            height:'40% !important',
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, subcategoryid, configid, visiblelist: this.bosubconfigvalues_visiblelist, hidelist: this.bosubconfigvalues_hidelist, ScreenType: 2 },
             }
         ).onClose.subscribe(res => {
@@ -572,6 +573,9 @@ export class boconfigvalueComponent implements OnInit {
                     type: 'number',
                     filter: true,
                 },
+            },
+            attr: {
+                class: 'table table-bordered table-header'
             },
         };
     }

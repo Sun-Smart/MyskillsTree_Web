@@ -1,13 +1,10 @@
 import { lmsscoringplannedclosedate } from './../../../model/lmsscoringplannedclosedate.model';
 import { lmsscoringplannedclosedateService } from './../../../service/lmsscoringplannedclosedate.service';
-import { Component, OnInit, Inject, Optional, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicDialog';
 import { DialogService } from 'primeng/dynamicDialog';
 import { boconfigvalueService } from '../../../../../../n-tire-biz-app/src/app/service/boconfigvalue.service';
@@ -44,7 +41,6 @@ export class lmsscoringplannedclosedateListComponent implements OnInit {
     lmsscoringplannedclosedates_settings: any;
 
     show_lmsscoringplannedclosedates_Checkbox() {
-        debugger;
         if (this.tbl_lmsscoringplannedclosedates.source.settings['selectMode'] == 'multi') this.tbl_lmsscoringplannedclosedates.source.settings['selectMode'] = 'single';
         else
             this.tbl_lmsscoringplannedclosedates.source.settings['selectMode'] = 'multi';
@@ -54,15 +50,8 @@ export class lmsscoringplannedclosedateListComponent implements OnInit {
         this.tbl_lmsscoringplannedclosedates.source.settings['selectMode'] = 'single';
     }
     show_lmsscoringplannedclosedates_Filter() {
-        setTimeout(() => {
-            //  this.Set_lmsscoringplannedclosedates_TableDropDownConfig();
-        });
         if (this.tbl_lmsscoringplannedclosedates.source.settings != null) this.tbl_lmsscoringplannedclosedates.source.settings['hideSubHeader'] = !this.tbl_lmsscoringplannedclosedates.source.settings['hideSubHeader'];
         this.tbl_lmsscoringplannedclosedates.source.initGrid();
-    }
-    show_lmsscoringplannedclosedates_InActive() {
-    }
-    enable_lmsscoringplannedclosedates_InActive() {
     }
     async Set_lmsscoringplannedclosedates_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_lmsscoringplannedclosedates) {
@@ -71,9 +60,6 @@ export class lmsscoringplannedclosedateListComponent implements OnInit {
     }
     async lmsscoringplannedclosedates_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_lmsscoringplannedclosedates_TableConfig() {
         this.lmsscoringplannedclosedates_settings = {
@@ -162,13 +148,8 @@ export class lmsscoringplannedclosedateListComponent implements OnInit {
     async onCustom_lmsscoringplannedclosedates_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "lmsscoringplannedclosedates");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     lmsscoringplannedclosedates_Paging(val) {
-        debugger;
         this.tbl_lmsscoringplannedclosedates.source.setPaging(1, val, true);
     }
     onDelete_lmsscoringplannedclosedate(event: any, childID: number, i: number) {
@@ -176,13 +157,10 @@ export class lmsscoringplannedclosedateListComponent implements OnInit {
             this.Deleted_lmsscoringplannedclosedate_IDs += childID + ",";
         this.lmsscoringplannedclosedate_service.list.splice(i, 1);
     }
-    constructor(
-        private nav: Location,
-        private router: Router, private spinner: NgxSpinnerService,
+    constructor( private spinner: NgxSpinnerService,
         private currentRoute: ActivatedRoute,
         private lmsscoringplannedclosedate_service: lmsscoringplannedclosedateService,
         private toastr: ToastService,
-        private configservice: boconfigvalueService,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private sharedService: SharedService,
@@ -195,18 +173,11 @@ export class lmsscoringplannedclosedateListComponent implements OnInit {
         this.spinner.show();
         this.lmsscoringplannedclosedate_service.saveOrUpdate_lmsscoringplannedclosedates_List().subscribe(
             async res => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.showview = true;
-                /*if(bclear){
-                this.lmsscoringplannedclosedate_service.clearList();
-                this.resetForm();
-                }*/
             },
             err => {
-                debugger;
-                //this.toastr.addSingle("error","",err.error);
                 this.sharedService.alert(err.error);
                 this.spinner.hide(); console.log(err);
             }
@@ -236,7 +207,6 @@ export class lmsscoringplannedclosedateListComponent implements OnInit {
         else {
             this.formData = Object.assign({}, pd);
         }
-        // 
 
     }
 

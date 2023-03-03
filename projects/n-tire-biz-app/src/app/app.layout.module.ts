@@ -22,6 +22,7 @@ import { MstResumeComponent } from './pages/forms/mst-resume/mst-resume.componen
 import { MstSkillDetsilsComponent } from './pages/forms/mst-skill-detsils/mst-skill-detsils.component';
 import { MstSocialMediaComponent } from './pages/forms/mst-social-media/mst-social-media.component';
 import { MstLocationDetailsComponent } from './pages/forms/mst-location-details/mst-location-details.component';
+import { titleComponent } from './pages/forms/title.component';
 
 
 export const ENTRY_COMPONENTS = [];
@@ -142,7 +143,6 @@ export const paths = [
           { path: 'forum', component: ForumComponent },
           { path: 'bokbtopics', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/bonewtopic/bonewtopic.module').then(m => m.BonewtopicModule) },
           { path: 'bofaqs', loadChildren: () => import('../../../n-tire-biz-app/src/app/pages/forms/faq/faq.module').then(m => m.FaqModule) },
-          // { path: 'topic', component: BonewtopicComponent },
           { path: "personaldetails", component: MstStartPagesComponent },
           { path: "newcareerdetails", component: MstCareerDetailsComponent },
           { path: "newcertification", component: MstCertificationsComponent },
@@ -153,6 +153,7 @@ export const paths = [
           { path: "newskilldetails", component: MstSkillDetsilsComponent },
           { path: "newsocial", component: MstSocialMediaComponent },
           { path: "newlocation", component: MstLocationDetailsComponent },
+          { path: "title", component: titleComponent },
 
 
         ]

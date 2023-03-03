@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="lmsproductmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Product Masters' | translate}}</a>
+    <h1 class="col-4 columns mainheader left">{{'Product Masters'}}
     </h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
@@ -116,7 +116,7 @@
                 <label *ngIf="showview" class="labelview">{{f.productcode?.value}}</label>
                 <input *ngIf="!showview" id="productcode" required formControlName="productcode" class="form-control">
                 <app-field-error-display [displayError]="f.productcode.errors?.required"
-                  errorMsg="Enter {{'Product Code' | translate}}">
+                  errorMsg="Enter {{'Product Code'}}">
                 </app-field-error-display>
               </div>
               <div
@@ -126,7 +126,7 @@
                 <label *ngIf="showview" class="labelview">{{f.productname?.value}}</label>
                 <input *ngIf="!showview" id="productname" required formControlName="productname" class="form-control">
                 <app-field-error-display [displayError]="f.productname.errors?.required"
-                  errorMsg="Enter {{'Product Name' | translate}}">
+                  errorMsg="Enter {{'Product Name'}}">
                 </app-field-error-display>
               </div>
               <div
@@ -254,7 +254,7 @@
             <!-- child table lmsbundledproducts-->
             <div [ngClass]="Is_lmsbundledproducts_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Bundled Products' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Bundled Products'}}
                 <select class='child' id="lmsbundledproductsPagingdropdown"
                   (change)="lmsbundledproducts_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

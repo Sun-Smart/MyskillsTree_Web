@@ -1,13 +1,11 @@
 import { lmstargetbranchlevel } from './../../../model/lmstargetbranchlevel.model';
 import { lmstargetbranchlevelService } from './../../../service/lmstargetbranchlevel.service';
-import { Component, OnInit, Inject, Optional, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
+import { SmartTablepopupselectComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicDialog';
 import { DialogService } from 'primeng/dynamicDialog';
 import { boconfigvalueService } from '../../../../../../n-tire-biz-app/src/app/service/boconfigvalue.service';
@@ -46,7 +44,6 @@ export class lmstargetbranchlevelListComponent implements OnInit {
     lmstargetbranchlevels_settings: any;
 
     show_lmstargetbranchlevels_Checkbox() {
-        debugger;
         if (this.tbl_lmstargetbranchlevels.source.settings['selectMode'] == 'multi') this.tbl_lmstargetbranchlevels.source.settings['selectMode'] = 'single';
         else
             this.tbl_lmstargetbranchlevels.source.settings['selectMode'] = 'multi';
@@ -56,15 +53,8 @@ export class lmstargetbranchlevelListComponent implements OnInit {
         this.tbl_lmstargetbranchlevels.source.settings['selectMode'] = 'single';
     }
     show_lmstargetbranchlevels_Filter() {
-        setTimeout(() => {
-            //  this.Set_lmstargetbranchlevels_TableDropDownConfig();
-        });
         if (this.tbl_lmstargetbranchlevels.source.settings != null) this.tbl_lmstargetbranchlevels.source.settings['hideSubHeader'] = !this.tbl_lmstargetbranchlevels.source.settings['hideSubHeader'];
         this.tbl_lmstargetbranchlevels.source.initGrid();
-    }
-    show_lmstargetbranchlevels_InActive() {
-    }
-    enable_lmstargetbranchlevels_InActive() {
     }
     async Set_lmstargetbranchlevels_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_lmstargetbranchlevels) {
@@ -97,9 +87,6 @@ export class lmstargetbranchlevelListComponent implements OnInit {
     }
     async lmstargetbranchlevels_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_lmstargetbranchlevels_TableConfig() {
         this.lmstargetbranchlevels_settings = {
@@ -265,13 +252,8 @@ export class lmstargetbranchlevelListComponent implements OnInit {
     async onCustom_lmstargetbranchlevels_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "lmstargetbranchlevels");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     lmstargetbranchlevels_Paging(val) {
-        debugger;
         this.tbl_lmstargetbranchlevels.source.setPaging(1, val, true);
     }
     onDelete_lmstargetbranchlevel(event: any, childID: number, i: number) {
@@ -279,15 +261,10 @@ export class lmstargetbranchlevelListComponent implements OnInit {
             this.Deleted_lmstargetbranchlevel_IDs += childID + ",";
         this.lmstargetbranchlevel_service.list.splice(i, 1);
     }
-    constructor(
-        private nav: Location,
-        private router: Router, private spinner: NgxSpinnerService,
+    constructor( private spinner: NgxSpinnerService,
         private currentRoute: ActivatedRoute,
         private lmstargetbranchlevel_service: lmstargetbranchlevelService,
         private toastr: ToastService,
-        private configservice: boconfigvalueService,
-        private bobranchmaster_service: bobranchmasterService,
-        private bomasterdata_service: bomasterdataService,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private sharedService: SharedService,
@@ -300,18 +277,11 @@ export class lmstargetbranchlevelListComponent implements OnInit {
         this.spinner.show();
         this.lmstargetbranchlevel_service.saveOrUpdate_lmstargetbranchlevels_List().subscribe(
             async res => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.showview = true;
-                /*if(bclear){
-                this.lmstargetbranchlevel_service.clearList();
-                this.resetForm();
-                }*/
             },
             err => {
-                debugger;
-                //this.toastr.addSingle("error","",err.error);
                 this.sharedService.alert(err.error);
                 this.spinner.hide(); console.log(err);
             }
@@ -341,7 +311,6 @@ export class lmstargetbranchlevelListComponent implements OnInit {
         else {
             this.formData = Object.assign({}, pd);
         }
-        // 
 
     }
 

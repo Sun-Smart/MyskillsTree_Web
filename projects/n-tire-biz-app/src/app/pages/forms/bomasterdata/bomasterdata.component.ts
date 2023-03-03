@@ -516,7 +516,8 @@ export class bomasterdataComponent implements OnInit {
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(bosubcategorymasterComponent,
-            {
+            {   width:'40% !important',
+                height:'30% !important',
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, subcategoryid, categoryid: masterdataid, visiblelist: this.bosubcategorymasters_visiblelist, hidelist: this.bosubcategorymasters_hidelist, ScreenType: 2 },
             }
         ).onClose.subscribe(res => {
@@ -591,14 +592,14 @@ export class bomasterdataComponent implements OnInit {
                 confirmCreate: true,
             },
             edit: {
-                editButtonContent: '<i class="nb-edit"></i>',
+                editButtonContent: '<i class="fa fa-edit"></i>',
                 saveButtonContent: '<i class="nb-checkmark"></i>',
                 cancelButtonContent: '<i class="nb-close"></i>',
                 confirmSave: true,
             },
             delete: {
                 deleteButtonContent: '<i class="nb-trash"></i>',
-                confirmDelete: true,
+                confirmDelete: false,
             },
             columns: {
                 subcategoryname: {
@@ -612,9 +613,9 @@ export class bomasterdataComponent implements OnInit {
                     filter: true,
                 },
             },
-            // attr: {
-            //     class: 'table table-bordered table-header'
-            // },
+            attr: {
+                class: 'table table-bordered table-header'
+            },
         };
     }
     bosubcategorymasters_LoadTable(bosubcategorymasters = new LocalDataSource()) {

@@ -1,53 +1,28 @@
 import { lmssecondarycontactService } from './../../../service/lmssecondarycontact.service';
 import { lmssecondarycontact } from './../../../model/lmssecondarycontact.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
-import { LocalDataSource } from 'ng2-smart-table';
-import { Ng2SmartTableComponent } from 'ng2-smart-table';
+import { DomSanitizer } from "@angular/platform-browser";
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { switchMap, map, debounceTime } from 'rxjs/operators';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 
 @Component({
     selector: 'app-lmssecondarycontact',
     templateUrl: './lmssecondarycontact.component.html',
     styles: [],
-    providers: [KeyboardShortcutsService]
+    providers: []
 })
 
 
@@ -96,21 +71,11 @@ export class lmssecondarycontactComponent implements OnInit {
     formid: any;
     pkcol: any;
     SESSIONUSERID: any;//current user
-
     sessionData: any;
     sourceKey: any;
 
-
-
-
-
-
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
-        private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
@@ -119,29 +84,10 @@ export class lmssecondarycontactComponent implements OnInit {
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.lmssecondarycontact_Form = this.fb.group({
             pk: [null],
             branchid: [null],
@@ -169,7 +115,6 @@ export class lmssecondarycontactComponent implements OnInit {
 
     //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.lmssecondarycontact_Form.dirty && this.lmssecondarycontact_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -179,30 +124,6 @@ export class lmssecondarycontactComponent implements OnInit {
         }
         return Observable.of(true);
     }
-
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.secondarycontactid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.secondarycontactid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
-    }
-
     //on searching in pk autocomplete
     onSelectedpk(pkDetail: any) {
         if (pkDetail.secondarycontactid && pkDetail) {
@@ -223,9 +144,6 @@ export class lmssecondarycontactComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -257,7 +175,7 @@ export class lmssecondarycontactComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -274,22 +192,22 @@ export class lmssecondarycontactComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.lmssecondarycontact_service.getDefaultData().then(res => {
             this.branchid_List = res.list_branchid.value;
             this.opportunityid_List = res.list_opportunityid.value;
             this.secondarycontactid_List = res.list_secondarycontactid.value;
             this.campaignid_List = res.list_campaignid.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide(); });
 
         //autocomplete
         this.lmssecondarycontact_service.get_lmssecondarycontacts_List().then(res => {
             this.pkList = res as lmssecondarycontact[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        ).catch((err) => { this.spinner.hide(); });
+        //setting the flag that the screen is not touched
         this.lmssecondarycontact_Form.markAsUntouched();
         this.lmssecondarycontact_Form.markAsPristine();
     }
@@ -336,7 +254,7 @@ export class lmssecondarycontactComponent implements OnInit {
                 this.lmssecondarycontact_service.delete_lmssecondarycontact(secondarycontactid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -420,8 +338,6 @@ export class lmssecondarycontactComponent implements OnInit {
 
     edit_lmssecondarycontacts() {
         this.showview = false;
-        setTimeout(() => {
-        });
         return false;
     }
 
@@ -438,7 +354,7 @@ export class lmssecondarycontactComponent implements OnInit {
             this.pkcol = res.lmssecondarycontact.pkcol;
             this.formid = res.lmssecondarycontact.secondarycontactid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -447,9 +363,6 @@ export class lmssecondarycontactComponent implements OnInit {
         this.pkcol = res.lmssecondarycontact.pkcol;
         this.bmyrecord = false;
         if ((res.lmssecondarycontact as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.lmssecondarycontact_Form.patchValue({
             branchid: res.lmssecondarycontact.branchid,
             branchiddesc: res.lmssecondarycontact.branchiddesc,
@@ -505,12 +418,8 @@ export class lmssecondarycontactComponent implements OnInit {
             return;
         }
         var obj = this.lmssecondarycontact_Form.getRawValue();
-        console.log(obj);
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -526,19 +435,9 @@ export class lmssecondarycontactComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.lmssecondarycontact_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.lmssecondarycontact_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
-
 
         if (!this.lmssecondarycontact_Form.valid) {
             this.toastr.addSingle("error", "", "Enter the required fields");
@@ -557,12 +456,10 @@ export class lmssecondarycontactComponent implements OnInit {
                 }
             }
         }
-        console.log(this.formData);
         this.spinner.show();
         this.lmssecondarycontact_service.saveOrUpdate_lmssecondarycontacts(this.formData).subscribe(
             async res => {
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).lmssecondarycontact);
                 if (!bclear) this.showview = true;
@@ -574,7 +471,6 @@ export class lmssecondarycontactComponent implements OnInit {
                 else {
                     if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
                 }
-                this.clearList();
                 if (bclear) {
                     this.resetForm();
                 }
@@ -591,21 +487,11 @@ export class lmssecondarycontactComponent implements OnInit {
                 this.lmssecondarycontact_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
-
-
-
-
-    //dropdown edit from the screen itself -> One screen like Reportviewer
-    clearList() {
-    }
-
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");

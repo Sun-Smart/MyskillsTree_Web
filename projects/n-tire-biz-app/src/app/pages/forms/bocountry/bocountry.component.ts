@@ -453,7 +453,7 @@ export class bocountryComponent implements OnInit {
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(bostateComponent,
             {
-                width: "90% !important",
+                width: "60% !important",
 
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, stateid, countryid, visiblelist: this.bostates_visiblelist, hidelist: this.bostates_hidelist, ScreenType: 2 },
             }
@@ -554,6 +554,9 @@ export class bocountryComponent implements OnInit {
                         type: 'textarea',
                     },
                 },
+            },
+            attr: {
+                class: 'table table-bordered table-header'
             },
         };
     }

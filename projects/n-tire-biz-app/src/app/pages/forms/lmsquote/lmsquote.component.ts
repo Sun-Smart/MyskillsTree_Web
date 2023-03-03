@@ -1,69 +1,39 @@
 import { lmsquoteService } from './../../../service/lmsquote.service';
 import { lmsquote } from './../../../model/lmsquote.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
+import { KeyValuePair } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { lmsquotedetail } from './../../../model/lmsquotedetail.model';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { lmsquotedetailComponent } from './../../../pages/forms/lmsquotedetail/lmsquotedetail.component';
 import { lmsquotedetailService } from './../../../service/lmsquotedetail.service';
-import { lmsquotepaymentterm } from './../../../model/lmsquotepaymentterm.model';
 import { lmsquotepaymenttermComponent } from './../../../pages/forms/lmsquotepaymentterm/lmsquotepaymentterm.component';
 import { lmsquotepaymenttermService } from './../../../service/lmsquotepaymentterm.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
 import { customfieldconfigurationService } from '../../../../../../n-tire-biz-app/src/app/service/customfieldconfiguration.service';
-import { customfieldconfiguration } from '../../../../../../n-tire-biz-app/src/app/model/customfieldconfiguration.model';
 import { DynamicFormBuilderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/dynamic-form-builder/dynamic-form-builder.component';
 
 @Component({
     selector: 'app-lmsquote',
     templateUrl: './lmsquote.component.html',
     styles: [],
-    providers: [KeyboardShortcutsService]
+    providers: []
 })
-
-
 
 export class lmsquoteComponent implements OnInit {
     formData: lmsquote;
@@ -130,8 +100,6 @@ export class lmsquoteComponent implements OnInit {
     sessionData: any;
     sourceKey: any;
 
-
-
     lmsquotedetails_visiblelist: any;
     lmsquotedetails_hidelist: any;
     lmsquotepaymentterms_visiblelist: any;
@@ -144,47 +112,22 @@ export class lmsquoteComponent implements OnInit {
     lmsquotepaymentterms_ID: string = "2";
     lmsquotepaymentterms_selectedindex: any;
 
-
-    constructor(
-        private nav: Location,
-        private translate: TranslateService,
-        private keyboard: KeyboardShortcutsService, private router: Router,
+    constructor( private router: Router,
         private themeService: ThemeService,
         private ngbDateParserFormatter: NgbDateParserFormatter,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private lmsquote_service: lmsquoteService,
-        private lmsquotedetail_service: lmsquotedetailService,
-        private lmsquotepaymentterm_service: lmsquotepaymenttermService,
         private fb: FormBuilder,
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private customfieldservice: customfieldconfigurationService,
-        private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-        this.translate = this.sharedService.translate;
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
-        this.keyboard.add([
-            {
-                key: 'cmd l',
-                command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-                preventDefault: true
-            },
-            {
-                key: 'cmd s',
-                command: () => this.onSubmitData(false),
-                preventDefault: true
-            },
-            {
-                key: 'cmd f',
-                command: () => this.resetForm(),
-                preventDefault: true
-            }
-        ]);
         this.lmsquote_Form = this.fb.group({
             pk: [null],
             ImageName: [null],
@@ -236,7 +179,6 @@ export class lmsquoteComponent implements OnInit {
 
     //function called when we navigate to other page.defined in routing
     canDeactivate(): Observable<boolean> | boolean {
-        debugger;
         if (this.lmsquote_Form.dirty && this.lmsquote_Form.touched) {
             if (confirm('Do you want to exit the page?')) {
                 return Observable.of(true).delay(1000);
@@ -247,28 +189,6 @@ export class lmsquoteComponent implements OnInit {
         return Observable.of(true);
     }
 
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.quoteid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-        debugger;
-        let pos = this.pkList.map(function (e: any) { return e.quoteid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
-    }
 
     //on searching in pk autocomplete
     onSelectedpk(pkDetail: any) {
@@ -290,9 +210,6 @@ export class lmsquoteComponent implements OnInit {
         }
 
         this.theme = this.sessionService.getItem('selected-theme');
-        //this.viewHtml=this.sessionService.getViewHtml();
-
-        debugger;
         //getting data - from list page, from other screen through dialog
         if (this.data != null && this.data.data != null) {
             this.data = this.data.data;
@@ -324,7 +241,7 @@ export class lmsquoteComponent implements OnInit {
             this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
             this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
         }
-        //copy the data from previous dialog 
+        //copy the data from previous dialog
         this.viewHtml = ``;
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -337,14 +254,8 @@ export class lmsquoteComponent implements OnInit {
         //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
         if (this.pkcol == null) {
             this.Set_lmsquotedetails_TableConfig();
-            setTimeout(() => {
-                //this.Set_lmsquotedetails_TableDropDownConfig();
-            });
 
             this.Set_lmsquotepaymentterms_TableConfig();
-            setTimeout(() => {
-                //this.Set_lmsquotepaymentterms_TableDropDownConfig();
-            });
 
             this.FillCustomField();
             this.resetForm();
@@ -352,7 +263,7 @@ export class lmsquoteComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
             //get the record from api
-            //foreign keys 
+            //foreign keys
         }
         this.lmsquote_service.getDefaultData().then(res => {
             this.opportunityid_List = res.list_opportunityid.value;
@@ -362,15 +273,15 @@ export class lmsquoteComponent implements OnInit {
             this.termid_List = res.list_termid.value;
             this.leadsource_List = res.list_leadsource.value;
             this.quotestatus_List = res.list_quotestatus.value;
-        }).catch((err) => { this.spinner.hide(); console.log(err); });
+        }).catch((err) => { this.spinner.hide();  });
 
         //autocomplete
         this.lmsquote_service.get_lmsquotes_List().then(res => {
             this.pkList = res as lmsquote[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
-        //setting the flag that the screen is not touched 
+        ).catch((err) => { this.spinner.hide(); });
+        //setting the flag that the screen is not touched
         this.lmsquote_Form.markAsUntouched();
         this.lmsquote_Form.markAsPristine();
     }
@@ -379,9 +290,7 @@ export class lmsquoteComponent implements OnInit {
             this.lmsquote_Form.patchValue({
                 opportunityid: opportunityidDetail.value,
                 opportunityiddesc: opportunityidDetail.label,
-
             });
-
         }
     }
 
@@ -390,13 +299,9 @@ export class lmsquoteComponent implements OnInit {
             this.lmsquote_Form.patchValue({
                 taxid: taxidDetail.value,
                 taxiddesc: taxidDetail.label,
-
             });
-
         }
     }
-
-
 
 
     resetForm() {
@@ -424,7 +329,7 @@ export class lmsquoteComponent implements OnInit {
                 this.lmsquote_service.delete_lmsquote(quoteid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -552,29 +457,23 @@ export class lmsquoteComponent implements OnInit {
         }
     }
 
-
-
     edit_lmsquotes() {
         this.showview = false;
-        setTimeout(() => {
-        });
         return false;
     }
-
 
 
     async PopulateScreen(pkcol: any) {
         this.spinner.show();
         this.lmsquote_service.get_lmsquotes_ByEID(pkcol).then(res => {
             this.spinner.hide();
-
             this.formData = res.lmsquote;
             let formproperty = res.lmsquote.formproperty;
             if (formproperty && formproperty.edit == false) this.showview = true;
             this.pkcol = res.lmsquote.pkcol;
             this.formid = res.lmsquote.quoteid;
             this.FillData(res);
-        }).catch((err) => { console.log(err); });
+        }).catch((err) => { });
     }
 
     FillData(res: any) {
@@ -583,9 +482,6 @@ export class lmsquoteComponent implements OnInit {
         this.pkcol = res.lmsquote.pkcol;
         this.bmyrecord = false;
         if ((res.lmsquote as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        console.log(res);
-        //console.log(res.order);
-        //console.log(res.orderDetails);
         this.lmsquote_Form.patchValue({
             branchid: res.lmsquote.branchid,
             leadid: res.lmsquote.leadid,
@@ -682,15 +578,11 @@ export class lmsquoteComponent implements OnInit {
         if (customfields != null) obj.customfield = JSON.stringify(customfields);
         if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
         obj.fileAttachmentList = this.fileattachment.getAllFiles();
-        console.log(obj);
         await this.sharedService.upload(this.fileAttachmentList);
         this.attachmentlist = [];
         if (this.fileattachment) this.fileattachment.clear();
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
-        setTimeout(() => {
-            //this.dialogRef.destroy();
-        }, 200);
     }
 
     //This has to come from bomenuactions & procedures
@@ -706,17 +598,8 @@ export class lmsquoteComponent implements OnInit {
 
 
     async onSubmitData(bclear: any) {
-        debugger;
         this.isSubmitted = true;
         let strError = "";
-        // Object.keys(this.lmsquote_Form.controls).forEach(key => {
-        //     const controlErrors: ValidationErrors = this.lmsquote_Form.get(key).errors;
-        //     if (controlErrors != null) {
-        //         Object.keys(controlErrors).forEach(keyError => {
-        //             strError += 'control: ' + key + ', Error: ' + keyError + '<BR>';
-        //         });
-        //     }
-        // });
         if (strError != "") return this.sharedService.alert(strError);
 
 
@@ -746,7 +629,6 @@ export class lmsquoteComponent implements OnInit {
         this.formData.Deleted_lmsquotedetail_IDs = this.Deleted_lmsquotedetail_IDs;
         this.formData.Deleted_lmsquotepaymentterm_IDs = this.Deleted_lmsquotepaymentterm_IDs;
         this.fileAttachmentList = this.fileattachment.getAllFiles();
-        console.log(this.formData);
         this.spinner.show();
         this.lmsquote_service.saveOrUpdate_lmsquotes(this.formData, this.tbl_lmsquotedetails?.source?.data, this.tbl_lmsquotepaymentterms?.source?.data,).subscribe(
             async res => {
@@ -764,7 +646,6 @@ export class lmsquoteComponent implements OnInit {
                     }
                 }
                 this.spinner.hide();
-                debugger;
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.objvalues.push((res as any).lmsquote);
                 if (!bclear) this.showview = true;
@@ -793,10 +674,8 @@ export class lmsquoteComponent implements OnInit {
                 this.lmsquote_Form.markAsPristine();
             },
             err => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("error", "", err.error);
-                console.log(err);
             }
         )
     }
@@ -838,7 +717,6 @@ export class lmsquoteComponent implements OnInit {
         if (childID != null)
             this.Deleted_lmsquotedetail_IDs += childID + ",";
         this.tbl_lmsquotedetails.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
     AddOrEdit_lmsquotepaymentterm(event: any, paymenttermid: any, quoteid: any) {
@@ -869,7 +747,6 @@ export class lmsquoteComponent implements OnInit {
         if (childID != null)
             this.Deleted_lmsquotepaymentterm_IDs += childID + ",";
         this.tbl_lmsquotepaymentterms.source.splice(i, 1);
-        //this.updateGrandTotal();
     }
 
 
@@ -882,7 +759,6 @@ export class lmsquoteComponent implements OnInit {
     lmsquotedetails_settings: any;
 
     show_lmsquotedetails_Checkbox() {
-        debugger;
         if (this.tbl_lmsquotedetails.source.settings['selectMode'] == 'multi') this.tbl_lmsquotedetails.source.settings['selectMode'] = 'single';
         else
             this.tbl_lmsquotedetails.source.settings['selectMode'] = 'multi';
@@ -892,15 +768,8 @@ export class lmsquoteComponent implements OnInit {
         this.tbl_lmsquotedetails.source.settings['selectMode'] = 'single';
     }
     show_lmsquotedetails_Filter() {
-        setTimeout(() => {
-            //  this.Set_lmsquotedetails_TableDropDownConfig();
-        });
         if (this.tbl_lmsquotedetails.source.settings != null) this.tbl_lmsquotedetails.source.settings['hideSubHeader'] = !this.tbl_lmsquotedetails.source.settings['hideSubHeader'];
         this.tbl_lmsquotedetails.source.initGrid();
-    }
-    show_lmsquotedetails_InActive() {
-    }
-    enable_lmsquotedetails_InActive() {
     }
     async Set_lmsquotedetails_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_lmsquotedetails) {
@@ -927,9 +796,6 @@ export class lmsquoteComponent implements OnInit {
     }
     async lmsquotedetails_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_lmsquotedetails_TableConfig() {
         this.lmsquotedetails_settings = {
@@ -1013,38 +879,7 @@ export class lmsquoteComponent implements OnInit {
         }
     }
 
-    //external to inline
-    /*
-    lmsquotedetails_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.lmsquote_service.lmsquotedetails.length == 0)
-    {
-        this.tbl_lmsquotedetails.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new lmsquotedetail();
-        this.lmsquote_service.lmsquotedetails.push(obj);
-        this.tbl_lmsquotedetails.source.refresh();
-        if ((this.lmsquote_service.lmsquotedetails.length / this.tbl_lmsquotedetails.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_lmsquotedetails.source.getPaging().page)
-        {
-            this.tbl_lmsquotedetails.source.setPage((this.lmsquote_service.lmsquotedetails.length / this.tbl_lmsquotedetails.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_lmsquotedetails.source.grid.edit(this.tbl_lmsquotedetails.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_lmsquotedetails.source.data.indexOf(event.data);
-    this.onDelete_lmsquotedetail(event,event.data.quotedetailid,((this.tbl_lmsquotedetails.source.getPaging().page-1) *this.tbl_lmsquotedetails.source.getPaging().perPage)+index);
-    this.tbl_lmsquotedetails.source.refresh();
-    break;
-    }
-    }
-    
-    */
+
     lmsquotedetails_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -1077,13 +912,8 @@ export class lmsquoteComponent implements OnInit {
     async onCustom_lmsquotedetails_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "lmsquotedetails");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     lmsquotedetails_Paging(val) {
-        debugger;
         this.tbl_lmsquotedetails.source.setPaging(1, val, true);
     }
 
@@ -1103,7 +933,6 @@ export class lmsquoteComponent implements OnInit {
     lmsquotepaymentterms_settings: any;
 
     show_lmsquotepaymentterms_Checkbox() {
-        debugger;
         if (this.tbl_lmsquotepaymentterms.source.settings['selectMode'] == 'multi') this.tbl_lmsquotepaymentterms.source.settings['selectMode'] = 'single';
         else
             this.tbl_lmsquotepaymentterms.source.settings['selectMode'] = 'multi';
@@ -1113,15 +942,8 @@ export class lmsquoteComponent implements OnInit {
         this.tbl_lmsquotepaymentterms.source.settings['selectMode'] = 'single';
     }
     show_lmsquotepaymentterms_Filter() {
-        setTimeout(() => {
-            //  this.Set_lmsquotepaymentterms_TableDropDownConfig();
-        });
         if (this.tbl_lmsquotepaymentterms.source.settings != null) this.tbl_lmsquotepaymentterms.source.settings['hideSubHeader'] = !this.tbl_lmsquotepaymentterms.source.settings['hideSubHeader'];
         this.tbl_lmsquotepaymentterms.source.initGrid();
-    }
-    show_lmsquotepaymentterms_InActive() {
-    }
-    enable_lmsquotepaymentterms_InActive() {
     }
     async Set_lmsquotepaymentterms_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_lmsquotepaymentterms) {
@@ -1148,9 +970,6 @@ export class lmsquoteComponent implements OnInit {
     }
     async lmsquotepaymentterms_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_lmsquotepaymentterms_TableConfig() {
         this.lmsquotepaymentterms_settings = {
@@ -1229,38 +1048,6 @@ export class lmsquoteComponent implements OnInit {
         }
     }
 
-    //external to inline
-    /*
-    lmsquotepaymentterms_route(event:any,action:any) {
-    switch ( action) {
-    case 'create':
-    if (this.lmsquote_service.lmsquotepaymentterms.length == 0)
-    {
-        this.tbl_lmsquotepaymentterms.source.grid.createFormShown = true;
-    }
-    else
-    {
-        let obj = new lmsquotepaymentterm();
-        this.lmsquote_service.lmsquotepaymentterms.push(obj);
-        this.tbl_lmsquotepaymentterms.source.refresh();
-        if ((this.lmsquote_service.lmsquotepaymentterms.length / this.tbl_lmsquotepaymentterms.source.getPaging().perPage).toFixed(0) + 1 != this.tbl_lmsquotepaymentterms.source.getPaging().page)
-        {
-            this.tbl_lmsquotepaymentterms.source.setPage((this.lmsquote_service.lmsquotepaymentterms.length / this.tbl_lmsquotepaymentterms.source.getPaging().perPage).toFixed(0) + 1);
-        }
-        setTimeout(() => {
-            this.tbl_lmsquotepaymentterms.source.grid.edit(this.tbl_lmsquotepaymentterms.source.grid.getLastRow());
-        });
-    }
-    break;
-    case 'delete':
-    let index = this.tbl_lmsquotepaymentterms.source.data.indexOf(event.data);
-    this.onDelete_lmsquotepaymentterm(event,event.data.paymenttermid,((this.tbl_lmsquotepaymentterms.source.getPaging().page-1) *this.tbl_lmsquotepaymentterms.source.getPaging().perPage)+index);
-    this.tbl_lmsquotepaymentterms.source.refresh();
-    break;
-    }
-    }
-    
-    */
     lmsquotepaymentterms_route(event: any, action: any) {
         var addparam = "";
         if (this.currentRoute.snapshot.paramMap.get('tableid') != null) {
@@ -1293,13 +1080,8 @@ export class lmsquoteComponent implements OnInit {
     async onCustom_lmsquotepaymentterms_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "lmsquotepaymentterms");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     lmsquotepaymentterms_Paging(val) {
-        debugger;
         this.tbl_lmsquotepaymentterms.source.setPaging(1, val, true);
     }
 

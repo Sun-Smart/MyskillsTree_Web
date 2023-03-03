@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="lmsquote_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left"><a href='#/home/{{p_currenturl}}'>{{'Quotes' | translate}}</a></h1>
+    <h1 class="col-4 columns mainheader left">{{'Quotes'}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
       <div class='col'></div>
@@ -160,7 +160,7 @@
                   formControlName="details" class="form-control">
 </textarea>
                 <app-field-error-display [displayError]="f.details.errors?.required"
-                  errorMsg="Enter {{'Details' | translate}}">
+                  errorMsg="Enter {{'Details'}}">
                 </app-field-error-display>
               </div>
             </div>
@@ -173,7 +173,7 @@
                 <app-useraccess *ngIf="!showview" id="assignedto" required formControlName="assignedto">
                 </app-useraccess>
                 <app-field-error-display [displayError]="f.assignedto.errors?.required"
-                  errorMsg="Enter {{'Assigned To' | translate}}">
+                  errorMsg="Enter {{'Assigned To'}}">
                 </app-field-error-display>
               </div>
             </div>
@@ -319,7 +319,7 @@
                 <label *ngIf="showview" class="labelview">{{f.campaignid?.value}}</label>
                 <input *ngIf="!showview" id="campaignid" required formControlName="campaignid" class="form-control">
                 <app-field-error-display [displayError]="f.campaignid.errors?.required"
-                  errorMsg="Enter {{'Campaign' | translate}}">
+                  errorMsg="Enter {{'Campaign'}}">
                 </app-field-error-display>
               </div>
 
@@ -385,7 +385,7 @@
           <!-- child table lmsquotedetails-->
           <div [ngClass]="Is_lmsquotedetails_Visible()">
             <!--End-->
-            <h4 class="form-group sticky1  columns left">{{'Details' | translate}}
+            <h4 class="form-group sticky1  columns left">{{'Details'}}
               <select class='child' id="lmsquotedetailsPagingdropdown"
                 (change)="lmsquotedetails_Paging($event.target.value)" [value]='20'>
                 <option value='20'>20</option>
@@ -433,7 +433,7 @@
             <!-- child table lmsquotepaymentterms-->
             <div [ngClass]="Is_lmsquotepaymentterms_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Quote Payment Terms' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Quote Payment Terms'}}
                 <select class='child' id="lmsquotepaymenttermsPagingdropdown"
                   (change)="lmsquotepaymentterms_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
