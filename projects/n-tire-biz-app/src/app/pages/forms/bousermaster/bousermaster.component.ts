@@ -1422,6 +1422,9 @@ export class bousermasterComponent implements OnInit {
           type: '',
         },
       },
+      attr: {
+        class: 'table table-bordered table-header'
+    },
     };
   }
   bousermenuaccesses_LoadTable(bousermenuaccesses = new LocalDataSource()) {
@@ -1597,6 +1600,9 @@ export class bousermasterComponent implements OnInit {
           type: '',
         },
       },
+      attr: {
+        class: 'table table-bordered table-header'
+    },
     };
   }
   bouserbranchaccesses_LoadTable(bouserbranchaccesses = new LocalDataSource()) {

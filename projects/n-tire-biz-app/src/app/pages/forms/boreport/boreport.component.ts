@@ -1013,6 +1013,9 @@ export class boreportComponent implements OnInit {
                     filter: true,
                 },
             },
+            attr: {
+                class: 'table table-bordered table-header'
+            },
         };
     }
     boreportdetails_LoadTable(boreportdetails = new LocalDataSource()) {
@@ -1164,6 +1167,9 @@ export class boreportComponent implements OnInit {
                         type: 'textarea',
                     },
                 },
+            },
+            attr: {
+                class: 'table table-bordered table-header'
             },
         };
     }
@@ -1744,6 +1750,9 @@ export class boreportComponent implements OnInit {
                         type: 'textarea',
                     },
                 },
+            },
+            attr: {
+                class: 'table table-bordered table-header'
             },
         };
     }

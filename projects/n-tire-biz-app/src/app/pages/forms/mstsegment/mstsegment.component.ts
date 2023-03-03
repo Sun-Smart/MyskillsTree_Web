@@ -499,7 +499,9 @@ export class mstsegmentComponent implements OnInit {
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
     this.dialog.open(mstcategoryComponent,
       {
-         width: "90% !important",
+         
+width:'60% !important',
+height:'40% !important',
 
         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, categoryid, segmentid, visiblelist: this.mstcategories_visiblelist, hidelist: this.mstcategories_hidelist, ScreenType: 2 },
       }
@@ -602,6 +604,9 @@ export class mstsegmentComponent implements OnInit {
           },
         },
       },
+      attr: {
+        class: 'table table-bordered table-header'
+    },
     };
   }
   mstcategories_LoadTable(mstcategories = new LocalDataSource()) {
