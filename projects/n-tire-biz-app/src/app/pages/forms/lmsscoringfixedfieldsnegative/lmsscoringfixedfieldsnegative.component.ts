@@ -1,13 +1,10 @@
 import { lmsscoringfixedfieldsnegative } from './../../../model/lmsscoringfixedfieldsnegative.model';
 import { lmsscoringfixedfieldsnegativeService } from './../../../service/lmsscoringfixedfieldsnegative.service';
-import { Component, OnInit, Inject, Optional, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicDialog';
 import { DialogService } from 'primeng/dynamicDialog';
 import { boconfigvalueService } from '../../../../../../n-tire-biz-app/src/app/service/boconfigvalue.service';
@@ -44,7 +41,6 @@ export class lmsscoringfixedfieldsnegativeListComponent implements OnInit {
     lmsscoringfixedfieldsnegatives_settings: any;
 
     show_lmsscoringfixedfieldsnegatives_Checkbox() {
-        debugger;
         if (this.tbl_lmsscoringfixedfieldsnegatives.source.settings['selectMode'] == 'multi') this.tbl_lmsscoringfixedfieldsnegatives.source.settings['selectMode'] = 'single';
         else
             this.tbl_lmsscoringfixedfieldsnegatives.source.settings['selectMode'] = 'multi';
@@ -54,15 +50,8 @@ export class lmsscoringfixedfieldsnegativeListComponent implements OnInit {
         this.tbl_lmsscoringfixedfieldsnegatives.source.settings['selectMode'] = 'single';
     }
     show_lmsscoringfixedfieldsnegatives_Filter() {
-        setTimeout(() => {
-            //  this.Set_lmsscoringfixedfieldsnegatives_TableDropDownConfig();
-        });
         if (this.tbl_lmsscoringfixedfieldsnegatives.source.settings != null) this.tbl_lmsscoringfixedfieldsnegatives.source.settings['hideSubHeader'] = !this.tbl_lmsscoringfixedfieldsnegatives.source.settings['hideSubHeader'];
         this.tbl_lmsscoringfixedfieldsnegatives.source.initGrid();
-    }
-    show_lmsscoringfixedfieldsnegatives_InActive() {
-    }
-    enable_lmsscoringfixedfieldsnegatives_InActive() {
     }
     async Set_lmsscoringfixedfieldsnegatives_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_lmsscoringfixedfieldsnegatives) {
@@ -71,9 +60,6 @@ export class lmsscoringfixedfieldsnegativeListComponent implements OnInit {
     }
     async lmsscoringfixedfieldsnegatives_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_lmsscoringfixedfieldsnegatives_TableConfig() {
         this.lmsscoringfixedfieldsnegatives_settings = {
@@ -172,13 +158,8 @@ export class lmsscoringfixedfieldsnegativeListComponent implements OnInit {
     async onCustom_lmsscoringfixedfieldsnegatives_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "lmsscoringfixedfieldsnegatives");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     lmsscoringfixedfieldsnegatives_Paging(val) {
-        debugger;
         this.tbl_lmsscoringfixedfieldsnegatives.source.setPaging(1, val, true);
     }
     onDelete_lmsscoringfixedfieldsnegative(event: any, childID: number, i: number) {
@@ -186,13 +167,10 @@ export class lmsscoringfixedfieldsnegativeListComponent implements OnInit {
             this.Deleted_lmsscoringfixedfieldsnegative_IDs += childID + ",";
         this.lmsscoringfixedfieldsnegative_service.list.splice(i, 1);
     }
-    constructor(
-        private nav: Location,
-        private router: Router, private spinner: NgxSpinnerService,
+    constructor( private spinner: NgxSpinnerService,
         private currentRoute: ActivatedRoute,
         private lmsscoringfixedfieldsnegative_service: lmsscoringfixedfieldsnegativeService,
         private toastr: ToastService,
-        private configservice: boconfigvalueService,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private sharedService: SharedService,
@@ -205,18 +183,11 @@ export class lmsscoringfixedfieldsnegativeListComponent implements OnInit {
         this.spinner.show();
         this.lmsscoringfixedfieldsnegative_service.saveOrUpdate_lmsscoringfixedfieldsnegatives_List().subscribe(
             async res => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.showview = true;
-                /*if(bclear){
-                this.lmsscoringfixedfieldsnegative_service.clearList();
-                this.resetForm();
-                }*/
             },
             err => {
-                debugger;
-                //this.toastr.addSingle("error","",err.error);
                 this.sharedService.alert(err.error);
                 this.spinner.hide(); console.log(err);
             }
@@ -246,7 +217,6 @@ export class lmsscoringfixedfieldsnegativeListComponent implements OnInit {
         else {
             this.formData = Object.assign({}, pd);
         }
-        // 
 
     }
 

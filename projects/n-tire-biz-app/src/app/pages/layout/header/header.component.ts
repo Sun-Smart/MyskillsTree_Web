@@ -125,7 +125,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["home/boreportviewer/jobs"]);
   }
   openReference() {
-    debugger
     this.menuhide = false;
     this.sharedService.currenturl = "home/boreportviewer/arrA";
     this.router.navigate(["home/boreportviewer/arrA"]);
@@ -234,14 +233,8 @@ export class HeaderComponent implements OnInit {
   };
 
   profile_release() {
-    debugger
     this.mstapplicantmaster_service.get_profilecompletionsecond(this.applicantid).then(res => {
-      debugger
-
       this.getdata = res;
-
-      console.log("this.getdata", this.getdata);
-      
 
       for (let i = 0; i < this.getdata.length; i++) {
         this.datarelease.push(this.getdata[i].releasestatus)
@@ -415,7 +408,6 @@ export class HeaderComponent implements OnInit {
   };
 
   uploadmethod() {
-    debugger
     this.dialog.open(mstresumeapplicantComponent,
       {
         data: { ScreenType: 2, applicantid: this.applicantid, save: true }
