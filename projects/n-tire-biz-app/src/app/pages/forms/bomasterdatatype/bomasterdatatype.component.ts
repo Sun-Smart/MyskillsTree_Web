@@ -3,14 +3,10 @@ import { bomasterdatatype } from './../../../model/bomasterdatatype.model';
 import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { bomasterdataComponent } from './../../../pages/forms/bomasterdata/bomasterdata.component';
-import { bomasterdataService } from './../../../service/bomasterdata.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
@@ -98,7 +94,7 @@ export class bomasterdatatypeComponent implements OnInit {
 
     sessionData: any;
     sourceKey: any;
-    
+
     checkrelease : boolean = false;
     releasecheckbox : boolean = false;
     canedit:boolean = false ;
@@ -169,41 +165,16 @@ check1:boolean = false ;
         return Observable.of(true);
     }
 
-    //check Unique fields
-
-    //navigation buttons
-    first() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-    }
-
-    last() {
-        if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-    }
-
-    prev() {
-
-        let pos = this.pkList.map(function (e: any) { return e.datatypeid.toString(); }).indexOf(this.formid.toString());
-        if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-    }
-
-    next() {
-
-        let pos = this.pkList.map(function (e: any) { return e.datatypeid.toString(); }).indexOf(this.formid.toString());
-        if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
-    }
-
     //on searching in pk autocomplete
     onSelectedpk(pkDetail: any) {
         if (pkDetail.datatypeid && pkDetail) {
             this.PopulateScreen(pkDetail.pkcol);
         }
     }
-    
+
 
     // initialize
     async ngOnInit() {
-        debugger
-
         this.checkRelease();
         //session & theme
         this.themeService.theme.subscribe((val: string) => {
@@ -285,22 +256,19 @@ check1:boolean = false ;
         ).catch((err) => { this.spinner.hide();});
         //setting the flag that the screen is not touched
         this.bomasterdatatype_Form.markAsUntouched();
-        this.bomasterdatatype_Form.markAsPristine();  
-        console.log( this.bomasterdatatype_Form.value.hassubcategory)  
-    
-       
+        this.bomasterdatatype_Form.markAsPristine();
+        console.log( this.bomasterdatatype_Form.value.hassubcategory)
 
-    }      
+
+
+    }
 
     checkRelease()
     {
-       debugger;
-       console.log(this.releasecheckbox);
        localStorage.setItem("releasecheckbox", JSON.stringify(this.releasecheckbox));
-       
+
     }
     checkedit(){
-        console.log(this.canedit);
         localStorage.setItem("canedit", JSON.stringify(this.canedit));
     }
 
@@ -327,7 +295,7 @@ check1:boolean = false ;
                 this.bomasterdatatype_service.delete_bomasterdatatype(datatypeid).then(res => {
                     this.resetForm();
                 }
-                ).catch((err) => { this.spinner.hide(); console.log(err); });
+                ).catch((err) => { this.spinner.hide(); });
             }
         }
         else {
@@ -408,12 +376,8 @@ check1:boolean = false ;
 
     edit_bomasterdatatypes() {
         this.showview = false;
-        setTimeout(() => {
-        });
         return false;
     }
-
-
 
     async PopulateScreen(pkcol: any) {
         this.spinner.show();
@@ -436,7 +400,6 @@ check1:boolean = false ;
         this.bmyrecord = false;
         if ((res.bomasterdatatype as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
         this.mdata=res.bomasterdatatype.masterdataname
-        console.log( this.bomasterdatatype_Form.value.hassubcategory)
         this.bomasterdatatype_Form.patchValue({
             datatypeid: res.bomasterdatatype.datatypeid,
             code: res.bomasterdatatype.code,

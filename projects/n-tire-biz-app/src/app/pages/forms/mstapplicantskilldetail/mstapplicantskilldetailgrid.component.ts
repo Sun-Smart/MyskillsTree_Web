@@ -72,7 +72,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </div>
 </div>
 
-<div> 
+<div>
 <form [formGroup]="mstapplicantskilldetail_Form" class="mobile_grid_view" *ngIf="showWebviewDetect">
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
@@ -87,7 +87,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <th style="width:10%;text-align: center;">Action</th>
       </tr>
     </thead>
-    <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input"> 
+    <tbody style="background: #f0f0f0;" *ngIf="showSkillDetails_input">
       <tr>
         <!-- Segment Gategory -->
         <td>
@@ -145,7 +145,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <td>
           <textarea name="w3review" rows="3" cols="10" class="form-control" formControlName="remarks"></textarea>
         </td>
- 
+
       <!-- Add & Close -->
 
         <td class="field-add-close-button">
@@ -226,7 +226,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   (delete)="mstapplicantskilldetails_route($event,'delete')"
   (deleteConfirm)="mstapplicantskilldetails_route($event,'delete')"
   (create)="mstapplicantskilldetails_route($event,'create')"
-  (createConfirm)="mstapplicantskilldetails_beforesave($event)" 
+  (createConfirm)="mstapplicantskilldetails_beforesave($event)"
   (createConfirm)="mstapplicantskilldetails_beforesave($event)">
 </ng2-smart-table>
     `,
