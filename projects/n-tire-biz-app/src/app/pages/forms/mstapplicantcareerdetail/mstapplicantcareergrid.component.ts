@@ -139,7 +139,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
      <!-- Remarks -->
      <td>
-       <textarea name="w3review" onkeyup="textAreaAdjust(this)" class="form-control" formControlName="remarks"></textarea>
+       <textarea name="w3review" rows="1" cols="3" onkeyup="textAreaAdjust(this)" class="form-control" formControlName="remarks"></textarea>
      </td>
 
     <!-- Submit -->
@@ -748,10 +748,10 @@ export class mstapplicantcareergridComponent implements OnInit {
         deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
         confirmDelete: true,
       },
-      pager: {
-        display: true,
-        perPage: 5
-      },
+      // pager: {
+      //   display: true,
+      //   perPage: 5
+      // },
       columns: {
         colhtml:
         {

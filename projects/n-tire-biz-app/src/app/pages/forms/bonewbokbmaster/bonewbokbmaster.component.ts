@@ -3,11 +3,9 @@ import { bokbmaster } from './../../../model/bokbmaster.model';
 import { ElementRef, Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { ReportViewerCtrlComponent } from '../../../../../../n-tire-bo-app/src/app/pages/forms/boreportviewer/reportviewerctrl.component';
 import { KeyValuePair } from '../../../shared/general.validator';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of';
@@ -576,7 +574,6 @@ export class BonewbokbmasterComponent implements OnInit {
       //console.log(res.order);
       //console.log(res.orderDetails);
       let strdetails = "";
-      debugger;
       var json = JSON.parse(res.bokbmaster.summary);
       json.qnaDocuments.forEach(element => {
         //element.qnaDocuments.forEach(element1 => {
@@ -744,7 +741,6 @@ export class BonewbokbmasterComponent implements OnInit {
 
   async onSubmitData(bclear: any): Promise<any> {
     try {
-      //debugger;
       this.SetFormValues();
       this.isSubmitted = true;
       let strError = "";
@@ -782,7 +778,6 @@ export class BonewbokbmasterComponent implements OnInit {
       this.blockedDocument = true;
       let res = await this.bokbmaster_service.save_bokbmasters(this.formData, this.fileAttachmentList, this.Deleted_bokbtopic_IDs, this.tbl_bokbtopics?.data);
       this.blockedDocument = false;
-      //debugger;
       this.toastr.addSingle("success", "", "Successfully saved");
       this.objvalues.push((res as any).bokbmaster);
       if (!bclear && (this.formid != null && this.formid != "")) this.showview = true;
@@ -874,7 +869,6 @@ export class BonewbokbmasterComponent implements OnInit {
   bokbtopics_settings: any;
 
   show_bokbtopics_Checkbox() {
-    //debugger;
   }
   delete_bokbtopics_All() {
     //this.tbl_bokbtopics.source.settings['selectMode'] = 'single';
@@ -887,7 +881,6 @@ export class BonewbokbmasterComponent implements OnInit {
     event.confirm.resolve(event.newData);
   }
   onExecute_bokbtopics(event: any) {
-    //debugger;
     if (event.action.description == "Edit")
       this.AddOrEdit_bokbtopic(event, event.data.pk, this.formid);
     else if (event.action.description == "Delete") {

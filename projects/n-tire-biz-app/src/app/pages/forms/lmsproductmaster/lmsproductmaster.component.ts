@@ -1,63 +1,34 @@
 import { lmsproductmasterService } from './../../../service/lmsproductmaster.service';
 import { lmsproductmaster } from './../../../model/lmsproductmaster.model';
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-//Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
-
-//Custom error functions
-import { KeyValuePair, MustMatch, DateCompare, MustEnable, MustDisable, Time } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
-
-//child table
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
-
-//Custom control
-import { durationComponent } from '../../../../../../n-tire-biz-app/src/app/custom/duration.component';
+import { DomSanitizer } from "@angular/platform-browser";
+import { KeyValuePair } from '../../../../../../n-tire-biz-app/src/app/shared/general.validator';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ShortcutInput, ShortcutEventOutput } from "ng-keyboard-shortcuts";
-//Shortcuts
-import { KeyboardShortcutsService } from "ng-keyboard-shortcuts";
-//translator
-import { TranslateService } from "@ngx-translate/core";
-//FK field services
-//detail table services
-import { lmsbundledproduct } from './../../../model/lmsbundledproduct.model';
-import { lmsbundledproductComponent } from './../../../pages/forms/lmsbundledproduct/lmsbundledproduct.component';
-import { lmsbundledproductService } from './../../../service/lmsbundledproduct.service';
-import { switchMap, map, debounceTime } from 'rxjs/operators';
+import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator, ValidationErrors } from '@angular/forms';
-//primeng services
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
-import { FileUploadModule, FileUpload } from 'primeng/fileupload';
 import { DialogService } from 'primeng/dynamicDialog';
-//session,application constants
 import { SharedService } from '../../../../../../n-tire-biz-app/src/app/service/shared.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
-//custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
-import { Subject } from 'rxjs/Subject';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
-import { createWorker, RecognizeResult } from 'tesseract.js';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
 import { customfieldconfigurationService } from '../../../../../../n-tire-biz-app/src/app/service/customfieldconfiguration.service';
-import { customfieldconfiguration } from '../../../../../../n-tire-biz-app/src/app/model/customfieldconfiguration.model';
 import { DynamicFormBuilderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/dynamic-form-builder/dynamic-form-builder.component';
 
 @Component({
   selector: 'app-lmsproductmaster',
   templateUrl: './lmsproductmaster.component.html',
   styles: [],
-  providers: [KeyboardShortcutsService]
+  providers: []
 })
 
 
@@ -117,8 +88,6 @@ export class lmsproductmasterComponent implements OnInit {
   sessionData: any;
   sourceKey: any;
 
-
-
   lmsbundledproducts_visiblelist: any;
   lmsbundledproducts_hidelist: any;
 
@@ -127,10 +96,7 @@ export class lmsproductmasterComponent implements OnInit {
   lmsbundledproducts_selectedindex: any;
 
 
-  constructor(
-    private nav: Location,
-    private translate: TranslateService,
-    private keyboard: KeyboardShortcutsService, private router: Router,
+  constructor(private router: Router,
     private themeService: ThemeService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
@@ -142,29 +108,10 @@ export class lmsproductmasterComponent implements OnInit {
     private sessionService: SessionService,
     private toastr: ToastService,
     private customfieldservice: customfieldconfigurationService,
-    private sanitizer: DomSanitizer,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
-    this.translate = this.sharedService.translate;
     this.data = dynamicconfig;
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
-    this.keyboard.add([
-      {
-        key: 'cmd l',
-        command: () => this.router.navigate(["/home/" + this.p_currenturl]),
-        preventDefault: true
-      },
-      {
-        key: 'cmd s',
-        command: () => this.onSubmitData(false),
-        preventDefault: true
-      },
-      {
-        key: 'cmd f',
-        command: () => this.resetForm(),
-        preventDefault: true
-      }
-    ]);
     this.lmsproductmaster_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
@@ -198,7 +145,6 @@ export class lmsproductmasterComponent implements OnInit {
 
   //function called when we navigate to other page.defined in routing
   canDeactivate(): Observable<boolean> | boolean {
-    debugger;
     if (this.lmsproductmaster_Form.dirty && this.lmsproductmaster_Form.touched) {
       if (confirm('Do you want to exit the page?')) {
         return Observable.of(true).delay(1000);
@@ -211,7 +157,6 @@ export class lmsproductmasterComponent implements OnInit {
 
   //check Unique fields
   productcodeexists(e: any) {
-    debugger;
     let pos = this.pkList.map(function (e: any) { return e.productcode.toString().toLowerCase(); }).indexOf(e.target.value.toString().toLowerCase());
 
     if (pos >= 0 && this.pkList[pos].productid.toString() != this.formid.toString()) {
@@ -228,27 +173,6 @@ export class lmsproductmasterComponent implements OnInit {
       }
     }
     return true;
-  }
-
-  //navigation buttons
-  first() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[0].pkcol);
-  }
-
-  last() {
-    if (this.pkList.length > 0) this.PopulateScreen(this.pkList[this.pkList.length - 1].pkcol);
-  }
-
-  prev() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.productid.toString(); }).indexOf(this.formid.toString());
-    if (pos > 0) this.PopulateScreen(this.pkList[pos - 1].pkcol);
-  }
-
-  next() {
-    debugger;
-    let pos = this.pkList.map(function (e: any) { return e.productid.toString(); }).indexOf(this.formid.toString());
-    if (pos >= 0 && pos != this.pkList.length) this.PopulateScreen(this.pkList[pos + 1].pkcol);
   }
 
   //on searching in pk autocomplete
@@ -271,9 +195,6 @@ export class lmsproductmasterComponent implements OnInit {
     }
 
     this.theme = this.sessionService.getItem('selected-theme');
-    //this.viewHtml=this.sessionService.getViewHtml();
-
-    debugger;
     //getting data - from list page, from other screen through dialog
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -305,7 +226,7 @@ export class lmsproductmasterComponent implements OnInit {
       this.pkcol = this.currentRoute.snapshot.paramMap.get('id');
       this.showFormType = this.currentRoute.snapshot.paramMap.get('showFormType');
     }
-    //copy the data from previous dialog 
+    //copy the data from previous dialog
     this.viewHtml = ``;
     this.PopulateFromMainScreen(this.data, false);
     this.PopulateFromMainScreen(this.dynamicconfig.data, true);
@@ -318,9 +239,6 @@ export class lmsproductmasterComponent implements OnInit {
     //if pk is empty - go to resetting form.fill default values.otherwise, fetch records
     if (this.pkcol == null) {
       this.Set_lmsbundledproducts_TableConfig();
-      setTimeout(() => {
-        //this.Set_lmsbundledproducts_TableDropDownConfig();
-      });
 
       this.FillCustomField();
       this.resetForm();
@@ -328,19 +246,19 @@ export class lmsproductmasterComponent implements OnInit {
     else {
       if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
       //get the record from api
-      //foreign keys 
+      //foreign keys
     }
     this.lmsproductmaster_service.getDefaultData().then(res => {
       this.productgroup_List = res.list_productgroup.value;
-    }).catch((err) => { this.spinner.hide(); console.log(err); });
+    }).catch((err) => { this.spinner.hide(); });
 
     //autocomplete
     this.lmsproductmaster_service.get_lmsproductmasters_List().then(res => {
       this.pkList = res as lmsproductmaster[];
       this.pkoptionsEvent.emit(this.pkList);
     }
-    ).catch((err) => { this.spinner.hide(); console.log(err); });
-    //setting the flag that the screen is not touched 
+    ).catch((err) => { this.spinner.hide(); });
+    //setting the flag that the screen is not touched
     this.lmsproductmaster_Form.markAsUntouched();
     this.lmsproductmaster_Form.markAsPristine();
   }
@@ -368,7 +286,7 @@ export class lmsproductmasterComponent implements OnInit {
         this.lmsproductmaster_service.delete_lmsproductmaster(productid).then(res => {
           this.resetForm();
         }
-        ).catch((err) => { this.spinner.hide(); console.log(err); });
+        ).catch((err) => { this.spinner.hide(); });
       }
     }
     else {
@@ -471,16 +389,10 @@ export class lmsproductmasterComponent implements OnInit {
     }
   }
 
-
-
   edit_lmsproductmasters() {
     this.showview = false;
-    setTimeout(() => {
-    });
     return false;
   }
-
-
 
   async PopulateScreen(pkcol: any) {
     this.spinner.show();
@@ -837,7 +749,7 @@ export class lmsproductmasterComponent implements OnInit {
   break;
   }
   }
-  
+
   */
   lmsbundledproducts_Paging(val) {
     debugger;

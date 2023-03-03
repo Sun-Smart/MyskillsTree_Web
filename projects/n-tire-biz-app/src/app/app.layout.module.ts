@@ -22,6 +22,7 @@ import { MstResumeComponent } from './pages/forms/mst-resume/mst-resume.componen
 import { MstSkillDetsilsComponent } from './pages/forms/mst-skill-detsils/mst-skill-detsils.component';
 import { MstSocialMediaComponent } from './pages/forms/mst-social-media/mst-social-media.component';
 import { MstLocationDetailsComponent } from './pages/forms/mst-location-details/mst-location-details.component';
+import { titleComponent } from './pages/forms/title.component';
 
 
 export const ENTRY_COMPONENTS = [];
@@ -152,6 +153,7 @@ export const paths = [
           { path: "newskilldetails", component: MstSkillDetsilsComponent },
           { path: "newsocial", component: MstSocialMediaComponent },
           { path: "newlocation", component: MstLocationDetailsComponent },
+          { path: "title", component: titleComponent },
 
 
         ]
