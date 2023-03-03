@@ -1,13 +1,10 @@
 import { lmstargetorglevel } from './../../../model/lmstargetorglevel.model';
 import { lmstargetorglevelService } from './../../../service/lmstargetorglevel.service';
-import { Component, OnInit, Inject, Optional, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicDialog';
 import { DialogService } from 'primeng/dynamicDialog';
 import { boconfigvalueService } from '../../../../../../n-tire-biz-app/src/app/service/boconfigvalue.service';
@@ -45,7 +42,6 @@ export class lmstargetorglevelListComponent implements OnInit {
     lmstargetorglevels_settings: any;
 
     show_lmstargetorglevels_Checkbox() {
-        debugger;
         if (this.tbl_lmstargetorglevels.source.settings['selectMode'] == 'multi') this.tbl_lmstargetorglevels.source.settings['selectMode'] = 'single';
         else
             this.tbl_lmstargetorglevels.source.settings['selectMode'] = 'multi';
@@ -55,15 +51,8 @@ export class lmstargetorglevelListComponent implements OnInit {
         this.tbl_lmstargetorglevels.source.settings['selectMode'] = 'single';
     }
     show_lmstargetorglevels_Filter() {
-        setTimeout(() => {
-            //  this.Set_lmstargetorglevels_TableDropDownConfig();
-        });
         if (this.tbl_lmstargetorglevels.source.settings != null) this.tbl_lmstargetorglevels.source.settings['hideSubHeader'] = !this.tbl_lmstargetorglevels.source.settings['hideSubHeader'];
         this.tbl_lmstargetorglevels.source.initGrid();
-    }
-    show_lmstargetorglevels_InActive() {
-    }
-    enable_lmstargetorglevels_InActive() {
     }
     async Set_lmstargetorglevels_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_lmstargetorglevels) {
@@ -90,9 +79,6 @@ export class lmstargetorglevelListComponent implements OnInit {
     }
     async lmstargetorglevels_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_lmstargetorglevels_TableConfig() {
         this.lmstargetorglevels_settings = {
@@ -245,13 +231,8 @@ export class lmstargetorglevelListComponent implements OnInit {
     async onCustom_lmstargetorglevels_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "lmstargetorglevels");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     lmstargetorglevels_Paging(val) {
-        debugger;
         this.tbl_lmstargetorglevels.source.setPaging(1, val, true);
     }
     onDelete_lmstargetorglevel(event: any, childID: number, i: number) {
@@ -259,14 +240,10 @@ export class lmstargetorglevelListComponent implements OnInit {
             this.Deleted_lmstargetorglevel_IDs += childID + ",";
         this.lmstargetorglevel_service.list.splice(i, 1);
     }
-    constructor(
-        private nav: Location,
-        private router: Router, private spinner: NgxSpinnerService,
+    constructor( private spinner: NgxSpinnerService,
         private currentRoute: ActivatedRoute,
         private lmstargetorglevel_service: lmstargetorglevelService,
         private toastr: ToastService,
-        private configservice: boconfigvalueService,
-        private bomasterdata_service: bomasterdataService,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private sharedService: SharedService,
@@ -279,18 +256,11 @@ export class lmstargetorglevelListComponent implements OnInit {
         this.spinner.show();
         this.lmstargetorglevel_service.saveOrUpdate_lmstargetorglevels_List().subscribe(
             async res => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.showview = true;
-                /*if(bclear){
-                this.lmstargetorglevel_service.clearList();
-                this.resetForm();
-                }*/
             },
             err => {
-                debugger;
-                //this.toastr.addSingle("error","",err.error);
                 this.sharedService.alert(err.error);
                 this.spinner.hide(); console.log(err);
             }
@@ -320,7 +290,6 @@ export class lmstargetorglevelListComponent implements OnInit {
         else {
             this.formData = Object.assign({}, pd);
         }
-        // 
 
     }
 

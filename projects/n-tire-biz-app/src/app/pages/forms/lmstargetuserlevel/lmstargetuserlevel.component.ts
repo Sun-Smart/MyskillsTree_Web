@@ -1,13 +1,11 @@
 import { lmstargetuserlevel } from './../../../model/lmstargetuserlevel.model';
 import { lmstargetuserlevelService } from './../../../service/lmstargetuserlevel.service';
-import { Component, OnInit, Inject, Optional, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
-import { SmartTableDatepickerComponent, SmartTableDatepickerRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-datepicker.component';
-import { SmartTablepopupselectComponent, SmartTablepopupselectRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
-import { SmartTableFileRenderComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-filerender.component';
+import { SmartTablepopupselectComponent } from '../../../../../../n-tire-biz-app/src/app/custom/smart-table-popupselect.component';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicDialog';
 import { DialogService } from 'primeng/dynamicDialog';
 import { boconfigvalueService } from '../../../../../../n-tire-biz-app/src/app/service/boconfigvalue.service';
@@ -47,7 +45,6 @@ export class lmstargetuserlevelListComponent implements OnInit {
     lmstargetuserlevels_settings: any;
 
     show_lmstargetuserlevels_Checkbox() {
-        debugger;
         if (this.tbl_lmstargetuserlevels.source.settings['selectMode'] == 'multi') this.tbl_lmstargetuserlevels.source.settings['selectMode'] = 'single';
         else
             this.tbl_lmstargetuserlevels.source.settings['selectMode'] = 'multi';
@@ -57,15 +54,8 @@ export class lmstargetuserlevelListComponent implements OnInit {
         this.tbl_lmstargetuserlevels.source.settings['selectMode'] = 'single';
     }
     show_lmstargetuserlevels_Filter() {
-        setTimeout(() => {
-            //  this.Set_lmstargetuserlevels_TableDropDownConfig();
-        });
         if (this.tbl_lmstargetuserlevels.source.settings != null) this.tbl_lmstargetuserlevels.source.settings['hideSubHeader'] = !this.tbl_lmstargetuserlevels.source.settings['hideSubHeader'];
         this.tbl_lmstargetuserlevels.source.initGrid();
-    }
-    show_lmstargetuserlevels_InActive() {
-    }
-    enable_lmstargetuserlevels_InActive() {
     }
     async Set_lmstargetuserlevels_TableDropDownConfig(res) {
         if (!this.bfilterPopulate_lmstargetuserlevels) {
@@ -104,9 +94,6 @@ export class lmstargetuserlevelListComponent implements OnInit {
     }
     async lmstargetuserlevels_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
     Set_lmstargetuserlevels_TableConfig() {
         this.lmstargetuserlevels_settings = {
@@ -285,13 +272,8 @@ export class lmstargetuserlevelListComponent implements OnInit {
     async onCustom_lmstargetuserlevels_Action(event: any) {
         let objbomenuaction = await this.sharedService.onCustomAction(event, "lmstargetuserlevels");
         let formname = (objbomenuaction as any).actionname;
-
-
-
-
     }
     lmstargetuserlevels_Paging(val) {
-        debugger;
         this.tbl_lmstargetuserlevels.source.setPaging(1, val, true);
     }
     onDelete_lmstargetuserlevel(event: any, childID: number, i: number) {
@@ -299,16 +281,10 @@ export class lmstargetuserlevelListComponent implements OnInit {
             this.Deleted_lmstargetuserlevel_IDs += childID + ",";
         this.lmstargetuserlevel_service.list.splice(i, 1);
     }
-    constructor(
-        private nav: Location,
-        private router: Router, private spinner: NgxSpinnerService,
+    constructor( private spinner: NgxSpinnerService,
         private currentRoute: ActivatedRoute,
         private lmstargetuserlevel_service: lmstargetuserlevelService,
         private toastr: ToastService,
-        private configservice: boconfigvalueService,
-        private bobranchmaster_service: bobranchmasterService,
-        private bousermaster_service: bousermasterService,
-        private bomasterdata_service: bomasterdataService,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private sharedService: SharedService,
@@ -321,18 +297,11 @@ export class lmstargetuserlevelListComponent implements OnInit {
         this.spinner.show();
         this.lmstargetuserlevel_service.saveOrUpdate_lmstargetuserlevels_List().subscribe(
             async res => {
-                debugger;
                 this.spinner.hide();
                 this.toastr.addSingle("success", "", "Successfully saved");
                 this.showview = true;
-                /*if(bclear){
-                this.lmstargetuserlevel_service.clearList();
-                this.resetForm();
-                }*/
             },
             err => {
-                debugger;
-                //this.toastr.addSingle("error","",err.error);
                 this.sharedService.alert(err.error);
                 this.spinner.hide(); console.log(err);
             }
@@ -362,7 +331,6 @@ export class lmstargetuserlevelListComponent implements OnInit {
         else {
             this.formData = Object.assign({}, pd);
         }
-        // 
 
     }
 
