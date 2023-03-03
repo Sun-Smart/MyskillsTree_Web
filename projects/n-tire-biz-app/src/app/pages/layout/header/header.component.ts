@@ -80,6 +80,7 @@ export class HeaderComponent implements OnInit {
   isrelease: boolean;
   pkcorporateid: any;
   show_dashboard: boolean = true;
+  AppliSkill: boolean;
 
 
   constructor(
@@ -175,7 +176,7 @@ export class HeaderComponent implements OnInit {
       this.applicanticon = false;
       this.adminicon = true;
       this.corporateicon = false;
-
+      this.AppliSkill = false;
     } else if (this.sessionService.getItem('role') == '2') {
       this.userrole = 'Applicant';
       this.showApplicantmenu = true;
@@ -185,7 +186,7 @@ export class HeaderComponent implements OnInit {
       this.applicanticon = true;
       this.adminicon = false;
       this.corporateicon = false;
-
+      this.AppliSkill = true;
       if (localStorage.getItem('user_type') == "C") {
         this.showCertifiermenu = true;
       }
@@ -198,6 +199,7 @@ export class HeaderComponent implements OnInit {
       this.adminicon = false;
       this.showApplicantAccount = false;
       this.corporateicon = true;
+      this.AppliSkill = false;
     }
     if (this.sessionService.getItem('role') == '2') this.menuvisible = false;
     this.botaskservice.get_botasks_List(this.userid).then((res: any) => {
