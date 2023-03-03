@@ -503,7 +503,9 @@ export class mstcategoryComponent implements OnInit {
     if (this.pkcol != undefined && this.pkcol != null) childsave = true;
     this.dialog.open(mstsubcategoryComponent,
       {
-        width: "90% !important",
+        width:'50% !important',
+        height:'30% !important',
+
 
         data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, subcategoryid, categoryid, visiblelist: this.mstsubcategories_visiblelist, hidelist: this.mstsubcategories_hidelist, ScreenType: 2 },
       }

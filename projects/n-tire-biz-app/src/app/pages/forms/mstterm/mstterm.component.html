@@ -1,7 +1,7 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstterm_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <div class="row second">
+  <div class="row second common_title_style">
     <h1 class="col-4 columns mainheader left">{{'Terms'}}</h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
@@ -126,7 +126,7 @@
         <div class="columnchk">
           <label for="currentterm" class="control-label">Current Term</label>
           <label *ngIf="showview" class="labelview">{{f.currentterm?.value}}</label>
-          <input type="checkbox" *ngIf="!showview" id="currentterm" formControlName="currentterm" class="form-control">
+          <input type="checkbox" *ngIf="!showview" id="currentterm" formControlName="currentterm" class="">
         </div>
       </div>
       <div class="col"></div>
