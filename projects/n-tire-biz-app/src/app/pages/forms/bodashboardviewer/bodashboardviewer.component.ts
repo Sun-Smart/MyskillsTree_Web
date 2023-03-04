@@ -71,7 +71,6 @@ export class BODashboardViewerComponent implements OnInit {
   showOpenfile: boolean = false;
   showhearder_Details: boolean = false;
   nodata_found: boolean;
-  appli_id: any;
   mst_skillDetails: any;
   sub_category: any = [];
   starRate: any = [];
@@ -115,6 +114,7 @@ export class BODashboardViewerComponent implements OnInit {
   start_date: any;
   end_date: any;
   ref_date: any
+  showNewApp_Dashboard :boolean = false;
 
   constructor( public dialogRef: DynamicDialogRef,
     private toastr: ToastService,
@@ -124,11 +124,7 @@ export class BODashboardViewerComponent implements OnInit {
     private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,
     private datepipe: DatePipe
   ) {
-    localStorage.removeItem("verifyMob_Otp")
-    localStorage.removeItem("verifyEmail_Otp")
-    localStorage.removeItem("verifyEmail_data")
     this.applicantid = this.sessionService.getItem("applicantid");
-    this.appli_id = this.sessionService.getItem("applicantid");
   }
   ngOnInit() {
     this.get_allData();
@@ -154,7 +150,7 @@ export class BODashboardViewerComponent implements OnInit {
     this.ispersonalpending = false
     this.sessionService.setItem("attachedsaved", "true")
 
-    this.mstapplicantmaster_service.get_profilecompletionsecond(this.appli_id).then(res => {
+    this.mstapplicantmaster_service.get_profilecompletionsecond(this.applicantid).then(res => {
 
       this.getdata = res;
       for (let i = 0; i < this.getdata.length; i++) {
@@ -325,7 +321,13 @@ export class BODashboardViewerComponent implements OnInit {
 
   get_allData() {
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
+      
+
+      if (res.mstapplicantskilldetail.length > 0) {
+        this.showNewApp_Dashboard = true;
+      } 
       this.sub_category = res.mstapplicantskilldetail;
+
       for (let i = 0; i < this.sub_category.length; i++) {
         this.skill_detail.push({
           strRating: this.sub_category[i].selfrating,

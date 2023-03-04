@@ -23,6 +23,12 @@ import { MstSkillDetsilsComponent } from './pages/forms/mst-skill-detsils/mst-sk
 import { MstSocialMediaComponent } from './pages/forms/mst-social-media/mst-social-media.component';
 import { MstLocationDetailsComponent } from './pages/forms/mst-location-details/mst-location-details.component';
 import { titleComponent } from './pages/forms/title.component';
+import { mstapplicantskilldetailgridComponent } from './pages/forms/mstapplicantskilldetail/mstapplicantskilldetailgrid.component';
+import { mstapplicantmastermainComponent } from './pages/forms/mstapplicantmaster/mstapplicantmastermain.component';
+import { mstapplicantcareergridComponent } from './pages/forms/mstapplicantcareerdetail/mstapplicantcareergrid.component';
+import { mstapplicantworkrefgridComponent } from './pages/forms/mstapplicantworkreference/mstapplicantworkrefgrid.component';
+import { mstapplicantachivementgridComponent } from './pages/forms/mstapplicantachievementdetail/mstapplicantachivementgrid.component';
+import { mstapplicanteducationdetailgridComponent } from './pages/forms/mstapplicanteducationdetail/mstapplicanteducationgrid.component';
 
 
 export const ENTRY_COMPONENTS = [];
@@ -154,6 +160,14 @@ export const paths = [
           { path: "newsocial", component: MstSocialMediaComponent },
           { path: "newlocation", component: MstLocationDetailsComponent },
           { path: "title", component: titleComponent },
+
+
+          { path: "applicantskilldetailgrid", component: mstapplicantskilldetailgridComponent },
+          { path: "mstapplicantmastermain", component: mstapplicantmastermainComponent },
+          { path: "applicantcareergrid", component: mstapplicantcareergridComponent },
+          { path: "applicantworkrefgrid", component: mstapplicantworkrefgridComponent },
+          { path: "applicantachivementgrid", component: mstapplicantachivementgridComponent },
+          { path: "applicanteducationgrid", component: mstapplicanteducationdetailgridComponent },
 
 
         ]

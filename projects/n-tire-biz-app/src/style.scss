@@ -282,7 +282,6 @@ a + a {
   margin-left: 10px;
 }
 
-
 .alert-primary,
 .alert-info,
 .alert-action,
@@ -298,15 +297,14 @@ a + a {
 }
 
 .alert-primary:hover {
-  
- line-height: 1;
- color: #fff !important;
- border: none !important;
- border-radius: 6px;
- padding: 5px 10px !important;
- height: 22px;
- background: #744921 !important;
- text-decoration: none;
+  line-height: 1;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 6px;
+  padding: 5px 10px !important;
+  height: 22px;
+  background: #744921 !important;
+  text-decoration: none;
 }
 
 .alert-success {
@@ -2125,7 +2123,6 @@ ng2-smart-table {
   }
 }
 
-
 ::ng-deep table tr:first-child th {
   position: sticky !important;
   top: -1px;
@@ -2868,7 +2865,6 @@ ng2-smart-table table thead {
   padding: 15px !important;
 }
 
-
 .field-autocomplete {
   .p-autocomplete {
     ul {
@@ -3128,8 +3124,9 @@ footer {
 }
 
 .dashboard-sidebar {
-  width: 20%;
+  overflow-y: auto;
   height: 100%;
+  max-height: 90%;
   background-color: #fff;
   float: left;
   box-shadow: 0px 0px 10px 0px #e2e0e0;
@@ -3150,13 +3147,6 @@ footer {
 }
 
 .main-dash-content {
-  overflow-y: scroll;
-  height: 530px !important;
-  // overflow-y: auto;
-  // display: flex;
-  // flex-direction: column;
-  // height: 100%;
-  // padding: 0 !important;
 
   .main-data {
     box-shadow: 0px 0px 10px 0px #e2e0e0;
@@ -3242,7 +3232,7 @@ footer {
     border-radius: 5px;
     font-size: 12px;
     padding: 5px 0;
-    
+
     .skill-label {
       label {
         margin: 0 !important;
@@ -3366,21 +3356,21 @@ footer {
   background: #7d3535 !important;
   width: fit-content;
 }
-.language-data{
-  .star{
-  color: green;
-  font-size: 19px !important;
-  vertical-align: middle;
+.language-data {
+  .star {
+    color: green;
+    font-size: 19px !important;
+    vertical-align: middle;
   }
-};
+}
 
-.language-action{
+.language-action {
   vertical-align: middle !important;
-  i{
+  i {
     margin: 0 6px;
     font-size: 19px;
   }
-  .clred{
+  .clred {
     background-color: red !important;
   }
 }

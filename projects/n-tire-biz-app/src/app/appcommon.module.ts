@@ -159,13 +159,19 @@ import { MstResumeComponent } from './pages/forms/mst-resume/mst-resume.componen
 import { MstSkillDetsilsComponent } from './pages/forms/mst-skill-detsils/mst-skill-detsils.component';
 import { MstSocialMediaComponent } from './pages/forms/mst-social-media/mst-social-media.component';
 import { MstStartPagesComponent } from './pages/forms/mst-start-pages/mst-start-pages.component';
-import {PickListModule} from 'primeng/picklist';
-import {InputSwitchModule} from 'primeng/inputswitch';
+import { PickListModule } from 'primeng/picklist';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { MstLocationDetailsComponent } from './pages/forms/mst-location-details/mst-location-details.component';
-import {BlockUIModule} from 'primeng/blockui';
+import { BlockUIModule } from 'primeng/blockui';
 import { titleComponent } from './pages/forms/title.component';
-import {SplitButtonModule} from 'primeng/splitbutton';
-import {SlideMenuModule} from 'primeng/slidemenu';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { SlideMenuModule } from 'primeng/slidemenu';
+import { mstapplicantskilldetailgridComponent } from './pages/forms/mstapplicantskilldetail/mstapplicantskilldetailgrid.component';
+import { mstapplicantmastermainComponent } from './pages/forms/mstapplicantmaster/mstapplicantmastermain.component';
+import { mstapplicantcareergridComponent } from './pages/forms/mstapplicantcareerdetail/mstapplicantcareergrid.component';
+import { mstapplicantworkrefgridComponent } from './pages/forms/mstapplicantworkreference/mstapplicantworkrefgrid.component';
+import { mstapplicantachivementgridComponent } from './pages/forms/mstapplicantachievementdetail/mstapplicantachivementgrid.component';
+import { mstapplicanteducationdetailgridComponent } from './pages/forms/mstapplicanteducationdetail/mstapplicanteducationgrid.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -207,12 +213,12 @@ const config: ExtraOptions = {
         TimerComponent,
         showdashboardComponent,
         BODashboardViewerComponent,
-        NewskillsearchComponent,FaqComponent,BonewbokbmasterComponent,ForumComponent,
+        NewskillsearchComponent, FaqComponent, BonewbokbmasterComponent, ForumComponent,
         BonewtopicComponent,
-        MstCareerDetailsComponent,MstCertificationsComponent,MstEducationDetailsComponent,
-        MstLanguageDetailsComponent,MstProjectDetailsComponent,MstResumeComponent,
-        MstSkillDetsilsComponent,MstSocialMediaComponent,MstStartPagesComponent,MstLocationDetailsComponent,
-        bokbmasterComponent,BonewtopicComponent,
+        MstCareerDetailsComponent, MstCertificationsComponent, MstEducationDetailsComponent,
+        MstLanguageDetailsComponent, MstProjectDetailsComponent, MstResumeComponent,
+        MstSkillDetsilsComponent, MstSocialMediaComponent, MstStartPagesComponent, MstLocationDetailsComponent,
+        bokbmasterComponent, BonewtopicComponent,
         ReportViewerCtrlComponent,
         AttachmentComponent, PopupSelectComponent, useraccessComponent, addressComponent, durationComponent, commentComponent, appmultipleentryComponent,
         openfileComponent, opencommentComponent,
@@ -234,7 +240,7 @@ const config: ExtraOptions = {
         MenuModule,
         TreeTableModule,
         RatingModule,
-        SelectButtonModule,AutoCompleteModule,
+        SelectButtonModule, AutoCompleteModule,
         TreeModule, CheckboxModule,
         InputTextModule,
         ButtonModule,
@@ -257,12 +263,12 @@ const config: ExtraOptions = {
         DynamicFormBuilderComponent,
         CheckBoxComponent, DropDownComponent, FileComponent, RadioComponent, TextBoxComponent,
         FieldBuilderComponent,
-        RouterModule,PickListModule,InputSwitchModule,BlockUIModule,SplitButtonModule,SlideMenuModule,
+        RouterModule, PickListModule, InputSwitchModule, BlockUIModule, SplitButtonModule, SlideMenuModule,
         SmartTableDatepickerRenderComponent,
         SmartTableDatepickerComponent,
         addressComponent, durationComponent,
         SmartTableDurationComponent, SmartTableDurationRenderComponent,
-        workflowComponent, CorporateDashboardComponent, galleryComponent,titleComponent,
+        workflowComponent, CorporateDashboardComponent, galleryComponent, titleComponent,
         actionComponent,
         NgxCurrencyModule,
         SliderModule,
@@ -281,7 +287,10 @@ const config: ExtraOptions = {
         VgControlsModule,
         VgOverlayPlayModule,
         VgBufferingModule,
-        BsDropdownModule
+        BsDropdownModule,
+        mstapplicantskilldetailgridComponent, mstapplicantmastermainComponent,
+        mstapplicantcareergridComponent, mstapplicantworkrefgridComponent,
+        mstapplicantachivementgridComponent, mstapplicanteducationdetailgridComponent
     ],
     declarations: [
         TimerComponent,
@@ -292,12 +301,12 @@ const config: ExtraOptions = {
         ImgCompressorDirective,
         showdashboardComponent,
         BODashboardViewerComponent,
-        NewskillsearchComponent,FaqComponent,BonewbokbmasterComponent,ForumComponent,
+        NewskillsearchComponent, FaqComponent, BonewbokbmasterComponent, ForumComponent,
         BonewtopicComponent,
-        MstCareerDetailsComponent,MstCertificationsComponent,MstEducationDetailsComponent,
-        MstLanguageDetailsComponent,MstProjectDetailsComponent,MstResumeComponent,
-        MstSkillDetsilsComponent,MstSocialMediaComponent,MstStartPagesComponent,MstLocationDetailsComponent,
-        bokbmasterComponent,BonewtopicComponent,
+        MstCareerDetailsComponent, MstCertificationsComponent, MstEducationDetailsComponent,
+        MstLanguageDetailsComponent, MstProjectDetailsComponent, MstResumeComponent,
+        MstSkillDetsilsComponent, MstSocialMediaComponent, MstStartPagesComponent, MstLocationDetailsComponent,
+        bokbmasterComponent, BonewtopicComponent,
         RegisterComponent,
         SkillenhancerComponent,
         CertifierComponent,
@@ -310,7 +319,7 @@ const config: ExtraOptions = {
         openfileComponent, opencommentComponent,
         stringlistComponent,
         BOReportViewerComponent,
-        CalendarHeaderComponent, CorporateDashboardComponent, galleryComponent,titleComponent,
+        CalendarHeaderComponent, CorporateDashboardComponent, galleryComponent, titleComponent,
         CalendarFormComponent, boworkflowdesignComponent,
         boganttComponent,
         SmartTableDatepickerRenderComponent,
@@ -324,8 +333,12 @@ const config: ExtraOptions = {
         CheckBoxComponent, DropDownComponent, FileComponent, RadioComponent, TextBoxComponent,
         FieldBuilderComponent,
         SheetComponent,
-        SafePipe
-    ],
+        SafePipe,
+
+        mstapplicantskilldetailgridComponent, mstapplicantmastermainComponent,
+        mstapplicantcareergridComponent, mstapplicantworkrefgridComponent,
+        mstapplicantachivementgridComponent, mstapplicanteducationdetailgridComponent
+        ],
 
     providers: [
         DatePipe, AuthGuard, Pipe,
@@ -353,8 +366,8 @@ const config: ExtraOptions = {
         PanelMenuModule,
         FileUploadModule,
         MenuModule,
-        TreeTableModule,Ng2SearchPipeModule,
-        RatingModule, SelectButtonModule,AutoCompleteModule,
+        TreeTableModule, Ng2SearchPipeModule,
+        RatingModule, SelectButtonModule, AutoCompleteModule,
         TreeModule, AccordionModule, ProgressBarModule, CheckboxModule,
         InputTextModule,
         ButtonModule,

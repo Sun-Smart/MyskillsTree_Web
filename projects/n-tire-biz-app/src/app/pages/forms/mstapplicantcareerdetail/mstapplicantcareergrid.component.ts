@@ -23,6 +23,7 @@ import { mstapplicantcareerdetail } from '../../../model/mstapplicantcareerdetai
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 @Component({
   selector: 'app-applicantcareergrid',
+  
   template: `<div *ngIf="showWebviewDetect" class="row form-group sticky1 career_mobile_grid" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
     <div class="col-4">
@@ -380,7 +381,7 @@ export class mstapplicantcareergridComponent implements OnInit {
 
     this.FillData();
     this.mstapplicantcareerdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
-      console.log('skill res',res);
+      console.log('skill res', res);
       this.skills_List = res;
     }).catch((err) => { this.spinner.hide(); });
   };
@@ -675,6 +676,10 @@ export class mstapplicantcareergridComponent implements OnInit {
       });
       setTimeout(() => {
         this.getSkillsDescription();
+        this.mstapplicantcareerdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
+          console.log('skill res', res);
+          this.skills_List = res;
+        }).catch((err) => { this.spinner.hide(); });
       }, 400);
       this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
     })

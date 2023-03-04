@@ -322,6 +322,9 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   ShowTableslist: any;
   pkcol: any;
   bmyrecord: boolean = false;
+  showDateError: boolean;
+  fromdate: Date;
+  todate: Date;
   hidelist: any = [];
   objvalues: any = [];
   viewHtml: any = '';//stores html view of the screen
@@ -347,10 +350,13 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   r3: any;
   maindata: any;
   companyList: DropDownValues[];
+  city_List: DropDownValues[];
+
   showMobileDetectskill: boolean = false;
   showWebviewDetect: boolean = true;
   isMobile: any;
   constructor(
+    private ngbDateParserFormatter: NgbDateParserFormatter,
     private mstapplicantworkreference_service: mstapplicantworkreferenceService,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
@@ -384,7 +390,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       attachment: [null],
       fromdate: [null],
       todate: [null],
-      Location: [null],
+      location: [null],
       status: [null],
       skills: [null],
       skilldesc: [null],
@@ -404,7 +410,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
     this.FillData();
     this.mstapplicantworkreference_service.getskillsDetails(this.applicantid).then((res: any) => {
-      console.log('skill res',res);
+      console.log('skill res', res);
       this.skills_List = res;
     }).catch((err) => { this.spinner.hide(); });
     this.get_companyName();
@@ -428,11 +434,24 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       //get the record from api
       //foreign keys
     }
+    this.getdefaultdata();
+
+    // city list
+
+    // this.mstapplicantworkreference_service.getList_city(countryDetail.value).then((res: any) => {
+    //   this.city_List = res as DropDownValues[]
+    // }).catch((err) => { this.spinner.hide(); });
+  };
+
+  getdefaultdata() {
     this.mstapplicantworkreference_service.getDefaultData().then(res => {
+
+      console.log("location", res);
+      
       this.applicantid_List = res.list_applicantid.value;
       // this.skills_List = res.list_skills.value;
     }).catch((err) => { this.spinner.hide(); });
-  };
+  }
 
   getSkills(skills_List: any) {
     let skills: any[] = [];
@@ -545,47 +564,63 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     if (strError != "") return this.sharedService.alert(strError);
 
     this.formData = this.mstapplicantworkreference_Form.getRawValue();
+
+
+    this.formData.fromdate = new Date(this.mstapplicantworkreference_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantworkreference_Form.get('fromdate').value) + '  UTC' : null);
+
+    if (this.mstapplicantworkreference_Form.value.currentlyworking == true) {
+      this.formData.todate = new Date()
+    } else {
+      this.formData.todate = new Date(this.mstapplicantworkreference_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantworkreference_Form.get('todate').value) + '  UTC' : null);
+    }
+
     this.formData.skills = null;
-    this.formData.applicantid = this.applicantid;
-    if (this.mstapplicantworkreference_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantworkreference_Form.get('skills').value));
-    this.spinner.show();
-    this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(
-      async res => {
-        this.spinner.hide();
-        this.toastr.addSingle("success", "", "Successfully saved");
-        this.sessionService.setItem("attachedsaved", "true")
-        this.mstapplicantworkreference_Form.reset();
-        this.objvalues.push((res as any).mstapplicantworkreference);
-        this.ngOnInit();
-        if (!bclear) this.showview = true;
-        if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-          this.dialogRef.close(this.objvalues);
-          return;
-        }
-        else {
+
+    if (this.formData.fromdate > this.formData.todate) {
+      this.showDateError = true;
+      return;
+    } else {
+
+      this.formData.applicantid = this.applicantid;
+      if (this.mstapplicantworkreference_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantworkreference_Form.get('skills').value));
+      this.spinner.show();
+      this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(
+        async res => {
+          this.spinner.hide();
+          this.toastr.addSingle("success", "", "Successfully saved");
+          this.sessionService.setItem("attachedsaved", "true")
+          this.mstapplicantworkreference_Form.reset();
+          this.objvalues.push((res as any).mstapplicantworkreference);
+          this.ngOnInit();
+          if (!bclear) this.showview = true;
           if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        }
-        if (bclear) {
-          this.resetForm();
-        }
-        else {
-          if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-            this.objvalues.push((res as any).mstapplicantworkreference);
+          if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
             this.dialogRef.close(this.objvalues);
+            return;
           }
           else {
-            // this.FillData(res);
+            if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
           }
-        }
-        this.mstapplicantworkreference_Form.markAsUntouched();
-        this.mstapplicantworkreference_Form.markAsPristine();
-      },
-      err => {
-        this.spinner.hide();
-        this.toastr.addSingle("error", "", err.error);
-      }
-    )
+          if (bclear) {
+            this.resetForm();
+          }
+          else {
+            if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+              this.objvalues.push((res as any).mstapplicantworkreference);
+              this.dialogRef.close(this.objvalues);
+            }
+            else {
+              // this.FillData(res);
+            }
+          }
+          this.mstapplicantworkreference_Form.markAsUntouched();
+          this.mstapplicantworkreference_Form.markAsPristine();
+        },
+        err => {
+          this.spinner.hide();
+          this.toastr.addSingle("error", "", err.error);
+        })
+    }
   }
 
   resetForm() {
@@ -607,6 +642,11 @@ export class mstapplicantworkrefgridComponent implements OnInit {
           let ctrltype = typeof (mainscreendata[key]);
           if (false)
             json = "";
+          else if (key == "fromdate")
+            this.mstapplicantworkreference_Form.patchValue({ "fromdate": this.ngbDateParserFormatter.parse(mainscreendata[key]) });
+          else if (key == "todate")
+            this.mstapplicantworkreference_Form.patchValue({ "todate": this.ngbDateParserFormatter.parse(mainscreendata[key]) });
+
           else if (ctrltype == "string") {
             this.mstapplicantworkreference_Form.patchValue({ [key]: mainscreendata[key] });
           }
@@ -676,6 +716,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   Add_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
     this.showSkillDetails_input = true;
+    this.getdefaultdata();
     this.mstapplicantworkreference_Form.reset();
     let add = false;
     if (event == null) add = true;
@@ -922,6 +963,10 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     let referencesourcedetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Work Topic: ' + event.data.worktopic + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;white-space: break-spaces !important;"> Work Description: ' + event.data.workdescription + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.referenceurl + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.fromdate + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.todate + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.skills + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.location + '</li>'
       + '<li class="list-group-item remarks_p" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
 
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantworkreferences");

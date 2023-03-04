@@ -14,7 +14,7 @@ import { mstapplicantreferencerequestModule } from '../mstapplicantreferencerequ
 import { mstapplicantachievementdetailModule } from '../mstapplicantachievementdetail/mstapplicantachievementdetail.module';
 import { mstapplicantmastermainComponent } from '../mstapplicantmaster/mstapplicantmastermain.component';
 import { mstresumeapplicantComponent } from '../mstapplicantmaster/mstresumeapplicant.component';
-import {CalendarModule} from 'primeng/calendar';
+import { CalendarModule } from 'primeng/calendar';
 import { mstapplicantlanuagegridComponent } from '../mstapplicantlanguagedetail/mstapplicantlanguagegrid.component';
 @NgModule({
   exports: [
@@ -36,6 +36,6 @@ import { mstapplicantlanuagegridComponent } from '../mstapplicantlanguagedetail/
     CalendarModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  declarations: [mstapplicantlanuagegridComponent,BODashboardViewerComponent,mstapplicantmastermainComponent,mstresumeapplicantComponent]
+  declarations: [mstapplicantlanuagegridComponent, BODashboardViewerComponent, mstapplicantmastermainComponent, mstresumeapplicantComponent]
 })
 export class bodashboardviewerModule { }
