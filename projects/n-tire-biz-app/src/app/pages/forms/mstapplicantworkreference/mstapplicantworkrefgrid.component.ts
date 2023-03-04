@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
@@ -188,16 +188,17 @@ class="fa fa-close"></i> Close</a>
                     <td>
 
                     <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
-                    (completeMethod)="search_skills($event)"></p-autoComplete>
+                    (completeMethod)="search_skills($event)" ></p-autoComplete>
 
                     </td>
 
                     <!--Location-->
 
                     <td>
-                    <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
-                      (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="city" id="value"
-                      desc="label"></app-popupselect>
+
+                   <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
+                      (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="location" id="cityid"
+                      desc="city"></app-popupselect>
                     </td>
 
 
@@ -313,6 +314,9 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   @ViewChild('tbl_mstapplicantworkreferences', { static: false }) tbl_mstapplicantworkreferences: Ng2SmartTableComponent;
   @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
   readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
+
+  city_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
+
   mstapplicantworkreferences_visiblelist: any;
   mstapplicantworkreferences_hidelist: any;
 
@@ -321,6 +325,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   mstapplicantworkreferences_selectedindex: any;
   ShowTableslist: any;
   pkcol: any;
+  myDate: any;
   bmyrecord: boolean = false;
   showDateError: boolean;
   fromdate: Date;
@@ -364,10 +369,12 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     private sharedService: SharedService,
     private fb: FormBuilder,
     private sessionService: SessionService,
-    private toastr: ToastService,
+    private toastr: ToastService,private datePipe: DatePipe,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
     private mstapplicantreferencerequestService: mstapplicantreferencerequestService,
   ) {
+    var date = new Date()
+    this.myDate = this.datePipe.transform(date);
     this.data = dynamicconfig;
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -391,6 +398,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       fromdate: [null],
       todate: [null],
       location: [null],
+      city:[null],
       status: [null],
       skills: [null],
       skilldesc: [null],
@@ -409,11 +417,8 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
     this.FillData();
-    this.mstapplicantworkreference_service.getskillsDetails(this.applicantid).then((res: any) => {
-      console.log('skill res', res);
-      this.skills_List = res;
-    }).catch((err) => { this.spinner.hide(); });
     this.get_companyName();
+
     let mstapplicantworkreferenceid = null;
     //copy the data from previous dialog
     this.viewHtml = ``;
@@ -435,12 +440,16 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       //foreign keys
     }
     this.getdefaultdata();
+    this.mstapplicantworkreference_service.getskillsDetails(this.applicantid).then((res: any) => {
+      console.log('skill res', res);
+      this.skills_List = res;
+    }).catch((err) => { this.spinner.hide(); });
 
-    // city list
+    this.mstapplicantworkreference_service.getlocationDetails(this.applicantid).then((res: any) => {
+      console.log('Location res', res.mstapplicantgeographypreference);
+      this.city_List = res.mstapplicantgeographypreference as DropDownValues[];
+    }).catch((err) => { this.spinner.hide(); });
 
-    // this.mstapplicantworkreference_service.getList_city(countryDetail.value).then((res: any) => {
-    //   this.city_List = res as DropDownValues[]
-    // }).catch((err) => { this.spinner.hide(); });
   };
 
   getdefaultdata() {
@@ -488,8 +497,25 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   skill_onchange(event: any) {
     let e = event.value;
     this.mstapplicantworkreference_Form.patchValue({ skilldesc: event.options[event.options.selectedIndex].text });
-
   }
+
+  
+  onSelected_city(cityDetail: any) {
+
+    if (cityDetail.cityid && cityDetail) {
+      this.mstapplicantworkreference_Form.patchValue({
+        city: cityDetail.cityid,
+        citydesc: cityDetail.name,
+      });
+      
+      this.mstapplicantworkreference_service.getList(cityDetail.cityid).then((res: any) => {
+        this.city_List = res as DropDownValues[]
+      }).catch((err) => {
+        this.spinner.hide();
+      });
+    }
+  }
+
   onChange_companyList(event: any) {
     this.mstapplicantworkreference_Form.patchValue({ companyname: event.options[event.options.selectedIndex].text });
   }
@@ -554,6 +580,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   };
 
   async onSubmitData(bclear: any) {
+    debugger
     this.isSubmitted = true;
     let strError = "";
     if (!this.mstapplicantworkreference_Form.valid) {
@@ -586,6 +613,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       this.spinner.show();
       this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(
         async res => {
+          debugger
           this.spinner.hide();
           this.toastr.addSingle("success", "", "Successfully saved");
           this.sessionService.setItem("attachedsaved", "true")
@@ -666,21 +694,21 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     }
   }
 
-  mstapplicantworkreferenceshtml() {
+  mstapplicantworkreferenceshtml() { 
     let ret = "";
     ret += `
         <table class="table table-hover workdetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr style="word-break: break-word;">
-            <th style="white-space: break-spaces;width:10%;">##companyname##</th>
-            <th style="white-space: break-spaces;width:10%;">##worktopic##</th>
-            <th style="white-space: break-spaces;width:10%;">##workdescription##</th>
-            <th style="white-space: break-spaces;width:10%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
-            <th style="white-space: break-spaces;width:10%;">##fromdate##</th>
-            <th style="white-space: break-spaces;width:10%;">##todate##</th>
+            <th style="white-space: break-spaces;width:11%;">##companyname##</th>
+            <th style="white-space: break-spaces;width:11%;">##worktopic##</th>
+            <th style="white-space: break-spaces;width:11%;">##workdescription##</th>
+            <th style="white-space: break-spaces;width:11%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
+            <th style="white-space: break-spaces;width:11%;">##fromdate##</th>
+            <th style="white-space: break-spaces;width:11%;">##todate##</th>
             <th style="white-space: break-spaces;width:10%;">##remarks##</th>
-            <th style="white-space: break-spaces;width:20%;">##string_agg##</th>
-            <th style="white-space: break-spaces;width:20%;">##location##</th>
+            <th style="white-space: break-spaces;width:11%;">##string_agg##</th>
+            <th style="white-space: break-spaces;width:12%;">##location##</th>
           </tr>
         </tbody>
       </table>
@@ -725,6 +753,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   }
 
   Edit_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
+    debugger
     this.showSkillDetails_input = true;
     let add = false;
     if (event == null) add = true;
@@ -733,6 +762,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
     console.log(event, event.data.workreferenceid, event.data.applicantid);
     this.mstapplicantworkreference_service.get_mstapplicantworkreferences_ByEID(event.data.pkcol).then((res: any) => {
+      debugger
       this.mstapplicantworkreference_Form.patchValue({
         applicantid: res.mstapplicantworkreference.applicantid,
         applicantiddesc: res.mstapplicantworkreference.applicantiddesc,
@@ -741,9 +771,12 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         companyname: res.mstapplicantworkreference.companyname,
         workdescription: res.mstapplicantworkreference.workdescription,
         referenceurl: res.mstapplicantworkreference.referenceurl,
+        fromdate: this.ngbDateParserFormatter.parse(res.mstapplicantworkreference.fromdate),
+        todate: this.ngbDateParserFormatter.parse(res.mstapplicantworkreference.todate),
         remarks: res.mstapplicantworkreference.remarks,
         requestid: res.mstapplicantworkreference.requestid,
         skills: res.mstapplicantworkreference.skills,
+        location:res.mstapplicantworkreference.location,
         attachment: "[]",
         status: res.mstapplicantworkreference.status,
         statusdesc: res.mstapplicantworkreference.statusdesc,
@@ -757,9 +790,11 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   onDelete_mstapplicantworkreference(event: any, childID: number, i: number) {
     if (confirm('Do you want to delete this record?')) {
+      this.spinner.show();
       this.mstapplicantreferencerequestService.delete_mstapplicantreferencerequest(childID).then(res => {
         this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
           this.ngOnInit();
+          this.spinner.hide();
           this.mstapplicantworkreferences_LoadTable(res);
         });
       })
@@ -916,7 +951,17 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             }
             divrow['referencecount'] = "<div style='position: relative;left: 12%;font-size: 17px;'>" + xyzyzyz + "</div>";
             this.countarray = [];
-            return this.sharedService.HtmlValue(divrow, cell);
+
+            divrow["fromdate"] = this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(row["fromdate"]));
+            divrow["todate"] = this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(row["todate"]));
+            var dateee = divrow["todate"]
+            if (divrow["todate"] == this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(this.myDate))) {
+              divrow["todate"] = "Till date";
+              return this.sharedService.HtmlValue(divrow, cell)
+            } else {
+              divrow["todate"] = dateee
+              return this.sharedService.HtmlValue(divrow, cell)
+            }
           },
         },
       },

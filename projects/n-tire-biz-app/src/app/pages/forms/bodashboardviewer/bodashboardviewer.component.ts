@@ -20,6 +20,7 @@ import { mstresumeapplicantComponent } from '../mstapplicantmaster/mstresumeappl
 import { mstapplicantskilldetailService } from '../../../service/mstapplicantskilldetail.service';
 import { mstapplicanteducationdetailService } from '../../../service/mstapplicanteducationdetail.service';
 import { DatePipe } from '@angular/common';
+import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
 @Component({
   selector: 'ngx-dashboardviewer',
   styles: [`
@@ -114,21 +115,24 @@ export class BODashboardViewerComponent implements OnInit {
   start_date: any;
   end_date: any;
   ref_date: any
-  showNewApp_Dashboard :boolean = false;
+  showNewApp_Dashboard: boolean = false;
 
-  constructor( public dialogRef: DynamicDialogRef,
+  constructor(public dialogRef: DynamicDialogRef,
     private toastr: ToastService,
     public dialog: DialogService, private mstapplicantmaster_service: mstapplicantmasterService, private pageroute: Router,
     private sessionService: SessionService,
     private mstapplicantskilldetail_service: mstapplicantskilldetailService,
     private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,
-    private datepipe: DatePipe
+    private datepipe: DatePipe,
+    private mstapplicantcareerdetail_service: mstapplicantcareerdetailService,
+
   ) {
     this.applicantid = this.sessionService.getItem("applicantid");
   }
   ngOnInit() {
     this.get_allData();
-    this.get_educationdata();
+    this.get_experience();
+    // this.get_educationdata();
     this.isskillcompleted = false
     this.isresumecompleted = false
     this.isprojectcompleted = false
@@ -321,11 +325,11 @@ export class BODashboardViewerComponent implements OnInit {
 
   get_allData() {
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
-      
+
 
       if (res.mstapplicantskilldetail.length > 0) {
         this.showNewApp_Dashboard = true;
-      } 
+      }
       this.sub_category = res.mstapplicantskilldetail;
 
       for (let i = 0; i < this.sub_category.length; i++) {
@@ -401,11 +405,25 @@ export class BODashboardViewerComponent implements OnInit {
     });
   }
 
-  get_educationdata() {
-    this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
-      this.get_educationd_data = res.mstapplicanteducationdetail
-    });
+  get_experience() {
+
+    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then((res: any) => {
+
+      console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
+      
+
+      for (let i = 0; i < res.mstapplicantcareerdetail; i++){
+        let StartDate = res.mstapplicantcareerdetail.fromdate;
+        let EndDate = res.mstapplicantcareerdetail.todate;
+      }
+    })
   }
+
+  // get_educationdata() {
+  //   this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
+  //     this.get_educationd_data = res.mstapplicanteducationdetail
+  //   });
+  // }
   showSkills() {
     this.dialog.open(mstapplicantskilldetailgridComponent,
       {
