@@ -67,15 +67,14 @@
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;line-height: 1;">
         <li class='nav-item actionheader' *ngIf="!showview">
           <button type="button" class="btn btn-outline-primary  popup-add-button"
-            (click)="onSubmitAndWait()">Submit</button>&nbsp;
+            (click)="onSubmitAndWait()"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;Submit</button>&nbsp;
           <app-action *ngIf="f.requestid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
             [value]="f.requestid.value" [status]="f.status.value"></app-action>
         </li>
-        <li>
-          <i class='nav-item actionheader'
-            *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
-            class="fa fa-times-circle close_common_icon2" (click)="onClose()"></i>
-        </li>
+        <li class='nav-item actionheader'
+        *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+        <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
+      </li>
 
 
       </ul>

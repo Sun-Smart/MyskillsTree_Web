@@ -1669,6 +1669,10 @@ export class mstapplicantmasterComponent implements OnInit {
                     },
                 },
             },
+            
+attr: {
+    class: 'table table-bordered table-header'
+},
         };
     }
     mstapplicantcareerdetails_LoadTable(mstapplicantcareerdetails = new LocalDataSource()) {
@@ -2154,6 +2158,10 @@ export class mstapplicantmasterComponent implements OnInit {
                     },
                 },
             },
+            
+attr: {
+    class: 'table table-bordered table-header'
+},
         };
     }
     mstapplicantworkreferences_LoadTable(mstapplicantworkreferences = new LocalDataSource()) {
@@ -2311,6 +2319,10 @@ export class mstapplicantmasterComponent implements OnInit {
                     },
                 },
             },
+            
+attr: {
+    class: 'table table-bordered table-header'
+},
         };
     }
     mstapplicantsocialmediadetails_LoadTable(mstapplicantsocialmediadetails = new LocalDataSource()) {
@@ -2466,6 +2478,10 @@ export class mstapplicantmasterComponent implements OnInit {
                     },
                 },
             },
+            
+attr: {
+    class: 'table table-bordered table-header'
+},
         };
     }
     mstapplicantachievementdetails_LoadTable(mstapplicantachievementdetails = new LocalDataSource()) {
@@ -2632,6 +2648,10 @@ export class mstapplicantmasterComponent implements OnInit {
                     },
                 },
             },
+            
+attr: {
+    class: 'table table-bordered table-header'
+},
         };
     }
     mstapplicantlanguagedetails_LoadTable(mstapplicantlanguagedetails = new LocalDataSource()) {
@@ -2788,6 +2808,10 @@ export class mstapplicantmasterComponent implements OnInit {
                     },
                 },
             },
+            
+attr: {
+    class: 'table table-bordered table-header'
+},
         };
     }
     mstapplicanteducationdetails_LoadTable(mstapplicanteducationdetails = new LocalDataSource()) {
@@ -2960,6 +2984,10 @@ export class mstapplicantmasterComponent implements OnInit {
                     },
                 },
             },
+            
+attr: {
+    class: 'table table-bordered table-header'
+},
         };
     }
     mstjobstatuses_LoadTable(mstjobstatuses = new LocalDataSource()) {
@@ -3122,6 +3150,10 @@ export class mstapplicantmasterComponent implements OnInit {
                     },
                 },
             },
+            
+attr: {
+    class: 'table table-bordered table-header'
+},
         };
     }
     mstapplicantreferencerequests_LoadTable(mstapplicantreferencerequests = new LocalDataSource()) {

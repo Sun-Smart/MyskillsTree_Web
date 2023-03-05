@@ -67,10 +67,10 @@
         <li class='nav-item actionheader ' *ngIf="!showview">
           <button type="button" class="btn btn-outline-primary popup-add-button" style="border-color: #000 !important;margin: 5px;
               padding: 3px;
-              color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
+              color: #000;" (click)="onSubmitAndWait()"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;Submit</button>&nbsp;
           <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn"
             *ngIf='data.pkcol==null || maindata.ScreenType==null' style="border-color: #000 !important;
-              color: #000;margin: 5px; padding: 3px;" (click)="onSubmit()">Submit & Clear</button>&nbsp;
+              color: #000;margin: 5px; padding: 3px;" (click)="onSubmit()"><i class="fa fa-share-square" aria-hidden="true"></i>&nbsp;Submit & Clear</button>&nbsp;
           <app-action *ngIf="f.socialrefid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
             [value]="f.socialrefid.value" [status]="f.status.value"></app-action>
         </li>
