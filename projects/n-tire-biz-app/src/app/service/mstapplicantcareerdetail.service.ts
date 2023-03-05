@@ -33,6 +33,12 @@ export class mstapplicantcareerdetailService {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantcareerdetail' + '/getdefaultdata').toPromise();
     }
   }
+  getskillsDetails(applicantid:any):any{
+    if (this.valid()) {
+      let appid = localStorage.getItem('applicantid');
+      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantachievementdetail/appid/'+appid).toPromise();
+    }
+  }
   get_mstapplicantcareerdetails_List(): any {
     if (this.valid()) {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantcareerdetail').toPromise();
@@ -61,7 +67,7 @@ export class mstapplicantcareerdetailService {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantcareerdetail' + '/' + id).toPromise();
     }
   }
-  
+
 
   get_mstapplicantcareerdetails_ByApplicantID(id: number): any {
     let appid = localStorage.getItem('applicantid');

@@ -7,12 +7,8 @@ import {
 import {
   startOfDay,
   endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
   isSameDay,
-  isSameMonth,
-  addHours
+  isSameMonth
 } from 'date-fns';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -69,19 +65,16 @@ export class CalendarFormComponent implements OnInit, ControlValueAccessor {
   paramid: any;
   @ViewChild('container', { read: ViewContainerRef, static: false }) container: ViewContainerRef;
   onChange: any = () => {
-    console.log('value1');
   };
   onTouched: any = () => { };
 
 
   registerOnChange(fn) {
-    console.log('value3');
     this.onChange = fn;
   }
 
 
   writeValue(value) {
-    console.log('value2');
     if (value) {
       this.value = value;
     }
@@ -130,52 +123,6 @@ export class CalendarFormComponent implements OnInit, ControlValueAccessor {
 
   refresh: Subject<any> = new Subject();
   events: CalendarFormEvent[] = [];
-  /*
-    events: CalendarFormEvent[] = [
-      {
-        id:0,
-        start: subDays(startOfDay(new Date()), 1),
-        end: addDays(new Date(), 1),
-        title: 'A 3 day event',
-        color: colors.red,
-        actions: this.actions,
-        allDay: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
-        },
-        draggable: true
-      },
-      {
-        id:0,
-        start: startOfDay(new Date()),
-        title: 'An event with no end date',
-        color: colors.yellow,
-        actions: this.actions
-      },
-      {
-        id:0,
-        start: subDays(endOfMonth(new Date()), 3),
-        end: addDays(endOfMonth(new Date()), 3),
-        title: 'A long event that spans 2 months',
-        color: colors.blue,
-        allDay: true
-      },
-      {
-        id:0,
-        start: addHours(startOfDay(new Date()), 2),
-        end: addHours(new Date(), 2),
-        title: 'A draggable and resizable event',
-        color: colors.yellow,
-        actions: this.actions,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
-        },
-        draggable: true
-      }
-    ];
-  */
 
 
 
@@ -183,7 +130,6 @@ export class CalendarFormComponent implements OnInit, ControlValueAccessor {
 
   constructor(private router: Router, private themeService: ThemeService, private modal: NgbModal, private boreportviewerservice: BOReportViewerService, private sessionService: SessionService,
     private currentRoute: ActivatedRoute) {
-    debugger;
     this.currentRoute.params.subscribe(params => {
       this.reportid = null;
       this.paramid = params.id;
@@ -195,7 +141,6 @@ export class CalendarFormComponent implements OnInit, ControlValueAccessor {
     this.sessiondata = this.sessionService.getSession();
     this.theme = this.sessionService.getItem('selected-theme');
     this.themeService.theme.subscribe((val: string) => {
-      debugger;
       this.theme = val;
     });
 
@@ -203,26 +148,20 @@ export class CalendarFormComponent implements OnInit, ControlValueAccessor {
 
   }
   paramsChange(id) {
-    debugger;
     if (this.container != undefined) this.container.clear();
     this.Initialize(id);
   }
   Initialize(id) {
     let status = "'A'";
 
-    debugger;
-
     if (this.currentRoute.snapshot.paramMap.get('fkname') != null && this.currentRoute.snapshot.paramMap.get('fk') != null) {
       this.fkname = this.currentRoute.snapshot.paramMap.get('fkname');
       this.value = this.currentRoute.snapshot.paramMap.get('fk');
     }
 
-
-    debugger;
     if ((this.reportid == null || this.reportid == undefined) && (id != null && id != undefined)) this.reportid = id;
     if (this.reportid == null || this.reportid == undefined) this.reportid = 300;
     this.boreportviewerservice.getBOReportResultsByID((this.reportid), this.fkname, this.value, null, null, status, null, null, null).then((res: any) => {
-      //debugger;
       this.configdata = res.boreport;
       this.cols = res.boreportcolumn;
       this.data = res.results.Rows;
@@ -246,19 +185,12 @@ export class CalendarFormComponent implements OnInit, ControlValueAccessor {
         }
         this.events.push(evt);
       }
-      /*
-      var obj = (document.getElementsByClassName("cal-today")[0]) as any;
-      console.log(obj);
-      debugger;
-      obj.click();
-      */
       this.viewDate = new Date();
     });
   }
 
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    debugger;
     if (isSameMonth(date, this.viewDate)) {
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -297,9 +229,6 @@ export class CalendarFormComponent implements OnInit, ControlValueAccessor {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    //this.modalData = { event, action };
-    //this.modal.open(this.modalContent, { size: 'lg' });
-    debugger;
     if (action == 'Edited') {
       let formname = this.configdata.maintablename;
       this.router.navigate(['/home/' + formname + '/' + formname + '/edit/' + event.id]);

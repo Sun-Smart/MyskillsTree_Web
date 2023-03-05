@@ -434,11 +434,7 @@ export class LoginComponent implements OnInit {
     if (loginuser.defaultpage == null || !loginuser.defaultpage) {
       if (loginuser.role == "2") {
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(loginuser.applicantid).then((res: any) => {
-          if (res.mstapplicantskilldetail.length > 0) {
-            this.router.navigate(['/home']);
-          } else {
-            this.router.navigate(['/home/personaldetails']);
-          }
+          this.router.navigate(['/home']);
         });
       }
       if (loginuser.role == '3') {

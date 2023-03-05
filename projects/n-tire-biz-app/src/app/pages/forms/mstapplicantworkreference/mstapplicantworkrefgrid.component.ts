@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { DomSanitizer } from "@angular/platform-browser";
 import { LocalDataSource } from 'ng2-smart-table';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
@@ -79,7 +79,7 @@ class="fa fa-close"></i> Close</a>
 
                 <a class="alert-success" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
                 class="fa fa-plus"></i> Add</a>
-          
+
                 <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
                 class="fa fa-close"></i> Close</a>
                 </div>
@@ -90,12 +90,15 @@ class="fa fa-close"></i> Close</a>
                 <thead>
                     <tr>
 
-                    <th style="width: 18%;">Company Name</th>
-                    <th style="width: 15%;">Work Topic</th>
-                    <th style="width: 15%">Reference Url</th>
-                    <th style="width: 15%;">Work Description</th>
-                    <th style="width: 15%;">Remarks</th>
-                    <th style="width: 15%;">Skills</th>
+                    <th style="width: 10%;">Company Name</th>
+                    <th style="width: 10%;">Work Topic</th>
+                    <th style="width: 10%;">Work Description</th>
+                    <th style="width: 10%">Reference Url</th>
+                    <th style="width: 10%;">From Date</th>
+                    <th style="width: 10%;">To Date</th>
+                    <th style="width: 10%;">Remarks</th>
+                    <th style="width: 10%;">Skills</th>
+                    <th style="width: 10%;">Location</th>
                     <th style="width: 10%;text-align: center;">Action</th>
                     </tr>
                 </thead>
@@ -121,12 +124,7 @@ class="fa fa-close"></i> Close</a>
 
                         </td>
 
-                <!-- Reference URL -->
-
-                    <td>
-                    <input id="referenceurl" formControlName="referenceurl" class="form-control">
-
-                    </td>
+  
 
                 <!-- Work Description -->
 
@@ -134,11 +132,51 @@ class="fa fa-close"></i> Close</a>
                     <textarea autosize rows="1" cols="10" onlyGrow="true"  id="workdescription" required
                     formControlName="workdescription" class="form-control">
                     </textarea>
-
+ 
                     <div *ngIf="mstapplicantworkreference_Form.get('workdescription').errors  && isSubmitted" class="invalid-feedback">
                         <span *ngIf="mstapplicantworkreference_Form.get('workdescription').hasError('required')">workdescription is required</span>
                         </div>
                     </td>
+
+                    <!-- Reference URL -->
+
+                    <td>
+                    <input id="referenceurl" formControlName="referenceurl" class="form-control">
+
+                    </td>
+
+                    <!-- From Date -->
+
+                    <td>
+                    <div >
+                    <div class="input-group" style="display: flex;width: 100%;">
+               
+                      <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+                      [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
+                        formControlName="fromdate" style="margin-right: 5px;" class="form-control">
+                        
+                      <button class="input-group-addon" (click)="d.toggle()" type="button"><i
+                          class="fa fa-calendar" aria-hidden="true"></i></button>
+                    </div>
+                  </div></td>
+
+                  <!-- To Date -->
+
+                  <td>
+                  <div>
+                 <div style="display: flex;width: 80%;">
+                  <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+                       [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate" class="form-control"
+                       style="margin-right: 5px;">
+             
+                       <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
+                           class="fa fa-calendar" aria-hidden="true"></i></button>
+                 </div>
+                         <div *ngIf="showDateError" style="color: red;font-size: 12px;">
+                           To date is greater than from date
+                         </div>
+                 </div>
+                  </td>
 
                 <!-- Remarks -->
 
@@ -150,8 +188,17 @@ class="fa fa-close"></i> Close</a>
                     <td>
 
                     <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
-                    (completeMethod)="search_skills($event)"></p-autoComplete>
+                    (completeMethod)="search_skills($event)" ></p-autoComplete>
 
+                    </td>
+
+                    <!--Location-->
+
+                    <td>
+
+                   <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
+                      (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="location" id="cityid"
+                      desc="city"></app-popupselect>
                     </td>
 
 
@@ -267,6 +314,9 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   @ViewChild('tbl_mstapplicantworkreferences', { static: false }) tbl_mstapplicantworkreferences: Ng2SmartTableComponent;
   @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
   readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
+
+  city_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
+
   mstapplicantworkreferences_visiblelist: any;
   mstapplicantworkreferences_hidelist: any;
 
@@ -275,7 +325,11 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   mstapplicantworkreferences_selectedindex: any;
   ShowTableslist: any;
   pkcol: any;
+  myDate: any;
   bmyrecord: boolean = false;
+  showDateError: boolean;
+  fromdate: Date;
+  todate: Date;
   hidelist: any = [];
   objvalues: any = [];
   viewHtml: any = '';//stores html view of the screen
@@ -301,10 +355,13 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   r3: any;
   maindata: any;
   companyList: DropDownValues[];
+  city_List: DropDownValues[];
+
   showMobileDetectskill: boolean = false;
   showWebviewDetect: boolean = true;
   isMobile: any;
   constructor(
+    private ngbDateParserFormatter: NgbDateParserFormatter,
     private mstapplicantworkreference_service: mstapplicantworkreferenceService,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
@@ -312,10 +369,12 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     private sharedService: SharedService,
     private fb: FormBuilder,
     private sessionService: SessionService,
-    private toastr: ToastService,
+    private toastr: ToastService,private datePipe: DatePipe,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
     private mstapplicantreferencerequestService: mstapplicantreferencerequestService,
   ) {
+    var date = new Date()
+    this.myDate = this.datePipe.transform(date);
     this.data = dynamicconfig;
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
@@ -336,6 +395,10 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       remarks: [null],
       requestid: [null],
       attachment: [null],
+      fromdate: [null],
+      todate: [null],
+      location: [null],
+      city:[null],
       status: [null],
       skills: [null],
       skilldesc: [null],
@@ -355,6 +418,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
     this.FillData();
     this.get_companyName();
+
     let mstapplicantworkreferenceid = null;
     //copy the data from previous dialog
     this.viewHtml = ``;
@@ -375,11 +439,28 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       //get the record from api
       //foreign keys
     }
-    this.mstapplicantworkreference_service.getDefaultData().then(res => {
-      this.applicantid_List = res.list_applicantid.value;
-      this.skills_List = res.list_skills.value;
+    this.getdefaultdata();
+    this.mstapplicantworkreference_service.getskillsDetails(this.applicantid).then((res: any) => {
+      console.log('skill res', res);
+      this.skills_List = res;
     }).catch((err) => { this.spinner.hide(); });
+
+    this.mstapplicantworkreference_service.getlocationDetails(this.applicantid).then((res: any) => {
+      console.log('Location res', res.mstapplicantgeographypreference);
+      this.city_List = res.mstapplicantgeographypreference as DropDownValues[];
+    }).catch((err) => { this.spinner.hide(); });
+
   };
+
+  getdefaultdata() {
+    this.mstapplicantworkreference_service.getDefaultData().then(res => {
+
+      console.log("location", res);
+      
+      this.applicantid_List = res.list_applicantid.value;
+      // this.skills_List = res.list_skills.value;
+    }).catch((err) => { this.spinner.hide(); });
+  }
 
   getSkills(skills_List: any) {
     let skills: any[] = [];
@@ -416,8 +497,25 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   skill_onchange(event: any) {
     let e = event.value;
     this.mstapplicantworkreference_Form.patchValue({ skilldesc: event.options[event.options.selectedIndex].text });
-
   }
+
+  
+  onSelected_city(cityDetail: any) {
+
+    if (cityDetail.cityid && cityDetail) {
+      this.mstapplicantworkreference_Form.patchValue({
+        city: cityDetail.cityid,
+        citydesc: cityDetail.name,
+      });
+      
+      this.mstapplicantworkreference_service.getList(cityDetail.cityid).then((res: any) => {
+        this.city_List = res as DropDownValues[]
+      }).catch((err) => {
+        this.spinner.hide();
+      });
+    }
+  }
+
   onChange_companyList(event: any) {
     this.mstapplicantworkreference_Form.patchValue({ companyname: event.options[event.options.selectedIndex].text });
   }
@@ -482,6 +580,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   };
 
   async onSubmitData(bclear: any) {
+    debugger
     this.isSubmitted = true;
     let strError = "";
     if (!this.mstapplicantworkreference_Form.valid) {
@@ -492,47 +591,64 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     if (strError != "") return this.sharedService.alert(strError);
 
     this.formData = this.mstapplicantworkreference_Form.getRawValue();
+
+
+    this.formData.fromdate = new Date(this.mstapplicantworkreference_Form.get('fromdate').value ? this.ngbDateParserFormatter.format(this.mstapplicantworkreference_Form.get('fromdate').value) + '  UTC' : null);
+
+    if (this.mstapplicantworkreference_Form.value.currentlyworking == true) {
+      this.formData.todate = new Date()
+    } else {
+      this.formData.todate = new Date(this.mstapplicantworkreference_Form.get('todate').value ? this.ngbDateParserFormatter.format(this.mstapplicantworkreference_Form.get('todate').value) + '  UTC' : null);
+    }
+
     this.formData.skills = null;
-    this.formData.applicantid = this.applicantid;
-    if (this.mstapplicantworkreference_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantworkreference_Form.get('skills').value));
-    this.spinner.show();
-    this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(
-      async res => {
-        this.spinner.hide();
-        this.toastr.addSingle("success", "", "Successfully saved");
-        this.sessionService.setItem("attachedsaved", "true")
-        this.mstapplicantworkreference_Form.reset();
-        this.objvalues.push((res as any).mstapplicantworkreference);
-        this.ngOnInit();
-        if (!bclear) this.showview = true;
-        if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-          this.dialogRef.close(this.objvalues);
-          return;
-        }
-        else {
+
+    if (this.formData.fromdate > this.formData.todate) {
+      this.showDateError = true;
+      return;
+    } else {
+
+      this.formData.applicantid = this.applicantid;
+      if (this.mstapplicantworkreference_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantworkreference_Form.get('skills').value));
+      this.spinner.show();
+      this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(
+        async res => {
+          debugger
+          this.spinner.hide();
+          this.toastr.addSingle("success", "", "Successfully saved");
+          this.sessionService.setItem("attachedsaved", "true")
+          this.mstapplicantworkreference_Form.reset();
+          this.objvalues.push((res as any).mstapplicantworkreference);
+          this.ngOnInit();
+          if (!bclear) this.showview = true;
           if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        }
-        if (bclear) {
-          this.resetForm();
-        }
-        else {
-          if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-            this.objvalues.push((res as any).mstapplicantworkreference);
+          if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
             this.dialogRef.close(this.objvalues);
+            return;
           }
           else {
-            // this.FillData(res);
+            if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
           }
-        }
-        this.mstapplicantworkreference_Form.markAsUntouched();
-        this.mstapplicantworkreference_Form.markAsPristine();
-      },
-      err => {
-        this.spinner.hide();
-        this.toastr.addSingle("error", "", err.error);
-      }
-    )
+          if (bclear) {
+            this.resetForm();
+          }
+          else {
+            if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+              this.objvalues.push((res as any).mstapplicantworkreference);
+              this.dialogRef.close(this.objvalues);
+            }
+            else {
+              // this.FillData(res);
+            }
+          }
+          this.mstapplicantworkreference_Form.markAsUntouched();
+          this.mstapplicantworkreference_Form.markAsPristine();
+        },
+        err => {
+          this.spinner.hide();
+          this.toastr.addSingle("error", "", err.error);
+        })
+    }
   }
 
   resetForm() {
@@ -554,6 +670,11 @@ export class mstapplicantworkrefgridComponent implements OnInit {
           let ctrltype = typeof (mainscreendata[key]);
           if (false)
             json = "";
+          else if (key == "fromdate")
+            this.mstapplicantworkreference_Form.patchValue({ "fromdate": this.ngbDateParserFormatter.parse(mainscreendata[key]) });
+          else if (key == "todate")
+            this.mstapplicantworkreference_Form.patchValue({ "todate": this.ngbDateParserFormatter.parse(mainscreendata[key]) });
+
           else if (ctrltype == "string") {
             this.mstapplicantworkreference_Form.patchValue({ [key]: mainscreendata[key] });
           }
@@ -573,18 +694,21 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     }
   }
 
-  mstapplicantworkreferenceshtml() {
+  mstapplicantworkreferenceshtml() { 
     let ret = "";
     ret += `
         <table class="table table-hover workdetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr style="word-break: break-word;">
-            <th style="white-space: break-spaces;width:20%;">##companyname##</th>
-            <th style="white-space: break-spaces;width:17%;">##worktopic##</th>
-            <th style="white-space: break-spaces;width:17%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
-            <th style="white-space: break-spaces;width:16%;">##workdescription##</th>
-            <th style="white-space: break-spaces;width:17%;">##remarks##</th>
-            <th style="white-space: break-spaces;width:20%;">##string_agg##</th>
+            <th style="white-space: break-spaces;width:11%;">##companyname##</th>
+            <th style="white-space: break-spaces;width:11%;">##worktopic##</th>
+            <th style="white-space: break-spaces;width:11%;">##workdescription##</th>
+            <th style="white-space: break-spaces;width:11%;"><a href="https://##referenceurl##" target="_blank">##referenceurl##</a></th>
+            <th style="white-space: break-spaces;width:11%;">##fromdate##</th>
+            <th style="white-space: break-spaces;width:11%;">##todate##</th>
+            <th style="white-space: break-spaces;width:10%;">##remarks##</th>
+            <th style="white-space: break-spaces;width:11%;">##string_agg##</th>
+            <th style="white-space: break-spaces;width:12%;">##location##</th>
           </tr>
         </tbody>
       </table>
@@ -620,6 +744,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   Add_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
     this.showSkillDetails_input = true;
+    this.getdefaultdata();
     this.mstapplicantworkreference_Form.reset();
     let add = false;
     if (event == null) add = true;
@@ -628,6 +753,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   }
 
   Edit_mstapplicantworkreference(event: any, workreferenceid: any, applicantid: any) {
+    debugger
     this.showSkillDetails_input = true;
     let add = false;
     if (event == null) add = true;
@@ -636,6 +762,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
     console.log(event, event.data.workreferenceid, event.data.applicantid);
     this.mstapplicantworkreference_service.get_mstapplicantworkreferences_ByEID(event.data.pkcol).then((res: any) => {
+      debugger
       this.mstapplicantworkreference_Form.patchValue({
         applicantid: res.mstapplicantworkreference.applicantid,
         applicantiddesc: res.mstapplicantworkreference.applicantiddesc,
@@ -644,9 +771,12 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         companyname: res.mstapplicantworkreference.companyname,
         workdescription: res.mstapplicantworkreference.workdescription,
         referenceurl: res.mstapplicantworkreference.referenceurl,
+        fromdate: this.ngbDateParserFormatter.parse(res.mstapplicantworkreference.fromdate),
+        todate: this.ngbDateParserFormatter.parse(res.mstapplicantworkreference.todate),
         remarks: res.mstapplicantworkreference.remarks,
         requestid: res.mstapplicantworkreference.requestid,
         skills: res.mstapplicantworkreference.skills,
+        location:res.mstapplicantworkreference.location,
         attachment: "[]",
         status: res.mstapplicantworkreference.status,
         statusdesc: res.mstapplicantworkreference.statusdesc,
@@ -660,9 +790,11 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   onDelete_mstapplicantworkreference(event: any, childID: number, i: number) {
     if (confirm('Do you want to delete this record?')) {
+      this.spinner.show();
       this.mstapplicantreferencerequestService.delete_mstapplicantreferencerequest(childID).then(res => {
         this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
           this.ngOnInit();
+          this.spinner.hide();
           this.mstapplicantworkreferences_LoadTable(res);
         });
       })
@@ -819,7 +951,17 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             }
             divrow['referencecount'] = "<div style='position: relative;left: 12%;font-size: 17px;'>" + xyzyzyz + "</div>";
             this.countarray = [];
-            return this.sharedService.HtmlValue(divrow, cell);
+
+            divrow["fromdate"] = this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(row["fromdate"]));
+            divrow["todate"] = this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(row["todate"]));
+            var dateee = divrow["todate"]
+            if (divrow["todate"] == this.ngbDateParserFormatter.format(this.ngbDateParserFormatter.parse(this.myDate))) {
+              divrow["todate"] = "Till date";
+              return this.sharedService.HtmlValue(divrow, cell)
+            } else {
+              divrow["todate"] = dateee
+              return this.sharedService.HtmlValue(divrow, cell)
+            }
           },
         },
       },
@@ -866,6 +1008,10 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     let referencesourcedetails = '<ul class="list-group"  style="background: #2D3C84 !important;"><li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Work Topic: ' + event.data.worktopic + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;white-space: break-spaces !important;"> Work Description: ' + event.data.workdescription + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.referenceurl + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.fromdate + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.todate + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.skills + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.location + '</li>'
       + '<li class="list-group-item remarks_p" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
 
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantworkreferences");

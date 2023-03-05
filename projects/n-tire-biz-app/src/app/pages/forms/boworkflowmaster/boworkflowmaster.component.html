@@ -2,7 +2,7 @@
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="boworkflowmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <div class="row second">
-    <h1 class="col-4 columns mainheader left">{{'Workflow Masters' | translate}}
+    <h1 class="col-4 columns mainheader left">{{'Workflow Masters'}}
     </h1>
     <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
       <!--btn-toolbar-->
@@ -157,7 +157,7 @@
             <!-- child table boworkflows-->
             <div [ngClass]="Is_boworkflows_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Workflow' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Workflow'}}
                 <select class='child' id="boworkflowsPagingdropdown" (change)="boworkflows_Paging($event.target.value)"
                   [value]='20'>
                   <option value='20'>20</option>
@@ -206,7 +206,7 @@
             <!-- child table boworkflowsteps-->
             <div [ngClass]="Is_boworkflowsteps_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Workflow Steps' | translate}}
+              <h4 class="form-group sticky1  columns left">{{'Workflow Steps'}}
                 <select class='child' id="boworkflowstepsPagingdropdown"
                   (change)="boworkflowsteps_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

@@ -23,6 +23,7 @@ import { mstapplicantcareerdetail } from '../../../model/mstapplicantcareerdetai
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 @Component({
   selector: 'app-applicantcareergrid',
+  
   template: `<div *ngIf="showWebviewDetect" class="row form-group sticky1 career_mobile_grid" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
     <div class="col-4">
@@ -31,7 +32,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </div>
     <div class="col-4">    </div>
     <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
-    
+
     <a class="alert-success" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
     class="fa fa-plus"></i> Add</a>
 
@@ -106,7 +107,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
        <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
        [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
          formControlName="fromdate" style="margin-right: 5px;" class="form-control">
-         
+
        <button class="input-group-addon" (click)="d.toggle()" type="button"><i
            class="fa fa-calendar" aria-hidden="true"></i></button>
      </div>
@@ -379,6 +380,10 @@ export class mstapplicantcareergridComponent implements OnInit {
     };
 
     this.FillData();
+    this.mstapplicantcareerdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
+      console.log('skill res', res);
+      this.skills_List = res;
+    }).catch((err) => { this.spinner.hide(); });
   };
 
   get f() { return this.mstapplicantcareerdetail_Form.controls; };
@@ -396,7 +401,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     this.mstapplicantcareerdetail_service.getDefaultData().then(res => {
       this.applicantid_List = res.list_applicantid.value;
       this.category_List = res.list_category.value;
-      this.skills_List = res.list_skills.value;
+      // this.skills_List = res.list_skills.value;
     }).catch((err) => { this.spinner.hide(); });
 
     //autocomplete
@@ -671,6 +676,10 @@ export class mstapplicantcareergridComponent implements OnInit {
       });
       setTimeout(() => {
         this.getSkillsDescription();
+        this.mstapplicantcareerdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
+          console.log('skill res', res);
+          this.skills_List = res;
+        }).catch((err) => { this.spinner.hide(); });
       }, 400);
       this.mstapplicantcareerdetail_menuactions = res.mstapplicantcareerdetail_menuactions;
     })
