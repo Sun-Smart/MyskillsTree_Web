@@ -1,7 +1,7 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstcorporatemaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <div class="row second"
+  <div class="row second "
   [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <div class="col-4" style="display: flex !important;justify-content: initial;align-items: center !important;">
     <h1 class="   mainheader left " style="margin: 0px; color: gray !important;margin: auto;">
