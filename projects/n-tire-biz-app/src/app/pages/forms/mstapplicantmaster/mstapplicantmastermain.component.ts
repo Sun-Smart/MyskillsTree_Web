@@ -699,6 +699,7 @@ export class mstapplicantmastermainComponent implements OnInit {
         if (this.fileattachment) this.fileattachment.clear();
         this.spinner.hide();
         this.toastr.addSingle("success", "", "Successfully saved");
+        this.personal.emit(true);
 
         localStorage.removeItem("choosefileforprofile")
         this.objvalues.push((res as any).mstapplicantmaster);
@@ -711,7 +712,7 @@ export class mstapplicantmastermainComponent implements OnInit {
     )
   }
   check() {
-    this.personal.emit(true);
+    // this.personal.emit(true);
   }
 
   PrevForm() {

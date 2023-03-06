@@ -376,6 +376,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     this.showButton = this.data.showButton
 
   }
+  get f() { return this.mstapplicantskilldetail_Form.controls; }
 
   ngOnInit() {
     debugger;
@@ -395,7 +396,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     this.applicantid = this.data.applicantid;
 
     console.log("this.applicantid ", this.applicantid );
-    
+
 
     this.mstapplicantskilldetail_Form = this.fb.group({
       pk: [null],
@@ -425,9 +426,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     this.FillData();
 
   };
-
-
-  get f() { return this.mstapplicantskilldetail_Form.controls; }
 
 
   skillClose() {
@@ -517,6 +515,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
 
   async onSubmitData(bclear: any) {
+    debugger
     this.isSubmitted = true;
     let strError = "";
     if (strError != "") return this.sharedService.alert(strError);
@@ -660,6 +659,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
 
   FillData() {
+    
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
       this.mstapplicantskilldetail_menuactions = res.mstapplicantskilldetail_menuactions;
       this.Set_mstapplicantskilldetails_TableConfig();
@@ -693,12 +693,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   Add_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
     this.showSkillDetails_input = true;
     this.mstapplicantskilldetail_Form.reset();
-    this.ngOnInit();
     this.getData();
     let add = false;
     if (event == null) add = true;
-    console.log();
-
   }
 
   Edit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {

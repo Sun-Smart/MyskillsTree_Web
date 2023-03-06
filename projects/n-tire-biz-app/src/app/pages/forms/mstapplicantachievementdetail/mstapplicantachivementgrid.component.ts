@@ -35,7 +35,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 <div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-between;">
 
-                <button type = "button"  class="alert-success" [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"><i
+                <button type = "button"  class="alert-success" [routerLink]='' (click)="Add_mstapplicantachievementdetail(null, 'create', 'this.applicantid')"><i
                 class="fa fa-plus"></i> Add</button>
           
                 <button type = "button"  class="alert-danger" [routerLink]='' (click)="onClose()"><i
@@ -385,17 +385,15 @@ export class mstapplicantachivementgridComponent implements OnInit {
       console.log('skill res', res);
       this.skill_list = res;
     }).catch((err) => { this.spinner.hide(); });
-  };
 
-
-  getdata() {
     this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
       this.applicantid_List = res.list_applicantid.value;
       this.masterdataid_List = res.list_masterdataid.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
       // this.skill_list = res.list_skills.value;
     }).catch((err) => { this.spinner.hide(); });
-  }
+  };
+
   skillClose() {
     this.showSkillDetails_input = false;
     this.mstapplicantachievementdetail_Form.reset();
@@ -573,10 +571,9 @@ export class mstapplicantachivementgridComponent implements OnInit {
 `;
     return ret;
   }
-  Add_mstapplicantachievementdetail(event: any, achievementid: any, applicantid: any) {
+  Add_mstapplicantachievementdetail(event: any, achievementid:any, applicantid:any) {
     this.showSkillDetails_input = true;
-    this.ngOnInit();
-    this.getdata();
+
     let add = false;
     if (event == null) add = true;
   }

@@ -387,6 +387,9 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     this.pkcol = this.data.maindatapkcol;
     this.applicantid = this.data.applicantid;
 
+    console.log("this.applicantid", this.applicantid);
+    
+
     this.mstapplicanteducationdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
@@ -597,9 +600,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   };
 
   onSubmitWithExperience() {
-
-
-    
     this.education.emit(true);
   }
 
