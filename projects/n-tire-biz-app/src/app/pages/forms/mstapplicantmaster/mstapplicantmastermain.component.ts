@@ -664,6 +664,53 @@ export class mstapplicantmastermainComponent implements OnInit {
     )
   }
 
+  async onSubmitWithSkills(bclear: any) {
+    this.isSubmitted = true;
+    let strError = "";
+    if (strError != "") return this.sharedService.alert(strError);
+
+    if (!this.mstapplicantmaster_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    }
+    if (!this.validate()) {
+      return;
+    }
+    this.formData = this.mstapplicantmaster_Form.getRawValue();
+    if (this.dynamicconfig.data != null) {
+      for (let key in this.dynamicconfig.data) {
+        if (key != 'visiblelist' && key != 'hidelist') {
+          if (this.mstapplicantmaster_Form.controls[key] != null) {
+            this.formData[key] = this.mstapplicantmaster_Form.controls[key].value;
+          }
+        }
+      }
+    }
+    this.formData.dob = new Date(this.mstapplicantmaster_Form.get('dob').value ? this.ngbDateParserFormatter.format(this.mstapplicantmaster_Form.get('dob').value) + '  UTC' : null);
+    if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+    if (this.profilephoto.getAttachmentList() != null) this.formData.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
+    this.fileAttachmentList = this.fileattachment.getAllFiles();
+    this.spinner.show();
+    this.mstapplicantmaster_service.saveOrUpdate_mstapplicantmastermains(this.formData).subscribe(
+      async res => {
+        await this.sharedService.upload(this.profilephoto.getAllFiles());
+        await this.sharedService.upload(this.fileAttachmentList);
+        this.attachmentlist = [];
+        if (this.fileattachment) this.fileattachment.clear();
+        this.spinner.hide();
+        this.toastr.addSingle("success", "", "Successfully saved");
+        localStorage.removeItem("choosefileforprofile")
+        this.objvalues.push((res as any).mstapplicantmaster);
+        this.router.navigate(['/home/applicantskilldetailgrid'])
+        this.showOpenfile = true;
+      },
+      err => {
+        this.spinner.hide();
+        this.toastr.addSingle("error", "", err.error);
+      }
+    )
+  }
+
   PrevForm() {
     let formid = this.sessionService.getItem("key");
     let prevform = this.sessionService.getItem("prevform");
