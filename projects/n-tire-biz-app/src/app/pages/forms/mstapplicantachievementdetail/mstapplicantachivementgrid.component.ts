@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, Location } from '@angular/common';
@@ -24,21 +24,22 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 @Component({
   selector: 'app-applicantachivementgrid',
   template: `
+  <div style = "float: left;width: 100%;height:100%;">
     <div *ngIf="showWebviewDetect" class="row form-group sticky1" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
 <div class="col-4">
     <h4 class="columns left">{{'Certification'}}</h4>
 </div>
 
-<div class="col-4"></div>
+<div class="col-6"></div>
 
-<div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
+<div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-between;">
 
-                <a class="alert-success" [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"><i
-                class="fa fa-plus"></i> Add</a>
+                <button type = "button"  class="alert-success" [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"><i
+                class="fa fa-plus"></i> Add</button>
           
-                <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
-                class="fa fa-close"></i> Close</a>
+                <button type = "button"  class="alert-danger" [routerLink]='' (click)="onClose()"><i
+                class="fa fa-close"></i> Close</button>
 
                 </div>
 </div>
@@ -50,28 +51,18 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <h4 class="columns left">{{'Certification'}}</h4>
 </div>
 
-<div class="col-4">
-                <ul class="nav navbar-nav1" style='display:none'>
-                  <li class="dropdown">
-                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-                      aria-expanded='false'> <span class='caret'></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" [routerLink]=''
-                          (click)="mstapplicantachievementdetails_route(null, 'create');"><i
-                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                    </ul>
-                  </li>
-                </ul>
-</div>
+<div class="col-4"></div>
 
 <div class="col-4" style="text-align: end; margin: auto;">
 
                 <button type="button" class="btn btn-outline-primary  popup-add-button" [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"
                   title = "Add Details">Add</button>
-                <a  class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="achive_btn" style="width: 20px;" title = "Close"/></a>
+                <button type = "button"   class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="achive_btn" style="width: 20px;" title = "Close"/></button>
 </div>
 </div>
 
+<div class = "row">
+<div class = "col-12"style = "padding:0;">
 <form [formGroup]="mstapplicantachievementdetail_Form"  *ngIf="showWebviewDetect">
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
         <thead>
@@ -158,7 +149,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         </tbody>
 </table>
 </form>
-
+</div>
 
 <form [formGroup]="mstapplicantachievementdetail_Form"  *ngIf="showMobileDetectskill">
 <div class="row" *ngIf="showSkillDetails_input" style="width: 320px;margin: 10px !important;">
@@ -216,6 +207,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 </div>
 </form>
+
+<div class = "col-12" style="overflow-y: scroll;height: 390px;padding:0;">
               <ng2-smart-table #tbl_mstapplicantachievementdetails
                 (userRowSelect)="handle_mstapplicantachievementdetails_GridSelected($event)"
                 [settings]="mstapplicantachievementdetails_settings"
@@ -229,6 +222,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 (edit)="mstapplicantachievementdetails_route($event,'edit')"
                 (editConfirm)="mstapplicantachievementdetails_beforesave($event)">
               </ng2-smart-table>
+              </div>
+
+        <div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+        <button class="wizard-button" (click)="onSubmitWithCertification()"> Dashboard</button>
+        </div>
+        </div>
     `,
   styles: [
     `
@@ -292,6 +291,8 @@ export class mstapplicantachivementgridComponent implements OnInit {
   isSubmitted: boolean = false;
   showview: boolean = false;
 
+  @Output() certification = new EventEmitter<boolean>();
+
   maindata: any;
   readonly AttachmentURL = AppConstants.AttachmentURL;
   readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
@@ -311,6 +312,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
   toyear: Date;
   skills: null;
   myDate: any;
+  showButton: any;
 
   constructor(
     private mstapplicantachievementdetail_service: mstapplicantachievementdetailService,
@@ -331,6 +333,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
     }
+    this.showButton = this.data.showButton;
   }
 
   ngOnInit() {
@@ -477,6 +480,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
         });
     }
   };
+
+  async onSubmitWithCertification(bclear: any) {
+    this.certification.emit(true);
+  }
 
   resetForm() {
     if (this.mstapplicantachievementdetail_Form != null)

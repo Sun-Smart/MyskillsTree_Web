@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, Location } from '@angular/common';
@@ -24,20 +24,23 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 @Component({
   selector: 'app-applicantcareergrid',
   
-  template: `<div *ngIf="showWebviewDetect" class="row form-group sticky1 career_mobile_grid" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
+  template: `
+  <div style = "float: left;width: 100%;height:100%;">
+
+  <div *ngIf="showWebviewDetect" class="row form-group sticky1 career_mobile_grid" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
     <div class="col-4">
-    <h4 class="  columns left"
-    >{{'Experience'}}</h4>
+    <h4 class="columns left">{{'Experience'}}</h4>
     </div>
-    <div class="col-4">    </div>
-    <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
+    <div class="col-6">    </div>
+    
+    <div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-between;">
 
-    <a class="alert-success" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
-    class="fa fa-plus"></i> Add</a>
+    <button type = "button" class="alert-success" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
+    class="fa fa-plus"></i> Add</button>
 
-    <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
-    class="fa fa-close"></i> Close</a>
+    <button type = "button" class="alert-danger" [routerLink]='' (click)="onClose()"><i
+    class="fa fa-close"></i> Close</button>
     </div>
   </div>
 
@@ -45,21 +48,22 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <div *ngIf="showMobileDetectskill" class="row form-group sticky1 career_mobile_grid" style=" background: #ebf3fc !important;color: #000;padding: 5px;">
 
     <div class="col-4">
-    <h4 class="  columns left"
-    >{{'Experience'}}</h4>
+    <h4 class="  columns left">{{'Experience'}}</h4>
     </div>
     <div class="col-4">    </div>
     <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
 
-    <a class="alert-success" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
-    class="fa fa-plus"></i> Add</a>
+    <button type = "button" class="alert-success" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
+    class="fa fa-plus"></i> Add</button>
 
-    <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
-    class="fa fa-close"></i> Close</a>
+    <button type = "button" class="alert-danger" [routerLink]='' (click)="onClose()"><i
+    class="fa fa-close"></i> Close</button>
 
     </div>
   </div>
 
+  <div class = "row">
+  <div class = "col-12" style = "padding:0;">
   <form [formGroup]="mstapplicantcareerdetail_Form" *ngIf="showWebviewDetect">
   <table class="table" style="margin: 0;background-color: #ebf3fc;color: #fff;position: relative;">
   <thead >
@@ -155,6 +159,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
  </tbody>
  </table>
  </form>
+ </div>
 
  <form [formGroup]="mstapplicantcareerdetail_Form"  *ngIf="showMobileDetectskill">
  <div class="row" *ngIf="showSkillDetails_input" style="width: 320px;margin: 10px !important;">
@@ -218,6 +223,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </div>
  </form>
 
+ <div class = "col-12" style="overflow-y: scroll;height: 390px;padding:0;">
   <ng2-smart-table #tbl_mstapplicantcareerdetails
     (userRowSelect)="handle_mstapplicantcareerdetails_GridSelected($event)"
     [settings]="mstapplicantcareerdetails_settings"
@@ -231,6 +237,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     (edit)="mstapplicantcareerdetails_route($event,'edit')"
     (editConfirm)="mstapplicantcareerdetails_beforesave($event)">
   </ng2-smart-table>
+  </div>
+
+<div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+<button class="wizard-button" (click)="onSubmitWithCareer()"> Add Project</button>
+</div>
+</div>
                 `,
   styles: [`
                 @media only screen and (max-width: 600px) {
@@ -296,6 +308,8 @@ export class mstapplicantcareergridComponent implements OnInit {
   skills_results: DropDownValues[];
   skills_List: any[];
   pkList: any;//stores values - used in search, prev, next
+  @Output() career = new EventEmitter<boolean>();
+
   pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
   @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
   readonly AttachmentURL = AppConstants.AttachmentURL;
@@ -310,6 +324,7 @@ export class mstapplicantcareergridComponent implements OnInit {
   showMobileDetectskill: boolean = false;
   showWebviewDetect: boolean = true;
   isMobile: any;
+  showButton: any;
 
   constructor(
     private ngbDateParserFormatter: NgbDateParserFormatter,
@@ -330,6 +345,7 @@ export class mstapplicantcareergridComponent implements OnInit {
       this.data = this.data.data;
     };
 
+    this.showButton = this.data.showButton
     this.pkcol = this.data.maindatapkcol;
     this.applicantid = this.data.applicantid;
   };
@@ -549,6 +565,12 @@ export class mstapplicantcareergridComponent implements OnInit {
     }
 
   }
+
+  async onSubmitWithCareer(bclear: any) {
+    this.career.emit(true);
+  }
+
+
   textAreaAdjust(element: any) {
     element.style.height = "1px";
     element.style.height = (25 + element.scrollHeight) + "px";

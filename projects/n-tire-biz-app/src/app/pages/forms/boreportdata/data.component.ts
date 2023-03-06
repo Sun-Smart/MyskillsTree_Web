@@ -25,6 +25,7 @@ export class dataComponent implements OnInit {
     private sanitizer: DomSanitizer, public sessionService: SessionService,
     public dynamicconfig: DynamicDialogConfig, public dialogRef: DynamicDialogRef) {
     this.data = dynamicconfig;
+    console.log("this.data",this.data);
   }
   async ngOnInit() {
 

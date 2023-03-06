@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -26,58 +26,40 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 @Component({
   selector: 'app-applicanteducationgrid',
   template: `
+  <div style = "float: left;width: 100%;height:100%;">
     <div *ngIf="showWebviewDetect"  class="row form-group sticky1 educ_det_title" style=" background:#ebf3fc !important;color: #000;padding: 5px;">
 
-        <div class="col-4">
-    <h4 class="columns left" >{{'Education'}}</h4>
-</div>
+        <div class="col-4"><h4 class="columns left" >{{'Education'}}</h4></div>
 
-<div class="col-4"></div>
-<div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
+        <div class="col-6"></div>
 
-                <a class="alert-success" [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i
-                class="fa fa-plus"></i> Add</a>
+        <div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-evenly;">
+            <button type = "button"  class="alert-success" [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i
+            class="fa fa-plus"></i> Add</button>
 
-                <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
-                class="fa fa-close"></i> Close</a>
-
-                </div>
-
-</div>
+            <button type = "button"  class="alert-danger" [routerLink]='' (click)="onClose()"><i
+            class="fa fa-close"></i> Close</button>
+        </div>
+    </div>
 
 
-<div *ngIf="showMobileDetectskill" class="row form-group sticky1 educ_det_title" style=" background:#ebf3fc !important;color: #000;padding: 5px;">
+    <div *ngIf="showMobileDetectskill" class="row form-group sticky1 educ_det_title" style=" background:#ebf3fc !important;color: #000;padding: 5px;">
+        <div class="col-4"> <h4 class="columns left" >{{'Education'}}</h4></div>
 
-        <div class="col-4">
-    <h4 class="columns left" >{{'Education'}}</h4>
-</div>
+        <div class="col-4"></div>
 
-<div class="col-4">
-                <ul class="nav navbar-nav1" style='display:none'>
-                  <li class="dropdown">
-                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-                      aria-expanded='false'> <span class='caret'></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" [routerLink]=''
-                          (click)="mstapplicanteducationdetails_route(null, 'create')"><i
-                            class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                    </ul>
-                  </li>
-                </ul>
-</div>
-<div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
+        <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
+            <button type = "button"  class="alert-success" [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i
+            class="fa fa-plus"></i> Add</button>
 
-                <a class="alert-success" [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i
-                class="fa fa-plus"></i> Add</a>
-
-                <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
-                class="fa fa-close"></i> Close</a>
-
-                </div>
-
-</div>
+            <button type = "button"  class="alert-danger" [routerLink]='' (click)="onClose()"><i
+            class="fa fa-close"></i> Close</button>
+        </div>
+    </div>
 
 
+<div class = "row">
+<div class = "col-12" style="padding:0;">
             <form [formGroup]="mstapplicanteducationdetail_Form" *ngIf="showWebviewDetect">
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
                 <thead>
@@ -175,7 +157,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 </tbody>
                 </table>
             </form>
-
+            </div>
 
 
             <form [formGroup]="mstapplicanteducationdetail_Form"  *ngIf="showMobileDetectskill">
@@ -241,6 +223,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             </div>
             </form>
 
+            <div class = "col-12" style="overflow-y: scroll;height: 390px;padding:0;">
               <ng2-smart-table #tbl_mstapplicanteducationdetails
                 (userRowSelect)="handle_mstapplicanteducationdetails_GridSelected($event)"
                 [settings]="mstapplicanteducationdetails_settings"
@@ -254,6 +237,13 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 (edit)="mstapplicanteducationdetails_route($event,'edit')"
                 (editConfirm)="mstapplicanteducationdetails_beforesave($event)">
               </ng2-smart-table>
+              </div>
+
+
+              <div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+              <button class="wizard-button" (click)="onSubmitWithExperience()"> Add Experience</button>
+              </div>
+              </div>
     `,
   styles: [`
     @media only screen and (max-width: 600px) {
@@ -287,6 +277,9 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   readonly AttachmentURL = AppConstants.AttachmentURL;
   readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
   @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
+
+  
+  @Output() education = new EventEmitter<boolean>();
 
   mstapplicanteducationdetails_visiblelist: any;
   mstapplicanteducationdetails_hidelist: any;
@@ -356,6 +349,8 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   showMobileDetectskill: boolean = false;
   showWebviewDetect: boolean = true;
   isMobile: any;
+  showButton: any;
+
   constructor(
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
@@ -372,7 +367,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
     }
-    console.log(this.mstapplicanteducationdetail_menuactions);
+    this.showButton = this.data.showButton;
   };
 
   get f() { return this.mstapplicanteducationdetail_Form.controls; }
@@ -601,6 +596,13 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     };
   };
 
+  onSubmitWithExperience() {
+
+
+    
+    this.education.emit(true);
+  }
+
   validate() {
     let ret = true;
     return ret;
@@ -757,7 +759,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   }
 
   onDelete_mstapplicanteducationdetail(event: any, childID: number, i: number) {
-  
+
     if (confirm('Do you want to delete this record?')) {
       this.spinner.show();
       this.mstapplicanteducationdetail_service.delete_mstapplicanteducationdetail(childID).then(res => {

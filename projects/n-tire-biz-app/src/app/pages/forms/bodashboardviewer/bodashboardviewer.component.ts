@@ -116,6 +116,12 @@ export class BODashboardViewerComponent implements OnInit {
   end_date: any;
   ref_date: any
   showNewApp_Dashboard: boolean = false;
+  showpersonal: boolean = true;
+  showSkill: boolean;
+  showeducation: boolean;
+  showExperience: boolean;
+  showProject: boolean;
+  showCertification: boolean;
 
   constructor(public dialogRef: DynamicDialogRef,
     private toastr: ToastService,
@@ -321,12 +327,82 @@ export class BODashboardViewerComponent implements OnInit {
     if (this.sessionService.getItem("role") == '1') {
       this.isadmin = true;
     }
+
+    // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
+
+    // });
   };
 
-  get_allData() {
-    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByOrderPriority(this.applicantid).then((res: any) => {
+  personal(event: any) {
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = true;
+    }
+  };
 
-console.log('response ',res);
+  skills(event: any){
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = true;
+    }
+  }
+
+  education(event: any){
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = false;
+      this.showExperience = true;
+    }
+  }
+
+  career(event: any){
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = false;
+      this.showExperience = false;
+      this.showProject = true;
+    }
+  }
+
+  project(event: any){
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = false;
+      this.showExperience = false;
+      this.showProject = false;
+      this.showCertification = true;
+    }
+  }
+
+  certification(event: any){
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = false;
+      this.showExperience = false;
+      this.showProject = false;
+      this.showCertification = false;
+      this.showNewApp_Dashboard = true;
+    }
+  }
+
+  get_allData() {
+    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
+
+      // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_OrderPriority(this.applicantid).then((res: any) => {
+
+      console.log("Order Priority", res);
+
 
       if (res.mstapplicantskilldetail.length > 0) {
         this.showNewApp_Dashboard = true;
@@ -353,7 +429,7 @@ console.log('response ',res);
           this.showstr = '★★★★'
         } else if (this.skill_detail[i].strRating == 5) {
           this.showstr = '★★★★★'
-        }else if(this.skill_detail[i].strRating == null){
+        } else if (this.skill_detail[i].strRating == null) {
           this.showstr = ' '
         };
 
@@ -451,7 +527,7 @@ console.log('response ',res);
 
   //   this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then((res: any) => {
 
-      // console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
+  //     console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
 
 
   //     for (let i = 0; i < res.mstapplicantcareerdetail; i++){
