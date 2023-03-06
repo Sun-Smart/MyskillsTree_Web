@@ -74,9 +74,10 @@
             [value]="f.educationid.value" [status]="f.status.value"></app-action>
         </li>
         <li class='nav-item actionheader'
-        *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-        <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
-      </li>
+          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+          <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i>
+            Close</a>
+        </li>
       </ul>
     </div>
   </div>

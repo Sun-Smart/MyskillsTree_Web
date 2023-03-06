@@ -74,6 +74,14 @@ export class mstapplicantskilldetailService {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantskilldetail' + '/applicantid/' + id).toPromise();
     }
   }
+
+  get_mstapplicantskilldetails_OrderPriority(id: number): any {
+    // let appid=localStorage.getItem('applicantid');
+    if (this.valid()) {
+      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantskilldetail' + '/orderpriority/' + id).toPromise();
+    }
+  }
+
   delete_mstapplicantskilldetail(id: number): any {
     const options = {
       headers: new HttpHeaders({
