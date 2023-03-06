@@ -28,7 +28,17 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
     selector: 'app-mstcorporatemaster',
     templateUrl: './mstcorporatemaster.component.html',
     styles: [`
+    ::ng-deep ng2-smart-table-title a{
+        font-size:13px;
+        color:#fff !important;
+    }
+    .table{
+        margin: auto !important;
+    }
 
+    ::ng-deep  .ng2-smart-row td {
+        vertical-align: middle;
+    }
     :host /deep/ ng2-smart-table tbody > tr:nth-child(even) {
         background-color : #f4f4f4 !important;
         }

@@ -19,8 +19,8 @@ export class bocompanymasterService {
 
   valid() {
     return true;
-
   }
+  
   saveOrUpdate_bocompanymasters(formData, bocompanyholidays, bofinancialyears,): any {
     if (this.valid()) {
       var body = {

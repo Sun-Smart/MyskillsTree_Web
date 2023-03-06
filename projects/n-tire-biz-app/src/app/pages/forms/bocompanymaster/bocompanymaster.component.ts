@@ -32,6 +32,19 @@ import { DynamicFormBuilderComponent } from '../../../../../../n-tire-biz-app/sr
     selector: 'app-bocompanymaster',
     templateUrl: './bocompanymaster.component.html',
     styles: [`
+    
+::ng-deep ng2-smart-table-title a{
+    font-size:13px;
+    color:#fff !important;
+}
+.table{
+    margin: auto !important;
+}
+
+::ng-deep  .ng2-smart-row td {
+    vertical-align: middle;
+},
+
     @media only screen and (max-width: 600px) {
       .education_view_mobile{
           min-width: 100% !important;
@@ -350,9 +363,12 @@ export class bocompanymasterComponent implements OnInit {
         else {
             if (this.maindata == undefined || this.maindata == null || this.maindata.save == true) await this.PopulateScreen(this.pkcol);
         }
-        this.bocompanymaster_service.getDefaultData().then(res => {
+        this.bocompanymaster_service.getDefaultData().then(res => { 
+            debugger
             this.companytype_List = res.list_companytype.value;
             this.countryid_List = res.list_countryid.value;
+            // this.stateid_List = res.list_stateid.value || null;
+            // this.cityid_List = res.list_cityid.value || null;
             this.designation_List = res.list_designation.value;
             this.businesssegment_List = res.list_businesssegment.value;
             this.shippingcountryid_List = res.list_shippingcountryid.value;
@@ -364,6 +380,7 @@ export class bocompanymasterComponent implements OnInit {
             this.weekoff2_List = res.list_weekoff2.value;
             this.localization_List = res.list_localization.value;
             this.timezone_List = res.list_timezone.value;
+            console.log( this.designation_List ,'test');
         }).catch((err) => { this.spinner.hide();});
 
         //autocomplete
@@ -421,12 +438,29 @@ export class bocompanymasterComponent implements OnInit {
         }
     }
 
+
+    // onSelected_countryid(countryidDetail: any) {
+    //     if (countryidDetail.value && countryidDetail) {
+    //         this.bocompanymaster_Form.patchValue({
+    //             countryid: countryidDetail.value,
+    //             countryiddesc: countryidDetail.label,
+    //         });
+    //         this.bocompanymaster_service.getList_stateid(countryidDetail.value).then(res => {
+    //             this.stateid_List = res as DropDownValues[]
+    //         }).catch((err) => { this.spinner.hide(); });
+
+    //     }
+    // }
+
     onSelected_shippingcountryid(shippingcountryidDetail: any) {
         if (shippingcountryidDetail.value && shippingcountryidDetail) {
             this.bocompanymaster_Form.patchValue({
                 shippingcountryid: shippingcountryidDetail.value,
                 shippingcountryiddesc: shippingcountryidDetail.label,
             });
+            // this.bocompanymaster_service.getList_shippingstateid(shippingcountryidDetail.value).then(res =>{
+            //     this.shippingstateid_List =res as DropDownValues []
+            // }).catch((err)=> {this.spinner.hide();});
         }
     }
 
@@ -589,7 +623,8 @@ export class bocompanymasterComponent implements OnInit {
         let e = evt.value;
     }
     designation_onChange(evt: any) {
-        let e = evt.value;
+        let e = this.f.designationdesc.value as any;
+        // let e = evt.value;
         this.bocompanymaster_Form.patchValue({ designationdesc: evt.options[evt.options.selectedIndex].text });
     }
     businesssegment_onChange(evt: any) {
@@ -660,6 +695,7 @@ export class bocompanymasterComponent implements OnInit {
             this.pkcol = res.bocompanymaster.pkcol;
             this.formid = res.bocompanymaster.companyid;
             this.FillData(res);
+            console.log(res);
         }).catch((err) => { });
     }
 
@@ -671,6 +707,7 @@ export class bocompanymasterComponent implements OnInit {
         if ((res.bocompanymaster as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
         var starttimeTime = new Time(res.bocompanymaster.starttime);
         var endtimeTime = new Time(res.bocompanymaster.endtime);
+        console.log(res)
         this.bocompanymaster_Form.patchValue({
             companyid: res.bocompanymaster.companyid,
             code: res.bocompanymaster.code,
@@ -769,6 +806,7 @@ export class bocompanymasterComponent implements OnInit {
             if (this.f.countryid.value && this.f.countryid.value != "" && this.f.countryid.value != null) this.bocompanymaster_service.getList_stateid(this.f.countryid.value).then(res => {
                 this.stateid_List = res as DropDownValues[];
             }).catch((err) => { });
+        
         });
         setTimeout(() => {
             if (this.f.stateid.value && this.f.stateid.value != "" && this.f.stateid.value != null) this.bocompanymaster_service.getList_cityid(this.f.stateid.value).then(res => {
@@ -833,7 +871,7 @@ export class bocompanymasterComponent implements OnInit {
         if (customfields != null) obj.customfield = JSON.stringify(customfields);
         if (this.fileattachment.getAttachmentList() != null) obj.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
         obj.fileAttachmentList = this.fileattachment.getAllFiles();
-        if (!confirm('Do you want to want to save?')) {
+        if (!confirm('Do you want to save?')) {
             return;
         }
         await this.sharedService.upload(this.fileAttachmentList);
@@ -851,6 +889,7 @@ export class bocompanymasterComponent implements OnInit {
             this.router.navigate(['/home/' + formname + '/' + formname + '/edit/' + this.formid + query]);
     }
     async onSubmitData(bclear: any) {
+        debugger;
         this.isSubmitted = true;
         let strError = "";
         if (strError != "") return this.sharedService.alert(strError);
@@ -871,19 +910,20 @@ export class bocompanymasterComponent implements OnInit {
                 }
             }
         }
-        var customfields = this.customfieldservice.getCustomValues(document);
+        // var customfields = this.customfieldservice.getCustomValues(document);
         this.formData.incorporationdate = new Date(this.bocompanymaster_Form.get('incorporationdate').value ? this.ngbDateParserFormatter.format(this.bocompanymaster_Form.get('incorporationdate').value) + '  UTC' : null);
         this.formData.startdate = new Date(this.bocompanymaster_Form.get('startdate').value ? this.ngbDateParserFormatter.format(this.bocompanymaster_Form.get('startdate').value) + '  UTC' : null);
         this.formData.enddate = new Date(this.bocompanymaster_Form.get('enddate').value ? this.ngbDateParserFormatter.format(this.bocompanymaster_Form.get('enddate').value) + '  UTC' : null);
         this.formData.accountstartdate = new Date(this.bocompanymaster_Form.get('accountstartdate').value ? this.ngbDateParserFormatter.format(this.bocompanymaster_Form.get('accountstartdate').value) + '  UTC' : null);
         this.formData.starttime = (this.bocompanymaster_Form.get('starttime').value == null ? 0 : this.bocompanymaster_Form.get('starttime').value.hour) + ':' + (this.bocompanymaster_Form.get('starttime').value == null ? 0 : this.bocompanymaster_Form.get('starttime').value.minute + ":00");
         this.formData.endtime = (this.bocompanymaster_Form.get('endtime').value == null ? 0 : this.bocompanymaster_Form.get('endtime').value.hour) + ':' + (this.bocompanymaster_Form.get('endtime').value == null ? 0 : this.bocompanymaster_Form.get('endtime').value.minute + ":00");
-        if (customfields != null) this.formData.customfield = JSON.stringify(customfields);
+        // if (customfields != null) this.formData.customfield = JSON.stringify(customfields);
         if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
         this.formData.Deleted_bocompanyholiday_IDs = this.Deleted_bocompanyholiday_IDs;
         this.formData.Deleted_bofinancialyear_IDs = this.Deleted_bofinancialyear_IDs;
         this.fileAttachmentList = this.fileattachment.getAllFiles();
         this.spinner.show();
+debugger;
         this.bocompanymaster_service.saveOrUpdate_bocompanymasters(this.formData, this.tbl_bocompanyholidays?.source?.data, this.tbl_bofinancialyears?.source?.data,).subscribe(
             async res => {
                 await this.sharedService.upload(this.fileAttachmentList);
@@ -893,6 +933,7 @@ export class bocompanymasterComponent implements OnInit {
                     for (let i = 0; i < this.tbl_bocompanyholidays.source.data.length; i++) {
                         if (this.tbl_bocompanyholidays.source.data[i].fileAttachmentList) await this.sharedService.upload(this.tbl_bocompanyholidays.source.data[i].fileAttachmentList);
                     }
+
                 }
                 if (this.tbl_bofinancialyears.source) {
                     for (let i = 0; i < this.tbl_bofinancialyears.source.data.length; i++) {
@@ -944,7 +985,7 @@ export class bocompanymasterComponent implements OnInit {
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(bocompanyholidayComponent,
-            {
+            {   width:'60% !important',
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, holidayid, companyid, visiblelist: this.bocompanyholidays_visiblelist, hidelist: this.bocompanyholidays_hidelist, ScreenType: 2 },
             }
         ).onClose.subscribe(res => {
@@ -974,7 +1015,7 @@ export class bocompanymasterComponent implements OnInit {
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(bofinancialyearComponent,
-            {
+            {width: '60% !important',
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, finyearid, companyid, visiblelist: this.bofinancialyears_visiblelist, hidelist: this.bofinancialyears_hidelist, ScreenType: 2 },
             }
         ).onClose.subscribe(res => {
@@ -1208,8 +1249,9 @@ export class bocompanymasterComponent implements OnInit {
                 confirmDelete: false,
             },
             columns: {
+                
                 finyearname: {
-                    title: 'Fin Year Name',
+                    title: 'Financial year name',
                     type: '',
                     filter: true,
                 },

@@ -221,6 +221,8 @@
               <div class="col"></div>
             </div>
           </p-accordion>
+          <br>
+          
           <p-accordion [multiple]='true'>
             <p-accordionTab header='Contact Details' [selected]='true'>
               <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
@@ -231,6 +233,7 @@
                   <label *ngIf="showview" class="labelview">{{f.contactname?.value}}</label>
                   <input *ngIf="!showview" id="contactname" formControlName="contactname" class="form-control">
                 </div>
+                
                 <div
                   *ngIf="((hidelist.indexOf('designation') == -1) && (designationvisible==undefined || designationvisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="designation" class="control-label"

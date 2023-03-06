@@ -87,13 +87,13 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('finyearname') == -1) && (finyearnamevisible==undefined || finyearnamevisible==true))"
-        style='' class="col-3 education_view_mobile">
+        style='' class="col-4 education_view_mobile">
         <label for="finyearname" class="control-label">Financialyear Name</label>
         <label *ngIf="showview" class="labelview">{{f.finyearname?.value}}</label>
         <input *ngIf="!showview" id="finyearname" formControlName="finyearname" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('startdate') == -1) && (startdatevisible==undefined || startdatevisible==true))"
-        style='' class="col-3 education_view_mobile">
+        style='' class="col-4 education_view_mobile">
         <label for="startdate" class="control-label">Start Date</label>
         <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.startdate?.value)}}</label>
         <div class="input-group" *ngIf="!showview">
@@ -105,7 +105,7 @@
         </div>
       </div>
       <div *ngIf="((hidelist.indexOf('enddate') == -1) && (enddatevisible==undefined || enddatevisible==true))" style=''
-        class="col-3 education_view_mobile">
+        class="col-4 education_view_mobile">
         <label for="enddate" class="control-label">End Date</label>
         <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.enddate?.value)}}</label>
         <div class="input-group" *ngIf="!showview">
@@ -115,7 +115,7 @@
           <button class="input-group-addon" *ngIf="!showview" (click)="enddateformpicker.toggle()" type="button"><i
               class="fa fa-calendar" aria-hidden="true"></i></button>
         </div>
-      </div>
+      </div><br>
       <div
         *ngIf="((hidelist.indexOf('currentyear') == -1) && (currentyearvisible==undefined || currentyearvisible==true))"
         style='' class="col-3 education_view_mobile">
