@@ -124,7 +124,7 @@ class="fa fa-close"></i> Close</a>
 
                         </td>
 
-  
+
 
                 <!-- Work Description -->
 
@@ -132,7 +132,7 @@ class="fa fa-close"></i> Close</a>
                     <textarea autosize rows="1" cols="10" onlyGrow="true"  id="workdescription" required
                     formControlName="workdescription" class="form-control">
                     </textarea>
- 
+
                     <div *ngIf="mstapplicantworkreference_Form.get('workdescription').errors  && isSubmitted" class="invalid-feedback">
                         <span *ngIf="mstapplicantworkreference_Form.get('workdescription').hasError('required')">workdescription is required</span>
                         </div>
@@ -150,11 +150,11 @@ class="fa fa-close"></i> Close</a>
                     <td>
                     <div >
                     <div class="input-group" style="display: flex;width: 100%;">
-               
-                      <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+
+                      <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1901, month:1, day: 1}'
                       [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
                         formControlName="fromdate" style="margin-right: 5px;" class="form-control">
-                        
+
                       <button class="input-group-addon" (click)="d.toggle()" type="button"><i
                           class="fa fa-calendar" aria-hidden="true"></i></button>
                     </div>
@@ -165,10 +165,10 @@ class="fa fa-close"></i> Close</a>
                   <td>
                   <div>
                  <div style="display: flex;width: 80%;">
-                  <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+                  <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1901, month:1, day: 1}'
                        [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate" class="form-control"
                        style="margin-right: 5px;">
-             
+
                        <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
                            class="fa fa-calendar" aria-hidden="true"></i></button>
                  </div>
@@ -454,7 +454,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   getdefaultdata() {
     this.mstapplicantworkreference_service.getDefaultData().then(res => {
-      
+
       this.applicantid_List = res.list_applicantid.value;
       // this.skills_List = res.list_skills.value;
     }).catch((err) => { this.spinner.hide(); });
@@ -497,18 +497,18 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     this.mstapplicantworkreference_Form.patchValue({ skilldesc: event.options[event.options.selectedIndex].text });
   }
 
-  
+
   onSelected_city(cityDetail: any) {
 
     console.log("cityDetail", cityDetail);
-    
+
 
     if (cityDetail.cityid && cityDetail.city) {
       this.mstapplicantworkreference_Form.patchValue({
         location: cityDetail.cityid,
         locationdesc: cityDetail.city,
       });
-      
+
       this.mstapplicantworkreference_service.getList(cityDetail.cityid).then((res: any) => {
         this.city_List = res as DropDownValues[]
       }).catch((err) => {
@@ -695,7 +695,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     }
   }
 
-  mstapplicantworkreferenceshtml() { 
+  mstapplicantworkreferenceshtml() {
     let ret = "";
     ret += `
         <table class="table table-hover workdetails_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
