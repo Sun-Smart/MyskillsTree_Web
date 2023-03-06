@@ -419,11 +419,15 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     });
 
     this.FillData();
+    this.getskillsDetails();
+  };
+
+  getskillsDetails() {
     this.mstapplicanteducationdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
-      console.log('skill res',res);
+      console.log('skill res', res);
       this.skills_List = res;
     }).catch((err) => { this.spinner.hide(); });
-  };
+  }
 
   eduCategory() {
     this.mstapplicanteducationdetail_service.getDefaultData().then((res: any) => {
@@ -450,7 +454,6 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     return skills;
   }
   getSkillsDescription() {
-
     let skillsdescription: any[] = [];
     for (let i = 0; i < this.skills_List.length; i++) {
       for (let j = 0; j < this.mstapplicanteducationdetail_Form.get('skills').value.length; j++) {
@@ -648,16 +651,16 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         <table class="table table-hover educationdetail_table" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr class="tbody-res">
-            <th style="white-space: break-spaces;width: 11%;" class="edu_cat">##educationcategorydesc##</th>
-            <th style="white-space: break-spaces;width: 0%; !important;" class="edu_sub">##educationsubcategorydesc##</th>
-            <th style="white-space: break-spaces;width: 10%;"  class="inst_name">##institutionname##</th>
-            <th style="white-space: break-spaces;width: 11%;"  class="cour_name">##coursename##</th>
-            <th style="white-space: break-spaces;width: 10%;"  class="percent">##percentage##</th>
+            <th style="white-space: break-spaces;width: 10%;" class="edu_cat">##educationcategorydesc##</th>
+            <th style="white-space: break-spaces;width: 11%; !important;" class="edu_sub">##educationsubcategorydesc##</th>
+            <th style="white-space: break-spaces;width: 11%;"  class="inst_name">##institutionname##</th>
+            <th style="white-space: break-spaces;width: 10%;"  class="cour_name">##coursename##</th>
+            <th style="white-space: break-spaces;width: 12%;"  class="percent">##percentage##</th>
             <!--<th scope="row" style="white-space: break-spaces;width: 10%;" class="ref_count">##referencecount##</th>-->
-            <th style="white-space: break-spaces;width: 10%;"  class="edu_rm">##remarks##</th>
-            <th style="white-space: break-spaces;width: 10%;" class="from_yr">##fromyear##</th>
-            <th style="white-space: break-spaces;width: 10%;" class="to_yr">##toyear##</th>
-            <th style="white-space: break-spaces;width: 10%;" class="to_yr">##string_agg##</th>
+            <th style="white-space: break-spaces;width: 11%;"  class="edu_rm">##remarks##</th>
+            <th style="white-space: break-spaces;width: 11%;" class="from_yr">##fromyear##</th>
+            <th style="white-space: break-spaces;width: 11%;" class="to_yr">##toyear##</th>
+            <th style="white-space: break-spaces;width: 11%;" class="to_yr">##string_agg##</th>
           </tr>
         </tbody>
       </table>
@@ -702,6 +705,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     if (event == null) add = true;
 
   }
+
   Edit_mstapplicanteducationdetail(event: any, educationid: any, applicantid: any) {
     this.showSkillDetails_input = true;
     let add = false;
@@ -733,12 +737,10 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         statusdesc: res.mstapplicanteducationdetail.statusdesc,
       });
       setTimeout(() => {
-        this.mstapplicanteducationdetail_service.getList_educationsubcategory(this.f.educationcategory.value).then(res => {
-          this.educationsubcategory_List = res as DropDownValues[];
-        });
+        // this.getskillsDetails();
+        this.get_educationsubcategory();
         this.getSkillsDescription();
       }, 400);
-      this.mstapplicanteducationdetail_menuactions = res.mstapplicanteducationdetail_menuactions;
     });
   }
 
@@ -755,11 +757,13 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   }
 
   onDelete_mstapplicanteducationdetail(event: any, childID: number, i: number) {
-    console.log('event call');
+  
     if (confirm('Do you want to delete this record?')) {
+      this.spinner.show();
       this.mstapplicanteducationdetail_service.delete_mstapplicanteducationdetail(childID).then(res => {
         this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
           this.ngOnInit();
+          this.spinner.hide();
           this.mstapplicanteducationdetails_LoadTable(res);
         });
       })

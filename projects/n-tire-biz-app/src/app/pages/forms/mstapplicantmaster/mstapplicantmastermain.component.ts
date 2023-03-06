@@ -27,9 +27,11 @@ import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/cu
 })
 
 export class mstapplicantmastermainComponent implements OnInit {
+
   formData: mstapplicantmaster;
   list: mstapplicantmaster[];
   bmyrecord: boolean = false;
+  buttonview: boolean = false;
   maxDate = undefined;
   hidelist: any = [];
   objvalues: any = [];
@@ -85,8 +87,11 @@ export class mstapplicantmastermainComponent implements OnInit {
 
   profilecompletionvisible: boolean = false;
   showOpenfile: boolean = false;
+  showButton: any;
+  checkbtn: any;
+  addButtonview: boolean;
 
-  constructor( private router: Router,
+  constructor(private router: Router,
     private themeService: ThemeService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
     public dialogRef: DynamicDialogRef,
@@ -108,8 +113,18 @@ export class mstapplicantmastermainComponent implements OnInit {
     };
 
     this.data = dynamicconfig;
+    if (this.data != null && this.data.data != null) {
+      this.data = this.data.data;
+    }
+    console.log("this.data", this.data );
+    
+    this.showButton =  this.data.showButton
+
+    console.log("this.showButton", this.showButton );
+
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
+
     this.mstapplicantmaster_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
@@ -144,6 +159,12 @@ export class mstapplicantmastermainComponent implements OnInit {
       status: [null],
       statusdesc: [null],
     });
+
+    if (this.showButton == true) {
+      this.buttonview = true;
+      // this.addButtonview = false;
+    }
+
   }
 
   get f() { return this.mstapplicantmaster_Form.controls; }
@@ -254,7 +275,8 @@ export class mstapplicantmastermainComponent implements OnInit {
     //setting the flag that the screen is not touched
     this.mstapplicantmaster_Form.markAsUntouched();
     this.mstapplicantmaster_Form.markAsPristine();
-  }
+  };
+
   onSelected_country(countryDetail: any) {
     if (countryDetail.value && countryDetail) {
       this.mstapplicantmaster_Form.patchValue({
@@ -443,7 +465,7 @@ export class mstapplicantmastermainComponent implements OnInit {
       this.pkcol = res.mstapplicantmaster.pkcol;
       this.formid = res.mstapplicantmaster.applicantid;
       this.FillData(res);
-    }).catch((err) => {});
+    }).catch((err) => { });
   }
 
   FillData(res: any) {
@@ -634,6 +656,53 @@ export class mstapplicantmastermainComponent implements OnInit {
         }
         this.mstapplicantmaster_Form.markAsUntouched();
         this.mstapplicantmaster_Form.markAsPristine();
+      },
+      err => {
+        this.spinner.hide();
+        this.toastr.addSingle("error", "", err.error);
+      }
+    )
+  }
+
+  async onSubmitWithSkills(bclear: any) {
+    this.isSubmitted = true;
+    let strError = "";
+    if (strError != "") return this.sharedService.alert(strError);
+
+    if (!this.mstapplicantmaster_Form.valid) {
+      this.toastr.addSingle("error", "", "Enter the required fields");
+      return;
+    }
+    if (!this.validate()) {
+      return;
+    }
+    this.formData = this.mstapplicantmaster_Form.getRawValue();
+    if (this.dynamicconfig.data != null) {
+      for (let key in this.dynamicconfig.data) {
+        if (key != 'visiblelist' && key != 'hidelist') {
+          if (this.mstapplicantmaster_Form.controls[key] != null) {
+            this.formData[key] = this.mstapplicantmaster_Form.controls[key].value;
+          }
+        }
+      }
+    }
+    this.formData.dob = new Date(this.mstapplicantmaster_Form.get('dob').value ? this.ngbDateParserFormatter.format(this.mstapplicantmaster_Form.get('dob').value) + '  UTC' : null);
+    if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+    if (this.profilephoto.getAttachmentList() != null) this.formData.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
+    this.fileAttachmentList = this.fileattachment.getAllFiles();
+    this.spinner.show();
+    this.mstapplicantmaster_service.saveOrUpdate_mstapplicantmastermains(this.formData).subscribe(
+      async res => {
+        await this.sharedService.upload(this.profilephoto.getAllFiles());
+        await this.sharedService.upload(this.fileAttachmentList);
+        this.attachmentlist = [];
+        if (this.fileattachment) this.fileattachment.clear();
+        this.spinner.hide();
+        this.toastr.addSingle("success", "", "Successfully saved");
+        localStorage.removeItem("choosefileforprofile")
+        this.objvalues.push((res as any).mstapplicantmaster);
+        this.router.navigate(['/home/applicantskilldetailgrid'])
+        this.showOpenfile = true;
       },
       err => {
         this.spinner.hide();

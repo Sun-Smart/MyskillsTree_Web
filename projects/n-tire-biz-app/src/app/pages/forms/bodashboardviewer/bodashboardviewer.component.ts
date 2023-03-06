@@ -131,7 +131,7 @@ export class BODashboardViewerComponent implements OnInit {
   }
   ngOnInit() {
     this.get_allData();
-    this.get_experience();
+    // this.get_experience();
     // this.get_educationdata();
     this.isskillcompleted = false
     this.isresumecompleted = false
@@ -324,8 +324,9 @@ export class BODashboardViewerComponent implements OnInit {
   };
 
   get_allData() {
-    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
+    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByOrderPriority(this.applicantid).then((res: any) => {
 
+console.log('response ',res);
 
       if (res.mstapplicantskilldetail.length > 0) {
         this.showNewApp_Dashboard = true;
@@ -352,6 +353,8 @@ export class BODashboardViewerComponent implements OnInit {
           this.showstr = '★★★★'
         } else if (this.skill_detail[i].strRating == 5) {
           this.showstr = '★★★★★'
+        }else if(this.skill_detail[i].strRating == null){
+          this.showstr = ' '
         };
 
         this.finalarray.push({
@@ -361,8 +364,47 @@ export class BODashboardViewerComponent implements OnInit {
           showstr: this.showstr
         });
       }
-      this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
+      // this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
     });
+    // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
+
+
+    //   if (res.mstapplicantskilldetail.length > 0) {
+    //     this.showNewApp_Dashboard = true;
+    //   }
+    //   this.sub_category = res.mstapplicantskilldetail;
+
+    //   for (let i = 0; i < this.sub_category.length; i++) {
+    //     this.skill_detail.push({
+    //       strRating: this.sub_category[i].selfrating,
+    //       subCategory: this.sub_category[i].subcategoryiddesc,
+    //       skill_id: this.sub_category[i].subcategoryid,
+    //       remarks: this.sub_category[i].remarks,
+    //     });
+    //   };
+
+    //   for (let i = 0; i < this.skill_detail.length; i++) {
+    //     if (this.skill_detail[i].strRating == 1) {
+    //       this.showstr = '★'
+    //     } else if (this.skill_detail[i].strRating == 2) {
+    //       this.showstr = '★★'
+    //     } else if (this.skill_detail[i].strRating == 3) {
+    //       this.showstr = '★★★'
+    //     } else if (this.skill_detail[i].strRating == 4) {
+    //       this.showstr = '★★★★'
+    //     } else if (this.skill_detail[i].strRating == 5) {
+    //       this.showstr = '★★★★★'
+    //     };
+
+    //     this.finalarray.push({
+    //       subCategory: this.skill_detail[i].subCategory,
+    //       skillId: this.skill_detail[i].skill_id,
+    //       remarks: this.skill_detail[i].remarks,
+    //       showstr: this.showstr
+    //     });
+    //   }
+    //   this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
+    // });
   };
 
   showDetails(get_id: any, category: any, remarks: any) {
@@ -405,19 +447,19 @@ export class BODashboardViewerComponent implements OnInit {
     });
   }
 
-  get_experience() {
+  // get_experience() {
 
-    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then((res: any) => {
+  //   this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then((res: any) => {
 
-      console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
-      
+      // console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
 
-      for (let i = 0; i < res.mstapplicantcareerdetail; i++){
-        let StartDate = res.mstapplicantcareerdetail.fromdate;
-        let EndDate = res.mstapplicantcareerdetail.todate;
-      }
-    })
-  }
+
+  //     for (let i = 0; i < res.mstapplicantcareerdetail; i++){
+  //       let StartDate = res.mstapplicantcareerdetail.fromdate;
+  //       let EndDate = res.mstapplicantcareerdetail.todate;
+  //     }
+  //   })
+  // }
 
   // get_educationdata() {
   //   this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {

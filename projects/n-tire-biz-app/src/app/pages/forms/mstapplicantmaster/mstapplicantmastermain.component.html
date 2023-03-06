@@ -16,15 +16,13 @@
         </div>
 
         <div class='col-4' style="margin: auto;">
-
-          <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
+          <ul style="display: flex;justify-content: end;align-items: center;margin: 0;" *ngIf="buttonview">
             <li class='nav-item actionheader ' *ngIf="!showview" style="padding:0 !important;font-size: 12px;">
               <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()">
                 <i class="fa fa-database"></i> Submit </a>
             </li>
 
-            <li class='nav-item actionheader' style="font-size: 12px;"
-              *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+            <li class='nav-item actionheader' style="font-size: 12px;">
               <a class="alert-danger" [routerLink]='' (click)="onClose()">
                 <i class="fa fa-close" aria-hidden="true"></i> Close </a>
             </li>
@@ -43,9 +41,6 @@
       </div>
       <div class='row full-height' id='contentArea1'>
         <div class='row designrow'>
-          <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
-
-          </div>
 
           <p-accordion [multiple]='true'>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
@@ -309,6 +304,11 @@
               </p-accordion>
             </div>
           </p-accordion>
+
+          <div class="col-12" *ngIf="!buttonview" style="display: flex;justify-content: end;margin: 15px auto;">
+            <button class="alert-success" (click)="onSubmitWithSkills()"> Submit & Add Skills</button>
+          </div>
+
         </div>
       </div>
     </form>
