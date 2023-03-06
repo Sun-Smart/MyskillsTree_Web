@@ -340,6 +340,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   showWebviewDetect: boolean = true;
   isMobile: any;
   showOrderError: boolean = false;
+  contentChecked: any;
 
   constructor(
     public dialogRef: DynamicDialogRef,
@@ -423,6 +424,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   };
   checkboxChanged(event) {
     console.log(event.target.checked);
+    this.contentChecked = event.target.checked;
     if (event.target.checked == true && this.mstapplicantskilldetail_Form.value.orderpriority) {
       this.toastr.addSingle("error", "", "Skill set in hide status unable to given the order priority");
       return;
@@ -506,6 +508,11 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.showOrderError = false;
     }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
+    if (this.contentChecked == true && this.mstapplicantskilldetail_Form.value.orderpriority) {
+      console.log('this.contentChecked',this.contentChecked);
+      this.toastr.addSingle("error", "", "Skill set in hide status unable to given the order priority");
+      return;
+    }
     this.spinner.show();
     this.mstapplicantskilldetail_service.saveOrUpdate_mstapplicantskilldetails(this.formData).subscribe(
       async (res: any) => {
@@ -513,7 +520,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
         if (res == "orderpriority already Exists") {
           this.toastr.addSingle("error", "", "Orderpriority already Exists");
           return;
-        } else {
+        }
+        else {
           await this.sharedService.upload(this.fileAttachmentList);
           this.attachmentlist = [];
           if (this.fileattachment) this.fileattachment.clear();
