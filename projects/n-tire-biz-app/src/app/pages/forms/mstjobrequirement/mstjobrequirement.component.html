@@ -70,13 +70,14 @@
         <app-action *ngIf="f.jobid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
           [value]="f.jobid.value" [status]="f.status.value"></app-action>
       </li>
-      <button *ngIf="!showview" (click)="onSubmitAndWait()" class="popup-add-button job_re_btn">
+      <button *ngIf="!showview" (click)="onSubmitAndWait()" class="alert-success job_re_btn">
         <i class="fa fa-database"></i>Submit
         <app-action *ngIf="f.jobid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
           [value]="f.jobid.value" [status]="f.status.value"></app-action>
-      </button>
+      </button>&nbsp;
 
-      <button class="popup-add-button job_re_btn"
+
+      <button class="alert-danger job_re_btn"
         *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
         (click)="onClose()">
         <i class="fa fa-close"></i>Close

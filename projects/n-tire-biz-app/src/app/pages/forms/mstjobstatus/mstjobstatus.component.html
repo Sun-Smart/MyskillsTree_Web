@@ -67,7 +67,8 @@
       </div>
     </div>
 
-    <div class="col-3" style="display: flex;align-items: center;">
+    <div class="col-3" style="display: flex;align-items: center;justify-content: end;
+    ">
       <ul style="display: inline-flex; margin: 0 !important;">
         <li class='nav-item actionheader' *ngIf="!showview">
           <a class="alert-success popup-add-button" [routerLink]='' (click)="onSubmitAndWait()" style="width: auto !important;"><i
@@ -80,7 +81,7 @@
         </li>
         <li class='nav-item actionheader'
           *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-          <a class="alert-danger popup-add-button" [routerLink]='' (click)="onClose()" style="width: auto !important;"><i class="fa fa-close"></i>
+          <a class="alert-danger " [routerLink]='' (click)="onClose()" style="width: auto !important;"><i class="fa fa-close"></i>
             Close</a>
         </li>
 
