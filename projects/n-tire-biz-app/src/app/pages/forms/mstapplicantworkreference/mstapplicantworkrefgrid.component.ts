@@ -709,7 +709,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             <th style="white-space: break-spaces;width:11%;">##todate##</th>
             <th style="white-space: break-spaces;width:10%;">##remarks##</th>
             <th style="white-space: break-spaces;width:11%;">##string_agg##</th>
-            <th style="white-space: break-spaces;width:12%;">##locationdesc##</th>
+            <th style="white-space: break-spaces;width:12%;">##locationdes##</th>
           </tr>
         </tbody>
       </table>
