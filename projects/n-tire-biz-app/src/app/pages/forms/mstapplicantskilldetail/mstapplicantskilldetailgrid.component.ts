@@ -134,10 +134,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <!-- Order Priority -->
 
         <td>
-        <select id="orderpriority" formControlName="orderpriority"  
-        onKeyPress="if(this.value.length==1) return false;" class="form-control">
-
-        <!--<option value=null [disabled]="true">-Select-</option>
+        <select id="orderpriority" formControlName="orderpriority"
+         class="form-control" >
+        <option value=null [disabled]="true">-Select-</option>
         <option value="1" >1</option>
         <option value="2" >2</option>
         <option value="3" >3</option>
@@ -151,7 +150,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <!-- Hide -->
 
         <td>
-        <input type="checkbox" formControlName="showorhide">
+        <input type="checkbox" formControlName="showorhide" (change)="checkboxChanged($event)">
         </td>
 
         <!-- Referal Status -->
@@ -230,11 +229,19 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <p-rating  id="selfrating" formControlName="selfrating" class="form-control">
         </p-rating>
 
-        <label>Priority</label>
-        <input  id="orderpriority" formControlName="orderpriority" class="form-control">
-        <span *ngIf="showOrderError">Check</span>
-        // <label>Show/Hide</label>
-        <input type="checkbox" formControlName="showorhide">
+        <label>Order Priority</label>
+        <select id="orderpriority" formControlName="orderpriority"
+         class="form-control">
+        <option value=null>-Select-</option>
+        <option value="1" >1</option>
+        <option value="2" >2</option>
+        <option value="3" >3</option>
+        <option value="4" >4</option>
+        <option value="5" >5</option>-->
+        </select>
+        <small *ngIf="showOrderError" style="color:brown">Order Priority must be between 1 to 5</small>
+         <label>Show/Hide</label>
+        <input type="checkbox" formControlName="showorhide" (change)="checkboxChanged($event)">
 
         <label>Remarks</label>
         <textarea name="w3review" rows="1" cols="10" class="form-control" formControlName="remarks"></textarea>
@@ -414,7 +421,13 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.subcategoryid_List = [];
     });
   };
-
+  checkboxChanged(event) {
+    console.log(event.target.checked);
+    if (event.target.checked == true && this.mstapplicantskilldetail_Form.value.orderpriority) {
+      this.toastr.addSingle("error", "", "Skill set in hide status unable to given the order priority");
+      return;
+    }
+  }
   segmentcategory_onChange(evt: any) {
     let e = evt.value;
     this.getidd = e
@@ -493,51 +506,56 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.showOrderError = false;
     }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
-
     this.spinner.show();
     this.mstapplicantskilldetail_service.saveOrUpdate_mstapplicantskilldetails(this.formData).subscribe(
       async (res: any) => {
-        await this.sharedService.upload(this.fileAttachmentList);
-        this.attachmentlist = [];
-        if (this.fileattachment) this.fileattachment.clear();
         this.spinner.hide();
-
-        this.toastr.addSingle("success", "", "Successfully saved");
-        this.skillcategory_List = [];
-        this.subcategoryid_List = [];
-        this.Segmentcategory_list = [];
-        this.mstapplicantskilldetail_Form.markAsUntouched();
-        this.mstapplicantskilldetail_Form.markAsPristine();
-        this.ngOnInit();
-        this.mstapplicantskilldetail_Form.reset();
-        this.showSkillDetails_input = false;
-        this.sessionService.setItem("attachedsaved", "true");
-        let getapp = parseInt(localStorage.getItem('applicantid'));
-        this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(getapp);
-        this.objvalues.push((res as any).mstapplicantskilldetail);
-        if (!bclear) this.showview = true;
-        if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-          this.dialogRef.close(this.objvalues);
+        if (res == "orderpriority already Exists") {
+          this.toastr.addSingle("error", "", "Orderpriority already Exists");
           return;
         } else {
+          await this.sharedService.upload(this.fileAttachmentList);
+          this.attachmentlist = [];
+          if (this.fileattachment) this.fileattachment.clear();
+          this.spinner.hide();
+
+          this.toastr.addSingle("success", "", "Successfully saved");
+          this.skillcategory_List = [];
+          this.subcategoryid_List = [];
+          this.Segmentcategory_list = [];
+          this.mstapplicantskilldetail_Form.markAsUntouched();
+          this.mstapplicantskilldetail_Form.markAsPristine();
+          this.ngOnInit();
+          this.mstapplicantskilldetail_Form.reset();
+          this.showSkillDetails_input = false;
+          this.sessionService.setItem("attachedsaved", "true");
+          let getapp = parseInt(localStorage.getItem('applicantid'));
+          this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(getapp);
+          this.objvalues.push((res as any).mstapplicantskilldetail);
+          if (!bclear) this.showview = true;
           if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
-        }
-        if (bclear) {
-          this.resetForm();
-        }
-        else {
-          if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
-            this.objvalues.push((res as any).mstapplicantskilldetail);
+          if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
             this.dialogRef.close(this.objvalues);
+            return;
+          } else {
+            if (document.getElementById("contentAreascroll") != undefined) document.getElementById("contentAreascroll").scrollTop = 0;
+          }
+          if (bclear) {
+            this.resetForm();
           }
           else {
-            this.FillData();
+            if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+              this.objvalues.push((res as any).mstapplicantskilldetail);
+              this.dialogRef.close(this.objvalues);
+            }
+            else {
+              this.FillData();
+            }
           }
-        }
 
-        this.mstapplicantskilldetail_Form.markAsUntouched();
-        this.mstapplicantskilldetail_Form.markAsPristine();
+          this.mstapplicantskilldetail_Form.markAsUntouched();
+          this.mstapplicantskilldetail_Form.markAsPristine();
+        }
       },
       err => {
         this.spinner.hide();
