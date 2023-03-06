@@ -103,7 +103,7 @@ class="fa fa-close"></i> Close</button>
 
                         </td>
 
-  
+
 
                 <!-- Work Description -->
 
@@ -111,7 +111,7 @@ class="fa fa-close"></i> Close</button>
                     <textarea autosize rows="1" cols="10" onlyGrow="true"  id="workdescription" required
                     formControlName="workdescription" class="form-control">
                     </textarea>
- 
+
                     <div *ngIf="mstapplicantworkreference_Form.get('workdescription').errors  && isSubmitted" class="invalid-feedback">
                         <span *ngIf="mstapplicantworkreference_Form.get('workdescription').hasError('required')">workdescription is required</span>
                         </div>
@@ -129,11 +129,11 @@ class="fa fa-close"></i> Close</button>
                     <td>
                     <div >
                     <div class="input-group" style="display: flex;width: 100%;">
-               
-                      <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+
+                      <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1901, month:1, day: 1}'
                       [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
                         formControlName="fromdate" style="margin-right: 5px;" class="form-control">
-                        
+
                       <button class="input-group-addon" (click)="d.toggle()" type="button"><i
                           class="fa fa-calendar" aria-hidden="true"></i></button>
                     </div>
@@ -144,10 +144,10 @@ class="fa fa-close"></i> Close</button>
                   <td>
                   <div>
                  <div style="display: flex;width: 80%;">
-                  <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+                  <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1901, month:1, day: 1}'
                        [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate" class="form-control"
                        style="margin-right: 5px;">
-             
+
                        <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
                            class="fa fa-calendar" aria-hidden="true"></i></button>
                  </div>
@@ -707,7 +707,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             <th style="white-space: break-spaces;width:11%;">##todate##</th>
             <th style="white-space: break-spaces;width:10%;">##remarks##</th>
             <th style="white-space: break-spaces;width:11%;">##string_agg##</th>
-            <th style="white-space: break-spaces;width:12%;">##locationdesc##</th>
+            <th style="white-space: break-spaces;width:12%;">##locationdes##</th>
           </tr>
         </tbody>
       </table>

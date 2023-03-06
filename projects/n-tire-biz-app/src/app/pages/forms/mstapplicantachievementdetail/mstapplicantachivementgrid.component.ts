@@ -381,6 +381,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
       this.pkoptionsEvent.emit(this.pkList);
     }
     ).catch((err) => { this.spinner.hide(); });
+    this.mstapplicantachievementdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
+      console.log('skill res', res);
+      this.skill_list = res;
+    }).catch((err) => { this.spinner.hide(); });
   };
 
 
@@ -389,7 +393,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
       this.applicantid_List = res.list_applicantid.value;
       this.masterdataid_List = res.list_masterdataid.value;
       this.referenceacceptance_List = res.list_referenceacceptance.value;
-      this.skill_list = res.list_skills.value;
+      // this.skill_list = res.list_skills.value;
     }).catch((err) => { this.spinner.hide(); });
   }
   skillClose() {
@@ -437,7 +441,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
     } else {
       this.formData.toyear = new Date(this.mstapplicantachievementdetail_Form.get('toyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('toyear').value) + '  UTC' : null);
     }
-    this.formData.skills = null;
+    // this.formData.skills = null;
     this.formData.applicantid = this.applicantid;
 
     if (this.formData.fromyear > this.formData.toyear) {
@@ -610,8 +614,12 @@ export class mstapplicantachivementgridComponent implements OnInit {
       setTimeout(() => {
       this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
         this.masterdataid_List = res.list_masterdataid.value;
-        this.skill_list = res.list_skills.value;
+        // this.skill_list = res.list_skills.value;
       });
+      this.mstapplicantachievementdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
+        console.log('skill res', res);
+        this.skill_list = res;
+      }).catch((err) => { this.spinner.hide(); });
       })
     })
   }

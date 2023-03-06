@@ -832,7 +832,7 @@ export class mstjobrequirementComponent implements OnInit {
                 confirmCreate: true,
             },
             edit: {
-                editButtonContent: '<i class="nb-edit"></i>',
+                editButtonContent: '<i class="fa fa-edit"></i>',
                 saveButtonContent: '<i class="nb-checkmark"></i>',
                 cancelButtonContent: '<i class="nb-close"></i>',
                 confirmSave: true,

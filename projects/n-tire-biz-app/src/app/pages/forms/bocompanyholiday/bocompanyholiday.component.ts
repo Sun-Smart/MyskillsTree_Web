@@ -255,6 +255,7 @@ export class bocompanyholidayComponent implements OnInit {
     }
 
     onSubmitAndWait() {
+        debugger;
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.holidaydate != null) {
             this.onSubmitData(false);
         }
@@ -266,6 +267,7 @@ export class bocompanyholidayComponent implements OnInit {
         }
     }
     onSubmit() {
+        debugger;
         if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.holidaydate != null) {
             this.onSubmitData(true);
         }
@@ -374,6 +376,7 @@ export class bocompanyholidayComponent implements OnInit {
             this.router.navigate(['/home/' + formname + '/' + formname + '/edit/' + this.formid + query]);
     }
     async onSubmitData(bclear: any) {
+        debugger;
         this.isSubmitted = true;
         let strError = "";
         if (strError != "") return this.sharedService.alert(strError);
@@ -394,6 +397,7 @@ export class bocompanyholidayComponent implements OnInit {
                 }
             }
         }
+        debugger
         this.formData.holidaydate = new Date(this.bocompanyholiday_Form.get('holidaydate').value ? this.ngbDateParserFormatter.format(this.bocompanyholiday_Form.get('holidaydate').value) + '  UTC' : null);
         this.spinner.show();
         this.bocompanyholiday_service.saveOrUpdate_bocompanyholidays(this.formData).subscribe(
