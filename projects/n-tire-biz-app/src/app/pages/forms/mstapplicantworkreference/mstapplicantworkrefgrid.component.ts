@@ -397,10 +397,10 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       attachment: [null],
       fromdate: [null],
       todate: [null],
-      location: [null],
-      city:[null],
+      locationdesc: [null],
+      location:[null],
       status: [null],
-      skills: [null],
+      skills: [null,[Validators.required]],
       skilldesc: [null],
       statusdesc: [null],
     });
@@ -454,8 +454,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   getdefaultdata() {
     this.mstapplicantworkreference_service.getDefaultData().then(res => {
-
-      console.log("location", res);
       
       this.applicantid_List = res.list_applicantid.value;
       // this.skills_List = res.list_skills.value;
@@ -502,10 +500,13 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   
   onSelected_city(cityDetail: any) {
 
-    if (cityDetail.cityid && cityDetail) {
+    console.log("cityDetail", cityDetail);
+    
+
+    if (cityDetail.cityid && cityDetail.city) {
       this.mstapplicantworkreference_Form.patchValue({
-        city: cityDetail.cityid,
-        citydesc: cityDetail.name,
+        location: cityDetail.cityid,
+        locationdesc: cityDetail.city,
       });
       
       this.mstapplicantworkreference_service.getList(cityDetail.cityid).then((res: any) => {
@@ -708,7 +709,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             <th style="white-space: break-spaces;width:11%;">##todate##</th>
             <th style="white-space: break-spaces;width:10%;">##remarks##</th>
             <th style="white-space: break-spaces;width:11%;">##string_agg##</th>
-            <th style="white-space: break-spaces;width:12%;">##location##</th>
+            <th style="white-space: break-spaces;width:12%;">##locationdesc##</th>
           </tr>
         </tbody>
       </table>
@@ -732,7 +733,6 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   FillData() {
     this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
       this.mstapplicantworkreference_menuactions = res.mstapplicantworkreference_menuactions;
-      debugger;
       this.Set_mstapplicantworkreferences_TableConfig();
       this.mstapplicantworkreferences_LoadTable(res.mstapplicantworkreference);
     });
@@ -777,6 +777,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         requestid: res.mstapplicantworkreference.requestid,
         skills: res.mstapplicantworkreference.skills,
         location:res.mstapplicantworkreference.location,
+        locationdesc: res.mstapplicantworkreference.locationdesc,
         attachment: "[]",
         status: res.mstapplicantworkreference.status,
         statusdesc: res.mstapplicantworkreference.statusdesc,
@@ -1011,7 +1012,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.fromdate + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.todate + '</li>'
       + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.skills + '</li>'
-      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.location + '</li>'
+      + '<li class="list-group-item" style="background: #2D3C84 !important;color: #fff;"> Reference URL: ' + event.data.locationdesc + '</li>'
       + '<li class="list-group-item remarks_p" style="background: #2D3C84 !important;color: #fff;"> Remarks: ' + event.data.remarks + '</li>'
 
     let objbomenuaction = await this.sharedService.onCustomAction(event, "mstapplicantworkreferences");

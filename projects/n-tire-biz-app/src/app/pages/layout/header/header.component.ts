@@ -81,6 +81,7 @@ export class HeaderComponent implements OnInit {
   pkcorporateid: any;
   show_dashboard: boolean = true;
   AppliSkill: boolean;
+  showButton : boolean;
 
 
   constructor(
@@ -340,9 +341,10 @@ export class HeaderComponent implements OnInit {
     this.displayNotifications = false;
   }
   showProfile() {
+    
     this.dialog.open(mstapplicantmastermainComponent,
       {
-        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+        data: { showButton :true, ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;

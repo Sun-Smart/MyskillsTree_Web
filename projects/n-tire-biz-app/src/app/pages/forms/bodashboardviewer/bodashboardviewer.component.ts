@@ -131,7 +131,7 @@ export class BODashboardViewerComponent implements OnInit {
   }
   ngOnInit() {
     this.get_allData();
-    this.get_experience();
+    // this.get_experience();
     // this.get_educationdata();
     this.isskillcompleted = false
     this.isresumecompleted = false
@@ -447,19 +447,19 @@ console.log('response ',res);
     });
   }
 
-  get_experience() {
+  // get_experience() {
 
-    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then((res: any) => {
+  //   this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then((res: any) => {
 
-      console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
+      // console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
 
 
-      for (let i = 0; i < res.mstapplicantcareerdetail; i++){
-        let StartDate = res.mstapplicantcareerdetail.fromdate;
-        let EndDate = res.mstapplicantcareerdetail.todate;
-      }
-    })
-  }
+  //     for (let i = 0; i < res.mstapplicantcareerdetail; i++){
+  //       let StartDate = res.mstapplicantcareerdetail.fromdate;
+  //       let EndDate = res.mstapplicantcareerdetail.todate;
+  //     }
+  //   })
+  // }
 
   // get_educationdata() {
   //   this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {

@@ -15,8 +15,7 @@
           </ng-container>
         </div>
 
-        <div class='col-4' style="margin: auto;">
-
+        <div class='col-4' style="margin: auto;" *ngIf="buttonview">
           <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
             <li class='nav-item actionheader ' *ngIf="!showview" style="padding:0 !important;font-size: 12px;">
               <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()">
@@ -43,9 +42,6 @@
       </div>
       <div class='row full-height' id='contentArea1'>
         <div class='row designrow'>
-          <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
-
-          </div>
 
           <p-accordion [multiple]='true'>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
@@ -309,6 +305,11 @@
               </p-accordion>
             </div>
           </p-accordion>
+
+          <div class="12" *ngIf="!Buttonview">
+            <button class="alert-success" (click)="onSubmitWithSkills()"> Submit & Add Skills</button>
+          </div>
+
         </div>
       </div>
     </form>

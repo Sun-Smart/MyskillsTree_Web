@@ -144,7 +144,7 @@ const URL = AppConstants.UploadURL;
                 <th>Name</th>
                 <th>Size</th>
                 <th *ngFor="let attachmentfield of attachmentfields">{{attachmentfield.label}}</th>
-                <th><i class='fa fa-thumbs-up'></i></th>
+                <!--<th><i class='fa fa-thumbs-up'></i></th>-->
                 <th *ngIf='showremove' >&nbsp;</th>
                 </tr>
                 </thead>
@@ -159,7 +159,7 @@ const URL = AppConstants.UploadURL;
                     {{uploadedfile[attachmentfield.label + uploadedfile.Key]}}
                 </td>-->
                 <td>{{uploadedfile.size}} bytes</td>
-                <th><i class='fa fa-thumbs-up backcolor' (click)='updateRatings(uploadedfile)'>&nbsp;{{uploadedfile.ratings}}</i>&nbsp;&nbsp;<i class='fa fa-eye backcolor'>&nbsp;{{uploadedfile.views}}</i>&nbsp;&nbsp;<i class='fa fa-comment backcolor'  (click)='opencomment(uploadedfile)'>&nbsp;{{getCount(uploadedfile.comments)}}</i></th>
+                <!--<th><i class='fa fa-thumbs-up backcolor' (click)='updateRatings(uploadedfile)'>&nbsp;{{uploadedfile.ratings}}</i>&nbsp;&nbsp;<i class='fa fa-eye backcolor'>&nbsp;{{uploadedfile.views}}</i>&nbsp;&nbsp;<i class='fa fa-comment backcolor'  (click)='opencomment(uploadedfile)'>&nbsp;{{getCount(uploadedfile.comments)}}</i></th>-->
                 <td *ngIf='showremove' ><button type="button" class="btn btn-danger btn-xs"
                 (click)="delete(uploadedfile.filekey)"> <span class="glyphicon glyphicon-trash"></span> Remove </button></td>
                 </tr>

@@ -77,9 +77,11 @@
           <app-action *ngIf="f.skillid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
             [value]="f.skillid.value" [status]="f.status.value"></app-action>
         </li>
-        <i class='nav-item actionheader common_title_style '
-          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)"
-          class="fa fa-times-circle close_common_icon2 mobileviewCloseBtn" (click)="onClose()"></i>
+        <li class='nav-item actionheader'
+          *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
+          <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i>
+            Close</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -147,7 +149,8 @@
 
       <div
         *ngIf="((hidelist.indexOf('subcategoryid') == -1) && (subcategoryidvisible==undefined || subcategoryidvisible==true))"
-        style='' class="col-4"><label for="subcategoryid" class="control-label required">Sub Category</label>&nbsp;&nbsp;
+        style='' class="col-4"><label for="subcategoryid" class="control-label required">Sub
+          Category</label>&nbsp;&nbsp;
         <!-- <a [routerLink]='' (click)="AddOrEditskillsubcategory(null)"> Add Sub Category</a> -->
         <select *ngIf="!showview" id="subcategoryid" required (change)="subcategoryid_onChange($event.target)"
           formControlName="subcategoryid" class="form-control">
@@ -158,8 +161,7 @@
         <label *ngIf="showview" class="labelview">{{f.subcategoryiddesc?.value}}</label>
         <input *ngIf="showinput3" id="subcategoryid" class="form-control" formControlName="subcategoryidothers"
           type="text">
-        <app-field-error-display [displayError]="f.subcategoryid.errors?.required"
-          errorMsg="Enter {{'Sub Category'}}">
+        <app-field-error-display [displayError]="f.subcategoryid.errors?.required" errorMsg="Enter {{'Sub Category'}}">
         </app-field-error-display>
       </div>
 
@@ -189,7 +191,7 @@
 
     <div *ngIf="(viewHtml == '' || !showview) && showAttachmentView" class="form-group row">
       <div *ngIf="((hidelist.indexOf('remarks') == -1) && (remarksvisible==undefined || remarksvisible==true))"
-         class="col-12 ">
+        class="col-12 ">
         <label for="remarks" class="control-label">Remarks</label>
         <label *ngIf="showview" class="labelview">{{f.remarks?.value}}</label>
         <p-editor *ngIf="!showview" id="remarks" formControlName="remarks" [style]="{  height: '320' }"></p-editor>
