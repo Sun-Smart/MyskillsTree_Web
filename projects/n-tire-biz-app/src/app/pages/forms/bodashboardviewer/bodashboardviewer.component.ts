@@ -120,6 +120,12 @@ export class BODashboardViewerComponent implements OnInit {
   skilltoDate: any;
   EachExpresult: any = [];
   showExp: any;
+  showpersonal: boolean = true;
+  showSkill: boolean;
+  showeducation: boolean;
+  showExperience: boolean;
+  showProject: boolean;
+  showCertification: boolean;
 
   constructor(public dialogRef: DynamicDialogRef,
     private toastr: ToastService,
@@ -325,10 +331,81 @@ export class BODashboardViewerComponent implements OnInit {
     if (this.sessionService.getItem("role") == '1') {
       this.isadmin = true;
     }
+
+    // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
+
+    // });
   };
 
+  personal(event: any) {
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = true;
+    }
+  };
+
+  skills(event: any){
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = true;
+    }
+  }
+
+  education(event: any){
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = false;
+      this.showExperience = true;
+    }
+  }
+
+  career(event: any){
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = false;
+      this.showExperience = false;
+      this.showProject = true;
+    }
+  }
+
+  project(event: any){
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = false;
+      this.showExperience = false;
+      this.showProject = false;
+      this.showCertification = true;
+    }
+  }
+
+  certification(event: any){
+    console.log("event", event);
+    if(event == true){
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = false;
+      this.showExperience = false;
+      this.showProject = false;
+      this.showCertification = false;
+      this.showNewApp_Dashboard = true;
+    }
+  }
+
   get_allData() {
-    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByOrderPriority(this.applicantid).then((res: any) => {
+    // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
+
+      this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByOrderPriority(this.applicantid).then((res: any) => {
+
+      console.log("Order Priority", res);
 
       console.log('response ', res);
 

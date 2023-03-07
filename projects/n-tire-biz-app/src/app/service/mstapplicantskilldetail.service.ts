@@ -68,7 +68,7 @@ export class mstapplicantskilldetailService {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantskilldetail' + '/' + id).toPromise();
     }
   }
-  get_mstapplicantskilldetails_ByApplicantID(id: number): any {
+  get_mstapplicantskilldetails_ByApplicantID(id: any): any {
     // let appid=localStorage.getItem('applicantid');
     if (this.valid()) {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantskilldetail' + '/applicantid/' + id).toPromise();

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, Location } from '@angular/common';
@@ -25,33 +25,22 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 @Component({
   selector: 'app-applicantworkrefgrid',
   template: `
+  <div style = "float: left;width: 100%;height:100%;">
     <div *ngIf="showWebviewDetect" class="row form-group sticky1" style=" background: #ebf3fc; !important;color: #000;padding: 5px;">
 
     <div class="col-4">
     <h4 class="mobile_work_ref">{{'Project'}}</h4>
 </div>
 
-<div class="col-4">
-                <ul class="nav navbar-nav1" style='display:none'>
-                  <li class="dropdown">
-                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-                      aria-expanded='false'> <span class='caret'></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" [routerLink]=''
-                          (click)="mstapplicantworkreferences_route(null, 'create')"><i class="fa fa-plus"
-                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                    </ul>
-                  </li>
-                </ul>
-</div>
+<div class="col-6"></div>
 
-<div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
+<div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-between;">
 
-<a class="alert-success" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
-class="fa fa-plus"></i> Add</a>
+<button type = "button" class="alert-success" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
+class="fa fa-plus"></i> Add</button>
 
-<a class="alert-danger" [routerLink]='' (click)="onClose()"><i
-class="fa fa-close"></i> Close</a>
+<button type = "button" class="alert-danger" [routerLink]='' (click)="onClose()"><i
+class="fa fa-close"></i> Close</button>
 </div>
 </div>
 
@@ -61,30 +50,20 @@ class="fa fa-close"></i> Close</a>
     <h4 class="mobile_work_ref">{{'Project'}}</h4>
 </div>
 
-<div class="col-4">
-                <ul class="nav navbar-nav1" style='display:none'>
-                  <li class="dropdown">
-                    <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
-                      aria-expanded='false'> <span class='caret'></span></a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" [routerLink]=''
-                          (click)="mstapplicantworkreferences_route(null, 'create')"><i class="fa fa-plus"
-                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New</a></li>
-                    </ul>
-                  </li>
-                </ul>
-</div>
+<div class="col-4"></div>
 
 <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
 
-                <a class="alert-success" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
-                class="fa fa-plus"></i> Add</a>
+                <button type = "button"  class="alert-success" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
+                class="fa fa-plus"></i> Add</button>
 
-                <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
-                class="fa fa-close"></i> Close</a>
+                <button type = "button"  class="alert-danger" [routerLink]='' (click)="onClose()"><i
+                class="fa fa-close"></i> Close</button>
                 </div>
 </div>
 
+<div class = "row">
+<div class = "col-12" style="padding:0;">
 <form [formGroup]="mstapplicantworkreference_Form"  *ngIf="showWebviewDetect">
               <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
                 <thead>
@@ -216,7 +195,7 @@ class="fa fa-close"></i> Close</a>
             </tbody>
                 </table>
 </form>
-
+</div>
 
 <form [formGroup]="mstapplicantworkreference_Form"  *ngIf="showMobileDetectskill">
 
@@ -274,6 +253,8 @@ class="fa fa-close"></i> Close</a>
 
 </div>
 </form>
+
+<div class = "col-12" style="overflow-y: scroll;height: 390px;padding:0;">
               <ng2-smart-table #tbl_mstapplicantworkreferences
                 (userRowSelect)="handle_mstapplicantworkreferences_GridSelected($event)"
                 [settings]="mstapplicantworkreferences_settings"
@@ -287,6 +268,12 @@ class="fa fa-close"></i> Close</a>
                 (edit)="mstapplicantworkreferences_route($event,'edit')"
                 (editConfirm)="mstapplicantworkreferences_beforesave($event)">
               </ng2-smart-table>
+              </div>
+
+      <div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+      <button class="wizard-button" (click)="onSubmitWithProject()"> Add Certification</button>
+      </div>
+      </div>
     `,
   styles: [`
     @media only screen and (max-width: 600px) {
@@ -316,6 +303,9 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
 
   city_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
+
+  @Output() project = new EventEmitter<boolean>();
+
 
   mstapplicantworkreferences_visiblelist: any;
   mstapplicantworkreferences_hidelist: any;
@@ -360,6 +350,9 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   showMobileDetectskill: boolean = false;
   showWebviewDetect: boolean = true;
   isMobile: any;
+  showButton: any;
+
+
   constructor(
     private ngbDateParserFormatter: NgbDateParserFormatter,
     private mstapplicantworkreference_service: mstapplicantworkreferenceService,
@@ -369,7 +362,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     private sharedService: SharedService,
     private fb: FormBuilder,
     private sessionService: SessionService,
-    private toastr: ToastService,private datePipe: DatePipe,
+    private toastr: ToastService, private datePipe: DatePipe,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
     private mstapplicantreferencerequestService: mstapplicantreferencerequestService,
   ) {
@@ -381,6 +374,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     }
     this.pkcol = this.data.maindatapkcol;
     this.applicantid = this.data.applicantid;
+    this.showButton = this.data.showButton;
 
     this.mstapplicantworkreference_Form = this.fb.group({
       pk: [null],
@@ -398,9 +392,9 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       fromdate: [null],
       todate: [null],
       locationdesc: [null],
-      location:[null],
+      location: [null],
       status: [null],
-      skills: [null,[Validators.required]],
+      skills: [null, [Validators.required]],
       skilldesc: [null],
       statusdesc: [null],
     });
@@ -652,6 +646,10 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     }
   }
 
+  async onSubmitWithProject(bclear: any) {
+    this.project.emit(true);
+  }
+
   resetForm() {
     if (this.mstapplicantworkreference_Form != null)
       this.mstapplicantworkreference_Form.reset();
@@ -776,7 +774,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         remarks: res.mstapplicantworkreference.remarks,
         requestid: res.mstapplicantworkreference.requestid,
         skills: res.mstapplicantworkreference.skills,
-        location:res.mstapplicantworkreference.location,
+        location: res.mstapplicantworkreference.location,
         locationdesc: res.mstapplicantworkreference.locationdesc,
         attachment: "[]",
         status: res.mstapplicantworkreference.status,

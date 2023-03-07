@@ -81,13 +81,13 @@ export class HeaderComponent implements OnInit {
   pkcorporateid: any;
   show_dashboard: boolean = true;
   AppliSkill: boolean;
-  showButton : boolean;
+  showButton: boolean;
 
 
   constructor(
     private router: Router,
     private routeStateService: RouteStateService,
-    public sessionService: SessionService,private _eref: ElementRef,
+    public sessionService: SessionService, private _eref: ElementRef,
     private mstapplicantmaster_service: mstapplicantmasterService,
     private toastr: ToastService,
     private userIdle: UserIdleService,
@@ -120,7 +120,7 @@ export class HeaderComponent implements OnInit {
       this.menuhide = false;
       this.showhideProfile = false
     }
-   }
+  }
   openJobs() {
     this.menuhide = false;
     this.sharedService.currenturl = "home/boreportviewer/jobs";
@@ -341,10 +341,10 @@ export class HeaderComponent implements OnInit {
     this.displayNotifications = false;
   }
   showProfile() {
-    
+
     this.dialog.open(mstapplicantmastermainComponent,
       {
-        data: { showButton :true, ScreenType: 2, applicantid: this.applicantid, save: true }
+        data: { showButton: true, ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -389,7 +389,7 @@ export class HeaderComponent implements OnInit {
       {
         width: '100% !important',
         height: '90% !important',
-        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+        data: { showButton: true, ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -403,7 +403,7 @@ export class HeaderComponent implements OnInit {
         width: '100% !important',
         height: '90% !important',
         // contentStyle: 'mobileView',
-        data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+        data: { showButton: true, ScreenType: 2, applicantid: this.applicantid, save: true }
       }
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -423,7 +423,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(mstapplicantcareergridComponent, {
       width: '100% !important',
       height: '90% !important',
-      data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      data: { showButton: true, ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
@@ -433,7 +433,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(mstapplicantworkrefgridComponent, {
       width: '100% !important',
       height: '90% !important',
-      data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      data: { showButton: true, ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
@@ -443,7 +443,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(mstapplicanteducationdetailgridComponent, {
       width: '100% !important',
       height: '90% !important',
-      data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      data: { showButton: true, ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
@@ -453,7 +453,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(mstapplicantachivementgridComponent, {
       width: '100% !important',
       height: '90% !important',
-      data: { ScreenType: 2, applicantid: this.applicantid, save: true }
+      data: { showButton :true, ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })

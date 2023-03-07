@@ -303,11 +303,12 @@
                 </p-accordionTab>
               </p-accordion>
             </div>
+            <div class="col-12" *ngIf="!buttonview" style="display: flex;justify-content: end;margin: 15px auto;">
+              <button type="button" class="wizard-button" (click)="onSubmitWithSkills()"> Submit & Add
+                Skills</button>
+                <!-- <button  type="button" class="wizard-button" (click)="check()"> Check</button> -->
+            </div>
           </p-accordion>
-
-          <div class="col-12" *ngIf="!buttonview" style="display: flex;justify-content: end;margin: 15px auto;">
-            <button class="alert-success" (click)="onSubmitWithSkills()"> Submit & Add Skills</button>
-          </div>
 
         </div>
       </div>

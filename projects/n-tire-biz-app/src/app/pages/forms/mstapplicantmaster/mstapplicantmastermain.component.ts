@@ -1,6 +1,6 @@
 import { mstapplicantmasterService } from './../../../service/mstapplicantmaster.service';
 import { mstapplicantmaster } from './../../../model/mstapplicantmaster.model';
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
@@ -44,6 +44,7 @@ export class mstapplicantmastermainComponent implements OnInit {
   showGoWorkFlow: boolean = false;
   pkList: any;//stores values - used in search, prev, next
   pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
+  @Output() personal = new EventEmitter<boolean>()
   toolbarVisible: boolean = true;
   customFieldServiceList: any;
   CustomFormName: string = "";
@@ -69,6 +70,8 @@ export class mstapplicantmastermainComponent implements OnInit {
   state_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
   city_List: DropDownValues[];
   city_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
+
+
 
   private exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
   showFormType: any;
@@ -116,11 +119,8 @@ export class mstapplicantmastermainComponent implements OnInit {
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
     }
-    console.log("this.data", this.data );
-    
-    this.showButton =  this.data.showButton
 
-    console.log("this.showButton", this.showButton );
+    this.showButton = this.data.showButton
 
     this.p_menuid = sharedService.menuid;
     this.p_currenturl = sharedService.currenturl;
@@ -699,9 +699,10 @@ export class mstapplicantmastermainComponent implements OnInit {
         if (this.fileattachment) this.fileattachment.clear();
         this.spinner.hide();
         this.toastr.addSingle("success", "", "Successfully saved");
+        this.personal.emit(true);
+
         localStorage.removeItem("choosefileforprofile")
         this.objvalues.push((res as any).mstapplicantmaster);
-        this.router.navigate(['/home/applicantskilldetailgrid'])
         this.showOpenfile = true;
       },
       err => {
@@ -709,6 +710,9 @@ export class mstapplicantmastermainComponent implements OnInit {
         this.toastr.addSingle("error", "", err.error);
       }
     )
+  }
+  check() {
+    // this.personal.emit(true);
   }
 
   PrevForm() {

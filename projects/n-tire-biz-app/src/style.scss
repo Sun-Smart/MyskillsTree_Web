@@ -118,6 +118,16 @@
   width: auto !important;
   white-space: nowrap;
 }
+.wizard-button{
+line-height: 1;
+color: #fff !important;
+border: none !important;
+border-radius: 6px;
+height: 30px;
+padding: 5px 10px !important;
+background: #6b431d !important;
+font-size: 12px;
+}
 
 input[type='checkbox'] {
   margin-left: 20px !important;
