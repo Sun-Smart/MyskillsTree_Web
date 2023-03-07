@@ -272,7 +272,7 @@ class="fa fa-close"></i> Close</button>
 
       <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
       
-      <button class="wizard-button" (click)="skip_details()" style="margin-left:5px;"> Skip</button>
+      <button class="wizard-button" (click)="skip_details()" style="margin-right:10px;"> Skip</button>
 
       <button class="wizard-button" (click)="onSubmitWithProject()"> Add Certification</button>
 
