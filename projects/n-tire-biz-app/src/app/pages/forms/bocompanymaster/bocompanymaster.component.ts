@@ -1084,7 +1084,7 @@ debugger;
             mode: 'external',
             selectMode: 'single',
             actions: {
-                columnTitle: '',
+                columnTitle: 'ACtions',
                 width: '300px',
                 add: !this.showview,
                 edit: true, // true,
@@ -1224,7 +1224,7 @@ debugger;
             mode: 'external',
             selectMode: 'single',
             actions: {
-                columnTitle: '',
+                columnTitle: 'Actions',
                 width: '300px',
                 add: !this.showview,
                 edit: true, // true,

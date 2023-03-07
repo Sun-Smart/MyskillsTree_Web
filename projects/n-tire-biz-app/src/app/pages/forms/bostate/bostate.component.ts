@@ -500,7 +500,7 @@ export class bostateComponent implements OnInit {
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(bocityComponent,
-            { width:'50% !important',
+            { width:'40% !important',
             height:'30% !important',
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, cityid, stateid, visiblelist: this.bocities_visiblelist, hidelist: this.bocities_hidelist, ScreenType: 2 },
             }
@@ -561,7 +561,7 @@ export class bostateComponent implements OnInit {
             mode: 'external',
             selectMode: 'single',
             actions: {
-                columnTitle: '',
+                columnTitle: 'Actions',
                 width: '300px',
                 add: !this.showview,
                 edit: true, // true,
