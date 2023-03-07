@@ -342,19 +342,10 @@ export class BODashboardViewerComponent implements OnInit {
     if (this.sessionService.getItem("role") == '1') {
       this.isadmin = true;
     }
-
-    // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
-
-    // });
   };
 
   skillwizard(event: any) {
     console.log("event", event);
-
-    // if (event == true) {
-    //   this.showpersonal = false;
-    //   this.showSkill = true;
-    // }
   };
 
   personal(event: any) {
@@ -428,7 +419,7 @@ export class BODashboardViewerComponent implements OnInit {
       console.log("Order Priority", res);
 
       if (res.mstapplicantskilldetail.length > 0){
-        this.showNewApp_Dashboard = false;
+        this.showNewApp_Dashboard = true;
       }
       this.sub_category = res.mstapplicantskilldetail;
       for (let i = 0; i < this.sub_category.length; i++) {
@@ -445,7 +436,7 @@ export class BODashboardViewerComponent implements OnInit {
         this.skilltoDate = this.skill_detail[i].todate;
         if (this.skill_detail.skill_id === res.mstapplicantskilldetail.skillid) {
           this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
-          this.showExp.push({ check: this.EachExpresult.years + ':' + this.EachExpresult.months });
+          this.showExp.push({ check: this.EachExpresult.years + '.' + this.EachExpresult.months });
           this.arrayDate = this.showExp[i].check;
         }
 
@@ -614,12 +605,14 @@ export class BODashboardViewerComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showmyProfile() {
     var showmyproid = "showMyPro";
     localStorage.setItem('showprofile', showmyproid);
     this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')]);
-  }
+  };
+
   showAttachment() {
     this.dialog.open(mstapplicantmastermainComponent,
       {
@@ -628,7 +621,8 @@ export class BODashboardViewerComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showGeography() {
     this.dialog.open(mstapplicantgeographygrid,
       {
@@ -639,7 +633,8 @@ export class BODashboardViewerComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showWorkRef() {
     this.dialog.open(mstapplicantworkrefgridComponent, {
       width: '100% !important',
@@ -648,7 +643,8 @@ export class BODashboardViewerComponent implements OnInit {
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showcareer() {
     this.dialog.open(mstapplicantcareergridComponent, {
       width: '100% !important',
@@ -657,7 +653,8 @@ export class BODashboardViewerComponent implements OnInit {
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showEducation() {
     this.dialog.open(mstapplicanteducationdetailgridComponent, {
       width: '100% !important',
@@ -666,7 +663,8 @@ export class BODashboardViewerComponent implements OnInit {
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showAchievement() {
     this.dialog.open(mstapplicantachivementgridComponent, {
       width: '100% !important',
@@ -676,7 +674,8 @@ export class BODashboardViewerComponent implements OnInit {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
 
-  }
+  };
+
   showSocial() {
     this.dialog.open(mstapplicantsocialmediagridComponent, {
       width: '100% !important',
@@ -685,7 +684,8 @@ export class BODashboardViewerComponent implements OnInit {
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showLanguage() {
     this.dialog.open(mstapplicantlanuagegridComponent, {
       width: '100% !important',
@@ -694,7 +694,8 @@ export class BODashboardViewerComponent implements OnInit {
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   edit_fullpagemstapplicantmasters() {
 
     this.dialog.open(mstapplicantmastermainComponent,
@@ -704,7 +705,8 @@ export class BODashboardViewerComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   edit_briefmstapplicantmasterss() {
     this.dialog.open(mstapplicantmastermainComponent,
       {
@@ -713,7 +715,8 @@ export class BODashboardViewerComponent implements OnInit {
     ).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   showRefreq() {
     this.dialog.open(mstapplicantreferencegridComponent, {
       width: '100% !important',
@@ -722,7 +725,8 @@ export class BODashboardViewerComponent implements OnInit {
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
-  }
+  };
+
   uploadmethod() {
 
     this.dialog.open(mstresumeapplicantComponent,
@@ -733,7 +737,7 @@ export class BODashboardViewerComponent implements OnInit {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
 
-  }
+  };
 
   releasemethod(e: any) {
 
@@ -753,5 +757,5 @@ export class BODashboardViewerComponent implements OnInit {
         this.isrelease = false
       }
     })
-  }
+  };
 }
