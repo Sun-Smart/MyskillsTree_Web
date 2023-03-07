@@ -117,6 +117,10 @@ export class BODashboardViewerComponent implements OnInit {
   ref_date: any;
   sub: any;
   showNewApp_Dashboard: boolean = false;
+  skillfromDate: any;
+  skilltoDate: any;
+  EachExpresult: any = [];
+  showExp: any = [];
   showpersonal: boolean = true;
   showSkill: boolean;
   showeducation: boolean;
@@ -124,6 +128,7 @@ export class BODashboardViewerComponent implements OnInit {
   showProject: boolean;
   showCertification: boolean;
   dataDashboard: any;
+  arrayDate: any = [];
 
   constructor(public dialogRef: DynamicDialogRef,
     private toastr: ToastService,
@@ -354,7 +359,6 @@ export class BODashboardViewerComponent implements OnInit {
 
   personal(event: any) {
     console.log("event", event);
-
     if (event == true) {
       this.showpersonal = false;
       this.showSkill = true;
@@ -417,53 +421,90 @@ export class BODashboardViewerComponent implements OnInit {
   }
 
   get_allData() {
-    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
+    // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
 
-      // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_OrderPriority(this.applicantid).then((res: any) => {
+    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByOrderPriority(this.applicantid).then((res: any) => {
 
       console.log("Order Priority", res);
-      console.log("this.dataDashboard.dashboard", this.dataDashboard.dashboard);
-
 
       if (res.mstapplicantskilldetail.length > 0){
         this.showNewApp_Dashboard = false;
       }
       this.sub_category = res.mstapplicantskilldetail;
-
       for (let i = 0; i < this.sub_category.length; i++) {
         this.skill_detail.push({
           strRating: this.sub_category[i].selfrating,
           subCategory: this.sub_category[i].subcategoryiddesc,
           skill_id: this.sub_category[i].subcategoryid,
           remarks: this.sub_category[i].remarks,
+          fromdate: this.sub_category[i].fromdate,
+          todate: this.sub_category[i].todate
         });
-      };
 
-      for (let i = 0; i < this.skill_detail.length; i++) {
-        if (this.skill_detail[i].strRating == 1) {
-          this.showstr = '★'
-        } else if (this.skill_detail[i].strRating == 2) {
-          this.showstr = '★★'
-        } else if (this.skill_detail[i].strRating == 3) {
-          this.showstr = '★★★'
-        } else if (this.skill_detail[i].strRating == 4) {
-          this.showstr = '★★★★'
-        } else if (this.skill_detail[i].strRating == 5) {
-          this.showstr = '★★★★★'
-        } else if (this.skill_detail[i].strRating == null) {
-          this.showstr = ' '
-        };
+        this.skillfromDate = this.skill_detail[i].fromdate;
+        this.skilltoDate = this.skill_detail[i].todate;
+        if (this.skill_detail.skill_id === res.mstapplicantskilldetail.skillid) {
+          this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
+          this.showExp.push({ check: this.EachExpresult.years + ':' + this.EachExpresult.months });
+          this.arrayDate = this.showExp[i].check;
+        }
 
+        // console.log('result ', this.showExp[i].check);
+        for (let i = 0; i < this.skill_detail.length; i++) {
+          if (this.skill_detail[i].strRating == 1) {
+            this.showstr = '★'
+          } else if (this.skill_detail[i].strRating == 2) {
+            this.showstr = '★★'
+          } else if (this.skill_detail[i].strRating == 3) {
+            this.showstr = '★★★'
+          } else if (this.skill_detail[i].strRating == 4) {
+            this.showstr = '★★★★'
+          } else if (this.skill_detail[i].strRating == 5) {
+            this.showstr = '★★★★★'
+          } else if (this.skill_detail[i].strRating == null) {
+            this.showstr = ' '
+          };
+        }
         this.finalarray.push({
           subCategory: this.skill_detail[i].subCategory,
           skillId: this.skill_detail[i].skill_id,
           remarks: this.skill_detail[i].remarks,
-          showstr: this.showstr
+          showstr: this.showstr,
+          ExpSkill: this.arrayDate
         });
+        console.log(this.finalarray[i].ExpSkill);
+      };
+      console.log('result ', this.arrayDate);
+
+      function getDateDifference(startDate, endDate) {
+        var startYear = startDate.getFullYear();
+        var startMonth = startDate.getMonth();
+        var startDay = startDate.getDate();
+
+        var endYear = endDate.getFullYear();
+        var endMonth = endDate.getMonth();
+        var endDay = endDate.getDate();
+
+        // We calculate February based on end year as it might be a leep year which might influence the number of days.
+        var february = (endYear % 4 == 0 && endYear % 100 != 0) || endYear % 400 == 0 ? 29 : 28;
+        var daysOfMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        var startDateNotPassedInEndYear = (endMonth < startMonth) || endMonth == startMonth && endDay < startDay;
+        var years = endYear - startYear - (startDateNotPassedInEndYear ? 1 : 0);
+
+        var months = (12 + endMonth - startMonth - (endDay < startDay ? 1 : 0)) % 12;
+
+        // (12 + ...) % 12 makes sure index is always between 0 and 11
+        var days = startDay <= endDay ? endDay - startDay : daysOfMonth[(12 + endMonth - 1) % 12] - startDay + endDay;
+
+        return {
+          years: years,
+          months: months,
+          days: days
+        };
       }
       this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
     });
-    // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
 
 
     //   if (res.mstapplicantskilldetail.length > 0) {
@@ -548,7 +589,7 @@ export class BODashboardViewerComponent implements OnInit {
 
   //   this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then((res: any) => {
 
-  //     console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
+  // console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
 
 
   //     for (let i = 0; i < res.mstapplicantcareerdetail; i++){

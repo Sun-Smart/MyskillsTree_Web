@@ -256,7 +256,7 @@ export class bocompanyholidayComponent implements OnInit {
 
     onSubmitAndWait() {
         debugger;
-        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.holidaydate != null) {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true ) {
             this.onSubmitData(false);
         }
         else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
@@ -268,7 +268,7 @@ export class bocompanyholidayComponent implements OnInit {
     }
     onSubmit() {
         debugger;
-        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.holidaydate != null) {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true ) {
             this.onSubmitData(true);
         }
         else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
@@ -278,6 +278,32 @@ export class bocompanyholidayComponent implements OnInit {
             this.onSubmitData(true);
         }
     }
+
+    // onSubmitAndWait() {
+    //     debugger;
+    //     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.holidaydate != null) {
+    //         this.onSubmitData(false);
+    //     }
+    //     else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+    //         this.onSubmitDataDlg(false);
+    //     }
+    //     else {
+    //         this.onSubmitData(false);
+    //     }
+    // }
+    // onSubmit() {
+    //     debugger;
+    //     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.holidaydate != null) {
+    //         this.onSubmitData(true);
+    //     }
+    //     else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
+    //         this.onSubmitDataDlg(true);
+    //     }
+    //     else {
+    //         this.onSubmitData(true);
+    //     }
+    // }
+
     financialyearid_onChange(evt: any) {
         let e = evt.value;
         this.bocompanyholiday_Form.patchValue({ financialyeariddesc: evt.options[evt.options.selectedIndex].text });
