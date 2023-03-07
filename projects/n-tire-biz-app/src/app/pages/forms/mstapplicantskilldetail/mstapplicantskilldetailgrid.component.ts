@@ -388,14 +388,14 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     }
 
     this.Set_mstapplicantskilldetails_TableConfig();
-    
+
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
 
     this.pkcol = this.data.maindatapkcol;
     this.applicantid = localStorage.getItem('applicantid');
 
-    console.log("this.applicantid ", this.applicantid );
+    console.log("this.applicantid ", this.applicantid);
 
 
     this.mstapplicantskilldetail_Form = this.fb.group({
@@ -530,9 +530,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.showOrderError = false;
     }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
-    this.formData.applicantid = this.applicantid; 
+    this.formData.applicantid = this.applicantid;
     if (this.contentChecked == true && this.mstapplicantskilldetail_Form.value.orderpriority) {
-      console.log('this.contentChecked',this.contentChecked);
+      console.log('this.contentChecked', this.contentChecked);
       this.toastr.addSingle("error", "", "Skill set in hide status unable to given the order priority");
       return;
     }
@@ -595,8 +595,14 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   }
 
   async onSubmitWithEducation(bclear: any) {
-    
-    this.skills.emit(true);
+    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
+      if (res.mstapplicantskilldetail.length > 0) {
+        this.skills.emit(true);
+      } else {
+        this.toastr.addSingle("", "", "Add Your Skillset");
+        return
+      }
+    });
   }
   onSubmitAndWait() {
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
@@ -660,11 +666,15 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
 
   FillData() {
-    
+
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
+
       this.mstapplicantskilldetail_menuactions = res.mstapplicantskilldetail_menuactions;
       this.Set_mstapplicantskilldetails_TableConfig();
       this.mstapplicantskilldetails_LoadTable(res.mstapplicantskilldetail);
+
+
+
     });
     setTimeout(() => {
       if (this.f.skillcategory.value && this.f.skillcategory.value != "" && this.f.skillcategory.value != null) this.mstapplicantskilldetail_service.getList_subcategoryid2(this.f.skillcategory.value).then(res => {

@@ -37,7 +37,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <button type="button"  class="alert-success" (click)="mstapplicanteducationdetails_route(null, 'create')"><i
             class="fa fa-plus"></i> Add</button>
 
-            <button type="button"  class="alert-danger" (click)="onClose()"><i
+            <button type="button"  class="alert-danger" (click)="onClose()" *ngIf = "showButton"><i
             class="fa fa-close"></i> Close</button>
         </div>
     </div>
@@ -242,6 +242,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
               <div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
               <button class="wizard-button" (click)="onSubmitWithExperience()"> Add Experience</button>
+              
               </div>
               </div>
     `,
@@ -601,7 +602,15 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   };
 
   onSubmitWithExperience() {
-    this.education.emit(true);
+
+    this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {     
+       if (res.mstapplicanteducationdetail.length > 0) {
+      this.education.emit(true);
+    } else {
+      this.toastr.addSingle("", "", "Add Your Education");
+      return
+    }
+  });
   }
 
   validate() {

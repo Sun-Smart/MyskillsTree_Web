@@ -33,7 +33,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 <div class="col-6"></div>
 
-<div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-between;">
+<div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-evenly;">
 
                 <button type = "button"  class="alert-success" (click)="Add_mstapplicantachievementdetail(null, 'create', 'this.applicantid')"><i
                 class="fa fa-plus"></i> Add</button>
@@ -226,6 +226,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
         <div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
         <button class="wizard-button" (click)="onSubmitWithCertification()"> Dashboard</button>
+        <button class="wizard-button" (click)="skip_details()"> Skip</button>
         </div>
         </div>
     `,
@@ -484,6 +485,19 @@ export class mstapplicantachivementgridComponent implements OnInit {
   };
 
   async onSubmitWithCertification(bclear: any) {
+
+
+    this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {      
+      if (res.mstapplicantachievementdetail.length > 0) {
+      this.certification.emit(true);
+    } else {
+      this.toastr.addSingle("", "", "Add Your Certification");
+      return
+    }
+  });
+  };
+
+  skip_details(){
     this.certification.emit(true);
   }
 
