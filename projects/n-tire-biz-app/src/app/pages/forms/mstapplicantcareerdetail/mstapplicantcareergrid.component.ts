@@ -34,7 +34,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </div>
     <div class="col-6">    </div>
     
-    <div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-between;">
+    <div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-evenly;">
 
     <button type = "button" class="alert-success" (click)="mstapplicantcareerdetails_route(null, 'create')"><i
     class="fa fa-plus"></i> Add</button>
@@ -241,6 +241,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 <div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
 <button class="wizard-button" (click)="onSubmitWithCareer()"> Add Project</button>
+<button class="wizard-button" (click)="skip_details()"> Skip</button>
 </div>
 </div>
                 `,
@@ -567,6 +568,18 @@ export class mstapplicantcareergridComponent implements OnInit {
   }
 
   async onSubmitWithCareer(bclear: any) {
+
+    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {      
+      if (res.mstapplicantcareerdetail.length > 0) {
+      this.career.emit(true);
+    } else {
+      this.toastr.addSingle("", "", "Add Your Experience");
+      return
+    }
+  });
+  };
+
+  skip_details(){
     this.career.emit(true);
   }
 

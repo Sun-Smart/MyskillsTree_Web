@@ -701,7 +701,6 @@ export class mstapplicantmastermainComponent implements OnInit {
         this.spinner.hide();
         this.toastr.addSingle("success", "", "Successfully saved");
         this.personal.emit(true);
-
         localStorage.removeItem("choosefileforprofile")
         this.objvalues.push((res as any).mstapplicantmaster);
         this.showOpenfile = true;

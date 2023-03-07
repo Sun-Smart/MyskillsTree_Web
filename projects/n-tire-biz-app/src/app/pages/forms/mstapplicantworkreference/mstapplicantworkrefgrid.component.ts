@@ -34,7 +34,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 
 <div class="col-6"></div>
 
-<div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-between;">
+<div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-evenly;">
 
 <button type = "button" class="alert-success" (click)="mstapplicantworkreferences_route(null, 'create')"><i
 class="fa fa-plus"></i> Add</button>
@@ -272,6 +272,7 @@ class="fa fa-close"></i> Close</button>
 
       <div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
       <button class="wizard-button" (click)="onSubmitWithProject()"> Add Certification</button>
+      <button class="wizard-button" (click)="skip_details()"> Skip</button>
       </div>
       </div>
     `,
@@ -649,8 +650,21 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   }
 
   async onSubmitWithProject(bclear: any) {
+
+    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {     
+       if (res.mstapplicantworkreference.length > 0) {
+        this.project.emit(true);
+      } else {
+        this.toastr.addSingle("", "", "Add Your Project");
+        return
+      }
+    });
+  };
+
+  skip_details(){
     this.project.emit(true);
   }
+
 
   resetForm() {
     if (this.mstapplicantworkreference_Form != null)
