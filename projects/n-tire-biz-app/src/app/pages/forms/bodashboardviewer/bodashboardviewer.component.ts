@@ -445,7 +445,7 @@ export class BODashboardViewerComponent implements OnInit {
         this.skilltoDate = this.skill_detail[i].todate;
         if (this.skill_detail.skill_id === res.mstapplicantskilldetail.skillid) {
           this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
-          this.showExp.push({ check: this.EachExpresult.years + ':' + this.EachExpresult.months });
+          this.showExp.push({ check: this.EachExpresult.years + '.' + this.EachExpresult.months });
           this.arrayDate = this.showExp[i].check;
         }
 
