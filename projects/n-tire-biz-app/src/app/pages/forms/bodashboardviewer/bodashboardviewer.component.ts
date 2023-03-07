@@ -129,6 +129,7 @@ export class BODashboardViewerComponent implements OnInit {
   showCertification: boolean;
   dataDashboard: any;
   arrayDate: any = [];
+  checkTest: any = [];
 
   constructor(public dialogRef: DynamicDialogRef,
     private toastr: ToastService,
@@ -422,12 +423,19 @@ export class BODashboardViewerComponent implements OnInit {
 
   get_allData() {
     // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
+    //     let body = {
+    //       applicantid: this.applicantid,
+    //       skillid:
+    // }
+    //     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByExperience(this.applicantid).then((res: any) => {
 
+    //     })
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByOrderPriority(this.applicantid).then((res: any) => {
 
       console.log("Order Priority", res);
 
-      if (res.mstapplicantskilldetail.length > 0){
+
+      if (res.mstapplicantskilldetail.length > 0) {
         this.showNewApp_Dashboard = false;
       }
       this.sub_category = res.mstapplicantskilldetail;
@@ -437,44 +445,42 @@ export class BODashboardViewerComponent implements OnInit {
           subCategory: this.sub_category[i].subcategoryiddesc,
           skill_id: this.sub_category[i].subcategoryid,
           remarks: this.sub_category[i].remarks,
-          fromdate: this.sub_category[i].fromdate,
-          todate: this.sub_category[i].todate
         });
-
-        this.skillfromDate = this.skill_detail[i].fromdate;
-        this.skilltoDate = this.skill_detail[i].todate;
-        if (this.skill_detail.skill_id === res.mstapplicantskilldetail.skillid) {
+        this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByExperience(this.applicantid, this.sub_category[i].subcategoryid).then((res: any) => {
+          for (let i = 0; i < res.length; i++) {
+            this.skillfromDate = res[i].fromdate;
+            this.skilltoDate = res[i].todate;
+          }
           this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
+          console.log('this.EachExpresult',this.EachExpresult);
           this.showExp.push({ check: this.EachExpresult.years + '.' + this.EachExpresult.months });
-          this.arrayDate = this.showExp[i].check;
-        }
+          this.arrayDate = this.showExp[i]?.check
+          console.log('this.arrayDate ', this.arrayDate);
 
-        // console.log('result ', this.showExp[i].check);
-        for (let i = 0; i < this.skill_detail.length; i++) {
-          if (this.skill_detail[i].strRating == 1) {
-            this.showstr = '★'
-          } else if (this.skill_detail[i].strRating == 2) {
-            this.showstr = '★★'
-          } else if (this.skill_detail[i].strRating == 3) {
-            this.showstr = '★★★'
-          } else if (this.skill_detail[i].strRating == 4) {
-            this.showstr = '★★★★'
-          } else if (this.skill_detail[i].strRating == 5) {
-            this.showstr = '★★★★★'
-          } else if (this.skill_detail[i].strRating == null) {
-            this.showstr = ' '
-          };
-        }
-        this.finalarray.push({
-          subCategory: this.skill_detail[i].subCategory,
-          skillId: this.skill_detail[i].skill_id,
-          remarks: this.skill_detail[i].remarks,
-          showstr: this.showstr,
-          ExpSkill: this.arrayDate
-        });
-        console.log(this.finalarray[i].ExpSkill);
+          for (let i = 0; i < this.skill_detail.length; i++) {
+            if (this.skill_detail[i].strRating == 1) {
+              this.showstr = '★'
+            } else if (this.skill_detail[i].strRating == 2) {
+              this.showstr = '★★'
+            } else if (this.skill_detail[i].strRating == 3) {
+              this.showstr = '★★★'
+            } else if (this.skill_detail[i].strRating == 4) {
+              this.showstr = '★★★★'
+            } else if (this.skill_detail[i].strRating == 5) {
+              this.showstr = '★★★★★'
+            } else if (this.skill_detail[i].strRating == null) {
+              this.showstr = ' '
+            };
+          }
+          this.finalarray.push({
+            subCategory: this.skill_detail[i].subCategory,
+            skillId: this.skill_detail[i].skill_id,
+            remarks: this.skill_detail[i].remarks,
+            showstr: this.showstr,
+            ExpSkill: this.arrayDate
+          });
+        })
       };
-      console.log('result ', this.arrayDate);
 
       function getDateDifference(startDate, endDate) {
         var startYear = startDate.getFullYear();
@@ -503,7 +509,7 @@ export class BODashboardViewerComponent implements OnInit {
           days: days
         };
       }
-      this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
+      this.showDetails(this.finalarray[0]?.skillId, this.finalarray[0]?.subCategory, this.finalarray[0]?.remarks)
     });
 
 
