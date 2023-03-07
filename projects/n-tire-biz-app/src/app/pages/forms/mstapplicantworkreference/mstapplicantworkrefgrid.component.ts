@@ -599,7 +599,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     }
 
     this.formData.skills = null;
-    this.formData.applicantid = this.applicantid; 
+    this.formData.applicantid = this.applicantid;
 
     if (this.formData.fromdate > this.formData.todate) {
       this.showDateError = true;
@@ -723,7 +723,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             <th style="white-space: break-spaces;width:11%;">##todate##</th>
             <th style="white-space: break-spaces;width:10%;">##remarks##</th>
             <th style="white-space: break-spaces;width:11%;">##string_agg##</th>
-            <th style="white-space: break-spaces;width:12%;">##locationdes##</th>
+            <th style="white-space: break-spaces;width:12%;">##location##</th>
           </tr>
         </tbody>
       </table>
@@ -792,7 +792,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         skills: res.mstapplicantworkreference.skills,
         // location: res.mstapplicantworkreference.location,
         locationid: res.mstapplicantworkreference.locationid,
-        locationdesc: res.mstapplicantworkreference.locationdesc,
+        location: res.mstapplicantworkreference.location,
         attachment: "[]",
         status: res.mstapplicantworkreference.status,
         statusdesc: res.mstapplicantworkreference.statusdesc,
