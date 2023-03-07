@@ -668,7 +668,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   async onSubmitWithProject(bclear: any) {
 
-    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {     
+    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
        if (res.mstapplicantworkreference.length > 0) {
         this.project.emit(true);
       } else {
@@ -740,7 +740,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             <th style="white-space: break-spaces;width:11%;">##todate##</th>
             <th style="white-space: break-spaces;width:10%;">##remarks##</th>
             <th style="white-space: break-spaces;width:11%;">##string_agg##</th>
-            <th style="white-space: break-spaces;width:12%;">##location##</th>
+            <th style="white-space: break-spaces;width:12%;">##locationdes##</th>
           </tr>
         </tbody>
       </table>
