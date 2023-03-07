@@ -189,7 +189,7 @@ export class mstapplicantgeographygrid implements OnInit {
   Deleted_mstapplicantgeographypreference_IDs: string = "";
   mstapplicantgeographypreferences_ID: string = "1";
   mstapplicantgeographypreferences_selectedindex: any;
-  ShowTableslist: any;
+  ShowTableslist: any; 
   pkcol: any;
 
   IsApplicant: boolean;

@@ -9,7 +9,7 @@
         <div class="col-12" *ngIf="finalarray.length == 0" style="text-align: center;">
           <label> No records found</label>
         </div>
-        <div class="col-12">
+        <div class="col-12" style="padding: 0 5px;">
           <div class="row" *ngFor="let item of finalarray" class="sidenav-skill-label">
 
             <div class="col-5 skill-label">
@@ -23,7 +23,7 @@
             </div>
 
             <div class="col-4 skill-label" style="text-align: end;">
-              <label>{{expYrs}} Years</label>
+              <label>{{item.ExpSkill}} years</label>
             </div>
           </div>
         </div>
@@ -99,33 +99,33 @@
 
     <div *ngIf="!showNewApp_Dashboard" class="main-dash-content col-9" style="padding: 0;">
 
-      <div style="overflow-y: auto;height: 100%;max-height: 47%;">
-        <app-mstapplicantmastermain></app-mstapplicantmastermain>
+      <div style="overflow-y: auto;height: 100%;max-height: 45%;" *ngIf = "showpersonal">
+        <app-mstapplicantmastermain (personal)="personal($event)" ></app-mstapplicantmastermain>
       </div>
 
-      <div>
-        <!-- <app-applicantskilldetailgrid></app-applicantskilldetailgrid> -->
+      <div *ngIf = "showSkill">
+        <app-applicantskilldetailgrid (skills)="skills($event)"></app-applicantskilldetailgrid>
       </div>
 
-      <div>
-        <!-- <app-applicanteducationgrid></app-applicanteducationgrid> -->
+      <div *ngIf = "showeducation">
+        <app-applicanteducationgrid (education)="education($event)"></app-applicanteducationgrid>
       </div>
 
-      <div>
-        <!-- <app-applicantcareergrid></app-applicantcareergrid> -->
+      <div *ngIf = "showExperience">
+        <app-applicantcareergrid (career)="career($event)"></app-applicantcareergrid>
       </div>
 
-      <div>
-        <!-- <app-applicantworkrefgrid></app-applicantworkrefgrid> -->
+      <div *ngIf = "showProject">
+        <app-applicantworkrefgrid (project)="project($event)"></app-applicantworkrefgrid>
       </div>
 
-      <div>
-        <!-- <app-applicantachivementgrid></app-applicantachivementgrid> -->
+      <div *ngIf = "showCertification">
+        <app-applicantachivementgrid (certification)="certification($event)"></app-applicantachivementgrid>
       </div>
 
     </div>
 
-    <div class="main-dash-content col-9" style="padding: 0;">
+    <div class="main-dash-content col-9" style="padding: 0;" *ngIf="showNewApp_Dashboard">
 
 
       <div class="row" style="background-color: #333333; color: #fff;" *ngIf="showhearder_Details">

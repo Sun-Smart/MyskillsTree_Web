@@ -1,4 +1,4 @@
-import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
+import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -54,7 +54,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 @Component({
   selector: 'app-applicantskilldetailgrid',
   template: `
-<div style = "float: left;width: 100%;">
+<div style = "float: left;width: 100%;height:100%;">
 <div class="row skill_title" *ngIf="showWebviewDetect" style="background: #ebf3fc !important;
     color: #000;padding: 5px; height:45px;border: 1px solid #ebe9e9;width: 100%;">
 
@@ -62,17 +62,19 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <h4 class="form-group sticky1  columns left">{{'Skill set'}}</h4>
   </div>
   <div class="col-6"></div>
-  <div class="col-2" style="text-align:right; margin:auto;display:flex;justify-content:end;">
+  <div class="col-2" style="text-align:right; margin:auto;display:flex;justify-content:space-evenly;">
 
-      <a class="alert-success" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
+      <a class="alert-success" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')" ><i
       class="fa fa-plus"></i> Add</a>
 
       <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
       class="fa fa-close"></i> Close</a>
   </div>
+  
 </div>
 
-<div>
+<div class = "row">
+<div class = "col-12"style = "padding:0;">
 <form [formGroup]="mstapplicantskilldetail_Form" class="mobile_grid_view" *ngIf="showWebviewDetect">
   <table class="table" style="margin: 0;background-color: #148eeb;color: #fff;position: relative;">
     <thead class="skill-detailstable" style="">
@@ -165,7 +167,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
       <!-- Add & Close -->
 
-        <td class="field-add-close-button">
+        <td class="field-add-close-button" >
         <i class="fa fa-check-square field-Add-button" aria-hidden="true"
         (click)="onSubmitAndWait(mstapplicantskilldetail_Form)"></i>
 
@@ -178,7 +180,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </table>
 </form>
 </div>
-</div>
+
+
 <br>
 
 <div class="row skill_title" *ngIf="showMobileDetectskill" style="background: #ebf3fc !important;
@@ -254,6 +257,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         </div>
 </div>
 </form>
+
+<div class = "col-12" style="overflow-y: scroll;height: 390px;padding:0;">
 <ng2-smart-table #tbl_mstapplicantskilldetails
   (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
   [settings]="mstapplicantskilldetails_settings"
@@ -267,6 +272,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   (createConfirm)="mstapplicantskilldetails_beforesave($event)"
   (createConfirm)="mstapplicantskilldetails_beforesave($event)">
 </ng2-smart-table>
+</div>
+
+<div class="col-12" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;" *ngIf = "!showButton">
+<button class="wizard-button" (click)="onSubmitWithEducation()"> Add Education</button>
+</div>
+</div>
     `,
   styleUrls: ['./mstapplicantskilldetailgrid.component.scss'],
 })
@@ -276,7 +287,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   isadmin = false;
   bfilterPopulate_mstapplicantskilldetails: boolean = false;
-  mstapplicantskilldetail_menuactions: any = []
+  mstapplicantskilldetail_menuactions: any = [];
+
+  @Output() skills = new EventEmitter<boolean>();
 
   @ViewChild('tbl_mstapplicantskilldetails', { static: false }) tbl_mstapplicantskilldetails: Ng2SmartTableComponent;
   readonly AttachmentURL = AppConstants.AttachmentURL;
@@ -341,6 +354,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   isMobile: any;
   showOrderError: boolean = false;
   contentChecked: any;
+  showButton: any;
+
 
   constructor(
     public dialogRef: DynamicDialogRef,
@@ -357,8 +372,11 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
     }
-    console.log("this.mstapplicantskilldetail_Form", this.mstapplicantskilldetail_Form);
+
+    this.showButton = this.data.showButton
+
   }
+  get f() { return this.mstapplicantskilldetail_Form.controls; }
 
   ngOnInit() {
     debugger;
@@ -370,15 +388,20 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     }
 
     this.Set_mstapplicantskilldetails_TableConfig();
+    
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
 
     this.pkcol = this.data.maindatapkcol;
     this.applicantid = this.data.applicantid;
+
+    console.log("this.applicantid ", this.applicantid );
+
+
     this.mstapplicantskilldetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: this.sessionService.getItem('applicantid'),
+      applicantid: [this.applicantid],
       applicantiddesc: [null],
       skillid: [null],
       skillcategory: [null, Validators.compose([Validators.required])],
@@ -401,10 +424,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       subcategoryidothers: [null]
     });
     this.FillData();
+
   };
-
-
-  get f() { return this.mstapplicantskilldetail_Form.controls; }
 
 
   skillClose() {
@@ -494,6 +515,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
 
   async onSubmitData(bclear: any) {
+    debugger
     this.isSubmitted = true;
     let strError = "";
     if (strError != "") return this.sharedService.alert(strError);
@@ -571,6 +593,10 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       });
   }
 
+  async onSubmitWithEducation(bclear: any) {
+    
+    this.skills.emit(true);
+  }
   onSubmitAndWait() {
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
       this.onSubmitData(false);
@@ -633,6 +659,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
 
   FillData() {
+    
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
       this.mstapplicantskilldetail_menuactions = res.mstapplicantskilldetail_menuactions;
       this.Set_mstapplicantskilldetails_TableConfig();
@@ -666,12 +693,9 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   Add_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
     this.showSkillDetails_input = true;
     this.mstapplicantskilldetail_Form.reset();
-    this.ngOnInit();
     this.getData();
     let add = false;
     if (event == null) add = true;
-    console.log();
-
   }
 
   Edit_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
