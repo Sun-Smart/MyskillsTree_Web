@@ -312,7 +312,7 @@ export class bofinancialyearComponent implements OnInit {
     }
 
     onSubmitAndWait() {
-        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.finyearname != null) {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
             this.onSubmitData(false);
         }
         else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
@@ -323,7 +323,7 @@ export class bofinancialyearComponent implements OnInit {
         }
     }
     onSubmit() {
-        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.finyearname != null) {
+        if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
             this.onSubmitData(true);
         }
         else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
@@ -333,6 +333,31 @@ export class bofinancialyearComponent implements OnInit {
             this.onSubmitData(true);
         }
     }
+
+
+
+    // onSubmitAndWait() {
+    //     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.finyearname != null) {
+    //         this.onSubmitData(false);
+    //     }
+    //     else if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
+    //         this.onSubmitDataDlg(false);
+    //     }
+    //     else {
+    //         this.onSubmitData(false);
+    //     }
+    // }
+    // onSubmit() {
+    //     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true || this.formData.finyearname != null) {
+    //         this.onSubmitData(true);
+    //     }
+    //     else if ((this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2))) {
+    //         this.onSubmitDataDlg(true);
+    //     }
+    //     else {
+    //         this.onSubmitData(true);
+    //     }
+    // }
 
     edit_bofinancialyears() {
         this.showview = false;
