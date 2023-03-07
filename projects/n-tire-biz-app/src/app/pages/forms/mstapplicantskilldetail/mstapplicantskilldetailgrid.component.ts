@@ -67,7 +67,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       <button type="button" class="alert-success" (click)="mstapplicantskilldetails_route(null, 'create')" ><i
       class="fa fa-plus"></i> Add</button>
 
-      <button type="button" class="alert-danger" (click)="onClose()"><i class="fa fa-close"></i> Close</button>
+      <button type="button" class="alert-danger" (click)="onClose()" *ngIf = "buttonview"><i class="fa fa-close"></i> Close</button>
   </div>
   
 </div>
@@ -273,7 +273,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </ng2-smart-table>
 </div>
 
-<div class="col-12" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;" *ngIf = "!showButton">
+<div class="col-12" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;" *ngIf = "!buttonview">
 <button class="wizard-button" (click)="onSubmitWithEducation()"> Add Education</button>
 </div>
 </div>
@@ -355,6 +355,8 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   contentChecked: any;
   showButton: any;
   applicantid: any;
+  buttonview: boolean;
+
 
 
   constructor(
@@ -372,7 +374,6 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     if (this.data != null && this.data.data != null) {
       this.data = this.data.data;
     }
-
     this.showButton = this.data.showButton
 
   }
@@ -424,6 +425,10 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       subcategoryidothers: [null]
     });
     this.FillData();
+    
+    if (this.showButton == true) {
+      this.buttonview = true;
+    }
 
   };
 

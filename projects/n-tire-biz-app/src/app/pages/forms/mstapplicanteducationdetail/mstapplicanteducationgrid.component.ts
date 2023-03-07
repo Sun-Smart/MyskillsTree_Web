@@ -37,7 +37,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <button type="button"  class="alert-success" (click)="mstapplicanteducationdetails_route(null, 'create')"><i
             class="fa fa-plus"></i> Add</button>
 
-            <button type="button"  class="alert-danger" (click)="onClose()" *ngIf = "showButton"><i
+            <button type="button"  class="alert-danger" (click)="onClose()" *ngIf = "buttonview"><i
             class="fa fa-close"></i> Close</button>
         </div>
     </div>
@@ -240,7 +240,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               </div>
 
 
-              <div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+              <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
               <button class="wizard-button" (click)="onSubmitWithExperience()"> Add Experience</button>
               
               </div>
@@ -351,6 +351,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   showWebviewDetect: boolean = true;
   isMobile: any;
   showButton: any;
+  buttonview: boolean;
 
   constructor(
     public dialogRef: DynamicDialogRef,
@@ -419,6 +420,10 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
     this.FillData();
     this.getskillsDetails();
+
+    if (this.showButton == true) {
+      this.buttonview = true;
+    }
   };
 
   getskillsDetails() {

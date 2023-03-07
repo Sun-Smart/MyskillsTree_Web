@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
   loggedIn: boolean = false;
   @Output() toggleMenubar: EventEmitter<any> = new EventEmitter();
 
-  @Output() skillwizard = new EventEmitter<true>()
+  @Output() skillwizard = new EventEmitter<boolean>()
 
 
 
@@ -515,10 +515,12 @@ export class HeaderComponent implements OnInit {
     this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')], { queryParams: { show: this.show_dashboard } });
   }
 
-  skillWizard() {
+  skillWizard(ev:any) {
+    console.log(ev)
     // let pkcol = localStorage.getItem('pkcol');
     // this.router.navigate(['/home/bodashboardviewer/' + pkcol], { relativeTo: this.activateroute, queryParams: { myVal: "true" } });
-    this.skillwizard.emit(true)
+    this.skillwizard.emit(true);
+    console.log(this.skillwizard);
   }
 
   releasemethod(e: any) {
