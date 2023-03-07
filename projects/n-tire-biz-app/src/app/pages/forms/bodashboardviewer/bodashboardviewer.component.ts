@@ -145,15 +145,15 @@ export class BODashboardViewerComponent implements OnInit {
   }
   ngOnInit() {
     this.get_allData();
-    // this.sub = this.activateroute.queryParams.subscribe((params: any) => {
-    //   this.dataDashboard = params;
-
-    //   // if (this.dataDashboard.dashboard == true) {
-    //   //   this.showNewApp_Dashboard = false;
-    //   // }
-
-    //   console.log("dataDashboard", this.dataDashboard.dashboard);
-    // });
+    this.sub = this.activateroute.queryParams.subscribe((params: any) => {
+      console.log("dataDashboard", params.Val);
+      this.dataDashboard = params.Val;
+      if (params.Val == "W") {
+        this.showNewApp_Dashboard = false;
+      } else {
+        this.showNewApp_Dashboard = true;
+      }
+    });
 
     this.isskillcompleted = false
     this.isresumecompleted = false
@@ -425,7 +425,7 @@ export class BODashboardViewerComponent implements OnInit {
 
       console.log("Order Priority", res);
 
-      if (res.mstapplicantskilldetail.length > 0){
+      if (res.mstapplicantskilldetail.length > 0) {
         this.showNewApp_Dashboard = true;
       }
       this.sub_category = res.mstapplicantskilldetail;
@@ -442,7 +442,7 @@ export class BODashboardViewerComponent implements OnInit {
             this.skilltoDate = res[i].todate;
           }
           this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
-          console.log('this.EachExpresult',this.EachExpresult);
+          console.log('this.EachExpresult', this.EachExpresult);
           this.showExp.push({ check: this.EachExpresult.years + '.' + this.EachExpresult.months });
           this.arrayDate = this.showExp[i]?.check
           console.log('this.arrayDate ', this.arrayDate);

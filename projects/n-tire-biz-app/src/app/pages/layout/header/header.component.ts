@@ -90,7 +90,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private activateroute :ActivatedRoute,
+    private activateroute: ActivatedRoute,
     private routeStateService: RouteStateService,
     public sessionService: SessionService, private _eref: ElementRef,
     private mstapplicantmaster_service: mstapplicantmasterService,
@@ -516,9 +516,12 @@ export class HeaderComponent implements OnInit {
   }
 
   skillWizard() {
-    // let pkcol = localStorage.getItem('pkcol');
-    // this.router.navigate(['/home/bodashboardviewer/' + pkcol], { relativeTo: this.activateroute, queryParams: { myVal: "true" } });
-    this.skillwizard.emit(true)
+    // this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    //   return false;
+    // };
+    let pkcol = localStorage.getItem('pkcol');
+    this.router.navigate(['/home/bodashboardviewer/' + pkcol], { queryParams: { Val: "W" } });
+    // this.skillwizard.emit(true)
   }
 
   releasemethod(e: any) {
