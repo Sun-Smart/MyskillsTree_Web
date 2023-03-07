@@ -176,7 +176,7 @@ class="fa fa-close"></i> Close</button>
                     <td>
 
                    <app-popupselect [options]="city_List" [optionsEvent]="city_optionsEvent" [form]="bocity"
-                      (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="location" id="cityid"
+                      (selectItem)="onSelected_city($event)" [reportid]='kbg3n' [menuid]='kbg3n' formControlName="locationid" id="cityid"
                       desc="city"></app-popupselect>
                     </td>
 
@@ -392,7 +392,8 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       fromdate: [null],
       todate: [null],
       locationdesc: [null],
-      location: [null],
+      // location: [null],
+      locationid: [null],
       status: [null],
       skills: [null, [Validators.required]],
       skilldesc: [null],
@@ -774,7 +775,8 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         remarks: res.mstapplicantworkreference.remarks,
         requestid: res.mstapplicantworkreference.requestid,
         skills: res.mstapplicantworkreference.skills,
-        location: res.mstapplicantworkreference.location,
+        // location: res.mstapplicantworkreference.location,
+        locationid: res.mstapplicantworkreference.locationid,
         locationdesc: res.mstapplicantworkreference.locationdesc,
         attachment: "[]",
         status: res.mstapplicantworkreference.status,
