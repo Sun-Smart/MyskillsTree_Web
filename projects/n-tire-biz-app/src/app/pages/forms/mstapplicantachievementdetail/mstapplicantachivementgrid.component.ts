@@ -38,7 +38,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <button type = "button"  class="alert-success" (click)="Add_mstapplicantachievementdetail(null, 'create', 'this.applicantid')"><i
                 class="fa fa-plus"></i> Add</button>
           
-                <button type = "button"  class="alert-danger" (click)="onClose()"><i
+                <button type = "button"  class="alert-danger" (click)="onClose()" *ngIf = "buttonview"><i
                 class="fa fa-close"></i> Close</button>
 
                 </div>
@@ -224,9 +224,12 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               </ng2-smart-table>
               </div>
 
-        <div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+        <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+       
+        <button class="wizard-button" (click)="skip_details()"  style="margin-left:5px;"> Skip</button>
+       
         <button class="wizard-button" (click)="onSubmitWithCertification()"> Dashboard</button>
-        <button class="wizard-button" (click)="skip_details()"> Skip</button>
+
         </div>
         </div>
     `,
@@ -314,6 +317,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
   skills: null;
   myDate: any;
   showButton: any;
+  buttonview: boolean;
 
   constructor(
     private mstapplicantachievementdetail_service: mstapplicantachievementdetailService,
@@ -376,6 +380,10 @@ export class mstapplicantachivementgridComponent implements OnInit {
     });
 
     this.FillData();
+
+    if (this.showButton == true) {
+      this.buttonview = true;
+    }
 
     this.mstapplicantachievementdetail_service.get_mstapplicantachievementdetails_List().then((res: any) => {
       this.pkList = res as mstapplicantachievementdetail[];

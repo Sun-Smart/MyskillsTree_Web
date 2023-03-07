@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
   loggedIn: boolean = false;
   @Output() toggleMenubar: EventEmitter<any> = new EventEmitter();
 
-  @Output() skillwizard = new EventEmitter<true>()
+  @Output() skillwizard = new EventEmitter<boolean>()
 
 
 

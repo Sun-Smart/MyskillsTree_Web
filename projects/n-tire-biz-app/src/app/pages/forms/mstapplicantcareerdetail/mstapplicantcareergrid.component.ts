@@ -23,7 +23,7 @@ import { mstapplicantcareerdetail } from '../../../model/mstapplicantcareerdetai
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 @Component({
   selector: 'app-applicantcareergrid',
-  
+
   template: `
   <div style = "float: left;width: 100%;height:100%;">
 
@@ -39,7 +39,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <button type = "button" class="alert-success" (click)="mstapplicantcareerdetails_route(null, 'create')"><i
     class="fa fa-plus"></i> Add</button>
 
-    <button type = "button" class="alert-danger" (click)="onClose()"><i
+    <button type = "button" class="alert-danger" (click)="onClose()" *ngIf = "buttonview"><i
     class="fa fa-close"></i> Close</button>
     </div>
   </div>
@@ -239,9 +239,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </ng2-smart-table>
   </div>
 
-<div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+<div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+<button class="wizard-button" (click)="skip_details()"  style="margin-left:5px;"> Skip</button>
+
 <button class="wizard-button" (click)="onSubmitWithCareer()"> Add Project</button>
-<button class="wizard-button" (click)="skip_details()"> Skip</button>
 </div>
 </div>
                 `,
@@ -326,6 +327,7 @@ export class mstapplicantcareergridComponent implements OnInit {
   showWebviewDetect: boolean = true;
   isMobile: any;
   showButton: any;
+  buttonview: boolean;
 
   constructor(
     private ngbDateParserFormatter: NgbDateParserFormatter,
@@ -397,6 +399,11 @@ export class mstapplicantcareergridComponent implements OnInit {
     };
 
     this.FillData();
+
+    if (this.showButton == true) {
+      this.buttonview = true;
+    }
+
     this.mstapplicantcareerdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
       console.log('skill res', res);
       this.skills_List = res;
@@ -523,7 +530,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     } else {
 
       if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
-      
+
       this.spinner.show();
       this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
         async res => {
@@ -569,17 +576,17 @@ export class mstapplicantcareergridComponent implements OnInit {
 
   async onSubmitWithCareer(bclear: any) {
 
-    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {      
+    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
       if (res.mstapplicantcareerdetail.length > 0) {
-      this.career.emit(true);
-    } else {
-      this.toastr.addSingle("", "", "Add Your Experience");
-      return
-    }
-  });
+        this.career.emit(true);
+      } else {
+        this.toastr.addSingle("", "", "Add Your Experience");
+        return
+      }
+    });
   };
 
-  skip_details(){
+  skip_details() {
     this.career.emit(true);
   }
 

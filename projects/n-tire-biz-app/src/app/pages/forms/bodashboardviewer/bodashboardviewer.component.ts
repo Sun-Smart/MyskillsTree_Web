@@ -345,9 +345,6 @@ export class BODashboardViewerComponent implements OnInit {
     }
   };
 
-  skillwizard(event: any) {
-    console.log("event", event);
-  };
 
   personal(event: any) {
     console.log("event", event);
@@ -409,6 +406,7 @@ export class BODashboardViewerComponent implements OnInit {
       this.showProject = false;
       this.showCertification = false;
       this.showNewApp_Dashboard = true;
+      window.location.reload();
     }
   }
 
