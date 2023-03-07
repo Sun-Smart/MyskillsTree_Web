@@ -446,6 +446,7 @@ export class BODashboardViewerComponent implements OnInit {
           this.showExp.push({ check: this.EachExpresult.years + '.' + this.EachExpresult.months });
           this.arrayDate = this.showExp[i]?.check
           console.log('this.arrayDate ', this.arrayDate);
+          // console.log('total Exp ', this.arrayDate++);
 
           for (let i = 0; i < this.skill_detail.length; i++) {
             if (this.skill_detail[i].strRating == 1) {
