@@ -140,7 +140,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             <!-- Submit & Close -->
 
                 <td class="field-add-close-button">
-                    <i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+                    <i class="fa fa-check-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
 
                     <i class="fa fa-window-close field-close-button" aria-hidden="true"
                     (click)="skillClose()"></i>
@@ -199,7 +199,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 <div class="col" style="position: relative;left: 120px;top: 7px;">
 
-<i class="fa fa-plus-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
+<i class="fa fa-check-square field-Add-button" aria-hidden="true" (click)="onSubmitAndWait()"></i>
 
                     <i class="fa fa-window-close field-close-button" aria-hidden="true" *ngIf="showSkillDetails_input"
                     (click)="skillClose()"></i>
@@ -226,7 +226,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
         <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
        
-        <button class="wizard-button" (click)="skip_details()"  style="margin-left:5px;"> Skip</button>
+        <button class="wizard-button" (click)="skip_details()"   style="margin-right:10px;"> Skip</button>
        
         <button class="wizard-button" (click)="onSubmitWithCertification()"> Dashboard</button>
 

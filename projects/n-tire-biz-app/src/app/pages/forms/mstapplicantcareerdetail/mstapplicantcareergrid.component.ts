@@ -108,7 +108,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <div >
      <div class="input-group" style="display: flex;width: 100%;">
 
-       <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+       <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1901, month:1, day: 1}'
        [maxDate]="maxDate"  name="fromdateformpicker" id="fromdate" required
          formControlName="fromdate" style="margin-right: 5px;" class="form-control">
 
@@ -122,7 +122,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
      <td>
      <div>
     <div style="display: flex;width: 80%;">
-     <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+     <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1901, month:1, day: 1}'
           [maxDate]="maxDate" name="todateformpicker" id="todate" formControlName="todate" class="form-control"
           style="margin-right: 5px;">
 
@@ -240,7 +240,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </div>
 
 <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
-<button class="wizard-button" (click)="skip_details()"  style="margin-left:5px;"> Skip</button>
+<button class="wizard-button" (click)="skip_details()"   style="margin-right:10px;"> Skip</button>
 
 <button class="wizard-button" (click)="onSubmitWithCareer()"> Add Project</button>
 </div>
