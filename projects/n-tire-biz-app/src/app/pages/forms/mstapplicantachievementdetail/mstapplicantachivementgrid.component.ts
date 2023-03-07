@@ -35,10 +35,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 <div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-between;">
 
-                <button type = "button"  class="alert-success" [routerLink]='' (click)="Add_mstapplicantachievementdetail(null, 'create', 'this.applicantid')"><i
+                <button type = "button"  class="alert-success" (click)="Add_mstapplicantachievementdetail(null, 'create', 'this.applicantid')"><i
                 class="fa fa-plus"></i> Add</button>
           
-                <button type = "button"  class="alert-danger" [routerLink]='' (click)="onClose()"><i
+                <button type = "button"  class="alert-danger" (click)="onClose()"><i
                 class="fa fa-close"></i> Close</button>
 
                 </div>
@@ -55,9 +55,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 <div class="col-4" style="text-align: end; margin: auto;">
 
-                <button type="button" class="btn btn-outline-primary  popup-add-button" [routerLink]='' (click)="mstapplicantachievementdetails_route(null, 'create')"
+                <button type="button" class="btn btn-outline-primary  popup-add-button" (click)="mstapplicantachievementdetails_route(null, 'create')"
                   title = "Add Details">Add</button>
-                <button type = "button"   class="" [routerLink]='' (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="achive_btn" style="width: 20px;" title = "Close"/></button>
+                <button type = "button"   class="" (click)="onClose()"><img src="assets/mainmenuicons/icons_close.png" class="achive_btn" style="width: 20px;" title = "Close"/></button>
 </div>
 </div>
 
@@ -348,7 +348,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
 
     this.pkcol = this.data.maindatapkcol;
-    this.applicantid = this.data.applicantid
+    this.applicantid = localStorage.getItem('applicantid');
 
     this.mstapplicantachievementdetail_Form = this.fb.group({
       pk: [null],

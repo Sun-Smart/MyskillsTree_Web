@@ -34,10 +34,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <div class="col-6"></div>
 
         <div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-evenly;">
-            <button type = "button"  class="alert-success" [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i
+            <button type="button"  class="alert-success" (click)="mstapplicanteducationdetails_route(null, 'create')"><i
             class="fa fa-plus"></i> Add</button>
 
-            <button type = "button"  class="alert-danger" [routerLink]='' (click)="onClose()"><i
+            <button type="button"  class="alert-danger" (click)="onClose()"><i
             class="fa fa-close"></i> Close</button>
         </div>
     </div>
@@ -49,10 +49,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <div class="col-4"></div>
 
         <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
-            <button type = "button"  class="alert-success" [routerLink]='' (click)="mstapplicanteducationdetails_route(null, 'create')"><i
+            <button type = "button"  class="alert-success" (click)="mstapplicanteducationdetails_route(null, 'create')"><i
             class="fa fa-plus"></i> Add</button>
 
-            <button type = "button"  class="alert-danger" [routerLink]='' (click)="onClose()"><i
+            <button type = "button"  class="alert-danger" (click)="onClose()"><i
             class="fa fa-close"></i> Close</button>
         </div>
     </div>
@@ -385,7 +385,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
 
     this.pkcol = this.data.maindatapkcol;
-    this.applicantid = this.data.applicantid;
+    this.applicantid = localStorage.getItem('applicantid');
 
     console.log("this.applicantid", this.applicantid);
     
@@ -393,7 +393,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     this.mstapplicanteducationdetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: [this.applicantid],
+      applicantid: this.applicantid,
       applicantiddesc: [null],
       educationid: [null],
       educationcategory: [null, Validators.required],
@@ -526,7 +526,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       return;
     }
     this.formValue = this.mstapplicanteducationdetail_Form.value;
-
+    // this.formData.applicantid = this.applicantid; 
     if (this.mstapplicanteducationdetail_Form.value.coursename == null ||
       this.mstapplicanteducationdetail_Form.value.educationcategory == null || this.mstapplicanteducationdetail_Form.value.educationsubcategory == null ||
       this.mstapplicanteducationdetail_Form.value.institutionname == null || this.mstapplicanteducationdetail_Form.value.percentage == null ||
@@ -547,6 +547,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     }
     else {
       this.formData = this.mstapplicanteducationdetail_Form.getRawValue();
+      this.formData.applicantid = this.applicantid;
       this.formData.skills = null;
       this.showDateError = false;
       this.showPercentError = false;

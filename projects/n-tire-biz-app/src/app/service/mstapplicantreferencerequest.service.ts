@@ -73,8 +73,9 @@ export class mstapplicantreferencerequestService {
 
 get_mstapplicantworkreference_ByApplicantID(id: number): any {
   debugger
+  let appid = localStorage.getItem('applicantid');
     if (this.valid()) {
-      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference'  + '/applicantid/' + id).toPromise();
+      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference'  + '/applicantid/' + appid).toPromise();
     }
   }
   delete_mstapplicantreferencerequest(id: number): any {

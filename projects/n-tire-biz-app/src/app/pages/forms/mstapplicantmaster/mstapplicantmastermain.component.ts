@@ -44,7 +44,7 @@ export class mstapplicantmastermainComponent implements OnInit {
   showGoWorkFlow: boolean = false;
   pkList: any;//stores values - used in search, prev, next
   pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
-  @Output() personal = new EventEmitter<boolean>()
+  @Output() personal = new EventEmitter<true>()
   toolbarVisible: boolean = true;
   customFieldServiceList: any;
   CustomFormName: string = "";
@@ -93,6 +93,7 @@ export class mstapplicantmastermainComponent implements OnInit {
   showButton: any;
   checkbtn: any;
   addButtonview: boolean;
+  applicantid: any;
 
   constructor(private router: Router,
     private themeService: ThemeService,
@@ -712,7 +713,8 @@ export class mstapplicantmastermainComponent implements OnInit {
     )
   }
   check() {
-    // this.personal.emit(true);
+    
+    this.personal.emit(true);
   }
 
   PrevForm() {

@@ -69,9 +69,9 @@ export class mstapplicantskilldetailService {
     }
   }
   get_mstapplicantskilldetails_ByApplicantID(id: any): any {
-    // let appid=localStorage.getItem('applicantid');
+    let appid=localStorage.getItem('applicantid');
     if (this.valid()) {
-      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantskilldetail' + '/applicantid/' + id).toPromise();
+      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantskilldetail' + '/applicantid/' + appid).toPromise();
     }
   }
   get_mstapplicantskilldetails_ByOrderPriority(id: number): any {

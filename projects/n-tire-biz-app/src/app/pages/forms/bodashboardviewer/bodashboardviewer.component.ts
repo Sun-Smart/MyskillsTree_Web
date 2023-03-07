@@ -4,7 +4,7 @@ import { mstapplicantskilldetailgridComponent } from './../../../pages/forms/mst
 import { mstapplicanteducationdetailgridComponent } from './../../../pages/forms/mstapplicanteducationdetail/mstapplicanteducationgrid.component';
 import { mstapplicantgeographygrid } from './../../../pages/forms/mstapplicantgeographypreference/mstapplicantgeographygrid.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicDialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { mstapplicantworkrefgridComponent } from '../mstapplicantworkreference/mstapplicantworkrefgrid.component';
 import { mstapplicantcareergridComponent } from '../mstapplicantcareerdetail/mstapplicantcareergrid.component';
@@ -114,7 +114,8 @@ export class BODashboardViewerComponent implements OnInit {
   remarks: any;
   start_date: any;
   end_date: any;
-  ref_date: any
+  ref_date: any;
+  sub: any;
   showNewApp_Dashboard: boolean = false;
   showpersonal: boolean = true;
   showSkill: boolean;
@@ -122,11 +123,12 @@ export class BODashboardViewerComponent implements OnInit {
   showExperience: boolean;
   showProject: boolean;
   showCertification: boolean;
+  dataDashboard: any;
 
   constructor(public dialogRef: DynamicDialogRef,
     private toastr: ToastService,
     public dialog: DialogService, private mstapplicantmaster_service: mstapplicantmasterService, private pageroute: Router,
-    private sessionService: SessionService,
+    private sessionService: SessionService, private activateroute: ActivatedRoute,
     private mstapplicantskilldetail_service: mstapplicantskilldetailService,
     private mstapplicanteducationdetail_service: mstapplicanteducationdetailService,
     private datepipe: DatePipe,
@@ -137,8 +139,16 @@ export class BODashboardViewerComponent implements OnInit {
   }
   ngOnInit() {
     this.get_allData();
-    // this.get_experience();
-    // this.get_educationdata();
+    // this.sub = this.activateroute.queryParams.subscribe((params: any) => {
+    //   this.dataDashboard = params;
+
+    //   // if (this.dataDashboard.dashboard == true) {
+    //   //   this.showNewApp_Dashboard = false;
+    //   // }
+
+    //   console.log("dataDashboard", this.dataDashboard.dashboard);
+    // });
+
     this.isskillcompleted = false
     this.isresumecompleted = false
     this.isprojectcompleted = false
@@ -333,26 +343,36 @@ export class BODashboardViewerComponent implements OnInit {
     // });
   };
 
+  skillwizard(event: any) {
+    console.log("event", event);
+
+    // if (event == true) {
+    //   this.showpersonal = false;
+    //   this.showSkill = true;
+    // }
+  };
+
   personal(event: any) {
     console.log("event", event);
-    if(event == true){
+
+    if (event == true) {
       this.showpersonal = false;
       this.showSkill = true;
     }
   };
 
-  skills(event: any){
+  skills(event: any) {
     console.log("event", event);
-    if(event == true){
+    if (event == true) {
       this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = true;
     }
   }
 
-  education(event: any){
+  education(event: any) {
     console.log("event", event);
-    if(event == true){
+    if (event == true) {
       this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = false;
@@ -360,9 +380,9 @@ export class BODashboardViewerComponent implements OnInit {
     }
   }
 
-  career(event: any){
+  career(event: any) {
     console.log("event", event);
-    if(event == true){
+    if (event == true) {
       this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = false;
@@ -371,9 +391,9 @@ export class BODashboardViewerComponent implements OnInit {
     }
   }
 
-  project(event: any){
+  project(event: any) {
     console.log("event", event);
-    if(event == true){
+    if (event == true) {
       this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = false;
@@ -383,9 +403,9 @@ export class BODashboardViewerComponent implements OnInit {
     }
   }
 
-  certification(event: any){
+  certification(event: any) {
     console.log("event", event);
-    if(event == true){
+    if (event == true) {
       this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = false;
@@ -402,10 +422,11 @@ export class BODashboardViewerComponent implements OnInit {
       // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_OrderPriority(this.applicantid).then((res: any) => {
 
       console.log("Order Priority", res);
+      console.log("this.dataDashboard.dashboard", this.dataDashboard.dashboard);
 
 
-      if (res.mstapplicantskilldetail.length > 0) {
-        this.showNewApp_Dashboard = true;
+      if (res.mstapplicantskilldetail.length > 0){
+        this.showNewApp_Dashboard = false;
       }
       this.sub_category = res.mstapplicantskilldetail;
 
@@ -440,7 +461,7 @@ export class BODashboardViewerComponent implements OnInit {
           showstr: this.showstr
         });
       }
-      // this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
+      this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
     });
     // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
 

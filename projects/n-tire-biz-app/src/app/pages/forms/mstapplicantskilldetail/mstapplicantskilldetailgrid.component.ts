@@ -64,11 +64,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <div class="col-6"></div>
   <div class="col-2" style="text-align:right; margin:auto;display:flex;justify-content:space-evenly;">
 
-      <a class="alert-success" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')" ><i
-      class="fa fa-plus"></i> Add</a>
+      <button type="button" class="alert-success" (click)="mstapplicantskilldetails_route(null, 'create')" ><i
+      class="fa fa-plus"></i> Add</button>
 
-      <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
-      class="fa fa-close"></i> Close</a>
+      <button type="button" class="alert-danger" (click)="onClose()"><i class="fa fa-close"></i> Close</button>
   </div>
   
 </div>
@@ -323,7 +322,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   bmyrecord: boolean = false;
   hidelist: any = [];
-  applicantid: any;
+  // applicantid: any;
   data: any;
   checkstar: any = [];
   starres: any;
@@ -355,6 +354,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   showOrderError: boolean = false;
   contentChecked: any;
   showButton: any;
+  applicantid: any;
 
 
   constructor(
@@ -393,7 +393,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
 
     this.pkcol = this.data.maindatapkcol;
-    this.applicantid = this.data.applicantid;
+    this.applicantid = localStorage.getItem('applicantid');
 
     console.log("this.applicantid ", this.applicantid );
 
@@ -401,7 +401,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     this.mstapplicantskilldetail_Form = this.fb.group({
       pk: [null],
       ImageName: [null],
-      applicantid: [this.applicantid],
+      applicantid: this.applicantid,
       applicantiddesc: [null],
       skillid: [null],
       skillcategory: [null, Validators.compose([Validators.required])],
@@ -530,6 +530,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.showOrderError = false;
     }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
+    this.formData.applicantid = this.applicantid; 
     if (this.contentChecked == true && this.mstapplicantskilldetail_Form.value.orderpriority) {
       console.log('this.contentChecked',this.contentChecked);
       this.toastr.addSingle("error", "", "Skill set in hide status unable to given the order priority");

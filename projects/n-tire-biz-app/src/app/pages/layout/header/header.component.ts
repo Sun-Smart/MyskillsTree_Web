@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, Input, ViewChild, EventEmitter, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouteStateService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/route-state.service';
 import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/session.service';
 import { UserIdleService } from 'angular-user-idle';
@@ -49,6 +49,10 @@ export class HeaderComponent implements OnInit {
   loggedIn: boolean = false;
   @Output() toggleMenubar: EventEmitter<any> = new EventEmitter();
 
+  @Output() skillwizard = new EventEmitter<true>()
+
+
+
   @ViewChild('showsearchbar') showsearchbar: NewskillsearchComponent;
   theme: string;
   _start: boolean;
@@ -86,6 +90,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private activateroute :ActivatedRoute,
     private routeStateService: RouteStateService,
     public sessionService: SessionService, private _eref: ElementRef,
     private mstapplicantmaster_service: mstapplicantmasterService,
@@ -453,7 +458,7 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(mstapplicantachivementgridComponent, {
       width: '100% !important',
       height: '90% !important',
-      data: { showButton :true, ScreenType: 2, applicantid: this.applicantid, save: true }
+      data: { showButton: true, ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;
     })
@@ -511,7 +516,9 @@ export class HeaderComponent implements OnInit {
   }
 
   skillWizard() {
-    this.router.navigate(['/home/personaldetails']);
+    // let pkcol = localStorage.getItem('pkcol');
+    // this.router.navigate(['/home/bodashboardviewer/' + pkcol], { relativeTo: this.activateroute, queryParams: { myVal: "true" } });
+    this.skillwizard.emit(true)
   }
 
   releasemethod(e: any) {

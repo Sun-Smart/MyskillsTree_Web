@@ -36,10 +36,10 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 
 <div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-between;">
 
-<button type = "button" class="alert-success" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
+<button type = "button" class="alert-success" (click)="mstapplicantworkreferences_route(null, 'create')"><i
 class="fa fa-plus"></i> Add</button>
 
-<button type = "button" class="alert-danger" [routerLink]='' (click)="onClose()"><i
+<button type = "button" class="alert-danger" (click)="onClose()"><i
 class="fa fa-close"></i> Close</button>
 </div>
 </div>
@@ -54,10 +54,10 @@ class="fa fa-close"></i> Close</button>
 
 <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
 
-                <button type = "button"  class="alert-success" [routerLink]='' (click)="mstapplicantworkreferences_route(null, 'create')"><i
+                <button type = "button"  class="alert-success" (click)="mstapplicantworkreferences_route(null, 'create')"><i
                 class="fa fa-plus"></i> Add</button>
 
-                <button type = "button"  class="alert-danger" [routerLink]='' (click)="onClose()"><i
+                <button type = "button"  class="alert-danger" (click)="onClose()"><i
                 class="fa fa-close"></i> Close</button>
                 </div>
 </div>
@@ -373,7 +373,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       this.data = this.data.data;
     }
     this.pkcol = this.data.maindatapkcol;
-    this.applicantid = this.data.applicantid;
+    this.applicantid =localStorage.getItem('applicantid');
     this.showButton = this.data.showButton;
 
     this.mstapplicantworkreference_Form = this.fb.group({
@@ -597,13 +597,14 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     }
 
     this.formData.skills = null;
+    this.formData.applicantid = this.applicantid; 
 
     if (this.formData.fromdate > this.formData.todate) {
       this.showDateError = true;
       return;
     } else {
 
-      this.formData.applicantid = this.applicantid;
+      // this.formData.applicantid = this.applicantid;
       if (this.mstapplicantworkreference_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantworkreference_Form.get('skills').value));
       this.spinner.show();
       this.mstapplicantworkreference_service.saveOrUpdate_mstapplicantworkreferences(this.formData).subscribe(

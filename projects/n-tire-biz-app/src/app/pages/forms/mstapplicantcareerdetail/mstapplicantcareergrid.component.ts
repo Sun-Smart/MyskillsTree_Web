@@ -36,10 +36,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     
     <div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-between;">
 
-    <button type = "button" class="alert-success" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
+    <button type = "button" class="alert-success" (click)="mstapplicantcareerdetails_route(null, 'create')"><i
     class="fa fa-plus"></i> Add</button>
 
-    <button type = "button" class="alert-danger" [routerLink]='' (click)="onClose()"><i
+    <button type = "button" class="alert-danger" (click)="onClose()"><i
     class="fa fa-close"></i> Close</button>
     </div>
   </div>
@@ -53,10 +53,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <div class="col-4">    </div>
     <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
 
-    <button type = "button" class="alert-success" [routerLink]='' (click)="mstapplicantcareerdetails_route(null, 'create')"><i
+    <button type = "button" class="alert-success" (click)="mstapplicantcareerdetails_route(null, 'create')"><i
     class="fa fa-plus"></i> Add</button>
 
-    <button type = "button" class="alert-danger" [routerLink]='' (click)="onClose()"><i
+    <button type = "button" class="alert-danger" (click)="onClose()"><i
     class="fa fa-close"></i> Close</button>
 
     </div>
@@ -362,7 +362,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
 
     this.pkcol = this.data.maindatapkcol;
-    this.applicantid = this.data.applicantid;
+    this.applicantid = localStorage.getItem('applicantid');
 
     this.mstapplicantcareerdetail_Form = this.fb.group({
       pk: [null],
@@ -515,14 +515,14 @@ export class mstapplicantcareergridComponent implements OnInit {
     }
     this.formData.skills = null;
 
-
+    this.formData.applicantid = this.applicantid;
     if (this.formData.fromdate > this.formData.todate) {
       this.showDateError = true;
       return;
     } else {
 
       if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
-      this.formData.applicantid = this.applicantid;
+      
       this.spinner.show();
       this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
         async res => {
