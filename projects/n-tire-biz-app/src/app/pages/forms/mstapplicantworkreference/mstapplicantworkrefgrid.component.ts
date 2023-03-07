@@ -271,7 +271,7 @@ class="fa fa-close"></i> Close</button>
               </div>
 
       <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
-      
+
       <button class="wizard-button" (click)="skip_details()" style="margin-left:5px;"> Skip</button>
 
       <button class="wizard-button" (click)="onSubmitWithProject()"> Add Certification</button>
@@ -668,7 +668,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   async onSubmitWithProject(bclear: any) {
 
-    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {     
+    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
        if (res.mstapplicantworkreference.length > 0) {
         this.project.emit(true);
       } else {
@@ -740,7 +740,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             <th style="white-space: break-spaces;width:11%;">##todate##</th>
             <th style="white-space: break-spaces;width:10%;">##remarks##</th>
             <th style="white-space: break-spaces;width:11%;">##string_agg##</th>
-            <th style="white-space: break-spaces;width:12%;">##location##</th>
+            <th style="white-space: break-spaces;width:12%;">##locationdes##</th>
           </tr>
         </tbody>
       </table>
