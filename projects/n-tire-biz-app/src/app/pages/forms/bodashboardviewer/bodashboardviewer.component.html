@@ -9,7 +9,7 @@
         <div class="col-12" *ngIf="finalarray.length == 0" style="text-align: center;">
           <label> No records found</label>
         </div>
-        <div class="col-12">
+        <div class="col-12" style="padding: 0 5px;">
           <div class="row" *ngFor="let item of finalarray" class="sidenav-skill-label">
 
             <div class="col-5 skill-label">
@@ -23,7 +23,7 @@
             </div>
 
             <div class="col-4 skill-label" style="text-align: end;">
-              <label>{{expYrs}} Years</label>
+              <label>{{item.ExpSkill}} years</label>
             </div>
           </div>
         </div>
