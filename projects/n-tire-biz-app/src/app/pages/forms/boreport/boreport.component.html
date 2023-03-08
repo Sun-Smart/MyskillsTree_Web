@@ -294,7 +294,7 @@
               </div>
               <div class="col"></div>
             </div>
-          </p-accordion>
+          </p-accordion><br>
           <p-accordion [multiple]='true'>
             <p-accordionTab header='Date' [selected]='false'>
               <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
@@ -305,7 +305,7 @@
                     <label for="datefilter" class="control-label">Date Filter</label>
                     <label *ngIf="showview" class="labelview">{{f.datefilter?.value}}</label>
                     <input type="checkbox" *ngIf="!showview" id="datefilter" formControlName="datefilter"
-                      class="form-control">
+                      class="">
                   </div>
                 </div>
                 <div
@@ -512,7 +512,7 @@
                     <label for="detailtableconcatenate" class="control-label">Detail Table Concatenate</label>
                     <label *ngIf="showview" class="labelview">{{f.detailtableconcatenate?.value}}</label>
                     <input type="checkbox" *ngIf="!showview" id="detailtableconcatenate"
-                      formControlName="detailtableconcatenate" class="form-control">
+                      formControlName="detailtableconcatenate" class="">
                   </div>
                 </div>
                 <div class="col"></div>
@@ -595,7 +595,7 @@
                     <label for="noheader" class="control-label">No Header</label>
                     <label *ngIf="showview" class="labelview">{{f.noheader?.value}}</label>
                     <input type="checkbox" *ngIf="!showview" id="noheader" formControlName="noheader"
-                      class="form-control">
+                      class="">
                   </div>
                 </div>
                 <div class="col"></div>
@@ -606,7 +606,7 @@
                   <label for="header" class="control-label">Header</label>
                   <label *ngIf="showview" class="labelview">{{f.header?.value}}</label>
                   <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header"
-                    formControlName="header" class="form-control">
+                    formControlName="header" class="form-control" style="background-color: white;">
 </textarea>
                 </div>
               </div>

@@ -106,7 +106,15 @@
               class="fa fa-calendar" aria-hidden="true"></i></button>
         </div>
       </div>
-      <div class="col"></div>
+      <div
+        *ngIf="((hidelist.indexOf('currentterm') == -1) && (currenttermvisible==undefined || currenttermvisible==true))"
+        style='' class="col-3 education_view_mobile">
+        <div class="columnchk">
+          <label for="currentterm" class="control-label">Current Term</label>
+          <label *ngIf="showview" class="labelview">{{f.currentterm?.value}}</label>
+          <input type="checkbox" *ngIf="!showview" id="currentterm" formControlName="currentterm" class="">
+        </div>
+      </div>
       <div class="col"></div>
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
@@ -119,19 +127,9 @@
 </textarea>
       </div>
     </div>
-    <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-      <div
-        *ngIf="((hidelist.indexOf('currentterm') == -1) && (currenttermvisible==undefined || currenttermvisible==true))"
-        style='' class="col-3 education_view_mobile">
-        <div class="columnchk">
-          <label for="currentterm" class="control-label">Current Term</label>
-          <label *ngIf="showview" class="labelview">{{f.currentterm?.value}}</label>
-          <input type="checkbox" *ngIf="!showview" id="currentterm" formControlName="currentterm" class="">
-        </div>
-      </div>
-      <div class="col"></div>
-      <div class="col"></div>
-      <div class="col"></div>
-    </div>
+    <!-- <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
+      
+      
+    </div> -->
   </div>
 </form>

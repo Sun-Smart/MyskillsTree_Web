@@ -589,7 +589,7 @@ export class bomasterdataComponent implements OnInit {
             mode: 'external',
             selectMode: 'single',
             actions: {
-                columnTitle: '',
+                columnTitle: 'Actions',
                 width: '300px',
                 add: !this.showview,
                 edit: true, // true,

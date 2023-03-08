@@ -141,7 +141,12 @@
                 <label *ngIf="showview" class="labelview">{{f.param2?.value}}</label>
                 <input *ngIf="!showview" id="param2" formControlName="param2" class="form-control">
               </div>
-              <div class="col"></div>
+              <div *ngIf="((hidelist.indexOf('flag') == -1) && (flagvisible==undefined || flagvisible==true))" style=''
+              class="col-3 education_view_mobile">
+              <label for="flag" class="control-label">Flag</label>
+              <label *ngIf="showview" class="labelview">{{f.flag?.value}}</label>
+              <input *ngIf="!showview" id="flag" formControlName="flag" class="form-control">
+            </div>
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
@@ -154,15 +159,8 @@
               </div>
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
-              <div *ngIf="((hidelist.indexOf('flag') == -1) && (flagvisible==undefined || flagvisible==true))" style=''
-                class="col-3 education_view_mobile">
-                <label for="flag" class="control-label">Flag</label>
-                <label *ngIf="showview" class="labelview">{{f.flag?.value}}</label>
-                <input *ngIf="!showview" id="flag" formControlName="flag" class="form-control">
-              </div>
-              <div class="col"></div>
-              <div class="col"></div>
-              <div class="col"></div>
+            
+
             </div>
           </p-accordion>
         </ng-template>

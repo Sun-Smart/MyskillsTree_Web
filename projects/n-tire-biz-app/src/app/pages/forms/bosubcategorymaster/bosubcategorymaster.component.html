@@ -97,13 +97,13 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('subcategoryname') == -1) && (subcategorynamevisible==undefined || subcategorynamevisible==true))"
-        style='' class="col-6 education_view_mobile">
+        style='' class="col-4 education_view_mobile">
         <label for="subcategoryname" class="control-label">Subcategory Name</label>
         <label *ngIf="showview" class="labelview">{{f.subcategoryname?.value}}</label>
         <input *ngIf="!showview" id="subcategoryname" formControlName="subcategoryname" class="form-control">
       </div>
       <div *ngIf="((hidelist.indexOf('orderno') == -1) && (ordernovisible==undefined || ordernovisible==true))" style=''
-        class="col-6 education_view_mobile">
+        class="col-4 education_view_mobile">
         <label for="orderno" class="control-label">Order No</label><br/>
         <label *ngIf="showview" class="labelview">{{f.orderno?.value}}</label>
         <input *ngIf="!showview" id="orderno" formControlName="orderno" class="form-control">
