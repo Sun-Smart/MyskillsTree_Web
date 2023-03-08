@@ -425,7 +425,7 @@ export class BODashboardViewerComponent implements OnInit {
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByOrderPriority(this.applicantid).then((res: any) => {
 
       if (res.mstapplicantskilldetail.length > 0) {
-        this.showNewApp_Dashboard = false;
+        this.showNewApp_Dashboard = true;
       } 
       this.sub_category = res.mstapplicantskilldetail;
       for (let i = 0; i < this.sub_category.length; i++) {
