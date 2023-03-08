@@ -14,486 +14,492 @@
       <ul class="layout-topbar-items ng-tns-c186-0" style="align-items: center;">
         <li *ngIf="AppliSkill">
           <div class="" style="text-align:center;cursor: pointer;">
-            <a (click)="skillWizard()">
-        <li class="li2"><i class="fa fa-desktop fa1" aria-hidden="true"></i></li></a>
-    </div>
-    </li>
-    <li class="layout-topbar-item notifications ng-tns-c186-0"><a pripple=""
-        class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple" (click)="showNotificationSidebar()"><i
-          class="pi pi-bell fs-large ng-tns-c186-0 bell" style="color: red; "></i>{{notifications.length}}<span
-          class="p-ink" style="height: 44px; width: 44px;"></span></a>
-    </li>
+            <a (click)="skillWizard(true)">
+              <i class="fa fa-desktop fa1" aria-hidden="true"></i>
+            </a>
+          </div>
+        </li>
+        <li class="layout-topbar-item notifications ng-tns-c186-0"><a pripple=""
+            class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple" (click)="showNotificationSidebar()"><i
+              class="pi pi-bell fs-large ng-tns-c186-0 bell" style="color: red; "></i>{{notifications.length}}<span
+              class="p-ink" style="height: 44px; width: 44px;"></span></a>
+        </li>
 
-    <!-- Applicant -->
+        <!-- Applicant -->
 
-    <li *ngIf="showApplicantmenu && !showCertifiermenu" class="layout-topbar-item ng-tns-c186-0 "
-      style="list-style: none; color:black;">
-      <label class="dropdown">
-        <div>
-          <i class="fa fa-th fa1 fa2 menu-icon" aria-haspopup="true" aria-expanded="false" (click)="openpopup()"></i>
-          <span class="p-ink" style="height: 44px; width: 44px; "></span>
-        </div>
+        <li *ngIf="showApplicantmenu && !showCertifiermenu" class="layout-topbar-item ng-tns-c186-0 "
+          style="list-style: none; color:black;">
+          <label class="dropdown">
+            <div>
+              <i class="fa fa-th fa1 fa2 menu-icon" aria-haspopup="true" aria-expanded="false"
+                (click)="openpopup()"></i>
+              <span class="p-ink" style="height: 44px; width: 44px; "></span>
+            </div>
 
-        <input type="checkbox" class="dd-input" id="test">
+            <input type="checkbox" class="dd-input" id="test">
 
-        <ul class="dd-menu" *ngIf="menuhide" style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
-          <div style="display: flex;margin: 8px 8px 0 8px !important;" class="row">
+            <ul class="dd-menu" *ngIf="menuhide"
+              style="width:30rem;  margin-top: 12px !important; border-radius: 12px;">
+              <div style="display: flex;margin: 8px 8px 0 8px !important;" class="row">
 
-            <div class="col-12" style="text-align: end;display: flex;justify-content: end;
+                <div class="col-12" style="text-align: end;display: flex;justify-content: end;
           padding: 0 0px;">
-              <button type="button" (click)="closePopup();"
-                class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                style=" margin:8px;">
-                <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
-                  style="color: red !important; font-size: 20PX;"></span>
-              </button>
-            </div>
+                  <button type="button" (click)="closePopup();"
+                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                    style=" margin:8px;">
+                    <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
+                      style="color: red !important; font-size: 20PX;"></span>
+                  </button>
+                </div>
 
-            <div class="col-3 card applicantdrop" style="text-align:center;">
+                <div class="col-3 card applicantdrop" style="text-align:center;">
 
-              <a [routerLink]='' (click)="showSkills()">
-                <li class="li2"><i class="fa fa-cog fa1" aria-hidden="true"></i><br /> Skill Set</li>
-              </a>
+                  <a [routerLink]='' (click)="showSkills()">
+                    <li class="li2"><i class="fa fa-cog fa1" aria-hidden="true"></i><br /> Skill Set</li>
+                  </a>
 
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
 
-              <a [routerLink]='' (click)="showGeography()">
-                <li class="li2"><i class="fa fa-map-marker fa1" aria-hidden="true"></i><br /> Location</li>
-              </a>
+                  <a [routerLink]='' (click)="showGeography()">
+                    <li class="li2"><i class="fa fa-map-marker fa1" aria-hidden="true"></i><br /> Location</li>
+                  </a>
 
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="uploadmethod()">
-                <li class="li2"><i class="fa fa-file-text-o fa1" aria-hidden="true"></i><br /> Resume</li>
-              </a>
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="showcareer()">
-                <li class="li2"><i class="fa fa-level-up fa1" aria-hidden="true"></i><br /> Experience</li>
-              </a>
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="showWorkRef()">
-                <li class="li2"><i class="fa fa-file-powerpoint-o fa1" aria-hidden="true"></i><br /> Project</li>
-              </a>
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="showEducation()">
-                <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Education</li>
-              </a>
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="showAchievement()">
-                <li class="li2"><i class="fa fa-certificate fa1" aria-hidden="true"></i><br /> Certification</li>
-              </a>
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="showSocial();">
-                <li class="li2"><i class="fa fa-share-square fa1" aria-hidden="true"></i><br /> Social Media</li>
-              </a>
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="showProfile()">
-                <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Personal</li>
-              </a>
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="showLanguage()">
-                <li class="li2"><i class="fa fa-language fa1" aria-hidden="true"></i><br /> Language</li>
-              </a>
-            </div>
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="uploadmethod()">
+                    <li class="li2"><i class="fa fa-file-text-o fa1" aria-hidden="true"></i><br /> Resume</li>
+                  </a>
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="showcareer()">
+                    <li class="li2"><i class="fa fa-level-up fa1" aria-hidden="true"></i><br /> Experience</li>
+                  </a>
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="showWorkRef()">
+                    <li class="li2"><i class="fa fa-file-powerpoint-o fa1" aria-hidden="true"></i><br /> Project</li>
+                  </a>
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="showEducation()">
+                    <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Education</li>
+                  </a>
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="showAchievement()">
+                    <li class="li2"><i class="fa fa-certificate fa1" aria-hidden="true"></i><br /> Certification</li>
+                  </a>
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="showSocial();">
+                    <li class="li2"><i class="fa fa-share-square fa1" aria-hidden="true"></i><br /> Social Media</li>
+                  </a>
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="showProfile()">
+                    <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Personal</li>
+                  </a>
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="showLanguage()">
+                    <li class="li2"><i class="fa fa-language fa1" aria-hidden="true"></i><br /> Language</li>
+                  </a>
+                </div>
 
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a (click)="showmyProfile()">
-                <li class="li2"><i class="fa fa-address-book fa1" aria-hidden="true"></i><br /> Show Profile</li>
-              </a>
-            </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a (click)="showmyProfile()">
+                    <li class="li2"><i class="fa fa-address-book fa1" aria-hidden="true"></i><br /> Show Profile</li>
+                  </a>
+                </div>
 
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="releasemethod(true)" *ngIf="isrelease==false">
-                <li class="li2"><i class="fa fa-paper-plane fa1" aria-hidden="true"></i><br /> Release</li>
-              </a>
-              <a [routerLink]='' (click)="releasemethod(false)" *ngIf="isrelease==true">
-                <li class="li2"><i class="fa fa-minus-square fa1" aria-hidden="true"></i><br /> Hide</li>
-              </a>
-            </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="releasemethod(true)" *ngIf="isrelease==false">
+                    <li class="li2"><i class="fa fa-paper-plane fa1" aria-hidden="true"></i><br /> Release</li>
+                  </a>
+                  <a [routerLink]='' (click)="releasemethod(false)" *ngIf="isrelease==true">
+                    <li class="li2"><i class="fa fa-minus-square fa1" aria-hidden="true"></i><br /> Hide</li>
+                  </a>
+                </div>
 
-          </div>
-          <div style="display: flex;">
-            <hr style="margin-top: 10px !important;width: 42% !important;"> &nbsp;&nbsp;
-            <label style="color: #80808082;font: menu; font-style: italic;">Applicant</label>&nbsp;&nbsp;
-            <hr style="margin-top: 10px !important;width: 42% !important;">
-          </div>
-          <div class="row" style="margin: 8px 8px 0 8px !important;">
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="openApplicant()">
-                <li class="li2"><i class="bi bi-person-lines-fill fa1" aria-hidden="true"></i><br /> Applicant</li>
-              </a>
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="openReference()">
-                <li class="li2"><i class="bi bi-person-square fa1" aria-hidden="true"></i><br /> References</li>
-              </a>
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="openJobs()">
-                <li class="li2"><i class="bi bi-briefcase-fill fa1" aria-hidden="true"></i><br /> Opportunity</li>
-              </a>
-            </div>
-            <div class="col-3 card applicantdrop" style="text-align:center;">
-              <a [routerLink]='' (click)="openGallery()">
-                <li class="li2"><i class="bi bi-image fa1" aria-hidden="true"></i><br /> Gallery</li>
-              </a>
-            </div>
-          </div>
-        </ul>
-
-      </label>
-    </li>
-
-    <!-- Applicant End -->
-
-    <!-- certified -->
-
-    <li *ngIf="showCertifiermenu" class="layout-topbar-item ng-tns-c186-0 " style="list-style: none; color:black;">
-      <label class="dropdown">
-        <div>
-          <i class="fa fa-th fa1 fa2 menu-icon" aria-hidden="true" (click)="openpopup()"></i>
-          <span class="p-ink" style="height: 44px; width: 44px; "></span>
-        </div>
-        <input type="checkbox" class="dd-input" id="test">
-
-        <ul class="dd-menu" *ngIf="menuhide" style="  margin-top: 12px !important; border-radius: 12px;">
-          <div style="display: flex;    margin: 8px 8px 0 8px !important;" class="row">
-
-            <div class="col-12" style="text-align: end;
-        padding: 0 0px;">
-              <button type="button" (click)="closePopup();"
-                class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                style=" margin:8px;">
-                <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
-                  style="color: red !important; font-size: 20PX;"></span>
-              </button>
-            </div>
-            <div class="row" style="margin: 8px 8px 0 8px !important;">
-              <div class="col-12 card certi" style="text-align:center;margin: 0px 0px 26px 0px !important">
-                <a [routerLink]='' (click)="openReference()">
-                  <li class="li2"><i class="bi bi-person-square fa1" aria-hidden="true"></i><br /> References</li>
-                </a>
               </div>
+              <div style="display: flex;">
+                <hr style="margin-top: 10px !important;width: 42% !important;"> &nbsp;&nbsp;
+                <label style="color: #80808082;font: menu; font-style: italic;">Applicant</label>&nbsp;&nbsp;
+                <hr style="margin-top: 10px !important;width: 42% !important;">
+              </div>
+              <div class="row" style="margin: 8px 8px 0 8px !important;">
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="openApplicant()">
+                    <li class="li2"><i class="bi bi-person-lines-fill fa1" aria-hidden="true"></i><br /> Applicant</li>
+                  </a>
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="openReference()">
+                    <li class="li2"><i class="bi bi-person-square fa1" aria-hidden="true"></i><br /> References</li>
+                  </a>
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="openJobs()">
+                    <li class="li2"><i class="bi bi-briefcase-fill fa1" aria-hidden="true"></i><br /> Opportunity</li>
+                  </a>
+                </div>
+                <div class="col-3 card applicantdrop" style="text-align:center;">
+                  <a [routerLink]='' (click)="openGallery()">
+                    <li class="li2"><i class="bi bi-image fa1" aria-hidden="true"></i><br /> Gallery</li>
+                  </a>
+                </div>
+              </div>
+            </ul>
+
+          </label>
+        </li>
+
+        <!-- Applicant End -->
+
+        <!-- certified -->
+
+        <li *ngIf="showCertifiermenu" class="layout-topbar-item ng-tns-c186-0 " style="list-style: none; color:black;">
+          <label class="dropdown">
+            <div>
+              <i class="fa fa-th fa1 fa2 menu-icon" aria-hidden="true" (click)="openpopup()"></i>
+              <span class="p-ink" style="height: 44px; width: 44px; "></span>
             </div>
-          </div>
+            <input type="checkbox" class="dd-input" id="test">
 
-        </ul>
-      </label>
-    </li>
+            <ul class="dd-menu" *ngIf="menuhide" style="  margin-top: 12px !important; border-radius: 12px;">
+              <div style="display: flex;    margin: 8px 8px 0 8px !important;" class="row">
 
-    <!-- Admin Login -->
+                <div class="col-12" style="text-align: end;
+        padding: 0 0px;">
+                  <button type="button" (click)="closePopup();"
+                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                    style=" margin:8px;">
+                    <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
+                      style="color: red !important; font-size: 20PX;"></span>
+                  </button>
+                </div>
+                <div class="row" style="margin: 8px 8px 0 8px !important;">
+                  <div class="col-12 card certi" style="text-align:center;margin: 0px 0px 26px 0px !important">
+                    <a [routerLink]='' (click)="openReference()">
+                      <li class="li2"><i class="bi bi-person-square fa1" aria-hidden="true"></i><br /> References</li>
+                    </a>
+                  </div>
+                </div>
+              </div>
 
-    <li *ngIf="showAdminMenuaccess" class="layout-topbar-item ng-tns-c186-0 " style="list-style: none; color:black;">
+            </ul>
+          </label>
+        </li>
+
+        <!-- Admin Login -->
+
+        <li *ngIf="showAdminMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
+          style="list-style: none; color:black;">
 
 
-      <label class="dropdown">
+          <label class="dropdown">
 
-        <div class="">
+            <div class="">
 
-          <i class="fa fa-th fa1 fa2 menu-icon" aria-hidden="true" (click)="openpopups()"></i>
-          <span class="p-ink" style="height: 44px; width: 44px;"></span>
-        </div>
+              <i class="fa fa-th fa1 fa2 menu-icon" aria-hidden="true" (click)="openpopups()"></i>
+              <span class="p-ink" style="height: 44px; width: 44px;"></span>
+            </div>
 
-        <input type="checkbox" class="dd-input" id="test">
+            <input type="checkbox" class="dd-input" id="test">
 
-        <ul class="dd-menu adminscroll" *ngIf="menuhides">
-          <div style="display: flex;justify-content: space-between; margin: 8px 8px 0 8px !important;" class="row">
+            <ul class="dd-menu adminscroll" *ngIf="menuhides">
+              <div style="display: flex;justify-content: space-between; margin: 8px 8px 0 8px !important;" class="row">
 
-            <div class="col-12" style="text-align: end;display: flex;justify-content: end;
+                <div class="col-12" style="text-align: end;display: flex;justify-content: end;
           padding: 0 0px;">
-              <button type="button" (click)="closePopups();"
-                class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                style=" margin:8px; ">
+                  <button type="button" (click)="closePopups();"
+                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                    style=" margin:8px; ">
 
-                <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
-                  style="color: red !important; font-size: 20PX;"></span>
-              </button>
-            </div>
-
-
-            <div class="col-3 card admindrop" style="text-align:center; " (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/whwfe']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-building fa1" aria-hidden="true"></i>
-                  <br /> Company Masters
-                </li>
-              </a>
-            </div>
-            <div class="col-3 card admindrop" style="text-align:center; " (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/v2mgx']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-database fa1" aria-hidden="true"></i><br /> Master Data Type</li>
-              </a>
-            </div>
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/aj5qt']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-table fa1" aria-hidden="true"></i><br /> Master Data</li>
-              </a>
-            </div>
-
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/mfrqi']" routerLinkActive="router-link-activet">
-                <li class="li2"><i class="fa fa-check-square fa1" aria-hidden="true"></i>
-                  <br /> Config Values
-                </li>
-              </a>
-            </div>
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/674']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-cc fa1" aria-hidden="true"></i><br /> Subcategory Masters</li>
-              </a>
-            </div>
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/wc9rn']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Countries</li>
-              </a>
-            </div>
-            <!-- </div> -->
-
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/segmt']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-cc-mastercard fa1" aria-hidden="true"></i><br /> Segment Masters
-                </li>
-              </a>
-            </div>
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/terms']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-trademark fa1" aria-hidden="true"></i><br /> Terms </li>
-              </a>
-            </div>
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/e99kq']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-user-secret fa1" aria-hidden="true"></i><br /> User Master</li>
-              </a>
-            </div>
-            <!-- </div> -->
+                    <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
+                      style="color: red !important; font-size: 20PX;"></span>
+                  </button>
+                </div>
 
 
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/tnf39']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> User Roles</li>
-              </a>
-            </div>
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/zkpxi']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-empire fa1" aria-hidden="true"></i><br /> Templates</li>
-              </a>
-            </div>
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/zzhpb']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-file fa1" aria-hidden="true"></i><br /> Reports</li>
-              </a>
-            </div>
-            <!-- </div> -->
+                <div class="col-3 card admindrop" style="text-align:center; " (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/whwfe']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-building fa1" aria-hidden="true"></i>
+                      <br /> Company Masters
+                    </li>
+                  </a>
+                </div>
+                <div class="col-3 card admindrop" style="text-align:center; " (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/v2mgx']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-database fa1" aria-hidden="true"></i><br /> Master Data Type</li>
+                  </a>
+                </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/aj5qt']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-table fa1" aria-hidden="true"></i><br /> Master Data</li>
+                  </a>
+                </div>
 
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/ybg3p']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-tachometer fa1" aria-hidden="true"></i><br /> Dashboards</li>
-              </a>
-            </div>
-            <!-- </div> -->
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/mfrqi']" routerLinkActive="router-link-activet">
+                    <li class="li2"><i class="fa fa-check-square fa1" aria-hidden="true"></i>
+                      <br /> Config Values
+                    </li>
+                  </a>
+                </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/674']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-cc fa1" aria-hidden="true"></i><br /> Subcategory Masters</li>
+                  </a>
+                </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/wc9rn']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Countries</li>
+                  </a>
+                </div>
+                <!-- </div> -->
 
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/y5q97']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-signal fa1" aria-hidden="true"></i><br /> Knowledge Base Master</li>
-              </a>
-            </div>
-
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/bofor']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-newspaper-o fa1" aria-hidden="true"></i><br /> Knowledge Base Forum</li>
-              </a>
-            </div>
-
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/bokbt']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-list-alt fa1" aria-hidden="true"></i><br /> Knowledge Base Topic</li>
-              </a>
-            </div>
-
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/bofaq']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-question-circle fa1" aria-hidden="true"></i><br /> FAQ</li>
-              </a>
-            </div>
-          </div>
-
-          <div style="display: flex;">
-            <hr style="margin-top: 10px !important;width: 41% !important;"> &nbsp;&nbsp;
-            <label style="color: #80808082;font: menu; font-style: italic;">Reports</label>&nbsp;&nbsp;
-            <hr style="margin-top: 10px !important;width: 42% !important;">
-          </div>
-
-          <!-- Admin Drop-down Masters -->
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/segmt']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-cc-mastercard fa1" aria-hidden="true"></i><br /> Segment Masters
+                    </li>
+                  </a>
+                </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/terms']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-trademark fa1" aria-hidden="true"></i><br /> Terms </li>
+                  </a>
+                </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/e99kq']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-user-secret fa1" aria-hidden="true"></i><br /> User Master</li>
+                  </a>
+                </div>
+                <!-- </div> -->
 
 
-          <div class="row" style="margin: 8px 8px 0 8px !important; justify-content: space-between;">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/tnf39']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> User Roles</li>
+                  </a>
+                </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/zkpxi']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-empire fa1" aria-hidden="true"></i><br /> Templates</li>
+                  </a>
+                </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/zzhpb']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-file fa1" aria-hidden="true"></i><br /> Reports</li>
+                  </a>
+                </div>
+                <!-- </div> -->
 
-            <!-- Reports -->
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/MAM']" routerLinkActive="router-link-active">
-                <li class="li2">
-                  <i class="fa fa-user-secret fa1" aria-hidden="true"></i><br />
-                  Applicant Masters
-                </li>
-              </a>
-            </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/ybg3p']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-tachometer fa1" aria-hidden="true"></i><br /> Dashboards</li>
+                  </a>
+                </div>
+                <!-- </div> -->
 
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/mcm']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Corporate Masters</li>
-              </a>
-            </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/y5q97']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-signal fa1" aria-hidden="true"></i><br /> Knowledge Base Master</li>
+                  </a>
+                </div>
 
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/arrA']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-retweet fa1" aria-hidden="true"></i><br /> Reference</li>
-              </a>
-            </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/bofor']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-newspaper-o fa1" aria-hidden="true"></i><br /> Knowledge Base Forum
+                    </li>
+                  </a>
+                </div>
 
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()"><a
-                [routerLink]="['/home/boreportviewer/jobq']" routerLinkActive="router-link-active ">
-                <li class="li2"><i class="fa fa-id-badge fa1" aria-hidden="true"></i><br /> Job Requirements</li>
-              </a>
-            </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/bokbt']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-list-alt fa1" aria-hidden="true"></i><br /> Knowledge Base Topic
+                    </li>
+                  </a>
+                </div>
 
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()"><a
-                [routerLink]="['/home/boreportviewer/aadl']" routerLinkActive="router-link-active ">
-                <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Achievement Details</li>
-              </a>
-            </div>
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/bofaq']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-question-circle fa1" aria-hidden="true"></i><br /> FAQ</li>
+                  </a>
+                </div>
+              </div>
 
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()"><a
-                [routerLink]="['/home/boreportviewer/acdl']" routerLinkActive="router-link-active ">
-                <li class="li2"><i class="fa fa-level-up fa1" aria-hidden="true"></i><br /> Career Details
-                </li>
-              </a>
-            </div>
+              <div style="display: flex;">
+                <hr style="margin-top: 10px !important;width: 41% !important;"> &nbsp;&nbsp;
+                <label style="color: #80808082;font: menu; font-style: italic;">Reports</label>&nbsp;&nbsp;
+                <hr style="margin-top: 10px !important;width: 42% !important;">
+              </div>
 
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/aed']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Education Details
-                </li>
-              </a>
-            </div>
-
-            <div class="col-3 card admindrop " style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/agp']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Geography Preferences</li>
-              </a>
-            </div>
-
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/ald']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-language fa1" aria-hidden="true"></i><br /> Language Details</li>
-              </a>
-            </div>
-
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/ASMD']" routerLinkActive="router-link-active">
-                <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Social Media Details
-                </li>
-              </a>
-            </div>
-
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/AWR']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-file-powerpoint-o fa1" aria-hidden="true"></i><br /> Projects</li>
-              </a>
-            </div>
-
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/psd']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Profile Access Details
-                </li>
-              </a>
-            </div>
-
-            <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/pcm']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-laptop fa1" aria-hidden="true"></i><br /> Profile Completion Masters
-                </li>
-              </a>
-            </div>
-          </div>
-        </ul>
-      </label>
-    </li>
-
-    <!--Admin end -->
-
-    <!-- Corporate Login and Drop dwon Menus-->
-
-    <li *ngIf="showCorporateMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
-      style="list-style: none; color:black;">
+              <!-- Admin Drop-down Masters -->
 
 
-      <label class="dropdown">
+              <div class="row" style="margin: 8px 8px 0 8px !important; justify-content: space-between;">
 
-        <div class="">
-          <i class="fa fa-th fa1 fa2 menu-icon
+                <!-- Reports -->
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/MAM']" routerLinkActive="router-link-active">
+                    <li class="li2">
+                      <i class="fa fa-user-secret fa1" aria-hidden="true"></i><br />
+                      Applicant Masters
+                    </li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/mcm']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Corporate Masters</li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/arrA']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-retweet fa1" aria-hidden="true"></i><br /> Reference</li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()"><a
+                    [routerLink]="['/home/boreportviewer/jobq']" routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-id-badge fa1" aria-hidden="true"></i><br /> Job Requirements</li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()"><a
+                    [routerLink]="['/home/boreportviewer/aadl']" routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Achievement Details</li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()"><a
+                    [routerLink]="['/home/boreportviewer/acdl']" routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-level-up fa1" aria-hidden="true"></i><br /> Career Details
+                    </li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/aed']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Education Details
+                    </li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop " style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/agp']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-globe fa1" aria-hidden="true"></i><br /> Geography Preferences</li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/ald']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-language fa1" aria-hidden="true"></i><br /> Language Details</li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/ASMD']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Social Media Details
+                    </li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/AWR']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-file-powerpoint-o fa1" aria-hidden="true"></i><br /> Projects</li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/psd']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Profile Access Details
+                    </li>
+                  </a>
+                </div>
+
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/pcm']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-laptop fa1" aria-hidden="true"></i><br /> Profile Completion Masters
+                    </li>
+                  </a>
+                </div>
+              </div>
+            </ul>
+          </label>
+        </li>
+
+        <!--Admin end -->
+
+        <!-- Corporate Login and Drop dwon Menus-->
+
+        <li *ngIf="showCorporateMenuaccess" class="layout-topbar-item ng-tns-c186-0 "
+          style="list-style: none; color:black;">
+
+
+          <label class="dropdown">
+
+            <div class="">
+              <i class="fa fa-th fa1 fa2 menu-icon
          " aria-hidden="true" (click)="openpopups()"></i>
-          <span class="p-ink" style="height: 44px; width: 44px; "></span>
-        </div>
+              <span class="p-ink" style="height: 44px; width: 44px; "></span>
+            </div>
 
-        <input type="checkbox" class="dd-input" id="test">
+            <input type="checkbox" class="dd-input" id="test">
 
-        <ul class="dd-menu adminscroll" *ngIf="menuhides"
-          style="width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;">
-          <div style="display: flex;justify-content: space-between; margin: 8px 8px 0 8px !important;" class="row">
-            <div class="col-12" style="text-align: end;display: flex;justify-content: end;
+            <ul class="dd-menu adminscroll" *ngIf="menuhides"
+              style="width:30rem; background-color:white; margin-top: 12px !important; border-radius: 12px;">
+              <div style="display: flex;justify-content: space-between; margin: 8px 8px 0 8px !important;" class="row">
+                <div class="col-12" style="text-align: end;display: flex;justify-content: end;
           padding: 0 0px;">
-              <button type="button" pripple (click)="closePopups();"
-                class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
-                style=" margin:8px; ">
-                <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
-                  style="color: red !important; font-size: 20PX;"></span>
-              </button>
-            </div>
+                  <button type="button" pripple (click)="closePopups();"
+                    class="p-sidebar-close p-sidebar-icon p-link ng-tns-c258-5 p-ripple ng-star-inserted"
+                    style=" margin:8px; ">
+                    <span class="p-sidebar-close-icon fa fa-window-close ng-tns-c258-5"
+                      style="color: red !important; font-size: 20PX;"></span>
+                  </button>
+                </div>
 
-            <!-- Corporate -->
+                <!-- Corporate -->
 
-            <div class="col-4 card  Corporatedrop" style="text-align:center; " (click)="corporate_data()">
-              <a routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Corporate Masters
-                </li>
-              </a>
-            </div>
-            <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/jobq']" routerLinkActive="router-link-active ">
-                <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Job Requirements</li>
-              </a>
-            </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center; " (click)="corporate_data()">
+                  <a routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Corporate Masters
+                    </li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/jobq']" routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-trophy fa1" aria-hidden="true"></i><br /> Job Requirements</li>
+                  </a>
+                </div>
 
-            <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/arrA']" routerLinkActive="router-link-active ">
-                <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Requested
-                  References</li>
-              </a>
-            </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/arrA']" routerLinkActive="router-link-active ">
+                    <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br /> Requested
+                      References</li>
+                  </a>
+                </div>
 
-            <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/newskillsearch']" routerLinkActive="router-link-active">
-                <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Skill Search</li>
-              </a>
-            </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/newskillsearch']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class=" fa fa-twitter fa1" aria-hidden="true"></i><br /> Skill Search</li>
+                  </a>
+                </div>
 
-          </div>
-          <div style="display: flex;">
-            <hr style="margin-top: 10px !important;width: 41% !important;"> &nbsp;&nbsp;
-            <label style="color: #80808082;font: menu; font-style: italic;">Reports</label>&nbsp;&nbsp;
-            <hr style="margin-top: 10px !important;width: 42% !important;">
-          </div>
+              </div>
+              <div style="display: flex;">
+                <hr style="margin-top: 10px !important;width: 41% !important;"> &nbsp;&nbsp;
+                <label style="color: #80808082;font: menu; font-style: italic;">Reports</label>&nbsp;&nbsp;
+                <hr style="margin-top: 10px !important;width: 42% !important;">
+              </div>
 
-          <div class="row" style="margin: 8px 8px 0 8px !important; justify-content: space-between;">
+              <div class="row" style="margin: 8px 8px 0 8px !important; justify-content: space-between;">
 
-            <!-- <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                <!-- <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
             <a [routerLink]="['/home/boreportviewer/aed']" routerLinkActive="router-link-active">
               <li class="li2"><i class="fa fa-graduation-cap fa1" aria-hidden="true"></i><br />Education Details
               </li>
@@ -535,131 +541,133 @@
             </a>
           </div> -->
 
-            <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/mscwa']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Country Wise Applicants</li>
-              </a>
-            </div>
-            <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/msapl']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-leanpub fa1" aria-hidden="true"></i><br /> Applicant Ledger</li>
-              </a>
-            </div>
-            <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/mscws']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-search fa1" aria-hidden="true"></i><br /> Country Wise Seekers </li>
-              </a>
-            </div>
-            <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/msjar']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-area-chart fa1" aria-hidden="true"></i><br /> Job Posting Analysis
-                  Report</li>
-              </a>
-            </div>
-            <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/msjrp']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-file fa1" aria-hidden="true"></i><br /> Job Report</li>
-              </a>
-            </div>
-            <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/msres']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-sticky-note fa1" aria-hidden="true"></i><br /> Reference Summary Report
-                </li>
-              </a>
-            </div>
-            <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
-              <a [routerLink]="['/home/boreportviewer/msrde']" routerLinkActive="router-link-active">
-                <li class="li2"><i class="fa fa-info-circle fa1" aria-hidden="true"></i><br /> Reference Detail Report
-                </li>
-              </a>
-            </div>
-            <div class="col-4  Cor " style="text-align:center;" (click)="closePopups()">
-              <a>
-                <li class="li2"><i class=" fa1" aria-hidden="true"></i><br /> </li>
-              </a>
-            </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/mscwa']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> Country Wise Applicants</li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/msapl']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-leanpub fa1" aria-hidden="true"></i><br /> Applicant Ledger</li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/mscws']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-search fa1" aria-hidden="true"></i><br /> Country Wise Seekers </li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/msjar']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-area-chart fa1" aria-hidden="true"></i><br /> Job Posting Analysis
+                      Report</li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/msjrp']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-file fa1" aria-hidden="true"></i><br /> Job Report</li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/msres']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-sticky-note fa1" aria-hidden="true"></i><br /> Reference Summary
+                      Report
+                    </li>
+                  </a>
+                </div>
+                <div class="col-4 card  Corporatedrop" style="text-align:center;" (click)="closePopups()">
+                  <a [routerLink]="['/home/boreportviewer/msrde']" routerLinkActive="router-link-active">
+                    <li class="li2"><i class="fa fa-info-circle fa1" aria-hidden="true"></i><br /> Reference Detail
+                      Report
+                    </li>
+                  </a>
+                </div>
+                <div class="col-4  Cor " style="text-align:center;" (click)="closePopups()">
+                  <a>
+                    <li class="li2"><i class=" fa1" aria-hidden="true"></i><br /> </li>
+                  </a>
+                </div>
 
-          </div>
-        </ul>
+              </div>
+            </ul>
 
-      </label>
-    </li>
+          </label>
+        </li>
 
-    <!--Corporate end -->
+        <!--Corporate end -->
 
-    <li class="layout-topbar-item ng-tns-c186-0">
-      <a pripple=""
-        class="layout-topbar-action p-d-flex p-dir-row p-jc-center p-ai-center p-px-2 rounded-circle ng-tns-c186-0 p-ripple"
-        (click)="showProfileDetails()">
-        <img *ngIf="userphoto" src="https://demo.herbie.ai/attachment/{{userphoto}}" alt="avatar" style="width: 35px;
+        <li class="layout-topbar-item ng-tns-c186-0">
+          <a pripple=""
+            class="layout-topbar-action p-d-flex p-dir-row p-jc-center p-ai-center p-px-2 rounded-circle ng-tns-c186-0 p-ripple"
+            (click)="showProfileDetails()">
+            <img *ngIf="userphoto" src="https://demo.herbie.ai/attachment/{{userphoto}}" alt="avatar" style="width: 35px;
                   height: 35px;
                   border-radius: 15px;" class="ng-tns-c186-0 img_content" title="Profile">
-        <img *ngIf="!userphoto" src="assets/profile.jpeg" alt="avatar" style="width: 35px;
+            <img *ngIf="!userphoto" src="assets/profile.jpeg" alt="avatar" style="width: 35px;
                   height: 35px;
                   border-radius: 15px;" class="ng-tns-c186-0 img_content" title="Profile">
-        <span class="p-ink">
-        </span></a>
-    </li>
+            <span class="p-ink">
+            </span></a>
+        </li>
 
-    <div class="list-group profile-card" *ngIf="showhideProfile">
+        <div class="list-group profile-card" *ngIf="showhideProfile">
 
-      <label style="text-align: end;">
-        <button type="button" pripple (click)="closePopup();" style=" background-color: transparent;border: none;">
-          <i class="fa fa-window-close" aria-hidden="true" style="color: red !important; font-size: 20px; margin: 5px;"
-            (click)="closePopup();"></i>
-        </button>
-      </label>
+          <label style="text-align: end;">
+            <button type="button" pripple (click)="closePopup();" style=" background-color: transparent;border: none;">
+              <i class="fa fa-window-close" aria-hidden="true"
+                style="color: red !important; font-size: 20px; margin: 5px;" (click)="closePopup();"></i>
+            </button>
+          </label>
 
-      <label class="profile-img">
-        <img *ngIf="userphoto" src="https://demo.herbie.ai/attachment/{{userphoto}}" alt="avatar" style="width: 100px;
+          <label class="profile-img">
+            <img *ngIf="userphoto" src="https://demo.herbie.ai/attachment/{{userphoto}}" alt="avatar" style="width: 100px;
           height: 100px;
           border-radius: 50px;" title="Profile">
 
-        <img *ngIf="!userphoto" src="assets/profile.jpeg" alt="avatar" style="width: 100px;
+            <img *ngIf="!userphoto" src="assets/profile.jpeg" alt="avatar" style="width: 100px;
           height: 100px;
           border-radius: 50px;" title="Profile">
-      </label>
+          </label>
 
-      <label class="profile-label" *ngIf="applicanticon">
-        <span><i class="fa fa-user" aria-hidden="true"></i>&nbsp;
-          {{username}} ({{userrole}})</span>
-      </label>
+          <label class="profile-label" *ngIf="applicanticon">
+            <span><i class="fa fa-user" aria-hidden="true"></i>&nbsp;
+              {{username}} ({{userrole}})</span>
+          </label>
 
-      <label class="profile-label" *ngIf="adminicon">
-        <span><i class="fa fa-user-secret" aria-hidden="true"></i>&nbsp;
-          {{username}} ({{userrole}})</span>
-      </label>
+          <label class="profile-label" *ngIf="adminicon">
+            <span><i class="fa fa-user-secret" aria-hidden="true"></i>&nbsp;
+              {{username}} ({{userrole}})</span>
+          </label>
 
-      <label class="profile-label" *ngIf="corporateicon">
-        <span><i class="fa fa-building-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
-          {{username}} ({{userrole}})</span>
-      </label>
+          <label class="profile-label" *ngIf="corporateicon">
+            <span><i class="fa fa-building-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
+              {{username}} ({{userrole}})</span>
+          </label>
 
-      <label class="profile-label" *ngIf="showmobilenumber" style="cursor: pointer;">
-        <span><i class="fa fa-mobile" aria-hidden="true" style="font-size: 23px;
+          <label class="profile-label" *ngIf="showmobilenumber" style="cursor: pointer;">
+            <span><i class="fa fa-mobile" aria-hidden="true" style="font-size: 23px;
        font-weight: bold;"></i>&nbsp;
-          {{mobilenumber}}</span>
-      </label>
+              {{mobilenumber}}</span>
+          </label>
 
-      <label class="profile-label" style="cursor: pointer;">
-        <span><i class="fa fa-envelope-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
-          {{email_id}}</span>
-      </label>
+          <label class="profile-label" style="cursor: pointer;">
+            <span><i class="fa fa-envelope-o" aria-hidden="true" style="font-weight: bolder;"></i>&nbsp;
+              {{email_id}}</span>
+          </label>
 
-      <label class="profile-label" *ngIf="showApplicantAccount" style="cursor: pointer;" (click)="showProfile()">
-        <span><i class="fa fa-cog" aria-hidden="true" style="font-size: 16px;"></i>&nbsp;
-          Manage your account</span>
-      </label>
+          <label class="profile-label" *ngIf="showApplicantAccount" style="cursor: pointer;" (click)="showProfile()">
+            <span><i class="fa fa-cog" aria-hidden="true" style="font-size: 16px;"></i>&nbsp;
+              Manage your account</span>
+          </label>
 
-      <label (click)="logout()" class="sign_out-label">
-        <i class="pi fs-large ng-tns-c186-0 pi-sign-out" title="Logout"></i>
-        <span style="color:white !important;">Signout</span>
-      </label>
+          <label (click)="logout()" class="sign_out-label">
+            <i class="pi fs-large ng-tns-c186-0 pi-sign-out" title="Logout"></i>
+            <span style="color:white !important;">Signout</span>
+          </label>
+        </div>
+
+      </ul>
     </div>
-
-    </ul>
   </div>
-</div>
 </div>
 
 

@@ -49,8 +49,7 @@ export class HeaderComponent implements OnInit {
   loggedIn: boolean = false;
   @Output() toggleMenubar: EventEmitter<any> = new EventEmitter();
 
-  @Output() skillwizard = new EventEmitter<boolean>()
-
+  // @Output() skillwizard = new EventEmitter<true>()
 
 
   @ViewChild('showsearchbar') showsearchbar: NewskillsearchComponent;
@@ -515,14 +514,12 @@ export class HeaderComponent implements OnInit {
     this.pageroute.navigate(['home/mstapplicantmasters/mstapplicantmasters/usersource/' + this.sessionService.getItem('usersource')], { queryParams: { show: this.show_dashboard } });
   }
 
-  skillWizard() {
-    // this.router.routeReuseStrategy.shouldReuseRoute = function () {
-    //   return false;
-    // };
-    // let pkcol = localStorage.getItem('pkcol');
-    // this.router.navigate(['/home/bodashboardviewer/' + pkcol], { queryParams: { Val: "W" } });
-    this.skillwizard.emit(true);
+  skillWizard(data: any) {
+    console.log("header wizard", data);
+    this.sharedService.skillwizard(data)
   }
+
+
 
   releasemethod(e: any) {
 

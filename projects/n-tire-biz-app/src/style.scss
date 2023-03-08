@@ -3390,3 +3390,80 @@ footer {
     background-color: red !important;
   }
 }
+.info-graphy-dashboard{
+
+  .Personal {
+    -webkit-transform: rotate(310deg);
+    -moz-transform: rotate(310deg);
+    -o-transform: rotate(310deg);
+    -ms-transform: rotate(310deg);
+    transform: rotate(310deg);
+    width: 20%;
+    position: relative;
+    top: 0;
+    right: 50px;
+  }
+  
+  .skill {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 20%;
+    position: relative;
+    bottom: 40px;
+    left: 150px;
+  }
+  
+  .education {
+    position: relative;
+    width: 20%;
+    right: 48px;
+    top: 30px;
+  }
+  
+  .experience {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+    width: 20%;
+    position: relative;
+    bottom: 40px;
+    right: 10px;
+  }
+  
+  .project {
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    transform: rotate(135deg);
+    width: 20%;
+    position: relative;
+    right: 70px;
+    top: 30px;
+  }
+  .certification {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    width: 20%;
+    position: relative;
+    left: 60px;
+  }
+  
+  .tree_logo {
+    width: 9%;
+    position: relative;
+    left: 37.4rem;
+    bottom: 10.5rem;
+  
+  }
+  
+
+}
