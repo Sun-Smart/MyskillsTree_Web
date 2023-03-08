@@ -33,7 +33,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <h4 class="columns left">{{'Experience'}}</h4>
     </div>
     <div class="col-6">    </div>
-    
+
     <div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-evenly;">
 
     <button type = "button" class="alert-success" (click)="mstapplicantcareerdetails_route(null, 'create')"><i
@@ -408,6 +408,7 @@ export class mstapplicantcareergridComponent implements OnInit {
       console.log('skill res', res);
       this.skills_List = res;
     }).catch((err) => { this.spinner.hide(); });
+
   };
 
   get f() { return this.mstapplicantcareerdetail_Form.controls; };
