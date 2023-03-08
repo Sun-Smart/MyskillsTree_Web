@@ -1,6 +1,7 @@
 import { bomasterdatatypeService } from './../../../service/bomasterdatatype.service';
 import { bomasterdatatype } from './../../../model/bomasterdatatype.model';
 import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -268,17 +269,14 @@ check1:boolean = false ;
         this.bomasterdatatype_Form.markAsUntouched();
         this.bomasterdatatype_Form.markAsPristine();
         console.log( this.bomasterdatatype_Form.value.hassubcategory)
-        
-
-
-
     }
 
     checkRelease()
     {
        localStorage.setItem("releasecheckbox", JSON.stringify(this.releasecheckbox));
-
+console.log(this.releasecheckbox);
     }
+    
     checkedit(){
         localStorage.setItem("canedit", JSON.stringify(this.canedit));
     }

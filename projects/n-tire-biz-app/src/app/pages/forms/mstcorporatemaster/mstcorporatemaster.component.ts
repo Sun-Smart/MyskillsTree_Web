@@ -795,8 +795,8 @@ export class mstcorporatemasterComponent implements OnInit {
             },
             edit: {
                 editButtonContent: '<i class="fa fa-edit"></i>',
-                saveButtonContent: '<i class="nb-checkmark"></i>',
-                cancelButtonContent: '<i class="nb-close"></i>',
+                saveButtonContent: '<i class="fa fa-check-square"></i>',
+                cancelButtonContent: '<i class="fa fa-window-close"></i>',
                 confirmSave: true,
             },
             delete: {

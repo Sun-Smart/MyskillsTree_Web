@@ -91,7 +91,7 @@ export class bomasterdataComponent implements OnInit {
     plusbutton : boolean = true ;
     sessionData: any;
     sourceKey: any;
-
+    masterdatatypeid1:any;
     bosubcategorymasters_visiblelist: any;
     bosubcategorymasters_hidelist: any;
 
@@ -120,7 +120,7 @@ export class bomasterdataComponent implements OnInit {
             pk: [null],
             masterdataid: [null],
             masterdatatypeid: [null, Validators.compose([Validators.required])],
-            masterdataname: [null],
+            masterdataname: [null, Validators.compose([Validators.required])],
             masterdatatypeiddesc: [null],
             masterdatacode: [null, Validators.compose([Validators.required])],
             masterdatadescription: [null, Validators.compose([Validators.required])],
@@ -158,6 +158,11 @@ export class bomasterdataComponent implements OnInit {
     }
 
     async ngOnInit() {
+        debugger
+        var xyz=this.bomasterdata_service.boarray
+        this.bomasterdata_Form.patchValue({masterdatatypeid:xyz[0]})
+        this.masterdatatypeid1 = localStorage.getItem("masterdataname")
+
         // this.masterdatatypeid = this.bomasterdata_service.boarray
         // this.bomasterdata_Form.patchValue({ masterdatatypeid: this.masterdatatypeid[0] })
         
@@ -232,6 +237,10 @@ export class bomasterdataComponent implements OnInit {
         this.bomasterdata_service.getDefaultData().then(res => {
             this.masterdatatypeid_List = res.list_masterdatatypeid.value;
             // this.masterdatatypeid_List = res.list_masterdatatypeid.label;
+            let suma= localStorage.getItem("masterdataname")
+            console.log(suma)
+            this.masterdatatypeid1=suma
+            console.log(this.masterdatatypeid1)
         }).catch((err) => { this.spinner.hide(); });
 
         this.bomasterdata_service.get_bomasterdatas_List().then(res => {
@@ -377,8 +386,8 @@ export class bomasterdataComponent implements OnInit {
         if ((res.bomasterdata as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
         this.bomasterdata_Form.patchValue({
             masterdataid: res.bomasterdata.masterdataid,
-            masterdatatypeid:  res.bomasterdata.masterdatatypeid,
-            masterdatatypeiddesc:  res.bomasterdata.masterdatatypeiddesc,
+            masterdatatypeid: localStorage.getItem("masterdataname"),
+            masterdatatypeiddesc: localStorage.getItem("masterdataname"),
             masterdataname: res.bomasterdatatype.masterdataname,
             masterdatacode: res.bomasterdata.masterdatacode,
             masterdatadescription: res.bomasterdata.masterdatadescription,
