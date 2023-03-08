@@ -61,9 +61,9 @@
           <li class='nav-item actionheader common_title_style' *ngIf="!showview">
             <button type="button" class="btn btn-outline-primary popup-add-button " style="border-color: #fff !important;margin: 5px;
               padding: 3px;
-              color: #fff;" (click)="onSubmitAndWait()"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;Submit</button>&nbsp;
+              color: #fff;" (click)="onSubmitAndWait()"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;Submit</button>
             <button type="button" class="btn btn-outline-primary popup-add-button mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null'
-              style="border-color: #fff !important; color: #fff;margin: 5px;padding: 3px;" (click)="onSubmit()"><i class="fa fa-share-square" aria-hidden="true"></i>&nbsp;Submit & Clear</button>&nbsp;
+              style="border-color: #fff !important; color: #fff;margin: 5px;padding: 3px;" (click)="onSubmit()"><i class="fa fa-share-square" aria-hidden="true"></i>&nbsp;Submit & Clear</button>
             <app-action *ngIf="f.masterdataid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.masterdataid.value" [status]="f.status.value"></app-action>
 
