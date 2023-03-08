@@ -116,7 +116,8 @@ export class BODashboardViewerComponent implements OnInit {
   end_date: any;
   ref_date: any;
   sub: any;
-  showNewApp_Dashboard: boolean = false;
+  showMainApp_Dashboard: boolean = true;
+  showNewApp_Dashboard: boolean;
   skillfromDate: any;
   skilltoDate: any;
   EachExpresult: any = [];
@@ -130,6 +131,9 @@ export class BODashboardViewerComponent implements OnInit {
   dataDashboard: any;
   arrayDate: any = [];
   checkTest: any = [];
+  checkDateError: any;
+  // showDashboardDetails: boolean = false;
+
 
   constructor(public dialogRef: DynamicDialogRef,
     private toastr: ToastService,
@@ -142,18 +146,22 @@ export class BODashboardViewerComponent implements OnInit {
 
   ) {
     this.applicantid = this.sessionService.getItem("applicantid");
+
   }
   ngOnInit() {
-    this.get_allData();
     this.sub = this.activateroute.queryParams.subscribe((params: any) => {
       console.log("dataDashboard", params.Val);
       this.dataDashboard = params.Val;
-      if (params.Val == "W") {
-        this.showNewApp_Dashboard = false;
-      } else {
+      if (params.Val == 'W') {
         this.showNewApp_Dashboard = true;
+        this.showMainApp_Dashboard = false;
+      } else {
+        this.showNewApp_Dashboard = false;
+        this.showMainApp_Dashboard = true;
       }
     });
+    this.get_allData();
+
 
     this.isskillcompleted = false
     this.isresumecompleted = false
@@ -421,10 +429,10 @@ export class BODashboardViewerComponent implements OnInit {
     //     })
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByOrderPriority(this.applicantid).then((res: any) => {
 
-      console.log("Order Priority", res);
-
       if (res.mstapplicantskilldetail.length > 0) {
-        this.showNewApp_Dashboard = true;
+        this.showNewApp_Dashboard = false;
+      } else {
+        this.showMainApp_Dashboard = true;
       }
       this.sub_category = res.mstapplicantskilldetail;
       for (let i = 0; i < this.sub_category.length; i++) {
@@ -440,12 +448,13 @@ export class BODashboardViewerComponent implements OnInit {
             this.skilltoDate = res[i].todate;
           }
           this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
-          console.log('this.EachExpresult', this.EachExpresult);
-          this.showExp.push({ check: this.EachExpresult.years + '.' + this.EachExpresult.months });
-          this.arrayDate = this.showExp[i]?.check
-          console.log('this.arrayDate ', this.arrayDate);
-          // console.log('total Exp ', this.arrayDate++);
-
+          if (this.EachExpresult && !isNaN(this.EachExpresult.years)) {
+            this.checkDateError = this.EachExpresult.years + '.' + this.EachExpresult.months
+          }
+          if (this.checkDateError == "NaN" || this.checkDateError == 0 || this.checkDateError == undefined || this.checkDateError == "null") {
+            this.checkDateError = "0.0";
+          }
+          console.log('checkckekce', this.checkDateError)
           for (let i = 0; i < this.skill_detail.length; i++) {
             if (this.skill_detail[i].strRating == 1) {
               this.showstr = '★'
@@ -466,11 +475,11 @@ export class BODashboardViewerComponent implements OnInit {
             skillId: this.skill_detail[i].skill_id,
             remarks: this.skill_detail[i].remarks,
             showstr: this.showstr,
-            ExpSkill: this.arrayDate
+            ExpSkill: this.checkDateError
           });
         })
       };
-
+      this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
       function getDateDifference(startDate, endDate) {
         var startYear = startDate.getFullYear();
         var startMonth = startDate.getMonth();
@@ -498,7 +507,7 @@ export class BODashboardViewerComponent implements OnInit {
           days: days
         };
       }
-      this.showDetails(this.finalarray[0]?.skillId, this.finalarray[0]?.subCategory, this.finalarray[0]?.remarks)
+
     });
 
 
