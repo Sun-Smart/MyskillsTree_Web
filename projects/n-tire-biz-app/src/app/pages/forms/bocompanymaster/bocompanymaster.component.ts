@@ -1084,7 +1084,7 @@ debugger;
             mode: 'external',
             selectMode: 'single',
             actions: {
-                columnTitle: 'ACtions',
+                columnTitle: 'Actions',
                 width: '300px',
                 add: !this.showview,
                 edit: true, // true,
