@@ -636,7 +636,7 @@ export class mstapplicantmastermainComponent implements OnInit {
         localStorage.removeItem("choosefileforprofile")
         this.objvalues.push((res as any).mstapplicantmaster);
         this.showOpenfile = true;
-        if (!bclear) this.showview = true;
+        // if (!bclear) this.showview = true;
         if (!bclear && this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
           this.dialogRef.close(this.objvalues);
           return;

@@ -112,7 +112,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <div >
                 <div class="input-group" style="display: flex;width: 100%;">
 
-                  <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1950, month:1, day: 1}'
+                  <input #d="ngbDatepicker" readonly ngbDatepicker [minDate]='{year: 1901, month:1, day: 1}'
                   [maxDate]="maxDate"  name="fromdateformpicker" id="fromyear" required
                     formControlName="fromyear" style="margin-right: 5px;" class="form-control">
 
@@ -125,16 +125,19 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
                 <!-- To Date -->
 
                 <td>
+                <div>
                 <div style="display: flex;width: 80%;">
-                <input #t="ngbDatepicker" readonly  ngbDatepicker
-                      name="toyearformpicker" id="toyear" formControlName="toyear" class="form-control"
+                <input #t="ngbDatepicker" readonly  ngbDatepicker [minDate]='{year: 1901, month:1, day: 1}'
+                [maxDate]="maxDate"  name="toyearformpicker" id="toyear" formControlName="toyear" class="form-control"
                      style="margin-right: 5px;">
 
                      <button class="input-group-addon"  (click)="t.toggle()" type="button"><i
                          class="fa fa-calendar" aria-hidden="true"></i></button>
                </div>
-
-
+                    <div *ngIf="showDateError" style="color: red;font-size: 12px;">
+                          To date is greater than from date
+                    </div> 
+               </div>
                 </td>
 
             <!-- Submit & Close -->
@@ -226,7 +229,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
         <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
        
-        <button class="wizard-button" (click)="skip_details()"   style="margin-right:10px;"> Skip</button>
+        <!--<button class="wizard-button" (click)="skip_details()"   style="margin-right:10px;"> Skip</button>-->
        
         <button class="wizard-button" (click)="onSubmitWithCertification()"> Dashboard</button>
 
@@ -305,6 +308,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
   attachmentVisible: boolean = true;
   showAttachment: boolean = true;
   SESSIONUSERID: any;//current user
+  maxDate = undefined;
 
   sessionData: any;
   sourceKey: any;
@@ -401,6 +405,13 @@ export class mstapplicantachivementgridComponent implements OnInit {
       this.referenceacceptance_List = res.list_referenceacceptance.value;
       // this.skill_list = res.list_skills.value;
     }).catch((err) => { this.spinner.hide(); });
+
+    const current = new Date();
+    this.maxDate = {
+      year: current.getFullYear(),
+      month: current.getMonth() + 1,
+      day: current.getDate()
+    }
   };
 
   skillClose() {
@@ -493,16 +504,17 @@ export class mstapplicantachivementgridComponent implements OnInit {
   };
 
   async onSubmitWithCertification(bclear: any) {
+    this.certification.emit(true);
 
 
-    this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {      
-      if (res.mstapplicantachievementdetail.length > 0) {
-      this.certification.emit(true);
-    } else {
-      this.toastr.addSingle("", "", "Add Your Certification");
-      return
-    }
-  });
+  //   this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {      
+  //     if (res.mstapplicantachievementdetail.length > 0) {
+  //     this.certification.emit(true);
+  //   } else {
+  //     this.toastr.addSingle("", "", "Add Your Certification");
+  //     return
+  //   }
+  // });
   };
 
   skip_details(){

@@ -65,9 +65,7 @@
       <ul style="display: flex;justify-content: end;align-items: center;margin: 0;">
         <li class='nav-item actionheader' *ngIf="!showview">
           <!-- <a class="alert-success" [routerLink]=''>  -->
-          <button type="button" class="btn btn-outline-primary personal-info-btn mobileviewBtn" style="border-color: #000 !important;margin: 5px;
-      padding: 3px;
-      color: #000;" (click)="onSubmitAndWait()">Submit</button>&nbsp;
+          <button type="button" class="btn btn-outline-primary alert-success" (click)="onSubmitAndWait()">Submit</button>&nbsp;
           <!-- <a class="alert-primary common_title_style" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
       (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a> -->
           <button type="button" class="btn btn-outline-primary personal-info-btn"
@@ -79,8 +77,8 @@
         </li>
         <li class='nav-item actionheader'
           *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
-          <a class="alert-danger mobile_view_btn" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i>
-            Close</a>
+          <button type="button" class="alert-danger" (click)="onClose()"><i class="fa fa-close"></i>
+            Close</button>
         </li>
       </ul>
     </div>

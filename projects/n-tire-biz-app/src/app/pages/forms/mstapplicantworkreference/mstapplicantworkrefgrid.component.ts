@@ -272,7 +272,7 @@ class="fa fa-close"></i> Close</button>
 
       <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
       
-      <button class="wizard-button" (click)="skip_details()" style="margin-right:10px;"> Skip</button>
+      <!--<button class="wizard-button" (click)="skip_details()" style="margin-right:10px;"> Skip</button>-->
 
       <button class="wizard-button" (click)="onSubmitWithProject()"> Add Certification</button>
 
@@ -668,14 +668,17 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   async onSubmitWithProject(bclear: any) {
 
-    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
-       if (res.mstapplicantworkreference.length > 0) {
-        this.project.emit(true);
-      } else {
-        this.toastr.addSingle("", "", "Add Your Project");
-        return
-      }
-    });
+    this.project.emit(true);
+
+
+    // this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
+    //    if (res.mstapplicantworkreference.length > 0) {
+    //     this.project.emit(true);
+    //   } else {
+    //     this.toastr.addSingle("", "", "Add Your Project");
+    //     return
+    //   }
+    // });
   };
 
   skip_details(){
