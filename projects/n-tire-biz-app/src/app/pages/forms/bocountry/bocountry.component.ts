@@ -25,6 +25,18 @@ import { AppConstants } from '../../../../../../n-tire-biz-app/src/app/shared/he
     selector: 'app-bocountry',
     templateUrl: './bocountry.component.html',
     styles: [`
+
+    ::ng-deep ng2-smart-table-title a{
+        font-size:13px;
+        color:#fff !important;
+    }
+    .table{
+        margin: auto !important;
+    }
+
+    ::ng-deep  .ng2-smart-row td {
+        vertical-align: middle;
+    }
     @media only screen and (max-width: 600px) {
         .education_view_mobile{
           min-width: 100% !important;

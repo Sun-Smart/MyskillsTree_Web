@@ -513,8 +513,13 @@ html {
 }
 
 .ng2-smart-actions .ng2-smart-title {
-  display: none !important;
+  display: unset !important;
+  font-size: 13px !important;
 }
+
+// .ng2-smart-actions .ng2-smart-title {
+//   display: none !important;
+// }
 
 td {
   white-space: nowrap;

@@ -106,7 +106,7 @@
         class="col-3 education_view_mobile">
         <label for="header" class="control-label">Header</label>
         <label *ngIf="showview" class="labelview">{{f.header?.value}}</label>
-        <input *ngIf="!showview" id="header" formControlName="header" class="form-control">
+        <input *ngIf="!showview" id="header" formControlName="header" class="form-control" style="background-color: white;">
       </div>
     </div>
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">

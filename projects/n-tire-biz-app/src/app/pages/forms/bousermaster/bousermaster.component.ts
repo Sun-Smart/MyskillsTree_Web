@@ -70,6 +70,17 @@ import { DynamicFormBuilderComponent } from '../../../../../../n-tire-biz-app/sr
   selector: 'app-bousermaster',
   templateUrl: './bousermaster.component.html',
   styles: [`
+  ::ng-deep ng2-smart-table-title a{
+    font-size:13px;
+    color:#fff !important;
+}
+.table{
+    margin: auto !important;
+}
+
+::ng-deep  .ng2-smart-row td {
+    vertical-align: middle;
+}
   @media only screen and (max-width: 600px) {
         .education_view_mobile{
           min-width: 100% !important;
@@ -1390,7 +1401,7 @@ export class bousermasterComponent implements OnInit {
       mode: 'external',
       selectMode: 'multi',
       actions: {
-        columnTitle: '',
+        columnTitle: 'Actions',
         width: '300px',
         add: false,
         edit: false,
@@ -1572,7 +1583,7 @@ export class bousermasterComponent implements OnInit {
       mode: 'external',
       selectMode: 'multi',
       actions: {
-        columnTitle: '',
+        columnTitle: 'Actions',
         width: '300px',
         add: false,
         edit: false,
