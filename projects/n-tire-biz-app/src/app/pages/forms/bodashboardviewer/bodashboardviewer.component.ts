@@ -65,7 +65,7 @@ export class BODashboardViewerComponent implements OnInit {
   iseducationpending: boolean;
   issocialpending: boolean;
   ispersonalpending: boolean;
-  finalarray: any[] = []
+  finalarray: any = []
   iscompleted: boolean = false;
   ispending: boolean = false;
   isnotstarted: boolean = false;
@@ -116,7 +116,7 @@ export class BODashboardViewerComponent implements OnInit {
   end_date: any;
   ref_date: any;
   sub: any;
-  showNewApp_Dashboard: boolean = false;
+  showNewApp_Dashboard: boolean;
   skillfromDate: any;
   skilltoDate: any;
   EachExpresult: any = [];
@@ -145,15 +145,6 @@ export class BODashboardViewerComponent implements OnInit {
   }
   ngOnInit() {
     this.get_allData();
-    this.sub = this.activateroute.queryParams.subscribe((params: any) => {
-      console.log("dataDashboard", params.Val);
-      this.dataDashboard = params.Val;
-      if (params.Val == "W") {
-        this.showNewApp_Dashboard = false;
-      } else {
-        this.showNewApp_Dashboard = true;
-      }
-    });
 
     this.isskillcompleted = false
     this.isresumecompleted = false
@@ -345,6 +336,14 @@ export class BODashboardViewerComponent implements OnInit {
     }
   };
 
+  skillwizard(event: any) {
+    console.log("event", event);
+    // if (event == true) {
+    //   this.showpersonal = false;
+    //   this.showSkill = true;
+    // }
+  };
+
 
   personal(event: any) {
     console.log("event", event);
@@ -460,6 +459,44 @@ export class BODashboardViewerComponent implements OnInit {
             } else if (this.skill_detail[i].strRating == null) {
               this.showstr = ' '
             };
+
+            let body = {
+              "applicantid": this.applicantid,
+              "skillid": this.skill_detail[0].skill_id
+            };
+
+            this.mstapplicantmaster_service.get_dashboardAll_details(body).then(res => {
+              this.showhearder_Details = true;
+              this.dashboard_details = [],
+                this.dashboard_employementdetails = []
+              this.expYrs = []
+              this.dashboard_details.push(res);
+              this.dashboard_reffreq_details = this.dashboard_details[0].list_dashboardreff.value;
+              this.dashboard_employementdetails = this.dashboard_details[0].list_dashboardemployeement.value;
+              this.dashboard_achievementdetails = this.dashboard_details[0].list_dashboarachievment.value;
+              this.dashboard_projectdetails = this.dashboard_details[0].lis_dashboardproject.value;
+              this.dashboard_educationdetails = this.dashboard_details[0].list_dashboareducation.value;
+        
+              let StartDate = this.dashboard_employementdetails[0]?.fromdate;
+              let EndDate = this.dashboard_employementdetails[0]?.todate;
+        
+              this.start_date = this.datepipe.transform(new Date(StartDate), 'dd-MM-yyyy');
+              this.end_date = this.datepipe.transform(new Date(EndDate), 'dd-MM-yyyy');
+        
+              this.endformat = this.datepipe.transform(new Date(EndDate), 'yyyy-MM-dd');
+              this.startformat = this.datepipe.transform(new Date(StartDate), 'yyyy-MM-dd');
+        
+              let currentDate = new Date(this.endformat);
+              let dateSent = new Date(this.startformat);
+        
+              let result = Math.floor(
+                (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) -
+                  Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
+        
+              this.espYr = result;
+              this.expYrs = ((this.espYr / 365).toFixed(1));
+            });
+
           }
           this.finalarray.push({
             subCategory: this.skill_detail[i].subCategory,
@@ -468,6 +505,7 @@ export class BODashboardViewerComponent implements OnInit {
             showstr: this.showstr,
             ExpSkill: this.arrayDate
           });
+        
         })
       };
 
@@ -498,7 +536,9 @@ export class BODashboardViewerComponent implements OnInit {
           days: days
         };
       }
-      this.showDetails(this.finalarray[0]?.skillId, this.finalarray[0]?.subCategory, this.finalarray[0]?.remarks)
+
+
+      // this.showDetails(this.finalarray[0].skill_id, this.finalarray[0].subCategory, this.finalarray[0].remarks)
     });
 
 

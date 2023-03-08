@@ -519,9 +519,9 @@ export class HeaderComponent implements OnInit {
     // this.router.routeReuseStrategy.shouldReuseRoute = function () {
     //   return false;
     // };
-    let pkcol = localStorage.getItem('pkcol');
-    this.router.navigate(['/home/bodashboardviewer/' + pkcol], { queryParams: { Val: "W" } });
-    // this.skillwizard.emit(true)
+    // let pkcol = localStorage.getItem('pkcol');
+    // this.router.navigate(['/home/bodashboardviewer/' + pkcol], { queryParams: { Val: "W" } });
+    this.skillwizard.emit(true);
   }
 
   releasemethod(e: any) {
