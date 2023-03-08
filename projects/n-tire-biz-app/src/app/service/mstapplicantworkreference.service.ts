@@ -33,17 +33,24 @@ export class mstapplicantworkreferenceService {
       return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference' + '/getdefaultdata').toPromise();
     }
   }
-  getskillsDetails(applicantid:any):any{
+  getskillsDetails(applicantid: any): any {
     if (this.valid()) {
       let appid = localStorage.getItem('applicantid');
-      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantachievementdetail/appid/'+appid).toPromise();
+      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantachievementdetail/appid/' + appid).toPromise();
     }
   }
 
-  getlocationDetails(applicantid:any):any{
+  getlocationDetails(applicantid: any): any {
     if (this.valid()) {
       let appid = localStorage.getItem('applicantid');
-      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference/location/'+appid).toPromise();
+      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference/location/' + appid).toPromise();
+    }
+  }
+
+  getCompanyNames(applicantid: any, careerid: any): any {
+    if (this.valid()) {
+      let appid = localStorage.getItem('applicantid');
+      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference/companydetails/' + appid + '/' + careerid).toPromise();
     }
   }
 
@@ -53,7 +60,7 @@ export class mstapplicantworkreferenceService {
     }
   }
 
-  get_mstapplicantworkreferences_companyList(id:any){
+  get_mstapplicantworkreferences_companyList(id: any) {
     id = localStorage.getItem('applicantid');
     debugger;
     if (this.valid()) {

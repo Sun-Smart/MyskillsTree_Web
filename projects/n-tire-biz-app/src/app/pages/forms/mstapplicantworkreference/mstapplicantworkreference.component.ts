@@ -10,7 +10,7 @@ import { mstapplicantreferencerequestComponent } from './../../../pages/forms/ms
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ShortcutInput } from "ng-keyboard-shortcuts";
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicDialog';
 import { DynamicDialogConfig } from 'primeng/dynamicDialog';
 import { DialogService } from 'primeng/dynamicDialog';
@@ -20,7 +20,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
-
+import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
 @Component({
   selector: 'app-mstapplicantworkreference',
   templateUrl: './mstapplicantworkreference.component.html',
@@ -95,13 +95,15 @@ export class mstapplicantworkreferenceComponent implements OnInit {
 
   sessionData: any;
   sourceKey: any;
-  constructor( private router: Router,
+  applicantID: any;
+  careerIDarray: any = [];
+  constructor(private router: Router,
     private themeService: ThemeService,
     public dialogRef: DynamicDialogRef,
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
     private mstapplicantworkreference_service: mstapplicantworkreferenceService,
-    private fb: FormBuilder,
+    private fb: FormBuilder, private mstapplicantcareerdetail_service: mstapplicantcareerdetailService,
     private sharedService: SharedService,
     private sessionService: SessionService,
     private toastr: ToastService,
@@ -124,6 +126,8 @@ export class mstapplicantworkreferenceComponent implements OnInit {
       status: [null],
       statusdesc: [null],
     });
+
+    this.applicantID = localStorage.getItem('applicantid');
   }
 
   get f() { return this.mstapplicantworkreference_Form.controls; }
@@ -156,9 +160,9 @@ export class mstapplicantworkreferenceComponent implements OnInit {
   // initialize
   async ngOnInit() {
 
-    if((localStorage.getItem('role') == '1')  || (localStorage.getItem('role') == '3')){
+    if ((localStorage.getItem('role') == '1') || (localStorage.getItem('role') == '3')) {
       this.showAttachment = true;
-    }else {
+    } else {
       this.showAttachment = false;
     }
 
@@ -236,6 +240,8 @@ export class mstapplicantworkreferenceComponent implements OnInit {
     //setting the flag that the screen is not touched
     this.mstapplicantworkreference_Form.markAsUntouched();
     this.mstapplicantworkreference_Form.markAsPristine();
+
+
   }
   onSelected_applicantid(applicantidDetail: any) {
     if (applicantidDetail.value && applicantidDetail) {
@@ -311,11 +317,11 @@ export class mstapplicantworkreferenceComponent implements OnInit {
   onClose() {
     this.dialogRef.close(this.objvalues);
   }
-  goBack(){
+  goBack() {
 
     this.router.navigate(['home/boreportviewer/AWR']);
 
-}
+  }
   onSubmitAndWait() {
     if (this.maindata == undefined || (this.maindata.maindatapkcol != '' && this.maindata.maindatapkcol != null && this.maindata.maindatapkcol != undefined) || this.maindata.save == true) {
       this.onSubmitData(false);
