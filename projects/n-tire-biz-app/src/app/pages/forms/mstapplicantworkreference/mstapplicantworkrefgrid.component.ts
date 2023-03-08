@@ -39,7 +39,7 @@ import { mstapplicantworkreferenceService } from '../../../service/mstapplicantw
 <button type = "button" class="alert-success" (click)="mstapplicantworkreferences_route(null, 'create')"><i
 class="fa fa-plus"></i> Add</button>
 
-<button type = "button" class="alert-danger" (click)="onClose()"><i
+<button type = "button" class="alert-danger" (click)="onClose()" *ngIf = "buttonview"><i
 class="fa fa-close"></i> Close</button>
 </div>
 </div>
@@ -270,9 +270,12 @@ class="fa fa-close"></i> Close</button>
               </ng2-smart-table>
               </div>
 
-      <div class="col-12" *ngIf = "!showButton" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+      <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+      
+      <button class="wizard-button" (click)="skip_details()" style="margin-right:10px;"> Skip</button>
+
       <button class="wizard-button" (click)="onSubmitWithProject()"> Add Certification</button>
-      <button class="wizard-button" (click)="skip_details()"> Skip</button>
+
       </div>
       </div>
     `,
@@ -344,6 +347,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   r1: any;
   r2: any;
   r3: any;
+  maxDate = undefined;
   maindata: any;
   companyList: DropDownValues[];
   city_List: DropDownValues[];
@@ -352,6 +356,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   showWebviewDetect: boolean = true;
   isMobile: any;
   showButton: any;
+  buttonview: boolean;
 
 
   constructor(
@@ -408,6 +413,11 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       this.showWebviewDetect = false;
       /* your code here */
     }
+
+    if (this.showButton == true) {
+      this.buttonview = true;
+    }
+
     this.Set_mstapplicantworkreferences_TableConfig();
 
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
@@ -445,6 +455,13 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       console.log('Location res', res.mstapplicantgeographypreference);
       this.city_List = res.mstapplicantgeographypreference as DropDownValues[];
     }).catch((err) => { this.spinner.hide(); });
+
+    const current = new Date();
+    this.maxDate = {
+      year: current.getFullYear(),
+      month: current.getMonth() + 1,
+      day: current.getDate()
+    };
 
   };
 
@@ -651,7 +668,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   async onSubmitWithProject(bclear: any) {
 
-    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {     
+    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
        if (res.mstapplicantworkreference.length > 0) {
         this.project.emit(true);
       } else {
@@ -723,7 +740,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
             <th style="white-space: break-spaces;width:11%;">##todate##</th>
             <th style="white-space: break-spaces;width:10%;">##remarks##</th>
             <th style="white-space: break-spaces;width:11%;">##string_agg##</th>
-            <th style="white-space: break-spaces;width:12%;">##location##</th>
+            <th style="white-space: break-spaces;width:12%;">##locationdes##</th>
           </tr>
         </tbody>
       </table>
