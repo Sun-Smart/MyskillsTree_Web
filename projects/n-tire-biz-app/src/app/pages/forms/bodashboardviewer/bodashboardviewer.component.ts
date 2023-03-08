@@ -131,7 +131,8 @@ export class BODashboardViewerComponent implements OnInit {
   dataDashboard: any;
   arrayDate: any = [];
   checkTest: any = [];
-  checkDateError: any;
+  checkDateError: any = [];
+  totalamount: any;
   // showDashboardDetails: boolean = false;
 
 
@@ -440,7 +441,7 @@ export class BODashboardViewerComponent implements OnInit {
 
       if (res.mstapplicantskilldetail.length > 0) {
         this.showNewApp_Dashboard = true;
-      } 
+      }
       this.sub_category = res.mstapplicantskilldetail;
       for (let i = 0; i < this.sub_category.length; i++) {
         this.skill_detail.push({
@@ -462,6 +463,9 @@ export class BODashboardViewerComponent implements OnInit {
             this.checkDateError = "0.0";
           }
           console.log('checkckekce', this.checkDateError)
+
+
+
           for (let i = 0; i < this.skill_detail.length; i++) {
             if (this.skill_detail[i].strRating == 1) {
               this.showstr = '★'
@@ -493,24 +497,25 @@ export class BODashboardViewerComponent implements OnInit {
               this.dashboard_achievementdetails = this.dashboard_details[0].list_dashboarachievment.value;
               this.dashboard_projectdetails = this.dashboard_details[0].lis_dashboardproject.value;
               this.dashboard_educationdetails = this.dashboard_details[0].list_dashboareducation.value;
-        
+
               let StartDate = this.dashboard_employementdetails[0]?.fromdate;
               let EndDate = this.dashboard_employementdetails[0]?.todate;
-        
+
               this.start_date = this.datepipe.transform(new Date(StartDate), 'dd-MM-yyyy');
               this.end_date = this.datepipe.transform(new Date(EndDate), 'dd-MM-yyyy');
-        
+
               this.endformat = this.datepipe.transform(new Date(EndDate), 'yyyy-MM-dd');
               this.startformat = this.datepipe.transform(new Date(StartDate), 'yyyy-MM-dd');
-        
+
               let currentDate = new Date(this.endformat);
               let dateSent = new Date(this.startformat);
-        
+
               let result = Math.floor(
                 (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) -
                   Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
-        
+
               this.espYr = result;
+
               this.expYrs = ((this.espYr / 365).toFixed(1));
             });
 
@@ -522,7 +527,7 @@ export class BODashboardViewerComponent implements OnInit {
             showstr: this.showstr,
             ExpSkill: this.checkDateError
           });
-        
+
         })
       };
       this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
@@ -547,11 +552,17 @@ export class BODashboardViewerComponent implements OnInit {
         // (12 + ...) % 12 makes sure index is always between 0 and 11
         var days = startDay <= endDay ? endDay - startDay : daysOfMonth[(12 + endMonth - 1) % 12] - startDay + endDay;
 
+        // let total = "0";
+        //     total += years + '' + months;
+        //     this.totalamount = total;
+        //     console.log('this.totalamount ', this.totalamount);
+
         return {
           years: years,
           months: months,
           days: days
         };
+
       }
 
 

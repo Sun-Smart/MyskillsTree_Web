@@ -4,9 +4,9 @@
   <div class="row second bgcolor">
     <h1 class="col-4 columns mainheader left">{{'Company Masters'}}
     </h1>
-    <div class='col  sticky1 second' role='toolbar' aria-label='Toolbar with button groups'>
-      <div class='col'></div>
-      <div class='dropdown d-inline-block btn-dropdown show'>
+    <!-- <div class='sticky1 second' role='toolbar' aria-label='Toolbar with button groups'> -->
+      <div class='col-5'></div>
+      <div class='dropdown d-inline-block btn-dropdown show col-3 ' style="margin: 8px !important;">
         <ul class='nav nav-pills  input-group'>
           <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bocompanymasters()"><i
                 class="nb-edit"></i>Edit</a></li>
@@ -51,6 +51,7 @@
             <li><a class="alert-action" [routerLink]='' (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
                   aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
           </ng-container>
+          <div>
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success popup-add-button mobile_view_btn" [routerLink]=''(click)="goBack()" ><i class="fa fa-arrow-left" aria-hidden="true"></i>
               Back</a>
@@ -65,9 +66,10 @@
             *ngIf="maindata!=undefined && maindata!=null && (maindata.ScreenType==1 || maindata.ScreenType==2)">
             <a class="alert-danger" [routerLink]='' (click)="onClose()"><i class="fa fa-close"></i> Close</a>
           </li>
+          </div>
         </ul>
       </div>
-    </div>
+    <!-- </div> -->
   </div>
   <div class="container"
     id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">

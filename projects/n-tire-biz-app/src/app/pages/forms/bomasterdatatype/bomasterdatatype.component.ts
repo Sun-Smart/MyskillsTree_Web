@@ -268,6 +268,7 @@ check1:boolean = false ;
         this.bomasterdatatype_Form.markAsUntouched();
         this.bomasterdatatype_Form.markAsPristine();
         console.log( this.bomasterdatatype_Form.value.hassubcategory)
+        
 
 
 
