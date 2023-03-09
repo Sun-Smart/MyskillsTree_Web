@@ -587,25 +587,26 @@ export class BonewbokbmasterComponent implements OnInit {
         kbcode: res.bokbmaster.kbcode,
         url: res.bokbmaster.url,
         kbsubject: res.bokbmaster.kbsubject,
-        kbcategory: this.sharedService.getValue("value", this.kbcategory_List, res.bokbmaster.kbcategory, 'kbcategory'),
+        // kbcategory: this.sharedService.getValue("value", this.kbcategory_List, res.bokbmaster.kbcategory, 'kbcategory'),
+        kbcategory:  res.bokbmaster.kbcategory,
         kbcategorydesc: res.bokbmaster.kbcategorydesc,
-        kbsubcategory: this.sharedService.getValue("value", this.kbsubcategory_List, res.bokbmaster.kbsubcategory, 'kbsubcategory'),
+        kbsubcategory: res.bokbmaster.kbsubcategory,
         kbsubcategorydesc: res.bokbmaster.kbsubcategorydesc,
         tags: res.bokbmaster.tags,
-        icon: this.sharedService.getValue("value", this.icon_List, res.bokbmaster.icon, 'icon'),
+        icon: res.bokbmaster.icon,
         icondesc: res.bokbmaster.icondesc,
         summary: strdetails,
         kbdetails: res.bokbmaster.kbdetails,
         markpublic: res.bokbmaster.markpublic,
-        author: this.sharedService.getValue("value", this.author_List, res.bokbmaster.author, 'author'),
+        author:  res.bokbmaster.author,
         authordesc: res.bokbmaster.authordesc,
         publisheddate: res.bokbmaster.publisheddate == null ? null : new Date(res.bokbmaster.publisheddate),
         expirationdate: res.bokbmaster.expirationdate == null ? null : new Date(res.bokbmaster.expirationdate),
-        language: this.sharedService.getValue("value", this.language_List, res.bokbmaster.language, 'language'),
+        language:  res.bokbmaster.language,
         languagedesc: res.bokbmaster.languagedesc,
         rating: res.bokbmaster.rating,
         comments: res.bokbmaster.comments,
-        kbaccess: this.sharedService.getValue("value", this.kbaccess_List, res.bokbmaster.kbaccess, 'kbaccess'),
+        kbaccess: res.bokbmaster.kbaccess,
         kbaccessdesc: res.bokbmaster.kbaccessdesc,
         customfield: res.bokbmaster.customfield,
         attachment: res.bokbmaster.attachment,
@@ -682,18 +683,18 @@ export class BonewbokbmasterComponent implements OnInit {
   GetFormValues() {
     let formData: any;
     formData = this.bokbmaster_Form.getRawValue();
-    console.log('formData ',formData);
+    console.log('formData ',formData.data);
     // var customfields = this.customfieldservice.getCustomValues(document);
-    formData.kbcategory = this.bokbmaster_Form.get('kbcategory').value;
-    console.log(formData.kbcategory);
-    formData.kbsubcategory = this.bokbmaster_Form.get('kbsubcategory').value;
-    formData.icon = this.bokbmaster_Form.get('icon').value;
-    formData.author = this.bokbmaster_Form.get('author').value;
+    formData.kbcategory = formData.kbcategory.value;
+    console.log(formData.kbcategory.value);
+    formData.kbsubcategory = formData.kbsubcategory.value;
+    formData.icon = formData.icon.value;
+    formData.author = formData.author.value;
     // formData.publisheddate = this.sharedService.getDate(this.bokbmaster_Form.get('publisheddate').value)
-    formData.publisheddate = this.bokbmaster_Form.get('publisheddate').value;
+    formData.publisheddate = formData.publisheddate.value;
     // formData.expirationdate = this.sharedService.getDate(this.bokbmaster_Form.get('expirationdate').value)
-    formData.expirationdate = this.bokbmaster_Form.get('expirationdate').value;
-    formData.language = this.bokbmaster_Form.get('language').value;
+    formData.expirationdate = formData.expirationdate.value;
+    formData.language = formData.language.value;
     formData.kbaccess = null;
     if (this.kbaccess_Selected.length > 0 && this.kbaccess_Selected != null) formData.kbaccessstring = this.kbaccess_Selected.map(function (elem) { return elem.value; }).join(",");
     // if (customfields != null) formData.customfield = JSON.stringify(customfields);
