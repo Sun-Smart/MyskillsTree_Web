@@ -47,10 +47,10 @@ export class mstapplicantworkreferenceService {
     }
   }
 
-  getCompanyNames(applicantid: any, careerid: any): any {
+  getCompanyNames(applicantid: any): any {
     if (this.valid()) {
       let appid = localStorage.getItem('applicantid');
-      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference/companydetails/' + appid + '/' + careerid).toPromise();
+      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference/company/' + appid).toPromise();
     }
   }
 
@@ -64,7 +64,7 @@ export class mstapplicantworkreferenceService {
     id = localStorage.getItem('applicantid');
     debugger;
     if (this.valid()) {
-      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference' + '/companydetails/' + id).toPromise();
+      return this.http.get(AppConstants.ntirebizURL + '/mstapplicantworkreference' + '/company/' + id).toPromise();
     }
   }
   getListBy_workreferenceid(workreferenceid: number): any {

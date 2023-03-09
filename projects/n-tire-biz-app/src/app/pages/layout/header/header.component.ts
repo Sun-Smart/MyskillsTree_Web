@@ -426,7 +426,7 @@ export class HeaderComponent implements OnInit {
   showcareer() {
     this.dialog.open(mstapplicantcareergridComponent, {
       width: '100% !important',
-      height: '90% !important',
+      height: 'auto !important',
       data: { showButton: true, ScreenType: 2, applicantid: this.applicantid, save: true }
     }).onClose.subscribe(res => {
       this.pageroute.routeReuseStrategy.shouldReuseRoute = () => false;

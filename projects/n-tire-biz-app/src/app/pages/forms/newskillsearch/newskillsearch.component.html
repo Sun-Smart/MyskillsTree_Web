@@ -80,7 +80,7 @@
         <div *ngFor="let item of showData | filter:term; index of i" [ngClass]="{ 'active' : 'listView-card'}"
           style="margin: 10px;">
           <div style="display: flex;padding: 5px;margin: 0px 0px -7px 9px;">
-            <img *ngIf="item.useprofilephoto" src="https://demo.herbie.ai/attachment/{{item.useprofilephoto}}"
+            <img *ngIf="item.useprofilephoto" src="http://myskillstree.co/attachment/{{item.useprofilephoto}}"
               alt="">&nbsp;&nbsp;
             <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="">&nbsp;&nbsp;
             <ul>
@@ -120,7 +120,7 @@
             <tbody *ngFor="let item of showData | filter:term" style="line-height: 3rem;">
               <tr>
                 <td>
-                  <img *ngIf="item.useprofilephoto" src="https://demo.herbie.ai/attachment/{{item.useprofilephoto}}"
+                  <img *ngIf="item.useprofilephoto" src="http://myskillstree.co/attachment/{{item.useprofilephoto}}"
                     class="grid-image">
                   <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="" class="grid-image">
                   {{item.firstname}} {{item.lastname}}
@@ -146,7 +146,7 @@
               <i class="fa fa-eye" title="View Profile"
                 style="font-size: 1.7rem;position: relative;color: #000;left: 110px;cursor: pointer;"
                 (click)='opendialog1(item.applicant,item.pkcol)'></i></div>
-            <img *ngIf="item.useprofilephoto" src="https://demo.herbie.ai/attachment/{{item.useprofilephoto}}"
+            <img *ngIf="item.useprofilephoto" src="http://myskillstree.co/attachment/{{item.useprofilephoto}}"
               alt="">&nbsp;&nbsp;
             <img *ngIf="item.useprofilephoto == null" src="assets/profile.jpeg" alt="">&nbsp;&nbsp;
             <ul>

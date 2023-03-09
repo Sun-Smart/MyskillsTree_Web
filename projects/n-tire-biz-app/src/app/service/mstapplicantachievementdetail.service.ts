@@ -11,6 +11,7 @@ import { SessionService } from '../../../../n-tire-biz-app/src/app/pages/core/se
   providedIn: 'root'
 })
 export class mstapplicantachievementdetailService {
+
   readonly rootURL = AppConstants.baseURL;
 
   constructor(private http: HttpClient, private sessionService: SessionService) { }
