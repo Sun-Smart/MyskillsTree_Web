@@ -20,6 +20,7 @@ import { bomenuactionService } from './../service/bomenuaction.service';
 import { SessionService } from './../pages/core/services/session.service';
 
 import { MessageService } from 'primeng/api';
+import { BehaviorSubject } from 'rxjs';
 //declare const Buffer;
 //import * as Buffer from "Buffer";
 //const encode = (str: string):string => Buffer.from(str, 'binary').toString('base64');
@@ -46,6 +47,9 @@ export class SharedService {
 
   private useraccesslistusersval: any;
   private useraccesslistrolesval: any;
+  
+  private wizard = new BehaviorSubject<string>("true");
+  wizardShow = this.wizard.asObservable();
 
   constructor(private router: Router, private http: HttpClient, public translate: TranslateService, private sanitizer: DomSanitizer,
     private bousermasterservice: bousermasterService, private bomenuactionservice: bomenuactionService, private sessionService: SessionService,
@@ -58,6 +62,10 @@ export class SharedService {
       { key: '100', value: '100' }
     ];
     // this.FillData();
+  }
+
+  skillwizard(check:any){
+    this.wizard.next(check); 
   }
 
   ParseCommon(html) {

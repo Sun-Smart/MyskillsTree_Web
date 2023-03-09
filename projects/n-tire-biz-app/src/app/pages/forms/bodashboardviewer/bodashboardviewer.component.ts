@@ -21,6 +21,7 @@ import { mstapplicantskilldetailService } from '../../../service/mstapplicantski
 import { mstapplicanteducationdetailService } from '../../../service/mstapplicanteducationdetail.service';
 import { DatePipe } from '@angular/common';
 import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
+import { SharedService } from '../../../service/shared.service';
 @Component({
   selector: 'ngx-dashboardviewer',
   styles: [`
@@ -136,7 +137,7 @@ export class BODashboardViewerComponent implements OnInit {
 
 
   constructor(public dialogRef: DynamicDialogRef,
-    private toastr: ToastService,
+    private toastr: ToastService,  private sharedService: SharedService,
     public dialog: DialogService, private mstapplicantmaster_service: mstapplicantmasterService, private pageroute: Router,
     private sessionService: SessionService, private activateroute: ActivatedRoute,
     private mstapplicantskilldetail_service: mstapplicantskilldetailService,
@@ -170,7 +171,19 @@ export class BODashboardViewerComponent implements OnInit {
     this.iseducationpending = false
     this.issocialpending = false
     this.ispersonalpending = false
-    this.sessionService.setItem("attachedsaved", "true")
+    this.sessionService.setItem("attachedsaved", "true");
+
+    this.sharedService.wizardShow.subscribe((res:any)=>{
+
+      console.log("skillwizard", res);
+      
+      if(res == true){
+        this.showNewApp_Dashboard = false;
+      }else{
+        this.showNewApp_Dashboard = true;
+      }
+
+    })
 
     this.mstapplicantmaster_service.get_profilecompletionsecond(this.applicantid).then(res => {
 
@@ -342,6 +355,7 @@ export class BODashboardViewerComponent implements OnInit {
   };
 
   skillwizard(event: any) {
+    debugger;
     console.log("event", event);
     // if (event == true) {
     //   this.showpersonal = false;
