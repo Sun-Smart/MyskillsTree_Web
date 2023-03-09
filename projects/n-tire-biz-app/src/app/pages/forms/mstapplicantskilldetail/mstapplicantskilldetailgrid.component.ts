@@ -1144,8 +1144,5 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   //end of Grid Codes mstapplicantskilldetails
   onClose() {
     this.dialogRef.close();
-  }
-
-
-
+  };
 }
