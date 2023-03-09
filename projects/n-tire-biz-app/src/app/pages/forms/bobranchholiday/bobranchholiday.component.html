@@ -55,7 +55,7 @@
             <a class="alert-success" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
             <a class="alert-primary" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
-              (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
+              (click)="onSubmit()" style="height: 24px !important;"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.branchholidayid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.branchholidayid.value" [status]="f.status.value"></app-action>
           </li>

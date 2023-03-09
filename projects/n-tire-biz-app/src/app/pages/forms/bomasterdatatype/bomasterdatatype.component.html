@@ -166,7 +166,7 @@
                 <div class="columnchk">
                   <label for="candelete" class="control-label">Can Delete</label>
                   <label *ngIf="showview" class="labelview">{{f.candelete?.value}}</label>
-                  <input type="checkbox" *ngIf="!showview" id="candelete" formControlName="candelete"
+                  <input type="checkbox" [(ngModel)]="candelete" (click)='checkdelete()'   *ngIf="!showview" id="candelete" formControlName="candelete"
                     class="">
                 </div>
               </div>

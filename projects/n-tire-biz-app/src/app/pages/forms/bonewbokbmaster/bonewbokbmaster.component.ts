@@ -682,19 +682,21 @@ export class BonewbokbmasterComponent implements OnInit {
   GetFormValues() {
     let formData: any;
     formData = this.bokbmaster_Form.getRawValue();
-    var customfields = this.customfieldservice.getCustomValues(document);
-    formData.kbcategory = (this.bokbmaster_Form.get('kbcategory'))?.value?.value;
-    formData.kbsubcategory = (this.bokbmaster_Form.get('kbsubcategory'))?.value?.value;
-    formData.icon = (this.bokbmaster_Form.get('icon'))?.value?.value;
-    formData.author = (this.bokbmaster_Form.get('author'))?.value?.value;
+    console.log('formData ',formData);
+    // var customfields = this.customfieldservice.getCustomValues(document);
+    formData.kbcategory = this.bokbmaster_Form.get('kbcategory').value;
+    console.log(formData.kbcategory);
+    formData.kbsubcategory = this.bokbmaster_Form.get('kbsubcategory').value;
+    formData.icon = this.bokbmaster_Form.get('icon').value;
+    formData.author = this.bokbmaster_Form.get('author').value;
     // formData.publisheddate = this.sharedService.getDate(this.bokbmaster_Form.get('publisheddate').value)
     formData.publisheddate = this.bokbmaster_Form.get('publisheddate').value;
     // formData.expirationdate = this.sharedService.getDate(this.bokbmaster_Form.get('expirationdate').value)
     formData.expirationdate = this.bokbmaster_Form.get('expirationdate').value;
-    formData.language = (this.bokbmaster_Form.get('language'))?.value?.value;
+    formData.language = this.bokbmaster_Form.get('language').value;
     formData.kbaccess = null;
     if (this.kbaccess_Selected.length > 0 && this.kbaccess_Selected != null) formData.kbaccessstring = this.kbaccess_Selected.map(function (elem) { return elem.value; }).join(",");
-    if (customfields != null) formData.customfield = JSON.stringify(customfields);
+    // if (customfields != null) formData.customfield = JSON.stringify(customfields);
     if (this.fileattachment.getAttachmentList() != null) formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
     if (this.dynamicconfig.data != null) {
       for (let key in this.dynamicconfig.data) {
@@ -740,28 +742,29 @@ export class BonewbokbmasterComponent implements OnInit {
 
 
   async onSubmitData(bclear: any): Promise<any> {
+    debugger;
     try {
       this.SetFormValues();
       this.isSubmitted = true;
       let strError = "";
-      Object.keys(this.bokbmaster_Form.controls).forEach(key => {
-        const controlErrors: ValidationErrors = this.bokbmaster_Form.get(key).errors;
-        if (controlErrors != null) {
-          Object.keys(controlErrors).forEach(keyError => {
-            // strError += this.sharedService.getErrorText(key, keyError, controlErrors[keyError]) + '\n';
-          });
-        }
-      });
-      if (this.customform != undefined) {
-        Object.keys(this.customform?.form?.controls).forEach(key => {
-          const controlErrors: ValidationErrors = this.customform.form.get(key).errors;
-          if (controlErrors != null) {
-            Object.keys(controlErrors).forEach(keyError => {
-              // strError += this.sharedService.getErrorText(key, keyError, controlErrors[keyError]) + '\n';
-            });
-          }
-        });
-      }
+      // Object.keys(this.bokbmaster_Form.controls).forEach(key => {
+      //   const controlErrors: ValidationErrors = this.bokbmaster_Form.get(key).errors;
+      //   if (controlErrors != null) {
+      //     Object.keys(controlErrors).forEach(keyError => {
+      //       // strError += this.sharedService.getErrorText(key, keyError, controlErrors[keyError]) + '\n';
+      //     });
+      //   }
+      // });
+      // if (this.customform != undefined) {
+      //   Object.keys(this.customform?.form?.controls).forEach(key => {
+      //     const controlErrors: ValidationErrors = this.customform.form.get(key).errors;
+      //     if (controlErrors != null) {
+      //       Object.keys(controlErrors).forEach(keyError => {
+      //         // strError += this.sharedService.getErrorText(key, keyError, controlErrors[keyError]) + '\n';
+      //       });
+      //     }
+      //   });
+      // }
       if (strError != "") return this.sharedService.alert(strError);
 
 
