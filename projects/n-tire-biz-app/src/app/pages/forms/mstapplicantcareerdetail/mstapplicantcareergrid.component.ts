@@ -33,7 +33,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <h4 class="columns left">{{'Experience'}}</h4>
     </div>
     <div class="col-6">    </div>
-    
+
     <div class="col-2" style="text-align: end; margin: auto;display:flex;justify-content:space-evenly;">
 
     <button type = "button" class="alert-success" (click)="mstapplicantcareerdetails_route(null, 'create')"><i
@@ -131,7 +131,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </div>
             <div *ngIf="showDateError" style="color: red;font-size: 12px;">
               To date is greater than from date
-            </div>
+            </div> 
     </div>
      </td>
 
@@ -240,7 +240,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </div>
 
 <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
-<button class="wizard-button" (click)="skip_details()"   style="margin-right:10px;"> Skip</button>
+<!--<button class="wizard-button" (click)="skip_details()"   style="margin-right:10px;"> Skip</button>-->
 
 <button class="wizard-button" (click)="onSubmitWithCareer()"> Add Project</button>
 </div>
@@ -408,6 +408,7 @@ export class mstapplicantcareergridComponent implements OnInit {
       console.log('skill res', res);
       this.skills_List = res;
     }).catch((err) => { this.spinner.hide(); });
+
   };
 
   get f() { return this.mstapplicantcareerdetail_Form.controls; };
@@ -575,15 +576,17 @@ export class mstapplicantcareergridComponent implements OnInit {
   }
 
   async onSubmitWithCareer(bclear: any) {
+    this.career.emit(true);
 
-    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
-      if (res.mstapplicantcareerdetail.length > 0) {
-        this.career.emit(true);
-      } else {
-        this.toastr.addSingle("", "", "Add Your Experience");
-        return
-      }
-    });
+
+    // this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
+    //   if (res.mstapplicantcareerdetail.length > 0) {
+    //     this.career.emit(true);
+    //   } else {
+    //     this.toastr.addSingle("", "", "Add Your Experience");
+    //     return
+    //   }
+    // });
   };
 
   skip_details() {

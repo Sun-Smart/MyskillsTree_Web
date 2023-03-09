@@ -179,10 +179,7 @@ export class BODashboardViewerComponent implements OnInit {
       
       if(res == true){
         this.showNewApp_Dashboard = false;
-      }else{
-        this.showNewApp_Dashboard = true;
       }
-
     })
 
     this.mstapplicantmaster_service.get_profilecompletionsecond(this.applicantid).then(res => {

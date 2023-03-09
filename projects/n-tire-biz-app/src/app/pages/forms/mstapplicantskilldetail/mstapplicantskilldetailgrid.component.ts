@@ -82,7 +82,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <th  style="width:10.5%;">Skill Category</th>
         <th  style="width:10.5%;">Sub Category</th>
         <th  style="width:10.5%;">Self Rating</th>
-        <th  style="width:10.5%;">Order Priority</th>
+        <th  style="width:10.5%;">Priority</th>
         <th  style="width:10.5%;" >Show/Hide</th>
         <th  style="width:10.5%;" >Referal Status</th>
         <th  style="width:12.5%;">Remarks</th>
@@ -137,7 +137,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
         <td>
         <select id="orderpriority" formControlName="orderpriority"
          class="form-control" >
-        <option value=null [disabled]="true">-Select-</option>
+        <option [ngValue]="null">-Select-</option>
         <option value="1" >1</option>
         <option value="2" >2</option>
         <option value="3" >3</option>

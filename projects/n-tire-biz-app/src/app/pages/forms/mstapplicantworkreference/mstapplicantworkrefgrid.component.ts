@@ -22,6 +22,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AttachmentComponent } from '../../../custom/attachment/attachment.component';
 import { mstapplicantworkreference } from '../../../model/mstapplicantworkreference.model';
 import { mstapplicantworkreferenceService } from '../../../service/mstapplicantworkreference.service';
+import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
 @Component({
   selector: 'app-applicantworkrefgrid',
   template: `
@@ -272,7 +273,7 @@ class="fa fa-close"></i> Close</button>
 
       <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
       
-      <button class="wizard-button" (click)="skip_details()" style="margin-right:10px;"> Skip</button>
+      <!--<button class="wizard-button" (click)="skip_details()" style="margin-right:10px;"> Skip</button>-->
 
       <button class="wizard-button" (click)="onSubmitWithProject()"> Add Certification</button>
 
@@ -349,14 +350,17 @@ export class mstapplicantworkrefgridComponent implements OnInit {
   r3: any;
   maxDate = undefined;
   maindata: any;
-  companyList: DropDownValues[];
   city_List: DropDownValues[];
+  companyList: DropDownValues[];
 
   showMobileDetectskill: boolean = false;
   showWebviewDetect: boolean = true;
   isMobile: any;
   showButton: any;
   buttonview: boolean;
+  careerIDarray: any = [];
+  getCareer: any = [];
+  companyListArray: any = [];
 
 
   constructor(
@@ -366,7 +370,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
     private sharedService: SharedService,
-    private fb: FormBuilder,
+    private fb: FormBuilder, private mstapplicantcareerdetail_service: mstapplicantcareerdetailService,
     private sessionService: SessionService,
     private toastr: ToastService, private datePipe: DatePipe,
     private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
@@ -379,7 +383,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       this.data = this.data.data;
     }
     this.pkcol = this.data.maindatapkcol;
-    this.applicantid =localStorage.getItem('applicantid');
+    this.applicantid = localStorage.getItem('applicantid');
     this.showButton = this.data.showButton;
 
     this.mstapplicantworkreference_Form = this.fb.group({
@@ -423,7 +427,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     if (this.sessionService.getItem("role") == 2) this.IsApplicant = true;
     if (this.sessionService.getItem("role") == 1) this.IsAdmin = true;
     this.FillData();
-    this.get_companyName();
+    // this.get_companyName();
 
     let mstapplicantworkreferenceid = null;
     //copy the data from previous dialog
@@ -455,6 +459,31 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       console.log('Location res', res.mstapplicantgeographypreference);
       this.city_List = res.mstapplicantgeographypreference as DropDownValues[];
     }).catch((err) => { this.spinner.hide(); });
+
+
+
+    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
+      console.log(res.mstapplicantcareerdetail);
+      for (let i = 0; i < res.mstapplicantcareerdetail.length; i++) {
+        this.careerIDarray = res.mstapplicantcareerdetail[i].careerid;
+        console.log('this.careerIDarray ', this.careerIDarray);
+
+        this.mstapplicantworkreference_service.getCompanyNames(this.applicantid, this.careerIDarray).then((res: any) => {
+          console.log(res);
+
+      this.companyList = res as DropDownValues[];
+
+
+          // for (let j = 0; j < res.length; j++) {
+          //   this.companyList = res[j].companyname as [];
+          //   console.log(this.companyList);
+          // }
+        }).catch((err) => { this.spinner.hide(); });
+
+      }
+
+    });
+
 
     const current = new Date();
     this.maxDate = {
@@ -494,12 +523,12 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     this.mstapplicantworkreference_Form.patchValue({ skills: skillsdescription });
   }
 
-  get_companyName() {
-    this.mstapplicantworkreference_service.get_mstapplicantworkreferences_companyList(this.applicantid).then(res => {
-      console.log(res);
-      this.companyList = res as DropDownValues[];
-    })
-  }
+  // get_companyName() {
+  //   this.mstapplicantworkreference_service.get_mstapplicantworkreferences_companyList(this.applicantid).then(res => {
+  //     console.log(res);
+  //     this.companyList = res as DropDownValues[];
+  //   })
+  // }
 
   search_skills(event) {
     this.skills_results = this.skills_List.filter(v => v.label.toLowerCase().indexOf(event.query.toLowerCase()) > -1).slice(0, 10);
@@ -668,17 +697,20 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   async onSubmitWithProject(bclear: any) {
 
-    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
-       if (res.mstapplicantworkreference.length > 0) {
-        this.project.emit(true);
-      } else {
-        this.toastr.addSingle("", "", "Add Your Project");
-        return
-      }
-    });
+    this.project.emit(true);
+
+
+    // this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
+    //    if (res.mstapplicantworkreference.length > 0) {
+    //     this.project.emit(true);
+    //   } else {
+    //     this.toastr.addSingle("", "", "Add Your Project");
+    //     return
+    //   }
+    // });
   };
 
-  skip_details(){
+  skip_details() {
     this.project.emit(true);
   }
 
