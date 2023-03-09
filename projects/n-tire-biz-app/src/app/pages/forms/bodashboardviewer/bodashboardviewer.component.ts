@@ -22,6 +22,7 @@ import { mstapplicanteducationdetailService } from '../../../service/mstapplican
 import { DatePipe } from '@angular/common';
 import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
 import { SharedService } from '../../../service/shared.service';
+import { forEach } from 'jszip';
 @Component({
   selector: 'ngx-dashboardviewer',
   styles: [`
@@ -121,6 +122,7 @@ export class BODashboardViewerComponent implements OnInit {
   skillfromDate: any;
   skilltoDate: any;
   EachExpresult: any = [];
+  EachskillExp: any = [];
   showExp: any = [];
   showpersonal: boolean = true;
   showSkill: boolean;
@@ -133,11 +135,22 @@ export class BODashboardViewerComponent implements OnInit {
   checkTest: any = [];
   checkDateError: any = [];
   totalamount: any;
+  startDate: any;
+  endDate: any;
+  totalExp_yrs: any = [];
+  totalExp: any;
+  overall_Exp: any;
+  Dashskill_desc: any;
+  DashExpSkill: any;
+  skillDateError: any = [];
+  totalSkillExp: any = [];
+  totalExperience: any;
+
   // showDashboardDetails: boolean = false;
 
 
   constructor(public dialogRef: DynamicDialogRef,
-    private toastr: ToastService,  private sharedService: SharedService,
+    private toastr: ToastService, private sharedService: SharedService,
     public dialog: DialogService, private mstapplicantmaster_service: mstapplicantmasterService, private pageroute: Router,
     private sessionService: SessionService, private activateroute: ActivatedRoute,
     private mstapplicantskilldetail_service: mstapplicantskilldetailService,
@@ -151,7 +164,7 @@ export class BODashboardViewerComponent implements OnInit {
   }
   ngOnInit() {
     this.get_allData();
-
+    this.get_experience();
     this.isskillcompleted = false
     this.isresumecompleted = false
     this.isprojectcompleted = false
@@ -173,11 +186,11 @@ export class BODashboardViewerComponent implements OnInit {
     this.ispersonalpending = false
     this.sessionService.setItem("attachedsaved", "true");
 
-    this.sharedService.wizardShow.subscribe((res:any)=>{
+    this.sharedService.wizardShow.subscribe((res: any) => {
 
       console.log("skillwizard", res);
-      
-      if(res == true){
+
+      if (res == true) {
         this.showNewApp_Dashboard = false;
       }
     })
@@ -436,6 +449,11 @@ export class BODashboardViewerComponent implements OnInit {
     //     })
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByOrderPriority(this.applicantid).then((res: any) => {
 
+      console.log("dashboard", res.mstapplicantskilldetail[0].subcategoryiddesc);
+
+      this.Dashskill_desc = res.mstapplicantskilldetail[0].subcategoryiddesc;
+
+
       if (res.mstapplicantskilldetail.length > 0) {
         this.showNewApp_Dashboard = true;
       }
@@ -459,9 +477,7 @@ export class BODashboardViewerComponent implements OnInit {
           if (this.checkDateError == "NaN" || this.checkDateError == 0 || this.checkDateError == undefined || this.checkDateError == "null") {
             this.checkDateError = "0.0";
           }
-          console.log('checkckekce', this.checkDateError)
-
-
+          console.log('checkckekce', this.checkDateError);
 
           for (let i = 0; i < this.skill_detail.length; i++) {
             if (this.skill_detail[i].strRating == 1) {
@@ -484,6 +500,7 @@ export class BODashboardViewerComponent implements OnInit {
             };
 
             this.mstapplicantmaster_service.get_dashboardAll_details(body).then(res => {
+
               this.showhearder_Details = true;
               this.dashboard_details = [],
                 this.dashboard_employementdetails = []
@@ -495,25 +512,19 @@ export class BODashboardViewerComponent implements OnInit {
               this.dashboard_projectdetails = this.dashboard_details[0].lis_dashboardproject.value;
               this.dashboard_educationdetails = this.dashboard_details[0].list_dashboareducation.value;
 
-              let StartDate = this.dashboard_employementdetails[0]?.fromdate;
-              let EndDate = this.dashboard_employementdetails[0]?.todate;
+              let StartDate = this.dashboard_projectdetails[0]?.fromdate;
+              let EndDate = this.dashboard_projectdetails[0]?.todate;
 
-              this.start_date = this.datepipe.transform(new Date(StartDate), 'dd-MM-yyyy');
-              this.end_date = this.datepipe.transform(new Date(EndDate), 'dd-MM-yyyy');
+              this.EachskillExp = getDateDifference(new Date(StartDate), new Date(EndDate));
 
-              this.endformat = this.datepipe.transform(new Date(EndDate), 'yyyy-MM-dd');
-              this.startformat = this.datepipe.transform(new Date(StartDate), 'yyyy-MM-dd');
+              console.log("this.EachskillExp", this.EachskillExp);
 
-              let currentDate = new Date(this.endformat);
-              let dateSent = new Date(this.startformat);
-
-              let result = Math.floor(
-                (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) -
-                  Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
-
-              this.espYr = result;
-
-              this.expYrs = ((this.espYr / 365).toFixed(1));
+              if (this.EachskillExp && !isNaN(this.EachskillExp.years)) {
+                this.skillDateError = this.EachskillExp.years + '.' + this.EachskillExp.months
+              }
+              if (this.skillDateError == "NaN" || this.skillDateError == 0 || this.skillDateError == undefined || this.skillDateError == "null") {
+                this.skillDateError = "0.0";
+              };
             });
 
           }
@@ -527,6 +538,7 @@ export class BODashboardViewerComponent implements OnInit {
 
         })
       };
+
       this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
       function getDateDifference(startDate, endDate) {
         var startYear = startDate.getFullYear();
@@ -549,11 +561,6 @@ export class BODashboardViewerComponent implements OnInit {
         // (12 + ...) % 12 makes sure index is always between 0 and 11
         var days = startDay <= endDay ? endDay - startDay : daysOfMonth[(12 + endMonth - 1) % 12] - startDay + endDay;
 
-        // let total = "0";
-        //     total += years + '' + months;
-        //     this.totalamount = total;
-        //     console.log('this.totalamount ', this.totalamount);
-
         return {
           years: years,
           months: months,
@@ -562,47 +569,8 @@ export class BODashboardViewerComponent implements OnInit {
 
       }
 
-
-      // this.showDetails(this.finalarray[0].skill_id, this.finalarray[0].subCategory, this.finalarray[0].remarks)
     });
 
-
-    //   if (res.mstapplicantskilldetail.length > 0) {
-    //     this.showNewApp_Dashboard = true;
-    //   }
-    //   this.sub_category = res.mstapplicantskilldetail;
-
-    //   for (let i = 0; i < this.sub_category.length; i++) {
-    //     this.skill_detail.push({
-    //       strRating: this.sub_category[i].selfrating,
-    //       subCategory: this.sub_category[i].subcategoryiddesc,
-    //       skill_id: this.sub_category[i].subcategoryid,
-    //       remarks: this.sub_category[i].remarks,
-    //     });
-    //   };
-
-    //   for (let i = 0; i < this.skill_detail.length; i++) {
-    //     if (this.skill_detail[i].strRating == 1) {
-    //       this.showstr = '★'
-    //     } else if (this.skill_detail[i].strRating == 2) {
-    //       this.showstr = '★★'
-    //     } else if (this.skill_detail[i].strRating == 3) {
-    //       this.showstr = '★★★'
-    //     } else if (this.skill_detail[i].strRating == 4) {
-    //       this.showstr = '★★★★'
-    //     } else if (this.skill_detail[i].strRating == 5) {
-    //       this.showstr = '★★★★★'
-    //     };
-
-    //     this.finalarray.push({
-    //       subCategory: this.skill_detail[i].subCategory,
-    //       skillId: this.skill_detail[i].skill_id,
-    //       remarks: this.skill_detail[i].remarks,
-    //       showstr: this.showstr
-    //     });
-    //   }
-    //   this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
-    // });
   };
 
   showDetails(get_id: any, category: any, remarks: any) {
@@ -645,25 +613,85 @@ export class BODashboardViewerComponent implements OnInit {
     });
   }
 
-  // get_experience() {
-
-  //   this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then((res: any) => {
-
-  // console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
 
 
-  //     for (let i = 0; i < res.mstapplicantcareerdetail; i++){
-  //       let StartDate = res.mstapplicantcareerdetail.fromdate;
-  //       let EndDate = res.mstapplicantcareerdetail.todate;
-  //     }
-  //   })
-  // }
+  get_experience() {
 
-  // get_educationdata() {
-  //   this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
-  //     this.get_educationd_data = res.mstapplicanteducationdetail
-  //   });
-  // }
+    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then((res: any) => {
+
+      console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
+
+
+      for (let i = 0; i < res.mstapplicantcareerdetail.length; i++) {
+        this.startDate = res.mstapplicantcareerdetail[i].fromdate;
+        this.endDate = res.mstapplicantcareerdetail[i].todate;
+
+        this.start_date = this.datepipe.transform(new Date(this.startDate), 'yyyy-MM-dd');
+        this.end_date = this.datepipe.transform(new Date(this.endDate), 'yyyy-MM-dd');
+
+        this.totalSkillExp = getDateDifference(new Date(this.start_date), new Date(this.end_date));
+
+
+        if (this.totalSkillExp && !isNaN(this.totalSkillExp.years)) {
+          this.overall_Exp = this.totalSkillExp.years + '.' + this.totalSkillExp.months
+        }
+        if (this.overall_Exp == "NaN" || this.overall_Exp == 0 || this.overall_Exp == undefined || this.overall_Exp == "null") {
+          this.overall_Exp = "0.0";
+        }
+
+        console.log("overall_Exp", this.overall_Exp);
+
+        this.totalExp_yrs.push(parseInt(this.overall_Exp));
+
+        console.log("totalExp_yrs", this.totalExp_yrs);
+      }
+      console.log("Out from Loop totalExp_yrs", this.totalExp_yrs);
+
+      let years = 0
+
+      this.totalExp_yrs.forEach(element => {
+
+        years += element;
+      });
+
+      this.totalExperience = years;
+      console.log("years", years);
+
+      return years
+
+    })
+
+
+    function getDateDifference(startDate, endDate) {
+      var startYear = startDate.getFullYear();
+      var startMonth = startDate.getMonth();
+      var startDay = startDate.getDate();
+
+      var endYear = endDate.getFullYear();
+      var endMonth = endDate.getMonth();
+      var endDay = endDate.getDate();
+
+      // We calculate February based on end year as it might be a leep year which might influence the number of days.
+      var february = (endYear % 4 == 0 && endYear % 100 != 0) || endYear % 400 == 0 ? 29 : 28;
+      var daysOfMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+      var startDateNotPassedInEndYear = (endMonth < startMonth) || endMonth == startMonth && endDay < startDay;
+      var years = endYear - startYear - (startDateNotPassedInEndYear ? 1 : 0);
+
+      var months = (12 + endMonth - startMonth - (endDay < startDay ? 1 : 0)) % 12;
+
+      // (12 + ...) % 12 makes sure index is always between 0 and 11
+      var days = startDay <= endDay ? endDay - startDay : daysOfMonth[(12 + endMonth - 1) % 12] - startDay + endDay;
+
+      return {
+        years: years,
+        months: months,
+        days: days
+      };
+
+    }
+  }
+
   showSkills() {
     this.dialog.open(mstapplicantskilldetailgridComponent,
       {

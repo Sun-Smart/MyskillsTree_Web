@@ -460,30 +460,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
       this.city_List = res.mstapplicantgeographypreference as DropDownValues[];
     }).catch((err) => { this.spinner.hide(); });
 
-
-
-    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
-      console.log(res.mstapplicantcareerdetail);
-      for (let i = 0; i < res.mstapplicantcareerdetail.length; i++) {
-        this.careerIDarray = res.mstapplicantcareerdetail[i].careerid;
-        console.log('this.careerIDarray ', this.careerIDarray);
-
-        this.mstapplicantworkreference_service.getCompanyNames(this.applicantid, this.careerIDarray).then((res: any) => {
-          console.log(res);
-
-      this.companyList = res as DropDownValues[];
-
-
-          // for (let j = 0; j < res.length; j++) {
-          //   this.companyList = res[j].companyname as [];
-          //   console.log(this.companyList);
-          // }
-        }).catch((err) => { this.spinner.hide(); });
-
-      }
-
-    });
-
+    this.get_companyName();
 
     const current = new Date();
     this.maxDate = {
@@ -523,12 +500,12 @@ export class mstapplicantworkrefgridComponent implements OnInit {
     this.mstapplicantworkreference_Form.patchValue({ skills: skillsdescription });
   }
 
-  // get_companyName() {
-  //   this.mstapplicantworkreference_service.get_mstapplicantworkreferences_companyList(this.applicantid).then(res => {
-  //     console.log(res);
-  //     this.companyList = res as DropDownValues[];
-  //   })
-  // }
+  get_companyName() {
+    this.mstapplicantworkreference_service.get_mstapplicantworkreferences_companyList(this.applicantid).then(res => {
+      console.log(res);
+      this.companyList = res as DropDownValues[];
+    })
+  }
 
   search_skills(event) {
     this.skills_results = this.skills_List.filter(v => v.label.toLowerCase().indexOf(event.query.toLowerCase()) > -1).slice(0, 10);
