@@ -106,9 +106,11 @@ export class bomasterdatatypeComponent implements OnInit {
     sessionData: any;
     sourceKey: any;
 
-    checkrelease : boolean = false;
-    releasecheckbox : boolean = false;
-    canedit:boolean = false ;
+    checkrelease: boolean = false;
+    releasecheckbox: boolean = false;
+    canedit: boolean = false;
+    candelete: boolean = false;
+
     bomasterdatas_visiblelist: any;
     bomasterdatas_hidelist: any;
 
@@ -118,9 +120,12 @@ export class bomasterdatatypeComponent implements OnInit {
     masterdatatypeid1: string;
     mdata: any;
     boarray: any[];
-check1:boolean = false ;
+    check1: boolean = false;
+    editButtons: boolean;
+    deletebuttons: boolean;
 
-    constructor( private router: Router,
+
+    constructor(private router: Router,
         private themeService: ThemeService,
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
@@ -191,6 +196,8 @@ check1:boolean = false ;
         this.themeService.theme.subscribe((val: string) => {
             this.theme = val;
         });
+
+
 
         this.sessionData = this.sessionService.getSession();
         if (this.sessionData != null) {
@@ -264,21 +271,28 @@ check1:boolean = false ;
             this.pkList = res as bomasterdatatype[];
             this.pkoptionsEvent.emit(this.pkList);
         }
-        ).catch((err) => { this.spinner.hide();});
+        ).catch((err) => { this.spinner.hide(); });
         //setting the flag that the screen is not touched
         this.bomasterdatatype_Form.markAsUntouched();
         this.bomasterdatatype_Form.markAsPristine();
-        console.log( this.bomasterdatatype_Form.value.hassubcategory)
+        console.log(this.bomasterdatatype_Form.value.hassubcategory)
     }
 
-    checkRelease()
-    {
-       localStorage.setItem("releasecheckbox", JSON.stringify(this.releasecheckbox));
-console.log(this.releasecheckbox);
+    checkRelease() {
+        localStorage.setItem("releasecheckbox", JSON.stringify(this.releasecheckbox));
+        console.log(this.releasecheckbox);
     }
-    
-    checkedit(){
+
+    checkedit() {
         localStorage.setItem("canedit", JSON.stringify(this.canedit));
+        console.log("redrer", this.canedit);
+        this.Set_bomasterdatas_TableConfig()
+    }
+
+    checkdelete() {
+        localStorage.setItem("candelete", JSON.stringify(this.candelete));
+        console.log("delete", this.candelete);
+        this.Set_bomasterdatas_TableConfig()
     }
 
     release(release: any) {
@@ -351,7 +365,7 @@ console.log(this.releasecheckbox);
     onClose() {
         this.dialogRef.close(this.objvalues);
     }
-    goBack(){
+    goBack() {
 
         this.router.navigate(['/home/boreportviewer/v2mgx']);
 
@@ -408,7 +422,7 @@ console.log(this.releasecheckbox);
         this.pkcol = res.bomasterdatatype.pkcol;
         this.bmyrecord = false;
         if ((res.bomasterdatatype as any).applicantid == this.sessionService.getItem('applicantid')) this.bmyrecord = true;
-        this.mdata=res.bomasterdatatype.masterdataname
+        this.mdata = res.bomasterdatatype.masterdataname
         this.bomasterdatatype_Form.patchValue({
             datatypeid: res.bomasterdatatype.datatypeid,
             code: res.bomasterdatatype.code,
@@ -572,8 +586,9 @@ console.log(this.releasecheckbox);
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
         this.dialog.open(bomasterdataComponent,
-            { width: '50% !important',
-            height: '40% !important',
+            {
+                width: '50% !important',
+                height: '40% !important',
                 data: { showview: false, save: childsave, maindatapkcol: this.pkcol, event, masterdataid, datatypeid, visiblelist: this.bomasterdatas_visiblelist, hidelist: this.bomasterdatas_hidelist, ScreenType: 2 },
             }
         ).onClose.subscribe(res => {
@@ -633,12 +648,65 @@ console.log(this.releasecheckbox);
     }
     async bomasterdatas_beforesave(event: any) {
         event.confirm.resolve(event.newData);
-
-
-
     }
+
+
     Set_bomasterdatas_TableConfig() {
-        this.bomasterdatas_settings = {
+debugger;
+    if(this.candelete == false || this.candelete == undefined || this.candelete == null){
+    this.deletebuttons = true
+    }
+    else if(this.deletebuttons == true)
+    {
+    this.deletebuttons = false;
+    }
+
+        if(this.canedit == false || this.canedit == undefined || this.canedit == null )
+        {
+            this.editButtons = true;
+        }
+        else if(this.canedit == true)
+        {
+            this.editButtons = false;
+        }
+
+        if(this.canedit == false && this.candelete == false ||this.canedit == undefined && this.candelete == undefined ||this.canedit == null && this.candelete == null){
+            this.deletebuttons = true;
+            this.editButtons = true;
+            }
+            else if(this.deletebuttons == true)
+            {
+            this.deletebuttons = false;
+            this.editButtons = false;
+            }
+
+            
+
+    //     else if (this.candelete == false) 
+    //     {
+    //         this.deletebuttons = false;
+    //     }
+
+
+    //    else if (this.canedit == true) 
+    //     {
+    //         this.editButtons = true;
+
+    //     }
+    //     else if (this.canedit == false) 
+    //     {
+    //         this.editButtons = false;
+    //     }else if(this.canedit == true && this.candelete == true) {
+    //         this.editButtons = true;
+    //         this.deletebuttons = true;
+    //     }else if(this.canedit == false && this.candelete == false || this.canedit == undefined && this.candelete == undefined ||this.canedit == null && this.candelete == ){
+    //         this.editButtons = false;
+    //         this.deletebuttons = false;
+    //     }
+
+    
+
+this.bomasterdatas_settings = {
             hideSubHeader: true,
             mode: 'external',
             selectMode: 'single',
@@ -646,8 +714,8 @@ console.log(this.releasecheckbox);
                 columnTitle: 'Actions',
                 width: '300px',
                 add: !this.showview,
-                edit: true, // true,
-                delete: !this.showview,
+                edit: this.editButtons, // true,
+                delete:  this.deletebuttons,
                 position: 'left',
                 custom: this.bomasterdata_menuactions
             },
@@ -664,8 +732,8 @@ console.log(this.releasecheckbox);
                 confirmSave: true,
             },
             delete: {
-                deleteButtonContent: '<i class=""></i>',
-                confirmDelete: false,
+                deleteButtonContent: '<i class="fa fa-trash"></i>',
+                confirmDelete: true,
             },
             columns: {
                 masterdatacode: {
@@ -753,6 +821,7 @@ console.log(this.releasecheckbox);
             return "hide";
         }
     }
+
     //end of Grid Codes bomasterdatas
 
 }
