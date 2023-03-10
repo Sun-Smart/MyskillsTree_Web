@@ -215,7 +215,7 @@ export class NewskillsearchComponent implements OnInit {
     });
     setTimeout(() => {
       this.mstapplicantskilldetail_service.getMultipleCheckSegmentID(this.skillcategory1).then((res: any) => {
-          this.skillcategory_List = res as DropDownValues[];
+        this.skillcategory_List = res as DropDownValues[];
       })
     }
     );
@@ -349,14 +349,19 @@ export class NewskillsearchComponent implements OnInit {
     );
   }
 
-  onItemDeSelect(item: any) {
-    this.skillcategory = ''
-    this.subcategoryid = ''
+  onItemDeSelect(evt: any) {
+    console.log('evt',evt);
+
+    // this.segmentid = '';
+    this.skillcategory = [];
+    this.subcategoryid = [];
     this.segmentsetItem = "0";
     for (let i = 0; i < this.segmentid.length; i++) {
       this.segmentsetItem = this.segmentsetItem + ',' + this.segmentid[i].value;
-      this.checkSeg = this.segmentid[i].value;
+      // this.checkSeg = this.segmentid[i].value;
     }
+    console.log(this.segmentsetItem);
+
     this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.segmentsetItem ? this.segmentsetItem : null, null, null, null, null, null, null).then((res: any) => {
       this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
@@ -374,27 +379,27 @@ export class NewskillsearchComponent implements OnInit {
     });
   };
 
-  category_DeSelect(item: any) {
+  category_DeSelect(evt: any) {
     this.subcategoryid = ''
-
+    // this.skillcategory.push({categoryid: evt.categoryid});
     this.categorysetItem = "0";
     for (let i = 0; i < this.skillcategory.length; i++) {
       this.categorysetItem = this.categorysetItem + ',' + this.skillcategory[i].categoryid;
     }
-    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.categorysetItem ? this.categorysetItem : null, null, null, null, null, null).then((res: any) => {
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.segmentsetItem ? this.segmentsetItem : null, this.categorysetItem ? this.categorysetItem : null, null, null, null, null, null).then((res: any) => {
       this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
         this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
       }
+
       this.showData = res;
       this.showGrid = true;
-
-      setTimeout(() => {
-        this.mstapplicantskilldetail_service.getList_subcategoryid2(this.categorysetItem).then(res =>
-          this.subcategoryid_List = res as DropDownValues[]);
-      });
-
     });
+    setTimeout(() => {
+      this.mstapplicantskilldetail_service.getMultipleChecksubcategoryID(this.categorysetItem).then((res: any) => {
+        this.subcategoryid_List = res as DropDownValues[];
+      });
+    })
   };
 
   subcategory_DeSelect(item: any) {
@@ -403,21 +408,18 @@ export class NewskillsearchComponent implements OnInit {
     for (let i = 0; i < this.subcategoryid.length; i++) {
       this.sub_categorysetItem = this.sub_categorysetItem + ',' + this.subcategoryid[i].subcategoryid;
     }
-    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.skillcategory1 ? this.skillcategory1 : null, this.skillcategory2 ? this.skillcategory2 : null, this.sub_categorysetItem ? this.sub_categorysetItem : null, null, null, null, null).then((res: any) => {
+    this.mstapplicantskilldetail_service.getMultipleSkillSearch(this.segmentsetItem ? this.segmentsetItem : null, this.categorysetItem ? this.categorysetItem : null, this.sub_categorysetItem ? this.sub_categorysetItem : null, null, null, null, null).then((res: any) => {
       this.showData = res;
       for (let z = 0; this.showData.length > 0; z++) {
         this.showData[z].useprofilephoto = this.showData[z]?.useprofilephoto.split("\"")[1];
       }
       this.showData = res;
       this.showGrid = true;
-
-      setTimeout(() => {
-        this.mstapplicantskilldetail_service.getList_subcategoryid2(this.categorysetItem).then(res =>
-          this.subcategoryid_List = res as DropDownValues[]);
-      });
-
     });
-
+    setTimeout(() => {
+      this.mstapplicantskilldetail_service.getList_subcategoryid2(this.categorysetItem).then(res =>
+        this.subcategoryid_List = res as DropDownValues[]);
+    });
   }
 
   checktest() {

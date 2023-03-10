@@ -125,8 +125,8 @@ export class mstapplicantskilldetailService {
   }
 
   //New API for multiple check with ID passing segment ID
-  getMultipleCheckSegmentID(id: any): any {
-    return this.http.get(AppConstants.ntirebizURL + '/mstcategory' + '/GetListBy_segmentid1?segmentid=' + id).toPromise();
+  getMultipleCheckSegmentID(segmentid: any): any {
+    return this.http.get(AppConstants.ntirebizURL + '/mstcategory' + '/GetListBy_segmentid1?segmentid=' + segmentid).toPromise();
   }
 
   getList_subcategoryid2(categoryid): any {
