@@ -6,11 +6,11 @@ import { ModuleWithProviders } from '@angular/core';
 const routes: Routes = [
   { path: 'bokbmasters', children: [
     { path: '', component: BonewbokbmasterComponent},
-    { path: 'edit/:id/menu/:menuhide', pathMatch: 'prefix', component: BonewbokbmasterComponent,canActivate:[CanDeactivateGuard]},
-    { path: 'view/:viewid', pathMatch: 'prefix', component: BonewbokbmasterComponent,canActivate:[CanDeactivateGuard]},
-    { path: 'view/:viewid/menu/:menuhide', pathMatch: 'prefix', component: BonewbokbmasterComponent,canActivate:[CanDeactivateGuard]},
-    { path: 'edit/:id', component: BonewbokbmasterComponent,canActivate:[CanDeactivateGuard]},
-    { path: 'edit/:id/source/:sourcekey/:sourceid', component: BonewbokbmasterComponent,canActivate:[CanDeactivateGuard]}
+    { path: 'edit/:id/menu/:menuhide', pathMatch: 'prefix', component: BonewbokbmasterComponent},
+    { path: 'view/:viewid', pathMatch: 'prefix', component: BonewbokbmasterComponent},
+    { path: 'view/:viewid/menu/:menuhide', pathMatch: 'prefix', component: BonewbokbmasterComponent},
+    { path: 'edit/:id', component: BonewbokbmasterComponent},
+    { path: 'edit/:id/source/:sourcekey/:sourceid', component: BonewbokbmasterComponent}
 ]},
 ];
 
