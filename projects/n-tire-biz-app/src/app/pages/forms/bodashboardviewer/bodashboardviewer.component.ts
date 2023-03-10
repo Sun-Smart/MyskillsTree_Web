@@ -466,11 +466,14 @@ export class BODashboardViewerComponent implements OnInit {
           remarks: this.sub_category[i].remarks,
         });
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByExperience(this.applicantid, this.sub_category[i].subcategoryid).then((res: any) => {
+          console.log('response check', res);
+
           for (let i = 0; i < res.length; i++) {
             this.skillfromDate = res[i].fromdate;
             this.skilltoDate = res[i].todate;
           }
           this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
+
           if (this.EachExpresult && !isNaN(this.EachExpresult.years)) {
             this.checkDateError = this.EachExpresult.years + '.' + this.EachExpresult.months
           }
@@ -527,6 +530,11 @@ export class BODashboardViewerComponent implements OnInit {
               };
             });
 
+          }
+          if (res == "[]" || res.length == 0) {
+            this.checkDateError = "0.0";
+          }else{
+            this.checkDateError = this.checkDateError;
           }
           this.finalarray.push({
             subCategory: this.skill_detail[i].subCategory,
