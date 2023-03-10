@@ -123,6 +123,7 @@ export class ApplicantregisterComponent implements OnInit {
       alert('All fields are required');
       return;
     } else {
+      this.showSpinner = false;
       let data = {
         pk: null,
         registrationid: null,
