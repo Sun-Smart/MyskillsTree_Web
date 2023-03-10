@@ -161,6 +161,7 @@ import { mstapplicantskilldetailService } from '../../service/mstapplicantskilld
 .custom_link {
     color: #51c410 !important;
     font-weight: 600;
+    cursor:pointer;
 }
 
 .custom-navbar {
