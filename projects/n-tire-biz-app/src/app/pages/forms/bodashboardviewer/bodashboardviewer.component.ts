@@ -23,6 +23,7 @@ import { DatePipe } from '@angular/common';
 import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
 import { SharedService } from '../../../service/shared.service';
 import { forEach } from 'jszip';
+import { el } from 'date-fns/locale';
 @Component({
   selector: 'ngx-dashboardviewer',
   styles: [`
@@ -145,6 +146,10 @@ export class BODashboardViewerComponent implements OnInit {
   skillDateError: any = [];
   totalSkillExp: any = [];
   totalExperience: any;
+  totalExperience2: any;
+  totalExperienceYrs: any = [];
+  totalExperienceMonths: any = [];
+  showexperience : boolean;
 
   // showDashboardDetails: boolean = false;
 
@@ -520,8 +525,6 @@ export class BODashboardViewerComponent implements OnInit {
 
               this.EachskillExp = getDateDifference(new Date(StartDate), new Date(EndDate));
 
-              console.log("this.EachskillExp", this.EachskillExp);
-
               if (this.EachskillExp && !isNaN(this.EachskillExp.years)) {
                 this.skillDateError = this.EachskillExp.years + '.' + this.EachskillExp.months
               }
@@ -689,35 +692,79 @@ export class BODashboardViewerComponent implements OnInit {
 
         this.totalSkillExp = getDateDifference(new Date(this.start_date), new Date(this.end_date));
 
+        console.log("totalSkillExp", this.totalSkillExp);
+        
 
         if (this.totalSkillExp && !isNaN(this.totalSkillExp.years)) {
           this.overall_Exp = this.totalSkillExp.years + '.' + this.totalSkillExp.months
         }
-        if (this.overall_Exp == "NaN" || this.overall_Exp == 0 || this.overall_Exp == undefined || this.overall_Exp == "null") {
-          this.overall_Exp = "0.0";
+
+        this.totalExperienceYrs.push(this.totalSkillExp.years)
+        this.totalExperienceMonths.push(this.totalSkillExp.months)
+
+        console.log("this.totalExperienceYrs", this.totalExperienceYrs);
+        console.log("this.totalExperienceMonths", this.totalExperienceMonths);
+        
+        let years = 0
+        let months = 0
+
+        this.totalExperienceYrs.forEach(element => {
+          years += element;
+        });
+        
+        console.log("years", years);
+        
+
+        let getyears = years;
+
+        this.totalExperienceMonths.forEach(element => {
+          months += element;
+        });
+
+        console.log("months", months);
+        
+
+        let getmonths = months / 12;
+
+        console.log("getmonths", getmonths);
+
+        if(months > 12){
+          this.showexperience = true
+          let totalExp = getyears + getmonths;
+          this.totalExperience = totalExp.toFixed(1);
+          console.log("getmonths > 12", this.totalExperience.toFixed(1));
+        }else{
+          this.totalExperience2 = getyears +'.' + months;
+          console.log("totalexp2", this.totalExperience2);
+        }
+        
+        if (this.totalExperience == "NaN" || this.totalExperience == 0 || this.totalExperience == undefined || this.totalExperience == "null") {
+          this.totalExperience = "0.0";
         }
 
-        console.log("overall_Exp", this.overall_Exp);
+      //   console.log("overall_Exp", this.overall_Exp);
 
-        this.totalExp_yrs.push(parseInt(this.overall_Exp));
+      //   this.totalExp_yrs.push(Number(this.overall_Exp));
 
-        console.log("totalExp_yrs", this.totalExp_yrs);
+      //   console.log("totalExp_yrs", this.totalExp_yrs);
+      // }
+      // console.log("Out from Loop totalExp_yrs", this.totalExp_yrs);
+
+      // let years = 0
+
+      // this.totalExp_yrs.forEach(element => {
+
+      //   years += element;
+      // });
+
+      // this.totalExperience = years.toFixed(1);
+      // console.log("years", years);
+      // let value =Math.floor(years);
+      // console.log(value)
+      // return years
       }
-      console.log("Out from Loop totalExp_yrs", this.totalExp_yrs);
-
-      let years = 0
-
-      this.totalExp_yrs.forEach(element => {
-
-        years += element;
-      });
-
-      this.totalExperience = years;
-      console.log("years", years);
-
-      return years
-
     })
+  
 
 
     function getDateDifference(startDate, endDate) {

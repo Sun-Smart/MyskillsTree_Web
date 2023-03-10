@@ -235,7 +235,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
         <!--<button class="wizard-button" (click)="skip_details()"   style="margin-right:10px;"> Skip</button>-->
 
-        <button class="wizard-button" (click)="onSubmitWithCertification()"> Dashboard</button>
+        <button class="wizard-button" (click)="onSubmitWithCertification()">
+        Dashboard <i class="fa fa-undo" aria-hidden="true"></i></button>
 
         </div>
         </div>

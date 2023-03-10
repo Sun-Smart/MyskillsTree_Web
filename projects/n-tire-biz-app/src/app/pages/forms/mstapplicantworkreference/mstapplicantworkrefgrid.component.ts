@@ -275,7 +275,8 @@ class="fa fa-close"></i> Close</button>
       
       <!--<button class="wizard-button" (click)="skip_details()" style="margin-right:10px;"> Skip</button>-->
 
-      <button class="wizard-button" (click)="onSubmitWithProject()"> Add Certification</button>
+      <button class="wizard-button" (click)="onSubmitWithProject()"> 
+      <i class="fa fa-plus"></i> Add Project</button>
 
       </div>
       </div>

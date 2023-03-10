@@ -274,7 +274,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </div>
 
 <div class="col-12" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;" *ngIf = "!buttonview">
-<button class="wizard-button" (click)="onSubmitWithEducation()"> Add Education</button>
+<button class="wizard-button" (click)="onSubmitWithEducation()"> 
+<i class="fa fa-plus"></i>Add Education</button>
 </div>
 </div>
     `,

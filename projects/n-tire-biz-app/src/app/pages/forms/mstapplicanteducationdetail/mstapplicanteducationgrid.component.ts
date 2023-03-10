@@ -241,7 +241,8 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 
               <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
-              <button class="wizard-button" (click)="onSubmitWithExperience()"> Add Experience</button>
+              <button class="wizard-button" (click)="onSubmitWithExperience()"> 
+              <i class="fa fa-plus"></i> Add Experience</button>
               
               </div>
               </div>
