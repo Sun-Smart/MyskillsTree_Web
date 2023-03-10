@@ -66,6 +66,7 @@ export class HeaderComponent implements OnInit {
   datarelease: any = [];
   showApplicantmenu: boolean = false;
   showAdminMenuaccess: boolean = false;
+  showAdminMenu: boolean = false;
   showCorporateMenuaccess: boolean = false;
   hideCorporatePage: boolean = false;
   appmenu: boolean;
@@ -222,6 +223,10 @@ export class HeaderComponent implements OnInit {
     this.userIdle.onTimeout().subscribe(() => {
       this.logout();
     });
+
+    if(this.userid == "974"){
+      this.showAdminMenu = false;
+    }
 
 
     let result = this.router.routerState.snapshot.url.match("mstapplicantreferencerequestsaccepted")

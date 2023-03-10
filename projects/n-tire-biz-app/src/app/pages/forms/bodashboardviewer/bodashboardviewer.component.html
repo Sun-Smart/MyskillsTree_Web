@@ -33,7 +33,10 @@
         <label class="head-label"> Profile Status</label>
 
         <div style="padding: 15px;">
-          <img src="assets/newstartup/infography.png" alt="" style="width: 100%;height: 100%;">
+
+          <img src="assets/newstartup/infography.png" alt="" style="width: 100%;height: 100%;" *ngIf="info_personal">
+          <img src="../../../../assets/newstartup/infography_personal.png" alt="" style="width: 100%;height: 100%;" *ngIf="!info_personal">
+
         </div>
 
         <div class="row info-graphy" style="padding: 15px;display: none;">
@@ -157,7 +160,8 @@
           <h6 style="font-weight: 600;">{{Dashskill_desc}} - {{checkDateError}}years </h6>
         </div>
         <div class="col-6" style="text-align: end;">
-          <h6 style="font-weight: 600;"> Total Experience : {{totalExperience}}years</h6>
+          <h6 style="font-weight: 600;" *ngIf="showexperience"> Total Experience : {{totalExperience}}years</h6>
+          <h6 style="font-weight: 600;" *ngIf="!showexperience"> Total Experience : {{totalExperience2}}years</h6>
         </div>
       </div>
 

@@ -223,7 +223,7 @@
                 </div>
 
 
-                <div class="col-3 card admindrop" style="text-align:center; " (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center; " (click)="closePopups()" *ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/whwfe']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-building fa1" aria-hidden="true"></i>
                       <br /> Company Masters

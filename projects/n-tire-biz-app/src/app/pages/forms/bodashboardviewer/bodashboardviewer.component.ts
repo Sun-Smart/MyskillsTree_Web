@@ -23,6 +23,7 @@ import { DatePipe } from '@angular/common';
 import { mstapplicantcareerdetailService } from '../../../service/mstapplicantcareerdetail.service';
 import { SharedService } from '../../../service/shared.service';
 import { forEach } from 'jszip';
+import { el } from 'date-fns/locale';
 @Component({
   selector: 'ngx-dashboardviewer',
   styles: [`
@@ -145,6 +146,12 @@ export class BODashboardViewerComponent implements OnInit {
   skillDateError: any = [];
   totalSkillExp: any = [];
   totalExperience: any;
+  totalExperience2: any;
+  totalExperienceYrs: any = [];
+  totalExperienceMonths: any = [];
+  showexperience : boolean;
+
+  info_personal:boolean;
 
   // showDashboardDetails: boolean = false;
 
@@ -367,10 +374,9 @@ export class BODashboardViewerComponent implements OnInit {
   skillwizard(event: any) {
     debugger;
     console.log("event", event);
-    // if (event == true) {
-    //   this.showpersonal = false;
-    //   this.showSkill = true;
-    // }
+    if (event == true) {
+      this.info_personal = false;
+    }
   };
 
 
@@ -379,6 +385,7 @@ export class BODashboardViewerComponent implements OnInit {
     if (event == true) {
       this.showpersonal = false;
       this.showSkill = true;
+    
     }
   };
 
@@ -439,14 +446,7 @@ export class BODashboardViewerComponent implements OnInit {
   }
 
   get_allData() {
-    // this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
-    //     let body = {
-    //       applicantid: this.applicantid,
-    //       skillid:
-    // }
-    //     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByExperience(this.applicantid).then((res: any) => {
 
-    //     })
     this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByOrderPriority(this.applicantid).then((res: any) => {
 
       console.log("dashboard", res.mstapplicantskilldetail[0].subcategoryiddesc);
@@ -519,8 +519,6 @@ export class BODashboardViewerComponent implements OnInit {
               let EndDate = this.dashboard_projectdetails[0]?.todate;
 
               this.EachskillExp = getDateDifference(new Date(StartDate), new Date(EndDate));
-
-              console.log("this.EachskillExp", this.EachskillExp);
 
               if (this.EachskillExp && !isNaN(this.EachskillExp.years)) {
                 this.skillDateError = this.EachskillExp.years + '.' + this.EachskillExp.months
@@ -671,14 +669,9 @@ export class BODashboardViewerComponent implements OnInit {
     }
   }
 
-
-
   get_experience() {
 
     this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then((res: any) => {
-
-      console.log("res.mstapplicantcareerdetail", res.mstapplicantcareerdetail);
-
 
       for (let i = 0; i < res.mstapplicantcareerdetail.length; i++) {
         this.startDate = res.mstapplicantcareerdetail[i].fromdate;
@@ -689,37 +682,42 @@ export class BODashboardViewerComponent implements OnInit {
 
         this.totalSkillExp = getDateDifference(new Date(this.start_date), new Date(this.end_date));
 
-
         if (this.totalSkillExp && !isNaN(this.totalSkillExp.years)) {
           this.overall_Exp = this.totalSkillExp.years + '.' + this.totalSkillExp.months
         }
-        if (this.overall_Exp == "NaN" || this.overall_Exp == 0 || this.overall_Exp == undefined || this.overall_Exp == "null") {
-          this.overall_Exp = "0.0";
+
+        this.totalExperienceYrs.push(this.totalSkillExp.years)
+        this.totalExperienceMonths.push(this.totalSkillExp.months)
+
+        let years = 0
+        let months = 0
+
+        this.totalExperienceYrs.forEach(element => {
+          years += element;
+        });
+
+        let getyears = years;
+
+        this.totalExperienceMonths.forEach(element => {
+          months += element;
+        });
+
+        let getmonths = months / 12;
+
+        if(months > 12){
+          this.showexperience = true
+          let totalExp = getyears + getmonths;
+          this.totalExperience = totalExp.toFixed(1);
+        }else{
+          this.totalExperience2 = getyears +'.' + months;
         }
-
-        console.log("overall_Exp", this.overall_Exp);
-
-        this.totalExp_yrs.push(parseInt(this.overall_Exp));
-
-        console.log("totalExp_yrs", this.totalExp_yrs);
+        
+        if (this.totalExperience == "NaN" || this.totalExperience == 0 || this.totalExperience == undefined || this.totalExperience == "null") {
+          this.totalExperience = "0.0";
+        }
       }
-      console.log("Out from Loop totalExp_yrs", this.totalExp_yrs);
-
-      let years = 0
-
-      this.totalExp_yrs.forEach(element => {
-
-        years += element;
-      });
-
-      this.totalExperience = years;
-      console.log("years", years);
-
-      return years
-
-    })
-
-
+    });
+  
     function getDateDifference(startDate, endDate) {
       var startYear = startDate.getFullYear();
       var startMonth = startDate.getMonth();
