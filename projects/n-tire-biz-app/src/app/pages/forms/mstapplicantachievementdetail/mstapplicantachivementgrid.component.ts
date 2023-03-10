@@ -99,12 +99,16 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
                 <!-- Skills -->
 
-                    <td>
-                    <select  id="skill" required
+                <td>
+                <!-- <select  id="skill" required
                     (change)="skill_onchange($event.target)" formControlName="skill" class="form-control">
                     <option [ngValue]="null" selected>-Select-</option>
                     <option *ngFor="let item of skill_list" value="{{item.value}}">{{item.label}}</option>
-                    </select>
+                    </select> -->
+
+                    <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
+                    (completeMethod)="search_skills($event)"></p-autoComplete>
+                  </td>
 
                 <!-- From Date -->
 
@@ -284,6 +288,9 @@ export class mstapplicantachivementgridComponent implements OnInit {
   masterdataid_List: DropDownValues[];
   referenceacceptance_List: DropDownValues[];
   skill_list: DropDownValues[];
+  skills_results: DropDownValues[];
+  skills_List: any[];
+
 
   applicantid: any;
   data: any;
@@ -378,9 +385,8 @@ export class mstapplicantachivementgridComponent implements OnInit {
       attachment: [null],
       status: [null],
       statusdesc: [null],
-      skill: [null],
-      skilldesc: [null],
-
+      skills: [null],
+      skillsdesc: [null],
     });
 
     this.FillData();
@@ -396,7 +402,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
     ).catch((err) => { this.spinner.hide(); });
     this.mstapplicantachievementdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
       console.log('skill res', res);
-      this.skill_list = res;
+      this.skills_List = res;
     }).catch((err) => { this.spinner.hide(); });
 
     this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
@@ -423,10 +429,30 @@ export class mstapplicantachivementgridComponent implements OnInit {
     this.mstapplicantachievementdetail_Form.patchValue({ masterdataiddesc: evt.options[evt.options.selectedIndex].text });
   };
 
-  skills_onChange(evt: any) {
-    let e = evt.value;
-    this.mstapplicantachievementdetail_Form.patchValue({ skilldesc: evt.options[evt.options.selectedIndex].text });
+  search_skills(event) {
+    this.skills_results = this.skills_List.filter(v => v.label.toLowerCase().indexOf(event.query.toLowerCase()) > -1).slice(0, 10);
+  };
 
+  getSkills(skills_List) {
+    let skills: any[] = [];
+
+    for (let i = 0; i < skills_List.length; i++) {
+      skills.push((skills_List[i] as any).value.toString());
+    }
+    return skills;
+  }
+
+  getSkillsDescription() {
+    let skillsdescription: any[] = [];
+    for (let i = 0; i < this.skills_List.length; i++) {
+      for (let j = 0; j < this.mstapplicantachievementdetail_Form.get('skills').value.length; j++) {
+        if ((this.skills_List[i] as any).value.toString() == this.mstapplicantachievementdetail_Form.get('skills').value[j].toString()) {
+
+          skillsdescription.push((this.skills_List[i] as any));
+        }
+      }
+    }
+    this.mstapplicantachievementdetail_Form.patchValue({ skills: skillsdescription });
   }
 
   onSubmitAndWait() {
@@ -459,7 +485,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
     } else {
       this.formData.toyear = new Date(this.mstapplicantachievementdetail_Form.get('toyear').value ? this.ngbDateParserFormatter.format(this.mstapplicantachievementdetail_Form.get('toyear').value) + '  UTC' : null);
     }
-    // this.formData.skills = null;
+    this.formData.skills = null;
     this.formData.applicantid = this.applicantid;
 
     if (this.formData.fromyear > this.formData.toyear) {
@@ -467,6 +493,9 @@ export class mstapplicantachivementgridComponent implements OnInit {
       return;
     } else {
       this.spinner.show();
+
+      if (this.mstapplicantachievementdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantachievementdetail_Form.get('skills').value));
+
       this.mstapplicantachievementdetail_service.saveOrUpdate_mstapplicantachievementdetails(this.formData).subscribe(
         async res => {
           this.spinner.hide();
@@ -505,19 +534,19 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
   async onSubmitWithCertification(bclear: any) {
     this.certification.emit(true);
+    // form validation 
 
-
-  //   this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {      
-  //     if (res.mstapplicantachievementdetail.length > 0) {
-  //     this.certification.emit(true);
-  //   } else {
-  //     this.toastr.addSingle("", "", "Add Your Certification");
-  //     return
-  //   }
-  // });
+    //   this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {      
+    //     if (res.mstapplicantachievementdetail.length > 0) {
+    //     this.certification.emit(true);
+    //   } else {
+    //     this.toastr.addSingle("", "", "Add Your Certification");
+    //     return
+    //   }
+    // });
   };
 
-  skip_details(){
+  skip_details() {
     this.certification.emit(true);
   }
 
@@ -605,7 +634,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
 `;
     return ret;
   }
-  Add_mstapplicantachievementdetail(event: any, achievementid:any, applicantid:any) {
+  Add_mstapplicantachievementdetail(event: any, achievementid: any, applicantid: any) {
     this.showSkillDetails_input = true;
 
     let add = false;
@@ -634,8 +663,6 @@ export class mstapplicantachivementgridComponent implements OnInit {
         requestid: res.mstapplicantachievementdetail.requestid,
         referenceacceptance: res.mstapplicantachievementdetail.referenceacceptance,
         referenceacceptancedesc: res.mstapplicantachievementdetail.referenceacceptancedesc,
-        skill: res.mstapplicantachievementdetail.skill,
-        skilldesc: res.mstapplicantachievementdetail.skilldesc,
         fromyear: this.ngbDateParserFormatter.parse(res.mstapplicantachievementdetail.fromyear),
         toyear: this.ngbDateParserFormatter.parse(res.mstapplicantachievementdetail.toyear),
         status: res.mstapplicantachievementdetail.status,
@@ -643,14 +670,14 @@ export class mstapplicantachivementgridComponent implements OnInit {
       });
 
       setTimeout(() => {
-      this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
-        this.masterdataid_List = res.list_masterdataid.value;
-        // this.skill_list = res.list_skills.value;
-      });
-      this.mstapplicantachievementdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
-        console.log('skill res', res);
-        this.skill_list = res;
-      }).catch((err) => { this.spinner.hide(); });
+        this.mstapplicantachievementdetail_service.getDefaultData().then(res => {
+          this.masterdataid_List = res.list_masterdataid.value;
+          // this.skill_list = res.list_skills.value;
+        });
+        this.mstapplicantachievementdetail_service.getskillsDetails(this.applicantid).then((res: any) => {
+          console.log('skill res', res);
+          this.skills_List = res;
+        }).catch((err) => { this.spinner.hide(); });
       })
     })
   }
@@ -882,9 +909,5 @@ export class mstapplicantachivementgridComponent implements OnInit {
   onClose() {
     this.dialogRef.close();
   }
-
-
-
-
 
 }
