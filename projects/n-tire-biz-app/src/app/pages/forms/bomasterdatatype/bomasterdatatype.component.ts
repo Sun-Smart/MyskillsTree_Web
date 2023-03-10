@@ -108,9 +108,6 @@ export class bomasterdatatypeComponent implements OnInit {
 
     checkrelease: boolean = false;
     releasecheckbox: boolean = false;
-    canedit: boolean = false;
-    candelete: boolean = false;
-
     bomasterdatas_visiblelist: any;
     bomasterdatas_hidelist: any;
 
@@ -121,8 +118,10 @@ export class bomasterdatatypeComponent implements OnInit {
     mdata: any;
     boarray: any[];
     check1: boolean = false;
-    editButtons: boolean;
-    deletebuttons: boolean;
+    canedit: boolean = true;
+    candelete: boolean = true;
+    editButtons: boolean = true;
+    deletebuttons: boolean = true;
 
 
     constructor(private router: Router,
@@ -285,7 +284,7 @@ export class bomasterdatatypeComponent implements OnInit {
 
     checkedit() {
         localStorage.setItem("canedit", JSON.stringify(this.canedit));
-        console.log("redrer", this.canedit);
+        // console.log("redrer", this.canedit);
         this.Set_bomasterdatas_TableConfig()
     }
 
@@ -652,61 +651,33 @@ export class bomasterdatatypeComponent implements OnInit {
 
 
     Set_bomasterdatas_TableConfig() {
-debugger;
-    if(this.candelete == false || this.candelete == undefined || this.candelete == null){
-    this.deletebuttons = true
-    }
-    else if(this.deletebuttons == true)
-    {
-    this.deletebuttons = false;
-    }
-
-        if(this.canedit == false || this.canedit == undefined || this.canedit == null )
-        {
+        debugger;
+        console.log("hellodelete",this.deletebuttons)
+        if (this.candelete == false || this.candelete == undefined || this.candelete == null) {
+            this.deletebuttons = true
+        }
+        else if (this.candelete == true) {
+            this.deletebuttons = false;
+        }
+console.log("helloedit",this.editButtons)
+console.log("hellocanedit",this.canedit)
+        if (this.canedit == false || this.canedit == undefined || this.canedit == null) {
             this.editButtons = true;
         }
-        else if(this.canedit == true)
-        {
+        else if (this.canedit == true) {
             this.editButtons = false;
         }
 
-        if(this.canedit == false && this.candelete == false ||this.canedit == undefined && this.candelete == undefined ||this.canedit == null && this.candelete == null){
+        if (this.canedit == true && this.candelete == true || this.canedit == undefined && this.candelete == undefined || this.canedit == null && this.candelete == null) {
             this.deletebuttons = true;
             this.editButtons = true;
-            }
-            else if(this.deletebuttons == true)
-            {
+        }
+        else if (this.deletebuttons == false) {
             this.deletebuttons = false;
             this.editButtons = false;
-            }
+        }
 
-            
-
-    //     else if (this.candelete == false) 
-    //     {
-    //         this.deletebuttons = false;
-    //     }
-
-
-    //    else if (this.canedit == true) 
-    //     {
-    //         this.editButtons = true;
-
-    //     }
-    //     else if (this.canedit == false) 
-    //     {
-    //         this.editButtons = false;
-    //     }else if(this.canedit == true && this.candelete == true) {
-    //         this.editButtons = true;
-    //         this.deletebuttons = true;
-    //     }else if(this.canedit == false && this.candelete == false || this.canedit == undefined && this.candelete == undefined ||this.canedit == null && this.candelete == ){
-    //         this.editButtons = false;
-    //         this.deletebuttons = false;
-    //     }
-
-    
-
-this.bomasterdatas_settings = {
+        this.bomasterdatas_settings = {
             hideSubHeader: true,
             mode: 'external',
             selectMode: 'single',
@@ -715,7 +686,7 @@ this.bomasterdatas_settings = {
                 width: '300px',
                 add: !this.showview,
                 edit: this.editButtons, // true,
-                delete:  this.deletebuttons,
+                delete: this.deletebuttons,
                 position: 'left',
                 custom: this.bomasterdata_menuactions
             },

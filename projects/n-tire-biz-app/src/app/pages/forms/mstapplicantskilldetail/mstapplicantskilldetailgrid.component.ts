@@ -62,13 +62,16 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     <h4 class="form-group sticky1  columns left">{{'Skill set'}}</h4>
   </div>
   <div class="col-6"></div>
-  <div class="col-2" style="text-align:right; margin:auto;display:flex;justify-content:space-evenly;">
 
-      <button type="button" class="alert-success" (click)="mstapplicantskilldetails_route(null, 'create')" ><i
-      class="fa fa-plus"></i> Add</button>
+  <div class=col-2 style="text-align: right; margin: auto;display:flex;justify-content:end;">
 
-      <button type="button" class="alert-danger" (click)="onClose()" *ngIf = "buttonview"><i class="fa fa-close"></i> Close</button>
-  </div>
+    <a class="alert-success" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
+class="fa fa-plus"></i> Add</a>
+
+<a class="alert-danger" [routerLink]='' (click)="onClose()" *ngIf = "buttonview"><i
+class="fa fa-close"></i> Close</a>
+
+    </div> 
   
 </div>
 

@@ -503,7 +503,7 @@ export class bocompanymasterComponent implements OnInit {
         this.PopulateFromMainScreen(this.data, false);
         this.PopulateFromMainScreen(this.dynamicconfig.data, true);
     }
-
+debugger
     onDelete() {
         let companyid = this.bocompanymaster_Form.get('companyid').value;
         if (companyid != null) {
@@ -919,6 +919,7 @@ export class bocompanymasterComponent implements OnInit {
         this.formData.endtime = (this.bocompanymaster_Form.get('endtime').value == null ? 0 : this.bocompanymaster_Form.get('endtime').value.hour) + ':' + (this.bocompanymaster_Form.get('endtime').value == null ? 0 : this.bocompanymaster_Form.get('endtime').value.minute + ":00");
         // if (customfields != null) this.formData.customfield = JSON.stringify(customfields);
         if (this.fileattachment.getAttachmentList() != null) this.formData.attachment = JSON.stringify(this.fileattachment.getAttachmentList());
+       debugger
         this.formData.Deleted_bocompanyholiday_IDs = this.Deleted_bocompanyholiday_IDs;
         this.formData.Deleted_bofinancialyear_IDs = this.Deleted_bofinancialyear_IDs;
         this.fileAttachmentList = this.fileattachment.getAllFiles();
@@ -1003,7 +1004,11 @@ debugger;
         });
     }
 
-    onDelete_bocompanyholiday(event: any, childID: number, i: number) {
+    
+
+    onDelete_bocompanyholiday(event: any, childID: number, i: number)
+     {
+        debugger
         if (childID != null)
             this.Deleted_bocompanyholiday_IDs += childID + ",";
         this.tbl_bocompanyholidays.source.splice(i, 1);
@@ -1034,6 +1039,7 @@ debugger;
     }
 
     onDelete_bofinancialyear(event: any, childID: number, i: number) {
+        debugger
         if (childID != null)
             this.Deleted_bofinancialyear_IDs += childID + ",";
         this.tbl_bofinancialyears.source.splice(i, 1);
@@ -1053,6 +1059,7 @@ debugger;
         this.tbl_bocompanyholidays.source.initGrid();
     }
     delete_bocompanyholidays_All() {
+        debugger
         this.tbl_bocompanyholidays.source.settings['selectMode'] = 'single';
     }
     show_bocompanyholidays_Filter() {
@@ -1105,8 +1112,8 @@ debugger;
                 confirmSave: true,
             },
             delete: {
-                deleteButtonContent: '<i class=""></i>',
-                confirmDelete: false,
+                deleteButtonContent: '<i class="nb-trash"></i>',
+                confirmDelete: true,
             },
             columns: {
                 financialyeariddesc: {
@@ -1245,8 +1252,8 @@ debugger;
                 confirmSave: true,
             },
             delete: {
-                deleteButtonContent: '<i class=""></i>',
-                confirmDelete: false,
+                deleteButtonContent: '<i class="nb-trash"></i>',
+                confirmDelete: true,
             },
             columns: {
                 
