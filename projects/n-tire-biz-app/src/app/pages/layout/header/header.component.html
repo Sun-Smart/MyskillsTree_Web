@@ -3,7 +3,7 @@
   <div class="col-3 layout-topbar-left ng-tns-c186-0" style="align-items: self-end;">
     <a routerlink="" class="layout-topbar-logo ng-tns-c186-0" href="javascript:void(0)"><img class="logo-2"
         src="assets/companylogo.png" (click)="dashboard()" /> </a>
-    <label style="left: 63px;position: fixed;font-size: 20px; color:#6B431D;" class="comp_title" (click)="dashboard()" >MySkillsTree</label>
+    <label style="left: 63px;position: fixed;font-size: 20px; color:#6B431D; cursor: pointer;" class="comp_title" (click)="dashboard()" >MySkillsTree</label>
 
   </div>
   <div class="col-6">
@@ -235,7 +235,7 @@
                     <li class="li2"><i class="fa fa-database fa1" aria-hidden="true"></i><br /> Master Data Type</li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" *ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/aj5qt']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-table fa1" aria-hidden="true"></i><br /> Master Data</li>
                   </a>
@@ -248,7 +248,7 @@
                     </li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" *ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/674']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-cc fa1" aria-hidden="true"></i><br /> Subcategory Masters</li>
                   </a>
@@ -271,7 +271,7 @@
                     <li class="li2"><i class="fa fa-trademark fa1" aria-hidden="true"></i><br /> Terms </li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" *ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/e99kq']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-user-secret fa1" aria-hidden="true"></i><br /> User Master</li>
                   </a>
@@ -279,51 +279,51 @@
                 <!-- </div> -->
 
 
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" *ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/tnf39']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-user fa1" aria-hidden="true"></i><br /> User Roles</li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" *ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/zkpxi']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-empire fa1" aria-hidden="true"></i><br /> Templates</li>
                   </a>
                 </div>
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" *ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/zzhpb']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-file fa1" aria-hidden="true"></i><br /> Reports</li>
                   </a>
                 </div>
                 <!-- </div> -->
 
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" *ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/ybg3p']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-tachometer fa1" aria-hidden="true"></i><br /> Dashboards</li>
                   </a>
                 </div>
                 <!-- </div> -->
 
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()"*ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/597']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-signal fa1" aria-hidden="true"></i><br /> Knowledge Base Master</li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" *ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/bofor']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-newspaper-o fa1" aria-hidden="true"></i><br /> Knowledge Base Forum
                     </li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" *ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/bokbt']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-list-alt fa1" aria-hidden="true"></i><br /> Knowledge Base Topic
                     </li>
                   </a>
                 </div>
 
-                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()">
+                <div class="col-3 card admindrop" style="text-align:center;" (click)="closePopups()" *ngIf="showAdminMenu">
                   <a [routerLink]="['/home/boreportviewer/bofaq']" routerLinkActive="router-link-active">
                     <li class="li2"><i class="fa fa-question-circle fa1" aria-hidden="true"></i><br /> FAQ</li>
                   </a>

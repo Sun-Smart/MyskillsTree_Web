@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit {
   datarelease: any = [];
   showApplicantmenu: boolean = false;
   showAdminMenuaccess: boolean = false;
-  showAdminMenu: boolean = false;
+  showAdminMenu: boolean = true;
   showCorporateMenuaccess: boolean = false;
   hideCorporatePage: boolean = false;
   appmenu: boolean;
@@ -110,6 +110,9 @@ export class HeaderComponent implements OnInit {
     this.theme = this.sessionService.getItem("selected-theme");
     this.usersource = this.sessionService.getItem("usersource");
     this.applicantid = this.sessionService.getItem("applicantid");
+
+    console.log("this.userid", this.userid);
+    
 
     if (this.theme) {
       this.selectTheme(this.theme);
@@ -224,7 +227,7 @@ export class HeaderComponent implements OnInit {
       this.logout();
     });
 
-    if(this.userid == "974"){
+    if(this.userid == 974){
       this.showAdminMenu = false;
     }
 
