@@ -151,7 +151,14 @@ export class BODashboardViewerComponent implements OnInit {
   totalExperienceMonths: any = [];
   showexperience : boolean;
 
-  info_personal:boolean;
+  info_graphy:boolean = true;
+  info_personal:boolean = false;
+  info_skillset:boolean = false;
+  info_education:boolean = false;
+  info_career:boolean = false;
+  info_project:boolean = false;
+  info_certification:boolean = false;
+  
 
   // showDashboardDetails: boolean = false;
 
@@ -199,6 +206,8 @@ export class BODashboardViewerComponent implements OnInit {
 
       if (res == true) {
         this.showNewApp_Dashboard = false;
+        this.info_personal = true;
+        this.info_graphy = false;
       }
     })
 
@@ -371,21 +380,16 @@ export class BODashboardViewerComponent implements OnInit {
     }
   };
 
-  skillwizard(event: any) {
-    debugger;
-    console.log("event", event);
-    if (event == true) {
-      this.info_personal = false;
-    }
-  };
-
-
   personal(event: any) {
     console.log("event", event);
     if (event == true) {
       this.showpersonal = false;
       this.showSkill = true;
-    
+      
+      this.info_graphy = false;
+      this.info_personal = false;
+      this.info_skillset = true;
+  
     }
   };
 
@@ -395,6 +399,11 @@ export class BODashboardViewerComponent implements OnInit {
       this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = true;
+
+      this.info_skillset = false;
+      this.info_graphy = false;
+      this.info_personal = false;
+      this.info_education = true
     }
   }
 
@@ -405,17 +414,38 @@ export class BODashboardViewerComponent implements OnInit {
       this.showSkill = false;
       this.showeducation = false;
       this.showExperience = true;
+
+      this.info_skillset = false;
+      this.info_graphy = false;
+      this.info_personal = false;
+      this.info_education = false;
+      this.info_career = true;
     }
   }
 
   career(event: any) {
     console.log("event", event);
-    if (event == true) {
+    if (event.addcareer == true) {
       this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = false;
       this.showExperience = false;
       this.showProject = true;
+
+      this.info_skillset = false;
+      this.info_graphy = false;
+      this.info_personal = false;
+      this.info_education = false;
+      this.info_career = false;
+      this.info_project = true;
+    } else if(event.skipcareer == true){
+
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = false;
+      this.showExperience = false;
+      this.showProject = true;
+
     }
   }
 
@@ -428,6 +458,14 @@ export class BODashboardViewerComponent implements OnInit {
       this.showExperience = false;
       this.showProject = false;
       this.showCertification = true;
+
+      this.info_skillset = false;
+      this.info_graphy = false;
+      this.info_personal = false;
+      this.info_education = false;
+      this.info_career = false;
+      this.info_project = false;
+      this.info_certification = true;
     }
   }
 

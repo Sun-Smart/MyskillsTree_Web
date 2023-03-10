@@ -311,7 +311,7 @@ export class mstapplicantcareergridComponent implements OnInit {
   skills_results: DropDownValues[];
   skills_List: any[];
   pkList: any;//stores values - used in search, prev, next
-  @Output() career = new EventEmitter<boolean>();
+  @Output() career = new EventEmitter<object>();
 
   pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
   @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
@@ -576,23 +576,27 @@ export class mstapplicantcareergridComponent implements OnInit {
 
   }
 
-  async onSubmitWithCareer(bclear: any) {
-    this.career.emit(true);
+  async onSubmitWithCareer() {
 
 
-    // this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
-    //   if (res.mstapplicantcareerdetail.length > 0) {
-    //     this.career.emit(true);
-    //   } else {
-    //     this.toastr.addSingle("", "", "Add Your Experience");
-    //     return
-    //   }
-    // });
+
+
+    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
+      if (res.mstapplicantcareerdetail.length > 0) {
+        let career = {
+          addcareer : true,
+        }
+        this.career.emit(career);
+      } else {
+        let career = {
+          skipcareer : true,
+        }
+        this.career.emit(career);
+        return
+      }
+    });
   };
 
-  skip_details() {
-    this.career.emit(true);
-  }
 
 
   textAreaAdjust(element: any) {
