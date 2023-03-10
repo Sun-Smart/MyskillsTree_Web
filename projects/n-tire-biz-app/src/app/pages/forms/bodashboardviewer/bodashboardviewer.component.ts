@@ -533,7 +533,7 @@ export class BODashboardViewerComponent implements OnInit {
           }
           if (res == "[]" || res.length == 0) {
             this.checkDateError = "0.0";
-          }else{
+          } else {
             this.checkDateError = this.checkDateError;
           }
           this.finalarray.push({
@@ -548,6 +548,7 @@ export class BODashboardViewerComponent implements OnInit {
       };
 
       this.showDetails(this.finalarray[0].skillId, this.finalarray[0].subCategory, this.finalarray[0].remarks)
+
       function getDateDifference(startDate, endDate) {
         var startYear = startDate.getFullYear();
         var startMonth = startDate.getMonth();
@@ -582,6 +583,7 @@ export class BODashboardViewerComponent implements OnInit {
   };
 
   showDetails(get_id: any, category: any, remarks: any) {
+
     this.sub_categorydesc = category;
     this.remarks = remarks.replace(/['"]+/g, '');
     let body = {
@@ -591,8 +593,8 @@ export class BODashboardViewerComponent implements OnInit {
     this.mstapplicantmaster_service.get_dashboardAll_details(body).then(res => {
       this.showhearder_Details = true;
       this.dashboard_details = [],
-        this.dashboard_employementdetails = []
-      this.expYrs = []
+      this.dashboard_employementdetails = []
+      this.skillDateError = []
       this.dashboard_details.push(res);
       this.dashboard_reffreq_details = this.dashboard_details[0].list_dashboardreff.value;
       this.dashboard_employementdetails = this.dashboard_details[0].list_dashboardemployeement.value;
@@ -600,25 +602,73 @@ export class BODashboardViewerComponent implements OnInit {
       this.dashboard_projectdetails = this.dashboard_details[0].lis_dashboardproject.value;
       this.dashboard_educationdetails = this.dashboard_details[0].list_dashboareducation.value;
 
-      let StartDate = this.dashboard_employementdetails[0]?.fromdate;
-      let EndDate = this.dashboard_employementdetails[0]?.todate;
+      let StartDate = this.dashboard_projectdetails[0]?.fromdate;
+      let EndDate = this.dashboard_projectdetails[0]?.todate;
 
-      this.start_date = this.datepipe.transform(new Date(StartDate), 'dd-MM-yyyy');
-      this.end_date = this.datepipe.transform(new Date(EndDate), 'dd-MM-yyyy');
+      this.EachskillExp = getDateDifference(new Date(StartDate), new Date(EndDate));
 
-      this.endformat = this.datepipe.transform(new Date(EndDate), 'yyyy-MM-dd');
-      this.startformat = this.datepipe.transform(new Date(StartDate), 'yyyy-MM-dd');
+      console.log("this.EachskillExp", this.EachskillExp);
 
-      let currentDate = new Date(this.endformat);
-      let dateSent = new Date(this.startformat);
-
-      let result = Math.floor(
-        (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) -
-          Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24));
-
-      this.espYr = result;
-      this.expYrs = ((this.espYr / 365).toFixed(1));
+      if (this.EachskillExp && !isNaN(this.EachskillExp.years)) {
+        this.skillDateError = this.EachskillExp.years + '.' + this.EachskillExp.months
+      }
+      if (this.skillDateError == "NaN" || this.skillDateError == 0 || this.skillDateError == undefined || this.skillDateError == "null") {
+        this.skillDateError = "0.0";
+      };
     });
+
+    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByExperience(this.applicantid, get_id).then((res: any) => {
+      console.log('response check', res);
+
+      for (let i = 0; i < res.length; i++) {
+        this.skillfromDate = res[i].fromdate;
+        this.skilltoDate = res[i].todate;
+      }
+      this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
+
+      if (this.EachExpresult && !isNaN(this.EachExpresult.years)) {
+        this.checkDateError = this.EachExpresult.years + '.' + this.EachExpresult.months
+      }
+      if (this.checkDateError == "NaN" || this.checkDateError == 0 || this.checkDateError == undefined || this.checkDateError == "null") {
+        this.checkDateError = "0.0";
+      }
+      console.log('checkckekce', this.checkDateError);
+
+      if (res == "[]" || res.length == 0) {
+        this.checkDateError = "0.0";
+      } else {
+        this.checkDateError = this.checkDateError;
+      }
+    })
+
+    function getDateDifference(startDate, endDate) {
+      var startYear = startDate.getFullYear();
+      var startMonth = startDate.getMonth();
+      var startDay = startDate.getDate();
+
+      var endYear = endDate.getFullYear();
+      var endMonth = endDate.getMonth();
+      var endDay = endDate.getDate();
+
+      // We calculate February based on end year as it might be a leep year which might influence the number of days.
+      var february = (endYear % 4 == 0 && endYear % 100 != 0) || endYear % 400 == 0 ? 29 : 28;
+      var daysOfMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+      var startDateNotPassedInEndYear = (endMonth < startMonth) || endMonth == startMonth && endDay < startDay;
+      var years = endYear - startYear - (startDateNotPassedInEndYear ? 1 : 0);
+
+      var months = (12 + endMonth - startMonth - (endDay < startDay ? 1 : 0)) % 12;
+
+      // (12 + ...) % 12 makes sure index is always between 0 and 11
+      var days = startDay <= endDay ? endDay - startDay : daysOfMonth[(12 + endMonth - 1) % 12] - startDay + endDay;
+
+      return {
+        years: years,
+        months: months,
+        days: days
+      };
+
+    }
   }
 
 
