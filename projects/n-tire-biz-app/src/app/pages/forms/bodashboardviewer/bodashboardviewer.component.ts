@@ -98,7 +98,7 @@ export class BODashboardViewerComponent implements OnInit {
   dashboard_employementdetails: any = [];
   dashboard_reffreq_details: any = [];
   dashboard_educationdetails: any = [];
-  dashboard_achievementdetails: any = [];
+  dashboard_achievementdetails: Number[] | string[];
   dashboard_projectdetails: any = [];
   get_educationd_data: any = [];
   career_companyName: any;
