@@ -17,6 +17,7 @@ import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/c
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import{bobranchholidayService} from '../../../../../src/app/service/bobranchholiday.service'
 
 @Component({
     selector: 'app-bomasterdata',
@@ -112,10 +113,11 @@ export class bomasterdataComponent implements OnInit {
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
+        private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,  private bobranchholidayService:bobranchholidayService) {
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
+        this.masterdatatypeid=[];
         this.bomasterdata_Form = this.fb.group({
             pk: [null],
             masterdataid: [null],
@@ -159,12 +161,12 @@ export class bomasterdataComponent implements OnInit {
 
     async ngOnInit() {
         debugger
-        var xyz=this.bomasterdata_service.boarray
+        var xyz=this.bobranchholidayService.boarray
         this.bomasterdata_Form.patchValue({masterdatatypeid:xyz[0]})
         this.masterdatatypeid1 = localStorage.getItem("masterdataname")
 
-        // this.masterdatatypeid = this.bomasterdata_service.boarray
-        // this.bomasterdata_Form.patchValue({ masterdatatypeid: this.masterdatatypeid[0] })
+        this.masterdatatypeid = this.bobranchholidayService.boarray
+        this.bomasterdata_Form.patchValue({ masterdatatypeid: this.masterdatatypeid[0] })
         
         this.addbutton = localStorage.getItem("releasecheckbox");
         console.log(this.addbutton);

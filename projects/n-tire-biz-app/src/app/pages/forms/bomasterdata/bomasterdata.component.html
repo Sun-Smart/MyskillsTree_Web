@@ -103,13 +103,13 @@
                 style='' class="col-4 education_view_mobile"><label for="masterdatatypeid" class="control-label"
                   (click)="AddOrEdit_masterdatatypeid(null)">Master Data type</label>
 
-                  <select *ngIf="!showview " id="masterdatatypeid" (change)="masterdatatypeid_onChange($event.target)"
+                  <!-- <select *ngIf="!showview " id="masterdatatypeid" (change)="masterdatatypeid_onChange($event.target)"
                   formControlName="masterdatatypeid" class="form-control">
                   <option>-Select-</option>
                   <option *ngFor="let item of masterdatatypeid_List" value="{{item.value}}">{{item.label}}</option>
-                </select>
+                </select> -->
 
-                <!-- <input *ngIf="!showview" id="masterdatatypeid" formControlName="masterdatatypeid" class="form-control"> -->
+                 <input *ngIf="!showview" id="masterdatatypeid" [(ngModel)]="masterdatatypeid" formControlName="masterdatatypeid" class="form-control">
                 <label *ngIf="showview" class="labelview">{{f.masterdatatypeiddesc?.value}}</label>
               </div>
               <div

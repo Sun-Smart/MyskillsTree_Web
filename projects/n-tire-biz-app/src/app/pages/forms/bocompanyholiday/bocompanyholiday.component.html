@@ -61,7 +61,7 @@
           <li class='nav-item actionheader' *ngIf="!showview">
             <a class="alert-success custom_mobile_view" [routerLink]='' (click)="onSubmitAndWait()"><i class="fa fa-database"></i>
               Submit</a>
-            <a class="alert-primary mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
+            <a class="alert-success mobile_view_btn" *ngIf='data.pkcol==null || maindata.ScreenType==null' [routerLink]=''
               (click)="onSubmit()"><i class="fa fa-share-square"></i> Submit & Clear</a>
             <app-action *ngIf="f.holidayid.value != null" (afterAction)="afterAction($event)" [menuid]="p_menuid"
               [value]="f.holidayid.value" [status]="f.status.value"></app-action>
@@ -84,7 +84,7 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div
         *ngIf="((hidelist.indexOf('financialyearid') == -1) && (financialyearidvisible==undefined || financialyearidvisible==true))"
-        style='' class="col-3 education_view_mobile"><label for="financialyearid" class="control-label"
+        style='' class="col-4 education_view_mobile"><label for="financialyearid" class="control-label"
           (click)="AddOrEdit_financialyearid(null)">Financial Year</label>
         <select *ngIf="!showview" id="financialyearid" (change)="financialyearid_onChange($event.target)"
           formControlName="financialyearid" class="form-control">
@@ -95,7 +95,7 @@
       </div>
       <div
         *ngIf="((hidelist.indexOf('holidaydate') == -1) && (holidaydatevisible==undefined || holidaydatevisible==true))"
-        style='' class="col-3 education_view_mobile">
+        style='' class="col-4 education_view_mobile">
         <label for="holidaydate" class="control-label">Holiday Date</label>
         <label *ngIf="showview" class="labelview">{{ngbDateParserFormatter.format(f.holidaydate?.value)}}</label>
         <div class="input-group" *ngIf="!showview">
@@ -106,7 +106,7 @@
               class="fa fa-calendar" aria-hidden="true"></i></button>
         </div>
       </div>
-      <div *ngIf="((hidelist.indexOf('holidayday') == -1) && (holidaydayvisible==undefined || holidaydayvisible==true))"
+      <!-- <div *ngIf="((hidelist.indexOf('holidayday') == -1) && (holidaydayvisible==undefined || holidaydayvisible==true))"
         style='' class="col-3 education_view_mobile"><label for="holidayday" class="control-label">Holiday Day</label>
         <select *ngIf="!showview" id="holidayday" readonly (change)="holidayday_onChange($event.target)"
           formControlName="holidayday" class="form-control">
@@ -114,9 +114,9 @@
           <option *ngFor="let item of holidayday_List" value="{{item.value}}">{{item.label}}</option>
         </select>
         <label *ngIf="showview" class="labelview">{{f.holidaydaydesc?.value}}</label>
-      </div>
+      </div> -->
       <div *ngIf="((hidelist.indexOf('reason') == -1) && (reasonvisible==undefined || reasonvisible==true))" style=''
-        class="col-3 education_view_mobile">
+        class="col-4 education_view_mobile">
         <label for="reason" class="control-label">Reason</label>
         <label *ngIf="showview" class="labelview">{{f.reason?.value}}</label>
         <input *ngIf="!showview" id="reason" formControlName="reason" class="form-control">

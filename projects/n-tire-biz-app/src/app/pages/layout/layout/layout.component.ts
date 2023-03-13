@@ -191,7 +191,7 @@ export class LayoutComponent implements AfterViewInit, OnInit {
                                 command: (e) => { this.OpenPage(e); }
                             },
                             {
-                                label: 'Job Requirements',
+                                label: 'Opportunity Requirements',
                                 icon: 'icon-applicantsearch',
                                 routerLink: "home/boreportviewer/jobq",
                                 command: (e) => { this.OpenPage(e); }
@@ -273,7 +273,7 @@ export class LayoutComponent implements AfterViewInit, OnInit {
                             command: (e) => { this.OpenPage(e); }
                         },
                         {
-                            label: 'Job Requirements',
+                            label: 'Opportunity Requirements',
                             icon: 'icon-applicantsearch',
                             routerLink: "home/boreportviewer/jobqc",
                             command: (e) => { this.OpenPage(e); }
@@ -361,7 +361,7 @@ export class LayoutComponent implements AfterViewInit, OnInit {
                             command: (e) => { this.OpenPage(e); }
                         },
                         {
-                            label: 'Job Statuses',
+                            label: 'Opportunity Statuses',
                             icon: 'icon-references',
                             routerLink: "home/boreportviewer/jobs",
                             command: (e) => { this.OpenPage(e); }

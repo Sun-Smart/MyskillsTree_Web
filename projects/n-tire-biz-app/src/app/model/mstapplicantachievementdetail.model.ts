@@ -4,6 +4,7 @@ export class mstapplicantachievementdetail {
   fromyear: Date;
   toyear: Date;
   skillsstring: any;
+  skill: any;
   constructor() { }
 }
 export interface ImstapplicantachievementdetailResponse {

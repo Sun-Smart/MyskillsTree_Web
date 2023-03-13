@@ -1,6 +1,7 @@
 import { bomasterdatatypeService } from './../../../service/bomasterdatatype.service';
 import { bomasterdatatype } from './../../../model/bomasterdatatype.model';
-import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+// import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
+import { ElementRef, Component, OnInit, Inject, Optional,Input, ViewChild, EventEmitter } from '@angular/core';
 
 import { ToastService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,6 +19,7 @@ import { SessionService } from '../../../../../../n-tire-biz-app/src/app/pages/c
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
+import{bobranchholidayService} from '../../../../../src/app/service/bobranchholiday.service'
 
 @Component({
     selector: 'app-bomasterdatatype',
@@ -114,7 +116,8 @@ export class bomasterdatatypeComponent implements OnInit {
     Deleted_bomasterdata_IDs: string = "";
     bomasterdatas_ID: string = "1";
     bomasterdatas_selectedindex: any;
-    masterdatatypeid1: string;
+    masterdatatypeid: any;
+    masterdatatypeid1: any;
     mdata: any;
     boarray: any[];
     check1: boolean = false;
@@ -122,6 +125,7 @@ export class bomasterdatatypeComponent implements OnInit {
     candelete: boolean = true;
     editButtons: boolean = true;
     deletebuttons: boolean = true;
+    // bomasterdata_service: any;
 
 
     constructor(private router: Router,
@@ -130,11 +134,13 @@ export class bomasterdatatypeComponent implements OnInit {
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
         private bomasterdatatype_service: bomasterdatatypeService,
+     
         private fb: FormBuilder,
         private sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
-        private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService) {
+        private currentRoute: ActivatedRoute, private spinner: NgxSpinnerService,
+        private bobranchholidayService:bobranchholidayService) {
         this.data = dynamicconfig;
         this.p_menuid = sharedService.menuid;
         this.p_currenturl = sharedService.currenturl;
@@ -301,6 +307,7 @@ export class bomasterdatatypeComponent implements OnInit {
     resetForm() {
         if (this.bomasterdatatype_Form != null)
             this.bomasterdatatype_Form.reset();
+            
         this.bomasterdatatype_Form.patchValue({
         });
         setTimeout(() => {
@@ -416,6 +423,7 @@ export class bomasterdatatypeComponent implements OnInit {
     }
 
     FillData(res: any) {
+        debugger
         this.formData = res.bomasterdatatype;
         this.formid = res.bomasterdatatype.datatypeid;
         this.pkcol = res.bomasterdatatype.pkcol;
@@ -579,7 +587,10 @@ export class bomasterdatatypeComponent implements OnInit {
     }
 
     AddOrEdit_bomasterdata(event: any, masterdataid: any, datatypeid: any) {
-
+        debugger
+        let getData = this.mdata;
+        this.bobranchholidayService.boarray.push( this.mdata)
+        this.masterdatatypeid1 = localStorage.getItem("masterdataname")
         let add = false;
         if (event == null) add = true;
         let childsave = false;

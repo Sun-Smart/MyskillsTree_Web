@@ -213,7 +213,7 @@
       </ngb-tab>
       <ngb-tab>
         <ng-template ngbTabTitle>
-          <div (click)="ToolBar(false)">Job Requirements</div>
+          <div (click)="ToolBar(false)">Opportunity Requirements</div>
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
@@ -221,7 +221,7 @@
             <div [ngClass]="Is_mstjobrequirements_Visible()">
               <!--End-->
               <h4 class="form-group sticky1  columns left" style="font-size: medium;
-              margin: 6px 3px !important;">{{'Job Requirements'}}
+              margin: 6px 3px !important;">{{'Opportunity Requirements'}}
                 <select class='child' id="mstjobrequirementsPagingdropdown"
                   (change)="mstjobrequirements_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
@@ -264,7 +264,7 @@
       </ngb-tab>
       <ngb-tab>
         <ng-template ngbTabTitle>
-          <div (click)="ToolBar(false)">Job Statuses</div>
+          <div (click)="ToolBar(false)">Opportunity Statuses</div>
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
@@ -272,7 +272,7 @@
             <div [ngClass]="Is_mstjobstatuses_Visible()">
               <!--End-->
               <h4 class="form-group sticky1  columns left" style="font-size: medium;
-              margin: 6px 3px !important;">{{'Job Statuses'}}
+              margin: 6px 3px !important;">{{'Opportunity Statuses'}}
                 <select class='child' id="mstjobstatusesPagingdropdown"
                   (change)="mstjobstatuses_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>

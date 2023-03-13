@@ -8,8 +8,8 @@
       <div class='col-5'></div>
       <div class='dropdown d-inline-block btn-dropdown show col-3 ' style="margin: 8px !important;">
         <ul class='nav nav-pills  input-group'>
-          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bocompanymasters()"><i
-                class="nb-edit"></i>Edit</a></li>
+          <li><a class='alert-info' [routerLink]='' *ngIf='showview' (click)="edit_bocompanymasters()" style="margin-left: 18rem;"><i
+                class="fa fa-edit"></i>Edit</a></li>
           <li class='nav-item actionheader col' *ngIf='maindata==null || maindata==undefined'>
             <a [routerLink]='' (click)='first()'><i class='fa fa-fast-backward'
                 aria-hidden='true'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a [routerLink]='' (click)='prev()'><i
@@ -420,7 +420,7 @@
                   <label *ngIf="showview" class="labelview">{{f.shippingpincode?.value}}</label>
                   <input *ngIf="!showview" id="shippingpincode" formControlName="shippingpincode" class="form-control">
                 </div>
-                <div
+                <!-- <div
                   *ngIf="((hidelist.indexOf('basecurrency') == -1) && (basecurrencyvisible==undefined || basecurrencyvisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="basecurrency" class="control-label">Base Currency</label>
                   <select *ngIf="!showview" id="basecurrency" (change)="basecurrency_onChange($event.target)"
@@ -429,8 +429,8 @@
                     <option *ngFor="let item of basecurrency_List" value="{{item.value}}">{{item.label}}</option>
                   </select>
                   <label *ngIf="showview" class="labelview">{{f.basecurrencydesc?.value}}</label>
-                </div>
-                <div
+                </div> -->
+                <!-- <div
                   *ngIf="((hidelist.indexOf('gstregistrationtype') == -1) && (gstregistrationtypevisible==undefined || gstregistrationtypevisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="gstregistrationtype" class="control-label">G S T Registration
                     Type</label>
@@ -441,7 +441,7 @@
                     <option *ngFor="let item of gstregistrationtype_List" value="{{item.value}}">{{item.label}}</option>
                   </select>
                   <label *ngIf="showview" class="labelview">{{f.gstregistrationtypedesc?.value}}</label>
-                </div>
+                </div> -->
               </div>
               <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
                 <div
@@ -660,7 +660,7 @@
                   <input *ngIf="!showview" id="mailingsendername" formControlName="mailingsendername"
                     class="form-control">
                 </div>
-                <div
+                <!-- <div
                   *ngIf="((hidelist.indexOf('localization') == -1) && (localizationvisible==undefined || localizationvisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="localization" class="control-label">Localization</label>
                   <select *ngIf="!showview" id="localization" (change)="localization_onChange($event.target)"
@@ -669,8 +669,8 @@
                     <option *ngFor="let item of localization_List" value="{{item.value}}">{{item.label}}</option>
                   </select>
                   <label *ngIf="showview" class="labelview">{{f.localizationdesc?.value}}</label>
-                </div>
-                <div
+                </div> -->
+                <!-- <div
                   *ngIf="((hidelist.indexOf('timezone') == -1) && (timezonevisible==undefined || timezonevisible==true))"
                   style='' class="col-3 education_view_mobile"><label for="timezone" class="control-label">Time Zone</label>
                   <select *ngIf="!showview" id="timezone" (change)="timezone_onChange($event.target)"
@@ -679,7 +679,7 @@
                     <option *ngFor="let item of timezone_List" value="{{item.value}}">{{item.label}}</option>
                   </select>
                   <label *ngIf="showview" class="labelview">{{f.timezonedesc?.value}}</label>
-                </div>
+                </div> -->
               </div>
             </p-accordionTab>
           </p-accordion>

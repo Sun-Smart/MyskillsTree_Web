@@ -1,8 +1,16 @@
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <ngx-spinner></ngx-spinner>
 <form [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-  <div class="row second">
+  <div class="row second bgColor" [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
+
+
+    <div class="col-4 " style="display: flex !important;justify-content: initial;align-items: center !important; background-color: #f5f3e4;">
+      <h1 class="   mainheader left " style="margin: 0px; color: gray !important;margin: auto;">
+        {{'Applicant Masters'}}
+      </h1>
+    </div>
     <div class='col  sticky1 second bgcolor' role='toolbar' aria-label='Toolbar with button groups'>
+
       <!--btn-toolbar-->
       <div class='col'></div>
       <div class='dropdown d-inline-block btn-dropdown show'>
@@ -317,7 +325,7 @@
               *ngIf="((hidelist.indexOf('availableforjob') == -1) && (availableforjobvisible==undefined || availableforjobvisible==true))"
               style='' class="col-6 ">
               <div class="columnchk">
-                <label for="availableforjob" class="control-label">Available For Job</label>
+                <label for="availableforjob" class="control-label">Available For Opportunity</label>
                 <label *ngIf="showview" class="labelview">{{f.availableforjob?.value}}</label>
                 <input type="checkbox" *ngIf="!showview" id="availableforjob" formControlName="availableforjob"
                   class="">
@@ -624,14 +632,14 @@
       </ngb-tab>
       <ngb-tab *ngIf="Ismstjobstatuses_div_Visible">
         <ng-template ngbTabTitle>
-          <div (click)="ToolBar(false)">Job Statuses</div>
+          <div (click)="ToolBar(false)">Opportunity Statuses</div>
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
             <!-- child table mstjobstatuses-->
             <div [ngClass]="Is_mstjobstatuses_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left">{{'Job Statuses'}}
+              <h4 class="form-group sticky1  columns left">{{'Opportunity Statuses'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'

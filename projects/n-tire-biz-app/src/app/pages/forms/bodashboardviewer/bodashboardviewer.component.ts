@@ -100,7 +100,7 @@ export class BODashboardViewerComponent implements OnInit {
   dashboard_employementdetails: any = [];
   dashboard_reffreq_details: any = [];
   dashboard_educationdetails: any = [];
-  dashboard_achievementdetails: number[];
+  dashboard_achievementdetails: any = [];
   dashboard_projectdetails: any = [];
   get_educationd_data: any = [];
   career_companyName: any;
@@ -649,10 +649,16 @@ export class BODashboardViewerComponent implements OnInit {
           if (this.EachExpresult && !isNaN(this.EachExpresult.years)) {
             this.checkDateError = this.checkDateError;
           }
-          if (this.checkDateError == "NaN" || this.checkDateError == 0 || this.checkDateError == undefined || this.checkDateError == "null") {
+          if (this.checkDateError == "NaN.NaN" || this.checkDateError == 0 || this.checkDateError == undefined || this.checkDateError == "null") {
             this.checkDateError = "0.0";
           }
           console.log('checkckekce', this.checkDateError);
+          if (this.checkDateError && !isNaN(this.checkDateError)) {
+            this.checkDateError = this.checkDateError;
+          }
+          if (this.checkDateError == "NaN.NaN" || this.checkDateError == 0 || this.checkDateError == undefined || this.checkDateError == "null") {
+            this.checkDateError = "0.0";
+          }
 
           for (let i = 0; i < this.skill_detail.length; i++) {
             if (this.skill_detail[i].strRating == 1) {

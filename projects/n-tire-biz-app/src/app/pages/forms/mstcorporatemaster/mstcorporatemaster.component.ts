@@ -1015,12 +1015,12 @@ export class mstcorporatemasterComponent implements OnInit {
             },
             columns: {
                 jobdescription: {
-                    title: 'Job Description',
+                    title: 'Opportunity Description',
                     type: '',
                     filter: true,
                 },
                 jobrequirement: {
-                    title: 'Job Requirement',
+                    title: 'Opportunity Requirement',
                     type: '',
                     filter: true,
                 },
@@ -1277,7 +1277,7 @@ export class mstcorporatemasterComponent implements OnInit {
                     },
                 },
                 jobiddesc: {
-                    title: 'Job',
+                    title: 'Opportunity',
                     type: 'html',
                     filter: true,
                 },
