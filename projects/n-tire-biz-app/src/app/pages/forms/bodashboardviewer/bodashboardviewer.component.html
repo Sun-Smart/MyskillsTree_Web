@@ -172,7 +172,7 @@
         </div>
         <div class="col-6" style="text-align: end;">
           <h6 style="font-weight: 600;" *ngIf="showexperience"> Total Experience : {{totalExperience}}years</h6>
-          <h6 style="font-weight: 600;" *ngIf="!showexperience"> Total Experience : {{totalExperience2}}years</h6>
+          <h6 style="font-weight: 600;" *ngIf="!showexperience"> Total Experience : {{totalExperience2 ? totalExperience2 : '0.0'}}years</h6>
         </div>
       </div>
 
