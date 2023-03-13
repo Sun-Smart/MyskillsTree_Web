@@ -680,14 +680,12 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
         let project = {
           addproject : true,
-          skipcareeronly :true
         }
         this.project.emit(project);
 
       } else {
         let project = {
           skipproject : true,
-          skipproject_career : true,
         }
         this.project.emit(project);
         return

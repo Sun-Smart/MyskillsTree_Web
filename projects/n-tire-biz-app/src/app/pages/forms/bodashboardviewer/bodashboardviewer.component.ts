@@ -400,13 +400,13 @@ export class BODashboardViewerComponent implements OnInit {
   skills(event: any) {
     console.log("event", event);
     if (event == true) {
-      this.showpersonal = false;
+      // this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = true;
 
       this.info_skillset = false;
-      this.info_graphy = false;
-      this.info_personal = false;
+      // this.info_graphy = false;
+      // this.info_personal = false;
       this.info_education = true
     }
   }
@@ -414,14 +414,14 @@ export class BODashboardViewerComponent implements OnInit {
   education(event: any) {
     console.log("event", event);
     if (event == true) {
-      this.showpersonal = false;
-      this.showSkill = false;
+      // this.showpersonal = false;
+      // this.showSkill = false;
       this.showeducation = false;
       this.showExperience = true;
 
-      this.info_skillset = false;
-      this.info_graphy = false;
-      this.info_personal = false;
+      // this.info_skillset = false;
+      // this.info_graphy = false;
+      // this.info_personal = false;
       this.info_education = false;
       this.info_career = true;
     }
@@ -430,82 +430,80 @@ export class BODashboardViewerComponent implements OnInit {
   career(event: any) {
     console.log("event", event);
     if (event.addcareer == true) {
-      this.showpersonal = false;
-      this.showSkill = false;
-      this.showeducation = false;
+      // this.showpersonal = false;
+      // this.showSkill = false;
+      // this.showeducation = false;
       this.showExperience = false;
       this.showProject = true;
 
-      this.info_skillset = false;
-      this.info_graphy = false;
-      this.info_personal = false;
-      this.info_education = false;
+      // this.info_skillset = false;
+      // this.info_graphy = false;
+      // this.info_personal = false;
+      // this.info_education = false;
       this.info_career = false;
       this.info_project = true;
     }
-    else if (event.skipcareer == true) {
-      this.showpersonal = false;
-      this.showSkill = false;
-      this.showeducation = false;
+    else {
+      // this.showpersonal = false;
+      // this.showSkill = false;
+      // this.showeducation = false;
       this.showExperience = false;
       this.showProject = true;
 
-      this.info_skillset = false;
-      this.info_graphy = false;
-      this.info_personal = false;
-      this.info_education = false;
+      // this.info_skillset = false;
+      // this.info_graphy = false;
+      // this.info_personal = false;
+      // this.info_education = false;
       this.info_career = false;
-      this.info_project = false;
+      this.info_project = true;
 
-      this.certiCareer_unfill = true;
+      // this.certiCareer_unfill = true;
     }
   }
 
   project(event: any) {
     console.log("event", event);
     if (event.addproject == true) {
-      this.showpersonal = false;
-      this.showSkill = false;
-      this.showeducation = false;
-      this.showExperience = false;
+      // this.showpersonal = false;
+      // this.showSkill = false;
+      // this.showeducation = false;
+      // this.showExperience = false;
       this.showProject = false;
       this.showCertification = true;
 
-      this.info_skillset = false;
-      this.info_graphy = false;
-      this.info_personal = false;
-      this.info_education = false;
-      this.info_career = false;
+      // this.info_skillset = false;
+      // this.info_graphy = false;
+      // this.info_personal = false;
+      // this.info_education = false;
+      // this.info_career = false;
       this.info_project = false;
       this.info_certification = true;
     }
-    else if(event.skipcareer == true){
-      this.showpersonal = false;
-      this.showSkill = false;
-      this.showeducation = false;
-      this.showExperience = false;
+    else {
+      // this.showpersonal = false;
+      // this.showSkill = false;
+      // this.showeducation = false;
+      // this.showExperience = false;
       this.showProject = false;
       this.showCertification = true;
 
-      this.info_skillset = false;
-      this.info_graphy = false;
-      this.info_personal = false;
-      this.info_education = false;
-      this.info_career = false;
+    //   this.info_skillset = false;
+    //   this.info_graphy = false;
+    //   this.info_personal = false;
+    //   this.info_education = false;
+    //   this.info_career = false;
       this.info_project = false;
-      this.info_certification = false;
-
-      this.career_unfilled = true;
+      this.info_certification = true;
     }
   }
 
   certification(event: any) {
     console.log("event", event);
     if (event.addcertification == true) {
-      this.showpersonal = false;
-      this.showSkill = false;
-      this.showeducation = false;
-      this.showExperience = false;
+      // this.showpersonal = false;
+      // this.showSkill = false;
+      // this.showeducation = false;
+      // this.showExperience = false;
       this.showProject = false;
       this.showCertification = false;
       this.showNewApp_Dashboard = true;
