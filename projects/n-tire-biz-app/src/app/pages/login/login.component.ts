@@ -433,6 +433,13 @@ export class LoginComponent implements OnInit {
       return;
     }
     if (loginuser.defaultpage == null || !loginuser.defaultpage) {
+      if (this.rememberMe == false) {
+        this.rememberMe = false;
+        this.email = localStorage.removeItem("email");
+        this.password = localStorage.removeItem("password");
+        this.remem = localStorage.removeItem("rememberMe");
+      }
+
       if (loginuser.role == "2") {
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(loginuser.applicantid).then((res: any) => {
           this.router.navigate(['/home']);
@@ -451,12 +458,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/home']);
         });
       }
-      if (this.rememberMe == false) {
-        this.rememberMe = false;
-        this.email = localStorage.removeItem("email");
-        this.password = localStorage.removeItem("password");
-        this.remem = localStorage.removeItem("rememberMe");
-      }
+
     }
     else {
       this.router.navigate(['/home']);
