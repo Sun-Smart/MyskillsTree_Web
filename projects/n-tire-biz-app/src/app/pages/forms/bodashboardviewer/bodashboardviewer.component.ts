@@ -487,11 +487,11 @@ export class BODashboardViewerComponent implements OnInit {
       this.showProject = false;
       this.showCertification = true;
 
-    //   this.info_skillset = false;
-    //   this.info_graphy = false;
-    //   this.info_personal = false;
-    //   this.info_education = false;
-    //   this.info_career = false;
+      //   this.info_skillset = false;
+      //   this.info_graphy = false;
+      //   this.info_personal = false;
+      //   this.info_education = false;
+      //   this.info_career = false;
       this.info_project = false;
       this.info_certification = true;
     }
@@ -534,15 +534,21 @@ export class BODashboardViewerComponent implements OnInit {
         });
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByExperience(this.applicantid, this.sub_category[i].subcategoryid).then((res: any) => {
           console.log('response check', res);
-
+          let yR = 0; let mN = 0;
           for (let i = 0; i < res.length; i++) {
             this.skillfromDate = res[i].fromdate;
             this.skilltoDate = res[i].todate;
+            this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
+            yR += this.EachExpresult.years;
+            mN += this.EachExpresult.months;
+
+
+            console.log(yR + 'year month ' + mN);
           }
-          this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
+          this.checkDateError = yR + '.' + mN;
 
           if (this.EachExpresult && !isNaN(this.EachExpresult.years)) {
-            this.checkDateError = this.EachExpresult.years + '.' + this.EachExpresult.months
+            this.checkDateError = this.checkDateError;
           }
           if (this.checkDateError == "NaN" || this.checkDateError == 0 || this.checkDateError == undefined || this.checkDateError == "null") {
             this.checkDateError = "0.0";

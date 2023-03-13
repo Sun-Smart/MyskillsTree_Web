@@ -539,6 +539,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.showOrderError = false;
     }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
+    debugger
     this.formData.applicantid = this.applicantid;
     if (this.contentChecked == true && this.mstapplicantskilldetail_Form.value.orderpriority) {
       console.log('this.contentChecked', this.contentChecked);
@@ -755,6 +756,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.skillsubcategory_Code = res.mstapplicantskilldetail.skillcategory;
       this.mstapplicantskilldetail_service.getList_skillcategory2(this.segment_ID_Code).then(res => {
         this.skillcategory_List = res as DropDownValues[];
+     
         //suneel
         if (this.formData && this.formData.skillcategory) {
           this.mstapplicantskilldetail_Form.patchValue({
