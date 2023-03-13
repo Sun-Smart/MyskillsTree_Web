@@ -100,7 +100,7 @@ export class BODashboardViewerComponent implements OnInit {
   dashboard_employementdetails: any = [];
   dashboard_reffreq_details: any = [];
   dashboard_educationdetails: any = [];
-  dashboard_achievementdetails: any = [];
+  dashboard_achievementdetails: Number[];
   dashboard_projectdetails: any = [];
   get_educationd_data: any = [];
   career_companyName: any;
@@ -154,32 +154,34 @@ export class BODashboardViewerComponent implements OnInit {
   showexperience: boolean;
 
   info_graphy: boolean;
-  info_personal: boolean = true;
+  info_personal: boolean = false;
   info_skillset: boolean = false;
   info_education: boolean = false;
   info_career: boolean = false;
   info_project: boolean = false;
   info_certification: boolean = false;
 
+  personal_filled: boolean = false;
   skill_filled: boolean = false;
   education_filled: boolean = false;
   project_filled: boolean = false;
   career_filled: boolean = false;
   achevement_filled: boolean = false;
 
-  career_unfilled :boolean = false
-  achevement_unfilled :boolean = false
+  career_unfilled: boolean = false
+  achevement_unfilled: boolean = false
 
-  skill_nodata: any;
-  skill_withdata: any;
-  education_nodata: any;
-  education_withdata: any;
-  career_nodata: any;
-  career_withdata: any;
-  achievement_nodata: any;
-  achievement_withdata: any;
-  project_nodata: any;
-  project_withdata: any;
+  skill_nodata: number;
+  personal_nodata: number
+  skill_withdata: number;
+  education_nodata: number;
+  education_withdata: number;
+  career_nodata: number;
+  career_withdata: number;
+  achievement_nodata: number;
+  achievement_withdata: number;
+  project_nodata: number;
+  project_withdata: number;
 
 
   // showDashboardDetails: boolean = false;
@@ -197,7 +199,7 @@ export class BODashboardViewerComponent implements OnInit {
     private mstapplicantreferencerequestService: mstapplicantreferencerequestService,
   ) {
     this.applicantid = this.sessionService.getItem("applicantid");
-
+    this.pkcol = this.sessionService.getItem('usersource');
   }
   ngOnInit() {
     this.get_allData();
@@ -536,78 +538,88 @@ export class BODashboardViewerComponent implements OnInit {
   };
 
   get_infography() {
-    this.skill_nodata = 0;
-    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then(res => {
+    debugger
+    // this.personal_nodata = 0;
+    // this.mstapplicantmaster_service.get_mstapplicantmasters_ByEID(this.pkcol).then((res:any) => {
+    //   if(res.mstapplicantmaster.length != 0 || res.mstapplicantmaster.length != null || res.mstapplicantmaster.length != undefined)
+    //   {
+    //   this.personal_nodata = 1;
+    //   }
+    // });
 
-      if(res.mstapplicantskilldetail.length > 0)
-      {
-      this.skill_nodata = 1;
+    this.skill_nodata = 0;
+    this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(this.applicantid).then((res: any) => {
+      debugger
+      if (res.mstapplicantskilldetail.length > 0) {
+        this.skill_nodata = 1;        
       }
 
     });
     this.education_nodata = 0;
-    this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
-
-      if(res.mstapplicanteducationdetail.length > 0)
-      {
-      this.education_nodata = 1;
+    this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then((res: any) => {
+      debugger
+      if (res.mstapplicanteducationdetail.length > 0) {
+        this.education_nodata = 1;
       }
 
     });
     this.career_nodata = 0;
-    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
-
-      if( res.mstapplicantcareerdetail.length > 0)
-      {
-      this.career_nodata =1;
+    this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then((res: any) => {
+      debugger
+      if (res.mstapplicantcareerdetail.length > 0) {
+        this.career_nodata = 1;
       }
     });
     this.achievement_nodata = 0;
-    this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {
-
-      if(res.mstapplicantachievementdetail.length > 0)
-      {
-      this.achievement_nodata = 1;
+    this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then((res: any) => {
+      debugger
+      if (res.mstapplicantachievementdetail.length > 0) {
+        this.achievement_nodata = 1;
       }
     })
     this.project_nodata = 0;
-    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
-     if(res.mstapplicantcareerdetail.length > 0)
-     {
-      this.project_nodata = 1;
-     }
+    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then((res: any) => {
+      debugger
+      if (res.mstapplicantworkreference.length > 0) {
+        this.project_nodata = 1;
+      }
     });
 
 
 
-    if (this.skill_nodata ==1 && this.education_nodata==0 && this.career_nodata==0 && this.achievement_nodata==0 && this.project_nodata==0) {
-      this.skill_filled = true
+    if (this.skill_nodata == 0 && this.education_nodata == 0 && this.career_nodata == 0 && this.achievement_nodata == 0 && this.project_nodata == 0) {
+      debugger
+      // this.skill_filled = true
+      this.personal_filled = true
+
     }
 
-    if (this.skill_nodata ==1 && this.education_nodata==1 && this.career_nodata==0 && this.achievement_nodata==0 && this.project_nodata==0) {
+    if (this.skill_nodata == 1 && this.education_nodata == 1 && this.career_nodata == 0 && this.achievement_nodata == 0 && this.project_nodata == 0) {
+      debugger
       this.education_filled = true
     }
 
-    if (this.skill_nodata ==1 && this.education_nodata==1 && this.career_nodata==1 && this.achievement_nodata==0 && this.project_nodata==0) {
+    if (this.skill_nodata == 1 && this.education_nodata == 1 && this.career_nodata == 1 && this.achievement_nodata == 0 && this.project_nodata == 0) {
+      debugger
       this.career_filled = true
     }
 
-    if (this.skill_nodata ==1 && this.education_nodata==1 && this.career_nodata==1 && this.achievement_nodata==1 && this.project_nodata==0) {
+    if (this.skill_nodata == 1 && this.education_nodata == 1 && this.career_nodata == 1 && this.achievement_nodata == 1 && this.project_nodata == 0) {
       this.achevement_filled = true
     }
-    if (this.skill_nodata ==1 && this.education_nodata==1 && this.career_nodata==1 && this.achievement_nodata==1 && this.project_nodata==1) {
+    if (this.skill_nodata == 1 && this.education_nodata == 1 && this.career_nodata == 1 && this.achievement_nodata == 0 && this.project_nodata == 1) {
       this.project_filled = true
     }
 
-    if (this.skill_nodata ==1 && this.education_nodata==1 && this.career_nodata==0 && this.achievement_nodata==1 && this.project_nodata==1) {
+    if (this.skill_nodata == 1 && this.education_nodata == 1 && this.career_nodata == 0 && this.achievement_nodata == 1 && this.project_nodata == 1) {
       this.career_unfilled = true
     }
 
-    if (this.skill_nodata ==1 && this.education_nodata==1 && this.career_nodata==1 && this.achievement_nodata==0 && this.project_nodata==1) {
+    if (this.skill_nodata == 1 && this.education_nodata == 1 && this.career_nodata == 1 && this.achievement_nodata == 0 && this.project_nodata == 1) {
       this.achevement_unfilled = true
     }
 
-    
+
 
   }
 
