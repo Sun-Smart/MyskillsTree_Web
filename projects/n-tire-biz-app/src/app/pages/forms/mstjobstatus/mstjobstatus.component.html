@@ -4,7 +4,7 @@
   <div class="row second" style="background-color: #f5f3e4;margin: auto;">
 
     <div class="col-4">
-      <h1 class="columns mainheader left">{{'Job Statuses'}}</h1>
+      <h1 class="columns mainheader left">{{'Opportunity Statuses'}}</h1>
     </div>
 
 
@@ -177,7 +177,7 @@
     <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
       <div *ngIf="((hidelist.indexOf('jobid') == -1) && (jobidvisible==undefined || jobidvisible==true))" style=''
         class="col-3 applicantfield"><label for="jobid" class="control-label"
-          (click)="AddOrEdit_jobid(null)">Job</label>
+          (click)="AddOrEdit_jobid(null)">Opportunity</label>
         <input readonly id="jobiddesc" formControlName="jobiddesc" class="form-control">
         <label *ngIf="showview" class="labelview">{{f.jobiddesc?.value}}</label>
       </div>

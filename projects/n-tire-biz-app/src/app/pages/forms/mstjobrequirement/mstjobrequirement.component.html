@@ -4,7 +4,7 @@
   <div class="row second"
     [ngClass]="{'report-admin-bgColor': this.userrole=='Admin','report-applicant-bgColor':this.userrole=='Applicant','report-coporate-bgColor':this.userrole=='Corporate'}">
     <div class="col-4" style="display: flex;align-items: center;">
-      <h1 class=" columns mainheader left" style="margin: auto;">{{'Job Requirements'}}
+      <h1 class=" columns mainheader left" style="margin: auto;">{{'Opportunity Requirements'}}
       </h1>
     </div>
 
@@ -132,23 +132,23 @@
               <div
                 *ngIf="((hidelist.indexOf('jobdescription') == -1) && (jobdescriptionvisible==undefined || jobdescriptionvisible==true))"
                 style='' class="col-3 education_view_mobile">
-                <label for="jobdescription" class="control-label required">Job Description</label>
+                <label for="jobdescription" class="control-label required">Opportunity Description</label>
                 <label *ngIf="showview" class="labelview">{{f.jobdescription?.value}}</label>
                 <input *ngIf="!showview" id="jobdescription" required formControlName="jobdescription"
                   class="form-control">
                 <app-field-error-display [displayError]="f.jobdescription.errors?.required"
-                  errorMsg="Enter {{'Job Description'}}">
+                  errorMsg="Enter {{'Opportunity Description'}}">
                 </app-field-error-display>
               </div>
               <div
                 *ngIf="((hidelist.indexOf('jobrequirement') == -1) && (jobrequirementvisible==undefined || jobrequirementvisible==true))"
                 style='' class="col-3 education_view_mobile">
-                <label for="jobrequirement" class="control-label required">Job Requirement</label>
+                <label for="jobrequirement" class="control-label required">Opportunity Requirement</label>
                 <label *ngIf="showview" class="labelview">{{f.jobrequirement?.value}}</label>
                 <input *ngIf="!showview" id="jobrequirement" required formControlName="jobrequirement"
                   class="form-control">
                 <app-field-error-display [displayError]="f.jobrequirement.errors?.required"
-                  errorMsg="Enter {{'Job Requirement'}}">
+                  errorMsg="Enter {{'Opportunity Requirement'}}">
                 </app-field-error-display>
               </div>
               <div
@@ -292,14 +292,14 @@
       </ngb-tab>
       <ngb-tab>
         <ng-template ngbTabTitle>
-          <div (click)="ToolBar(false)">Job Statuses</div>
+          <div (click)="ToolBar(false)">Opportunity Statuses</div>
         </ng-template>
         <ng-template ngbTabContent>
           <p-accordion [multiple]='true'>
             <!-- child table mstjobstatuses-->
             <div [ngClass]="Is_mstjobstatuses_Visible()">
               <!--End-->
-              <h4 class="form-group sticky1  columns left" style="font-size: inherit;margin: 6px 10px !important;">{{'Job Statuses'}}
+              <h4 class="form-group sticky1  columns left" style="font-size: inherit;margin: 6px 10px !important;">{{'Opportunity Statuses'}}
                 <select class='child' id="mstjobstatusesPagingdropdown"
                   (change)="mstjobstatuses_Paging($event.target.value)" [value]='20'>
                   <option value='20'>20</option>
