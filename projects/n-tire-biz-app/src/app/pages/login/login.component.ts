@@ -433,6 +433,13 @@ export class LoginComponent implements OnInit {
       return;
     }
     if (loginuser.defaultpage == null || !loginuser.defaultpage) {
+      if (this.rememberMe == false) {
+        this.rememberMe = false;
+        this.email = localStorage.removeItem("email");
+        this.password = localStorage.removeItem("password");
+        this.remem = localStorage.removeItem("rememberMe");
+      }
+
       if (loginuser.role == "2") {
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByApplicantID(loginuser.applicantid).then((res: any) => {
           this.router.navigate(['/home']);
@@ -451,12 +458,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/home']);
         });
       }
-      if (this.rememberMe == false) {
-        this.rememberMe = false;
-        this.email = localStorage.removeItem("email");
-        this.password = localStorage.removeItem("password");
-        this.remem = localStorage.removeItem("rememberMe");
-      }
+
     }
     else {
       this.router.navigate(['/home']);
@@ -537,7 +539,7 @@ export class LoginComponent implements OnInit {
     this.spinner.show();
 
     if (data.value.email == null) {
-      this.toastService.addSingle("success", " ", "Please Enter Email or Mobile Number.");
+      this.toastService.addSingle("success", " ", "Please Enter Email");
       this.spinner.hide();
     } else {
       let verify_data = {
@@ -558,7 +560,7 @@ export class LoginComponent implements OnInit {
           this.verifyEmail_Otp = this.otp_resp.emailotp;
           this.verify_outputstring = this.otp_resp.outputstring;
 
-          this.toastService.addSingle("success", "", "OTP has send to your registered mail id and Mobilenumber.");
+          this.toastService.addSingle("success", "", "OTP has send to your registered mail id");
 
           if (this.verify_outputstring == "OTP has send to your registered mail id and Mobilenumber") {
 

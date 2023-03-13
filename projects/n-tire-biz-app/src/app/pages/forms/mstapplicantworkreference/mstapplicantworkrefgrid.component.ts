@@ -255,7 +255,7 @@ class="fa fa-close"></i> Close</button>
 </div>
 </form>
 
-<div class = "col-12" style="overflow-y: scroll;height: 390px;padding:0;">
+<div class = "col-12" style="overflow-y: scroll;height: 360px;padding:0;">
               <ng2-smart-table #tbl_mstapplicantworkreferences
                 (userRowSelect)="handle_mstapplicantworkreferences_GridSelected($event)"
                 [settings]="mstapplicantworkreferences_settings"
@@ -271,7 +271,7 @@ class="fa fa-close"></i> Close</button>
               </ng2-smart-table>
               </div>
 
-      <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+      <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 1rem;">
       
       <!--<button class="wizard-button" (click)="skip_details()" style="margin-right:10px;"> Skip</button>-->
 
@@ -310,7 +310,7 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   city_optionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete
 
-  @Output() project = new EventEmitter<boolean>();
+  @Output() project = new EventEmitter<object>();
 
 
   mstapplicantworkreferences_visiblelist: any;
@@ -675,21 +675,26 @@ export class mstapplicantworkrefgridComponent implements OnInit {
 
   async onSubmitWithProject(bclear: any) {
 
-    this.project.emit(true);
+    this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
+       if (res.mstapplicantworkreference.length > 0) {
 
+        let project = {
+          addproject : true,
+        }
+        this.project.emit(project);
 
-    // this.mstapplicantreferencerequestService.get_mstapplicantworkreference_ByApplicantID(this.applicantid).then(res => {
-    //    if (res.mstapplicantworkreference.length > 0) {
-    //     this.project.emit(true);
-    //   } else {
-    //     this.toastr.addSingle("", "", "Add Your Project");
-    //     return
-    //   }
-    // });
+      } else {
+        let project = {
+          skipproject : true,
+        }
+        this.project.emit(project);
+        return
+      }
+    });
   };
 
   skip_details() {
-    this.project.emit(true);
+    // this.project.emit(true);
   }
 
 

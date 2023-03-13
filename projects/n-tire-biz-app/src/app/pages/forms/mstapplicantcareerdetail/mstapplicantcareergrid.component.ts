@@ -74,7 +74,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
       <th style="width: 11.5%;">Designation</th>
       <th style="width: 11.5%;white-space: nowrap;">From Date</th>
       <th style="width: 11.5%;white-space: nowrap;">To Date</th>
-      <th style="width: 11.5%;">Skills</th>
+      <!-- <th style="width: 11.5%;">Skills</th> -->
       <th style="width: 11.5%;">Remarks</th>
       <th style="width: 8%;">Action</th>
     </tr>
@@ -131,16 +131,16 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
     </div>
             <div *ngIf="showDateError" style="color: red;font-size: 12px;">
               To date is greater than from date
-            </div> 
+            </div>
     </div>
      </td>
 
     <!-- Skills -->
 
-     <td>
+     <!-- <td>
      <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
           (completeMethod)="search_skills($event)"></p-autoComplete>
-     </td>
+     </td> -->
 
      <!-- Remarks -->
      <td>
@@ -204,11 +204,11 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               To date is greater than from date
             </div>
 </div>
-<div class="col-md-12">
+<!-- <div class="col-md-12">
   <label>Skills</label><br/>
 <p-autoComplete formControlName="skills" field="label" [multiple]="true" [suggestions]="skills_results"
           (completeMethod)="search_skills($event)"></p-autoComplete>
-</div>
+</div> -->
 
 <div class="col-md-12">
 <label>Remarks</label>
@@ -223,7 +223,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </div>
  </form>
 
- <div class = "col-12" style="overflow-y: scroll;height: 390px;padding:0;">
+ <div class = "col-12" style="overflow-y: scroll;height: 360px;padding:0;">
   <ng2-smart-table #tbl_mstapplicantcareerdetails
     (userRowSelect)="handle_mstapplicantcareerdetails_GridSelected($event)"
     [settings]="mstapplicantcareerdetails_settings"
@@ -239,7 +239,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </ng2-smart-table>
   </div>
 
-<div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+<div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 1rem;">
 <!--<button class="wizard-button" (click)="skip_details()"   style="margin-right:10px;"> Skip</button>-->
 
 <button class="wizard-button" (click)="onSubmitWithCareer()">
@@ -531,7 +531,7 @@ export class mstapplicantcareergridComponent implements OnInit {
       return;
     } else {
 
-      if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
+      // if (this.mstapplicantcareerdetail_Form.get('skills').value != null) this.formData.skillsstring = JSON.stringify(this.getSkills(this.mstapplicantcareerdetail_Form.get('skills').value));
 
       this.spinner.show();
       this.mstapplicantcareerdetail_service.saveOrUpdate_mstapplicantcareerdetails(this.formData).subscribe(
@@ -578,9 +578,6 @@ export class mstapplicantcareergridComponent implements OnInit {
 
   async onSubmitWithCareer() {
 
-
-
-
     this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
       if (res.mstapplicantcareerdetail.length > 0) {
         let career = {
@@ -619,13 +616,13 @@ export class mstapplicantcareergridComponent implements OnInit {
         <table class="table table-hover" style="border: 1px solid #E6EAEE;margin: 0px !important;">
         <tbody>
           <tr style="word-break: break-word;">
-            <th style="white-space: break-spaces;width:15%;">##categorydesc##</th>
-            <th style="white-space: break-spaces;width:14%;">##companyname##</th>
-            <th style="white-space: break-spaces;width:14%;">##designation##</th>
+            <th style="white-space: break-spaces;width:16%;">##categorydesc##</th>
+            <th style="white-space: break-spaces;width:17%;">##companyname##</th>
+            <th style="white-space: break-spaces;width:16%;">##designation##</th>
             <!--<th scope="row" style="white-space: break-spaces;">##referencecount##</th>-->
-            <th style="white-space: break-spaces;width:15%;">##fromdate##</th>
-            <th style="white-space: break-spaces;width:14%;">##todate##</th>
-            <th style="white-space: break-spaces;width:15%;">##string_agg##</th>
+            <th style="white-space: break-spaces;width:16%;">##fromdate##</th>
+            <th style="white-space: break-spaces;width:17%;">##todate##</th>
+            <!--<th style="white-space: break-spaces;width:15%;">##string_agg##</th>-->
             <th style="white-space: break-spaces;">##remarks##</th>
           </tr>
         </tbody>
@@ -643,7 +640,7 @@ export class mstapplicantcareergridComponent implements OnInit {
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Designation :</span> <label style="font-size: small;">##designation##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">From Date :</span> <label style="font-size: small;">##fromdate##</label></li>
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">To Date :</span> <label style="font-size: small;">##todate##</label></li>
-    <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skills :</span> <label style="font-size: small;">##string_agg##</label></li>
+    <!--<li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Skills :</span> <label style="font-size: small;">##string_agg##</label></li>-->
     <li class="list-group-item" style="padding: 0.45rem 0.26rem !important;"><span style="font-size: small;color: #000;">Remarks :</span> <label style="font-size: small;">##remarks##</label></li>
   </ul>
 `;

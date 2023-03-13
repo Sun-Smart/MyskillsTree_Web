@@ -260,7 +260,7 @@ class="fa fa-close"></i> Close</a>
 </div>
 </form>
 
-<div class = "col-12" style="overflow-y: scroll;height: 390px;padding:0;">
+<div class = "col-12" style="overflow-y: scroll;height: 360px;padding:0;">
 <ng2-smart-table #tbl_mstapplicantskilldetails
   (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
   [settings]="mstapplicantskilldetails_settings"
@@ -276,7 +276,7 @@ class="fa fa-close"></i> Close</a>
 </ng2-smart-table>
 </div>
 
-<div class="col-12" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;" *ngIf = "!buttonview">
+<div class="col-12" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 1rem;" *ngIf = "!buttonview">
 <button class="wizard-button" (click)="onSubmitWithEducation()"> 
 <i class="fa fa-plus"></i>Add Education</button>
 </div>
@@ -539,6 +539,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.showOrderError = false;
     }
     this.formData = this.mstapplicantskilldetail_Form.getRawValue();
+    debugger
     this.formData.applicantid = this.applicantid;
     if (this.contentChecked == true && this.mstapplicantskilldetail_Form.value.orderpriority) {
       console.log('this.contentChecked', this.contentChecked);
@@ -755,6 +756,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.skillsubcategory_Code = res.mstapplicantskilldetail.skillcategory;
       this.mstapplicantskilldetail_service.getList_skillcategory2(this.segment_ID_Code).then(res => {
         this.skillcategory_List = res as DropDownValues[];
+     
         //suneel
         if (this.formData && this.formData.skillcategory) {
           this.mstapplicantskilldetail_Form.patchValue({

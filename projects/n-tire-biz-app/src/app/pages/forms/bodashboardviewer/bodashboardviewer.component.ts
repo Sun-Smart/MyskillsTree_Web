@@ -149,16 +149,21 @@ export class BODashboardViewerComponent implements OnInit {
   totalExperience2: any;
   totalExperienceYrs: any = [];
   totalExperienceMonths: any = [];
-  showexperience : boolean;
+  showexperience: boolean;
 
-  info_graphy:boolean = true;
-  info_personal:boolean = false;
-  info_skillset:boolean = false;
-  info_education:boolean = false;
-  info_career:boolean = false;
-  info_project:boolean = false;
-  info_certification:boolean = false;
-  
+  info_graphy: boolean = true;
+  info_personal: boolean = false;
+  info_skillset: boolean = false;
+  info_education: boolean = false;
+  info_career: boolean = false;
+  info_project: boolean = false;
+  info_certification: boolean = false;
+
+  certiCareer_unfill: boolean = false;
+  projectCareer_unfill: boolean = false;
+  project_unfilled: boolean = false;
+  career_unfilled: boolean = false;
+
 
   // showDashboardDetails: boolean = false;
 
@@ -385,24 +390,23 @@ export class BODashboardViewerComponent implements OnInit {
     if (event == true) {
       this.showpersonal = false;
       this.showSkill = true;
-      
+
       this.info_graphy = false;
       this.info_personal = false;
       this.info_skillset = true;
-  
     }
   };
 
   skills(event: any) {
     console.log("event", event);
     if (event == true) {
-      this.showpersonal = false;
+      // this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = true;
 
       this.info_skillset = false;
-      this.info_graphy = false;
-      this.info_personal = false;
+      // this.info_graphy = false;
+      // this.info_personal = false;
       this.info_education = true
     }
   }
@@ -410,14 +414,14 @@ export class BODashboardViewerComponent implements OnInit {
   education(event: any) {
     console.log("event", event);
     if (event == true) {
-      this.showpersonal = false;
-      this.showSkill = false;
+      // this.showpersonal = false;
+      // this.showSkill = false;
       this.showeducation = false;
       this.showExperience = true;
 
-      this.info_skillset = false;
-      this.info_graphy = false;
-      this.info_personal = false;
+      // this.info_skillset = false;
+      // this.info_graphy = false;
+      // this.info_personal = false;
       this.info_education = false;
       this.info_career = true;
     }
@@ -426,44 +430,68 @@ export class BODashboardViewerComponent implements OnInit {
   career(event: any) {
     console.log("event", event);
     if (event.addcareer == true) {
-      this.showpersonal = false;
-      this.showSkill = false;
-      this.showeducation = false;
+      // this.showpersonal = false;
+      // this.showSkill = false;
+      // this.showeducation = false;
       this.showExperience = false;
       this.showProject = true;
 
-      this.info_skillset = false;
-      this.info_graphy = false;
-      this.info_personal = false;
-      this.info_education = false;
+      // this.info_skillset = false;
+      // this.info_graphy = false;
+      // this.info_personal = false;
+      // this.info_education = false;
       this.info_career = false;
       this.info_project = true;
-    } else if(event.skipcareer == true){
-
-      this.showpersonal = false;
-      this.showSkill = false;
-      this.showeducation = false;
+    }
+    else {
+      // this.showpersonal = false;
+      // this.showSkill = false;
+      // this.showeducation = false;
       this.showExperience = false;
       this.showProject = true;
 
+      // this.info_skillset = false;
+      // this.info_graphy = false;
+      // this.info_personal = false;
+      // this.info_education = false;
+      this.info_career = false;
+      this.info_project = true;
+
+      // this.certiCareer_unfill = true;
     }
   }
 
   project(event: any) {
     console.log("event", event);
-    if (event == true) {
-      this.showpersonal = false;
-      this.showSkill = false;
-      this.showeducation = false;
-      this.showExperience = false;
+    if (event.addproject == true) {
+      // this.showpersonal = false;
+      // this.showSkill = false;
+      // this.showeducation = false;
+      // this.showExperience = false;
       this.showProject = false;
       this.showCertification = true;
 
-      this.info_skillset = false;
-      this.info_graphy = false;
-      this.info_personal = false;
-      this.info_education = false;
-      this.info_career = false;
+      // this.info_skillset = false;
+      // this.info_graphy = false;
+      // this.info_personal = false;
+      // this.info_education = false;
+      // this.info_career = false;
+      this.info_project = false;
+      this.info_certification = true;
+    }
+    else {
+      // this.showpersonal = false;
+      // this.showSkill = false;
+      // this.showeducation = false;
+      // this.showExperience = false;
+      this.showProject = false;
+      this.showCertification = true;
+
+      //   this.info_skillset = false;
+      //   this.info_graphy = false;
+      //   this.info_personal = false;
+      //   this.info_education = false;
+      //   this.info_career = false;
       this.info_project = false;
       this.info_certification = true;
     }
@@ -471,16 +499,17 @@ export class BODashboardViewerComponent implements OnInit {
 
   certification(event: any) {
     console.log("event", event);
-    if (event == true) {
-      this.showpersonal = false;
-      this.showSkill = false;
-      this.showeducation = false;
-      this.showExperience = false;
+    if (event.addcertification == true) {
+      // this.showpersonal = false;
+      // this.showSkill = false;
+      // this.showeducation = false;
+      // this.showExperience = false;
       this.showProject = false;
       this.showCertification = false;
       this.showNewApp_Dashboard = true;
       window.location.reload();
     }
+
   }
 
   get_allData() {
@@ -505,15 +534,21 @@ export class BODashboardViewerComponent implements OnInit {
         });
         this.mstapplicantskilldetail_service.get_mstapplicantskilldetails_ByExperience(this.applicantid, this.sub_category[i].subcategoryid).then((res: any) => {
           console.log('response check', res);
-
+          let yR = 0; let mN = 0;
           for (let i = 0; i < res.length; i++) {
             this.skillfromDate = res[i].fromdate;
             this.skilltoDate = res[i].todate;
+            this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
+            yR += this.EachExpresult.years;
+            mN += this.EachExpresult.months;
+
+
+            console.log(yR + 'year month ' + mN);
           }
-          this.EachExpresult = getDateDifference(new Date(this.skillfromDate), new Date(this.skilltoDate));
+          this.checkDateError = yR + '.' + mN;
 
           if (this.EachExpresult && !isNaN(this.EachExpresult.years)) {
-            this.checkDateError = this.EachExpresult.years + '.' + this.EachExpresult.months
+            this.checkDateError = this.checkDateError;
           }
           if (this.checkDateError == "NaN" || this.checkDateError == 0 || this.checkDateError == undefined || this.checkDateError == "null") {
             this.checkDateError = "0.0";
@@ -629,7 +664,7 @@ export class BODashboardViewerComponent implements OnInit {
     this.mstapplicantmaster_service.get_dashboardAll_details(body).then(res => {
       this.showhearder_Details = true;
       this.dashboard_details = [],
-      this.dashboard_employementdetails = []
+        this.dashboard_employementdetails = []
       this.skillDateError = []
       this.dashboard_details.push(res);
       this.dashboard_reffreq_details = this.dashboard_details[0].list_dashboardreff.value;
@@ -742,20 +777,20 @@ export class BODashboardViewerComponent implements OnInit {
 
         let getmonths = months / 12;
 
-        if(months > 12){
+        if (months > 12) {
           this.showexperience = true
           let totalExp = getyears + getmonths;
           this.totalExperience = totalExp.toFixed(1);
-        }else{
-          this.totalExperience2 = getyears +'.' + months;
+        } else {
+          this.totalExperience2 = getyears + '.' + months;
         }
-        
+
         if (this.totalExperience == "NaN" || this.totalExperience == 0 || this.totalExperience == undefined || this.totalExperience == "null") {
           this.totalExperience = "0.0";
         }
       }
     });
-  
+
     function getDateDifference(startDate, endDate) {
       var startYear = startDate.getFullYear();
       var startMonth = startDate.getMonth();
