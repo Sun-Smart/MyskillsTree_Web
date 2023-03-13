@@ -260,7 +260,7 @@ class="fa fa-close"></i> Close</a>
 </div>
 </form>
 
-<div class = "col-12" style="overflow-y: scroll;height: 390px;padding:0;">
+<div class = "col-12" style="overflow-y: scroll;height: 360px;padding:0;">
 <ng2-smart-table #tbl_mstapplicantskilldetails
   (userRowSelect)="handle_mstapplicantskilldetails_GridSelected($event)"
   [settings]="mstapplicantskilldetails_settings"
@@ -276,7 +276,7 @@ class="fa fa-close"></i> Close</a>
 </ng2-smart-table>
 </div>
 
-<div class="col-12" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;" *ngIf = "!buttonview">
+<div class="col-12" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 1rem;" *ngIf = "!buttonview">
 <button class="wizard-button" (click)="onSubmitWithEducation()"> 
 <i class="fa fa-plus"></i>Add Education</button>
 </div>

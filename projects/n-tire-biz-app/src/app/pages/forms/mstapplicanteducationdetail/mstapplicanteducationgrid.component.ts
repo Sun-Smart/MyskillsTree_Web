@@ -223,7 +223,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
             </div>
             </form>
 
-            <div class = "col-12" style="overflow-y: scroll;height: 390px;padding:0;">
+            <div class = "col-12" style="overflow-y: scroll;height: 360px;padding:0;">
               <ng2-smart-table #tbl_mstapplicanteducationdetails
                 (userRowSelect)="handle_mstapplicanteducationdetails_GridSelected($event)"
                 [settings]="mstapplicanteducationdetails_settings"
@@ -240,7 +240,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
               </div>
 
 
-              <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+              <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 1rem;">
               <button class="wizard-button" (click)="onSubmitWithExperience()"> 
               <i class="fa fa-plus"></i> Add Experience</button>
               

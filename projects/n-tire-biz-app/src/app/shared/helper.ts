@@ -6,14 +6,21 @@ export class DropDownValues {
 }
 export class AppConstants {//localhost:5000
 
-    // public static get baseURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
-    // public static get ntireboURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
-    // public static get ntirebizURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
-    // public static get UploadURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api/file/upload"; }
-    // public static get AttachmentURL(): string { return "https://demo.herbie.ai/attachment/"; }
-    // public static get ntirecrmURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
-    // public static get ntiredashboardsURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
+    public static get baseURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
+    public static get ntireboURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
+    public static get ntirebizURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
+    public static get UploadURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api/file/upload"; }
+    public static get AttachmentURL(): string { return "https://demo.herbie.ai/attachment/"; }
+    public static get ntirecrmURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
+    public static get ntiredashboardsURL(): string { return "https://demo.herbie.ai/MySkillsTreeapi/api"; }
 
+    // public static get baseURL(): string { return "https://myskillstree.co/MySkillsTreeapi/api"; }
+    // public static get ntireboURL(): string { return "https://myskillstree.co/MySkillsTreeapi/api"; }
+    // public static get ntirebizURL(): string { return "https://myskillstree.co/MySkillsTreeapi/api"; }
+    // public static get UploadURL(): string { return "https://myskillstree.co/MySkillsTreeapi/api/file/upload"; }
+    // public static get AttachmentURL(): string { return "https://myskillstree.co/attachment/"; }
+    // public static get ntirecrmURL(): string { return "https://myskillstree.co/MySkillsTreeapi/api"; }
+    // public static get ntiredashboardsURL(): string { return "https://myskillstree.co/MySkillsTreeapi/api"; }
 
     // public static get baseURL(): string { return "https://prod.herbie.ai/MySkillTree/api"; }
     // public static get ntireboURL(): string { return "https://prod.herbie.ai/MySkillTree/api"; }
@@ -23,18 +30,15 @@ export class AppConstants {//localhost:5000
     // public static get ntirecrmURL(): string { return "https://prod.herbie.ai/MySkillTree/api"; }
     // public static get ntiredashboardsURL(): string { return "https://prod.herbie.ai/MySkillTree/api"; }
 
-
-    public static get baseURL(): string { return "http://localhost:7025/api"; }
-    public static get ntireboURL(): string { return "http://localhost:7025/api"; }
-    public static get ntirebizURL(): string { return "http://localhost:7025/api"; }
-    public static get UploadURL(): string { return "http://localhost:7025/api/file/upload"; }
-    public static get AttachmentURL(): string { return "http://localhost:5002/"; }
-    public static get ntirecrmURL(): string { return "http://localhost:7025/api"; }
-    public static get ntiredashboardsURL(): string { return "http://localhost:7025/api"; }
-
+    // public static get baseURL(): string { return "http://localhost:7025/api"; }
+    // public static get ntireboURL(): string { return "http://localhost:7025/api"; }
+    // public static get ntirebizURL(): string { return "http://localhost:7025/api"; }
+    // public static get UploadURL(): string { return "http://localhost:7025/api/file/upload"; }
+    // public static get AttachmentURL(): string { return "http://localhost:5002/"; }
+    // public static get ntirecrmURL(): string { return "http://localhost:7025/api"; }
+    // public static get ntiredashboardsURL(): string { return "http://localhost:7025/api"; }
 
     public static get ntirecamsURL(): string { return "http://localhost:7003/api"; }
-
 
     public static get ntirecontentURL(): string { return "http://localhost:8001/api/v1/namespaces/default/services/ntirecontent-service/proxy/api"; }
     public static get ntireprojectURL(): string { return "http://localhost:8001/api/v1/namespaces/default/services/ntireproject-service/proxy/api"; }

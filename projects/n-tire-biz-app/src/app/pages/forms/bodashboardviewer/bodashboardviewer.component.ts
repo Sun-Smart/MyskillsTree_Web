@@ -149,16 +149,21 @@ export class BODashboardViewerComponent implements OnInit {
   totalExperience2: any;
   totalExperienceYrs: any = [];
   totalExperienceMonths: any = [];
-  showexperience : boolean;
+  showexperience: boolean;
 
-  info_graphy:boolean = true;
-  info_personal:boolean = false;
-  info_skillset:boolean = false;
-  info_education:boolean = false;
-  info_career:boolean = false;
-  info_project:boolean = false;
-  info_certification:boolean = false;
-  
+  info_graphy: boolean = true;
+  info_personal: boolean = false;
+  info_skillset: boolean = false;
+  info_education: boolean = false;
+  info_career: boolean = false;
+  info_project: boolean = false;
+  info_certification: boolean = false;
+
+  certiCareer_unfill: boolean = false;
+  projectCareer_unfill: boolean = false;
+  project_unfilled: boolean = false;
+  career_unfilled: boolean = false;
+
 
   // showDashboardDetails: boolean = false;
 
@@ -385,11 +390,10 @@ export class BODashboardViewerComponent implements OnInit {
     if (event == true) {
       this.showpersonal = false;
       this.showSkill = true;
-      
+
       this.info_graphy = false;
       this.info_personal = false;
       this.info_skillset = true;
-  
     }
   };
 
@@ -438,20 +442,28 @@ export class BODashboardViewerComponent implements OnInit {
       this.info_education = false;
       this.info_career = false;
       this.info_project = true;
-    } else if(event.skipcareer == true){
-
+    }
+    else if (event.skipcareer == true) {
       this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = false;
       this.showExperience = false;
       this.showProject = true;
 
+      this.info_skillset = false;
+      this.info_graphy = false;
+      this.info_personal = false;
+      this.info_education = false;
+      this.info_career = false;
+      this.info_project = false;
+
+      this.certiCareer_unfill = true;
     }
   }
 
   project(event: any) {
     console.log("event", event);
-    if (event == true) {
+    if (event.addproject == true) {
       this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = false;
@@ -467,11 +479,29 @@ export class BODashboardViewerComponent implements OnInit {
       this.info_project = false;
       this.info_certification = true;
     }
+    else if(event.skipcareer == true){
+      this.showpersonal = false;
+      this.showSkill = false;
+      this.showeducation = false;
+      this.showExperience = false;
+      this.showProject = false;
+      this.showCertification = true;
+
+      this.info_skillset = false;
+      this.info_graphy = false;
+      this.info_personal = false;
+      this.info_education = false;
+      this.info_career = false;
+      this.info_project = false;
+      this.info_certification = false;
+
+      this.career_unfilled = true;
+    }
   }
 
   certification(event: any) {
     console.log("event", event);
-    if (event == true) {
+    if (event.addcertification == true) {
       this.showpersonal = false;
       this.showSkill = false;
       this.showeducation = false;
@@ -481,6 +511,7 @@ export class BODashboardViewerComponent implements OnInit {
       this.showNewApp_Dashboard = true;
       window.location.reload();
     }
+
   }
 
   get_allData() {
@@ -629,7 +660,7 @@ export class BODashboardViewerComponent implements OnInit {
     this.mstapplicantmaster_service.get_dashboardAll_details(body).then(res => {
       this.showhearder_Details = true;
       this.dashboard_details = [],
-      this.dashboard_employementdetails = []
+        this.dashboard_employementdetails = []
       this.skillDateError = []
       this.dashboard_details.push(res);
       this.dashboard_reffreq_details = this.dashboard_details[0].list_dashboardreff.value;
@@ -742,20 +773,20 @@ export class BODashboardViewerComponent implements OnInit {
 
         let getmonths = months / 12;
 
-        if(months > 12){
+        if (months > 12) {
           this.showexperience = true
           let totalExp = getyears + getmonths;
           this.totalExperience = totalExp.toFixed(1);
-        }else{
-          this.totalExperience2 = getyears +'.' + months;
+        } else {
+          this.totalExperience2 = getyears + '.' + months;
         }
-        
+
         if (this.totalExperience == "NaN" || this.totalExperience == 0 || this.totalExperience == undefined || this.totalExperience == "null") {
           this.totalExperience = "0.0";
         }
       }
     });
-  
+
     function getDateDifference(startDate, endDate) {
       var startYear = startDate.getFullYear();
       var startMonth = startDate.getMonth();

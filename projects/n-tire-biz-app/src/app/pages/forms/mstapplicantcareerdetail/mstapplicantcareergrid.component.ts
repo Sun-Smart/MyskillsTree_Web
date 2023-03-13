@@ -223,7 +223,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 </div>
  </form>
 
- <div class = "col-12" style="overflow-y: scroll;height: 390px;padding:0;">
+ <div class = "col-12" style="overflow-y: scroll;height: 360px;padding:0;">
   <ng2-smart-table #tbl_mstapplicantcareerdetails
     (userRowSelect)="handle_mstapplicantcareerdetails_GridSelected($event)"
     [settings]="mstapplicantcareerdetails_settings"
@@ -239,7 +239,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   </ng2-smart-table>
   </div>
 
-<div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 5rem;">
+<div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 1rem;">
 <!--<button class="wizard-button" (click)="skip_details()"   style="margin-right:10px;"> Skip</button>-->
 
 <button class="wizard-button" (click)="onSubmitWithCareer()">
@@ -577,9 +577,6 @@ export class mstapplicantcareergridComponent implements OnInit {
   }
 
   async onSubmitWithCareer() {
-
-
-
 
     this.mstapplicantcareerdetail_service.get_mstapplicantcareerdetails_ByApplicantID(this.applicantid).then(res => {
       if (res.mstapplicantcareerdetail.length > 0) {
