@@ -18,6 +18,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ThemeService } from '../../../../../../n-tire-biz-app/src/app/pages/core/services/theme.service';
 import { AppConstants, DropDownValues } from '../../../../../../n-tire-biz-app/src/app/shared/helper';
 import { AttachmentComponent } from '../../../../../../n-tire-biz-app/src/app/custom/attachment/attachment.component';
+import { bousermasterService } from '../../../service/bousermaster.service';
 
 @Component({
   selector: 'app-mstapplicantmastermain',
@@ -94,6 +95,9 @@ export class mstapplicantmastermainComponent implements OnInit {
   checkbtn: any;
   addButtonview: boolean;
   applicantid: any;
+  user: any;
+  userData: any;
+  userphoto: any;
 
   constructor(private router: Router,
     private themeService: ThemeService,
@@ -102,6 +106,7 @@ export class mstapplicantmastermainComponent implements OnInit {
     public dynamicconfig: DynamicDialogConfig,
     public dialog: DialogService,
     private mstapplicantmaster_service: mstapplicantmasterService,
+    private bousermasterservice: bousermasterService,
     private fb: FormBuilder,
     private sharedService: SharedService,
     private sessionService: SessionService,
@@ -276,6 +281,18 @@ export class mstapplicantmastermainComponent implements OnInit {
     //setting the flag that the screen is not touched
     this.mstapplicantmaster_Form.markAsUntouched();
     this.mstapplicantmaster_Form.markAsPristine();
+    this.user = this.sessionService.getSession();
+    this.bousermasterservice.get_bousermasters_ByEID(this.user.pkcol).then(res => {
+
+      this.userData = res.bousermaster;
+      console.log(this.userData)
+
+      let jsonUser = JSON.parse(this.userData.userphoto);
+      if (jsonUser.length > 0) this.userphoto = jsonUser[0].name;
+
+    
+    }).catch((err) => {
+    });
   };
 
   onSelected_country(countryDetail: any) {

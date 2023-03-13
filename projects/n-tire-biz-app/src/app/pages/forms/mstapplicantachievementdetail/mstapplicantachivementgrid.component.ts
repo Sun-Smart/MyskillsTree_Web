@@ -306,7 +306,7 @@ export class mstapplicantachivementgridComponent implements OnInit {
   isSubmitted: boolean = false;
   showview: boolean = false;
 
-  @Output() certification = new EventEmitter<object>();
+  @Output() certification = new EventEmitter<boolean>();
 
   maindata: any;
   readonly AttachmentURL = AppConstants.AttachmentURL;
@@ -535,22 +535,24 @@ export class mstapplicantachivementgridComponent implements OnInit {
 
   async onSubmitWithCertification(bclear: any) {
 
-    this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {
-      if (res.mstapplicantachievementdetail.length > 0) {
+    this.certification.emit(true);
 
-        let certification = {
-          addcertification: true,
-        }
-        this.certification.emit(certification);
-      } else {
-        let certification = {
-          skipcertification: true,
-        }
-        this.certification.emit(certification);
+    // this.mstapplicantachivement_service.get_mstapplicantachievementdetails_ByApplicantID(this.applicantid).then(res => {
+    //   if (res.mstapplicantachievementdetail.length > 0) {
 
-        return
-      }
-    });
+    //     let certification = {
+    //       addcertification: true,
+    //     }
+    //     this.certification.emit(certification);
+    //   } else {
+    //     let certification = {
+    //       skipcertification: true,
+    //     }
+    //     this.certification.emit(certification);
+
+    //     return
+    //   }
+    // });
   };
 
   skip_details() {

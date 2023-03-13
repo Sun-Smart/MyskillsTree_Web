@@ -251,7 +251,20 @@
                 <label *ngIf="showview" class="labelview">{{f.profilephoto?.value[0]?.name}}</label>
                 <app-attachment #profilephoto formControlName="profilephoto" [showremove]='bmyrecord'
                   [SessionData]="sessionData"></app-attachment>
+
+                  <div class="profile-img" style="margin: 15px;">
+
+                    <img *ngIf="userphoto" src="https://demo.herbie.ai/attachment/{{userphoto}}" alt="avatar" style="width: 70px;
+                    height: 70px;
+                    border-radius: 0px;" title="Profile">
+    
+                    <img *ngIf="!userphoto" src="assets/profile.jpeg" alt="avatar" style="width: 70px;
+                    height: 70px;
+                    border-radius: 0px;" title="Profile">
+    
+                  </div>
               </div>
+
             </div>
             <div *ngIf="(viewHtml == '' || !showview)" class="form-group row">
               <div
@@ -307,7 +320,7 @@
               <button type="button" class="wizard-button" (click)="onSubmitWithSkills()">
                 <i class="fa fa-plus"></i> Submit & Add
                 Skills</button>
-                <!-- <button  type="button" class="wizard-button" (click)="check()"> Check</button> -->
+              <!-- <button  type="button" class="wizard-button" (click)="check()"> Check</button> -->
             </div>
           </p-accordion>
 
