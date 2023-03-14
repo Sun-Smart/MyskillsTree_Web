@@ -241,9 +241,9 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
 
               <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 1rem;">
-              <button class="wizard-button" (click)="onSubmitWithExperience()"> 
+              <button class="wizard-button" (click)="onSubmitWithExperience()">
               <i class="fa fa-plus"></i> Add Experience</button>
-              
+
               </div>
               </div>
     `,
@@ -280,7 +280,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
   readonly URL = AppConstants.UploadURL; attachmentlist: any[] = []; fileAttachmentList: any[] = [];
   @ViewChild('fileattachment', { static: false }) fileattachment: AttachmentComponent;
 
-  
+
   @Output() education = new EventEmitter<boolean>();
 
   mstapplicanteducationdetails_visiblelist: any;
@@ -391,7 +391,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
     this.applicantid = localStorage.getItem('applicantid');
 
     console.log("this.applicantid", this.applicantid);
-    
+
 
     this.mstapplicanteducationdetail_Form = this.fb.group({
       pk: [null],
@@ -533,7 +533,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
       return;
     }
     this.formValue = this.mstapplicanteducationdetail_Form.value;
-    // this.formData.applicantid = this.applicantid; 
+    // this.formData.applicantid = this.applicantid;
     if (this.mstapplicanteducationdetail_Form.value.coursename == null ||
       this.mstapplicanteducationdetail_Form.value.educationcategory == null || this.mstapplicanteducationdetail_Form.value.educationsubcategory == null ||
       this.mstapplicanteducationdetail_Form.value.institutionname == null || this.mstapplicanteducationdetail_Form.value.percentage == null ||
@@ -609,7 +609,7 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
 
   onSubmitWithExperience() {
 
-    this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {     
+    this.mstapplicanteducationdetail_service.get_mstapplicanteducationdetails_ByApplicantID(this.applicantid).then(res => {
        if (res.mstapplicanteducationdetail.length > 0) {
       this.education.emit(true);
     } else {
@@ -852,13 +852,13 @@ export class mstapplicanteducationdetailgridComponent implements OnInit {
         confirmCreate: true,
       },
       edit: {
-        editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
+        editButtonContent: '<i class="fa fa-edit commonEditicon commonEditicon1" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
         confirmSave: true,
       },
       delete: {
-        deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
+        deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon commonDeleteicon1" title="Delete"></i>',
         confirmDelete: true,
       },
       // pager: {

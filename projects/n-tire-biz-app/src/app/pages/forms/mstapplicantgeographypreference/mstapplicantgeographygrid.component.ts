@@ -189,7 +189,7 @@ export class mstapplicantgeographygrid implements OnInit {
   Deleted_mstapplicantgeographypreference_IDs: string = "";
   mstapplicantgeographypreferences_ID: string = "1";
   mstapplicantgeographypreferences_selectedindex: any;
-  ShowTableslist: any; 
+  ShowTableslist: any;
   pkcol: any;
 
   IsApplicant: boolean;
@@ -561,13 +561,13 @@ export class mstapplicantgeographygrid implements OnInit {
         confirmCreate: true,
       },
       edit: {
-        editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
+        editButtonContent: '<i class="fa fa-edit commonEditicon commonEditicon1" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
         confirmSave: true,
       },
       delete: {
-        deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
+        deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon commonDeleteicon1" title="Delete"></i>',
         confirmDelete: true,
       },
       // pager: {

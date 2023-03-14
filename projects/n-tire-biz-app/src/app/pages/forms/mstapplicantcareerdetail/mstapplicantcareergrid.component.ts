@@ -777,18 +777,12 @@ export class mstapplicantcareergridComponent implements OnInit {
     event.confirm.resolve(event.newData);
   }
   Set_mstapplicantcareerdetails_TableConfig() {
+    debugger
     this.mstapplicantcareerdetails_settings = {
       hideSubHeader: true,
       mode: 'external',
       selectMode: 'single',
-      actions: {
-        columnTitle: '',
-        width: '300px',
-        edit: true, // true,
-        delete: (this.IsApplicant || this.IsAdmin),
-        position: 'right',
-        custom: this.mstapplicantcareerdetail_menuactions
-      },
+
       add: {
         addButtonContent: '<i class="nb-plus"></i>',
         createButtonContent: '<i class="nb-checkmark"></i>',
@@ -796,14 +790,22 @@ export class mstapplicantcareergridComponent implements OnInit {
         confirmCreate: true,
       },
       edit: {
-        editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
+        editButtonContent: '<i class="fa fa-edit commonEditicon commonEditicon1" title="Edit" style="float: left !important"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
         confirmSave: true,
       },
       delete: {
-        deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
+        deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon commonDeleteicon1" title="Delete"  style="float: left !important"></i>',
         confirmDelete: true,
+      },
+      actions: {
+        columnTitle: '',
+        width: '300px',
+        edit: true, // true,
+        delete: (this.IsApplicant || this.IsAdmin),
+        position: 'right',
+        custom: this.mstapplicantcareerdetail_menuactions
       },
       // pager: {
       //   display: true,

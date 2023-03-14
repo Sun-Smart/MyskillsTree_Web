@@ -272,10 +272,10 @@ class="fa fa-close"></i> Close</button>
               </div>
 
       <div class="col-12" *ngIf = "!buttonview" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 1rem;">
-      
+
       <!--<button class="wizard-button" (click)="skip_details()" style="margin-right:10px;"> Skip</button>-->
 
-      <button class="wizard-button" (click)="onSubmitWithProject()"> 
+      <button class="wizard-button" (click)="onSubmitWithProject()">
       <i class="fa fa-plus"></i> Add Project</button>
 
       </div>
@@ -903,13 +903,13 @@ export class mstapplicantworkrefgridComponent implements OnInit {
         confirmCreate: true,
       },
       edit: {
-        editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
+        editButtonContent: '<i class="fa fa-edit commonEditicon commonEditicon1" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
         confirmSave: true,
       },
       delete: {
-        deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
+        deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon commonDeleteicon1" title="Delete"></i>',
         confirmDelete: true,
       },
       // pager: {

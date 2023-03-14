@@ -55,10 +55,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <div class="col-4"> </div>
 
   <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
-  
+
                   <a class="alert-success" [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i
                   class="fa fa-plus"></i> Add</a>
-              
+
                   <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
                   class="fa fa-close"></i> Close</a>
                   </div>
@@ -73,10 +73,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
   <div class="col-4"> </div>
 
   <div class="col-4" style="text-align: end; margin: auto;display:flex;justify-content:end;">
-  
+
                   <a class="alert-success" [routerLink]='' (click)="mstapplicantlanguagedetails_route(null, 'create')"><i
                   class="fa fa-plus"></i> Add</a>
-              
+
                   <a class="alert-danger" [routerLink]='' (click)="onClose()"><i
                   class="fa fa-close"></i> Close</a>
                   </div>
@@ -542,13 +542,13 @@ export class mstapplicantlanuagegridComponent implements OnInit {
         confirmCreate: true,
       },
       edit: {
-        editButtonContent: '<i class="fa fa-edit commonEditicon" title="Edit"></i>',
+        editButtonContent: '<i class="fa fa-edit commonEditicon commonEditicon1" title="Edit"></i>',
         saveButtonContent: '<i class="nb-checkmark"></i>',
         cancelButtonContent: '<i class="nb-close"></i>',
         confirmSave: true,
       },
       delete: {
-        deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon" title="Delete"></i>',
+        deleteButtonContent: '<i class="fa fa-trash-o commonDeleteicon commonDeleteicon1" title="Delete"></i>',
         confirmDelete: true,
       },
       // pager: {
