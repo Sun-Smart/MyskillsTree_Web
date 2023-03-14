@@ -242,6 +242,9 @@ export class mstapplicantmasterviewComponent implements OnInit {
   userrole: string;
   sub: any;
   checkdata: any;
+  getdata: any;
+  datarelease: any=[];
+  isrelease: boolean;
 
   constructor(private router: Router,
     private themeService: ThemeService,
@@ -351,7 +354,7 @@ export class mstapplicantmasterviewComponent implements OnInit {
     } else if (localStorage.getItem("role") == '2') {
       this.userrole = 'Applicant';
     };
-
+    this.profile_release();
     this.sub = this.currentRoute.queryParams.subscribe((params: any) => {
       this.checkdata = params;
 
@@ -3489,8 +3492,46 @@ export class mstapplicantmasterviewComponent implements OnInit {
     }
   }
   //end of Grid Codes mstapplicantreferencerequests
+  profile_release() {
+    let appid = Number(localStorage.getItem('applicantid'));
+    this.mstapplicantmaster_service.get_profilecompletionsecond(appid).then(res => {
+      this.getdata = res;
 
+      for (let i = 0; i < this.getdata.length; i++) {
+        this.datarelease.push(this.getdata[i].releasestatus)
+      }
+
+      for (var i = 0; i < this.datarelease.length; i++) {
+        if (this.datarelease[i] == true) {
+          this.isrelease = true
+        } else {
+          this.isrelease = false
+        }
+      }
+    })
+  }
+
+  releasemethod(e: any) {
+
+    let obj = {
+      "applicantid": Number(localStorage.getItem('applicantid')),
+      "ReleaseStatus": e
+    }
+
+    this.mstapplicantmaster_service.release_method(obj).subscribe(res => {
+
+      if (res == "Released Successfully") {
+        this.toastr.addSingle("success", "", "Successfully Released");
+        this.isrelease = true
+      }
+      else {
+        this.toastr.addSingle("success", "", "Your profile is successfully revoked");
+        this.isrelease = false
+      }
+    })
+  }
 }
+
 
 
 

@@ -3,7 +3,16 @@
     <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
     <ngx-spinner></ngx-spinner>
     <form [formGroup]="mstapplicantmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
-
+      <div class="row">
+        <div class="col-12" style="text-align: end;margin: 4px;">
+          <label *ngIf="isrelease==false">Click to release your profile</label><button
+            class="btn alert-success" *ngIf="isrelease==false"
+            (click)="releasemethod(true)">Release</button>
+          <label *ngIf="isrelease==true">Click to hide your profile</label><button
+            class="btn alert-success" *ngIf="isrelease==true" (click)="releasemethod(false)">
+            Hide</button>
+        </div>
+      </div>
       <!-- <div class="row second" *ngIf="!iseditbuttonshow">
         <div class='col-12  sticky1 second' role='toolbar' aria-label='Toolbar with button groups' style="align-items: center !important;;justify-content: end;"
           [ngClass]="{'adminbgColor': this.userrole=='Admin','applicantbgColor':this.userrole=='Applicant','corporatebgColor':this.userrole=='Corporate'}">
@@ -135,7 +144,8 @@
                 <label>Institute : {{item.institutionname}}</label>
                 <br>
                 <i class="fa fa-calendar" aria-hidden="true"></i>
-                <label style="margin: 0 10px;">From : {{item.fromyear}}</label> <label>Upto : {{item.toyear}}</label>
+                <label style="margin: 0 10px;">From : {{item.fromyear}}</label> <label>Upto :
+                  {{item.toyear}}</label>
                 <br>
                 <label style="margin: 10px;"><span>Remarks :</span>{{item.remarks}}</label>
               </div>
@@ -523,7 +533,8 @@
                 <label>Handle Name : {{item.handlename}}</label>
                 <br>
                 <i class="fa fa-trophy" aria-hidden="true"></i>
-                <label>URL : <a style="color: blue;" href="{{item.url}}" target="_blank">{{item.url}}</a></label> <br>
+                <label>URL : <a style="color: blue;" href="{{item.url}}" target="_blank">{{item.url}}</a></label>
+                <br>
                 <label style="margin: 10px;"><span>Remarks</span> : {{item.remarks}}</label>
 
 
@@ -638,7 +649,7 @@
             <!-- child table mstjobstatuses-->
             <div [ngClass]="Is_mstjobstatuses_Visible()">
               <!--End-->
-              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Opportunity  Statuses'}}
+              <h4 class="form-group show-Pfl-Hdr-Lbl  columns left">{{'Opportunity Statuses'}}
                 <ul class="nav navbar-nav1" style='display:none'>
                   <li class="dropdown">
                     <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true'
