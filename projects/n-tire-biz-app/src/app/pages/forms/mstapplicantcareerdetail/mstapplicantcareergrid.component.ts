@@ -539,6 +539,7 @@ export class mstapplicantcareergridComponent implements OnInit {
           this.spinner.hide();
           this.toastr.addSingle("success", "", "Successfully saved");
           this.showDateError = false;
+          this.showSkillDetails_input = false;
           this.sessionService.setItem("attachedsaved", "true")
           this.objvalues.push((res as any).mstapplicantcareerdetail);
           this.ngOnInit();
