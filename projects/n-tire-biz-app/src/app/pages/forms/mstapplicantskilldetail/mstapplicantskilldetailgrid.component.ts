@@ -71,8 +71,8 @@ class="fa fa-plus"></i> Add</a>
 <a class="alert-danger" [routerLink]='' (click)="onClose()" *ngIf = "buttonview"><i
 class="fa fa-close"></i> Close</a>
 
-    </div> 
-  
+    </div>
+
 </div>
 
 <div class = "row">
@@ -277,7 +277,7 @@ class="fa fa-close"></i> Close</a>
 </div>
 
 <div class="col-12" style="display: flex;justify-content: end;margin: 10px auto;position:absolute;right:0; bottom : 1rem;" *ngIf = "!buttonview">
-<button class="wizard-button" (click)="onSubmitWithEducation()"> 
+<button class="wizard-button" (click)="onSubmitWithEducation()">
 <i class="fa fa-plus"></i>Add Education</button>
 </div>
 </div>
@@ -356,7 +356,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
   showWebviewDetect: boolean = true;
   isMobile: any;
   showOrderError: boolean = false;
-  contentChecked: any;
+  contentChecked: boolean = false;
   showButton: any;
   applicantid: any;
   buttonview: boolean;
@@ -429,7 +429,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       subcategoryidothers: [null]
     });
     this.FillData();
-    
+
     if (this.showButton == true) {
       this.buttonview = true;
     }
@@ -538,14 +538,15 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
     } else {
       this.showOrderError = false;
     }
-    this.formData = this.mstapplicantskilldetail_Form.getRawValue();
-    debugger
-    this.formData.applicantid = this.applicantid;
     if (this.contentChecked == true && this.mstapplicantskilldetail_Form.value.orderpriority) {
       console.log('this.contentChecked', this.contentChecked);
       this.toastr.addSingle("error", "", "Skill set in hide status unable to given the order priority");
       return;
     }
+    this.formData = this.mstapplicantskilldetail_Form.getRawValue();
+    debugger
+    this.formData.applicantid = this.applicantid;
+
     this.spinner.show();
     this.mstapplicantskilldetail_service.saveOrUpdate_mstapplicantskilldetails(this.formData).subscribe(
       async (res: any) => {
@@ -713,6 +714,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
 
   Add_mstapplicantskilldetail(event: any, skillid: any, applicantid: any) {
     this.showSkillDetails_input = true;
+    this.contentChecked = false;
     this.mstapplicantskilldetail_Form.reset();
     this.getData();
     let add = false;
@@ -756,7 +758,7 @@ export class mstapplicantskilldetailgridComponent implements OnInit {
       this.skillsubcategory_Code = res.mstapplicantskilldetail.skillcategory;
       this.mstapplicantskilldetail_service.getList_skillcategory2(this.segment_ID_Code).then(res => {
         this.skillcategory_List = res as DropDownValues[];
-     
+
         //suneel
         if (this.formData && this.formData.skillcategory) {
           this.mstapplicantskilldetail_Form.patchValue({
