@@ -65,10 +65,10 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 
   <div class=col-2 style="text-align: right; margin: auto;display:flex;justify-content:end;">
 
-    <a class="alert-success" [routerLink]='' (click)="mstapplicantskilldetails_route(null, 'create')"><i
+    <a class="alert-success" (click)="mstapplicantskilldetails_route(null, 'create')"><i
 class="fa fa-plus"></i> Add</a>
 
-<a class="alert-danger" [routerLink]='' (click)="onClose()" *ngIf = "buttonview"><i
+<a class="alert-danger" (click)="onClose()" *ngIf = "buttonview"><i
 class="fa fa-close"></i> Close</a>
 
     </div>
