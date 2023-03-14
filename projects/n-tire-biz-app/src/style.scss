@@ -2751,8 +2751,8 @@ button.alert-danger {
 }
 
 .cancel-button {
-  // height: 35px;
-  // width: 85px !important;
+  height: 35px;
+  width: 85px !important;
   // box-shadow: 0px 0px 5px 1px red;
   // margin-right: 15px;
   // border: 0px solid red !important;
@@ -2761,7 +2761,7 @@ button.alert-danger {
   color: #fff !important;
   // border: none !important;
   border-radius: 6px;
-  height: 24px;
+  // height: 24px;
   margin-right: 15px;
   padding: 5px 10px !important;
   box-shadow: 0px 0px 5px 1px red;
@@ -2774,14 +2774,16 @@ button.alert-danger {
   border: 0px solid red !important;
   border-radius: 6px;
   padding: 5px 10px !important;
-  height: 24px;
+  // height: 24px;
+  height: 35px;
+  width: 85px !important;
   box-shadow: 0px 0px 5px 1px red;
   text-decoration: none;
 }
 
 .success-button {
-  // height: 35px;
-  // width: 85px !important;
+  height: 35px;
+  width: 85px !important;
   // box-shadow: 0px 0px 5px 1px green;
   // margin-right: 10px;
   // border: 0px solid green !important;
@@ -2789,7 +2791,7 @@ button.alert-danger {
   line-height: 1;
   color: #fff !important;
   border-radius: 6px;
-  height: 24px;
+  // height: 24px;
   padding: 5px 10px !important;
   margin-right: 10px;
   box-shadow: 0px 0px 5px 1px green;
@@ -2803,7 +2805,9 @@ button.alert-danger {
   color: #fff !important;
   border-radius: 6px;
   padding: 5px 10px !important;
-  height: 24px;
+  // height: 24px;
+  height: 35px;
+  width: 85px !important;
   box-shadow: 0px 0px 5px 1px green;
   border: 0px solid green !important;
   text-decoration: none;
